@@ -1,0 +1,289 @@
+<style>
+  .faq-lva-wrap {
+    --bg: #f7f7f7;
+    --bg-2: #eeeeee;
+    --border: #e3e3e3;
+    --text: #222;
+    --muted: #6b6b6b;
+    --radius: 16px;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.1);
+    --t: 0.22s cubic-bezier(0.2, 0.6, 0.2, 1);
+    margin: 24px 0 40px;
+  }
+  .faq-lva {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 8px 0;
+  }
+  .faq-lva__title {
+    font-size: clamp(22px, 3.3vw, 38px);
+    line-height: 1.15;
+    text-align: center;
+    color: var(--text);
+    margin: 0 0 18px;
+  }
+
+  .faq-lva__toggleList {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 14px;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+    margin: 12px 0;
+    overflow: hidden;
+    will-change: transform;
+  }
+  .faq-item:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: #ddd;
+  }
+
+  .faq-q {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 16px 18px;
+    background: var(--bg);
+    border: 0;
+    text-align: left;
+    font-size: clamp(15px, 2.2vw, 17px);
+    color: var(--text);
+    cursor: pointer;
+  }
+  .faq-q:focus-visible {
+    outline: 2px solid #cfcfcf;
+    outline-offset: 2px;
+  }
+
+  .faq-q__icon {
+    margin-left: auto;
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--muted);
+    font-weight: 700;
+    transition: background var(--t);
+    user-select: none;
+  }
+  .faq-item[open] .faq-q__icon {
+    background: var(--bg-2);
+  }
+
+  .faq-a {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--t), padding var(--t);
+    padding: 0 18px;
+    background: #fff;
+  }
+  .faq-item[open] .faq-a {
+    padding: 14px 18px 18px;
+  }
+  .faq-a p,
+  .faq-a ul,
+  .faq-a li {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 6px 0;
+  }
+  .faq-a ul {
+    padding-left: 18px;
+  }
+
+  @media (max-width: 768px) {
+    .faq-lva {
+      padding: 0 14px;
+    }
+    .faq-lva__toggleList {
+      max-width: 100%;
+      margin: 0 0 14px;
+    }
+  }
+</style>
+
+<div class="faq-lva-wrap" id="faq-lva-root"></div>
+
+<script>
+(function() {
+  const data = [
+    ["Como é feita a instalação? Pode ser utilizado em gesso ou laje?", "De fácil instalação e prática, essa luminária de teto vai pronta para o uso, você pode instalar tanto no gesso quanto na laje, material leve e resistente. "],
+   	["Se o LED queimar, é possível fazer a manutenção?", "A resposta é sim, possuímos garantia em todas as nossas peças, em caso de queima do LED ou da fonte, é possível facilmente fazer a troca apenas destes componentes, sem comprometer toda a estrutura da peça."],
+    ["A pintura é resistente? Descasca?", "Nossa pintura é feita com uma tinta especial importada italiana, feita a mão peça por peça em nossa fábrica, ela é a prova de ferrugens, corrosão ou até mesmo maresia, podendo ser utilizada em ambientes residênciais, industriais, litoral ou interior."],
+    ];
+
+  const root = document.getElementById('faq-lva-root');
+  const section = document.createElement('section');
+  section.className = 'faq-lva';
+  section.setAttribute('role', 'region');
+  section.setAttribute('aria-labelledby', 'faq-lva-title');
+
+  const title = document.createElement('h2');
+  title.className = 'faq-lva__title';
+  title.id = 'faq-lva-title';
+  title.textContent = 'Principais perguntas dos clientes MundoZa';
+
+  const toggleListBtn = document.createElement('button');
+  toggleListBtn.className = 'faq-lva__toggleList';
+  toggleListBtn.type = 'button';
+  toggleListBtn.textContent = 'Fechar todas as perguntas';
+  toggleListBtn.setAttribute('data-state', 'open');
+  toggleListBtn.setAttribute('aria-pressed', 'false');
+
+  const listBox = document.createElement('div');
+  listBox.className = 'faq-list';
+
+  const frag = document.createDocumentFragment();
+  data.forEach((pair, i) => {
+    const [q, a] = pair;
+    const item = document.createElement('article');
+    item.className = 'faq-item';
+    const btn = document.createElement('button');
+    btn.className = 'faq-q';
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', `faq-panel-${i}`);
+    btn.innerHTML = `<span>${q}</span><span class="faq-q__icon" aria-hidden="true">+</span>`;
+    const panel = document.createElement('div');
+    panel.className = 'faq-a';
+    panel.id = `faq-panel-${i}`;
+    panel.setAttribute('role', 'region');
+    panel.innerHTML = a.replace(/\n/g, '<br>');
+    btn.addEventListener('click', () => toggleItem(item, panel, btn));
+    item.append(btn, panel);
+    frag.appendChild(item);
+  });
+  listBox.appendChild(frag);
+
+  section.append(title, toggleListBtn, listBox);
+  root.appendChild(section);
+
+  let inserted = false;
+
+  function placeFAQ() {
+    const elemento = document.querySelector('.faq-lva-wrap');
+    const alvo = document.querySelector('.produto-caracteristicas');
+    if (elemento && alvo && !inserted) {
+      const nextSibling = alvo.nextElementSibling;
+      if (nextSibling !== elemento) {
+        alvo.insertAdjacentElement('beforebegin', elemento);
+        inserted = true;
+      }
+    }
+  }
+
+  placeFAQ();
+
+  if (!inserted) {
+    const obs = new MutationObserver(() => {
+      placeFAQ();
+      if (inserted) {
+        obs.disconnect();
+      }
+    });
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+function toggleItem(item, panel, btn) {
+  const isOpen = item.hasAttribute('open');
+
+  if (!isOpen) {
+    // Abrir item
+    item.setAttribute('open', '');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.querySelector('.faq-q__icon').textContent = '−';
+
+    panel.style.transition = 'none';
+    panel.style.maxHeight = '0px';
+    panel.offsetHeight;
+
+    panel.style.transition = 'max-height var(--t), padding var(--t)';
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    panel.style.paddingTop = '14px';
+    panel.style.paddingBottom = '18px';
+
+    panel.addEventListener('transitionend', function onEnd(e) {
+      if (e.propertyName !== 'max-height') return;
+      panel.style.transition = 'none';
+      panel.style.maxHeight = 'none';
+      panel.removeEventListener('transitionend', onEnd);
+    });
+  } else {
+    // Fechar item
+    btn.setAttribute('aria-expanded', 'false');
+    btn.querySelector('.faq-q__icon').textContent = '+';
+
+    panel.style.transition = 'none';
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+    panel.offsetHeight;
+
+    panel.style.transition = 'max-height var(--t), padding var(--t)';
+    panel.style.maxHeight = '0px';
+    panel.style.paddingTop = '0px';
+    panel.style.paddingBottom = '0px';
+
+    panel.addEventListener('transitionend', function onClose(e) {
+      if (e.propertyName !== 'max-height') return;
+      item.removeAttribute('open');
+      panel.removeEventListener('transitionend', onClose);
+    });
+  }
+}
+
+
+  toggleListBtn.addEventListener('click', () => {
+    const isOpen = toggleListBtn.getAttribute('data-state') === 'open';
+    if (isOpen) {
+      document.querySelectorAll('.faq-item').forEach(it => {
+        if (it.hasAttribute('open')) {
+          const btn = it.querySelector('.faq-q');
+          const panel = it.querySelector('.faq-a');
+          it.removeAttribute('open');
+          btn.setAttribute('aria-expanded', 'false');
+          panel.style.maxHeight = '0px';
+          btn.querySelector('.faq-q__icon').textContent = '+';
+        }
+      });
+      listBox.style.display = 'none';
+      toggleListBtn.setAttribute('data-state', 'closed');
+      toggleListBtn.setAttribute('aria-pressed', 'true');
+      toggleListBtn.textContent = 'Abrir todas as perguntas';
+    } else {
+      listBox.style.display = '';
+      toggleListBtn.setAttribute('data-state', 'open');
+      toggleListBtn.setAttribute('aria-pressed', 'false');
+      toggleListBtn.textContent = 'Fechar todas as perguntas';
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.faq-item[open] .faq-a').forEach(p => {
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+})();
+</script>

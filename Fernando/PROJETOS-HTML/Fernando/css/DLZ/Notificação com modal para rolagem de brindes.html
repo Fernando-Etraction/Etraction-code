@@ -1,0 +1,249 @@
+<!-- ✅ SEU TOAST (pode manter exatamente como está) -->
+<div class="dlz-toast" id="dlzToast" role="button" aria-label="Notificação do brinde" tabindex="0">
+    <div class="dlz-toast__bar"></div>
+
+    <div class="dlz-toast__logo">
+        <img src="https://dlz.cdn.magazord.com.br/img/2026/01/produto/45320/design-sem-nome-2.png"
+            alt="DLZ" width="40" height="40" loading="lazy">
+    </div>
+
+    <div class="dlz-toast__txt">
+        <div class="dlz-toast__title">Brinde disponível 🎁</div>
+        <div class="dlz-toast__msg">Toque para ver os produtos da campanha.</div>
+    </div>
+
+    <button class="dlz-toast__x" id="dlzToastClose" type="button" aria-label="Fechar">✕</button>
+</div>
+
+<style>
+    /* ===== Toast ===== */
+    .dlz-toast {
+        position: fixed;
+        right: 16px;
+        top: 16px;
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: min(380px, calc(100% - 32px));
+        padding: 12px 12px;
+        border-radius: 14px;
+        background: #0a0a0a;
+        color: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+        cursor: pointer;
+        user-select: none;
+
+        opacity: 0;
+        transform: translateY(14px);
+        pointer-events: none;
+        transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .dlz-toast.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .dlz-toast__bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 3px;
+        width: 100%;
+        border-radius: 14px 14px 0 0;
+        background: rgba(255, 255, 255, .18);
+        overflow: hidden;
+    }
+
+    .dlz-toast__bar::after {
+        content: "";
+        display: block;
+        height: 100%;
+        width: 100%;
+        transform: translateX(-30%);
+        background: rgba(255, 255, 255, .35);
+        animation: dlzToastShimmer 1.2s linear infinite;
+    }
+
+    @keyframes dlzToastShimmer {
+        0% {
+            transform: translateX(-80%);
+        }
+
+        100% {
+            transform: translateX(80%);
+        }
+    }
+
+    .dlz-toast__logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 44px;
+    }
+
+    .dlz-toast__logo img {
+        border-radius: 10px;
+    }
+
+    .dlz-toast__txt {
+        line-height: 1.1;
+    }
+
+    .dlz-toast__title {
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .dlz-toast__msg {
+        font-size: 13px;
+        opacity: .9;
+    }
+
+    .dlz-toast__x {
+        margin-left: auto;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        border: 0;
+        background: rgba(255, 255, 255, .10);
+        color: #fff;
+        cursor: pointer;
+        flex: 0 0 34px;
+    }
+
+    .dlz-toast__x:hover {
+        background: rgba(255, 255, 255, .16);
+    }
+</style>
+
+<script>
+
+    //função para sumir o toast apos 5 segundos
+    function hideToastAfterDelay() {
+        const toast = document.getElementById('dlzToast');
+        setTimeout(() => {
+            if (toast) {
+                toast.classList.remove('is-visible');
+            }
+        }, 5000); // 5000 milissegundos = 5 segundos
+    }
+
+
+    (function () {
+        const toast = document.getElementById('dlzToast');
+        const closeBtn = document.getElementById('dlzToastClose');
+        const targetSelector = '.overflow-brinde';
+
+        // ✅ ajuste aqui se a sua barra for outro seletor (pelo print parece correto)
+        const progressBarSelector = '.barra-status';
+
+        let shownOnce = false;
+
+        function getWidthPercentFromStyle(el) {
+            if (!el) return null;
+
+            // prioridade: style inline "width: 100%"
+            const inline = (el.getAttribute('style') || '');
+            const m = inline.match(/width\s*:\s*([\d.]+)\s*%/i);
+            if (m && m[1] != null) return parseFloat(m[1]);
+
+            // fallback: calcula pela largura real (caso não esteja em % no style)
+            const parent = el.parentElement;
+            if (parent) {
+                const w = el.getBoundingClientRect().width;
+                const pw = parent.getBoundingClientRect().width;
+                if (pw > 0) return (w / pw) * 100;
+            }
+            return null;
+        }
+
+        function showToast() {
+            if (!toast || shownOnce) return;
+            toast.classList.add('is-visible');
+            shownOnce = true;
+        }
+
+        function hideToast() {
+            if (!toast) return;
+            toast.classList.remove('is-visible');
+        }
+
+        function scrollToGifts() {
+            const target = document.querySelector(targetSelector);
+            if (!target) return;
+
+            // garante scroll suave (fallback se o CSS do tema não tiver)
+            try { document.documentElement.style.scrollBehavior = 'smooth'; } catch (e) { }
+
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function checkProgress() {
+            const bar = document.querySelector(progressBarSelector);
+            const pct = getWidthPercentFromStyle(bar);
+
+            if (pct != null && pct >= 100) {
+                showToast();
+            }
+        }
+
+        // ===== Eventos do toast =====
+        if (toast) {
+            toast.addEventListener('click', function (e) {
+                // se clicou no X, deixa o handler do botão cuidar
+                if (e.target && (e.target.id === 'dlzToastClose' || e.target.closest('#dlzToastClose'))) return;
+                scrollToGifts();
+            });
+
+            toast.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    scrollToGifts();
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                hideToast();
+            });
+        }
+
+        // ===== Observa mudanças na barra (quando width muda) =====
+        function setupObserver() {
+            const bar = document.querySelector(progressBarSelector);
+            if (!bar) return false;
+
+            // primeira checagem
+            checkProgress();
+
+            const obs = new MutationObserver(function () {
+                checkProgress();
+            });
+
+            obs.observe(bar, { attributes: true, attributeFilter: ['style', 'class'] });
+            return true;
+        }
+
+        // tenta observar quando carregar; se a barra ainda não existir, tenta por um tempo curto
+        let tries = 0;
+        const maxTries = 60; // ~6s (a cada 100ms)
+        const t = setInterval(function () {
+            tries++;
+            const ok = setupObserver();
+            checkProgress();
+
+            if (ok || tries >= maxTries) clearInterval(t);
+        }, 100);
+    })();
+</script>

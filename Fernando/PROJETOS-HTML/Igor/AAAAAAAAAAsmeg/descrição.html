@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Máquina de Café Elegância - Sabor Autêntico com Design Sofisticado
+    </title>
+    <meta
+      name="description"
+      content="Descubra a Máquina de Café Elegância com filtro DCF02. Design retrô, temperatura ideal de 85°C e qualidade superior. Frete grátis e 2 anos de garantia."
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+      /* Reset e base */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Mulish", sans-serif;
+        line-height: 1.6;
+        color: #111827;
+        background: #fff;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Botões */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        gap: 8px;
+        transition: transform 0.25s ease, background 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .btn-primary {
+        background: #2563eb;
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25);
+      }
+      .btn-cta {
+        background: #fff;
+        color: #2563eb;
+        padding: 16px 32px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .btn-cta:hover {
+        background: #f8fafc;
+        transform: translateY(-2px);
+      }
+
+      /* Badges e cabeçalhos */
+      .section-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        background: #dbeafe;
+        color: #2563eb;
+        margin-bottom: 16px;
+      }
+      .section-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #111827;
+        margin: 0 0 12px;
+      }
+      .section-description {
+        font-size: 1.125rem;
+        color: #6b7280;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      /* Galeria */
+      .gallery {
+        padding: 80px 0;
+        background: #fff;
+      }
+      .gallery-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .main-image {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #0b1220;
+      }
+      .main-image::after {
+        /* leve brilho na borda */
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+        pointer-events: none;
+      }
+
+      /* Duas camadas para crossfade */
+      .image-layer {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        will-change: opacity;
+      }
+      .image-layer.active {
+        opacity: 1;
+      }
+
+      /* Skeleton para evitar “quebra” */
+      .skeleton {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          #111827 0%,
+          #1f2937 50%,
+          #111827 100%
+        );
+        background-size: 200% 100%;
+        animation: sheen 1.4s linear infinite;
+        filter: saturate(0.35);
+      }
+      @keyframes sheen {
+        to {
+          background-position-x: -200%;
+        }
+      }
+
+      .main-image,
+      .image-box {
+        aspect-ratio: 3/2;
+        min-height: 280px;
+      }
+      .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 999px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, background 0.2s ease;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      }
+      .nav-btn:hover {
+        background: #fff;
+        transform: translateY(-50%) scale(1.08);
+      }
+      .prev-btn {
+        left: 14px;
+      }
+      .next-btn {
+        right: 14px;
+      }
+
+      .image-dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        padding: 8px 10px;
+        background: rgba(17, 24, 39, 0.35);
+        backdrop-filter: blur(4px);
+        border-radius: 24px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.55);
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+      .dot.active {
+        background: #fff;
+        transform: scale(1.15);
+      }
+
+      .gallery-title {
+        font-size: 2rem;
+        font-weight: 800;
+        margin: 0 0 12px;
+        color: #111827;
+      }
+      .gallery-description {
+        font-size: 1.075rem;
+        color: #6b7280;
+        line-height: 1.75;
+        margin: 0 0 22px;
+      }
+      .gallery-thumbnails {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .thumbnail {
+        width: 88px;
+        height: 70px;
+        border-radius: 10px;
+        object-fit: cover;
+        cursor: pointer;
+        opacity: 0.75;
+        transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .thumbnail:hover {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+      .thumbnail.active {
+        opacity: 1;
+        box-shadow: 0 8px 22px rgba(37, 99, 235, 0.28);
+        outline: 2px solid #dbeafe;
+        outline-offset: 0;
+      }
+
+      /* Processo */
+      .process {
+        padding: 80px 0;
+        background: #fff;
+      }
+      .process-steps {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .process-step {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+      .process-step.reverse {
+        direction: rtl;
+      }
+      .process-step.reverse > * {
+        direction: ltr;
+      }
+      .step-image {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+      .step-image img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+      }
+      .step-number {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        width: 44px;
+        height: 44px;
+        background: #2563eb;
+        color: #fff;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+      }
+      .step-tip {
+        position: absolute;
+        bottom: 14px;
+        right: 14px;
+        background: rgba(255, 255, 255, 0.92);
+        color: #111827;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .step-title {
+        font-size: 1.7rem;
+        font-weight: 800;
+        margin: 0 0 12px;
+      }
+      .step-description {
+        font-size: 1.075rem;
+        color: #6b7280;
+        margin: 0 0 18px;
+      }
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: 8px;
+      }
+      .progress {
+        height: 100%;
+        background: linear-gradient(90deg, #2563eb, #3b82f6);
+      }
+      .progress-text {
+        font-size: 0.9rem;
+        color: #6b7280;
+        font-weight: 700;
+      }
+
+      /* Especificações */
+      .specifications {
+        padding: 80px 0;
+        background: #f9fafb;
+      }
+      .specs-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 48px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+      }
+      .spec-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .spec-item:last-child {
+        border-bottom: none;
+      }
+      .spec-label {
+        font-weight: 600;
+        color: #374151;
+      }
+      .spec-value {
+        font-weight: 800;
+        color: #111827;
+      }
+
+      /* Acessibilidade/motion */
+      .nav-btn:focus,
+      .dot:focus,
+      .thumbnail:focus,
+      .btn:focus {
+        outline: 2px solid #2563eb;
+        outline-offset: 2px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .image-layer {
+          transition: none;
+        }
+        .btn,
+        .thumbnail,
+        .nav-btn {
+          transition: none;
+        }
+      }
+
+      /* Responsivo */
+      @media (max-width: 1024px) {
+        .gallery-content {
+          gap: 32px;
+        }
+      }
+      @media (max-width: 768px) {
+        .gallery-content,
+        .process-step {
+          grid-template-columns: 1fr;
+        }
+        .process-step.reverse {
+          direction: ltr;
+        }
+        .section-title {
+          font-size: 2rem;
+        }
+        .gallery-title {
+          font-size: 1.6rem;
+        }
+        .thumbnail {
+          width: 82px;
+          height: 62px;
+        }
+      }
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 16px;
+        }
+        .gallery,
+        .process,
+        .specifications {
+          padding: 40px 0;
+        }
+        .section-title {
+          font-size: 1.65rem;
+        }
+        .specs-card {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Galeria -->
+    <section class="gallery">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">ELEGÂNCIA</span>
+          <h2 class="section-title">Conheça Todos os Detalhes</h2>
+          <p class="section-description">
+            Explore cada característica que torna nossa máquina de café única
+          </p>
+        </div>
+
+        <div class="gallery-content">
+          <div class="gallery-images">
+            <div class="main-image image-box" aria-live="polite">
+              <!-- skeleton para evitar flicker -->
+              <div class="skeleton" id="imgSkeleton"></div>
+
+              <!-- duas camadas para crossfade suave -->
+              <img id="layerA" class="image-layer active" alt="" />
+              <img id="layerB" class="image-layer" alt="" />
+
+              <button
+                class="nav-btn prev-btn"
+                id="prevBtn"
+                aria-label="Imagem anterior"
+              >
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button
+                class="nav-btn next-btn"
+                id="nextBtn"
+                aria-label="Próxima imagem"
+              >
+                <i class="fas fa-chevron-right"></i>
+              </button>
+
+              <div class="image-dots" id="dots"></div>
+            </div>
+          </div>
+
+          <div class="gallery-info">
+            <h3 id="galleryTitle" class="gallery-title"></h3>
+            <p id="galleryDescription" class="gallery-description"></p>
+            <div class="gallery-thumbnails" id="thumbs"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processo -->
+    <section class="process">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">PROCESSO</span>
+          <h2 class="section-title">Como Preparar o Café Perfeito</h2>
+          <p class="section-description">
+            Siga nosso processo simples e desfrute de um café excepcional a cada
+            preparo
+          </p>
+        </div>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-image">
+              <img
+                src="https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1200&auto=format&fit=crop"
+                alt="Seleção dos Grãos"
+              />
+              <div class="step-number">1</div>
+              <div class="step-tip">Dica: Moa na hora</div>
+            </div>
+            <div class="step-content">
+              <h3 class="step-title">Seleção dos Grãos</h3>
+              <p class="step-description">
+                Escolha grãos recém-torrados para garantir máximo sabor e aroma.
+              </p>
+              <div class="progress-bar">
+                <div class="progress" style="width: 25%"></div>
+              </div>
+              <span class="progress-text">1/4</span>
+            </div>
+          </div>
+
+          <div class="process-step reverse">
+            <div class="step-image">
+              <img
+                src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1200&auto=format&fit=crop"
+                alt="Preparação da Máquina"
+              />
+              <div class="step-number">2</div>
+              <div class="step-tip"> 85°C é o ideal</div>
+            </div>
+            <div class="step-content">
+              <h3 class="step-title">Preparação da Máquina</h3>
+              <p class="step-description">
+                Coloque o filtro DCF02 e adicione a dose correta de café moído.
+              </p>
+              <div class="progress-bar">
+                <div class="progress" style="width: 50%"></div>
+              </div>
+              <span class="progress-text">2/4</span>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-image">
+              <img
+                src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1200&auto=format&fit=crop"
+                alt="Extração Perfeita"
+              />
+              <div class="step-number">3</div>
+              <div class="step-tip"> 5 minutos</div>
+            </div>
+            <div class="step-content">
+              <h3 class="step-title">Extração Perfeita</h3>
+              <p class="step-description">
+                A água passa na temperatura e velocidade ideais para extração
+                uniforme.
+              </p>
+              <div class="progress-bar">
+                <div class="progress" style="width: 75%"></div>
+              </div>
+              <span class="progress-text">3/4</span>
+            </div>
+          </div>
+
+          <div class="process-step reverse">
+            <div class="step-image">
+              <img
+                src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=1200&auto=format&fit=crop"
+                alt="Café Pronto"
+              />
+              <div class="step-number">4</div>
+              <div class="step-tip"> Mantém aquecido</div>
+            </div>
+            <div class="step-content">
+              <h3 class="step-title">Café Pronto</h3>
+              <p class="step-description">
+                Sabor autêntico, aroma intenso e temperatura perfeita.
+              </p>
+              <div class="progress-bar">
+                <div class="progress" style="width: 100%"></div>
+              </div>
+              <span class="progress-text">4/4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Especificações -->
+    <section class="specifications">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">ESPECIFICAÇÕES</span>
+          <h2 class="section-title">Especificações Técnicas</h2>
+        </div>
+        <div class="specs-card">
+          <div class="specs-grid">
+            <div class="spec-item">
+              <span class="spec-label">Capacidade</span
+              ><span class="spec-value">1,2 Litros</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Potência</span
+              ><span class="spec-value">800W</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Voltagem</span
+              ><span class="spec-value">110V / 220V</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Material</span
+              ><span class="spec-value">Aço Inoxidável</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Dimensões</span
+              ><span class="spec-value">25 x 18 x 32 cm</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Peso</span
+              ><span class="spec-value">2,5 kg</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Garantia</span
+              ><span class="spec-value">2 anos</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Certificação</span
+              ><span class="spec-value">INMETRO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const nowSeed = () => Date.now().toString().slice(-8);
+
+      const randomImage = (topic = "coffee") =>
+        `https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1200&auto=format&fit=crop&sig=${nowSeed()}`;
+
+      const randomSet = [
+        {
+          src: `https://picsum.photos/seed/coffee-${nowSeed()}/1200/800`,
+          title: "Design Elegante e Compacto",
+          description:
+            "Design clássico que combina com diferentes estilos de cozinha. Compacta e moderna, ideal para quem busca sofisticação com pouco espaço.",
+        },
+        {
+          src: `https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop&sig=${nowSeed()}`,
+          title: "Sabor Autêntico em Cada Xícara",
+          description:
+            "Sistema de aquecimento estável que preserva os óleos aromáticos do café, entregando sabor fiel ao grão.",
+        },
+        {
+          src: `https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1200&auto=format&fit=crop&sig=${nowSeed()}`,
+          title: "Praticidade no Dia a Dia",
+          description:
+            "Filtro DCF02 e jarra com marcações tornam o preparo simples e consistente.",
+        },
+        {
+          src: `https://images.unsplash.com/photo-1514511719-9d5f2e1f0b1a?q=80&w=1200&auto=format&fit=crop&sig=${nowSeed()}`,
+          title: "Acabamento Premium",
+          description:
+            "Materiais resistentes e acabamento que valoriza sua bancada.",
+        },
+        {
+          src: `https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop&sig=${nowSeed()}`,
+          title: "Temperatura Ideal 85°C",
+          description:
+            "Extração equilibrada com temperatura pensada para realçar notas doces e aromáticas.",
+        },
+      ];
+
+      const galleryData = randomSet;
+
+      const el = {
+        layerA: document.getElementById("layerA"),
+        layerB: document.getElementById("layerB"),
+        title: document.getElementById("galleryTitle"),
+        desc: document.getElementById("galleryDescription"),
+        dots: document.getElementById("dots"),
+        thumbs: document.getElementById("thumbs"),
+        prev: document.getElementById("prevBtn"),
+        next: document.getElementById("nextBtn"),
+        skeleton: document.getElementById("imgSkeleton"),
+      };
+
+      // Cache de imagens pré-carregadas
+      const cache = new Map();
+      const preload = (src) =>
+        new Promise((resolve) => {
+          if (cache.has(src)) return resolve(cache.get(src));
+          const img = new Image();
+          img.onload = () => {
+            cache.set(src, true);
+            resolve(true);
+          };
+          img.onerror = () => {
+            cache.set(src, false);
+            resolve(false);
+          };
+          img.decoding = "async";
+          img.loading = "eager";
+          img.src = src;
+        });
+
+      let index = 0;
+      let activeA = true;
+      let isTransitioning = false;
+      let autoTimer = null;
+
+      function setInfo(i) {
+        el.title.textContent = galleryData[i].title;
+        el.desc.textContent = galleryData[i].description;
+        [...el.dots.children].forEach((d, di) =>
+          d.classList.toggle("active", di === i)
+        );
+        [...el.thumbs.children].forEach((t, ti) =>
+          t.classList.toggle("active", ti === i)
+        );
+      }
+
+      // Troca com crossfade + bloqueio para evitar múltiplos cliques
+      async function show(i) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        const item = galleryData[i];
+
+        el.skeleton.style.opacity = "1";
+
+        const ok = await preload(item.src);
+        const target = activeA ? el.layerB : el.layerA;
+        const current = activeA ? el.layerA : el.layerB;
+
+        // fallback se falhar
+        const src = ok
+          ? item.src
+          : `https://picsum.photos/seed/fallback-${nowSeed()}/1200/800`;
+
+        target.src = src;
+        target.alt = item.title;
+
+        requestAnimationFrame(() => {
+          current.classList.remove("active");
+          target.classList.add("active");
+          activeA = !activeA;
+          setInfo(i);
+          setTimeout(() => {
+            el.skeleton.style.opacity = "0";
+          }, 180);
+          setTimeout(() => {
+            isTransitioning = false;
+          }, 520);
+        });
+
+        const nextI = (i + 1) % galleryData.length;
+        const prevI = (i - 1 + galleryData.length) % galleryData.length;
+        preload(galleryData[nextI].src);
+        preload(galleryData[prevI].src);
+      }
+
+      function go(delta) {
+        stopAuto();
+        index = (index + delta + galleryData.length) % galleryData.length;
+        show(index);
+        startAutoLater();
+      }
+
+      // Cria dots e thumbs dinamicamente
+      function buildNav() {
+        el.dots.innerHTML = "";
+        el.thumbs.innerHTML = "";
+        galleryData.forEach((g, i) => {
+          const d = document.createElement("span");
+          d.className = "dot" + (i === 0 ? " active" : "");
+          d.tabIndex = 0;
+          d.addEventListener("click", () => {
+            index = i;
+            show(index);
+            stopAuto();
+            startAutoLater();
+          });
+          el.dots.appendChild(d);
+
+          const t = document.createElement("img");
+          t.src = g.src;
+          t.alt = g.title;
+          t.width = 88;
+          t.height = 70;
+          t.className = "thumbnail" + (i === 0 ? " active" : "");
+          t.loading = "lazy";
+          t.decoding = "async";
+          t.addEventListener("click", () => {
+            index = i;
+            show(index);
+            stopAuto();
+            startAutoLater();
+          });
+          // fallback thumb
+          t.onerror = () => {
+            t.src = `https://picsum.photos/seed/thumb-${i}-${nowSeed()}/176/140`;
+          };
+          el.thumbs.appendChild(t);
+        });
+      }
+
+      // Auto-avanço com pausa por interação
+      function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => go(1), 6000);
+      }
+      function stopAuto() {
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      }
+      function startAutoLater() {
+        setTimeout(startAuto, 8000);
+      }
+
+      // Controles
+      el.prev.addEventListener("click", () => go(-1));
+      el.next.addEventListener("click", () => go(1));
+
+      // Inicialização
+      (async function init() {
+        buildNav();
+        await show(0);
+        startAuto();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,177 @@
+<style>
+.estoque-durar-banner {
+  background-color: #111;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-top: 6px;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.3;
+  font-family: "Inter", sans-serif;
+}
+.msg_bold{
+  font-weight:700;
+  font-size: 1rem;
+  color: white;
+}
+.estoque-durar-banner span { color: #d1d5db; }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const avaliacoes = document.querySelector(
+    ".avaliacoes.flex.items-center.gap-space-4.text-xs.text-cor-texto-secundario"
+  );
+  if (!avaliacoes) return;
+
+  // ====== pega estoque preferindo dataProduct.produto.qtde_estoque ======
+  function getQtdeFromAny(prod){
+    if (!prod) return null;
+    const keys = ["qtde_estoque","qtnd_estoque","qtd_estoque","estoque"];
+    for (const k of keys){
+      if (k in prod && prod[k] != null) return Number(prod[k]);
+    }
+    // fallback em derivações
+    const dv = prod.derivacoes || prod.variacoes || prod.derivacoesConjunto;
+    const first = Array.isArray(dv) ? dv[0] : (dv ? Object.values(dv)[0] : null);
+    if (first){
+      for (const k of keys){
+        if (k in first && first[k] != null) return Number(first[k]);
+      }
+    }
+    return null;
+  }
+
+  function acharProduto() {
+    // 1) prioridade: dataProduct.produto (como você logou)
+    if (window.dataProduct?.produto) return window.dataProduct.produto;
+
+    // 2) candidatos comuns
+    const candidates = [
+      window.produto, window.PRODUTO, window.product, window.dadosProduto,
+      window.__APP_STATE__, window.__STATE__, window.pageData, window.appProps
+    ];
+    for (const c of candidates){
+      if (c?.produto && typeof c.produto === "object") return c.produto;
+      if (c && typeof c === "object" && ("qtde_estoque" in c || "qtnd_estoque" in c)) return c;
+    }
+
+    // 3) varre window em último caso
+    for (const k in window){
+      try{
+        const v = window[k];
+        if (v?.produto && typeof v.produto === "object") return v.produto;
+      }catch(e){}
+    }
+    return null;
+  }
+
+  function textoQtd(qtd){
+    return (typeof qtd === "number" && qtd > 0)
+      ? `Apenas <b>${qtd}</b> Unidade${qtd > 1 ? "s" : ""}!!!`
+      : "Últimas unidades disponíveis!";
+  }
+
+  function montarHTML(qtd){
+    return `🚨 <b class='msg_bold'>Enquanto o Estoque Durar</b> 🚨<br><span>${textoQtd(qtd)} <b>Aproveite Já</b></span>`;
+  }
+
+  const produto = acharProduto();
+  const qtd = getQtdeFromAny(produto);
+
+  // Se o estoque é conhecido e <= 0, não insere
+  if (typeof qtd === "number" && qtd <= 0) return;
+
+  if (!document.querySelector(".estoque-durar-banner")) {
+    const banner = document.createElement("div");
+    banner.className = "estoque-durar-banner";
+    banner.innerHTML = montarHTML(qtd);
+    avaliacoes.insertAdjacentElement("afterend", banner);
+  }
+});
+</script>
+
+<script>
+(function () {
+  // procura o bloco de avaliações e espera caso ainda não tenha renderizado
+  function getAvaliacoes() {
+    return document.querySelector(
+      ".avaliacoes.flex.items-center.gap-space-4.text-xs.text-cor-texto-secundario"
+    );
+  }
+
+  // tenta obter o objeto { produto } em qualquer global (prioriza dataProduct)
+  function acharProduto() {
+    if (window.dataProduct?.produto) return window.dataProduct.produto;
+
+    const candidates = [
+      window.produto, window.PRODUTO, window.product, window.dadosProduto,
+      window.__APP_STATE__, window.__STATE__, window.pageData, window.appProps
+    ];
+    for (const c of candidates) {
+      if (c?.produto && typeof c.produto === "object") return c.produto;
+      if (c && typeof c === "object" && ("qtde_estoque" in c || "qtnd_estoque" in c)) return c;
+    }
+    for (const k in window) {
+      try {
+        const v = window[k];
+        if (v?.produto && typeof v.produto === "object") return v.produto;
+      } catch (e) {}
+    }
+    return null;
+  }
+
+  function getEstoque(prod) {
+    if (!prod) return null;
+    const keys = ["qtde_estoque","qtnd_estoque","qtd_estoque","estoque"];
+    for (const k of keys) {
+      if (k in prod && prod[k] != null) return Number(prod[k]);
+    }
+    const variacoes = prod.variacoes || prod.derivacoes || prod.derivacoesConjunto;
+    if (variacoes && typeof variacoes === "object") {
+      const first = Array.isArray(variacoes) ? variacoes[0] : Object.values(variacoes)[0];
+      if (first) {
+        for (const k of keys) if (k in first && first[k] != null) return Number(first[k]);
+      }
+    }
+    return null;
+  }
+
+  function montaBanner(qtd) {
+    const el = document.querySelector(".estoque-durar-banner") || document.createElement("div");
+    el.className = "estoque-durar-banner";
+    const textoQtd = (typeof qtd === "number" && qtd > 0)
+      ? `Apenas <b>${qtd}</b> Unidade${qtd > 1 ? "s" : ""}!!!`
+      : "Últimas unidades disponíveis!";
+    el.innerHTML = `🚨 <b class='msg_bold'>Enquanto o Estoque Durar</b> 🚨<br><span>${textoQtd} <b>Aproveite Já</b></span>`;
+    return el;
+  }
+
+  function tentarInserir() {
+    const alvo = getAvaliacoes();
+    if (!alvo) return;
+
+    const produto = acharProduto();
+    const estoque = getEstoque(produto);
+
+    // se conseguir identificar que é zero ou negativo, remove/oculta
+    if (typeof estoque === "number" && estoque <= 0) {
+      document.querySelector(".estoque-durar-banner")?.remove();
+      return;
+    }
+
+    // cria ou atualiza (evita duplicar)
+    const banner = montaBanner(estoque);
+    if (!banner.parentElement) {
+      alvo.insertAdjacentElement("afterend", banner);
+    }
+  }
+
+  // roda já e observa mudanças (SPA)
+  tentarInserir();
+  const mo = new MutationObserver(() => tentarInserir());
+  mo.observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pílulas – Zencial</title>
+<style>
+  :root{
+    --radius: 28px;
+    --pill-radius: 18px;
+    --pill-bg: rgba(255,255,255,0.78);
+    --pill-stroke: rgba(255,255,255,0.85);
+    --shadow: 0 10px 24px rgba(0,0,0,.18);
+    --text-dark: #373737;
+    --text-muted: #6A6A6A;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+.section-template--19911749730521__custom_liquid_48Rxmg-padding {
+  place-items: center !important;
+  margin: auto;
+}
+  .ZIL-hero{
+    background: #ddd center / cover no-repeat;
+    background-image: url(https://cdn.shopify.com/s/files/1/0673/0950/2681/files/Rectangle_201.png?v=1758746744);
+    z-index: 0;
+    font-family: "Inter", sans-serif;
+    position:relative;
+    width:min(1080px, 95vw);
+    aspect-ratio: 16 / 9.5;
+    border-radius: 32px;
+    overflow:hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    isolation:isolate;
+  }
+
+  /* Camada de fundo isolada para não afetar outras classes */
+  .ZIL-hero-bg{
+    position:absolute; inset:0;
+    background: #ddd center/cover no-repeat;
+    background-image: url("https://cdn.shopify.com/s/files/1/0673/0950/2681/files/Rectangle_201.png?v=1758746744");
+    z-index: 0;
+  }
+
+  /* wash/gradiente leve */
+  .ZIL-hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.02) 45%, rgba(0,0,0,0.00) 100%);
+    pointer-events:none;
+    z-index: 1;
+  }
+
+  .ZIL-inner{
+    position:absolute; inset:0;
+    padding: clamp(14px, 2vw, 22px);
+    z-index: 2; /* acima do fundo e do wash */
+  }
+
+  .ZIL-badge{
+    position:absolute;
+    left: clamp(20px, 4.3vw, 36px);
+    bottom: clamp(22px, 4.6vw, 40px);
+    border-radius: 16px;
+    padding: clamp(12px, 2.4vw, 20px) clamp(16px, 3vw, 24px);
+    color:#fff;
+    backdrop-filter: blur(2px);
+  }
+  .ZIL-badge h2{
+    margin:0;
+    font-weight:700;
+    line-height:1.05;
+    font-size: clamp(26px, 4.2vw, 44px);
+    letter-spacing:.2px;
+    color:#fff;
+  }
+
+  .ZIL-pills{
+    position:absolute;
+    right: clamp(20px, 4.3vw, 36px);
+    bottom: clamp(22px, 4.6vw, 40px);
+    display:flex;
+    align-items:flex-end;
+    gap: clamp(10px, 2vw, 16px);
+  }
+
+  .ZIL-pill{
+    text-align: center;
+    width: 150px;
+    background: var(--pill-bg);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.55);
+    padding: 18px 16px;
+    color: var(--text-dark);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    transition: transform .8s cubic-bezier(.2,.7,.2,1), opacity .8s ease;
+    transform: translateY(38px);
+    opacity: 0;
+  }
+
+  /* alturas (versão “um pouco menos que o dobro”) */
+  .ZIL-pill--sm{ height: clamp(240px, 29vw, 300px); }
+  .ZIL-pill--md{ height: clamp(300px, 38vw, 380px); padding-top: 36px; }
+  .ZIL-pill--lg{ height: clamp(376px, 46vw, 480px); padding-top: 40px; }
+
+  .ZIL-pill__value{
+    font-size: clamp(28px, 4.6vw, 44px);
+    font-weight:400;
+    line-height:1;
+    letter-spacing:.5px;
+  }
+  .ZIL-pill__text{
+    margin-top: 10px;
+    font-size: clamp(11px, 1.35vw, 13.5px);
+    line-height:1.35;
+    color: var(--text-muted);
+  }
+
+  /* textos só aparecem depois da subida */
+  .ZIL-pill .ZIL-pill__value,
+  .ZIL-pill .ZIL-pill__text{
+    opacity:0; 
+    transition: opacity .45s ease;
+  }
+
+  .ZIL-pill.is-in{
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .ZIL-pill.is-in.show-text .ZIL-pill__value,
+  .ZIL-pill.is-in.show-text .ZIL-pill__text{
+    opacity:1;
+  }
+  .ZIL-mobile{
+    display: none; 
+}
+
+  @media (max-width: 680px){
+    .ZIL-mobile{
+        margin-top: -30px;
+    display: block ;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+    font-weight: 500;
+}
+    .ZIL-pills{
+        max-width: 340px;
+      position:absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      right:auto;
+      bottom: clamp(16px, 6vw, 28px);
+    }
+    .ZIL-pill{ width: clamp(120px, 28vw, 180px); }
+    .ZIL-badge{
+      display: none;
+    }
+     .ZIL-pill--sm{ height: 173px;
+        padding-top: 0px;}
+  .ZIL-pill--md{ height: 173px;
+        padding-top: 0px;}
+  .ZIL-pill--lg{ height: 173px;
+        padding-top: 0px;}
+  }
+
+  .ZIL-hero{ border-radius: 28px; }
+</style>
+</head>
+<body>
+      <h2 class="ZIL-mobile">Alta<br/>tecnologia<br/>laboratorial</h2>
+<section class="ZIL-hero" aria-label="Alta tecnologia laboratorial">
+  <div class="ZIL-hero-bg"></div>
+
+  <div class="ZIL-inner">
+    <div class="ZIL-badge" aria-hidden="false">
+      <h2>Alta<br/>tecnologia<br/>laboratorial</h2>
+    </div>
+
+    <div class="ZIL-pills" aria-hidden="false">
+      <article class="ZIL-pill ZIL-pill--sm" data-delay="0.10">
+        <div class="ZIL-pill__value">87%</div>
+        <div class="ZIL-pill__text">
+          das clientes têm sensação de<br/>
+          melhora desde o primeiro uso.
+        </div>
+      </article>
+
+      <article class="ZIL-pill ZIL-pill--md" data-delay="0.25">
+        <div class="ZIL-pill__value">94%</div>
+        <div class="ZIL-pill__text">
+          das clientes inserem os produtos Zencial
+          em suas rotinas de skin e hair care.
+        </div>
+      </article>
+
+      <article class="ZIL-pill ZIL-pill--lg" data-delay="0.40">
+        <div class="ZIL-pill__value">98%</div>
+        <div class="ZIL-pill__text">
+          das usuárias relatam uma transformação
+          absoluta da pele ou cabelo.
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<script>
+  // animação dispara quando ~65% do bloco estiver visível
+  const ZIL_pills = [...document.querySelectorAll('.ZIL-pill')];
+
+  function ZIL_triggerAnimation() {
+    ZIL_pills.forEach((pill, i) => {
+      const delay = Number(pill.dataset.delay || 0) + i * 0.0;
+      pill.style.transitionDelay = `${delay}s`;
+      pill.classList.add('is-in');
+      setTimeout(() => pill.classList.add('show-text'), (delay + 0.85) * 1000);
+    });
+  }
+
+  const ZIL_RATIO_TARGET = 0.65;
+  const ZIL_observer = new IntersectionObserver((entries, obs) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting && entry.intersectionRatio >= ZIL_RATIO_TARGET) {
+        ZIL_triggerAnimation();
+        obs.disconnect();
+        break;
+      }
+    }
+  }, {
+    root: null,
+    rootMargin: '0px',
+    threshold: Array.from({length: 101}, (_, i) => i / 100)
+  });
+
+  ZIL_observer.observe(document.querySelector('.ZIL-hero'));
+</script>
+
+</body>
+</html>

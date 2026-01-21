@@ -1,0 +1,189 @@
+
+function economize() {
+    try {
+        console.log('🔍 Iniciando função economize...');
+
+        // Corrigido: as classes estavam sem espaço (eram interpretadas como uma única classe)
+        const precoEl = $('.principal .desconto-a-vista .desconto-a-vista-preco-texto-1');
+        console.log('Elemento de preço encontrado?', precoEl.length > 0, precoEl);
+
+        if (precoEl.length) {
+            let precoStr = precoEl.text().trim();
+            console.log('Texto do preço capturado:', precoStr);
+
+            const preco = parsePrice(precoStr);
+            console.log('Preço numérico convertido:', preco);
+
+            if (!isNaN(preco) && preco > 0) {
+                const economia = (preco * 0.5).toFixed(2).replace('.', ',');
+                console.log('Valor da economia calculado:', economia);
+
+                const economiaHtml = `
+                width: 60%;
+    <div class="economize" style="
+    width: 60%;
+        color:#CE2C68;
+        display:flex;
+        flex-direction: column;
+        align-items:flex-start;
+        gap:10px;
+        margin-top:18px;
+        margin-bottom:18px;
+        background-color:#f0fdf4;
+        padding:14px 16px;
+        border-radius:12px;
+        font-weight:500;
+        font-size:0.95rem;
+        border:1px solid #CE2C68;
+    ">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="background:#CE2C68; color:#fff; padding:3px 8px; border-radius:999px; font-size:.8rem; font-weight:700;">Black Friday</span>
+            <span style="color:#CE2C68;">
+                Você economiza <strong>R$ ${economia}</strong>
+                <span>com o cupom BLACK50</span>
+            </span>
+        </div>
+
+        <!-- Cartão do cupom -->
+        <div style="
+            width:100%;
+            display:flex;
+            flex-wrap:wrap;
+            align-items:center;
+            justify-content:space-between;
+            gap:10px;
+            background:#ffffff;
+            border:1.5px dashed #CE2C68;
+            border-radius:12px;
+            padding:10px 12px;
+        ">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <span aria-hidden="true" style="display:inline-block; width:10px; height:10px; border-radius:999px; background:#CE2C68;"></span>
+                <div style="display:flex; flex-direction:column; line-height:1.2;">
+                    <span style="font-size:.8rem; color:#CE2C68;"></span>
+                    <span style="font-weight:800; font-size:1.05rem; letter-spacing:.06em;color: #CE2C68;">BLACK50</span>
+                </div>
+            </div>
+
+            <button type="button" onclick="copiarCupom('BLACK50')" style="
+                cursor:pointer;
+                border:none;
+                background:#CE2C68;
+                color:#fff;
+                padding:8px 12px;
+                border-radius:10px;
+                font-weight:700;
+                font-size:.9rem;
+                display:flex;
+                align-items:center;
+                gap:8px;
+                flex-shrink:0;
+            " aria-label="Copiar cupom BLACK50">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 9h9v9H9z" stroke="currentColor" stroke-width="1.6" />
+                    <path d="M6 6h9v9" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+                Copiar
+            </button>
+        </div>
+
+        <span style="font-size:0.8rem; color:#334155;">
+            Use o cupom e ganhe 50% de desconto
+        </span>
+    </div>
+`;
+
+                $('.economize').remove();
+
+                const alvo = $('.pagina-produto .produto .acoes-produto .preco-produto');
+                console.log('Elemento alvo para inserção encontrado?', alvo.length > 0, alvo);
+
+                if (alvo.length) {
+                    alvo.after(economiaHtml);
+                    console.log('✅ HTML de economia inserido com sucesso.');
+                } else {
+                    console.warn('⚠️ Elemento de inserção não encontrado. Verifique o seletor.');
+                }
+
+            } else {
+                console.warn('⚠️ Preço inválido ou não encontrado.');
+            }
+        } else {
+            console.warn('⚠️ Elemento de preço não encontrado.');
+        }
+    } catch (e) {
+        console.error('❌ Erro na função economize:', e);
+    }
+}
+
+function parsePrice(text) {
+    if (!text) return NaN;
+    return parseFloat(
+        text
+            .replace('R$', '')
+            .replace(/\./g, '')
+            .replace(',', '.')
+            .replace(/\s/g, '')
+    );
+}
+
+// Toast minimalista (sem alert)
+function showToast(mensagem) {
+    let toast = document.getElementById('toast-cupom');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-cupom';
+        toast.setAttribute('role', 'status');
+        toast.style.position = 'fixed';
+        toast.style.right = '20px';
+        toast.style.bottom = '20px';
+        toast.style.background = '#16a34a';
+        toast.style.color = '#fff';
+        toast.style.padding = '10px 14px';
+        toast.style.borderRadius = '10px';
+        toast.style.fontSize = '.9rem';
+        toast.style.fontWeight = '700';
+        toast.style.boxShadow = '0 8px 24px rgba(0,0,0,.15)';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity .25s ease';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = mensagem;
+    requestAnimationFrame(() => { toast.style.opacity = '1'; });
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => {
+        toast.style.opacity = '0';
+    }, 1800);
+}
+
+function copiarCupom(codigo) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(codigo)
+            .then(() => showToast('Cupom copiado!'))
+            .catch(() => fallbackCopy(codigo));
+    } else {
+        fallbackCopy(codigo);
+    }
+}
+
+function fallbackCopy(codigo) {
+    const ta = document.createElement('textarea');
+    ta.value = codigo;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+        document.execCommand('copy');
+        showToast('Cupom copiado!');
+    } catch (e) {
+        console.error('Falha ao copiar:', e);
+    }
+    document.body.removeChild(ta);
+}
+
+setTimeout(function(){
+    console.log('⏳ Executando economize() após 500ms...');
+    economize();
+}, 500);

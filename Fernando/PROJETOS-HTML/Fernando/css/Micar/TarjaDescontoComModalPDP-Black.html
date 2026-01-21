@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Momo+Trust+Display&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root{
+  --color-primary: #10b981;
+  --color-secondary: #10b981;
+  --color-text: #1f2937;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-bg: #ffffff;
+  --color-bg-light: #f9fafb;
+
+  /* Tipografia fluida (desktop -> mobile) */
+  --fz-xs: clamp(.72rem, 1.6vw, .85rem);
+  --fz-sm: clamp(.78rem, 1.4vw, .9rem);
+  --fz-md: clamp(.9rem, 1.6vw, 1rem);
+  --fz-lg: clamp(1.05rem, 2.2vw, 1.2rem);
+  --fz-xl: clamp(1.4rem, 3.5vw, 2rem);
+  --fz-xxl: clamp(1.8rem, 6vw, 2.5rem);
+}
+
+/* Ícone/chips */
+.bf-metric-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  flex-grow: 1;
+  margin: 5px 0;
+}
+.bf-metric-chip svg { width: 22px; height: 22px;  }
+.bf-metric-chip .value { font-weight: 800; color: var(--color-text); }
+
+/* Container de métricas */
+.bf-metrics { display: flex; gap: 10px; padding-top: 16px; flex-wrap: wrap; justify-content: space-between; }
+
+/* Ícones */
+.bf-metric-chip svg path { stroke: #000 !important; }
+
+/* ----- CARD ----- */
+.bf-card-v2 {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+  padding: 16px;
+  margin-top: 16px;
+  max-width: 400px;
+  width: 100%;
+  font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+  color: var(--color-text);
+}
+
+.bf-main-info { display:flex; flex-direction:column; gap:12px; margin-bottom:16px; }
+.bf-title-badge { display:flex; align-items:center; gap:12px; }
+
+/* Badge principal */
+.bf-badge-pill{
+  display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px;
+  background:#000; border:1px solid var(--color-border); font-size: var(--fz-sm); font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em; color:#FEC52D;
+}
+.bf-badge-pill .dot{ width:8px; height:8px; border-radius:50%; background-color:#FEC52D; }
+
+/* Economia */
+.bf-saving-line{ display:flex; border-left:4px solid #FDC62D; border-radius:5px; align-items:center; gap:8px; flex-wrap:wrap; flex-direction:row; padding-left:6px; }
+.bf-saving-text{ font-size: var(--fz-sm); color:var(--color-muted); font-weight:500; white-space:nowrap; }
+.bf-saving-value{ font-size: var(--fz-lg); font-weight:800; color:black; line-height:1; }
+.bf-note-text{ font-size: var(--fz-xs); color:var(--color-muted); margin-top:-8px; padding-bottom:8px; border-bottom:1px solid var(--color-border); }
+
+/* métrica/CTA */
+.bf-metrics{ display:flex; gap:10px; padding-top:16px; flex-wrap:wrap; justify-content:space-between; }
+
+/* Botão principal do card */
+.bf-btn-more-discount{
+  position:relative; background:#000;; color:#fff; padding:10px 16px; border:none; border-radius:8px;
+  font-size: var(--fz-md); font-weight:600; cursor:pointer; overflow:hidden; text-align:center; width:100%;
+  box-shadow: 2px 3px 5px #c3c3c3;
+}
+
+.bf-btn-more-discount:hover{
+  background:#FEC52D;
+  color:black;
+}
+.bf-btn-more-discount::before{
+  content:''; position:absolute; top:50%; left:50%; width:120%; height:120%;
+  background:url('https://micar.cdn.magazord.com.br/img/2025/11/produto/4467/design-sem-nome-55.png') no-repeat center/cover;
+  transform:translate(-50%,-50%); opacity:.2; z-index:-1;
+}
+
+/* ===== AJUSTE DO % DE DESCONTO ===== */
+.bf-total-discount{
+  color:#FDC62D;          /* cor pedida */
+  font-weight:800;
+  font-size: var(--fz-sm);
+  line-height:1;
+  display:inline-block;
+  margin-top:4px;
+}
+
+/* ----- MODAL ----- */
+.modal{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.7); justify-content:center; align-items:center; z-index:9999; padding: 16px; }
+.modal-content{
+  background:#fff; padding:0; border-radius:12px; width:min(100%, 1000px); max-height: min(90vh, 850px);
+  box-shadow:0 4px 20px rgba(0,0,0,.2); position:relative; overflow:hidden;
+}
+
+/* Botão fechar */
+.close-btn{
+  color:#161616; font-size: clamp(20px, 4vw, 28px); font-weight:bold; position:absolute; top:10px; right:15px; font-family:Arial,sans-serif;
+  cursor:pointer; z-index:10; background:#000; width: clamp(28px, 6vw, 35px); height: clamp(28px, 6vw, 35px);
+  border-radius:50%; display:flex; align-items:center; justify-content:center; line-height:1;
+}
+.close-btn:hover{ color:#333; background:#000; }
+
+/* Cabeçalho */
+.modal-header{ background:#000; color:#FEC52D; padding: clamp(14px, 3vw, 20px); text-align:center; border-radius:12px 12px 0 0; }
+.modal-header h2{ margin:0; font-size: var(--fz-lg); font-weight:800; text-transform:uppercase; }
+
+/* Corpo */
+.modal-body{ display:flex; padding: clamp(16px, 3.2vw, 30px); gap: clamp(14px, 3vw, 30px); align-items:center; }
+.modal-left{ flex:0 0 clamp(220px, 32vw, 350px); }
+.product-image{
+  width: clamp(180px, 28vw, 300px);
+  height: clamp(180px, 28vw, 300px);
+  object-fit:contain; border:1px solid #e5e7eb; border-radius:8px; padding:10px; background:#f9fafb; display:block; margin-inline:auto;
+}
+.modal-right{ flex:1; display:flex; flex-direction:column; gap: clamp(12px, 2.2vw, 20px); }
+
+/* Preços */
+.price-section{ display:flex; flex-direction:column; gap:8px; }
+.original-price{ font-size: 9px; color:#6b7280; }
+.original-price span{ text-decoration:line-through; font-size: clamp(.95rem, 2.6vw, 1.25rem); }
+
+.discount-info{ display:flex; align-items:center; gap: clamp(8px, 2.4vw, 15px); flex-wrap:wrap; }
+.only-text{ font-size: var(--fz-sm); color:#6b7280; line-height:1.1; }
+.final-price{ font-size: var(--fz-xxl); font-weight:800; color:var(--color-primary); line-height:1; }
+.discount-badge{ background:var(--color-primary); color:#fff; padding:4px 12px; border-radius:999px; font-size: var(--fz-sm); font-weight:700; white-space:nowrap; }
+
+.coupon-info{ background:#f9fafb; border:1px solid #e5e7eb; padding:12px; border-radius:8px; font-size: var(--fz-sm); color:#374151; }
+
+/* Timer */
+.timer-section{ text-align:center; }
+.timer-title{ font-size: var(--fz-sm); color:#6b7280; margin-bottom:10px; }
+.timer-boxes{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.timer-box{
+  background:#e5e7eb; min-width: clamp(56px, 12vw, 70px); height: clamp(48px, 10vw, 60px); border-radius:8px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:700; color:#1f2937; padding:6px 8px;
+}
+.timer-box .value{ font-size: clamp(1rem, 4.5vw, 1.4rem); line-height:1; }
+.timer-box .label{ font-size: clamp(.6rem, 2.2vw, .75rem); color:#374151; text-transform:uppercase; letter-spacing:.04em; }
+
+/* PIX/Economia */
+.pix-info{
+  background:#ecfdf5; border:1px solid var(--color-primary); padding:12px; border-radius:8px; text-align:center;
+  font-size: var(--fz-md); color:#065f46; font-weight:700;
+}
+
+/* Ações */
+.modal-actions{ display:flex; flex-direction:column; gap:12px; }
+.btn-accept{
+  background:var(--color-primary); color:#fff; padding: clamp(12px, 3vw, 14px) clamp(16px, 4vw, 24px);
+  border:none; border-radius:8px; font-size: var(--fz-md); font-weight:800; cursor:pointer; text-transform:uppercase; transition:filter .25s;
+}
+.btn-accept:hover{ filter: brightness(.95); }
+.btn-accept small{ font-size: var(--fz-xs); font-weight:500; text-transform:none; }
+
+.btn-decline{ background:transparent; color:#6b7280; padding:10px; border:none; font-size: var(--fz-sm); cursor:pointer; text-decoration:underline; }
+.btn-decline:hover{ color:#374151; }
+
+/* ----- TOAST (top center) ----- */
+.toast-container{
+  position:fixed; top:40px; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; gap:8px; z-index:10000; pointer-events:none; padding: 0 12px;
+}
+.toast{
+  pointer-events:auto;
+  background:#111827; color:#fff; padding:10px 14px; border-radius:10px;
+  font-size: var(--fz-sm); box-shadow:0 6px 20px rgba(0,0,0,.2); opacity:0; transform:translateY(-10px);
+  animation: toast-in .25s ease forwards;
+}
+@keyframes toast-in{ to { opacity:1; transform:translateY(0); } }
+@keyframes toast-out{ to { opacity:0; transform:translateY(-10px); } }
+
+/* ===== QUEBRAS DE RESPONSIVIDADE ===== */
+@media (max-width: 992px){
+  .modal-body{ padding: 20px; gap: 18px; }
+  .modal-left{ flex-basis: clamp(200px, 34vw, 300px); }
+}
+@media (max-width: 768px){
+  .bf-card-v2{ padding:12px; max-width:100%; }
+  .bf-title-badge{ flex-direction:column; align-items:flex-start; gap:8px; }
+  .bf-badge-pill{ margin-bottom:4px; }
+  .modal-body{ flex-direction:column; align-items:stretch; }
+  .modal-left{ flex:none; }
+  .product-image{ width: clamp(160px, 50vw, 240px); height: clamp(160px, 50vw, 240px); }
+  .final-price{ font-size: clamp(1.6rem, 7vw, 2.1rem); }
+  .discount-badge{ font-size: clamp(.7rem, 2.6vw, .85rem); }
+  .coupon-info{ font-size: clamp(.6rem, 2.8vw, .95rem); }
+  .toast{ padding:8px 12px; }
+}
+@media (max-width: 480px){
+  .bf-card-v2{ padding:10px; }
+  .bf-saving-line{ gap:6px; }
+  .bf-metric-chip{ padding:8px 10px; font-size: var(--fz-sm); }
+  .modal{ padding: 10px; }
+  .modal-content{ border-radius:10px; }
+  .modal-header{ padding:7px; }
+  .modal-header h2{ font-size: clamp(1rem, 4vw, 1.1rem);text-align: center; }
+  .modal-body{ padding: 14px; gap: 14px; }
+  .product-image{ width: 160px; height:160px; }
+  .original-price span{ font-size: 0.7rem; }
+  .only-text{ font-size: .6rem; }
+  .final-price{ font-size: clamp(1.4rem, 6vw, 1.8rem); }
+  .pix-info{ font-size: .7rem; }
+  .timer-box{ min-width: 54px; height: 36px; }
+  .timer-box .value{ font-size: 0.9rem; }
+  .timer-box .label{ font-size: .62rem; }
+  .btn-accept{ font-size: .75rem; padding: 12px 16px; }
+  .btn-accept small{ font-size: .7rem; }
+  .btn-decline{ font-size: .75rem; }
+  .close-btn{ top:4px; right:10px; }
+}
+
+/* Acessibilidade: foco visível */
+.bf-btn-more-discount:focus,
+.btn-accept:focus,
+.btn-decline:focus,
+.close-btn:focus{
+  outline: 2px solid #111827;
+  outline-offset: 2px;
+}
+.bf-saving-icon{ display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; flex:0 0 18px; }
+.bf-saving-content{ display:flex; flex-direction:column; }
+</style>
+</head>
+
+<body data-bf-deadline="30/11/2025 23:59">
+<script>
+// ===== Debug flag =====
+window.__BF_DEBUG = true;
+const BFLOG = (...args) => { if (window.__BF_DEBUG) console.log('[BF]', ...args); };
+const BFDBG = (...args) => { if (window.__BF_DEBUG) console.debug('[BF]', ...args); };
+
+BFLOG('Script iniciado. UserAgent:', navigator.userAgent);
+
+// ===== Config =====
+const PRICE_RULES = {
+  percentOnP1: 5,
+  percentRounding: 'NEAREST',
+  useThousandthForPercent: true,
+  finalRounding: 'HALF_DOWN',
+};
+BFLOG('PRICE_RULES:', PRICE_RULES);
+
+if (typeof Intl === 'undefined' || !Intl.NumberFormat) {
+  BFLOG('Intl.NumberFormat indisponível. Usando fallback.');
+  var Intl = { NumberFormat: function(){ return { format: n => 'R$ ' + (n||0).toFixed(2).replace('.', ',') } } };
+}
+
+/** Debug helpers */
+function fmtBRLFromCents(c){ 
+  try{ 
+    return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format((c|0)/100); 
+  }catch(e){ 
+    return 'R$ '+((c|0)/100).toFixed(2).replace('.',','); 
+  } 
+}
+function fmtMils(m){ return ((m|0)/1000).toFixed(3).replace('.', ','); }
+
+/** Parse para centavos */
+function parsePriceToCents(t){
+  const raw = String(t||'');
+  const s = raw
+    .replace(/[^\d,.\-]/g,'')
+    .replace(/\.(?=\d{3}(?:\D|$))/g,'')
+    .replace(',', '.');
+  const n = parseFloat(s);
+  if (!isFinite(n)) { BFDBG('parsePriceToCents: valor inválido', { raw, s }); return 0; }
+  const cents = Math.max(0, Math.floor(n * 100 + 1e-6));
+  BFDBG('parsePriceToCents:', { raw, s, n, cents });
+  return cents;
+}
+
+/** Mils helpers (1 mil = 0,001 R$) */
+function centsToMils(c){ const m = (c|0) * 10; BFDBG('centsToMils', c, '=>', m); return m; }
+function milsToCents(m, mode='NEAREST'){
+  const M = (m|0);
+  let result;
+  if (mode === 'TRUNC')  result = Math.max(0, Math.floor(M/10));
+  else if (mode === 'UP') result = Math.max(0, Math.ceil(M/10));
+  else if (mode === 'HALF_DOWN'){
+    const base = Math.floor(M/10);
+    const r = M % 10;
+    result = Math.max(0, r > 5 ? base + 1 : base);
+  } else {
+    const x = M / 10;
+    result = Math.max(0, Math.round(x));
+  }
+  BFDBG('milsToCents', { m: M, mode, result });
+  return result;
+}
+
+/** Percentual em mils/centavos */
+function discountValue(baseCents, pct, mode, useThousandth){
+  BFDBG('discountValue IN', { baseCents, pct, mode, useThousandth });
+  if (!useThousandth){
+    const raw = (baseCents * pct) / 100;
+    let cents;
+    if (mode === 'TRUNC') cents = Math.floor(raw);
+    else if (mode === 'UP') cents = Math.ceil(raw);
+    else cents = Math.round(raw);
+    const out = { mils: Math.round(cents*10), cents };
+    BFDBG('discountValue OUT (centavos)', out);
+    return out;
+  }else{
+    const rawMils = (baseCents * pct * 10) / 100;
+    let mils;
+    if (mode === 'TRUNC') mils = Math.floor(rawMils);
+    else if (mode === 'UP') mils = Math.ceil(rawMils);
+    else mils = Math.round(rawMils);
+    const out = { mils, cents: milsToCents(mils, 'NEAREST') };
+    BFDBG('discountValue OUT (mils)', out);
+    return out;
+  }
+}
+
+/* ===== Capturas de preços ===== */
+function getPrecoDeCents(){
+  const elPrecoDe = document.querySelector('.preco-de');
+  if (elPrecoDe){
+    const val = parsePriceToCents(elPrecoDe.textContent || '');
+    BFLOG('getPrecoDeCents: usando .preco-de', { el: elPrecoDe, val });
+    return val;
+  }
+
+  const firstPB = document.querySelector('.price-big');
+  if (firstPB){
+    const strike = firstPB.querySelector('.line-through, del, s');
+    if (strike){
+      const val = parsePriceToCents(strike.textContent || '');
+      BFLOG('getPrecoDeCents: riscado do 1º .price-big', { strike, val });
+      return val;
+    }
+    const val = parsePriceToCents(firstPB.textContent || '');
+    BFLOG('getPrecoDeCents: sem riscado; usando valor do 1º .price-big como base', { firstPB, val });
+    return val;
+  }
+
+  BFLOG('getPrecoDeCents: nenhum preço base encontrado (retornando 0)');
+  return 0;
+}
+
+function getFirstTwoPriceBigValuesCents(){
+  const all = Array.from(document.querySelectorAll('.price-big'));
+  const visible = all.filter(el => el.offsetParent !== null);
+
+  let firstEl = null, secondEl = null;
+  if (visible.length >= 2){
+    [firstEl, secondEl] = [visible[0], visible[1]];
+  } else if (visible.length === 1 && all.length >= 2){
+    firstEl = visible[0];
+    secondEl = all.find(el => el !== firstEl) || visible[0];
+  } else if (all.length >= 2){
+    [firstEl, secondEl] = [all[0], all[1]];
+  } else {
+    firstEl = all[0];
+  }
+
+  const p1 = firstEl ? parsePriceToCents(firstEl.textContent) : 0;
+  const p2 = secondEl ? parsePriceToCents(secondEl.textContent) : 0;
+  BFLOG('getFirstTwoPriceBigValuesCents:', { 
+    countAll: all.length, 
+    countVisible: visible.length, 
+    firstEl, 
+    secondEl, 
+    p1, 
+    p2,
+    texts: all.map(el => el.textContent.trim())
+  });
+  return {p1, p2};
+}
+
+/* ===== Imagem ===== */
+function getProductImageSrc(){
+  const selectors = [
+    '.swiper-zoom-container img',
+    '.swiper-slide-active img',
+    '.swiper img',
+    '#block-imagem img',
+    '.gallery-main img',
+    '.product-img img',
+    '.product-image img',
+    '.product-main-image img',
+    '.product-gallery img',
+    '.produto-imagem img'
+  ];
+
+  let foundImg = null;
+  let usedSelector = null;
+
+  for (const sel of selectors){
+    const el = document.querySelector(sel);
+    if (el){
+      foundImg = el;
+      usedSelector = sel;
+      break;
+    }
+  }
+
+  const src = foundImg ? (foundImg.getAttribute('src') || foundImg.getAttribute('data-src')) : 'https://micar.cdn.magazord.com.br/img/2025/11/produto/4467/design-sem-nome-55.png';
+  BFLOG('getProductImageSrc:', { usedSelector, foundImg, src });
+  return src || 'https://micar.cdn.magazord.com.br/img/2025/11/produto/4467/design-sem-nome-55.png';
+}
+
+/* ===== DEADLINE ===== */
+function parseDeadlineInput(str){
+  BFDBG('parseDeadlineInput IN:', str);
+  if (!str || !(str = String(str).trim())) return null;
+  if (/^[+]\s*\d+\s*[dhmy]$/i.test(str)){
+    const m = str.match(/^[+]\s*(\d+)\s*([dhmy])$/i);
+    const qty = parseInt(m[1], 10);
+    const unit = m[2].toLowerCase();
+    let ms = Date.now();
+    const oneMin = 60*1000, oneHour = 60*oneMin, oneDay = 24*oneHour;
+    if (unit === 'm') ms += qty * oneMin;
+    else if (unit === 'h') ms += qty * oneHour;
+    else if (unit === 'd') ms += qty * oneDay;
+    else if (unit === 'y'){
+      const d = new Date();
+      d.setFullYear(d.getFullYear()+qty);
+      BFDBG('parseDeadlineInput +y OUT:', d);
+      return d;
+    }
+    const d = new Date(ms);
+    BFDBG('parseDeadlineInput +rel OUT:', d);
+    return d;
+  }
+  const br = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?$/);
+  if (br){
+    const dd = parseInt(br[1],10), mm = parseInt(br[2],10)-1, yy = parseInt(br[3],10);
+    const HH = br[4] ? parseInt(br[4],10) : 23;
+    const MM = br[5] ? parseInt(br[5],10) : 59;
+    const d = new Date(yy, mm, dd, HH, MM, 59, 999);
+    if (!isNaN(d.getTime())) { BFDBG('parseDeadlineInput BR OUT:', d); return d; }
+  }
+  const d2 = new Date(str);
+  BFDBG('parseDeadlineInput Date OUT:', d2);
+  if (!isNaN(d2.getTime())) return d2;
+  return null;
+}
+function getConfiguredDeadlineDate(){
+  const body = document.body || document.getElementsByTagName('body')[0];
+  const fromAttr = body ? body.getAttribute('data-bf-deadline') : null;
+  const fromWin  = (typeof window !== 'undefined' && window.BF_DEADLINE) ? String(window.BF_DEADLINE) : null;
+  let dt = null;
+  if (fromAttr) dt = parseDeadlineInput(fromAttr);
+  if (!dt && fromWin) dt = parseDeadlineInput(fromWin);
+  if (!dt) dt = new Date(Date.now() + 10*60*1000);
+  BFLOG('getConfiguredDeadlineDate:', { fromAttr, fromWin, dt });
+  return dt;
+}
+
+/* ===== Toast ===== */
+(function ensureToastContainer(){
+  if (!document.querySelector('.toast-container')){
+    const c = document.createElement('div');
+    c.className = 'toast-container';
+    document.body.appendChild(c);
+    BFDBG('Toast container criado');
+  } else {
+    BFDBG('Toast container já existia');
+  }
+})();
+function showToast(msg, {timeout=3500}={}){
+  BFLOG('showToast:', msg, 'timeout:', timeout);
+  const cont = document.querySelector('.toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  cont.appendChild(t);
+  t.textContent = msg;
+  const hide = () => {
+    t.style.animation = 'toast-out .25s ease forwards';
+    setTimeout(() => t.remove(), 260);
+  };
+  setTimeout(hide, timeout);
+  return { hide };
+}
+
+/* ===== Clipboard ===== */
+async function copyToClipboard(text){
+  try{
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      await navigator.clipboard.writeText(text);
+      BFLOG('copyToClipboard: sucesso via navigator.clipboard');
+      return true;
+    }
+  }catch(e){ BFLOG('copyToClipboard: falha API clipboard', e); }
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly','');
+    ta.style.position='fixed'; ta.style.opacity='0'; ta.style.top='-9999px';
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    BFLOG('copyToClipboard via execCommand:', ok);
+    return ok;
+  }catch(e){
+    BFLOG('copyToClipboard: falha execCommand', e);
+    return false;
+  }
+}
+
+/* ===== URL detector ===== */
+function isCheckoutCartUrl(){
+  const href = (location.href || '').toLowerCase();
+  const path = (location.pathname || '').toLowerCase();
+  const res = (
+    path.includes('/checkout') || path.includes('/cart') || path.includes('/carrinho') ||
+    path.includes('/finalizar') || href.includes('step=checkout') || href.includes('cart=')
+  );
+  BFLOG('isCheckoutCartUrl:', { href, path, res });
+  return res;
+}
+
+/* ===== Aplicar cupom ===== */
+function applyCouponIfPresent(coupon, {retries=10, interval=400}={}){
+  BFLOG('applyCouponIfPresent START', { coupon, retries, interval });
+  let attempts = 0;
+  const tryApply = () => {
+    attempts++;
+    const input = document.getElementById('cupom-desconto');
+    const btn   = document.querySelector('.aplica-desconto');
+    BFDBG('applyCouponIfPresent attempt', attempts, { inputFound: !!input, btnFound: !!btn });
+    if (input){
+      input.focus();
+      input.value = coupon;
+      input.dispatchEvent(new Event('input', {bubbles:true}));
+      input.dispatchEvent(new Event('change', {bubbles:true}));
+
+      if (btn){
+        btn.click();
+        showToast('Cupom aplicado no checkout.', {timeout:2500});
+        BFLOG('applyCouponIfPresent: botão de aplicar clicado');
+        return;
+      }
+    }
+    if (attempts < retries){
+      setTimeout(tryApply, interval);
+    }else{
+      showToast('Não encontrei os campos de cupom no checkout.', {timeout:3000});
+      BFLOG('applyCouponIfPresent: falhou após tentativas', attempts);
+    }
+  };
+  tryApply();
+}
+
+/* ===== CARD: criação ===== */
+function createBFCardAt(anchor){
+  if (!anchor) {
+    BFLOG('createBFCardAt: anchor inválido, usando body');
+    anchor = document.body;
+  }
+
+  const deVal_c = getPrecoDeCents();
+  const {p1: p1_c, p2: p2_c} = getFirstTwoPriceBigValuesCents();
+
+  const pct1 = (deVal_c > 0 && p1_c > 0 && deVal_c > p1_c)
+    ? ((deVal_c - p1_c) / deVal_c) * 100 : 0;
+
+  const pct2 = (p1_c > 0 && p2_c > 0 && p1_c > p2_c)
+    ? ((p1_c - p2_c) / p1_c) * 100 : 0;
+
+  const pctTotal = Math.round(pct1 + pct2);
+
+  const economiaCard_c = (deVal_c > p2_c && p2_c > 0) ? (deVal_c - p2_c) : 0;
+
+  const imgSrc = getProductImageSrc();
+  BFLOG('Dados iniciais do CARD:', { deVal_c, p1_c, p2_c, pct1, pct2, pctTotal, economiaCard_c, imgSrc });
+
+  const cardHtml = `
+    <div class="bf-card-v2" data-key="bf-card-v2">
+      <div class="bf-main-info">
+        <div class="bf-title-badge">
+          <div class="bf-badge-pill"><span class="dot"></span> BLACK NOVEMBER 🔥</div>
+        </div>
+        <div class="bf-saving-line" ${economiaCard_c > 0 ? '' : 'style="display:none"'}>
+          <span class="bf-saving-icon" aria-hidden="true">
+            <svg id="Layer_1" enable-background="new 0 0 100 100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="18" height="18" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g transform="matrix(1,0,0,1,0,0)"><path d="m45.2681007 95.5438919c2.6283607 2.6081467 6.8539467 2.6081467 9.5025253 0l33.9260368-33.9260445c2.1835709-2.5272675 2.1835709-6.2676239.0404434-8.8353233-2.4059525-2.8507538-6.6921997-3.2146835-9.563179-.7885094l-22.3814811 22.3814812v-65.0822c0-3.7605772-3.0327225-6.7932959-6.793293-6.7932959-3.7605743 0-6.7730789 3.0327234-6.7730789 6.7932959v65.0822067l-22.3814812-22.3814879c-2.5677052-2.1835556-6.3282824-2.1431236-8.8555498.0808754-2.8305378 2.4463921-3.1135902 6.7124214-.6671991 9.5429573z" fill="#fdc62d"/></g></svg>
+          </span>
+          <span class="bf-saving-content">
+            <span class="bf-saving-text">Você economiza</span>
+            <span class="bf-saving-value" id="bf-economia">${fmtBRLFromCents(economiaCard_c)}</span>
+          </span>
+        </div>
+        <span style="font-weight:500;margin-bottom: -5px;" class="bf-total-discount">(${pctTotal}% de desconto)</span>
+      </div>
+      ${economiaCard_c > 0 ? '<div class="bf-note-text">Comparado ao preço original</div>' : ''}
+
+      <div class="bf-metrics">
+        <div class="bf-metric-chip" id="badge-total-pct" style="${pctTotal > 0 ? '' : 'display:none'}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-tag">
+            <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8.704-8.704Z"/>
+            <line x1="18" x2="18" y1="6" y2="6.01"/>
+          </svg>
+          <span class="value" style="color: #FDC62D;">${pctTotal}%</span>
+          <span>de Desconto</span>
+        </div>
+
+        <div class="bf-metric-chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="lucide lucide-shield-check">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="value">Preço Garantido</span>
+        </div>
+<div class="bf-metric-chip" id="mais-desconto">
+  <button class="bf-btn-more-discount">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      aria-hidden="true"
+    >
+      <g transform="matrix(1,0,0,1,0,0)">
+        <g>
+          <g>
+            <path
+              d="m15.929 20.5h-9.429c-.827 0-1.5-.673-1.5-1.5 0-1.103.823-2.051 1.914-2.207l4.038-.634-6.808-6.808c-.745-.745-.745-1.957 0-2.701.751-.751 1.963-.75 2.707-.006l1.772 1.772c.087-.296.247-.574.48-.807.688-.689 1.767-.745 2.515-.174.086-.303.248-.588.485-.826.689-.689 1.768-.746 2.516-.173.084-.304.246-.589.484-.827.751-.751 1.963-.75 2.707-.006l3.76 4.132c.922 1.014 1.43 2.327 1.43 3.697 0 1.467-.571 2.847-1.609 3.884l-1.573 1.573c-1.039 1.039-2.42 1.611-3.889 1.611zm-10.429-13.416c-.233 0-.466.089-.644.266-.36.361-.36.939-.005 1.294l7.503 7.503c.133.133.18.33.122.508-.059.179-.212.31-.398.339l-5.015.788c-.609.087-1.063.61-1.063 1.218 0 .276.224.5.5.5h9.429c1.202 0 2.332-.468 3.182-1.318l1.573-1.573c.849-.849 1.316-1.977 1.316-3.177 0-1.121-.416-2.195-1.169-3.024l-3.744-4.115c-.339-.336-.915-.337-1.271.017-.178.178-.272.406-.272.649s.095.472.267.644l.043.043c.195.195.195.512 0 .707-.191.192-.501.196-.697.01h-.001s0 0-.001-.001-.001-.001-.001-.001l-1.048-1.048c-.354-.354-.933-.354-1.287 0-.361.361-.361.938-.006 1.293l1.043 1.043c.098.098.147.226.147.354s-.049.256-.146.354c-.195.195-.512.195-.707 0l-2.044-2.044c-.354-.354-.933-.354-1.287 0-.361.361-.361.938-.006 1.293l2.043 2.043c.098.098.147.226.147.354s-.049.256-.146.354c-.195.195-.512.195-.707 0l-5.003-5.003c-.178-.178-.411-.267-.644-.267z"
+              fill="currentColor"
+            />
+          </g>
+          <g>
+            <path
+              d="m3.859 12.141c-.069 0-.139-.014-.206-.044-1.611-.729-2.653-2.337-2.653-4.097 0-2.481 2.019-4.5 4.5-4.5 1.76 0 3.368 1.042 4.096 2.653.114.252.002.548-.25.662-.251.115-.548.002-.661-.25-.567-1.254-1.817-2.065-3.185-2.065-1.93 0-3.5 1.57-3.5 3.5 0 1.368.811 2.618 2.065 3.185.251.114.363.41.25.662-.084.184-.266.294-.456.294z"
+              fill="currentColor"
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+
+    Você quer mais desconto?
+  </button>
+</div>
+
+      </div>
+    </div>
+  `;
+
+  anchor.insertAdjacentHTML('afterend', cardHtml);
+  BFLOG('CARD injetado no DOM');
+
+  const mdBtn = document.getElementById('mais-desconto');
+  if (mdBtn){
+    mdBtn.addEventListener('click', () => { 
+      BFLOG('Clique no botão "Você quer mais desconto?"'); 
+      openModal(imgSrc); 
+    });
+  } else {
+    BFLOG('Elemento #mais-desconto não encontrado');
+  }
+
+  // Se já clicou antes e veio para checkout/cart depois, aplica uma ÚNICA vez
+  if (isCheckoutCartUrl()){
+    const clickedAt = localStorage.getItem('bf_coupon_clicked_at');
+    const coupon    = localStorage.getItem('bf_coupon');
+    BFLOG('Verificação de aplicação automática no checkout', { clickedAt, coupon });
+    if (clickedAt && coupon){
+      applyCouponIfPresent(coupon);
+      localStorage.removeItem('bf_coupon_clicked_at');
+    }
+  }
+}
+
+/* ===== CARD: init + MutationObserver ===== */
+function initBFCard(){
+  let inserted = false;
+  let observer;
+
+  function tryInsert(){
+    if (inserted) return;
+    const anchor = document.querySelector('.mais-formas-pagamento') ||
+                   document.getElementById('content-price-product');
+    if (anchor){
+      inserted = true;
+      createBFCardAt(anchor);
+      if (observer) observer.disconnect();
+      // 1º console: inserção no ponto correto
+      console.log('[BF] Card inserido após .mais-formas-pagamento / #content-price-product');
+    }
+  }
+
+  observer = new MutationObserver(() => {
+    tryInsert();
+  });
+
+  if (document.body){
+    observer.observe(document.body, { childList:true, subtree:true });
+  }
+
+  // tentativa imediata (caso o elemento já exista)
+  tryInsert();
+
+  // fallback: depois de 8s, se não encontrou, insere no final da página
+  setTimeout(() => {
+    if (!inserted){
+      inserted = true;
+      if (observer) observer.disconnect();
+      createBFCardAt(document.body);
+      // 2º console: fallback no body
+      console.log('[BF] Card inserido no final da página (fallback).');
+    }
+  }, 8000);
+}
+
+if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', initBFCard);
+} else {
+  initBFCard();
+}
+
+/* ===== MODAL ===== */
+function openModal(imgSrcFromCard){
+  BFLOG('openModal START');
+  const deVal_c = getPrecoDeCents();
+  const {p1: p1_c, p2: p2_c} = getFirstTwoPriceBigValuesCents();
+
+  const disc = discountValue(p1_c, PRICE_RULES.percentOnP1, PRICE_RULES.percentRounding, PRICE_RULES.useThousandthForPercent);
+  const desconto_m = disc.mils;
+  const p2_m = centsToMils(p2_c);
+  const precoFinal_m = Math.max(0, p2_m - desconto_m);
+  const precoFinal_c = milsToCents(precoFinal_m, PRICE_RULES.finalRounding);
+
+  const economiaMostrada_c = (deVal_c > 0 && precoFinal_c > 0)
+    ? Math.max(0, deVal_c - precoFinal_c)
+    : (p2_c > 0 ? Math.max(0, p2_c - precoFinal_c) : 0);
+
+  const imgSrc = imgSrcFromCard || getProductImageSrc();
+
+  const deadlineDate = getConfiguredDeadlineDate();
+  const deadlineISO  = deadlineDate.toISOString();
+  BFLOG('openModal dados:', { deVal_c, p1_c, p2_c, desconto_m, p2_m, precoFinal_m, precoFinal_c, economiaMostrada_c, imgSrc, deadlineISO });
+
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+  modal.innerHTML = `
+    <div class="modal-content" data-deadline="${deadlineISO}">
+      <span class="close-btn" aria-label="Fechar">×</span>
+      <div class="modal-header">
+        <h2>Oferta de BLACK 🔥</h2>
+      </div>
+      <div class="modal-body">
+        <div class="modal-left">
+          <img class="product-image" src="${imgSrc}" alt="Imagem do Produto">
+          <div style="margin-top:10px;font-size:.8rem;color:#6b7280;">
+            <strong></strong>
+          </div>
+        </div>
+        <div class="modal-right">
+          <div class="price-section">
+            ${deVal_c > 0 ? `<div class="original-price">de <span>${fmtBRLFromCents(deVal_c)}</span></div>` : ''}
+            <div class="discount-info">
+              <span class="only-text">por<br>apenas</span>
+              <span class="final-price">${fmtBRLFromCents(precoFinal_c)}</span>
+              <span class="discount-badge">Agora no Pix</span>
+            </div>
+            <div class="coupon-info">Usando o cupom <strong>BLACK</strong> para pagar este valor</div>
+          </div>
+
+          <div class="timer-section">
+            <div class="timer-title">Oferta expira em</div>
+            <div class="timer-boxes">
+              <div class="timer-box"><div id="timer-days" class="value">00</div><div class="label">dias</div></div>
+              <div class="timer-box"><div id="timer-hours" class="value">00</div><div class="label">horas</div></div>
+              <div class="timer-box"><div id="timer-minutes" class="value">00</div><div class="label">minutos</div></div>
+              <div class="timer-box"><div id="timer-seconds" class="value">00</div><div class="label">segundos</div></div>
+            </div>
+          </div>
+
+          <div class="pix-info">
+            Você economiza ${fmtBRLFromCents(economiaMostrada_c)} com esta oferta
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-accept">Quero essa oferta imperdível!<br><small>(Clique aqui e Copie o Cupom)</small></button>
+            <button class="btn-decline">Quero fechar e perder o desconto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.style.display = 'flex';
+  BFLOG('Modal adicionado ao DOM');
+
+  startTimerFromDataDeadline(modal.querySelector('.modal-content'));
+
+  const close = () => { BFLOG('Fechando modal'); modal.remove(); };
+  modal.querySelector('.close-btn').addEventListener('click', close);
+  modal.querySelector('.btn-decline').addEventListener('click', close);
+
+  modal.querySelector('.btn-accept').addEventListener('click', async () => {
+    const coupon = 'BLACK';
+    const copied = await copyToClipboard(coupon);
+    if (copied){
+      showToast('Cupom "BLACK" copiado!', {timeout:2400});
+    }else{
+      showToast('Não consegui copiar automaticamente. Tente colar manualmente.', {timeout:3000});
+    }
+
+    try{
+      localStorage.setItem('bf_coupon', coupon);
+      localStorage.setItem('bf_coupon_clicked_at', String(Date.now()));
+      BFLOG('Cupom salvo no localStorage');
+    }catch(e){ BFLOG('Falha ao salvar no localStorage', e); }
+
+    if (isCheckoutCartUrl()){
+      BFLOG('Estamos no checkout, tentando aplicar cupom imediatamente');
+      applyCouponIfPresent(coupon);
+    }
+
+    close();
+  });
+}
+
+/* ===== Timer ===== */
+function startTimerFromDataDeadline(container){
+  if (!container) { BFLOG('startTimerFromDataDeadline: container inválido'); return; }
+  const iso = container.getAttribute('data-deadline');
+  const end = iso ? new Date(iso).getTime() : Date.now();
+  BFLOG('Timer iniciado até', iso);
+
+  const dEl = document.getElementById('timer-days');
+  const hEl = document.getElementById('timer-hours');
+  const mEl = document.getElementById('timer-minutes');
+  const sEl = document.getElementById('timer-seconds');
+
+  const pad2 = n => String(n).padStart(2,'0');
+
+  function tick(){
+    const now = Date.now();
+    let diff = Math.max(0, Math.floor((end - now) / 1000));
+
+    const days = Math.floor(diff / 86400); diff %= 86400;
+    const hrs  = Math.floor(diff / 3600);  diff %= 3600;
+    const mins = Math.floor(diff / 60);
+    const secs = diff % 60;
+
+    if (dEl) dEl.textContent = pad2(days);
+    if (hEl) hEl.textContent = pad2(hrs);
+    if (mEl) mEl.textContent = pad2(mins);
+    if (sEl) sEl.textContent = pad2(secs);
+
+    if (end - now <= 0) { clearInterval(intId); BFLOG('Timer finalizado'); }
+  }
+
+  tick();
+  const intId = setInterval(tick, 1000);
+}
+</script>
+
+
+</body>
+</html>

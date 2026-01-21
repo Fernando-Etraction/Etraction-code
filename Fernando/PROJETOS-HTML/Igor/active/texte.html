@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conjunto Fitness - Brilho e Performance</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        color: #333;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* Renamed class from descricao-produto to product-showcase */
+      .product-showcase {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      .product-showcase > h3 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        min-height: 60px;
+      }
+
+      .product-showcase > p {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #7f8c8d;
+        margin-bottom: 60px;
+        font-style: italic;
+      }
+
+      .feature-block {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        margin-bottom: 39px;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        max-height: 401px;
+      }
+
+      /* Renamed class from reverse to alternate-layout */
+      .feature-block.alternate-layout {
+        flex-direction: row-reverse;
+      }
+
+      .feature-block img {
+    width: 32%;
+    height: 345px !important;
+    border-radius: 15px;
+    object-fit: contain;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+      .feature-block > div {
+        flex: 1;
+      }
+
+      .feature-block h4 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        color: #34495e;
+        font-weight: 700;
+        min-height: 50px;
+      }
+
+      .feature-block p {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.8;
+        min-height: 100px;
+      }
+
+      /* Renamed class from resumida to specs-summary */
+      .specs-summary {
+        background: #588978; /* Changed gradient to solid color #588978 */
+        color: white;
+        padding: 40px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 2;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        white-space: pre-line;
+        min-height: 150px;
+      }
+
+      @media (max-width: 768px) {
+        .feature-block,
+        .feature-block.alternate-layout {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .feature-block img {
+          width: 100%;
+        }
+
+        .feature-block h4 {
+          font-size: 1.5rem;
+        }
+
+        .feature-block p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Updated class names in HTML structure -->
+    <div class="product-showcase">
+      <h3 id="main-title">Conjunto Fitness Premium</h3>
+      <p>(Estilo, conforto e performance em um só conjunto)</p>
+
+      <div class="feature-block" id="section1">
+        <img
+          src="https://ohmyclothes.bwimg.com.br/ohmyclothes/arquivos/1-1759414434.8514.png"
+          alt="Imagem 1"
+          width="1080"
+          height="1080"
+        />
+        <div>
+          <h4 id="title1">Brilho e Sofisticação</h4>
+          <p id="text1">
+            Este conjunto foi desenvolvido com acabamento glam que garante um
+            toque moderno e sofisticado, perfeito para treinos e para
+            composições casuais. O tecido de alta qualidade proporciona
+            elegância e resistência, mantendo o brilho mesmo após várias
+            lavagens.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-block alternate-layout" id="section2">
+        <img
+          src="https://ohmyclothes.bwimg.com.br/ohmyclothes/arquivos/2-1759414446.1789.png"
+          alt="Imagem 2"
+          width="1200"
+          height="1200"
+        />
+        <div>
+          <h4 id="title2">Conforto e Sustentação</h4>
+          <p id="text2">
+            Com modelagem anatômica e elástico reforçado, o top oferece a
+            sustentação necessária para diferentes intensidades de treino,
+            enquanto o short garante liberdade de movimentos com máximo
+            conforto. Ideal para quem busca unir estilo e praticidade.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-block" id="section3">
+        <img
+          src="https://ohmyclothes.bwimg.com.br/ohmyclothes/arquivos/3-1759414457.1662.png"
+          alt="Imagem 3"
+          width="1200"
+          height="1200"
+        />
+        <div>
+          <h4 id="title3">Tecido Tecnológico</h4>
+          <p id="text3">
+            Produzido em poliamida premium com elastano, o conjunto proporciona
+            respirabilidade e secagem rápida. Além disso, conta com proteção
+            UV50+, bloqueando até 98% dos raios solares, perfeito para treinos
+            ao ar livre ou atividades diárias.
+          </p>
+        </div>
+      </div>
+
+      <div class="specs-summary" id="summary">
+        Tecido Poliamida Premium Zero Transparência Composição 84% Poliamida 16%
+        Elastano Tecnologias Proteção UV50+ Ocasião Academia | Crossfit | Yoga |
+        Caminhada
+      </div>
+    </div>
+
+    <!-- GSAP Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
+
+    <script>
+      console.log("[v0] GSAP loaded:", typeof gsap !== "undefined");
+
+      // Register GSAP plugins
+      gsap.registerPlugin(ScrollTrigger, TextPlugin);
+      console.log("[v0] Plugins registered");
+
+      // Function to create typing effect using clip-path
+      function typingEffect(element, delay = 0) {
+        const text = element.textContent;
+        element.style.clipPath = "inset(0 100% 0 0)";
+
+        gsap.to(element, {
+          clipPath: "inset(0 0% 0 0)",
+          duration: text.length * 0.03,
+          delay: delay,
+          ease: "none",
+        });
+      }
+
+      // Wait for DOM to be ready
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("[v0] DOM loaded, starting animations");
+
+        // Main title animation with typing effect
+        gsap.from("#main-title", {
+          duration: 0.8,
+          y: -50,
+          opacity: 0,
+          ease: "power3.out",
+          onComplete: () => {
+            typingEffect(document.getElementById("main-title"));
+          },
+        });
+
+        // Subtitle fade in
+        gsap.from(".product-showcase > p", {
+          duration: 1,
+          opacity: 0,
+          y: -20,
+          delay: 0.5,
+          ease: "power2.out",
+        });
+
+        // Section 1 animations
+        gsap.from("#section1", {
+          scrollTrigger: {
+            trigger: "#section1",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          duration: 1,
+          opacity: 0,
+          y: 50,
+          ease: "power3.out",
+        });
+
+        gsap.from("#section1 img", {
+          scrollTrigger: {
+            trigger: "#section1",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          duration: 1.2,
+          scale: 0.7,
+          rotation: -15,
+          opacity: 0,
+          ease: "back.out(1.7)",
+          delay: 0.3,
+          onComplete: () => {
+            ScrollTrigger.create({
+              trigger: "#section1",
+              start: "top 80%",
+              once: true,
+              onEnter: () => {
+                typingEffect(document.getElementById("title1"), 0.5);
+                typingEffect(document.getElementById("text1"), 1.2);
+              },
+            });
+          },
+        });
+
+        // Section 2 animations
+        gsap.from("#section2", {
+          scrollTrigger: {
+            trigger: "#section2",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          duration: 1,
+          opacity: 0,
+          y: 50,
+          ease: "power3.out",
+        });
+
+        gsap.from("#section2 img", {
+          scrollTrigger: {
+            trigger: "#section2",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          duration: 1.2,
+          x: 150,
+          scale: 0.8,
+          opacity: 0,
+          ease: "power3.out",
+          delay: 0.3,
+          onComplete: () => {
+            ScrollTrigger.create({
+              trigger: "#section2",
+              start: "top 80%",
+              once: true,
+              onEnter: () => {
+                typingEffect(document.getElementById("title2"), 0.5);
+                typingEffect(document.getElementById("text2"), 1.2);
+              },
+            });
+          },
+        });
+
+        // Section 3 animations
+        gsap.from("#section3", {
+          scrollTrigger: {
+            trigger: "#section3",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          duration: 1,
+          opacity: 0,
+          y: 50,
+          ease: "power3.out",
+        });
+
+        gsap.from("#section3 img", {
+          scrollTrigger: {
+            trigger: "#section3",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+          duration: 1.2,
+          y: 120,
+          rotation: 8,
+          scale: 0.75,
+          opacity: 0,
+          ease: "power3.out",
+          delay: 0.3,
+          onComplete: () => {
+            ScrollTrigger.create({
+              trigger: "#section3",
+              start: "top 80%",
+              once: true,
+              onEnter: () => {
+                typingEffect(document.getElementById("title3"), 0.5);
+                typingEffect(document.getElementById("text3"), 1.2);
+              },
+            });
+          },
+        });
+
+        // Summary section animation
+        gsap.from("#summary", {
+          scrollTrigger: {
+            trigger: "#summary",
+            start: "top 85%",
+            toggleActions: "play none none none",
+            onEnter: () => {
+              typingEffect(document.getElementById("summary"), 0.3);
+            },
+          },
+          duration: 1,
+          opacity: 0,
+          scale: 0.9,
+          ease: "back.out(1.7)",
+        });
+
+        // Parallax effect on images
+        gsap.utils.toArray(".feature-block img").forEach((img) => {
+          gsap.to(img, {
+            y: -40,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1,
+            },
+          });
+        });
+
+        console.log("[v0] All animations initialized");
+      });
+    </script>
+  </body>
+</html>

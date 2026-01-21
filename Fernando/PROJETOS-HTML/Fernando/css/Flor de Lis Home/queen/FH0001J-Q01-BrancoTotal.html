@@ -1,0 +1,484 @@
+<!-- ##########################  DESCRIÇÃO MODERNA - JOGO DE CAMA  ########################## -->
+<style>
+    <!--
+    .description-container * {
+        box-sizing: border-box;
+    }
+
+    .description-container {
+        --bg: #ffffff;
+        --ink: #0f172a;
+        --muted: #475569;
+        --line: #e2e8f0;
+        --brand: #b89c7a;
+        --brand-ink: #3f3a34;
+        --card: #fafafa;
+        --radius: 16px;
+        --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+        background: var(--bg);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .description-container .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+    }
+
+    .produto-hero {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 28px;
+        align-items: center;
+        margin-bottom: 36px;
+    }
+
+    .hero-media {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius);
+        background: #f5f5f4;
+        box-shadow: var(--shadow);
+    }
+
+    .hero-media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 4/3;
+    }
+
+    .hero-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: #fff;
+        color: var(--brand-ink);
+        border: 1px solid var(--line);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+    }
+
+    .hero-copy h2 {
+        font-size: 28px;
+        line-height: 1.15;
+        margin: 0 0 10px;
+    }
+
+    .hero-copy p {
+        color: var(--muted);
+        margin: 0 0 14px;
+    }
+
+    .hero-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .hero-pills span {
+        border: 1px solid var(--line);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        background: #fff;
+    }
+
+    .benf-algodao-egip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 10px 0 40px;
+    }
+
+    .benf-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 16px;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 12px;
+        transition: transform .2s ease;
+    }
+
+    .benf-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .benf-card .media {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #eee;
+    }
+
+    .benf-card .media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .benf-card h3 {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .benf-card p {
+        font-size: 14px;
+        color: var(--muted);
+        margin: 6px 0 0;
+    }
+
+    .produto-detalhes {
+        background: linear-gradient(180deg, #fff, #fff9f4);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        margin-bottom: 32px;
+    }
+
+    .produto-detalhes .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .dlz-specs {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+    }
+
+    .dlz-specs h4 {
+        margin: 0 0 10px;
+        font-size: 16px;
+    }
+
+    .dlz-specs ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+    }
+
+    .dlz-specs li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    .dlz-specs li span:first-child {
+        color: var(--muted);
+    }
+
+    .note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+    }
+
+    .algodao-egip {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 24px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+        background: #fff;
+    }
+
+    .egip-media {
+        overflow: hidden;
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        background: #f1f5f9;
+    }
+
+    .egip-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        aspect-ratio: 4/3;
+    }
+
+    .egip-copy h3 {
+        margin: 0 0 10px;
+    }
+
+    .egip-copy p {
+        color: var(--muted);
+        margin: 0 0 14px;
+    }
+
+    .egip-bullets {
+        display: grid;
+        gap: 8px;
+    }
+
+    .egip-bullets li {
+        list-style: none;
+        padding-left: 28px;
+        position: relative;
+    }
+
+    .acc {
+        border-top: 1px solid var(--line);
+        margin-top: 24px;
+    }
+
+    .acc-item {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .acc-btn {
+        width: 100%;
+        text-align: left;
+        padding: 14px 4px;
+        background: none;
+        border: 0;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .acc-btn::after {
+        content: "+";
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .acc-item[open] .acc-btn::after {
+        content: "–";
+    }
+
+    .acc-panel {
+        color: var(--muted);
+        padding: 0 0 14px;
+    }
+
+    @media (max-width:1024px) {
+
+        .produto-hero,
+        .produto-detalhes .grid,
+        .algodao-egip {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width:720px) {
+        .benf-algodao-egip {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width:520px) {
+        .benf-algodao-egip {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-copy h2 {
+            font-size: 24px;
+        }
+    }
+    -->
+</style>
+
+<div class="description-container">
+    <div class="wrap">
+
+        <!-- HERO -->
+        <section class="produto-hero">
+            <figure class="hero-media">
+                <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40927/fh0001j-q01-0529-2.jpg"
+                    alt="Jogo de Cama Queen Veneza em algodão egípcio, Branco Total">
+                <figcaption class="hero-badge">600 fios • Algodão Egípcio</figcaption>
+            </figure>
+            <div class="hero-copy">
+                <h2>Jogo de Cama Queen Veneza — Jacquard 600 Fios, 100% Algodão Egípcio (Branco Total)</h2>
+                <p>Da Coleção Europa, o Veneza une o brilho sutil do jacquard ao toque acetinado do cetim 600 fios.
+                    Elegância clean em branco absoluto, maciez superior e caimento impecável.</p>
+                <div class="hero-pills">
+                    <span>Queen Size</span>
+                    <span>Jacquard Premium</span>
+                    <span>600 fios</span>
+                    <span>Toque acetinado</span>
+                    <span>Branco Total</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFÍCIOS -->
+        <section class="benf-algodao-egip">
+            <!-- Card 1 -->
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40928/fh0001j-q01-0529-3.jpg"
+                        alt="Fibras longas do algodão egípcio em close" />
+                </div>
+                <div>
+                    <h3>Fibras Longas Egípcias</h3>
+                    <p>Mais maciez e resistência com menor formação de bolinhas ao longo do uso.</p>
+                </div>
+            </article>
+            <!-- Card 2 -->
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40929/fh0001j-q01-0529-4.jpg"
+                        alt="Acabamento em jacquard com padrão discreto" />
+                </div>
+                <div>
+                    <h3>Jacquard Atemporal</h3>
+                    <p>Desenho elegante, fácil de combinar e que valoriza a cama posta.</p>
+                </div>
+            </article>
+            <!-- Card 3 -->
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43570/fh0001j-q01-0529-5.jpg"
+                        alt="Quarto arejado com cama posta branca" />
+                </div>
+                <div>
+                    <h3>Respirável & Confortável</h3>
+                    <p>Cetim 600 fios com toque fresco e suave para noites mais agradáveis.</p>
+                </div>
+            </article>
+            <!-- Card 4 -->
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40931/fh0001j-q01-0529-6.jpg"
+                        alt="Detalhe de costura reforçada" />
+                </div>
+                <div>
+                    <h3>Durabilidade Elevada</h3>
+                    <p>Matéria-prima nobre e costuras reforçadas para uso diário.</p>
+                </div>
+            </article>
+            <!-- Card 5 -->
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/10/banner/43502/5.png"
+                        alt="Mãos tocando tecido acetinado e macio" />
+                </div>
+                <div>
+                    <h3>Toque Acetinado</h3>
+                    <p>Superfície lisa com brilho sutil que traduz sofisticação.</p>
+                </div>
+            </article>
+            <!-- Card 6 -->
+            <article class="benf-card">
+                <div class="media">
+
+                    <!--Alterar-->
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40926/fh0001j-q01-0529-1.jpg"
+                        alt="Cama em Branco Total com almofadas neutras" />
+                </div>
+                <div>
+                    <h3>Branco Total</h3>
+                    <p>Tom puro e atemporal que ilumina o ambiente e combina com tudo.</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- DETALHES E ESPECIFICAÇÕES -->
+        <section id="produto-detalhes" class="produto-detalhes">
+            <div class="grid">
+                <div>
+                    <h3 style="margin:0 0 10px;">Detalhes do Produto</h3>
+                    <p class="muted">
+                        Jogo de cama queen completo com lençol com elástico, sobrelençol e duas fronhas. Confeccionado
+                        em cetim
+                        600 fios de puro algodão egípcio, com trama jacquard para maciez superior, brilho sutil e alta
+                        durabilidade.
+                    </p>
+                    <ul class="egip-bullets" style="margin-top:12px;">
+                        <li>Composição: 100% Algodão Egípcio (600 fios)</li>
+                        <li>Acabamento: Jacquard com toque acetinado</li>
+                        <li>Cor: Branco Total</li>
+                        <li>Indicação: Cama Queen</li>
+                        <li>Origem das fibras: Egito (fibras longas)</li>
+                    </ul>
+                </div>
+                <aside class="dlz-specs">
+                    <h4>O que vem no Jogo</h4>
+                    <ul>
+                        <li><span>1 Capa de Edredom</span> <span><em>250 x 250 cm</em></span></li>
+                        <li><span>1 Capa de Almofada</span> <span><em>40 x 60 cm</em></span></li>
+                        <li><span>2 Fronhas</span> <span><em>40 x 60 cm</em></span></li>
+                    </ul>
+                    <div class="note">Medidas indicativas para colchão queen padrão (pode haver variação de ±3%).</div>
+                </aside>
+            </div>
+
+            <div class="acc">
+                <details class="acc-item">
+                    <summary class="acc-btn">Cuidados & Lavagem</summary>
+                    <div class="acc-panel">
+                        Lavar separadamente em ciclo delicado; usar sabão neutro; não usar alvejante; secar à sombra ou
+                        em baixa
+                        temperatura; passar em temperatura média pelo avesso.
+                    </div>
+                </details>
+                <details class="acc-item">
+                    <summary class="acc-btn">Trocas & Devoluções</summary>
+                    <div class="acc-panel">
+                        Aceitamos trocas conforme política da loja. O produto deve estar sem uso e com etiquetas.
+                        Consulte prazos e condições na página de políticas.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- BLOCO ALGODÃO EGÍPCIO -->
+        <section class="algodao-egip">
+            <figure class="egip-media">
+                <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43518/design-sem-nome-1.png"
+                    alt="Campo de algodão egípcio sob luz suave">
+            </figure>
+            <div class="egip-copy">
+                <h3>Por que Algodão Egípcio?</h3>
+                <p>Fibras extra longas entregam maciez intensa, resistência e menos pilling. Um tecido nobre, com toque
+                    acetinado e conforto imediato.</p>
+                <ul class="egip-bullets" style="margin-top:10px;">
+                    <li>Fibras longas = tecido mais liso e durável</li>
+                    <li>Regulação térmica natural para noites confortáveis</li>
+                    <li>Acabamento premium com brilho sutil</li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<p>
+    <script>
+        // <![CDATA[
+        (function () {
+            const mq = window.matchMedia('(min-width:1025px)');
+            if (mq.matches) {
+                const first = document.querySelector('.description-container .acc details');
+                if (first && !first.hasAttribute('open')) first.setAttribute('open', '');
+            }
+        })();
+        // ]]>
+    </script>
+</p>
+<!-- ##########################  /FIM DESCRIÇÃO MODERNA  ########################## -->

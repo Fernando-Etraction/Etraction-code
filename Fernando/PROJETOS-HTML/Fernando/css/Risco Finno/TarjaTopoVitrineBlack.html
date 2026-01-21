@@ -1,0 +1,145 @@
+<section class="promo-tarja">
+  <div class="promo-header">
+    <h1 style="color: white;">BLACK EXTRAORDINÁRIA</h1>
+    <h2 style="color: white;">ATÉ 60% OFF</h2>
+    <p style="color: white;">Não perca tempo! Estoque limitado. Compre agora e economize!</p>
+  </div>
+
+  <div class="promo-timer">
+    <h3>OFERTA VÁLIDA POR:</h3>
+    <div id="countdown" class="countdown">
+      <span id="hours">00</span> :
+      <span id="minutes">00</span> :
+      <span id="seconds">00</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo-tarja {
+    font-family: "Poppins", Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+  
+  .title-pesquisa {
+    display: none;
+  }
+
+  .promo-header {
+    background-color: #000;
+    padding: 24px 16px;
+  }
+
+  .promo-tarja h1 {
+    font-size: 1.8rem !important;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+
+  .promo-tarja h2 {
+    font-size: 1.4rem !important;
+    font-weight: 700;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .promo-tarja p {
+    font-size: 1rem !important;
+    color: #f1f1f1;
+    margin: 4px auto;
+    max-width: 90%;
+    line-height: 1.4;
+  }
+
+  .promo-timer {
+    background: #fff;
+    color: #000;
+    border-radius: 0 0 4px 4px;
+    margin-top: 0px;
+  }
+
+  .promo-timer h3 {
+    font-size: 1.8rem !important;
+    margin-top: 5px;
+    margin-bottom: -6px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .countdown {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .timer-sub {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* === RESPONSIVO === */
+  @media (min-width: 480px) {
+    .promo-tarja h1 {
+      font-size: 1.8rem;
+    }
+
+    .promo-tarja h2 {
+      font-size: 1.4rem;
+    }
+
+    .promo-tarja p {
+      font-size: 1rem;
+    }
+
+    .countdown {
+      font-size: 2.2rem;
+      letter-spacing: 3px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .promo-header {
+      padding: 40px 20px;
+    }
+
+    .promo-timer {
+    }
+
+    .promo-tarja h1 {
+      font-size: 2.4rem;
+    }
+
+    .promo-tarja h2 {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<script>
+  // Contagem regressiva de 12h
+  const countdownDate = new Date().getTime() + 12 * 60 * 60 * 1000;
+
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("hours").innerHTML = hours.toString().padStart(2, "0");
+    document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
+    document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+
+    if (distance < 0) {
+      clearInterval(timer);
+      document.getElementById("countdown").innerHTML = "00 : 00 : 00";
+      document.querySelector(".timer-sub").textContent = "Promoção encerrada";
+    }
+  }, 1000);
+</script>

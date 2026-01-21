@@ -1,0 +1,166 @@
+<style id="rn-dimensoes-css">
+#rudnik-dim-wrap .rn-item[open] summary::before{
+  display: none;
+}
+#rudnik-dim-wrap .rn-item summary::before{
+  display: none;
+}
+.rn-accordion{
+  border-bottom: 0.5px solid #E9E9E9;
+}
+#rudnik-dim-wrap .rn-item summary{
+  display:flex; align-items:center; gap:10px; padding:5px 0; cursor:pointer; font-weight:600; color:#000;
+}
+#rudnik-dim-wrap .rn-item summary{
+  margin-left: 12px;
+    margin-right: 14px;
+}
+#rudnik-dim-wrap .rn-item summary::-webkit-details-marker{ display:none; }
+#rudnik-dim-wrap .rn-item summary::before{ content:"+"; width:20px; text-align:center; font-weight:700; }
+#rudnik-dim-wrap .rn-item[open] summary::before{ content:"–"; }
+
+#rudnik-dim-wrap .rn-dimensoes-box{
+  background: linear-gradient(135deg,#ffffff 0%,#f8f9fa 100%);
+  border-radius:12px; padding:20px; margin:8px 0 0 0;
+  font-family:'Rubik',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  max-width:680px; margin-left:80px;
+}
+#rudnik-dim-wrap .rn-dimensoes-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px;
+}
+#rudnik-dim-wrap .rn-dimensao-item{ display:flex; align-items:center; gap:12px; padding:12px; border-radius:8px; }
+#rudnik-dim-wrap .rn-dimensao-icone{ width:44px; height:44px; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:700; color:#000; border-radius:6px; flex-shrink:0; }
+#rudnik-dim-wrap .rn-dimensao-label{ font-size:14px; color:#6c757d; font-weight:500; margin-bottom:2px; }
+#rudnik-dim-wrap .rn-dimensao-valor{ font-size:16px; color:#2c3e50; font-weight:600; }
+@media (max-width:768px){
+  #rudnik-dim-wrap .rn-dimensoes-box{ margin:10px; padding:15px; }
+  #rudnik-dim-wrap .rn-dimensoes-grid{ grid-template-columns:1fr; gap:12px; }
+  #rudnik-dim-wrap .rn-dimensao-valor{ font-size:15px; }
+}
+
+/* ---- botão dentro do summary (igual ao antigo +/–) ---- */
+#rudnik-dim-wrap .rn-toggle{
+  all:unset; margin-left:auto; /* encosta à direita */
+  font-size:27px; line-height:1; cursor:pointer; color:#000;
+}
+</style>
+
+<script>
+(function(){
+  const BP = 800;
+
+  const q = sel => document.querySelector(sel);
+  const insertAfter = (ref, node) => ref && ref.parentNode && ref.parentNode.insertBefore(node, ref.nextSibling);
+
+  function rn_txt(sel){ return q(sel)?.innerText.trim() || ''; }
+  function rn_num(v){ return v.replace(',', '.').replace(/cm/i,'').trim(); }
+
+  // monta apenas o bloco de Dimensões, com toggle no summary
+  function buildDimAccordion(){
+    if (q('#rudnik-dim-wrap')) return q('#rudnik-dim-wrap');
+
+    const largura      = rn_txt('.caract-largura dd');
+    const altura       = rn_txt('.caract-altura dd');
+    const profundidade = rn_txt('.caract-profundidade dd');
+
+    if (!largura || !altura || !profundidade){
+      console.warn('[rn] dimensões não encontradas no DOM');
+      return null;
+    }
+
+    const wrap = document.createElement('div');
+    wrap.className = 'accordion rn-accordion';
+    wrap.id = 'rudnik-dim-wrap';
+
+    wrap.innerHTML = `
+      <details class="rn-item" id="rudnik-dimensoes" open>
+        <summary>
+          <span style="font-weight: 400;
+    font-size: 13px;">Dimensões</span>
+          <button style="font-weight: 500;" type="button" class="rn-toggle" aria-controls="rudnik-dimensoes" aria-expanded="true">–</button>
+        </summary>
+        <div class="rn-dimensoes-box">
+          <div class="rn-dimensoes-grid">
+            <div class="rn-dimensao-item" aria-label="Largura">
+              <div class="rn-dimensao-icone">↔</div>
+              <div>
+                <div class="rn-dimensao-label">Largura:</div>
+                <div class="rn-dimensao-valor" data-cm="${rn_num(largura)}">${largura}</div>
+              </div>
+            </div>
+            <div class="rn-dimensao-item" aria-label="Altura">
+              <div class="rn-dimensao-icone">↕</div>
+              <div>
+                <div class="rn-dimensao-label">Altura:</div>
+                <div class="rn-dimensao-valor" data-cm="${rn_num(altura)}">${altura}</div>
+              </div>
+            </div>
+            <div class="rn-dimensao-item" aria-label="Profundidade">
+              <div class="rn-dimensao-icone">↡</div>
+              <div>
+                <div class="rn-dimensao-label">Profundidade:</div>
+                <div class="rn-dimensao-valor" data-cm="${rn_num(profundidade)}">${profundidade}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </details>
+    `;
+    return wrap;
+  }
+
+  // posiciona entre as .accordion (desktop: após #caracteristicas; mobile: após .accordion.descricao-produto)
+  function place(){
+    const isDesktop = window.innerWidth >= BP;
+    const mobileTarget  = q('.accordion.descricao-produto');
+    const desktopTarget = q('#caracteristicas') || q('.produto-caracteristicas') || q('.product-accordion');
+
+    const wrap = q('#rudnik-dim-wrap') || buildDimAccordion();
+    if (!wrap) return;
+
+    if (!wrap.parentNode){
+      if (isDesktop && desktopTarget){
+        insertAfter(desktopTarget, wrap);
+      } else if (mobileTarget){
+        insertAfter(mobileTarget, wrap);
+      }
+    } else {
+      if (isDesktop && desktopTarget && desktopTarget.nextSibling !== wrap){
+        insertAfter(desktopTarget, wrap);
+      } else if (!isDesktop && mobileTarget && mobileTarget.nextSibling !== wrap){
+        insertAfter(mobileTarget, wrap);
+      }
+    }
+    syncBtn(); // garante estado do botão
+  }
+
+  function syncBtn(){
+    const det = q('#rudnik-dimensoes');
+    const btn = q('#rudnik-dim-wrap .rn-toggle');
+    if (!det || !btn) return;
+    const open = det.open;
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? '–' : '+';
+  }
+
+  // clique no botão (não interfere no clique do summary nativo)
+  document.addEventListener('click', (e)=>{
+    if (!e.target.matches('#rudnik-dim-wrap .rn-toggle')) return;
+    e.stopPropagation(); // evita duplicar o toggle pelo summary
+    const det = q('#rudnik-dimensoes');
+    if (det){ det.open = !det.open; syncBtn(); }
+  });
+
+  // quando o <details> muda (fechado/aberto via summary), atualiza botão
+  document.addEventListener('toggle', (e)=>{
+    if (e.target && e.target.id === 'rudnik-dimensoes'){ syncBtn(); }
+  }, true);
+
+  function boot(){ place(); }
+  if (document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', boot); }
+  else { boot(); }
+
+  let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(place,120); }, {passive:true});
+  setTimeout(place,150); setTimeout(place,400);
+})();
+</script>

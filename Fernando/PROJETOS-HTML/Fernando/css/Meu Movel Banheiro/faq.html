@@ -1,0 +1,359 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    .faq-section {
+        font-family: 'Poppins', sans-serif;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .faq-header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+
+    .faq-header h2 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 12px 0;
+    }
+
+    .faq-header p {
+        font-size: 16px;
+        color: #6b7280;
+        margin: 0;
+    }
+
+    .faq-container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .faq-item {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: #d1d5db;
+    }
+
+    .faq-question {
+        width: 100%;
+        padding: 20px 24px;
+        background: transparent;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        font-family: 'Poppins', sans-serif;
+        transition: background-color 0.3s ease;
+    }
+
+    .faq-question:hover {
+        background-color: #f9fafb;
+    }
+
+    .faq-question-text {
+        font-size: 17px;
+        font-weight: 600;
+        color: #1a1a1a;
+        flex: 1;
+    }
+
+    .faq-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        transition: transform 0.3s ease, color 0.3s ease;
+        color: #6b7280;
+    }
+
+    .faq-item.active .faq-icon {
+        transform: rotate(180deg);
+        color: #00D45F;
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        padding: 0 24px;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 500px;
+        padding: 0 24px 20px 24px;
+    }
+
+    .faq-answer-content {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #4b5563;
+    }
+
+    .faq-answer-content strong {
+        color: #00D45F;
+        font-weight: 600;
+    }
+
+    .faq-answer-content ul {
+        margin: 12px 0;
+        padding-left: 20px;
+    }
+
+    .faq-answer-content ul li {
+        margin: 8px 0;
+    }
+
+    /* Mobile responsivo */
+    @media (max-width: 768px) {
+        .faq-header h2 {
+            font-size: 28px;
+        }
+
+        .faq-header p {
+            font-size: 14px;
+        }
+
+        .faq-question {
+            padding: 16px 18px;
+        }
+
+        .faq-question-text {
+            font-size: 15px;
+        }
+
+        .faq-answer-content {
+            font-size: 14px;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 18px 16px 18px;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        const html = `<div class="faq-section">
+    <div class="faq-header">
+        <h2>Perguntas Frequentes</h2>
+        <p>Tire suas dúvidas sobre móveis de banheiro, entrega e montagem</p>
+    </div>
+
+    <div class="faq-container">
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Vocês são revendedores autorizados Fabribam?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Sim! Somos <strong>revenda oficial Fabribam</strong>, uma das marcas líderes em móveis de banheiro no Brasil. Todos os nossos produtos contam com garantia original do fabricante e certificado de autenticidade.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Qual é o prazo de entrega?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    O prazo de entrega varia conforme a região e disponibilidade do produto. Em média:
+                    <ul>
+                        <li><strong>Região Sul e Sudeste:</strong> 7 a 15 dias úteis</li>
+                        <li><strong>Demais regiões:</strong> 15 a 25 dias úteis</li>
+                    </ul>
+                    Produtos em estoque podem ter prazos reduzidos. Consulte o prazo específico na página do produto.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Os móveis vêm montados ou preciso montar?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Os móveis são entregues <strong>desmontados</strong> para facilitar o transporte e evitar avarias. Eles vêm acompanhados de manual de montagem ilustrado. A montagem é simples e pode ser feita com ferramentas básicas. Se preferir, podemos indicar profissionais especializados em montagem de móveis.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Qual é a garantia dos produtos?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Todos os móveis Fabribam possuem <strong>garantia de 3 meses</strong> contra defeitos de fabricação (garantia legal) e <strong>3 anos de garantia adicional</strong> do fabricante, totalizando garantia total do produto. A garantia cobre defeitos de fabricação, mas não cobre danos causados por mau uso, montagem incorreta ou desgaste natural.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">As cubas e torneiras estão incluídas?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Depende do modelo escolhido. Verifique a <strong>descrição completa do produto</strong>:
+                    <ul>
+                        <li><strong>Gabinetes com cuba:</strong> Incluem a cuba de louça ou vidro conforme especificado</li>
+                        <li><strong>Gabinetes sem cuba:</strong> Vendidos separadamente, ideal para quem já possui ou quer escolher outro modelo</li>
+                        <li><strong>Torneiras:</strong> Geralmente vendidas separadamente</li>
+                    </ul>
+                    Confira sempre o item "O que está incluso" na página do produto.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Como escolher o tamanho ideal para meu banheiro?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    <strong>Dicas importantes:</strong>
+                    <ul>
+                        <li><strong>Meça o espaço disponível:</strong> Considere não só a largura, mas também a profundidade</li>
+                        <li><strong>Deixe espaço de circulação:</strong> Mínimo de 60cm à frente do móvel</li>
+                        <li><strong>Verifique pontos hidráulicos:</strong> Onde estão água e esgoto</li>
+                        <li><strong>Tamanhos comuns:</strong> 60cm (banheiros pequenos), 80cm (médios), 1m+ (banheiros amplos)</li>
+                    </ul>
+                    Em caso de dúvida, entre em contato pelo WhatsApp e nossa equipe ajudará você!
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Posso trocar ou devolver o produto?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Sim! Você tem <strong>7 dias corridos</strong> para desistir da compra (direito de arrependimento), conforme o Código de Defesa do Consumidor. Neste caso:
+                    <ul>
+                        <li>O produto deve estar em perfeitas condições</li>
+                        <li>Embalagem original preservada</li>
+                        <li>Sem sinais de montagem ou uso</li>
+                        <li>Estorno integral do valor pago</li>
+                    </ul>
+                    Para produtos com defeito, a troca é garantida dentro do período de garantia.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Os espelhos com LED já vêm com a iluminação?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Sim! Os espelhos com LED já incluem a <strong>iluminação LED integrada</strong>. Basta conectar à tomada (bivolt 110/220V). Alguns modelos também possuem interruptor touch ou controle de intensidade. Verifique as especificações de cada modelo.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Como faço para acompanhar meu pedido?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Após a confirmação do pagamento, você receberá um <strong>código de rastreamento</strong> por e-mail. Com este código, você pode acompanhar sua entrega em tempo real. Também enviamos atualizações por WhatsApp e e-mail em cada etapa da entrega.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span class="faq-question-text">Ainda tenho dúvidas, como posso entrar em contato?</span>
+                <svg class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div class="faq-answer">
+                <div class="faq-answer-content">
+                    Estamos prontos para ajudar! Entre em contato:
+                    <ul>
+                        <li><strong>WhatsApp:</strong> (47) 99622-7337</li>
+                        <li><strong>Horário de atendimento:</strong> Segunda a sexta, das 8h às 18h</li>
+                        <li><strong>E-mail:</strong> Através do formulário de contato no site</li>
+                    </ul>
+                    Nossa equipe terá prazer em tirar todas as suas dúvidas!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`;
+        $(html).insertAfter('.acompanha-produto');
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+
+            question.addEventListener('click', function () {
+                const isActive = item.classList.contains('active');
+
+                // Fecha todos os outros itens
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Toggle no item clicado
+                if (isActive) {
+                    item.classList.remove('active');
+                    question.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    });
+</script>

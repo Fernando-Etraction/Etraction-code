@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      /* ====== BASE ====== */
+      .cat-wrap {
+        --size: 220px;
+        --ring: 2px;
+        --gap: 0;
+        --radius: 999px;
+        --shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        padding: 24px 16px 8px;
+        position: relative;
+      }
+
+      .cat-title {
+        margin: 0 0 14px;
+        font: 600 1.25rem/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+      }
+
+      .cat-list {
+        display: grid;
+        /* alterar pra mais qunado for mais listas */
+        grid-template-columns: repeat(4, minmax(var(--size), 1fr));
+        gap: var(--gap);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        align-items: start;
+      }
+
+      .cat-item {
+        display: block;
+      }
+
+      .cat-card {
+        display: grid;
+        justify-items: center;
+        text-decoration: none;
+        gap: 12px;
+        color: #111;
+        outline: none;
+      }
+
+      .cat-thumb {
+        width: var(--size);
+        aspect-ratio: 1 / 1;
+        border-radius: var(--radius);
+        background: #fff;
+        border: var(--ring) solid #e6e6e6;
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          border-color 0.25s ease;
+        overflow: hidden;
+      }
+
+      .cat-thumb img {
+        width: 82%;
+        height: 82%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .cat-name {
+        font: 500 0.95rem/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        text-align: center;
+      }
+
+      .cat-card:hover .cat-thumb,
+      .cat-card:focus-visible .cat-thumb {
+        transform: translateY(-2px) scale(1.02);
+        border-color: #cfcfcf;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      /* ====== TABLET ====== */
+      @media (max-width: 1024px) {
+        .cat-wrap {
+          --size: 180px;
+          --gap: 28px;
+        }
+        .cat-list {
+          grid-template-columns: repeat(4, minmax(160px, 1fr));
+        }
+      }
+
+      /* ====== MOBILE: CARROSSEL PURO ====== */
+      @media (max-width: 720px) {
+        .cat-wrap {
+          --size: 140px;
+          --gap: 18px;
+        }
+
+        .cat-list {
+          display: grid;
+          grid-auto-flow: column;
+          grid-auto-columns: minmax(calc(var(--size) + 4px), 78%);
+          column-gap: var(--gap);
+          overflow-x: auto;
+          padding: 0 40px 8px;
+          margin: 0;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE/Edge antigo */
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          touch-action: pan-x;
+        }
+        .cat-list::-webkit-scrollbar {
+          display: none;
+        }
+
+        .cat-item {
+          scroll-snap-align: start;
+        }
+
+        .cat-card:focus-visible .cat-thumb {
+          transform: none; /* evita “pulo” no snap */
+        }
+
+        /* Gradientes nas bordas para indicar mais conteúdo */
+        .cat-wrap::before,
+        .cat-wrap::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 24px;
+          width: 36px;
+          pointer-events: none;
+          z-index: 1;
+        }
+        .cat-wrap::before {
+          left: 0;
+          background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+        }
+        .cat-wrap::after {
+          right: 0;
+          background: linear-gradient(-90deg, #fff, rgba(255, 255, 255, 0));
+        }
+
+        /* Botões do carrossel (apenas mobile) */
+        .cat-nav {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          pointer-events: none; /* deixa o scroll por gesto funcionar */
+        }
+        .cat-btn {
+          pointer-events: auto;
+          border: 0;
+          width: 36px;
+          height: 36px;
+          border-radius: 999px;
+          background: #fff;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+          display: grid;
+          place-items: center;
+          cursor: pointer;
+          transition: transform 0.15s ease, box-shadow 0.15s ease;
+          margin: 0 4px;
+        }
+        .cat-btn:active {
+          transform: scale(0.96);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .cat-btn svg {
+          width: 18px;
+          height: 18px;
+        }
+        .cat-btn[disabled] {
+          opacity: 0.4;
+          cursor: default;
+        }
+
+        .cat-btn-prev {
+          margin-left: 6px;
+          z-index: 999999;
+        }
+        .cat-btn-next {
+          margin-right: 6px;
+          z-index: 999999;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="cat-wrap" aria-labelledby="titulo-categorias">
+
+      <div class="cat-nav" aria-hidden="true">
+        <button
+          class="cat-btn cat-btn-prev"
+          type="button"
+          aria-label="Anterior"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M15 6l-6 6 6 6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <button class="cat-btn cat-btn-next" type="button" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M9 6l6 6-6 6"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <ul class="cat-list" role="listbox" aria-label="Carrossel de categorias">
+        <li class="cat-item" role="option">
+            <!--  O LINK VEM NO LUGAR DE #FERRAMENTAS -->
+          <a class="cat-card" href="#ferramentas" aria-label="Ferramentas">
+            <span class="cat-thumb">
+              <img
+                loading="lazy"
+                alt="Ferramentas"
+                src="https://corebral.cdn.magazord.com.br/img/2024/10/produto/10080/trena-de-bolso-3-metros-com-trava-mmpol-starrett-sts12-3me.png"
+              />
+            </span>
+            <span class="cat-name">Trena </span>
+          </a>
+        </li>
+
+        <li class="cat-item" role="option">
+            
+            <!--  O LINK VEM NO LUGAR DE #acessorios -->
+          <a class="cat-card" href="#acessorios" aria-label="Acessórios">
+            <span class="cat-thumb">
+              <img
+                loading="lazy"
+                alt="Acessórios"
+                src="https://corebral.cdn.magazord.com.br/img/2024/05/produto/8184/disco-de-corte-diamantado-turbo-110x20mm-para-porcelanato-starrett-ddp110.png"
+              />
+            </span>
+            <span class="cat-name">Discos</span>
+          </a>
+        </li>
+
+        <li class="cat-item" role="option">
+            
+            <!--  O LINK VEM NO LUGAR DE #medicao -->
+          <a class="cat-card" href="#medicao" aria-label="Medição">
+            <span class="cat-thumb">
+              <img
+                loading="lazy"
+                alt="Medição"
+                src="https://corebral.cdn.magazord.com.br/img/2023/12/produto/7094/serra-copo-bi-metal-fast-cut-83mm-3-14-starrett-fch0314-g.png"
+              />
+            </span>
+            <span class="cat-name">Serras</span>
+          </a>
+        </li>
+        <li class="cat-item" role="option">
+            
+            <!--  O LINK VEM NO LUGAR DE #medicao -->
+          <a class="cat-card" href="#medicao" aria-label="Medição">
+            <span class="cat-thumb">
+              <img
+                loading="lazy"
+                alt="Medição"
+                src="https://corebral.cdn.magazord.com.br/img/2023/12/produto/7089/lamina-serra-tico-tico-madeira-100x9-5mm-6-dentes-5-pecas-starrett-bu46-2.png"
+              />
+            </span>
+            <span class="cat-name">Laminas</span>
+          </a>
+        </li>
+
+       
+      </ul>
+    </section>
+
+    <script>
+      (function () {
+        const wrap = document.querySelector(".cat-wrap");
+        const list = document.querySelector(".cat-list");
+        const prev = document.querySelector(".cat-btn-prev");
+        const next = document.querySelector(".cat-btn-next");
+
+        if (!wrap || !list || !prev || !next) return;
+
+        // Apenas comportamentos extras em telas móveis
+        const isMobile = () => window.matchMedia("(max-width: 720px)").matches;
+
+        function getStep() {
+          // Largura do primeiro item + gap visual
+          const first = list.querySelector(".cat-item");
+          if (!first) return 0;
+          const itemWidth = first.getBoundingClientRect().width;
+          // Pequeno extra para “colar” no próximo snap
+          return itemWidth + 16;
+        }
+
+        function updateButtons() {
+          if (!isMobile()) {
+            prev.setAttribute("hidden", "");
+            next.setAttribute("hidden", "");
+            return;
+          }
+          prev.removeAttribute("hidden");
+          next.removeAttribute("hidden");
+
+          const maxScroll = list.scrollWidth - list.clientWidth - 2;
+          prev.disabled = list.scrollLeft <= 2;
+          next.disabled = list.scrollLeft >= maxScroll;
+        }
+
+        function scrollByStep(dir) {
+          const step = getStep() || list.clientWidth * 0.8;
+          list.scrollBy({ left: dir * step, behavior: "smooth" });
+          setTimeout(updateButtons, 260);
+        }
+
+        prev.addEventListener("click", () => scrollByStep(-1));
+        next.addEventListener("click", () => scrollByStep(1));
+
+        let isDown = false,
+          startX = 0,
+          startScroll = 0;
+        list.addEventListener("pointerdown", (e) => {
+          if (!isMobile()) return;
+          isDown = true;
+          startX = e.clientX;
+          startScroll = list.scrollLeft;
+          list.setPointerCapture(e.pointerId);
+        });
+        list.addEventListener("pointermove", (e) => {
+          if (!isDown || !isMobile()) return;
+          const dx = e.clientX - startX;
+          list.scrollLeft = startScroll - dx;
+        });
+        const endDrag = (e) => {
+          isDown = false;
+          if (e?.pointerId) list.releasePointerCapture(e.pointerId);
+        };
+        list.addEventListener("pointerup", endDrag);
+        list.addEventListener("pointercancel", endDrag);
+        list.addEventListener("pointerleave", endDrag);
+
+        list.addEventListener("keydown", (e) => {
+          if (!isMobile()) return;
+          if (e.key === "ArrowRight") {
+            e.preventDefault();
+            scrollByStep(1);
+          }
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            scrollByStep(-1);
+          }
+        });
+
+        updateButtons();
+        window.addEventListener("resize", updateButtons);
+        list.addEventListener("scroll", updateButtons, { passive: true });
+      })();
+    </script>
+  </body>
+</html>

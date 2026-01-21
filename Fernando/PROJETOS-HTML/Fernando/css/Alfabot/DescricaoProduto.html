@@ -1,0 +1,301 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+    :root {
+        --ab-brand: #000F47;
+        --ab-ink: #1b1b1b;
+        --ab-muted: #667085;
+        --ab-line: #e5e7eb;
+        --ab-bg: #ffffff;
+        --ab-pill: #f9fafb;
+    }
+
+    .produto-caracteristicas{
+        display: none;
+    }
+    .descricao-produto {
+        display: none;
+    }
+
+
+    .ab-wrap {
+        font-family: "Rubik", sans-serif;
+        color: var(--ab-ink);
+        max-width: 1240px;
+        margin: 0px auto;
+    }
+
+    .ab-card {
+        background: var(--ab-bg);
+        border: 1px solid var(--ab-line);
+        border-radius: 16px;
+        padding: 22px;
+        margin-top: 20px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, .04)
+    }
+
+    .ab-title {
+        color: var(--ab-brand);
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        margin: 0 0 14px;
+        letter-spacing: .2px
+    }
+
+    .ab-actions {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 18px
+    }
+
+    .ab-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--ab-brand);
+        background: var(--ab-pill);
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--ab-brand);
+        transition: .2s
+    }
+
+    .ab-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, .08)
+    }
+
+    .ab-section {
+        margin-top: 22px
+    }
+
+    .ab-btn svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+    }
+
+    .ab-section>h3 {
+        color: var(--ab-brand);
+        font-size: 20px;
+        font-weight: 600 !important;
+        margin: 0 0 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px
+    }
+
+    .ab-section>h3::after {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ab-brand), transparent);
+        border-radius: 2px
+    }
+
+    .ab-video {
+        position: relative;
+        border: 1px solid var(--ab-line);
+        border-radius: 12px;
+        overflow: hidden;
+        background: #000
+    }
+
+    .ab-video::before {
+        content: "";
+        display: block;
+        padding-top: 56.25%
+    }
+
+    .ab-video iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0
+    }
+
+    .ab-desc {
+        border: 1px solid var(--ab-line);
+        border-radius: 12px;
+        padding: 16px;
+        line-height: 1.65
+    }
+
+    .ab-beneficios {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px
+    }
+
+    .ab-benef-col {
+        border: 1px solid var(--ab-line);
+        border-radius: 12px;
+        padding: 16px;
+        background: #fafafa
+    }
+
+    .ab-benef-col ul {
+        margin: 0;
+        padding-left: 18px;
+        line-height: 1.55
+    }
+
+    .ab-specs {
+        border: 1px solid var(--ab-line);
+        border-radius: 12px;
+        overflow: hidden
+    }
+
+    .ab-specs table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px
+    }
+
+    .ab-specs th,
+    .ab-specs td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--ab-line);
+        vertical-align: top
+    }
+
+    .ab-specs th {
+        width: 36%;
+        background: #fafafa;
+        text-align: left
+    }
+
+    .ab-callout {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        border: 1px solid var(--ab-line);
+        border-left: 4px solid var(--ab-brand);
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 14px 16px
+    }
+
+    .ab-btn--brand {
+        background: var(--ab-brand);
+        color: #fff;
+        border-color: var(--ab-brand)
+    }
+
+    @media (max-width:820px) {
+        .ab-beneficios {
+            grid-template-columns: 1fr
+        }
+
+        .ab-specs th {
+            width: 44%
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        const MANUAL_URL = "https://drive.google.com/file/d/1dLuKNLc5qjWtthkSdYsd3tW4J0YlwJIs/view?usp=sharing";
+        const FICHA_URL = "https://alfabot.cdn.magazord.com.br/img/2021/07/produto/2488/atv310hd22n4e-datasheet-br-pt-br-alfabot.pdf";
+        const VIDEO_EMBED = "https://www.youtube.com/embed/Ib-WZOsjei4";
+
+        const ICON_MANUAL = `<svg viewBox="0 0 472.615 472.615" fill="currentColor"><path d="M462.769,112.271h-28.124V91.108c0-3.944-2.353-7.507-5.981-9.056c-59.396-25.355-132.473-14.609-192.357,27.865C176.424,67.443,103.345,56.7,43.951,82.052c-3.628,1.549-5.981,5.112-5.981,9.056v21.163H9.846c-5.437,0-9.846,4.408-9.846,9.846v272.151c0,5.438,4.409,9.846,9.846,9.846h452.769c5.438,0,9.846-4.409,9.846-9.846V122.118C472.615,116.68,468.207,112.271,462.769,112.271z"/></svg>`;
+        const ICON_FICHA = `<svg viewBox="0 0 64 64" fill="currentColor"><path d="m41 52h-26c-3.3 0-6-2.7-6-6v-36c0-3.3 2.7-6 6-6h26c3.3 0 6 2.7 6 6v36c0 3.3-2.7 6-6 6z"/></svg>`;
+
+        const html = `
+  <section class="ab-wrap" id="bloco-atv310">
+    <div class="ab-card">
+      <p class="ab-title">Documentos Técnicos</p>
+      <div class="ab-actions">
+        <a class="ab-btn" href="${MANUAL_URL}" target="_blank">${ICON_MANUAL}<span>Manual do Usuário</span></a>
+        <a class="ab-btn" href="${FICHA_URL}" target="_blank">${ICON_FICHA}<span>Ficha Técnica (PDF)</span></a>
+      </div>
+
+      <div class="ab-section">
+        <h3>Conheça o Inversor de Frequência ATV310 30CV 46A 380V</h3>
+        <div class="ab-video">
+          <iframe src="${VIDEO_EMBED}" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="ab-section">
+        <h3>Descrição do Produto</h3>
+        <div class="ab-desc">
+          <p>Este <strong>variador de velocidade / inversor de frequência (VSD/VFD)</strong> é ideal para controlar a velocidade de motores trifásicos em aplicações de <strong>torque constante</strong>. Indicado para máquinas têxteis, ferramentas, madeira, embalagens, impressão e cerâmica. Compacto e fácil de instalar, com tampa frontal, visor de status e botão de navegação.</p>
+        </div>
+      </div>
+
+      <div class="ab-section">
+        <h3>Benefícios do Produto</h3>
+        <div class="ab-beneficios">
+          <div class="ab-benef-col">
+            <ul>
+              <li><strong>Instalação imediata:</strong> configurado de fábrica, sem necessidade de ajustes finos.</li>
+              <li><strong>Proteções integradas:</strong> subcarga, sobrecarga e controle térmico com alerta de limpeza.</li>
+              <li><strong>Alta durabilidade:</strong> componentes projetados para até 10 anos.</li>
+              <li><strong>Funções avançadas:</strong> controle de torque, limitação de corrente, redução de ruído.</li>
+            </ul>
+          </div>
+          <div class="ab-benef-col">
+            <ul>
+              <li><strong>Visor LED 4 dígitos:</strong> exibição clara dos principais parâmetros.</li>
+              <li><strong>Funções de aplicação:</strong> salto de frequência, parada livre e parada rápida.</li>
+              <li><strong>Armazenamento de parâmetros:</strong> salva e replica configurações.</li>
+              <li><strong>Ampla compatibilidade:</strong> têxteis, embalagens, madeira, cerâmica e muito mais.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ab-section">
+        <h3>Características Técnicas</h3>
+        <div class="ab-specs">
+          <table>
+            <tr><th>Potência</th><td>30 CV</td></tr>
+            <tr><th>Fases de Entrada</th><td>Trifásico</td></tr>
+            <tr><th>Corrente de Saída</th><td>46A Contínua</td></tr>
+            <tr><th>Corrente Máxima de Saída</th><td>69A por 60 segundos</td></tr>
+            <tr><th>Frequência de Saída</th><td>0,5…400 Hz</td></tr>
+            <tr><th>Tensão de Saída</th><td>380...460 V trifásico</td></tr>
+            <tr><th>Tensão de Entrada</th><td>380...460 V - 15...10%</td></tr>
+            <tr><th>Entrada Analógica</th><td>1 configurável (0–20 mA / 0–10 V / 0–0,5 V)</td></tr>
+            <tr><th>Entradas Digitais</th><td>4 configuráveis (24 V, 18–30 V)</td></tr>
+            <tr><th>Saída Analógica</th><td>1 configurável (0–10 V / 0–20 mA)</td></tr>
+            <tr><th>Saídas Digitais</th><td>1 lógica + 1 relé</td></tr>
+            <tr><th>Linha</th><td>Easy Altivar 310</td></tr>
+            <tr><th>Aplicações</th><td>Máquinas simples, bombas centrífugas e dosadoras, ventiladores, misturadores, extrusoras, esteiras, secadores, fornos, filtros e máquinas de corte e solda.</td></tr>
+            <tr><th>Dimensões (AxLxP)</th><td>390 x 180 x 212 mm</td></tr>
+            <tr><th>Fabricante</th><td>Schneider</td></tr>
+            <tr><th>Garantia</th><td>18 meses</td></tr>
+            <tr><th>Grau de Proteção</th><td>IP20 (sem placa superior) / IP41 (topo)</td></tr>
+            <tr><th>Modo de Controle</th><td>Controle vetorial sem feedback, relação V/F quadrática e modo de economia de energia</td></tr>
+            <tr><th>Peso</th><td>Aproximadamente 8,5 kg</td></tr>
+            <tr><th>Tipo de Proteção</th><td>Sobretensão, subtensão, sobrecorrente, curto entre fases, perda de fase e proteção térmica I²t.</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="ab-section">
+        <div class="ab-callout">
+          <div>
+            <h4>Dúvidas sobre o produto?</h4>
+            <p>Veja vídeos de instalação, configuração e erros comuns do ATV310.</p>
+          </div>
+          <a class="ab-btn ab-btn--brand" href="https://www.youtube.com/watch?v=Ib-WZOsjei4" target="_blank">🎥 Ver no YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  `;
+
+        $(html).insertAfter(".container-product");
+    });
+</script>

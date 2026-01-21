@@ -1,0 +1,155 @@
+<!-- ===================== Cupons Estáticos - PRIMEIRACOMPRA ===================== -->
+<style><!--
+:root {
+  --brand: #000;         /* preto */
+  --brand-dark: #111;    /* preto 90% */
+  --muted: #6b6b6b;      /* cinza */
+  --card-bg: #fff;       /* branco */
+  --line: #e5e5e5;       /* cinza claro */
+  --radius: 10px;
+}
+
+.safe-cupons-container {
+  font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  margin: 20px 0;
+  padding: 16px;
+  background: #f6f6f6;   /* cinza muito claro */
+  border-radius: var(--radius);
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: fadeSlide .4s ease forwards;
+}
+@keyframes fadeSlide { to { opacity: 1; transform: translateY(0); } }
+
+.safe-cupons-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 18px;
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.safe-cupons-title::before {
+  content: "🏷️";
+  display: inline-block;
+  font-size: 18px;
+}
+
+.safe-cupom-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.safe-cupom-card:hover {
+  transform: translateY(-1px);
+  background: #f1f1f1; /* cinza claro */
+  border-color: #d4d4d4;
+}
+
+.safe-cupom-info h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand);
+}
+.safe-cupom-info p {
+  margin: 2px 0 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.safe-cupom-codigo {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .5px;
+  color: var(--brand);
+  padding: 4px 8px;
+  border: 1px dashed var(--brand);
+  border-radius: 6px;
+  background: #fff; /* branco */
+}
+
+.safe-cupom-copiar {
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, transform .02s ease;
+  background-color: var(--brand); /* preto */
+  color: #fff;                    /* branco */
+  white-space: nowrap;
+}
+.safe-cupom-copiar:hover { background: var(--brand-dark); }
+.safe-cupom-copiar:active { transform: scale(.98); }
+
+@media (max-width: 768px) {
+  .safe-cupons-container { padding: 14px; margin: 16px 0; }
+  .safe-cupom-info h3 { font-size: 14px; }
+  .safe-cupom-info p { font-size: 12px; }
+  .safe-cupom-codigo { font-size: 11px; }
+  .safe-cupom-copiar { padding: 9px 12px; font-size: 12px; }
+}
+--></style>
+<p>
+<script>// <![CDATA[
+(function(){
+  const CODIGO = "PRIMEIRACOMPRA"; // cupom de primeira compra
+
+  const cuponsHTML = `
+    <div id="safe-cupons-container" class="safe-cupons-container">
+      <h2 class="safe-cupons-title">Cupons Disponíveis (1)</h2>
+
+      <div class="safe-cupom-card">
+        <div class="safe-cupom-info">
+          <h3>${CODIGO}</h3>
+          <p>Válido para sua primeira compra na Savancini Fitness</p>
+          <span class="safe-cupom-codigo">${CODIGO}</span>
+        </div>
+        <div class="safe-cupom-copiar" data-cupom="${CODIGO}">Copiar</div>
+      </div>
+    </div>`;
+
+  function ativarBotoes() {
+    document.querySelectorAll(".safe-cupom-copiar").forEach(btn=>{
+      if(btn.dataset._bound) return;
+      btn.dataset._bound = "1";
+      btn.addEventListener("click", ()=>{
+        const codigo = btn.dataset.cupom;
+        navigator.clipboard.writeText(codigo).then(()=>{
+          btn.textContent = "Copiado!";
+          setTimeout(()=>btn.textContent = "Copiar", 1500);
+        });
+      });
+    });
+  }
+
+  function inserirCupons() {
+    if (document.querySelector("#safe-cupons-container")) return;
+
+    // insere logo após a seção de ações do checkout (ajuste o seletor se o tema for diferente)
+    const alvo = document.querySelector(".acoes-checkout");
+    if (alvo) {
+      alvo.insertAdjacentHTML("afterend", cuponsHTML);
+      ativarBotoes();
+    }
+  }
+
+  const observer = new MutationObserver(()=>inserirCupons());
+  observer.observe(document.body, {childList:true,subtree:true});
+
+  inserirCupons();
+})();
+// ]]></script>
+</p>
+<!-- ===================== /Cupons Estáticos - PRIMEIRACOMPRA ===================== -->
+<p></p>

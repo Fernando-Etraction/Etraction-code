@@ -1,0 +1,82 @@
+<style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+
+.informacoes-compra-produto .buy-area .pix .desconto-pix{
+    display: none !important;
+}
+.pix svg{
+    margin-right: 8px !important;
+    margin-top: 3px;
+}
+.informacoes-compra-produto .buy-area .icon.icon-card{
+    display: none !important;
+}
+.informacoes-compra-produto .buy-area .values-area .holder-pagto.card-primeiro .price-big{
+    font-family: "Rubik", sans serif;
+    color: #49a352;
+    font-size: 25px;
+}
+.informacoes-compra-produto .buy-area .card .price-big{
+    font-family: "Rubik", sans serif;
+    color: #363843;
+    font-weight: 600;
+    font-size: 20px;
+}
+.values{
+  display: contents;
+}
+.values > .type-payment {
+  font-size: 0px; 
+  visibility: hidden;   
+  position: relative;
+  margin-left: -25px;
+}
+
+.values > .type-payment::after {
+  content: "à vista no PIX"; 
+  font-size: 14px; 
+  font-weight: 600;  
+  visibility: visible; 
+  font-family: "Rubik", sans serif;
+  margin-left: -30px;
+     color: #363843;
+     display: contents;
+}      
+.informacoes-compra-produto{
+    border: 1px solid #E9E9E9;
+    padding: 15px;
+    border-radius: 10px;
+}
+.informacoes-compra-produto h1{
+    font-family: "Inter", sans serif;
+}
+.informacoes-compra-produto .buy-area .mais-formas-pagamento .form-pag-link{
+    font-family: "Inter", sans serif;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const imagem = document.querySelector('.informacoes-compra-produto .buy-area .pix img.icon-pix');
+  if(imagem){
+    // cria um elemento temporário para injetar o SVG
+    const svgCode = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 22" fill="none" width="20" height="20">
+      <mask id="a" fill="#fff">
+        <path d="M21.6 8.5 19 5.9h-1.5a2 2 0 0 0-1.6.7L12.6 10c-.3.3-.7.5-1.1.5-.5 0-.9-.2-1.2-.5L7 6.6c-.4-.4-1-.7-1.6-.7H3.5L1 8.5a3.3 3.3 0 0 0 0 4.7l2.6 2.6h1.7a2 2 0 0 0 1.6-.7l3.4-3.3c.6-.6 1.8-.6 2.4 0L16 15c.4.4 1 .7 1.6.7h1.5l2.6-2.6a3.3 3.3 0 0 0 0-4.6Zm-4 8.2a3 3 0 0 1-2.3-1L12 12.4c-.2-.2-.6-.2-1 0l-3.4 3.4c-.6.6-1.4 1-2.3 1h-.8L8.8 21a3.6 3.6 0 0 0 4.9 0l4.3-4.2h-.4v-.1ZM5.3 5c.9 0 1.7.3 2.3 1L11 9.4c.3.2.7.2 1 0L15.3 6c.6-.6 1.4-1 2.3-1h.5L13.8 1a3.6 3.6 0 0 0-4.9 0L4.5 5h.8Z"/>
+      </mask>
+      <path d="M21.6 8.5 19 5.9h-1.5a2 2 0 0 0-1.6.7L12.6 10c-.3.3-.7.5-1.1.5-.5 0-.9-.2-1.2-.5L7 6.6c-.4-.4-1-.7-1.6-.7H3.5L1 8.5a3.3 3.3 0 0 0 0 4.7l2.6 2.6h1.7a2 2 0 0 0 1.6-.7l3.4-3.3c.6-.6 1.8-.6 2.4 0L16 15c.4.4 1 .7 1.6.7h1.5l2.6-2.6a3.3 3.3 0 0 0 0-4.6Zm-4 8.2a3 3 0 0 1-2.3-1L12 12.4c-.2-.2-.6-.2-1 0l-3.4 3.4c-.6.6-1.4 1-2.3 1h-.8L8.8 21a3.6 3.6 0 0 0 4.9 0l4.3-4.2h-.4v-.1ZM5.3 5c.9 0 1.7.3 2.3 1L11 9.4c.3.2.7.2 1 0L15.3 6c.6-.6 1.4-1 2.3-1h.5L13.8 1a3.6 3.6 0 0 0-4.9 0L4.5 5h.8Z" 
+        stroke="#49A579" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" mask="url(#a)"/>
+    </svg>
+    `;
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = svgCode.trim();
+    const svgElement = wrapper.firstChild;
+
+    // substitui o <img> pelo <svg>
+    imagem.replaceWith(svgElement);
+  } else {
+    console.log("Imagem não encontrada");
+  }
+});
+</script>

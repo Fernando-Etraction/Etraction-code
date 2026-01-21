@@ -1,0 +1,762 @@
+<style>
+    :root {
+        --fo-bg: #1f231e;
+        --fo-accent: #d4dc23;
+        --fo-text: #e5e7eb;
+        --fo-muted: #b8bcc2;
+        --fo-line: rgba(255, 255, 255, .12);
+        --fo-card: #ffffff;
+        --fo-social: #e5e7eb;
+    }
+
+    .fo-footer {
+        background: var(--fo-bg);
+        color: var(--fo-text);
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .fo-footer__inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 48px 24px 28px;
+
+        display: grid;
+        grid-template-columns: 1.7fr 1fr 1fr 1.1fr;
+        column-gap: 50px;
+        row-gap: 56px;
+    }
+
+    /* ===== Tipografia / blocos ===== */
+    .fo-title {
+        margin: 0 0 18px;
+        color: var(--fo-accent);
+        font-weight: 700;
+        letter-spacing: .3px;
+        font-size: 22px;
+    }
+
+    .fo-text {
+        margin: 0;
+        line-height: 1.6;
+        font-size: 15px;
+        color: var(--fo-text);
+
+        display: -webkit-box;
+        -webkit-line-clamp: 11;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .fo-link {
+        display: inline-block;
+        margin-top: 14px;
+        color: var(--fo-text);
+        text-decoration: underline;
+    }
+
+    .fo-link:hover {
+        color: var(--fo-accent);
+    }
+
+    .fo-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .fo-menu a {
+        color: var(--fo-text);
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    .fo-menu a::before {
+        content: "›";
+        margin-right: 10px;
+        color: var(--fo-text);
+    }
+
+    .fo-menu a:hover {
+        color: var(--fo-accent);
+    }
+
+    /* ===== Selos ===== */
+    .fo-trust {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .fo-selo {
+        width: 110px;
+        height: 95px;
+        background: var(--fo-card);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+    }
+
+    .fo-selo img {
+        width: 96px;
+        height: 88px;
+        object-fit: contain;
+    }
+
+    /* ===== Pagamentos ===== */
+    .fo-pay {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        max-width: 360px;
+    }
+
+    .fo-pay__item {
+        width: 62px;
+        height: 46px;
+        background: #fff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fo-pay__item img {
+        width: 40px;
+        height: 28px;
+        object-fit: contain;
+    }
+
+    /* ===== Social ===== */
+    .fo-title--social {
+        margin-top: 70px;
+        margin-bottom: 12px;
+    }
+
+    .fo-social {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .fo-social__btn {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: var(--fo-social);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform .2s ease, background .2s ease;
+        text-decoration: none;
+    }
+
+    .fo-social__btn:hover {
+        background: var(--fo-accent);
+        transform: translateY(-2px);
+    }
+
+    .fo-social__btn svg {
+        width: 28px;
+        height: 28px;
+        fill: #111;
+    }
+
+    /* ===== Barra inferior ===== */
+    .fo-footer__bar {
+        border-top: 1px solid var(--fo-line);
+        border-bottom: 1px solid var(--fo-line);
+        padding: 18px 0;
+        margin-top: 24px;
+    }
+
+    .fo-footer__bar-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        gap: 18px;
+        align-items: center;
+    }
+
+    .fo-brand__logo {
+        color: var(--fo-accent);
+        font-weight: 800;
+        min-width: 120px;
+        display: flex;
+        align-items: center;
+    }
+
+    .fo-brand__img {
+        width: 120px;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    .fo-legal {
+        color: var(--fo-muted);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .fo-footer__mz {
+        padding: 28px 0;
+        text-align: center;
+        color: var(--fo-muted);
+        font-size: 13px;
+    }
+
+    /* =========================
+   AJUSTES FINOS (DESKTOP)
+========================= */
+    .fo-title {
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .fo-menu a {
+        font-size: 13px;
+    }
+
+    .fo-text {
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    .fo-selo {
+        width: 90px;
+        height: 95px;
+        border-radius: 12px;
+    }
+
+    .fo-pay__item {
+        width: 44px;
+        height: 42px;
+        border-radius: 6px;
+        /* menos curvado */
+    }
+
+    .fo-pay__item img {
+        width: 38px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    /* tamanhos por item (mantive seu ajuste) */
+    .fo-pay__item:nth-child(1) img {
+        width: 43px;
+    }
+
+    /* boleto */
+    .fo-pay__item:nth-child(2) img {
+        width: 38px;
+    }
+
+    .fo-pay__item:nth-child(3) img {
+        width: 50px;
+    }
+
+    .fo-pay__item:nth-child(4) img {
+        width: 43px;
+    }
+
+    .fo-pay__item:nth-child(5) img {
+        width: 46px;
+    }
+
+    .fo-pay__item:nth-child(6) img {
+        width: 54px;
+    }
+
+    .fo-pay__item:nth-child(7) img {
+        width: 32px;
+    }
+
+    .fo-pay__item:nth-child(8) img {
+        width: 37px;
+    }
+
+    .fo-pay__item:nth-child(9) img {
+        width: 40px;
+    }
+
+    .fo-pay__item:nth-child(10) img {
+        width: 46px;
+    }
+
+    /* =========================
+   ACCORDION: Desktop vs Mobile
+========================= */
+    .fo-only-desktop {
+        display: block;
+    }
+
+    .fo-only-mobile {
+        display: none;
+    }
+
+    /* --- Desktop: tudo visível, sem accordion --- */
+    @media (min-width: 901px) {
+        .fo-only-desktop {
+            display: block;
+        }
+
+        .fo-only-mobile {
+            display: none;
+        }
+    }
+
+    /* --- Mobile: vira accordion --- */
+    @media (max-width: 900px) {
+
+        .fo-only-desktop {
+            display: none;
+        }
+
+        .fo-only-mobile {
+            display: flex;
+        }
+
+        /* Grid vira 1 coluna */
+        .fo-footer__inner {
+            grid-template-columns: 1fr;
+            column-gap: 0;
+            padding: 28px 16px;
+
+            /* IMPORTANTE: tira o row-gap do grid pra não criar “buracos” */
+            row-gap: 0;
+        }
+
+        /* Espaçamento UNIFORME entre TODOS os blocos */
+        .fo-footer__inner>.fo-col {
+            margin-top: 12px;
+        }
+
+        .fo-footer__inner>.fo-col:first-child {
+            margin-top: 0;
+        }
+
+        /* E espaçamento uniforme entre Pagamentos e Siga (que estão dentro da mesma coluna) */
+        .fo-col--pay>.fo-acc-group {
+            margin-top: 12px;
+        }
+
+        .fo-col--pay>.fo-acc-group:first-child {
+            margin-top: 0;
+        }
+
+        /* barra do accordion */
+        .fo-acc-title {
+            width: 100%;
+            border: 0;
+            background: rgba(255, 255, 255, .14);
+            color: #fff;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+
+            /* SEM arredondar */
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .fo-acc-icon {
+            font-size: 22px;
+            font-weight: 300;
+            opacity: .9;
+            line-height: 1;
+        }
+
+        /* painel */
+        .fo-acc-panel {
+            padding: 14px 16px 16px;
+        }
+
+        /* divisória */
+        .fo-acc-group {
+            border-top: 1px solid var(--fo-line);
+        }
+
+        /* estado aberto: amarelo + barrinha */
+        .fo-acc-title[aria-expanded="true"] {
+            color: var(--fo-accent);
+            box-shadow: inset 4px 0 0 var(--fo-accent);
+        }
+
+        .fo-acc-title[aria-expanded="true"] .fo-acc-icon {
+            color: var(--fo-accent);
+        }
+
+        /* Pagamentos no mobile: 5 por linha (5x2) */
+        .fo-pay {
+            grid-template-columns: repeat(5, 46px);
+            gap: 6px;
+            max-width: none;
+            justify-content: start;
+            justify-items: center;
+        }
+
+        .fo-pay__item {
+            width: 46px;
+            height: 42px;
+            border-radius: 6px;
+        }
+
+        /* barra inferior */
+        .fo-footer__bar-inner {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .fo-brand__img {
+            width: 110px;
+        }
+
+        .fo-legal {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    }
+
+    /* FIX – força Instagram preto igual aos outros */
+    .fo-social__btn .fo-ic--instagram {
+        color: #111;
+    }
+
+
+    .ra-footer {
+        display: none !important;
+    }
+
+    .fo-footer__bar {
+        display: none !important;
+
+    }
+    .fo-footer__mz {
+    padding: 28px 0;
+    text-align: center;
+    color: var(--fo-muted);
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+}
+</style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script>
+    $(document).ready(function () {
+
+  /* =========================================================
+     1) INSERE FOOTER CUSTOMIZADO
+  ========================================================= */
+  const html = `
+<<div class="fo-footer">
+
+  <div class="fo-footer__inner">
+
+    <!-- 1) SOBRE NÓS -->
+    <section class="fo-col fo-col--about fo-acc-group" data-acc>
+
+      <!-- DESKTOP -->
+      <h3 class="fo-title fo-only-desktop">Sobre Nós</h3>
+
+      <!-- MOBILE -->
+      <button class="fo-acc-title fo-only-mobile" type="button" aria-expanded="false">
+        <span>Sobre Nós</span>
+        <span class="fo-acc-icon" aria-hidden="true">+</span>
+      </button>
+
+      <div class="fo-acc-panel" hidden>
+        <p class="fo-text">
+          Desde 2010, nossa jornada é guiada por dedicação, seriedade e respeito aos nossos clientes.
+          Ao longo desses anos, tivemos o privilégio de atender inúmeras pessoas em todo o Brasil,
+          oferecendo conforto, praticidade e confiança em cada compra. A FootOne agradece a todos
+          que escolheram nossa marca para acompanhar seus treinos, suas rotinas e seu estilo. Seguimos comprometidos em entregar tênis esportivos, roupas fitness, acessórios, calçados casuais e muito mais,sempre com autenticidade, qualidade e a certeza de que cada produto faz parte da sua evolução.
+        </p>
+
+        <a class="fo-link" href="/quem-somos" data-link="quem-somos">Saiba mais...</a>
+      </div>
+    </section>
+
+    <!-- 2) INSTITUCIONAL -->
+    <section class="fo-col fo-col--menu fo-acc-group" data-acc>
+
+      <!-- DESKTOP -->
+      <h3 class="fo-title fo-only-desktop">Institucional</h3>
+
+      <!-- MOBILE -->
+      <button class="fo-acc-title fo-only-mobile" type="button" aria-expanded="false">
+        <span>Institucional</span>
+        <span class="fo-acc-icon" aria-hidden="true">+</span>
+      </button>
+
+      <div class="fo-acc-panel" hidden>
+        <nav aria-label="Institucional">
+          <ul class="fo-menu">
+            <li><a href="/atendimento" title="Atendimento ao cliente">Atendimento</a></li>
+            <li><a href="/compra-segura" title="Compra segura">Compra Segura</a></li>
+            <li><a href="/como-comprar" title="Como comprar">Como Comprar</a></li>
+            <li><a href="/politica-de-entrega" title="Política de entrega">Política de Entrega</a></li>
+            <li><a href="/trocas-e-devolucoes" title="Trocas e devoluções">Política de Trocas e Devoluções</a></li>
+            <li><a href="/politica-de-privacidade" title="Política de privacidade">Política de Privacidade</a></li>
+            <li><a href="/avaliacoes" title="Avaliações da loja">Avaliações</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <!-- 3) SELOS -->
+    <section class="fo-col fo-col--trust fo-acc-group" data-acc>
+
+      <!-- DESKTOP -->
+      <h3 class="fo-title fo-only-desktop">Selos de segurança</h3>
+
+      <!-- MOBILE -->
+      <button class="fo-acc-title fo-only-mobile" type="button" aria-expanded="false">
+        <span>Selos de segurança</span>
+        <span class="fo-acc-icon" aria-hidden="true">+</span>
+      </button>
+
+      <div class="fo-acc-panel" hidden>
+        <div class="fo-trust">
+          <a
+            href="https://transparencyreport.google.com/safe-browsing/search?url=//www.footone.com.br/"
+            target="_blank"
+            rel="nofollow noopener"
+            title="Google Safe Browsing"
+            class="fo-selo fo-selo--google">
+            <img
+              src="https://public-resources.zordcdn.com.br/assets/global/footer/selo-google.svg"
+              alt="Selo Google"
+              width="89"
+              height="95">
+          </a>
+
+          <!-- RA placeholder (depois troca pelo widget real) -->
+          <div class="fo-selo fo-selo--ra fo-selo--placeholder" href="https://www.reclameaqui.com.br/empresa/foot-one/" aria-label="Reclame Aqui"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4) PAGAMENTOS + SOCIAL (MESMA COLUNA NO DESKTOP) -->
+    <section class="fo-col fo-col--pay">
+
+      <!-- BLOCO PAGAMENTOS -->
+      <div class="fo-acc-group" data-acc>
+
+        <!-- DESKTOP -->
+        <h3 class="fo-title fo-only-desktop">Formas de pagamento</h3>
+
+        <!-- MOBILE -->
+        <button class="fo-acc-title fo-only-mobile" type="button" aria-expanded="false">
+          <span>Formas de pagamento</span>
+          <span class="fo-acc-icon" aria-hidden="true">+</span>
+        </button>
+
+        <div class="fo-acc-panel" hidden>
+          <div class="fo-pay">
+            <span class="fo-pay__item" title="Boleto"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/boleto.svg" alt="Boleto"></span>
+            <span class="fo-pay__item" title="Mastercard"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/mastercard.svg" alt="Mastercard"></span>
+            <span class="fo-pay__item" title="Visa"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/visa.svg" alt="Visa"></span>
+            <span class="fo-pay__item" title="Hipercard"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/hipercard.svg" alt="Hipercard"></span>
+
+            <span class="fo-pay__item" title="Amex"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/american2.svg" alt="American Express"></span>
+            <span class="fo-pay__item" title="Elo"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/elo.svg" alt="Elo"></span>
+            <span class="fo-pay__item" title="2 cartões"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/dois-cartoes.svg" alt="Dois cartões"></span>
+            <span class="fo-pay__item" title="Pix"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/pix.svg" alt="Pix"></span>
+
+            <span class="fo-pay__item" title="Pix parcelado"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/pix-parcelado.svg" alt="Pix parcelado"></span>
+            <span class="fo-pay__item" title="NuPay"><img src="https://public-resources.zordcdn.com.br/assets/global/footer/formas-pagamento/nupay.svg" alt="NuPay"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO SOCIAL -->
+      <div class="fo-acc-group" data-acc>
+
+        <!-- DESKTOP -->
+        <h3 class="fo-title fo-only-desktop fo-title--social">Siga a FootOne</h3>
+
+        <!-- MOBILE -->
+        <button class="fo-acc-title fo-only-mobile" type="button" aria-expanded="false">
+          <span>Siga a FootOne</span>
+          <span class="fo-acc-icon" aria-hidden="true">+</span>
+        </button>
+
+        <div class="fo-acc-panel" hidden>
+          <div class="fo-social">
+            <a class="fo-social__btn" href="#" data-link="spotify" aria-label="Spotify" title="Spotify">
+              <svg viewBox="1.5 1 22 22" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.58 14.53c-.18.3-.57.4-.87.22-2.38-1.45-5.38-1.78-8.93-.98-.35.08-.7-.14-.78-.49-.08-.35.14-.7.49-.78 3.9-.88 7.25-.5 9.93 1.14.3.18.4.57.22.87zm1.24-2.76c-.22.36-.69.48-1.05.26-2.73-1.68-6.9-2.17-10.14-1.19-.41.12-.84-.11-.96-.52-.12-.41.11-.84.52-.96 3.7-1.12 8.3-.57 11.43 1.35.36.22.48.69.26 1.06zm.11-2.88C14.7 8.88 9.05 8.7 5.36 9.82c-.48.14-.99-.13-1.13-.61-.14-.48.13-.99.61-1.13 4.24-1.29 10.39-1.06 14.25 1.24.44.26.58.83.32 1.26-.26.44-.83.58-1.27.32z"/></svg>
+            </a>
+
+            <a class="fo-social__btn" href="#" data-link="youtube" aria-label="YouTube" title="YouTube">
+              <svg viewBox="0 -1 24 24" aria-hidden="true"><path d="M23.5 6.2s-.23-1.64-.94-2.36c-.9-.94-1.9-.94-2.36-1C16.9 2.5 12 2.5 12 2.5h-.01s-4.9 0-8.2.34c-.46.06-1.46.06-2.36 1C.73 4.56.5 6.2.5 6.2S.16 8.12.16 10.04v1.92c0 1.92.34 3.84.34 3.84s.23 1.64.94 2.36c.9.94 2.08.91 2.61 1.01 1.9.18 8 .33 8 .33s4.9-.01 8.2-.35c.46-.06 1.46-.06 2.36-1 .71-.72.94-2.36.94-2.36s.34-1.92.34-3.84v-1.92c0-1.92-.34-3.84-.34-3.84zM9.75 14.02V7.98l6.25 3.02-6.25 3.02z"/></svg>
+            </a>
+
+            <a class="fo-social__btn" href="#" data-link="facebook" aria-label="Facebook" title="Facebook">
+              <svg viewBox="1.5 1.5 21 21" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H8.08V12h2.36V9.8c0-2.33 1.39-3.62 3.52-3.62 1.02 0 2.09.18 2.09.18v2.3h-1.18c-1.16 0-1.52.72-1.52 1.46V12h2.59l-.41 2.89h-2.18v6.99A10 10 0 0 0 22 12z"/></svg>
+            </a>
+
+            <a class="fo-social__btn" href="https://www.instagram.com/footonesports/" data-link="instagram" aria-label="Instagram" title="Instagram">
+              <svg viewBox="3.5 3.5 17 17" class="fo-ic fo-ic--instagram" aria-hidden="true">
+                <rect x="5.4" y="5.4" width="13.4" height="13.4" rx="3.8" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+                <circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"></circle>
+                <circle cx="16.0" cy="7.8" r="1.00" fill="currentColor"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- BARRA INFERIOR (fica sempre visível) -->
+  <div class="fo-footer__bar">
+    <div class="fo-footer__bar-inner">
+      <div class="fo-brand__logo">
+        <img
+          src="https://footone.cdn.magazord.com.br/resources/17Marca-FootOne-2.png"
+          alt="Foot One"
+          class="fo-brand__img">
+      </div>
+
+      <div class="fo-legal">
+        Foot One | CNPJ: 12.985.430/0001-99 -
+        Avenida Antônio Canhetti, 713, Jardim Cambuy, Presidente Prudente/SP -
+        CEP: 19.061-545 -
+        © Direitos Reservados www.footone.com.br
+      </div>
+    </div>
+  </div>
+
+  <div class="fo-footer__mz">
+    <a
+      href="https://www.magazord.com.br/?utm_source=foot_one&utm_medium=selo_magazord_rodape_site&utm_campaign=acesso_site_magazord"
+      target="_blank"
+      rel="nofollow noopener"
+      class="fo-magazord-link"
+      aria-label="Plataforma Magazord">
+      <img
+        src="https://public-resources.zordcdn.com.br/assets/global/globals-icons/magazord-white.svg"
+        alt="Magazord"
+        class="fo-magazord-logo">
+    </a>
+  </div>
+
+</div>
+`;
+
+  $(html).insertAfter('.ra-footer');
+
+  setupAccordion();
+
+  window.addEventListener("resize", () => {
+    clearTimeout(window.__foResize);
+    window.__foResize = setTimeout(setupAccordion, 120);
+  });
+
+  /* =========================================================
+     2) MAGAZORD – SOLUÇÃO DEFINITIVA (CLONE)
+  ========================================================= */
+  const sealInterval = setInterval(() => {
+
+    const originalSeal = document.querySelector(
+      '#footer-react-app a[href*="magazord"]'
+    );
+
+    // ainda não renderizou
+    if (!originalSeal) return;
+
+    // já resolvido
+    if (document.querySelector('.fo-footer__mz')) {
+      clearInterval(sealInterval);
+      return;
+    }
+
+    /* ESCONDE O ORIGINAL (React pode renderizar à vontade) */
+    originalSeal.style.display = 'none';
+
+    /* CLONA */
+    const clone = originalSeal.cloneNode(true);
+    clone.style.display = 'inline-block';
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'fo-footer__mz';
+    wrapper.appendChild(clone);
+
+    /* INSERE APÓS O FOOTER */
+    const foFooter = document.querySelector('.fo-footer');
+    if (foFooter) {
+      foFooter.insertAdjacentElement('afterend', wrapper);
+      clearInterval(sealInterval);
+    }
+
+  }, 300);
+
+});
+
+/* =========================================================
+   ACCORDION
+========================================================= */
+function setupAccordion() {
+  const isMobile = window.matchMedia("(max-width: 900px)").matches;
+  const groups = document.querySelectorAll(".fo-footer [data-acc]");
+
+  groups.forEach(group => {
+    const btn = group.querySelector(".fo-acc-title");
+    const panel = group.querySelector(".fo-acc-panel");
+    if (!btn || !panel) return;
+
+    btn.onclick = null;
+
+    if (!isMobile) {
+      btn.setAttribute("aria-expanded", "true");
+      panel.hidden = false;
+      btn.querySelector(".fo-acc-icon").textContent = "−";
+      return;
+    }
+
+    panel.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+    btn.querySelector(".fo-acc-icon").textContent = "+";
+
+    btn.onclick = () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
+
+      groups.forEach(g => {
+        const b = g.querySelector(".fo-acc-title");
+        const p = g.querySelector(".fo-acc-panel");
+        if (b && p) {
+          b.setAttribute("aria-expanded", "false");
+          p.hidden = true;
+          b.querySelector(".fo-acc-icon").textContent = "+";
+        }
+      });
+
+      if (!open) {
+        btn.setAttribute("aria-expanded", "true");
+        panel.hidden = false;
+        btn.querySelector(".fo-acc-icon").textContent = "−";
+      }
+    };
+  });
+}
+</script>

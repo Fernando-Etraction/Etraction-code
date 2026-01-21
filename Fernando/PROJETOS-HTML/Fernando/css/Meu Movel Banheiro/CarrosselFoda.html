@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrossel de Produtos</title>
+</head>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+  }
+
+  .section {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-carrossel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-main {
+    width: 800px;
+    height: 60vh;
+    max-width: 95%;
+    background-color: #242424;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;          /* importante pra esconder a animação */
+    position: relative;
+  }
+
+  /* Conteúdo que será animado */
+  .carousel-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .container-img {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .container-img img {
+    width: 100%;
+    height: 100%;
+    max-height: 50vh;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  .container-main-descricao {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .content-descricao {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .content-descricao > span h2 {
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+  }
+
+  .content-descricao > span p {
+    color: #a3a2a2;
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  button {
+    width: 100%;
+    height: 40px;
+    background-color: #4FBA68;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    font-weight: 600;
+  }
+
+  button:hover {
+    filter: brightness(1.05);
+  }
+
+  /* Animações */
+  @keyframes slideOutLeft {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .exit-left {
+    animation: slideOutLeft 0.5s forwards;
+  }
+
+  .enter-right {
+    animation: slideInRight 0.5s forwards;
+  }
+</style>
+
+<body>
+
+  <section class="section">
+    <div class="container-carrossel">
+      <div class="container-main">
+        <!-- Este bloco inteiro é o que some e entra animado -->
+        <div class="carousel-content">
+          <div class="container-img">
+            <img
+              src="https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5500/whatsapp-image-2025-11-26-at-10-51-16-1.jpeg"
+              alt="Produto 1">
+          </div>
+
+          <div class="container-main-descricao">
+            <div class="content-descricao">
+              <span>
+                <h2>Título do Produto 1</h2>
+                <p>Descrição do Produto 1. Você pode editar esse texto para falar sobre o móvel, medidas, materiais e
+                  principais benefícios para o cliente.</p>
+              </span>
+
+              <button type="button">
+                Ver Produto
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+
+</html>
+
+<script>
+  // Lista de itens do carrossel
+  const items = [
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5500/whatsapp-image-2025-11-26-at-10-51-16-1.jpeg",
+      titulo: "Gabinete Suspenso Premium",
+      descricao: "Design moderno e funcional para deixar seu banheiro mais sofisticado. Perfeito para ambientes compactos.",
+      link: "https://www.seusite.com/produto-1"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5498/whatsapp-image-2025-11-26-at-10-51-15.jpeg",
+      titulo: "Gabinete com Cuba Embutida",
+      descricao: "Conjunto com cuba e amplo espaço interno para organização de produtos de higiene e toalhas.",
+      link: "https://www.seusite.com/produto-2"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5501/whatsapp-image-2025-11-26-at-10-51-14-3.jpeg",
+      titulo: "Gabinete Frente Ripada",
+      descricao: "Acabamento ripado que traz um toque de elegância e modernidade para o seu banheiro.",
+      link: "https://www.seusite.com/produto-3"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5499/whatsapp-image-2025-11-26-at-10-51-22-3.jpeg",
+      titulo: "Bancada com Espelho",
+      descricao: "Conjunto com espelho amplo e bancada funcional, ideal para compor um ambiente completo.",
+      link: "https://www.seusite.com/produto-4"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5495/whatsapp-image-2025-11-26-at-10-51-16.jpeg",
+      titulo: "Gabinete Compacto",
+      descricao: "Solução perfeita para banheiros pequenos, sem abrir mão de armazenamento e estilo.",
+      link: "https://www.seusite.com/produto-5"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5497/whatsapp-image-2025-11-26-at-10-51-18-2.jpeg",
+      titulo: "Gabinete com Nichos",
+      descricao: "Nichos abertos para decorar com itens e facilitar o dia a dia no banheiro.",
+      link: "https://www.seusite.com/produto-6"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5496/whatsapp-image-2025-11-26-at-10-51-16-2.jpeg",
+      titulo: "Gabinete Clean",
+      descricao: "Visual clean e minimalista para combinar com diversos estilos de decoração.",
+      link: "https://www.seusite.com/produto-7"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5493/whatsapp-image-2025-11-26-at-10-51-21.jpeg",
+      titulo: "Gabinete com Prateleiras",
+      descricao: "Mais prateleiras para armazenamento e organização do seu banheiro.",
+      link: "https://www.seusite.com/produto-8"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5494/whatsapp-image-2025-11-26-at-10-51-14-1.jpeg",
+      titulo: "Gabinete Clássico",
+      descricao: "Modelo clássico com linhas retas, ideal para quem busca um visual atemporal.",
+      link: "https://www.seusite.com/produto-9"
+    },
+    {
+      img: "https://magazord-public.s3.amazonaws.com/meumoveldebanheiro/img/2025/11/produto/5492/whatsapp-image-2025-11-26-at-10-51-17-2.jpeg",
+      titulo: "Gabinete com Cuba de Apoio",
+      descricao: "Cuba de apoio em destaque, trazendo um toque de sofisticação ao ambiente.",
+      link: "https://www.seusite.com/produto-10"
+    }
+  ];
+
+  const carouselContent = document.querySelector('.carousel-content');
+  const imgEl = document.querySelector('.container-img img');
+  const titleEl = document.querySelector('.content-descricao h2');
+  const descEl = document.querySelector('.content-descricao p');
+  const buttonEl = document.querySelector('.content-descricao button');
+
+  let currentIndex = 0;
+  let isAnimating = false;
+
+  // Atualiza o conteúdo do card com base no item atual
+  function updateContent(index) {
+    const item = items[index];
+    imgEl.src = item.img;
+    imgEl.alt = item.titulo;
+    titleEl.textContent = item.titulo;
+    descEl.textContent = item.descricao;
+    buttonEl.textContent = "Ver Produto";
+    buttonEl.onclick = () => {
+      window.location.href = item.link;
+    };
+  }
+
+  // Inicia com o primeiro item da lista
+  updateContent(currentIndex);
+
+  function goToNextItem() {
+    if (isAnimating) return; // evita animar duas vezes ao mesmo tempo
+    isAnimating = true;
+    carouselContent.classList.add('exit-left');
+  }
+
+  // Escuta o fim das animações para trocar o conteúdo no timing certo
+  carouselContent.addEventListener('animationend', (event) => {
+    if (event.animationName === 'slideOutLeft') {
+      // Saiu para a esquerda -> atualiza para o próximo item e entra da direita
+      currentIndex = (currentIndex + 1) % items.length;
+      updateContent(currentIndex);
+
+      carouselContent.classList.remove('exit-left');
+      carouselContent.classList.add('enter-right');
+    } else if (event.animationName === 'slideInRight') {
+      // Terminou de entrar -> limpa classes e libera pra próxima animação
+      carouselContent.classList.remove('enter-right');
+      isAnimating = false;
+    }
+  });
+
+  // Intervalo de 5 segundos entre os itens
+  setInterval(goToNextItem, 5000);
+</script>

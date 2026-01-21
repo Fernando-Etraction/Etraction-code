@@ -1,0 +1,418 @@
+<!-- CARROSSEL SMEG - PURO CSS/JS -->
+<div class="smeg-carousel" id="smegCarousel">
+  <div class="smeg-viewport">
+    <div class="smeg-track">
+      <!-- Slide 1 -->
+      <article class="smeg-slide">
+        <div class="smeg-card">
+          <a
+            href="https://www.smegbrasil.com.br/batedeira"
+            class="smeg-img"
+            target="_self"
+          >
+            <img
+              src="https://magazord-public.s3.amazonaws.com/smegbrasil/img/2025/10/banner/3297/batedeiras-copia.jpg"
+              alt="Batedeiras SMEG"
+            />
+          </a>
+          <div class="smeg-info">
+            <h3 class="smeg-title">Batedeiras</h3>
+          </div>
+        </div>
+      </article>
+      <!-- Slide 2 -->
+      <article class="smeg-slide">
+        <div class="smeg-card">
+          <a
+            href="https://www.smegbrasil.com.br/cafeteira"
+            class="smeg-img"
+            target="_self"
+          >
+            <img
+              src="https://magazord-public.s3.amazonaws.com/smegbrasil/img/2025/10/banner/3296/maquinas-de-cafe-expresso.jpg"
+              alt="Máquinas de Café SMEG"
+            />
+          </a>
+          <div class="smeg-info">
+            <h3 class="smeg-title">Máquinas de café</h3>
+          </div>
+        </div>
+      </article>
+      <!-- Slide 3 -->
+      <article class="smeg-slide">
+        <div class="smeg-card">
+          <a
+            href="https://www.smegbrasil.com.br/refrigerador"
+            class="smeg-img"
+            target="_self"
+          >
+            <img
+              src="https://magazord-public.s3.amazonaws.com/smegbrasil/img/2025/10/banner/3295/geladeiras-coloridas.jpg"
+              alt="Geladeiras Coloridas SMEG"
+            />
+          </a>
+          <div class="smeg-info">
+            <h3 class="smeg-title">Geladeiras coloridas</h3>
+          </div>
+        </div>
+      </article>
+      <!-- (Opcional) Adicione mais <article class="smeg-slide"> ... </article> aqui -->
+    </div>
+  </div>
+
+  <!-- Navegação -->
+  <button
+    class="smeg-nav smeg-prev"
+    aria-label="Anterior"
+    type="button"
+  ></button>
+  <button
+    class="smeg-nav smeg-next"
+    aria-label="Próximo"
+    type="button"
+  ></button>
+
+  <!-- Paginação -->
+  <div class="smeg-dots" aria-label="Paginação"></div>
+</div>
+
+<style>
+  /* ======== Reset leve e isolamento ======== */
+  .smeg-carousel * {
+    box-sizing: border-box;
+  }
+  .smeg-carousel {
+    --smeg-max: 1200px;
+    --smeg-gap: 10px;
+    --smeg-radius: 8px;
+    --smeg-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --smeg-text: #333;
+    --smeg-muted: #4b4b4b;
+    --smeg-bullet: #ccc;
+    --smeg-bullet-active: #111;
+    position: relative;
+    max-width: var(--smeg-max);
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: Mulish, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+      sans-serif;
+  }
+
+  /* Viewport + trilho */
+  .smeg-viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+  .smeg-track {
+    display: flex;
+    align-items: stretch;
+    gap: var(--smeg-gap);
+    will-change: transform;
+    transition: transform 0.45s ease;
+  }
+
+  /* Slide/card */
+  .smeg-slide {
+    flex: 0 0 auto;
+  }
+  .smeg-card {
+    width: 100%;
+    background: #fff;
+    border-radius: var(--smeg-radius);
+    overflow: hidden;
+    box-shadow: var(--smeg-shadow);
+    display: flex;
+    flex-direction: column;
+  }
+  .smeg-img {
+    cursor: pointer;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+  }
+  .smeg-img img {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .smeg-info {
+    padding: 15px;
+    text-align: center;
+  }
+  .smeg-title {
+    float: left;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: var(--smeg-text);
+  }
+  .smeg-link {
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--smeg-muted);
+  }
+
+  /* Navegação (bolachas) */
+  .smeg-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .smeg-nav::after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #333;
+    border-right: 2px solid #333;
+  }
+  .smeg-prev {
+    left: 6px;
+  }
+  .smeg-prev::after {
+    transform: rotate(-135deg);
+  }
+  .smeg-next {
+    right: 6px;
+  }
+  .smeg-next::after {
+    transform: rotate(45deg);
+  }
+  .smeg-nav[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Paginação */
+  .smeg-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0 0;
+  }
+  .smeg-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: var(--smeg-bullet);
+    opacity: 0.7;
+    cursor: pointer;
+  }
+  .smeg-dots button[aria-current="true"] {
+    background: var(--smeg-bullet-active);
+    opacity: 1;
+  }
+  .smeg-dots button:focus-visible,
+  .smeg-nav:focus-visible {
+    outline: 2px solid #111;
+    outline-offset: 2px;
+  }
+  @media (min-width: 1023.98px) {
+    .smeg-dots {
+      display: none;
+    }
+  }
+  /* Responsivo */
+  @media (max-width: 1023.98px) {
+    .smeg-img {
+      height: 220px;
+    }
+  }
+  @media (max-width: 767.98px) {
+    .smeg-carousel {
+      padding: 0 15px;
+      margin: 20px auto;
+    }
+    .smeg-img {
+      height: 200px;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById("smegCarousel");
+    if (!root) return;
+
+    const viewport = root.querySelector(".smeg-viewport");
+    const track = root.querySelector(".smeg-track");
+    const slides = Array.from(root.querySelectorAll(".smeg-slide"));
+    const btnPrev = root.querySelector(".smeg-prev");
+    const btnNext = root.querySelector(".smeg-next");
+    const dotsWrap = root.querySelector(".smeg-dots");
+
+    // Breakpoints: 1 / 2 / 3 por view
+    const getPerView = () => {
+      const w = window.innerWidth;
+      if (w < 640) return 1;
+      if (w < 1024) return 2;
+      return 3;
+    };
+
+    let perView = getPerView();
+    let index = 0; // índice do primeiro slide visível
+    let slideWidth = 0;
+    let maxIndex = 0; // último "página" possível (total - perView)
+    let autoplayTimer = null;
+    const AUTOPLAY_MS = 5000; // ajuste ou coloque 0 para desativar
+
+    function layout() {
+      perView = getPerView();
+      slideWidth = viewport.clientWidth / perView;
+      slides.forEach((s) => (s.style.width = `${slideWidth}px`));
+      maxIndex = Math.max(0, slides.length - perView);
+      index = Math.min(index, maxIndex);
+      update();
+      buildDots(); // refaz paginação conforme páginas
+    }
+
+    function update() {
+      const x = -(index * (slideWidth + gapPx()));
+      track.style.transform = `translate3d(${x}px,0,0)`;
+      btnPrev.disabled = index <= 0;
+      btnNext.disabled = index >= maxIndex;
+      syncDots();
+    }
+
+    function gapPx() {
+      // Lê o gap do CSS (var(--smeg-gap))
+      const gap = getComputedStyle(track).gap || "0px";
+      return parseFloat(gap) || 0;
+    }
+
+    function next() {
+      if (index < maxIndex) {
+        index++;
+        update();
+      } else restartAutoplay(true);
+    }
+    function prev() {
+      if (index > 0) {
+        index--;
+        update();
+      } else restartAutoplay(true);
+    }
+
+    function buildDots() {
+      const pages = maxIndex + 1;
+      dotsWrap.innerHTML = "";
+      for (let i = 0; i < pages; i++) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", `Ir para o slide ${i + 1}`);
+        b.addEventListener("click", () => {
+          index = i;
+          update();
+          restartAutoplay(true);
+        });
+        dotsWrap.appendChild(b);
+      }
+      syncDots();
+    }
+
+    function syncDots() {
+      const pages = dotsWrap.children.length;
+      for (let i = 0; i < pages; i++) {
+        dotsWrap.children[i].setAttribute("aria-current", String(i === index));
+      }
+    }
+
+    function startAutoplay() {
+      if (!AUTOPLAY_MS) return;
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        if (index < maxIndex) index++;
+        else index = 0;
+        update();
+      }, AUTOPLAY_MS);
+    }
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+    function restartAutoplay(force) {
+      if (!AUTOPLAY_MS) return;
+      if (force) {
+        stopAutoplay();
+        startAutoplay();
+      }
+    }
+
+    // Eventos
+    btnNext.addEventListener("click", () => {
+      next();
+    });
+    btnPrev.addEventListener("click", () => {
+      prev();
+    });
+
+    // Pause ao interagir/hover
+    root.addEventListener("mouseenter", stopAutoplay);
+    root.addEventListener("mouseleave", startAutoplay);
+    root.addEventListener("focusin", stopAutoplay);
+    root.addEventListener("focusout", startAutoplay);
+
+    // Navegação por teclado
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") {
+        next();
+        restartAutoplay(true);
+      }
+      if (e.key === "ArrowLeft") {
+        prev();
+        restartAutoplay(true);
+      }
+    });
+
+    // Drag básico (desktop/mobile)
+    let startX = 0,
+      isDown = false,
+      moved = false;
+    viewport.addEventListener("pointerdown", (e) => {
+      isDown = true;
+      moved = false;
+      startX = e.clientX;
+    //   viewport.setPointerCapture(e.pointerId);
+      stopAutoplay();
+    });
+    viewport.addEventListener("pointermove", (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 6) moved = true;
+    });
+    viewport.addEventListener("pointerup", (e) => {
+      if (!isDown) return;
+      isDown = false;
+      const dx = e.clientX - startX;
+      if (dx < -40) next();
+      else if (dx > 40) prev();
+      startAutoplay();
+    });
+
+    // Debounce de resize
+    let rAF;
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(rAF);
+      rAF = requestAnimationFrame(layout);
+    });
+
+    // Inicialização
+    layout();
+    startAutoplay();
+  })();
+</script>

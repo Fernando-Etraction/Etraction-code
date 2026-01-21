@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dúvidas Sobre o Envio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Import Google Fonts */
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap");
+
+        /* Custom CSS Variables for Colors */
+        :root {
+            --custom-beige-light: #f8f5f0;
+            --custom-brown-dark: #5c4b40;
+            --custom-brown-light: #8b7a6f;
+            --custom-accent-gold: #a08d7c;
+        }
+
+        /* Base Styles */
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: var(--custom-brown-dark);
+            background-color: var(--custom-beige-light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: var(--custom-beige-light); /* Fundo bege sólido */
+            padding: 80px 20px;
+            max-width: 720px;
+            justify-content: center;
+            margin: auto;
+            max-height: 720px; /* Espaçamento vertical */
+        }
+
+        .hero-inner-wrapper {
+            max-width: 1440px; /* Largura máxima para o conteúdo */
+            margin: 0 auto; /* Centraliza o conteúdo */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Espaço entre texto e imagem */
+            gap: 40px; /* Espaçamento entre as colunas */
+        }
+
+        .hero-content {
+            flex: 1; /* Permite que o texto ocupe o espaço disponível */
+            max-width: 720px; /* Largura máxima para o bloco de texto */
+            max-height: 720px;
+            text-align: left;
+        }
+
+        .hero-content h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 3.5em; /* Tamanho grande para o título */
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--custom-brown-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.1em;
+            color: var(--custom-brown-dark);
+            max-width: 450px;
+        }
+
+        .hero-content p strong {
+            font-weight: 700;
+        }
+
+        .hero-image-container {
+            flex-shrink: 0; /* Não permite que a imagem encolha */
+            width: 100%; /* Largura da imagem dentro do wrapper */
+            max-width: 720px; /* Largura máxima para a imagem */
+            display: flex;
+            height: 720px;
+            justify-content: flex-end; /* Alinha a imagem à direita dentro do seu container */
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px; /* Cantos levemente arredondados */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* FAQ Cards Section */
+        .faq-cards-section {
+            background-color: #fff;
+            padding: 80px 20px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px; /* Largura máxima para a grade de FAQs */
+            margin: 0 auto;
+        }
+
+        .faq-card {
+            position: relative;
+            background-color: #fff;
+            padding: 30px;
+            padding-top: 40px; /* Espaçamento extra para o círculo do número */
+            border-radius: 16px; /* Cantos mais arredondados */
+            border: 1px solid var(--custom-accent-gold);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-number {
+            position: absolute;
+            top: -15px; /* Posição fora do cartão */
+            left: 20px;
+            width: 35px;
+            height: 35px;
+            background-color: #fff; /* Cor de fundo igual ao cartão */
+            border-radius: 50%;
+            border: 1px solid var(--custom-accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--custom-brown-dark);
+        }
+
+        .faq-card h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--custom-brown-dark);
+            margin-top: 0;
+            margin-bottom: 0;
+            line-height: 1.3;
+        }
+
+        .faq-card p {
+            font-size: 0.95em;
+            color: var(--custom-brown-dark);
+            margin: 0;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            background-color: var(--custom-beige-light);
+            padding: 60px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-diamond {
+            width: 16px;
+            height: 16px;
+            background-color: var(--custom-accent-gold);
+            transform: rotate(45deg);
+            margin-bottom: 25px;
+        }
+
+        .footer-section h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--custom-brown-dark);
+            margin-bottom: 10px;
+        }
+
+        .footer-section p {
+            font-size: 1.1em;
+            color: var(--custom-brown-dark);
+            margin: 0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .hero-section {
+                padding: 60px 20px;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .hero-content p {
+                font-size: 1em;
+            }
+            .faq-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-inner-wrapper {
+                flex-direction: column; /* Empilha o conteúdo em telas menores */
+                text-align: center;
+                gap: 30px;
+            }
+            .hero-content {
+                max-width: 100%; /* Permite que o texto ocupe a largura total */
+            }
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+            .hero-content p {
+                font-size: 0.95em;
+            }
+            .hero-image-container {
+                width: 80%; /* Ajusta a largura da imagem para mobile */
+                justify-content: center;
+            }
+            .faq-cards-section {
+                padding: 60px 15px;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr; /* Uma única coluna em telas pequenas */
+            }
+            .faq-card {
+                padding: 25px;
+                padding-top: 35px;
+            }
+            .faq-number {
+                top: -12px;
+                left: 15px;
+                width: 30px;
+                height: 30px;
+                font-size: 0.85em;
+            }
+            .faq-card h3 {
+                font-size: 1.2em;
+            }
+            .faq-card p {
+                font-size: 0.9em;
+            }
+            .footer-section {
+                padding: 40px 15px;
+            }
+            .footer-section h2 {
+                font-size: 1.8em;
+            }
+            .footer-section p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-inner-wrapper">
+                <div class="hero-content">
+                    <h1>DÚVIDAS <br> SOBRE O <br> ENVIO</h1>
+                    <p>Queremos que sua experiência de compra seja <strong>leve e segura</strong>. Por isso, reunimos aqui as perguntas mais frequentes sobre prazos e entregas.</p>
+                </div>
+                <div class="hero-image-container">
+                    <img src="https://magazord-public.s3.amazonaws.com/femmeboutique/img/2025/07/produto/10231/rectangle-1.jpg" alt="Várias caixas e sacolas de compras para entrega">
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Cards Section -->
+        <section class="faq-cards-section">
+            <div class="faq-grid">
+                <div class="faq-card">
+                    <div class="faq-number">1</div>
+                    <h3>Qual é o prazo de entrega?</h3>
+                    <p>O prazo de entrega varia conforme a opção escolhida no momento da compra e começa a contar a partir do 2º dia útil após a confirmação do pagamento. As entregas são realizadas de segunda a sexta-feira, das 8h às 18h, em horário comercial.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-number">2</div>
+                    <h3>E se não houver ninguém no local para receber?</h3>
+                    <p>Caso não haja ninguém para receber o pedido, uma nova tentativa será feita nos dois dias úteis seguintes. Se a segunda tentativa também não for concluída, a encomenda retorna para o nosso centro de distribuição.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-number">3</div>
+                    <h3>O que fazer em caso de problemas na entrega?</h3>
+                    <p>Antes de tudo, verifique se o prazo de entrega já foi excedido. Se sim, entre em contato com a nossa Central de Atendimento pelo número (47) 99177-2180, e resolveremos o mais breve possível.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-number">4</div>
+                    <h3>Posso retirar meu pedido na loja física?</h3>
+                    <p>Sim! Você pode fazer seu pedido pelo site e retirá-lo em nossa loja física. 📍 Rua Curt Hering, 33 – sala 05 – Blumenau/SC</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-number">5</div>
+                    <h3>Vocês fazem entrega por motoboy?</h3>
+                    <p>Sim, mas apenas para Blumenau e região. A taxa de entrega varia conforme o pedido. Para mais informações, entre em contato conosco.</p>
+                </div>
+                <div class="faq-card">
+                    <div class="faq-number">6</div>
+                    <h3>Quais são as opções de envio?</h3>
+                    <p>Trabalhamos com Correios, Motoboy, Click Entregas e mais 4 transportadoras parceiras, garantindo segurança e agilidade no envio. Entre em contato para saber a melhor opção para a sua região.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer class="footer-section">
+            <div class="footer-diamond"></div>
+            <h2>Dúvidas?</h2>
+            <p>Fale com a gente pelo WhatsApp: (47) 99177-2180</p>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banner App</title>
+  <style>
+    .app-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 10px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .app-column {
+      flex: 1 1 300px;
+      max-width: 600px;
+    }
+
+    .app-column img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .app-container {
+        flex-wrap: nowrap;
+      }
+
+      .app-column {
+        flex: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- WhatsApp -->
+    <div class="app-column">
+      <a href="https://chat.whatsapp.com/Hv6RLx7AvQ16bebIWy4oUw" target="_blank">
+        <img
+          src="https://magazord-public.s3.amazonaws.com/appelhome/img/2025/05/banner/7290/desk-2.png"
+          alt="Fale no WhatsApp"
+        />
+      </a>
+    </div>
+
+    <!-- App banner -->
+    <div class="app-column">
+      <img
+        id="appBanner"
+        src="https://magazord-public.s3.amazonaws.com/appelhome/img/2025/05/banner/7289/desk-1.png"
+        alt="Baixe o App"
+        style="cursor: pointer;"
+      />
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const banner = document.getElementById("appBanner");
+
+      function getPlatformUrl() {
+        const ua = navigator.userAgent.toLowerCase();
+        if (/android/.test(ua)) return "https://play.google.com/store/apps/details?id=com.magazord.site.appelhome";
+        if (/iphone|ipad|ipod/.test(ua)) return "https://apps.apple.com/br/app/appel-home/id6737480144";
+        return "https://www.appelhome.com.br/";
+      }
+
+      if (banner) {
+        banner.addEventListener("click", function () {
+          const url = getPlatformUrl();
+          window.open(url, "_blank");
+        });
+
+        banner.addEventListener("touchend", function () {
+          const url = getPlatformUrl();
+          window.open(url, "_blank");
+        });
+      }
+    });
+  </script>
+</body>
+</html>

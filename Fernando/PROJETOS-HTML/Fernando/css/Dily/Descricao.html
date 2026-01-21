@@ -1,0 +1,387 @@
+<!-- Swiper CSS -->
+<p></p>
+<style><!--
+/* =======================
+         PREFIXO: mv-
+         ======================= */
+
+    .mv-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Swiper (Topo - Desktop e Mobile) */
+    .mv-gallery-swiper {
+        display: block;
+        margin-bottom: 30px;
+    }
+
+    .mv-gallery-swiper .swiper-slide {
+        border-radius: 8px;
+        overflow: hidden;
+        width: 350px;
+        height: 250px;
+        position: relative;
+
+    }
+
+    .mv-gallery-swiper .swiper-slide::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background: #ffffff;
+        background: -webkit-linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.35) 66%, rgba(0, 0, 0, 0.7) 100%);
+        background: -moz-linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.35) 66%, rgba(0, 0, 0, 0.7) 100%);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.35) 66%, rgba(0, 0, 0, 0.7) 100%);
+        z-index: 1;
+    }
+
+    .mv-gallery-swiper .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+
+    }
+
+    .mv-gallery-swiper .swiper-slide:hover img {
+        transform: scale(1.05);
+    }
+
+    .mv-gallery-label {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+    }
+
+    /* Desktop: slides com tamanho fixo */
+    @media (min-width: 969px) {
+        .mv-gallery-swiper .swiper-slide {
+            width: 350px;
+            height: 250px;
+        }
+    }
+
+    /* Seção Principal do Produto */
+    .mv-product-section {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 40px;
+        padding: 40px;
+        min-height: 600px;
+    }
+
+    .mv-product-image {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mv-product-image iframe {
+        width: 100%;
+        height: 100%;
+        max-width: 320px;
+        max-height: 500px;
+        display: block;
+        border-radius: 12px;
+        border: none;
+    }
+
+    .mv-sparkle-icon {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    /* h1 -> span */
+    .mv-product-details .mv-title {
+        display: block;
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #1a1a1a;
+        line-height: 1.3;
+        font-weight: 700;
+    }
+
+    .mv-transparency-badges {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+
+    .mv-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        font-size: 13px;
+        color: #ff6b6b;
+    }
+
+    .mv-badge-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Acordeão */
+    .mv-accordion {
+        margin-top: 30px;
+    }
+
+    .mv-accordion-item {
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .mv-accordion-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        color: #1a1a1a;
+        transition: color 0.3s ease;
+    }
+
+    .mv-accordion-header:hover {
+        color: #ff6b6b;
+    }
+
+    .mv-accordion-icon {
+        color: #ff6b6b;
+        font-size: 24px;
+        transition: transform 0.3s ease;
+    }
+
+    .mv-accordion-item.mv-active .mv-accordion-icon {
+        transform: rotate(45deg);
+    }
+
+    .mv-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .mv-accordion-item.mv-active .mv-accordion-content {
+        max-height: 500px;
+        padding-bottom: 20px;
+    }
+
+    /* p -> div */
+    .mv-accordion-content .mv-text {
+        display: block;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    /* CTA */
+    .mv-cta-button {
+        width: 100%;
+        padding: 16px 32px;
+        background: #1a1a1a;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin-top: 30px;
+    }
+
+    .mv-cta-button:hover {
+        background: #ff6b6b;
+    }
+
+    @media (max-width: 968px) {
+        .mv-product-section {
+            grid-template-columns: 1fr;
+            padding: 20px;
+            height: auto;
+            min-height: auto;
+            gap: 20px;
+        }
+
+        .mv-product-image {
+            height: 500px;
+            /* Garante que o container do vídeo tenha altura no mobile */
+            margin-bottom: 20px;
+        }
+
+        .mv-title {
+            font-size: 22px !important;
+        }
+
+        .mv-gallery-swiper .swiper-slide {
+            width: 280px;
+            /* Slides menores para mobile */
+            height: 200px;
+        }
+    }
+--></style>
+<div class="mv-container"><!-- Galeria de Imagens Topo (Desktop e Mobile - Swiper) -->
+<div id="mvGallerySwiper" class="swiper mv-gallery-swiper">
+<div class="swiper-wrapper">
+<div class="swiper-slide"><img src="https://magazord-public.s3.amazonaws.com/dily/img/2026/01/produto/2495/design-sem-nome-3.png" alt="Zero transpar&ecirc;ncia" />
+<div class="mv-gallery-label">Zero transpar&ecirc;ncia</div>
+</div>
+<div class="swiper-slide"><img src="https://magazord-public.s3.amazonaws.com/dily/img/2026/01/produto/2496/design-sem-nome-4.png" alt="Prote&ccedil;&atilde;o UV50+" />
+<div class="mv-gallery-label">Prote&ccedil;&atilde;o UV50+</div>
+</div>
+<div class="swiper-slide"><img src="https://magazord-public.s3.amazonaws.com/dily/img/2026/01/produto/2500/design-sem-nome-7.png" alt="Brilho metalizado" />
+<div class="mv-gallery-label">Brilho metalizado</div>
+</div>
+<div class="swiper-slide"><img src="https://magazord-public.s3.amazonaws.com/dily/img/2026/01/produto/2497/design-sem-nome-6.png" alt="Modelagem anat&ocirc;mica" />
+<div class="mv-gallery-label">Modelagem anat&ocirc;mica</div>
+</div>
+<div class="swiper-slide"><img src="https://magazord-public.s3.amazonaws.com/dily/img/2026/01/produto/2498/design-sem-nome-9.png" alt="Bolsos laterais" />
+<div class="mv-gallery-label">Bolsos laterais</div>
+</div>
+</div>
+<div class="swiper-pagination"></div>
+</div>
+<!-- Seção Principal do Produto -->
+<div class="mv-product-section">
+<div class="mv-product-image"><iframe title="Conjunto Fitness Poliamida Metalic" src="https://www.youtube.com/embed/E15OTkmQgsM" width="300" height="500" frameborder="0" allowfullscreen="allowfullscreen"></iframe></div>
+<div class="mv-product-details"><span class="mv-title">Conjunto Feminino Fitness Poliamida Metalic Com Bolso Cal&ccedil;a e Top Off White</span>
+<div class="mv-transparency-badges">
+<div class="mv-badge">Zero transpar&ecirc;ncia</div>
+<div class="mv-badge">Prote&ccedil;&atilde;o UV50+</div>
+<div class="mv-badge">Bolsos laterais grandes</div>
+</div>
+<div id="mvAccordion" class="mv-accordion">
+<div class="mv-accordion-item">
+<div class="mv-accordion-header"><span>Design funcional para alta performance</span> <span class="mv-accordion-icon">+</span></div>
+<div class="mv-accordion-content">
+<div class="mv-text">Modelagem anat&ocirc;mica que valoriza as curvas e distribui a compress&atilde;o de forma estrat&eacute;gica. Cintura alta com c&oacute;s mais largo e acinturado para ajuste firme, sem precisar reposicionar. Bolsos laterais grandes e pr&aacute;ticos para levar seu celular com seguran&ccedil;a durante o treino e a corrida.</div>
+</div>
+</div>
+<div class="mv-accordion-item">
+<div class="mv-accordion-header"><span>Conforto e seguran&ccedil;a em cada detalhe</span> <span class="mv-accordion-icon">+</span></div>
+<div class="mv-accordion-content">
+<div class="mv-text">Forro interno que garante total cobertura: zero transpar&ecirc;ncia, mesmo em movimentos intensos. Refor&ccedil;o nas costuras de recorte e gancho para mais durabilidade e confian&ccedil;a em atividades de impacto, com acabamento premium e toque macio na pele.</div>
+</div>
+</div>
+<div class="mv-accordion-item">
+<div class="mv-accordion-header"><span>Tecnologia e resist&ecirc;ncia com brilho metalizado</span> <span class="mv-accordion-icon">+</span></div>
+<div class="mv-accordion-content">
+<div class="mv-text">Poliamida Metalic com elasticidade 4Way, prote&ccedil;&atilde;o solar UV50+ e alta resist&ecirc;ncia para acompanhar sua rotina. Visual metalizado elegante, com brilho discreto e moderno, perfeito para treinar com estilo sem abrir m&atilde;o da performance.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script>// <![CDATA[
+(function () {
+        function mvInitSwiper() {
+            try {
+                var el = document.querySelector("#mvGallerySwiper");
+                if (!el) return;
+
+                // Evita inicializar duas vezes (Magazord pode re-renderizar blocos)
+                if (el.dataset.mvSwiperInit === "1") return;
+
+                // Swiper precisa existir
+                if (typeof window.Swiper !== "function") return;
+
+                el.dataset.mvSwiperInit = "1";
+
+                new window.Swiper("#mvGallerySwiper", {
+                    slidesPerView: "auto",
+                    spaceBetween: 12,
+                    loop: true,
+                    autoplay: {
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: "#mvGallerySwiper .swiper-pagination",
+                        clickable: true,
+                    },
+                    observer: true,
+                    observeParents: true,
+                });
+            } catch (e) {
+                // Nunca deixar erro aqui quebrar o JS da Magazord
+                console.warn("[mv] Swiper init falhou:", e);
+            }
+        }
+
+        function mvBindAccordion() {
+            try {
+                var acc = document.querySelector("#mvAccordion");
+                if (!acc) return;
+                if (acc.dataset.mvAccInit === "1") return;
+                acc.dataset.mvAccInit = "1";
+
+                acc.addEventListener("click", function (ev) {
+                    var header = ev.target.closest(".mv-accordion-header");
+                    if (!header) return;
+
+                    var items = Array.prototype.slice.call(
+                        document.querySelectorAll("#mvAccordion .mv-accordion-item")
+                    );
+                    var item = header.closest(".mv-accordion-item");
+                    var index = items.indexOf(item);
+
+                    // Toggle no clicado e fecha os outros
+                    item.classList.toggle("mv-active");
+                    items.forEach(function (otherItem, i) {
+                        if (i !== index) otherItem.classList.remove("mv-active");
+                    });
+                });
+            } catch (e) {
+                console.warn("[mv] Accordion init falhou:", e);
+            }
+        }
+
+        function mvBoot() {
+            mvInitSwiper();
+            mvBindAccordion();
+        }
+
+        // 1) DOM pronto
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", mvBoot);
+        } else {
+            mvBoot();
+        }
+
+        // 2) Re-render/inyecção comum na Magazord
+        try {
+            var obs = new MutationObserver(function () {
+                mvBoot();
+            });
+            obs.observe(document.documentElement, { childList: true, subtree: true });
+        } catch (e) { }
+    })();
+// ]]></script>

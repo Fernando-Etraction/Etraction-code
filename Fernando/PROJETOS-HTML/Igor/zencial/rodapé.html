@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #efe8fb;
+        --card: #ffffff;
+        --ink: #262730;
+        --muted: #7d7c87;
+        --brand: #6c5ce7;
+        --success: #35c759;
+        --radius: 28px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+    
+      .ZILODA-wrap {
+        max-width: 1440px;
+        margin: 24px auto;
+        padding: 16px;
+      }
+
+      /* HERO */
+      .ZILODA-hero {
+        position: relative;
+        z-index: 0;
+        overflow: hidden;
+        background: #f2ecfc;
+        border-radius: 28px;
+        padding: 240px 0;
+        min-height: 520px;
+      }
+      .ZILODA-hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 -30px 0;
+        text-align: center;
+        font-weight: 800;
+        font-size: 24vw;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        color: #fff;
+        opacity: 0.55;
+        pointer-events: none;
+        z-index: 0; /* fica no nível mais baixo */
+      }
+
+      .ZILODA-grid{
+        position: relative;
+        width: 1250px;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 360px minmax(520px, 1fr) 260px; /* evita o 1fr engolir tudo */
+        gap: 28px;
+        align-items: start;
+        margin: -215px auto 0;       
+      } 
+      @media (max-width: 1024px) {
+        .ZILODA-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .ZILODA-aside {
+          order: 3;
+          grid-column: 1/-1;
+        }
+      }
+      @media (max-width: 720px) {
+        .ZILODA-grid {
+          grid-template-columns: 1fr;
+        }
+        .ZILODA-left-card {
+          order: 1;
+        }
+        .ZILODA-menu {
+          order: 2;
+        }
+        .ZILODA-aside {
+          order: 3;
+        }
+        .ZILODA-hero {
+          padding: 28px 18px 46px;
+        }
+        .ZILODA-hero::after {
+          font-size: 42vw;
+          bottom: -10px;
+        }
+      }
+
+      /* LEFT CARD (novo) */
+      .ZILODA-left-card {
+        background: var(--card);
+        border-radius: 22px;
+        padding: 28px 26px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        min-height: 420px;
+      }
+
+      .ZILODA-left-card .ZILODA-lead {
+        margin: 0 0 8px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .ZILODA-left-card h2 {
+        margin: 0 0 18px;
+        font-size: 40px; /* mais próximo do layout 2 */
+        line-height: 1.08;
+        font-weight: 200;
+        letter-spacing: -0.02em;
+        color: #3a3a3a;
+      }
+      .ZILODA-left-card h2 span {
+        color: var(--brand); /* roxo do tema */
+      }
+
+      /* CTA pílula clara, NÃO sobrepõe a imagem */
+      .ZILODA-cta {
+        font-family: "Inter", sans-serif;
+        margin-top: -54px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: #ffffff;
+        color: #262730;
+        padding: 10px 16px;
+        border-radius: 999px;
+        border: 1px solid #e9e9f0;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+        width: max-content;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 14px; /* separa do topo da imagem */
+      }
+      .ZILODA-cta:focus-visible {
+        outline: 3px solid #1113;
+        outline-offset: 3px;
+      }
+      .ZILODA-cta i {
+        width: 18px;
+        height: 18px;
+        display: inline-block;
+        background: currentColor;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M13 5l7 7-7 7v-4H4v-6h9V5z"/></svg>')
+          center/contain no-repeat;
+        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000" d="M13 5l7 7-7 7v-4H4v-6h9V5z"/></svg>')
+          center/contain no-repeat;
+      }
+
+      /* Imagem no rodapé do card, sem sobreposição do CTA */
+      .ZILODA-doc-img {
+        width: 100%;
+        display: block;
+        margin-top: -10px;
+        border-bottom-left-radius: 22px;
+        border-bottom-right-radius: 22px;
+        object-fit: cover;
+        max-height: none;
+        object-position: top center;
+      }
+
+      /* responsivo: dá uma folga pros títulos em telas menores */
+      @media (max-width: 420px) {
+        .ZILODA-left-card h2 {
+          font-size: 34px;
+        }
+      }
+
+      /* MENU */
+      .ZILODA-menu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px 60px;
+        align-items: start;
+      }
+      .ZILODA-menu h4 {
+        margin: 0 0 10px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      .ZILODA-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .ZILODA-menu li {
+        padding: 8px 0;
+      }
+      .ZILODA-menu a {
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 16px;
+      }
+      .ZILODA-menu a:hover {
+        text-decoration: underline;
+      }
+
+      /* ASIDE */
+      .ZILODA-aside {
+        display: grid;
+        gap: 16px;
+        align-content: start;
+      }
+      .ZILODA-badge {
+        background: white;
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .ZILODA-badge .ZILODA-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .ZILODA-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        padding: 10px 50px;
+        border-radius: 10px;
+        background: #f1f9e6;
+        font-size: 13px;
+      }
+      .ZILODA-pill .ZILODA-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--success);
+      }
+      .ZILODA-rating {
+        font-weight: 800;
+        font-size: 20px;
+        margin-left: auto;
+      }
+      .ZILODA-note {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.35;
+        margin-top: 8px;
+      }
+
+      /* DOTS */
+      .ZILODA-dots {
+        position: absolute;
+        right: 160px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .ZILODA-dots .ZILODA-c {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #fff;
+        opacity: 0.8;
+      }
+      .ZILODA-dots .ZILODA-c.ZILODA-lg {
+        width: 22px;
+        height: 22px;
+      }
+      .ZILODA-dots .ZILODA-c.ZILODA-sm {
+        width: 14px;
+        height: 14px;
+      }
+      @media (max-width: 1200px) {
+        .ZILODA-dots {
+          right: 110px;
+        }
+      }
+      @media (max-width: 1024px) {
+        .ZILODA-dots {
+          display: none;
+        }
+      }
+
+      /* LOGO no rodapé, por baixo do grid e acima do ::after */
+      .ZILODA-zencial-logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 10px;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 1;
+      }
+      .ZILODA-zencial-logo img {
+        display: block;
+        max-width: 1020px;
+        width: 73vw;
+        height: auto;
+      }
+      @media (max-width: 720px) {
+        .ZILODA-zencial-logo img {
+          width: 64vw;
+          max-width: 360px;
+        }
+      }
+
+      .ZILODA-sr-only {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ZILODA-wrap">
+      <section class="ZILODA-hero" aria-label="Seção institucional Zencial">
+        <div class="ZILODA-grid">
+          <!-- LEFT CARD (novo) -->
+          <article class="ZILODA-left-card">
+            <header>
+              <p class="ZILODA-lead">
+                Atendimento exclusivo<br />com um especialista.
+              </p>
+              <h2>
+                Totalmente <br />
+                <span>de graça.</span>
+              </h2>
+            </header>
+            <img
+              class="ZILODA-doc-img"
+              src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/image_4.png?v=1758807959"
+              alt="Profissional de saúde sorrindo"
+              loading="eager"
+            />
+            <a class="ZILODA-cta" href="#" id="cta-btn">
+              <span>Consulte-se agora</span</i>
+            </a>
+          </article>
+
+          <nav class="ZILODA-menu" aria-label="Mapa de navegação">
+            <div>
+              <h4>Cabelo</h4>
+              <ul>
+                <li><a href="#">Queda capilar</a></li>
+                <li><a href="#">Frizz</a></li>
+                <li><a href="#">Crescimento acelerado</a></li>
+                <li><a href="#">Uso contínuo</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4>Pele</h4>
+              <ul>
+                <li><a href="#">Rugas</a></li>
+                <li><a href="#">Melasma</a></li>
+                <li><a href="#">Olheiras</a></li>
+                <li><a href="#">Hidratação</a></li>
+                <li><a href="#">Noturno</a></li>
+                <li><a href="#">Diurno</a></li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="#">Política de Privacidade</a></li>
+                <li><a href="#">Composições</a></li>
+                <li><a href="#">Suporte</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          <aside class="ZILODA-aside" aria-label="Selos e avaliações">
+            <div class="ZILODA-badge">
+              <div class="ZILODA-row">
+                <div class="ZILODA-pill">
+                  <div style="margin-left: -40px;
+    margin-right: 45px;">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/dropped-image_1.png?v=1758807947"
+                    alt="Prêmio"
+                    height="28"
+                    style="opacity: 0.8"
+                  />
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/Group_352.png?v=1758807948"
+                    alt="Prêmio"
+                    height="28"
+                    style="opacity: 0.8"
+                  /></div>
+                  <div
+                    class="ZILODA-rating"
+                    aria-label="Nota 8.0"
+                    style="font-weight: 200"
+                  >
+                    8.0
+                  </div>
+                </div>
+              </div>
+              <div class="ZILODA-badge">
+                <div class="ZILODA-row">
+                  <span
+                    style="
+                      font-weight: 600;
+                      font-size: 10px;
+                      text-align: center;
+                    "
+                    >Os consumidores avaliam o atendimento dessa empresa como
+                    ÓTIMO. A nota média nos últimos 6 meses é 8.0/10.</span
+                  >
+                </div>
+              </div>
+              <div class="ZILODA-badge" style="background-color: #f1f9e6">
+                <div class="ZILODA-row">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/Vector_2.png?v=1758807958"
+                    alt="Prêmio"
+                    height="28"
+                    style="opacity: 0.8"
+                  />
+                  <span
+                    class="ZILODA-rating"
+                    aria-hidden="true"
+                    style="
+                      background: #3e6b34;
+                      color: #ffffff;
+                      padding: 5px;
+                      border-radius: 3px;
+                      text-align: center;
+                    "
+                    >2º</span
+                  >
+                </div>
+                <p class="ZILODA-note" style="color: #3e6b34">
+                  Destaque na categoria "Dermocosméticos (Canais Operacionais)",
+                  ocupando a posição de 2º lugar.
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- LOGO centralizado no rodapé -->
+        <div class="ZILODA-zencial-logo">
+          <img src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/Vector_1.png?v=1758808044" alt="Zencial Logo" />
+        </div>
+
+        <div class="ZILODA-dots" aria-hidden="true">
+          <span class="ZILODA-c ZILODA-lg"></span><span class="ZILODA-c"></span
+          ><span class="ZILODA-c ZILODA-sm"></span>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const btn = document.getElementById("cta-btn");
+      btn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        const ripple = document.createElement("span");
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.cssText = `position:absolute; inset:0 auto auto 0; width:${size}px;height:${size}px;border-radius:50%; transform:translate(${
+          e.clientX - rect.left - size / 2
+        }px,${
+          e.clientY - rect.top - size / 2
+        }px); background:rgba(255,255,255,.25); pointer-events:none; animation:ripple .6s ease-out forwards;`;
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 650);
+      });
+      const balls = document.querySelectorAll(".ZILODA-dots .ZILODA-c");
+      balls.forEach((b, i) => {
+        b.animate([{ transform: "scale(1)" }, { transform: "scale(1.14)" }], {
+          duration: 1400 + i * 150,
+          iterations: Infinity,
+          direction: "alternate",
+          easing: "ease-in-out",
+        });
+      });
+    </script>
+    <style>
+      @keyframes ripple {
+        from {
+          opacity: 0.7;
+        }
+        to {
+          opacity: 0;
+          transform: translate(var(--x, 0), var(--y, 0)) scale(2.2);
+        }
+      }
+    </style>
+  </body>
+</html>

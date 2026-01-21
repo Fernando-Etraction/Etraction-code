@@ -1,0 +1,491 @@
+<style>
+    /* Top Banner - Risco Finno Style */
+    .top-banner {
+        height: 80px;
+        width: 100%;
+        background: linear-gradient(to right, #f8f3ed 0%, #fef5f0 50%, #f8f3ed 100%);
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(200, 180, 160, 0.12);
+    }
+
+    /* Subtle decorative dots */
+    .banner-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        opacity: 0.15;
+    }
+
+    .dot {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(198, 162, 132, 0.4);
+        border-radius: 50%;
+        animation: dotFloat 8s infinite ease-in-out;
+    }
+
+    .dot-1 {
+        left: 20%;
+        top: 30px;
+    }
+
+    .dot-2 {
+        left: 60%;
+        top: 45px;
+        animation-delay: 2s;
+    }
+
+    .dot-3 {
+        left: 85%;
+        top: 25px;
+        animation-delay: 4s;
+    }
+
+    @keyframes dotFloat {
+
+        0%,
+        100% {
+            transform: translateY(0);
+            opacity: 0.2;
+        }
+
+        50% {
+            transform: translateY(-8px);
+            opacity: 0.5;
+        }
+    }
+
+    /* Banner content */
+    .banner-content {
+        height: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 40px;
+        position: relative;
+        z-index: 2;
+        gap: 40px;
+    }
+
+    /* Main Message */
+    .main-message {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .promo-text {
+        color: #3d3d3d;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0.2px;
+        line-height: 1.4;
+    }
+
+    .promo-highlight {
+        color: #c6a284;
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    /* Separator Line */
+    .separator {
+        width: 1px;
+        height: 45px;
+        background: linear-gradient(to bottom,
+                transparent,
+                rgba(198, 162, 132, 0.15),
+                transparent);
+    }
+
+    /* Countdown */
+    .countdown-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .countdown-label {
+        color: #7d7d7d;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+    }
+
+    .countdown {
+        display: flex;
+        gap: 6px;
+    }
+
+    .time-unit {
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(198, 162, 132, 0.15);
+        border-radius: 4px;
+        padding: 5px 8px;
+        min-width: 42px;
+        text-align: center;
+    }
+
+    .time-value {
+        display: block;
+        color: #c6a284;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .time-label {
+        display: block;
+        color: #9d9d9d;
+        font-size: 8px;
+        font-weight: 400;
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    /* Copy Coupon Button - Mais destaque */
+    .coupon-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .coupon-label {
+        color: #7d7d7d;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+    }
+
+    .coupon-button {
+        background: linear-gradient(135deg, #c6a284 0%, #b89575 100%);
+        border: none;
+        border-radius: 6px;
+        padding: 10px 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 2px 8px rgba(198, 162, 132, 0.2);
+    }
+
+    .coupon-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(198, 162, 132, 0.35);
+    }
+
+    .coupon-button:active {
+        transform: translateY(0);
+    }
+
+    .coupon-code {
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+    }
+
+    .copy-icon {
+        color: white;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Success Tooltip */
+    .copy-tooltip {
+        position: absolute;
+        top: -38px;
+        left: 50%;
+        transform: translateX(-50%) scale(0);
+        background: #4caf50;
+        color: white;
+        padding: 7px 14px;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+        box-shadow: 0 3px 10px rgba(76, 175, 80, 0.3);
+    }
+
+    .copy-tooltip::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #4caf50;
+    }
+
+    .copy-tooltip.show {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+        .banner-content {
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .main-message {
+            gap: 10px;
+        }
+
+        .promo-text {
+            font-size: 13px;
+        }
+
+        .promo-highlight {
+            font-size: 15px;
+        }
+
+        .countdown-wrapper {
+            gap: 10px;
+        }
+
+        .time-unit {
+            min-width: 38px;
+            padding: 4px 6px;
+        }
+
+        .time-value {
+            font-size: 14px;
+        }
+
+        .coupon-button {
+            padding: 8px 18px;
+        }
+
+        .coupon-code {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 680px) {
+        .top-banner {
+            height: auto;
+            min-height: 80px;
+            padding: 14px 0;
+        }
+
+        .banner-content {
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .main-message {
+            text-align: center;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .separator {
+            display: none;
+        }
+
+        .countdown-wrapper {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .coupon-wrapper {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .time-unit {
+            min-width: 35px;
+        }
+    }
+
+    /* Demo container */
+    .demo-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        border: 1px solid rgba(198, 162, 132, 0.1);
+    }
+
+    .demo-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2d2d2d;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    .demo-info {
+        text-align: center;
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.8;
+        font-size: 13px;
+    }
+
+    .demo-features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+    }
+
+    .feature-item {
+        padding: 18px;
+        background: #fef5f0;
+        border: 1px solid rgba(198, 162, 132, 0.12);
+        border-radius: 6px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        border-color: rgba(198, 162, 132, 0.25);
+        box-shadow: 0 2px 8px rgba(198, 162, 132, 0.08);
+    }
+
+    .feature-icon {
+        font-size: 26px;
+        margin-bottom: 6px;
+    }
+
+    .feature-title {
+        font-weight: 600;
+        color: #2d2d2d;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+
+    .feature-desc {
+        font-size: 12px;
+        color: #666;
+        line-height: 1.5;
+    }
+</style>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        const html = `     <!-- Top Banner - Risco Finno Style -->
+    <div class="top-banner">
+        <!-- Subtle decorative background -->
+        <div class="banner-bg">
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
+        </div>
+
+        <!-- Banner content -->
+        <div class="banner-content">
+            <!-- Main promotional message -->
+            <div class="main-message">
+                <div class="promo-text">
+                    <span class="promo-highlight">12% de desconto</span> + Frete grátis
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Countdown Timer -->
+            <div class="countdown-wrapper">
+                <span class="countdown-label">Termina em:</span>
+                <div class="countdown" id="countdown">
+                    <div class="time-unit">
+                        <span class="time-value" id="days">00</span>
+                        <span class="time-label">dias</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="hours">00</span>
+                        <span class="time-label">hrs</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="minutes">00</span>
+                        <span class="time-label">min</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="seconds">00</span>
+                        <span class="time-label">seg</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- Copy Coupon Button -->
+            <div class="coupon-wrapper">
+                <span class="coupon-label">Use o cupom:</span>
+                <button class="coupon-button" onclick="copyCoupon()">
+                    <span class="coupon-code">12:12</span>
+                    <span class="copy-icon">📋</span>
+                    <div class="copy-tooltip" id="copyTooltip">✓ Cupom copiado!</div>
+                </button>
+            </div>
+        </div>
+    </div>`
+        $(html).insertBefore("header");
+    });
+
+
+    // Countdown Timer
+    function updateCountdown() {
+        const targetDate = new Date('2025-12-12T23:59:59').getTime();
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        } else {
+            document.getElementById('days').textContent = '00';
+            document.getElementById('hours').textContent = '00';
+            document.getElementById('minutes').textContent = '00';
+            document.getElementById('seconds').textContent = '00';
+        }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Copy Coupon to Clipboard
+    function copyCoupon() {
+        const couponCode = '12:12';
+        const tooltip = document.getElementById('copyTooltip');
+
+        navigator.clipboard.writeText(couponCode).then(() => {
+            tooltip.classList.add('show');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 2000);
+        }).catch(err => {
+            console.error('Erro ao copiar cupom:', err);
+        });
+    }
+</script>

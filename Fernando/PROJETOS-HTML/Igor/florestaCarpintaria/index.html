@@ -1,0 +1,626 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" />
+<style type="text/css">
+  /* Header */
+  .fcx-header {
+    background: #ffffff;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .ajuste{ text-align: center !important; }
+  html { scroll-behavior: smooth; }
+
+  .fcx-logo { font-size: 28px; font-weight: 700; color: #09744b; }  
+  .fcx-nav-center { font-size: 18px; font-weight: 500; color: #666; }
+
+  .fcx-nav-right { display: flex; align-items: center; gap: 25px; }
+  .fcx-nav-right a {
+    text-decoration: none; color: #666; font-weight: 500; transition: all 0.3s ease;
+    padding: 8px 16px; border-radius: 20px;
+  }
+  .fcx-nav-right a:hover { color: #1b5e20; background: rgba(76,175,80,0.1); }
+
+  /* Page Container */
+  .fcx-page { display: none; min-height: 100vh; }
+  .fcx-page.is-active { display: block; }
+
+  /* Home Page */
+  .fcx-hero {
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+    display: grid; place-items: center; min-height: 60vh; padding: 60px 20px;
+    text-align: center; color: white; position: relative; border-radius: 20px;
+  }
+  .fcx-hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; }
+  .fcx-hero-badge {
+    display: inline-block; background: rgba(255,255,255,0.2); padding: 10px 25px;
+    border-radius: 50px; font-size: 14px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.3);
+  }
+  .fcx-hero h1 { font-size: 56px; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
+  .fcx-hero p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+  /* Main Content */
+  .fcx-main { background: #ffffff; border-radius: 40px 40px 0 0; margin-top: 60px; padding: 80px 40px; min-height: 60vh; }
+  .fcx-section-title { text-align: center; font-size: 36px; font-weight: 700; margin-bottom: 20px; color: #2d3748; }
+  .fcx-section-subtitle { text-align: center; font-size: 18px; color: #718096; margin-bottom: 60px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  /* States Grid */
+  .fcx-states { max-width: 1000px; margin: 0 auto; }
+  .fcx-states-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px; margin-bottom: 60px;
+  }
+  .fcx-state-card {
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); border: none; border-radius: 20px;
+    padding: 40px 30px; text-align: center; cursor: pointer;
+    transition: all .4s cubic-bezier(0.175,0.885,0.32,1.275);
+    position: relative; overflow: hidden; color: white;
+    box-shadow: 0 10px 30px rgba(76,175,80,0.2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  }
+  .fcx-state-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px rgba(76,175,80,0.3); }
+  .fcx-state-code { font-size: 42px; font-weight: 800; margin: 0; line-height: 1; }
+  .fcx-state-name { font-size: 16px; opacity: 0.9; font-weight: 500; }
+  .fcx-client-count { font-size: 12px; opacity: 0.7; margin-top: 8px; }
+
+  /* Client List Page */
+  .fcx-list-hero { background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); padding: 80px 20px; text-align: center; color: white; position: relative; }
+  .fcx-list-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 10px; }
+  .fcx-back-btn {
+    background: #1F6423; color: white; padding: 12px 25px; border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 25px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+    display: inline-block; margin-bottom: 30px; margin-top: 10px;
+  }
+  .fcx-back-btn:hover { color: white !important; background: #155218; transform: translateY(-2px); }
+
+  /* Client Items */
+  .fcx-clients { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+  .fcx-client-item {
+    background: #ffffff; border: 1px solid #e2e8f0; border-radius: 15px; padding: 20px; margin-bottom: 15px;
+    display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .fcx-client-item:hover { background: #f8f9fa; transform: translateX(10px); box-shadow: 0 5px 20px rgba(76,175,80,0.1); border-color: #1b5e20; }
+  .fcx-client-icon { width: 24px; height: 24px; background: #1b5e20; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px; }
+  .fcx-client-name { color: #2d3748; font-size: 16px; font-weight: 500; flex: 1; }
+
+  /* Client Detail Page */
+  .fcx-detail { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+  .fcx-client-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px; }
+  .fcx-client-header { padding: 30px; background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); color: white; }
+  .fcx-client-detail-name { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+  .fcx-client-type { font-size: 16px; opacity: 0.9; }
+  .fcx-client-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 40px; }
+
+  /* Swiper Styles (escopados pelo id) */
+  #fcx-swiper { position: relative; }
+  #fcx-swiper.swiper-container {
+    width: 100%; min-height: 600px; height: auto; border-radius: 15px; overflow: hidden; border: 1px solid #e2e8f0;
+  }
+  #fcx-swiper .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+  #fcx-swiper .swiper-pagination-bullet { background: #1b5e20; }
+  #fcx-swiper .swiper-button-next, #fcx-swiper .swiper-button-prev {
+    top: 50%; width: 40px; height: 40px; margin-top: -20px; transform: none; color: #1b5e20; z-index: 10;
+  }
+  #fcx-swiper .swiper-button-next { right: 10px; }
+  #fcx-swiper .swiper-button-prev { left: 10px; }
+
+  /* Client Info */
+  .fcx-client-info { display: flex; flex-direction: column; gap: 25px; }
+  .fcx-info-sec { background: #f8f9fa; padding: 20px; border-radius: 15px; border: 1px solid #e2e8f0; }
+  .fcx-info-title { font-size: 16px; font-weight: 600; color: #1b5e20; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .fcx-info-content { color: #2d3748; line-height: 1.6; }
+  .fcx-ig-link { color: #4caf50; text-decoration: none; font-weight: 500; }
+  .fcx-ig-link:hover { text-decoration: underline; }
+
+  .fcx-products { list-style: none; padding: 0; }
+  .fcx-products li { padding: 8px 0; border-bottom: 1px solid #e2e8f0; color: #4a5568; }
+  .fcx-products li:last-child { border-bottom: none; }
+  .fcx-products li::before { content: "✓"; color: #4caf50; font-weight: bold; margin-right: 10px; }
+
+  .fcx-maps-btn {
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); color: white; padding: 15px 30px; border: none;
+    border-radius: 25px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
+    text-decoration: none; display: inline-block; text-align: center; box-shadow: 0 5px 20px rgba(76,175,80,0.2);
+  }
+  .fcx-maps-btn:hover { background: linear-gradient(135deg, #133f15 0%, #08290a 100%); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(76,175,80,0.3); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .fcx-header { padding: 15px 20px; flex-direction: column; gap: 15px; }
+    #fcx-swiper .swiper-button-next, #fcx-swiper .swiper-button-prev { display: none !important; }
+    .fcx-hero { padding: 60px 20px; }
+    .fcx-hero h1 { font-size: 32px; }
+    .fcx-client-content { grid-template-columns: 1fr; gap: 30px; padding: 30px 20px; }
+    #fcx-swiper.swiper-container { height: 300px; }
+    .fcx-states-grid { grid-template-columns: 1fr; gap: 20px; align-items: center; }
+    .fcx-state-card { width: 100%; margin: 0 auto; }
+  }
+
+  .fcx-fade-in { opacity: 0; transform: translateY(30px); animation: fcxFadeInUp 0.6s ease forwards; }
+  @keyframes fcxFadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+  /* Contato */
+  .fcx-contact {
+    background: #ffffff; padding: 80px 20px; text-align: center; border-top: 1px solid #e2e8f0; margin-top: -70px !important;
+  }
+  .fcx-contact-title { font-size: 36px; font-weight: 700; color: #2d3748; margin-bottom: 10px; }
+  .fcx-contact-subtitle { font-size: 18px; color: #718096; margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .fcx-contact-links { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+  .fcx-contact-btn { display: inline-block; padding: 15px 30px; border-radius: 30px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; }
+  .fcx-whatsapp-btn { background: #133f15; color: white; }
+  .fcx-whatsapp-btn:hover { background: #2e7d32; transform: translateY(-2px); }
+  .fcx-email-btn { background: #f1f1f1; color: #333; }
+  .fcx-email-btn:hover { background: #e2e2e2; transform: translateY(-2px); border: 1px solid #1b5e20 !important; }
+  @media (min-width: 600px) { .fcx-contact-links { flex-direction: row; justify-content: center; } }
+</style>
+
+<!-- Home Page -->
+<div class="fcx-page is-active" id="fcx-home">
+  <section class="fcx-hero">
+    <div class="fcx-hero-content">
+      <div class="fcx-hero-badge">Parceiros em Todo Brasil</div>
+      <h1>Clientes<br />Floresta Carpintaria</h1>
+      <p id="fcx-states-anchor">Descubra os estabelecimentos que confiam na nossa qualidade e tradição</p>
+    </div>
+  </section>
+
+  <main class="fcx-main">
+    <h2 class="fcx-section-title">Selecione um Estado</h2>
+    <p class="fcx-section-subtitle">Explore nossos parceiros por região</p>
+    <div class="fcx-states">
+      <div class="fcx-states-grid" id="fcx-states-grid">&nbsp;</div>
+    </div>
+  </main>
+</div>
+
+<!-- Client List Page -->
+<div class="fcx-page" id="fcx-client-list">
+  <section class="fcx-list-hero">
+    <h1 id="state-title">Clientes</h1>
+    <p>Estabelecimentos parceiros neste estado</p>
+  </section>
+
+  <div class="ajuste">
+    <a class="fcx-back-btn" href="#" onclick="showPage('fcx-home')">&larr; Voltar aos Estados</a>
+  </div>
+
+  <div class="fcx-clients">
+    <div id="clients-list"></div>
+  </div>
+</div>
+
+<!-- Client Detail Page -->
+<div class="fcx-page" id="fcx-client-detail">
+  <section class="fcx-list-hero">
+    <h1>Detalhes do Cliente</h1>
+  </section>
+
+  <div class="ajuste">
+    <a class="fcx-back-btn" href="#" onclick="goBackToList()">&larr; Voltar à Lista</a>
+  </div>
+
+  <div class="fcx-detail">
+    <div id="client-detail-content">&nbsp;</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  // Helper: cria URL do Instagram a partir do @
+  function igUrl(handle){
+    const h = (handle || "").trim();
+    if(!h) return "#";
+    const clean = h.startsWith("@") ? h.slice(1) : h;
+    return "https://instagram.com/" + clean;
+  }
+
+  // Client data (ATUALIZADO)
+  const clientsData = {
+    SP: [
+      {
+        id: "buffet-quintal",
+        name: "Buffet Quintal da Bagunça",
+        type: "Buffet & Eventos",
+        instagram: "@buffetquintaldabagunca",
+        address: "Rua Lacedemônia, 200 - Vila Mascote, São Paulo - SP, 04634-020",
+        phone: null,
+        products: ["13 Conjuntos Fixo 70x70 Mesa com 4 Cadeiras Estofadas – Cor: Imbuia"],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sp/img-4758.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sp/img-4759.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sp/img-4760.jpg",
+        ],
+      },
+      {
+        id: "pastelaria-tropical",
+        name: "Pastelaria Tropical - SP",
+        type: "Lanchonete & Pastelaria",
+        instagram: "@Pastelaria_tropical_",
+        address: "Av. Antônio de Pinho Taváres, 282 - Conj. Cristina (São Benedito)",
+        phone: "(11) 94476-8967",
+        products: [
+          "08 Mesas X de Madeira Maciça 80x80 – Cor: Mel",
+          "07 Mesas X de Madeira Maciça 120x80 – Cor: Mel",
+          "42 Cadeiras X de Madeira Maciça – Cor: Mel",
+          "01 Balcão 2 Portas Madeira Retrô"
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-6210.jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-6201.jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-6197.jpeg",
+        ],
+      }
+    ],
+
+    MG: [
+      {
+        id: "juca-restaurante",
+        name: "Juca Restaurante e Conveniência",
+        type: "Restaurante & Conveniência",
+        instagram: "@juca_restaurante_mg",
+        address: "Avenida Altino Guimarães, 6 Anexo ao Posto de Gasolina Morada Nova - São Vicente, Patrocínio - MG, 38740-200",
+        phone: null,
+        products: [
+          "40 Conjuntos Fixo Paraná Ultra Mesa 120x80 com 4 Cadeiras Estofadas – Cor: Mel",
+          "8 Cadeiras de Alimentação Infantil com Proteção – Verniz",
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/mg/img-2092.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/mg/img-2117.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/mg/img-2103.jpg",
+        ],
+      },
+      {
+        id: "absolutto-restaurante",
+        name: "Absolutto Restaurante",
+        type: "Restaurante",
+        instagram: "@absoluttorestauranteltda",
+        address: "Rua Luiz Gonzaga de Souza, nº 400",
+        phone: "(37) 99842-1746",
+        products: [
+          "18 Conjuntos Fixo Paraná Pop Mesa 120x80 com 4 Cadeiras Estofadas – Cor: Mel"
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/pasta-hauany/fotos-nao-apagar/WhatsApp%20Image%202025-09-01%20at%2009.16.05.jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/pasta-hauany/fotos-nao-apagar/WhatsApp%20Image%202025-09-01%20at%2009.16.23.jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/pasta-hauany/fotos-nao-apagar/whatsapp-image-2025-09-01-at-09.jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/pasta-hauany/fotos-nao-apagar/WhatsApp%20Image%202025-09-01%20at%2009.34.01.jpeg",
+        ],
+      }
+    ],
+
+    DF: [
+      {
+        id: "espaco-gourmet",
+        name: "Espaço Gourmet Frutos do Mar",
+        type: "Restaurante & Conveniência",
+        instagram: "@espacogourmetgama",
+        address: "Qi 1 Lotes 960/980/1000 - Gama, Brasília - DF, 72445-010",
+        phone: null,
+        products: [
+          "70 Conjuntos Fixo Floresta Mesa 80x80 com 4 Cadeiras Estofadas – Cor: Mel",
+          "10 Cadeiras de Alimentação Infantil Estofada – Cor: Mel",
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/df/img-4902.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/df/img-4898.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/df/img-4890.jpg",
+        ],
+      },
+    ],
+
+    RS: [
+      {
+        id: "padaria-pao-doce",
+        name: "Pão Doce Padaria e Confeitaria",
+        type: "Padaria & Confeitaria",
+        instagram: "@apadariapãodoce",
+        address: "R. Ari Silveira de Souza, 950 - Santa Luzia, Capão da Canoa - RS, 95555-000",
+        phone: null,
+        products: [
+          "2 Conjuntos X Mesa 120x80 com 4 Cadeiras X Madeira Maciça – Cor: Mel",
+          "4 Conjuntos Bistrô Fixo Mesa Redonda X com 2 Banquetas X – Cor: Mel",
+          "3 Mesas X de Madeira Maciça 80x80 – Cor: Mel",
+          "9 Cadeiras X Madeira Maciça – Cor: Mel",
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/rs/WhatsApp%20Image%202025-06-24%20at%2016.46.12%20(5).jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/rs/WhatsApp%20Image%202025-06-24%20at%2016.46.12%20(3).jpeg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/rs/whatsapp-image-2025-06-24-at-16.jpeg",
+        ],
+      },
+      {
+        id: "lm-restaurante",
+        name: "LM Restaurante",
+        type: "Restaurante",
+        instagram: "@lmcaferestaurante",
+        address: "Av. Barão do Rio Branco, 99 - Budag, Rio do Sul - SC, 89160-000",
+        phone: "(47) 3521-4473",
+        products: [
+          "20 Cadeiras Fixas Itália de Madeira Maciça – Cor: Mel"
+        ],
+        images: [
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/20250828-131925268-ios.jpg",
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/20250828-131933773-ios.jpg",
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/20250828-131942407-ios.jpg",
+        ]
+      },
+    ],
+
+    SC: [
+      {
+        id: "paiol-mar-fogo",
+        name: "Paiol Mar & Fogo",
+        type: "Restaurante Frutos do Mar",
+        instagram: "@paiolmarefogo",
+        address: "R. Ângelo Pizoni, 100 - Vila Floresta, Criciúma - SC, 88817-315",
+        phone: null,
+        products: [
+          "3 Conjuntos Fixo Mesa 120x80 com 4 Cadeiras Estofadas Premium – Cor: Imbuia",
+          "6 Mesas Fixas 80x80 Premium – Cor: Imbuia",
+          "12 Cadeiras Fixas Estofadas Premium – Cor: Imbuia",
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sc/paiol/img-9656.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sc/paiol/img-9676.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sc/paiol/img-1876.jpg",
+        ],
+      },
+      {
+        id: "x-frederico",
+        name: "X Frederico",
+        type: "Lanchonete & Hamburgueria",
+        instagram: "@xfrederico_itapema",
+        address: "R. 248, 665 - Meia Praia, Itapema - SC, 88220-000",
+        phone: null,
+        products: [
+          "3 Mesas Fixas 80x80 Premium – Cor: Mel",
+          "14 Cadeiras Fixas Estofadas Premium – Cor: Mel",
+        ],
+        images: [
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sc/xfrederico/foto-2.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sc/xfrederico/foto-33.jpg",
+          "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/etraction-pastalp/sc/xfrederico/foto-35.jpg",
+        ],
+      },
+    ],
+
+    PR: [
+      {
+        id: "stival-sports",
+        name: "Stival Sports",
+        type: "Artigos Esportivos",
+        instagram: "@stivalsports_",
+        address: "Manoel Ribas, 8172, Santa Felicidade, Curitiba - PR",
+        phone: "(41) 99979-2263",
+        products: [],
+        images: [
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-0486.jpg",
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-0484.jpg",
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-0485.jpg",
+        ]
+      }
+    ],
+
+    GO: [
+      {
+        id: "pamonharia-fama",
+        name: "Pamonharia Fama",
+        type: "Restaurante & Lanchonete",
+        instagram: "@pamonharia_fama_",
+        address: "Rua Senador Jayme N° 392 - Centro Oeste",
+        phone: "(62) 8164-3924",
+        products: [
+          "07 Conjuntos X Mesa 120x80 com 4 Cadeiras X de Madeira Maciça – Cor: Mel",
+          "01 Conjunto Bistrô Fixo Mesa Redonda X com 2 Banquetas X – Cor: Mel",
+          "01 Cadeira de Alimentação Infantil com Proteção – Verniz"
+        ],
+        images: [
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-5670.jpg",
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-5655.jpg",
+            "https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/img-5649.jpg",]
+      }
+    ],
+
+    RJ: [
+      {
+        id: "churrasco-do-russo",
+        name: "Churrasco do Russo",
+        type: "Churrascaria",
+        instagram: "@churrascodorusso_marechal",
+        address: "Rua João Vicente 1537, Marechal Hermes - RJ",
+        phone: "(21) 98391-6794",
+        products: [
+          "24 Conjuntos Fixo Floresta Mesa 120x80 com 4 Cadeiras Estofadas – Cor: Mel",
+          "20 Mesas Fixas 70x70 de Madeira – Cor: Mel",
+          "40 Cadeiras Fixas Estofadas de Madeira – Cor: Mel",
+          "08 Conjuntos Bistrô Fixo Mesa com 2 Banquetas Estofadas de Madeira – Cor: Mel",
+          "03 Cadeiras de Alimentação Infantil Estofadas – Cor: Mel"
+        ],
+        images: ["https://cdn-secure.uoou.com.br/static/images/loja_virtual/floresta-carpintaria/fotosnovas/IMG_7574.JPG",]
+      }
+    ]
+  };
+
+  // Estados (renderizados em um único botão por estado)
+  const FCX_STATES = [
+    { uf: "SP", name: "São Paulo" },
+    { uf: "MG", name: "Minas Gerais" },
+    { uf: "RS", name: "Rio Grande do Sul" },
+    { uf: "DF", name: "Brasília" },
+    { uf: "SC", name: "Santa Catarina" },
+    { uf: "PR", name: "Paraná" },
+    { uf: "GO", name: "Goiás" },
+    { uf: "RJ", name: "Rio de Janeiro" },
+  ];
+
+  function renderStates() {
+    const grid = document.getElementById("fcx-states-grid");
+    grid.innerHTML = FCX_STATES.map(
+      ({ uf, name }) => `
+        <button class="fcx-state-card" onclick="showClients('${uf}','${name}')">
+          <div class="fcx-state-code">${uf}</div>
+          <div class="fcx-state-name">${name}</div>
+        </button>
+      `
+    ).join("");
+  }
+
+  let currentState = "";
+  let currentSwiper = null;
+
+  function showPage(pageId) {
+    document.querySelectorAll(".fcx-page").forEach((page) => page.classList.remove("is-active"));
+    document.getElementById(pageId).classList.add("is-active");
+    window.scrollTo({ top: 100, behavior: "smooth" });
+  }
+
+  function showClients(stateCode, stateName) {
+    currentState = stateCode;
+    document.getElementById("state-title").textContent = `Clientes de ${stateName}`;
+
+    const clientsList = document.getElementById("clients-list");
+    clientsList.innerHTML = "";
+
+    if (clientsData[stateCode]) {
+      clientsData[stateCode].forEach((client) => {
+        const clientItem = document.createElement("div");
+        clientItem.className = "fcx-client-item fcx-fade-in";
+        clientItem.onclick = () => showClientDetail(client, stateCode, stateName);
+        clientItem.innerHTML = `
+          <div class="fcx-client-icon">✓</div>
+          <div class="fcx-client-name">${client.name} - ${stateCode}</div>
+        `;
+        clientsList.appendChild(clientItem);
+      });
+    }
+
+    showPage("fcx-client-list");
+  }
+
+  function showClientDetail(client, stateCode, stateName) {
+    const detailContent = document.getElementById("client-detail-content");
+
+    const swiperHtml = (client.images && client.images.length)
+      ? `
+        <div class="swiper-container" id="fcx-swiper">
+          <div class="swiper-wrapper">
+            ${client.images.map((img) => `<div class='swiper-slide'><img src='${img}' alt='${client.name}'/></div>`).join("")}
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      `
+      : `
+        <div id="fcx-swiper" class="swiper-container" style="display:grid;place-items:center;height:300px;border:1px solid #e2e8f0;border-radius:15px;">
+          <div class="swiper-wrapper"></div>
+          <div style="padding:20px;color:#718096;">Sem fotos disponíveis</div>
+        </div>
+      `;
+
+    const igHandle = client.instagram || "";
+    const igLink = igUrl(igHandle);
+
+    detailContent.innerHTML = `
+      <div class="fcx-client-card fcx-fade-in">
+        <div class="fcx-client-header">
+          <h2 class="fcx-client-detail-name">${client.name}</h2>
+          <p class="fcx-client-type">${client.type || ""}</p>
+        </div>
+        <div class="fcx-client-content">
+          ${swiperHtml}
+          <div class="fcx-client-info">
+            <div class="fcx-info-sec">
+              <div class="fcx-info-title">Instagram</div>
+              <div class="fcx-info-content">
+                ${igHandle ? `<a href="${igLink}" target="_blank" class="fcx-ig-link">${igHandle}</a>` : "—"}
+              </div>
+            </div>
+            <div class="fcx-info-sec">
+              <div class="fcx-info-title">Endereço</div>
+              <div class="fcx-info-content">${client.address || "—"}</div>
+            </div>
+            <div class="fcx-info-sec">
+              <div class="fcx-info-title">Telefone</div>
+              <div class="fcx-info-content">${client.phone || "—"}</div>
+            </div>
+            <div class="fcx-info-sec">
+              <div class="fcx-info-title">Produtos Adquiridos</div>
+              <div class="fcx-info-content">
+                ${(client.products && client.products.length)
+                  ? `<ul class="fcx-products">${client.products.map((p) => `<li>${p}</li>`).join("")}</ul>`
+                  : "—"}
+              </div>
+            </div>
+            ${client.address ? `<a href="#" class="fcx-maps-btn" onclick="openMaps('${client.address.replace(/'/g, "\\'")}')">📍 Ver no Google Maps</a>` : ""}
+          </div>
+        </div>
+      </div>`;
+
+    showPage("fcx-client-detail");
+
+    // Initialize Swiper (apenas se existir slides)
+    setTimeout(() => {
+      if (currentSwiper) currentSwiper.destroy(true, true);
+      const hasSlides = document.querySelectorAll("#fcx-swiper .swiper-slide").length > 0;
+      if (hasSlides) {
+        currentSwiper = new Swiper("#fcx-swiper", {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          loop: true,
+          autoplay: { delay: 4000, disableOnInteraction: false },
+          pagination: { el: "#fcx-swiper .swiper-pagination", clickable: true },
+          navigation: {
+            nextEl: "#fcx-swiper .swiper-button-next",
+            prevEl: "#fcx-swiper .swiper-button-prev",
+          },
+          effect: "fade",
+          fadeEffect: { crossFade: true },
+        });
+      }
+    }, 100);
+  }
+
+  function goBackToList() {
+    const stateName = {
+      SP: "São Paulo",
+      MG: "Minas Gerais",
+      RS: "Rio Grande do Sul",
+      SC: "Santa Catarina",
+      DF: "Brasília",
+      PR: "Paraná",
+      GO: "Goiás",
+      RJ: "Rio de Janeiro",
+    }[currentState];
+    showClients(currentState, stateName);
+  }
+
+  function openMaps(address) {
+    const encodedAddress = encodeURIComponent(address);
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, "_blank");
+  }
+
+  // Inicialização
+  document.addEventListener("DOMContentLoaded", function () {
+    renderStates();
+
+    // Animação em cards dos estados
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationDelay = "0.2s";
+          entry.target.classList.add("fcx-fade-in");
+        }
+      });
+    });
+    document.querySelectorAll(".fcx-state-card").forEach((card) => observer.observe(card));
+  });
+</script>

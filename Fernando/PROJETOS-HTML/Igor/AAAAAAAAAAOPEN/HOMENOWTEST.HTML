@@ -1,0 +1,334 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Michroma&display=swap");
+
+  .whb-top-bar {
+    display: none !important;
+  }
+
+  :root {
+    --bg1: #d1c9c7;
+    --bg2: #dfc2bd;
+    --txt: #ffffff;
+    --cyan: #7e5148;
+    --pink: #7e5148;
+    --white: #fff;
+    --hide: 0; /* 0 visível, 1 escondido */
+  }
+
+  .hnw-banner {
+    width: 100%;
+    z-index: 1500;
+    background: linear-gradient(345deg, var(--bg1), var(--bg2), var(--bg1));
+    padding: 0.75rem 1rem;
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    will-change: transform;
+    transform: translateY(calc(-1 * var(--hide, 0) * 100%));
+    transition: transform 0.16s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .hnw-fixed {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .hnw-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hnw-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--txt);
+    margin: 0;
+    font-family: "Michroma", sans-serif;
+    font-size: 0.95rem;
+  }
+  .hnw-title strong {
+    color: var(--pink);
+  }
+
+  .hnw-sub {
+    color: var(--cyan);
+    font-weight: 600;
+    margin: 0;
+    font-family: "Michroma", sans-serif;
+    font-size: 0.95rem;
+  }
+
+  .hnw-countdown {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .hnw-unit {
+    position: relative;
+    text-align: center;
+    min-width: 3.5rem;
+  }
+  .hnw-num {
+    display: block;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.1rem;
+    line-height: 1;
+    color: var(--white);
+    font-family: "Michroma", sans-serif !important;
+  }
+  .hnw-label {
+    margin-top: 0.25rem;
+    font-size: 0.5rem;
+    color: var(--cyan);
+    letter-spacing: 0.08rem;
+    font-family: "Michroma", sans-serif !important;
+  }
+
+  .hnw-unit:not(:last-child)::after {
+    content: ":";
+    position: absolute;
+    right: -0.8rem;
+    top: 0.1rem;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-family: "Michroma", sans-serif;
+  }
+
+  .hnw-cta {
+    display: inline-block;
+    text-decoration: none;
+    background: var(--pink);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 20px),
+      calc(100% - 20px) 100%,
+      0 100%
+    );
+    white-space: nowrap;
+    transition: transform 0.2s ease;
+    font-family: "Chakra Petch", sans-serif !important;
+  }
+  .hnw-cta:hover {
+    transform: translateY(1px);
+  }
+
+  .hnw-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1600;
+  }
+  .hnw-close:hover {
+    color: yellow;
+  }
+
+  @media (max-width: 767.98px) {
+    .mobile-none{
+      display: none;
+    }
+    .hnw-container {
+      justify-content: center;
+    }
+    .hnw-title {
+      text-align: center;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const two = (n) => String(n).padStart(2, "0");
+
+    const deadlineISO = "2025-11-02T00:00:00";
+    const hrefCTA = "/";
+
+    // Injeta banner
+    const bannerHTML = `
+    <div class="hnw-banner" id="hnw-banner" role="region" aria-label="Esquenta Black Homenow">
+      <div class="hnw-container">
+        <h1 class="hnw-title">
+          <span style="text-align:center">
+            <strong>Esquenta Black Homenow</strong><br/> <span class="mobile-none">Confira Nossas Promoções </ span>
+          </span>
+        </h1>
+        <p class="hnw-sub" aria-hidden="true">Por Tempo Limitado!</p>
+        <div class="hnw-countdown" id="hnw-countdown" data-deadline="${deadlineISO}">
+          <div class="hnw-unit"><span class="hnw-num" data-days>00</span><span class="hnw-label">DIAS</span></div>
+          <div class="hnw-unit"><span class="hnw-num" data-hours>00</span><span class="hnw-label">HORAS</span></div>
+          <div class="hnw-unit"><span class="hnw-num" data-mins>00</span><span class="hnw-label">MIN</span></div>
+          <div class="hnw-unit"><span class="hnw-num" data-secs>00</span><span class="hnw-label">SEG</span></div>
+        </div>
+        <!-- <a class="hnw-cta" href="${hrefCTA}">APROVEITE</a> -->
+      </div>
+    </div>`;
+    document.body.insertAdjacentHTML("afterbegin", bannerHTML);
+
+    const banner = document.getElementById("hnw-banner");
+    const countdown = document.getElementById("hnw-countdown");
+    const header = document.querySelector(".whb-general-header");
+
+    banner.classList.add("hnw-fixed");
+
+    // ===== Helpers =====
+    const mqMobile = window.matchMedia("(max-width: 767.98px)");
+    const isMobile = () => mqMobile.matches;
+
+    // Posição limite no mobile: até onde o banner pode aparecer (baseado no header)
+    let bannerH = banner.offsetHeight;
+    let headerLimitY = 0; // scrollY no qual o bottom do header termina
+
+    function computeHeaderLimit() {
+      if (!header) {
+        headerLimitY = bannerH;
+        return;
+      }
+      const rect = header.getBoundingClientRect();
+      headerLimitY = window.scrollY + rect.bottom; // fim do header na página
+    }
+
+    // body padding: no desktop sempre, no mobile só quando visível
+    function setBodyPadding(visible) {
+      if (isMobile()) {
+        document.body.style.paddingTop = visible ? `${bannerH}px` : "0px";
+      } else {
+        document.body.style.paddingTop = `${bannerH}px`;
+      }
+    }
+
+    // Observa alterações de altura
+    const ro = new ResizeObserver(() => {
+      bannerH = banner.offsetHeight;
+      computeHeaderLimit();
+      // Reaplica padding conforme estado atual
+      setBodyPadding(getCurrentVisibility());
+    });
+    ro.observe(banner);
+
+    // Inicializa medidas
+    computeHeaderLimit();
+    setBodyPadding(true);
+
+    // ===== Estados de scroll =====
+    let lastY = Math.max(0, window.scrollY || 0);
+    let targetHide = 0;
+    let hideProgress = 0;
+
+    const MAX_HIDE = 0.9;
+    const DIR_THRESH = 4;
+    const BASE = () => Math.max(90, bannerH * 1.1);
+    const ALPHA = 0.28;
+    const SHOW_BOOST = 2.1;
+
+    // Visibilidade atual (true = aparece)
+    function getCurrentVisibility() {
+      return hideProgress <= 0.02;
+    }
+
+    // Lógica de alvo (desktop e mobile)
+    function updateTarget(y, dy) {
+      if (isMobile()) {
+        // MOBILE: só aparece quando dentro da área do topo (até o fim do header)
+        const withinHeaderArea = y <= Math.max(0, headerLimitY - bannerH);
+        targetHide = withinHeaderArea ? 0 : MAX_HIDE;
+        // padding do body acompanha
+        setBodyPadding(withinHeaderArea);
+        return;
+      }
+
+      // DESKTOP: direção do scroll
+      const base = BASE();
+      if (dy > DIR_THRESH) {
+        targetHide = Math.min(MAX_HIDE, targetHide + dy / base);
+      } else if (dy < -DIR_THRESH) {
+        targetHide = Math.max(0, targetHide + (dy / base) * SHOW_BOOST);
+      }
+      if (y <= 2) targetHide = 0;
+      setBodyPadding(getCurrentVisibility() || y <= 2);
+    }
+
+    // Suavização contínua
+    function rafUpdate() {
+      hideProgress += (targetHide - hideProgress) * ALPHA;
+      if (hideProgress < 0.001) hideProgress = 0;
+      if (hideProgress > MAX_HIDE) hideProgress = MAX_HIDE;
+      banner.style.setProperty("--hide", hideProgress.toFixed(4));
+      requestAnimationFrame(rafUpdate);
+    }
+    requestAnimationFrame(rafUpdate);
+
+    // Scroll
+    window.addEventListener(
+      "scroll",
+      () => {
+        const y = Math.max(0, window.scrollY || 0);
+        const dy = y - lastY;
+        updateTarget(y, dy);
+        lastY = y;
+      },
+      { passive: true }
+    );
+
+    // Recalcula quando muda layout/orientação
+    mqMobile.addEventListener("change", () => {
+      computeHeaderLimit();
+      // força reavaliação imediata
+      updateTarget(window.scrollY || 0, 0);
+    });
+    window.addEventListener("resize", computeHeaderLimit);
+    window.addEventListener("orientationchange", computeHeaderLimit);
+
+    // ===== Countdown =====
+    function startCountdown() {
+      if (!countdown) return;
+      const attr = countdown.getAttribute("data-deadline");
+      const deadline = attr
+        ? new Date(attr)
+        : new Date(Date.now() + 10 * 60 * 60 * 1000);
+
+      function tick() {
+        const now = new Date();
+        let ms = deadline - now;
+        if (ms <= 0) {
+          ms = 0;
+          clearInterval(timer);
+        }
+
+        const totalSeconds = Math.floor(ms / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const mins = Math.floor((totalSeconds % 3600) / 60);
+        const secs = totalSeconds % 60;
+
+        countdown.querySelector("[data-days]").textContent = two(days);
+        countdown.querySelector("[data-hours]").textContent = two(hours);
+        countdown.querySelector("[data-mins]").textContent = two(mins);
+        countdown.querySelector("[data-secs]").textContent = two(secs);
+      }
+      tick();
+      const timer = setInterval(tick, 1000);
+    }
+    startCountdown();
+  })();
+</script>

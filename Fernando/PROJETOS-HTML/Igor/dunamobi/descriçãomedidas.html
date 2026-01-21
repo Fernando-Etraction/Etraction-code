@@ -1,0 +1,208 @@
+<script>
+(function () {
+  const STYLE_ID = "dimensoes-css";
+  const MAX_TRIES = 20;
+  const WRAPPER_CLASS = "dimensoes-wrapper-js";
+  const TABS_SELECTOR = ".content-page-area ul.tabs-produto";
+
+  let tries = 0;
+  let alreadyRendered = false;
+
+  function log(...args) {
+    console.log("[DIMENSOES]", ...args);
+  }
+
+  function ensureCSS() {
+    if (document.getElementById(STYLE_ID)) return;
+    const css = `
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+.dimensoes-container{margin:0 auto;background:linear-gradient(135deg,#fff 0%,#f8f9fa 100%);border-radius:12px;padding:20px;transition:.3s;font-family:'Rubik',sans-serif;max-width:none}
+.dimensoes-container ::selection{background-color:transparent}
+.dimensoes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(0px,1fr));gap:20px}
+.dimensao-item{display:flex;align-items:center;gap:12px;padding:12px;background:#E9CEE9;border-radius:8px;transition:.3s;cursor:pointer;text-align:center}
+.dimensao-item:hover{background:rgba(0,123,255,0);transform:scale(1.02)}
+.dimensao-info{flex:1}
+.dimensao-label{font-size:14px;color:#9A6399;font-weight:500;margin-bottom:2px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.dimensoes-container,.dimensao-item{animation:fadeInUp .6s ease-out}
+.dimensao-item:nth-child(1){animation-delay:.1s}.dimensao-item:nth-child(2){animation-delay:.2s}.dimensao-item:nth-child(3){animation-delay:.3s}
+@media(max-width:768px){.dimensoes-container{margin:10px;padding:15px}.dimensoes-grid{grid-template-columns:1fr;gap:12px}}
+.tooltip{position:relative}
+.tooltip::after{content:attr(data-tooltip);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#2c3e50;color:#fff;padding:5px 8px;border-radius:4px;font-size:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s;z-index:1000}
+.tooltip:hover::after{opacity:1}
+`;
+    const style = document.createElement("style");
+    style.id = STYLE_ID;
+    style.textContent = css;
+    document.head.appendChild(style);
+    log("CSS injetado.");
+  }
+
+  function findPackageMeasureNode() {
+    const root =
+      document.querySelector(".content-page-area .caract-medida-do-produto-montado") ||
+      document.querySelector(".caract-medida-do-produto-montado");
+
+    if (!root) return null;
+
+    const dts = Array.from(root.querySelectorAll("dt"));
+    const dt = dts.find((el) =>
+      el.textContent.toLowerCase().includes("medida da embalagem")
+    );
+    if (dt && dt.nextElementSibling) return dt.nextElementSibling;
+
+    const ddFallback = Array.from(root.querySelectorAll("dd")).find((el) =>
+      /\d/.test(el.textContent)
+    );
+    return ddFallback || null;
+  }
+
+  function parseDimensionsToCM(raw) {
+    const txt = String(raw || "")
+      .trim()
+      .replace(/\u00D7/g, "x")
+      .replace(/[X\*]/g, "x")
+      .replace(/,/g, ".")
+      .replace(/\s*x\s*/gi, "x");
+    const unitIsMM = /(^|\b)mm\b/i.test(txt);
+    const nums = txt.match(/\d+(?:\.\d+)?/g);
+    if (!nums || nums.length < 2) return null;
+    const vals = nums.slice(0, 3).map((n) => parseFloat(n));
+    const inCM = unitIsMM ? vals.map((v) => v / 10) : vals;
+    return { values: inCM, unit: "cm" };
+  }
+
+  function buildDimensionsHTML({ altura, largura, profundidade, unit }) {
+    return `
+    <div class="dimensoes-container">
+      <div class="dimensoes-grid">
+        <div class="dimensao-item tooltip" data-tooltip="Medidas de Altura">
+          <div class="dimensao-info">
+            <div class="dimensao-label"><b>↑↑ Altura: ${altura} ${unit}</b></div>
+          </div>
+        </div>
+        <div class="dimensao-item tooltip" data-tooltip="Medidas de Largura">
+          <div class="dimensao-info">
+            <div class="dimensao-label"><b>←→ Largura: ${largura} ${unit}</b></div>
+          </div>
+        </div>
+        <div class="dimensao-item tooltip" data-tooltip="Medidas de Profundidade">
+          <div class="dimensao-info">
+            <div class="dimensao-label"><b>↓↑ Profundidade: ${profundidade} ${unit}</b></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function getInsertTargets() {
+    const contentArea = document.querySelector(".content-page-area");
+    const tabsEl = document.querySelector(TABS_SELECTOR);
+    return { contentArea, tabsEl };
+  }
+
+  function renderDimensions() {
+    if (alreadyRendered) {
+      log("já renderizado, ignorando.");
+      return;
+    }
+    ensureCSS();
+
+    const dd = findPackageMeasureNode();
+    if (!dd) {
+      log("dd (medida da embalagem) não encontrado ainda.");
+      return;
+    }
+
+    const parsed = parseDimensionsToCM(dd.textContent);
+    if (!parsed) {
+      log("parse falhou:", dd.textContent);
+      return;
+    }
+
+    const [h, w, d] = [
+      parsed.values[0],
+      parsed.values[1],
+      parsed.values[2] ?? parsed.values[1],
+    ].map((v) => Math.round(v * 100) / 100);
+
+    const { contentArea, tabsEl } = getInsertTargets();
+    if (!contentArea) {
+      log("`.content-page-area` não encontrada, abortando por enquanto.");
+      return;
+    }
+
+    // Remover bloco anterior (se existir) antes de reinserir
+    const old = contentArea.querySelector(`.${WRAPPER_CLASS}`);
+    if (old) {
+      old.remove();
+      log("wrapper antigo removido para reinserção única.");
+    }
+
+    const wrapper = document.createElement("div");
+    wrapper.className = WRAPPER_CLASS;
+    wrapper.innerHTML = buildDimensionsHTML({
+      altura: h,
+      largura: w,
+      profundidade: d,
+      unit: parsed.unit,
+    });
+
+    // INSERIR SEMPRE ABAIXO DO .content-page-area ul.tabs-produto
+    if (tabsEl) {
+      tabsEl.insertAdjacentElement("afterend", wrapper);
+      log("inserido após ul.tabs-produto:", { h, w, d });
+    } else {
+      // Fallback: se tabs ainda não existe, mantém no fim até existir
+      contentArea.insertAdjacentElement("beforeend", wrapper);
+      log("ul.tabs-produto não encontrada; inserido no fim da .content-page-area (fallback).");
+    }
+
+    alreadyRendered = true;
+  }
+
+  function tryRenderLoop() {
+    if (alreadyRendered) return;
+    tries++;
+    log(`tentativa ${tries}`);
+    renderDimensions();
+    if (!alreadyRendered && tries < MAX_TRIES) setTimeout(tryRenderLoop, 500);
+  }
+
+  // Reagir a mutações (ex.: quando abre “Características”)
+  const observer = new MutationObserver(() => {
+    if (!alreadyRendered) {
+      log("mutation detectada, tentando…");
+      renderDimensions();
+    } else {
+      // Se as tabs aparecerem depois, realocar o bloco para ficar logo abaixo delas
+      const { contentArea, tabsEl } = getInsertTargets();
+      const wrapper = contentArea && contentArea.querySelector(`.${WRAPPER_CLASS}`);
+      if (contentArea && tabsEl && wrapper && wrapper.previousElementSibling !== tabsEl) {
+        log("tabs-produto apareceu depois; realocando wrapper logo abaixo das tabs.");
+        wrapper.remove();
+        tabsEl.insertAdjacentElement("afterend", wrapper);
+      }
+    }
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", tryRenderLoop);
+  } else {
+    tryRenderLoop();
+  }
+
+  // Reprocessar ao clicar em “Características”
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (!t) return;
+    const label = String(t.textContent || "").toLowerCase();
+    if (label.includes("caracter")) {
+      log("clique em 'Características' detectado, reprocessando…");
+      alreadyRendered = false;
+      setTimeout(tryRenderLoop, 300);
+    }
+  });
+})();
+</script>

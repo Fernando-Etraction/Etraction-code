@@ -1,0 +1,67 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+  .box-fidegg{
+    padding:4px !important;
+    background-color: white !important;
+    box-shadow: 0px 0px 0px 1px #e2dddd;
+    border-left:3px solid darkgreen;
+    border-radius: 7px !important;
+    width: 55% !important;
+    
+  }
+  .info-fidegg{
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    gap:5px;
+    font-size:15px !important;
+    color:#5f6674 !important;
+    font-weight: 400 !important;
+      font-family: "Rubik", sans-serif;
+
+  }
+  .box-fidegg .info-fidegg{ font-size:12px !important; }
+  .box-fidegg .info-fidegg strong{
+    font-size:12px !important;
+    color:#40444b !important;
+    font-weight:500 !important;
+  }
+    .box-fidegg-ghost{
+    position:absolute !important;
+    left:-99999px !important;
+    top:auto !important;
+    width:auto !important;
+    height:auto !important;
+    pointer-events:none !important;
+  }
+</style>
+
+<script>
+(function () {
+  // Tenta posicionar; retorna true se conseguiu (e evita repetir)
+  function posicionarBox() {
+    const box = document.querySelector('.box-fidegg');
+    const alvos = document.querySelectorAll('.mais-formas-pagamento');
+    if (!box || !alvos.length) return false;
+
+    const alvo = alvos[alvos.length - 1]; // "…:last"
+    // Já está no lugar certo?
+    if (box.previousElementSibling === alvo) return true;
+
+    // Move a .box-fidegg logo após o último .mais-formas-pagamento
+    alvo.insertAdjacentElement('afterend', box);
+    return true;
+  }
+
+  // Tenta já na largada
+  if (posicionarBox()) return;
+
+  // Observa o DOM até os elementos surgirem e então move
+  const obs = new MutationObserver(() => {
+    if (posicionarBox()) obs.disconnect(); // fez o trabalho, para de observar
+  });
+
+  obs.observe(document.documentElement, { childList: true, subtree: true });
+})();
+</script>

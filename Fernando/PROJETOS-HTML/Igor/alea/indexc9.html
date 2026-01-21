@@ -1,0 +1,323 @@
+<p></p>
+<!-- Swiper.js -->
+<p>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</p>
+<!-- CSS -->
+<style><!--
+.checkout-banner-container {
+    
+      padding: 20px 0;
+    }
+
+    .checkout-banner-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .swiper.texto-banner {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 16px;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      padding: 16px;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-image img {
+      max-width: 120px;
+      max-height: 120px;
+      margin: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .product-image img:hover {
+      transform: scale(1.07);
+    }
+
+    .product-name {
+      font-size: 14px;
+      margin: 12px 0 8px;
+      font-weight: 500;
+      color: #000;
+    }
+
+    .price-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      font-size: 13px;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .preco-antigo {
+      color: #999;
+      text-decoration: line-through;
+      display: block;
+    }
+
+    .price-boleto {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .price-cartao {
+      color: #555;
+      font-size: 12px;
+    }
+
+    .select-tamanho {
+      margin: 10px auto;
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+
+    .botao-prod {
+      background-color: #28a745;
+      color: #fff;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+      margin-top: 8px;
+    }
+
+    .botao-prod:hover {
+      background-color: #218838;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #333;
+      top: 35%;
+    }
+
+    @media (max-width: 768px) {
+      .swiper.texto-banner {
+        padding: 0 8px;
+      }
+
+      .product-card {
+        width: 160px;
+        padding: 12px;
+      }
+
+      .product-image img {
+        max-width: 100px;
+        max-height: 100px;
+      }
+    }
+    .product-card {
+  height: 360px; /* ou ajuste conforme necessário */
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.product-card > * {
+  flex-shrink: 0;
+}
+
+.card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .product-card {
+    height: 320px; /* ajuste proporcional para mobile */
+  }
+}
+--></style>
+<!-- JavaScript -->
+<p>
+<script>// <![CDATA[
+$(document).ready(function () {
+          initTopBannerEnch();
+
+        $(document).ajaxComplete(function (event, xhr, settings) {
+                if (["/checkout/cart?operation=deleteItem", "/checkout/cart?operation=adicionaItem", "/checkout/cart?operation=removeItem"].includes(settings.url)) {
+                    initTopBannerEnch();
+                }
+            });
+
+          function initTopBannerEnch() {
+              const divCompleta = `
+              <div class="checkout-banner-container">
+  <div class="checkout-banner-title">
+    Garanta também seu par de Meia Fitness Cano Longo!
+  </div>
+
+  <div class="swiper texto-banner">
+    <div class="swiper-wrapper">
+      
+        <!-- Produto - Chumbo -->
+<div class="swiper-slide">
+  <div class="product-card">
+    <div class="card-body">
+      <div class="product-image">
+        <img src="https://armfitness.cdn.magazord.com.br/img/2025/07/produto/3664/arm0508.jpg" alt="Camiseta Manga Longa Proteção UV Chumbo">
+      </div>
+      <div class="product-name">Par Meia Fitness Cano Longo </div>
+      <div class="price-container">
+        <span class="price-boleto">R$ 34,90</span>
+      </div>
+    </div>
+    <select class="select-tamanho" data-product-id="1FC06CML129">
+      <option value="">Selecione a cor</option>
+      <option value="1FC06CML129-34-39">Branco</option>
+      <option value="1FC06CML130-34-39">Preto</option>
+    </select>
+    <button class="botao-prod" rel="">Adicionar</button>
+  </div>
+</div>
+
+<!-- Produto - Branco -->
+<div class="swiper-slide">
+  <div class="product-card">
+    <div class="card-body">
+      <div class="product-image">
+        <img src="https://armfitness.cdn.magazord.com.br/img/2025/07/produto/3678/kit-meias-teste.jpg" alt="Camiseta Manga Longa Proteção UV Branco">
+      </div>
+      <div class="product-name">Kit 3 Pares Meias Fitness Cano Longo</div>
+      <div class="price-container">
+        <span class="price-boleto">R$ 89,90</span>
+      </div>
+    </div>
+    <select class="select-tamanho" data-product-id="1FC06CML131">
+      <option value="">Selecione a cor</option>
+      <option value="1FC06CML131-branco">Branco</option>
+      <option value="1FC06CML131-preto">Preto</option>
+    </select>
+    <button class="botao-prod" rel="">Adicionar</button>
+  </div>
+</div>
+
+   <!-- Produto - Preto -->
+<div class="swiper-slide">
+  <div class="product-card">
+    <div class="card-body">
+      <div class="product-image">
+        <img src="https://armfitness.cdn.magazord.com.br/img/2025/07/produto/3684/kit-meias-teste6.jpg" alt="Camiseta Manga Longa Proteção UV Preto">
+      </div>
+      <div class="product-name">Kit 6 Pares Meias Fitness Cano Alto</div>
+      <div class="price-container">
+        <span class="price-boleto">R$ 169,90</span>
+      </div>
+    </div>
+    <select class="select-tamanho" data-product-id="1FC06CML132">
+      <option value="">Selecione a cor</option>
+      <option value="1FC06CML132-preto">Preto</option>
+      <option value="1FC06CML132-branco">Branco</option>
+      <option value="1FC06CML132-branco-preto">Branco/Preto</option>
+    </select>
+    <button class="botao-prod" rel="">Adicionar</button>
+  </div>
+</div>
+
+
+
+    </div>
+
+    <!-- Botões de navegação -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+</div>
+
+
+                `;
+
+       
+                  $('#cart-area').append(divCompleta);
+          
+              
+    
+              new Swiper('.texto-banner.swiper', {
+                  breakpoints: {
+                      0: { slidesPerView: 2 },
+                      520: { slidesPerView: 3 },
+                      700: { slidesPerView: 3 },
+                      1400: { slidesPerView: 3 }
+                  },
+                
+                  spaceBetween: 10,
+                  rewind: true,
+                  navigation: {
+                      nextEl: '.swiper-button-next',
+                      prevEl: '.swiper-button-prev'
+                  }
+              });
+
+              $(document).on('change', '.select-tamanho', function() {
+      let selectedRel = $(this).val();
+      let button = $(this).closest('.product-card').find('.botao-prod');
+      button.attr('rel', selectedRel);
+      console.log("Cor selecionada:", selectedRel);
+  });
+        
+                $(document).off('click', '.botao-prod').on('click', '.botao-prod', function(event) {
+                    event.preventDefault();
+                    let sku = $(this).attr('rel');
+                    if (!sku) {
+                        alert('Por favor, selecione um tamanho antes de adicionar ao carrinho.');
+                        return;
+                    }
+                    Zord.checkout.addCart(sku, 1, 1, 0, function () {
+                        Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+                    });
+                });
+          }
+          window.addEventListener("load", (event) => {
+          const prodshow = $(".checkout-banner-container");
+          if ($("#cart-area .checkout-banner-container").length == 0){
+              (".lista-carrinho").after(prodshow);
+          }
+      
+          let elem = document.querySelector('#main-cart-area');
+          function callback() {
+              console.log('recall');
+              if ($("#cart-area .checkout-banner-container").length == 0){
+                  $(".lista-carrinho").after(prodshow);
+              }
+          }
+          
+          let observer = new MutationObserver(callback);
+          observer.observe(elem, {
+              childList: true
+          });
+      });
+      });
+// ]]></script>
+</p>

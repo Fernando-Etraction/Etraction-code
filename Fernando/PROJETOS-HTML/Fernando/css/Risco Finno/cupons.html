@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupons de Desconto - Risco Finno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+            color: #2c2c2c;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: #fff;
+            padding: 30px 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 300;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 2px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        /* Container principal */
+        .container {
+            flex: 1;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            width: 100%;
+        }
+
+        /* Introdução */
+        .intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .intro h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 42px;
+            font-weight: 300;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .intro p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Lista de cupons */
+        .coupons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        /* Card de cupom */
+        .coupon-card {
+            background: #fff;
+            border: 1px solid #e8e8e8;
+            border-radius: 2px;
+            padding: 40px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .coupon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #1a1a1a 0%, #888 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .coupon-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            border-color: #d0d0d0;
+        }
+
+        .coupon-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .coupon-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .coupon-type {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .coupon-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            font-weight: 400;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .coupon-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .coupon-action {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Código do cupom */
+        .coupon-code-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #fafafa;
+            border: 1px dashed #d0d0d0;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .coupon-card:hover .coupon-code-wrapper {
+            background: #f5f5f5;
+            border-color: #b0b0b0;
+        }
+
+        .coupon-code {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+        }
+
+        .copy-icon {
+            font-size: 18px;
+            color: #888;
+            transition: color 0.3s ease;
+        }
+
+        .coupon-card:hover .copy-icon {
+            color: #1a1a1a;
+        }
+
+        /* Botão de copiar */
+        .copy-button {
+            width: 100%;
+            padding: 14px 24px;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .copy-button:hover {
+            background: #2c2c2c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .copy-button.copied {
+            background: #28a745;
+        }
+
+        /* Badge de destaque */
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        .badge.gift {
+            background: #d4af37;
+            color: #fff;
+        }
+
+        /* Footer */
+        .footer {
+            background: #fff;
+            padding: 40px 40px;
+            text-align: center;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .footer-link {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a1a;
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 1000;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .header {
+                padding: 24px 20px;
+            }
+
+            .logo {
+                font-size: 28px;
+                letter-spacing: 3px;
+            }
+
+            .subtitle {
+                font-size: 11px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .intro h1 {
+                font-size: 32px;
+            }
+
+            .intro p {
+                font-size: 14px;
+            }
+
+            .coupons-list {
+                gap: 20px;
+            }
+
+            .coupon-card {
+                grid-template-columns: 1fr;
+                padding: 32px 24px;
+                gap: 24px;
+            }
+
+            .coupon-info {
+                order: 1;
+            }
+
+            .coupon-action {
+                order: 2;
+            }
+
+            .coupon-title {
+                font-size: 22px;
+            }
+
+            .footer {
+                padding: 32px 20px;
+            }
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .coupon-card {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .coupon-card:nth-child(1) {
+            animation-delay: 0.1s;
+            opacity: 0;
+        }
+
+        .coupon-card:nth-child(2) {
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .coupon-card:nth-child(3) {
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Risco Finno</div>
+        <div class="subtitle">Cupons Exclusivos</div>
+    </header>
+
+    <!-- Container Principal -->
+    <main class="container">
+        <!-- Introdução -->
+        <section class="intro">
+            <h1>Descontos Especiais</h1>
+            <p>Aproveite nossos cupons exclusivos e garanta condições especiais em suas compras. Elegância e
+                sofisticação com preços ainda mais atrativos.</p>
+        </section>
+
+        <!-- Lista de Cupons -->
+        <div class="coupons-list">
+            <!-- Cupom 1: Primeira Compra -->
+            <div class="coupon-card" onclick="copyCoupon('PRIMEIRACOMPRA', this)">
+                <span class="badge">Novos Clientes</span>
+                <div class="coupon-info">
+                    <div class="coupon-type">Desconto</div>
+                    <h2 class="coupon-title">Primeira Compra</h2>
+                    <p class="coupon-description">
+                        Comece sua jornada conosco com 5% de desconto em sua primeira compra. Um presente de boas-vindas
+                        especial.
+                    </p>
+                </div>
+                <div class="coupon-action">
+                    <div class="coupon-code-wrapper">
+                        <span class="coupon-code">PRIMEIRACOMPRA</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                    <button class="copy-button">Copiar Cupom</button>
+                </div>
+            </div>
+
+            <!-- Cupom 2: Compra em Equipe -->
+            <div class="coupon-card" onclick="copyCoupon('EQUIPE10', this)">
+                <span class="badge">Popular</span>
+                <div class="coupon-info">
+                    <div class="coupon-type">Desconto Progressivo</div>
+                    <h2 class="coupon-title">Compra em Equipe</h2>
+                    <p class="coupon-description">
+                        Ganhe 10% de desconto ao adquirir 4 itens ou mais. Ideal para presentear ou renovar seu
+                        guarda-roupa.
+                    </p>
+                </div>
+                <div class="coupon-action">
+                    <div class="coupon-code-wrapper">
+                        <span class="coupon-code">EQUIPE10</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                    <button class="copy-button">Copiar Cupom</button>
+                </div>
+            </div>
+
+            <!-- Cupom 3: Presente Exclusivo -->
+            <div class="coupon-card" onclick="copyCoupon('PRESENTE', this)">
+                <span class="badge gift">Brinde</span>
+                <div class="coupon-info">
+                    <div class="coupon-type">Presente Exclusivo</div>
+                    <h2 class="coupon-title">Turbante de Brinde</h2>
+                    <p class="coupon-description">
+                        Ganhe um turbante exclusivo em sua compra. Um presente especial que complementa seu estilo
+                        único.
+                    </p>
+                </div>
+                <div class="coupon-action">
+                    <div class="coupon-code-wrapper">
+                        <span class="coupon-code">PRESENTE</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                    <button class="copy-button">Copiar Cupom</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            Visite nossa loja: <a href="https://www.riscofinno.com.br/" class="footer-link"
+                target="_blank">www.riscofinno.com.br</a>
+            <br>
+            Os cupons não são cumulativos e seguem termos e condições específicos.
+        </p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">Cupom copiado com sucesso!</div>
+
+    <script>
+        function copyCoupon(couponCode, cardElement) {
+            // Copia o código para a área de transferência
+            navigator.clipboard.writeText(couponCode).then(function () {
+                // Atualiza o botão do card clicado
+                const button = cardElement.querySelector('.copy-button');
+                const originalText = button.textContent;
+
+                button.textContent = '✓ Copiado!';
+                button.classList.add('copied');
+
+                // Mostra toast notification
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+
+                // Remove o toast após 3 segundos
+                setTimeout(function () {
+                    toast.classList.remove('show');
+                }, 3000);
+
+                // Restaura o botão após 2 segundos
+                setTimeout(function () {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function (err) {
+                console.error('Erro ao copiar cupom:', err);
+                alert('Erro ao copiar. Código do cupom: ' + couponCode);
+            });
+        }
+
+        // Previne que o clique no botão propague para o card
+        document.querySelectorAll('.copy-button').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+
+</html>

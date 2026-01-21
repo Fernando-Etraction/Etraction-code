@@ -1,0 +1,158 @@
+<style>
+  .barra-promocional {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #fff;
+    padding: 30px;
+    margin: 30px auto;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1240px;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .barra-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .barra-info h1 {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  .barra-info p {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0;
+  }
+  .p-info{
+    margin-top: 5px !important;
+  }
+  .barra-infoo{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .barra-info a {
+    background-color: #28a745;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .barra-info a:hover {
+    background-color: #000;
+    transform: translateY(-2px);
+  }
+
+  .contador {
+    display: flex;
+    gap: 16px;
+  }
+
+  .contador-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  }
+
+  .contador-box .numero {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #111;
+  }
+
+  .contador-box .rotulo {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  @media(max-width: 768px) {
+    .barra-infoo{
+        flex-direction: column;
+        align-items: center;
+    }
+    .barra-infoo a{
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+        margin: auto;
+        padding: 10px 0;
+    }
+    .barra-info h1{
+        text-align: center;
+        width: 100%;
+    }
+
+    .contador {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+</style>
+
+<div class="barra-promocional">
+  <div class="barra-info">
+    <h1 class="textoprin">PROMOÇÃO DA SEMANA!</h1>
+    <div class="barra-infoo">
+    <p class="p-info">Promoção - Kits Masculinos</p>
+    <a href="https://lediwear.sandbox.magazord.com.br/kits">Conferir</a></div>
+  </div>
+  <div class="contador">
+    <div class="contador-box">
+      <div class="numero" id="contador-horas">00</div>
+      <div class="rotulo">Horas</div>
+    </div>
+    <div class="contador-box">
+      <div class="numero" id="contador-minutos">00</div>
+      <div class="rotulo">Minutos</div>
+    </div>
+    <div class="contador-box">
+      <div class="numero" id="contador-segundos">00</div>
+      <div class="rotulo">Segundos</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const fim = new Date();
+    fim.setDate(fim.getDate() + 7);
+    fim.setHours(23, 59, 59, 999);
+
+    const elHoras = document.getElementById("contador-horas");
+    const elMinutos = document.getElementById("contador-minutos");
+    const elSegundos = document.getElementById("contador-segundos");
+
+    function atualizaContador() {
+      const agora = new Date().getTime();
+      const restante = fim - agora;
+
+      if (restante < 0) return;
+
+      const horas = Math.floor((restante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+
+      elHoras.textContent = String(horas).padStart(2, "0");
+      elMinutos.textContent = String(minutos).padStart(2, "0");
+      elSegundos.textContent = String(segundos).padStart(2, "0");
+    }
+
+    setInterval(atualizaContador, 1000);
+    atualizaContador();
+  });
+</script>

@@ -1,0 +1,150 @@
+<style>
+    .promo-banner-unico {
+        background-color: #3C6C7D;
+        color: white;
+        padding: 10px 5%;
+        width: 100%;
+        z-index: 999;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        cursor: pointer;
+        border-bottom: 0.5px solid white;
+    }
+
+    .promo-banner-fixo {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+    }
+
+    .promo-texto-unico {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: white;
+    }
+
+    .timer-unico {
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .timer-unico span {
+        color: white;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5em;
+        cursor: pointer;
+        z-index: 99999;
+    }
+
+    .close-btn:hover {
+        color: yellow;
+    }
+
+    @media (max-width: 768px) {
+        .promo-banner-unico {
+            font-size: 0.9em;
+            padding: 10px;
+        }
+
+        .timer-unico {
+            font-size: 1em;
+            margin-left: 5px;
+        }
+
+        .promo-texto-unico {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .promo-banner-unico {
+            font-size: 0.8em;
+            padding: 8px;
+        }
+
+        .timer-unico {
+            font-size: 0.9em;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        // Hora final: meia-noite do mesmo dia
+        const agora = new Date();
+        const horaFinal = new Date(agora);
+        horaFinal.setHours(23, 59, 59, 999); // Define para meia-noite
+
+        const bannerHTML = `
+        <a href="https://www.lojakaster.com.br/black-friday-2025" target="_blank" class="promo-banner-unico">
+            <button class="close-btn" type="button">×</button>
+            <div class="promo-texto-unico">
+                <strong>Black November </strong> 
+                <span>| Até 70% OFF</span>
+                <div class="timer-unico">
+                    ⏳ <span id="countdown-unico">
+                    </span>
+                </div>
+            </div>
+        </a>
+        <p style="border-bottom: 1px solid white; max-width: 60%;"></p>`;
+
+        $('body').prepend(bannerHTML);
+
+        function atualizarCronometro() {
+            const agora = new Date();
+            const tempoRestante = horaFinal - agora;
+
+            if (tempoRestante <= 0) {
+                $('#countdown-unico').text("Promoção encerrada!");
+                clearInterval(intervaloCronometro);
+            } else {
+                const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+
+                $('#countdown-unico').text(`${horas}h ${minutos}m ${segundos}s`);
+            }
+        }
+
+        const intervaloCronometro = setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+
+        $('.close-btn').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('.promo-banner-unico').fadeOut();
+        });
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > 100) {
+                $('.promo-banner-unico').addClass('promo-banner-fixo');
+            } else {
+                $('.promo-banner-unico').removeClass('promo-banner-fixo');
+            }
+        });
+    });
+</script>

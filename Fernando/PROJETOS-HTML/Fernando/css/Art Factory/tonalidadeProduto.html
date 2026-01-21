@@ -1,0 +1,36 @@
+<script>
+    // <![CDATA[
+    $(function () {
+        // Evita inserir duas vezes
+        if (!$('.mensagem-produto').length && $('.topo-produto').length) {
+            const $mensagemProduto = $(`
+      <div class="mensagem-produto" role="region" aria-label="Aviso de tonalidade do produto">
+        <span>
+          Atenção: A tonalidade dos produtos pode variar de acordo com a
+          configuração do seu monitor ou dispositivo.
+        </span>
+      </div>
+    `);
+
+            $('.topo-produto').after($mensagemProduto);
+        }
+    });
+    // ]]>
+</script>
+<style>
+    .mensagem-produto {
+        color: black;
+        margin-bottom: 10px;
+        font-weight: 600;
+        padding: 10px !important;
+        background-color: white !important;
+        box-shadow: 0px 0px 0px 1px #e2dddd;
+        border-left: 3px solid darkgreen;
+        border-radius: 7px !important;
+        width: 55% !important;
+    }
+
+    .mensagem-produto span {
+        opacity: .9;
+    }
+</style>

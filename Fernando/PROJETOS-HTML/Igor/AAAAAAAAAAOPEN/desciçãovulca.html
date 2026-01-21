@@ -1,0 +1,80 @@
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // ajustando no mobile
+      if (!window.matchMedia("(max-width: 768px)").matches) return;
+
+      var el = document.querySelector(".w-md-60");
+      if (el) {
+        el.style.setProperty("width", "100%", "important");
+        el.style.setProperty("max-width", "100%", "important");
+      }
+
+      const tituloDescricao = Array.from(
+        document.querySelectorAll(".font-weight-bold.mb-3")
+      ).find((div) => div.textContent.trim() === "Descrição"); 
+      if (tituloDescricao) {
+        tituloDescricao.style.textAlign = "center";
+      }
+
+      const sections = document.querySelectorAll(
+        'section[style*="max-width: 1120px"]'
+      );
+
+      sections.forEach((section) => {
+        section.style.maxWidth = "100%";
+        section.style.padding = "20px 16px";
+
+        const wrapper = section.querySelector('div[style*="display: flex"]');
+        if (wrapper) {
+          wrapper.style.display = "flex";
+          wrapper.style.flexDirection = "column";
+          wrapper.style.alignItems = "stretch";
+          wrapper.style.flexWrap = "nowrap";
+          wrapper.style.gap = "20px";
+        }
+      });
+
+      const cards = document.querySelectorAll(
+        "article, aside, section figure, section > div > div"
+      );
+      cards.forEach((card) => {
+        card.style.width = "100%";
+        card.style.minWidth = "0";
+        card.style.boxSizing = "border-box";
+      });
+
+      const bloco2Texto = document.querySelector(
+        'div[style*="min-width: 420px"]'
+      );
+      if (bloco2Texto) {
+        bloco2Texto.style.width = "100%";
+        bloco2Texto.style.minWidth = "0";
+        bloco2Texto.style.marginTop = "20px";
+      }
+
+      const bloco3Figura = document.querySelector(
+        'figure[style*="min-width: 460px"]'
+      );
+      if (bloco3Figura) {
+        bloco3Figura.style.width = "100%";
+        bloco3Figura.style.minWidth = "0";
+      }
+
+      const bloco3Texto = document.querySelector(
+        'div[style*="min-width: 360px"]'
+      );
+      if (bloco3Texto) {
+        bloco3Texto.style.width = "100%";
+        bloco3Texto.style.minWidth = "0";
+        bloco3Texto.style.marginTop = "20px";
+      }
+
+      document.querySelectorAll("section img").forEach((img) => {
+        img.style.width = "100%";
+        img.style.height = "auto";
+        img.style.objectFit = "cover";
+      });
+    });
+    // fim do ajuste no mobile 
+  </script>

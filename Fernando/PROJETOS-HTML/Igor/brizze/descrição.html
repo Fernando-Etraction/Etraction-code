@@ -1,0 +1,405 @@
+    <style type="text/css"><!--
+        .container-descricao-geral{
+                width: 1240px;
+                margin: auto;
+                padding: 10px;
+            
+            }
+            .content-descricao-geral{
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+            .item-descricao{
+                display: flex;
+                align-items: center;
+                gap: 40px;
+                justify-content: center;
+            }
+            .imagem-primeiro{/*Imagem na Esquerda*/
+                order: 0;/*Aqui a ordem é mudada*/
+                justify-content: flex-start !important;
+            }
+            .imagem-segundo{/*Imagem na Direita*/
+            order: 2; /*Aqui a ordem é mudada*/
+                justify-content: flex-end !important;
+            }
+            .item-imagem-descricao{
+                display: flex;
+                justify-content: center;
+                width: 620px;
+            }
+            .item-imagem-descricao img{
+                width: 620px;
+                height: 300px;
+            
+            }
+            .item-imagem-descricao video{
+                width: 620px;
+                height: 300px;
+            
+            }
+            .item-texto-descricao{
+                width: 600px;
+                font-size: 15px;
+            }
+            .content-descricao-principal{
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+        
+            }
+            
+            .tabela-medidas{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                margin: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+            .tabela-mobile{
+                display:none;
+            }
+            .tabela-desktop{
+                display: block;
+            }
+            .colapsavel-desc{
+                width: 600px;
+            }
+            @media(max-width:768px){
+                .container-descricao-geral{
+                width: 100%;
+            }
+            .item-imagem-descricao{
+                width: 100%;
+            }
+            .item-texto-descricao{
+                width: 100%;
+            }
+            .item-descricao{
+            flex-direction: column;
+            }
+            .imagem-primeiro{/*Imagem na Esquerda*/
+                order: 0;/*Aqui a ordem é mudada*/
+                justify-content: center !important;
+            }
+            .imagem-segundo{/*Imagem na Direita*/
+            order: 0; /*Aqui a ordem é mudada*/
+                justify-content: center !important;
+            }
+            .tabela-mobile{
+                display:block;
+            }
+            .tabela-mobile img{
+                width: 100%;
+            }
+            .tabela-desktop{
+                display: none;
+            }
+            .content-descricao-principal{
+                flex-direction: column;
+            }
+            .item-imagem-descricao video{
+                width: 100%;
+                height: auto;
+            }
+            .item-imagem-descricao img{
+                width: 100%;
+                height: auto;
+            }
+            .colapsavel-desc{
+                width: 100%;
+            }
+            }
+
+
+    .accordion-descricao .accordion-descricao-item {
+    border-bottom: 1px solid #e5e5e5;
+    }
+    .accordion-descricao .accordion-descricao-item button[aria-expanded=true] {
+    border-bottom: 1px solid #474747;
+    }
+    .accordion-descricao button {
+    position: relative;
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 1em 0;
+    color: #333;
+    font-size: 18px;
+    font-weight: 400;
+    border: none;
+    background: none;
+    outline: none;
+    }
+    .accordion-descricao button:hover, .accordion-descricao button:focus {
+    cursor: pointer;
+    color: #474747;
+    }
+    .accordion-descricao button:hover::after, .accordion-descricao button:focus::after {
+    cursor: pointer;
+    color: #474747;
+    border: 1px solid #474747;
+    }
+    .accordion-descricao button .accordion-descricao-title {
+    padding: 1em 1.5em 1em 0;
+    }
+    .accordion-descricao button .icon {
+    display: inline-block;
+    position: absolute;
+    top: 18px;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    border: 1px solid;
+    border-radius: 22px;
+    }
+    .accordion-descricao button .icon::before {
+    display: block;
+    position: absolute;
+    content: "";
+    top: 9px;
+    left: 5px;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    }
+    .accordion-descricao button .icon::after {
+    display: block;
+    position: absolute;
+    content: "";
+    top: 5px;
+    left: 9px;
+    width: 2px;
+    height: 10px;
+    background: currentColor;
+    }
+    .accordion-descricao button[aria-expanded=true] {
+    color: #474747;
+    }
+    .accordion-descricao button[aria-expanded=true] .icon::after {
+    width: 0;
+    }
+    .accordion-descricao button[aria-expanded=true] + .accordion-descricao-content {
+    opacity: 1;
+    max-height: 9em;
+    transition: all 200ms linear;
+    will-change: opacity, max-height;
+    }
+    .accordion-descricao .accordion-descricao-content {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 200ms linear, max-height 200ms linear;
+    will-change: opacity, max-height;
+    }
+    .accordion-descricao .accordion-descricao-content p {
+    font-size: 15px;
+    font-weight: 300;
+    margin: 2em 0;
+    }
+
+
+        -->
+    </style>
+    <div class="container-descricao-geral">
+        <div class="content-descricao-principal">
+            <div class="video-descricao">
+                <img alt="" height="560" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/brizze-fitness/novosconjuntos/httpsadaptive-images.uooucdn.com.brik-seotrw-85,h-127,fo-custom,e-sharpen,pr-true,pr-true,q-90a22423-ogxytnphwt0pvb40cea9ea262aada6600e6e0f4270360conjuno-essence-short-top-scarlet-small-1.jpg%20(26).png" width="300" />
+            </div>
+
+            <div class="colapsavel-desc">
+                <div class="accordion-descricao">
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-1"><span class="accordion-descricao-title">Zero Transpar&ecirc;ncia</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                Confian&ccedil;a total com tecidos de alta qualidade que eliminam qualquer preocupa&ccedil;&atilde;o com transpar&ecirc;ncia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-2"><span class="accordion-descricao-title">Top com entrada para Bojo</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                O top do conjunto n&atilde;o acompanha bojo, mas possui entradas especiais para a inser&ccedil;&atilde;o de bojo, permitindo personalizar o suporte e o formato conforme sua prefer&ecirc;ncia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-3"><span class="accordion-descricao-title">Costuras Refor&ccedil;adas</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                Confeccionado com costuras refor&ccedil;adas para maior durabilidade e resist&ecirc;ncia durante treinos intensos.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-4"><span class="accordion-descricao-title">C&oacute;s Alto com Alta Compress&atilde;o</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                Garante que a legging fique no lugar, oferecendo suporte extra e ajudando a manter a forma ideal mesmo durante atividades de alta intensidade.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-5"><span class="accordion-descricao-title">Defini&ccedil;&atilde;o da Silhueta</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                A cintura alta e o design que modela o corpo garantem uma silhueta definida, proporcionando um ajuste perfeito que real&ccedil;a suas curvas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-6"><span class="accordion-descricao-title">Elasticidade Superior</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                A combina&ccedil;&atilde;o de poliamida com elastano proporciona grande elasticidade, permitindo liberdade de movimento e ajuste din&acirc;mico ao seu corpo.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-7"><span class="accordion-descricao-title">Conforto e Frescor</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                A tecnologia avan&ccedil;ada do tecido proporciona uma sensa&ccedil;&atilde;o de frescor durante todo o treino, mantendo voc&ecirc; confort&aacute;vel e focada.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-descricao-item">
+                        <button aria-expanded="false" id="accordion-descricao-button-8"><span class="accordion-descricao-title">Desempenho Elevado</span></button>
+
+                        <div class="accordion-descricao-content">
+                            <p>
+                                A modelagem anat&ocirc;mica e o c&oacute;s com alta compress&atilde;o s&atilde;o ideais para melhorar sua performance, oferecendo suporte adicional em cada movimento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="width: 50%; color: #bbbbbb; margin-top: 20px; margin-bottom: 40px;" />
+    <div class="content-descricao-geral">
+        <div class="item-descricao">
+            <div class="item-imagem-descricao imagem-primeiro">
+                <img alt="" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/brizze-fitness/descricao-conjuntos/conjunto-top-verde-militar-gif-1.png" />
+            </div>
+
+            <div class="item-texto-descricao">
+                <p>
+                    <strong>Revolucione Seus Treinos</strong>
+                </p>
+
+                <p>
+                    Transforme seus treinos com nosso conjunto, projetado para oferecer o m&aacute;ximo em conforto e desempenho. Feito com uma sofisticada mistura de Poliamida e Elastano, este conjunto proporciona a combina&ccedil;&atilde;o ideal de elasticidade e durabilidade.
+                </p>
+            </div>
+        </div>
+
+        <div class="item-descricao">
+            <div class="item-imagem-descricao imagem-segundo">
+                <img alt="" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/brizze-fitness/descricao-conjuntos/conjunto-top-verde-militar-gif-2.gif" />
+            </div>
+
+            <div class="item-texto-descricao">
+                <p>
+                    <strong>A Escolha Perfeita para Mulheres de Alta Performance</strong>
+                </p>
+
+                <p>
+                    Ideal para atividades de alta performance, nosso conjunto fitness &eacute; a escolha perfeita para mulheres que buscam aliar estilo e funcionalidade em cada treino. Sinta a diferen&ccedil;a e conquiste seus objetivos com confian&ccedil;a e conforto.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <p>
+        <br />
+        <style type="text/css">.banner-desk{
+    display: flex;
+    margin: auto;
+    }
+    .banner-mob{
+    display: none;
+    }
+    @media screen and (max-width:768px){
+    .banner-desk{
+    display: none;
+    }
+    .banner-mob{
+
+    display: flex;
+    margin: auto;
+    } 
+    }
+        </style>
+    </p>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <p>
+        &nbsp;
+    </p>
+
+    <div class="banner-desk">
+        <img alt="" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/brizze-fitness/banner/alteracao-front-brizze-01.gif?_=0.31810300169853156" />
+    </div>
+
+    <div class="banner-mob">
+        <img alt="" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/brizze-fitness/banner/alteracao-front-brizze-02.gif?_=0.2056834739411293&quot;" />
+    </div>
+    <script>
+            const items = document.querySelectorAll(".accordion-descricao button");
+
+    function toggleAccordion() {
+    const itemToggle = this.getAttribute('aria-expanded');
+    
+    for (i = 0; i < items.length; i++) {
+        items[i].setAttribute('aria-expanded', 'false');
+    }
+    
+    if (itemToggle == 'false') {
+        this.setAttribute('aria-expanded', 'true');
+    }
+    }
+
+    items.forEach(item => item.addEventListener('click', toggleAccordion));
+
+
+
+    </script>

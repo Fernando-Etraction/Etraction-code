@@ -1,0 +1,1322 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" />
+    <title>Página do Produto</title>
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+    
+      @media (min-width: 800px) {
+        .about-section {
+          overflow: hidden;
+        }
+      }
+
+      /* ===== Escopo ===== */
+      #rd-scope .svg-icon {
+        width: 60px;
+        height: 60px;
+      }
+      #rd-scope .rn-container {
+         font-family: "Instrument Sans", sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      #rd-scope .product-description { font-family: "Instrument Sans", sans-serif;
+        padding: 60px 0;
+        text-align: center;
+      }
+      #rd-scope .product-description h1 { font-family: "Instrument Sans", sans-serif;
+        font-size: 2.5rem;
+        /* margin-bottom: 40px; */
+        color: #333;
+      }
+
+      #rd-scope .features-grid { font-family: "Instrument Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        /* margin-bottom: 50px; */
+        flex-wrap: wrap;
+      }
+      #rd-scope .feature-item { font-family: "Instrument Sans", sans-serif;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+      }
+      #rd-scope .feature-circle { font-family: "Instrument Sans", sans-serif;
+        border: 1px solid #102F18;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-weight: 700;
+        color: #666;
+      }
+      #rd-scope .feature-text { font-family: "Instrument Sans", sans-serif;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      #rd-scope .product-details { font-family: "Instrument Sans", sans-serif;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        margin-top: 40px;
+      }
+      #rd-scope .gif-placeholder { font-family: "Instrument Sans", sans-serif;
+        border-radius: 15px;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      #rd-scope .gif-placeholder img {
+        border-radius: 15px;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      #rd-scope .product-info h2 { font-family: "Instrument Sans", sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .product-info p { font-family: "Instrument Sans", sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+
+      #rd-scope .product-features { font-family: "Instrument Sans", sans-serif;
+        padding: 60px 0;
+        background: #fafafa;
+      }
+      #rd-scope .features-grid-2 { font-family: "Instrument Sans", sans-serif;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 40px;
+      }
+      #rd-scope .feature-card { font-family: "Instrument Sans", sans-serif;
+        text-align: center;
+        margin: 0 auto;
+      }
+      #rd-scope .feature-gif {
+        background: #f0f0f0;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        width: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0;
+        max-width: 480px;
+      }
+      #rd-scope .feature-gif img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      #rd-scope .feature-description { font-family: "Instrument Sans", sans-serif;
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      /* ===== Swiper base (escopo) ===== */
+      #rd-scope .swiper {
+        width: 1240px;
+        max-width: 100vw;
+        margin: 0 auto;
+        padding: 20px 0;
+        overflow: hidden; /* evita “vazar” slide vizinho */
+      }
+      #rd-scope .swiper-wrapper {
+        align-items: stretch;
+      }
+      #rd-scope .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 410px; /* desktop default */
+        height: 410px;
+      }
+      /* features desktop: slides menores */
+      #rd-scope .features-swiper .swiper-slide {
+        width: 320px;
+      }
+      #rd-scope .features-swiper .feature-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      #rd-scope .product-specs {
+        padding: 60px 0;
+      }
+      #rd-scope .specs-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      #rd-scope .wardrobe-image {
+        text-align: center;
+      }
+      #rd-scope .wardrobe-placeholder {
+        border-radius: 15px;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      #rd-scope .specs-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      #rd-scope .specs-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .spec-item ul li{
+        border-bottom: 1px solid rgb(218, 218, 218);
+        padding: 10px;
+        place-items: center;
+      }
+      #rd-scope .spec-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      #rd-scope .spec-icon {
+        margin-right: 15px;
+        font-size: 1.2rem;
+        color: #666;
+      }
+      #rd-scope .spec-value {
+        margin-left: auto;
+        font-weight: 700;
+        color: #333;
+      }
+
+      #rd-scope .sophistication-section {
+        padding: 0 0;
+        background: #fff;
+      }
+      #rd-scope .sophistication-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        /* margin-bottom: 40px; */
+      }
+      #rd-scope .sophistication-text h2 {
+        font-family: "Instrument Sans", sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        margin-top: 50px;
+        color: #333;
+      }
+      #rd-scope .sophistication-text p {
+         font-family: "Instrument Sans", sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+      }
+      #rd-scope .origin-tag {
+        background: #f0f0f0;
+        padding: 8px 16px;
+        border-radius: 20px;
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      #rd-scope .layout-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        margin-top: 60px;
+      }
+      #rd-scope .layout-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .layout-text p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+      #rd-scope .layout-gif {
+        background: #f0f0f0;
+        border-radius: 15px;
+        padding: 40px;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      #rd-scope .packaging-section {
+        padding: 60px 0;
+      }
+      #rd-scope .packaging-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      #rd-scope .packaging-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .packaging-text h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      #rd-scope .packaging-text p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+
+      #rd-scope .about-section {
+        padding: 60px 0;
+        background: #fafafa;
+        text-align: center;
+      }
+      #rd-scope .about-section h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: #333;
+      }
+      #rd-scope .about-section p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #555;
+        max-width: 800px;
+        margin: 0 auto 40px;
+      }
+
+      #rd-scope .testimonials-carousel {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        flex-direction: column;
+      }
+      #rd-scope .features-carousels-desktop {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+      }
+
+      /* Controles */
+      #rd-scope .features-nav,
+      #rd-scope .testimonials-nav {
+        color: #666;
+        background: #e0e0e0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-top: -20px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+      #rd-scope .features-nav:after,
+      #rd-scope .testimonials-nav:after {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      #rd-scope .swiper-pagination-bullet {
+        background: #ccc;
+        opacity: 0.5;
+      }
+      #rd-scope .swiper-pagination-bullet-active {
+        background: #666;
+        opacity: 1;
+      }
+      #rd-scope .swiper-button-next,
+      #rd-scope .swiper-button-prev,
+      #rd-scope .features-nav,
+      #rd-scope .testimonials-nav {
+        top: 50% !important;
+        transform: translateY(-50%);
+      }
+      #rd-scope .features-swiper,
+      #rd-scope .testimonials-swiper-1 {
+        position: relative;
+      }
+      #rd-scope .testimonials-carousel {
+        width: 1240px;
+        max-width: 100vw;
+        margin: 0 auto 30px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #rd-scope .swiper-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @media (max-width: 1300px) {
+        #rd-scope .testimonials-carousel,
+        #rd-scope .swiper {
+          width: 100vw;
+          max-width: 100vw;
+        }
+      }
+
+      /* ======== MOBILE FIX ======== */
+      @media (max-width: 1024px) {
+        #rd-scope .swiper,
+        #rd-scope .testimonials-carousel {
+          margin: 0 auto !important;
+        }
+        #rd-scope .swiper-wrapper {
+          margin: 0 !important;
+        }
+        /* garantir 1 por vez e altura auto */
+        #rd-scope .swiper-slide {
+          width: 100% !important;
+          height: auto !important;
+        }
+        #rd-scope .features-swiper .swiper-slide {
+          width: 100% !important;
+        }
+        /* esconder setas no mobile */
+        #rd-scope .features-nav,
+        #rd-scope .testimonials-nav {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #rd-scope .features-carousels-desktop {
+          display: none;
+        }
+        #rd-scope .features-carousels-mobile {
+          display: block;
+        }
+        #rd-scope .product-details,
+        #rd-scope .specs-container,
+        #rd-scope .sophistication-content,
+        #rd-scope .layout-section,
+        #rd-scope .packaging-content {
+          text-align: center;
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        #rd-scope .product-details,
+        #rd-scope .specs-container,
+        #rd-scope .sophistication-content,
+        #rd-scope .layout-section {
+          display: flex;
+          flex-direction: column;
+        }
+        #rd-scope .product-details .gif-placeholder {
+          order: 1;
+        }
+        #rd-scope .product-details .product-info {
+          order: 2;
+        }
+        #rd-scope .specs-container .wardrobe-image {
+          order: 1;
+        }
+        #rd-scope .specs-container .specs-info {
+          order: 2;
+        }
+        #rd-scope .layout-section .gif-placeholder {
+          order: 1;
+        }
+        #rd-scope .layout-section .layout-text {
+          order: 2;
+        }
+        #rd-scope .features-grid {
+          flex-direction: column;
+          align-items: center;
+          display: none;
+        }
+        #rd-scope .features-grid-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        #rd-scope .product-description h1 {
+          font-size: 2rem;
+        }
+        #rd-scope .rn-container {
+          place-items: center;
+          padding: 0 15px;
+        }
+        #rd-scope .gif-placeholder {
+          border-radius: 15px;
+          max-width: 400px !important;
+          min-height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #rd-scope .features-swiper {
+          display: block;
+        }
+        #rd-scope .features-grid-2 {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #rd-scope .features-grid-2 {
+          grid-template-columns: 1fr;
+        }
+        #rd-scope .product-description h1 {
+          font-size: 1.8rem;
+        }
+      }
+      @media (min-width: 780px) {
+        #rd-scope .features-carousels-mobile {
+          display: none !important;
+        }
+      }
+
+      .dimensions-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .dimension-arrow {
+        position: absolute;
+      }
+      .dimension-arrow.height {
+        left: 20px;
+        height: 100%;
+        width: 50px;
+      }
+      .dimension-arrow.width {
+        top: 20px;
+        width: 80%;
+        height: 50px;
+      }
+      .dimension-arrow.depth {
+        right: 20px;
+        top: 50%;
+        transform: rotate(-45deg);
+        width: 60%;
+        height: 50px;
+      }
+      .dimension-arrow text {
+         font-family: "Instrument Sans", sans-serif;
+        font-weight: bold;
+      }
+      .svg-icon-novo path {
+        fill: #102F18;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="rd-scope">
+      <!-- ======= Descrição / header ======= -->
+       <!-- AQUI É ONDE VOCE VAI COLOCAR SVG QUE VOCE COPIA POR EXEMPLO DO FREEPIKE OU APENAS PODE SUBSTITUIR O SVG POR  <img src="https://img.freepik.com/free-photo/close-up-juicy-lemon_23-2147636454.jpg?t=st=1762540305~exp=1762543905~hmac=d1288ab4cfba90b0c6b3dff74a1545a9c425c06bae9d1058b4ed6a80e020de12&w=1060"
+                alt=""
+              />
+              -->
+      <section class="product-description">
+        <div class="rn-container">
+          <h1>Descrição do produto</h1>
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-circle">
+                <svg class="svg-icon-novo" id="_Шар_1" height="70" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m511.654 58.534c-1.03-3.741-4.206-6.497-8.055-6.991-22.307-2.86-57.042-5.283-95.838-.597-57.035 6.894-102.878 26.659-136.254 58.747-11.457 11.015-35.295 33.935-43.7 71.907-.603 2.726-14.099 66.266 25.891 109.379-11.764 24.876-20.902 50.858-27.309 77.745-8.155-14.479-17.065-28.526-26.678-42.06 19.329-30.948 11.325-68.596 10.925-70.397-6.248-28.229-23.867-45.168-32.335-53.309-24.545-23.598-58.185-38.124-99.988-43.177-28.308-3.418-53.644-1.651-69.913.434-3.848.493-7.023 3.25-8.054 6.991-1.031 3.741.286 7.734 3.339 10.129 7.63 5.983 13.331 12.976 16.945 20.783 5.611 12.119 4.664 22.793 3.57 35.152-.342 3.862-.697 7.854-.843 11.976-.976 27.332 7.329 64.922 28.079 87.289 17.068 18.401 45.711 30.093 74.75 30.514.539.009 1.074.012 1.609.012 23.377 0 44.169-7.428 59.149-21.071 10.289 14.834 19.706 30.286 28.176 46.252-25.496 2.587-49.591 11.653-71.8 27.108-19.987 13.908-31.935 28.688-35.121 32.886-3.212 4.235-2.384 10.271 1.85 13.485 1.74 1.32 3.783 1.958 5.81 1.958 2.908 0 5.781-1.313 7.675-3.807 4.144-5.462 42.198-53.151 106.882-53.171.008 0 .017.001.025.001h.006.002.002c.013 0 .026-.002.04-.002.279 0 .568 0 .846.003 27.096.181 52.549 8.487 75.653 24.686 17.341 12.159 27.618 24.874 30.355 28.481 3.211 4.234 9.251 5.064 13.484 1.851 4.235-3.212 5.063-9.25 1.851-13.484-7.258-9.567-45.32-55.418-110.762-60.35 5.727-29.025 14.705-57.028 26.853-83.714 18.997 13.479 43.248 20.727 70.073 20.727.72 0 1.446-.006 2.17-.016 39.211-.568 77.833-16.296 100.793-41.047 27.999-30.183 39.197-81.091 37.874-118.154-.199-5.606-.685-11.084-1.154-16.382-1.497-16.897-2.911-32.856 5.268-50.522 5.249-11.34 13.5-21.473 24.521-30.116 3.054-2.395 4.37-6.388 3.339-10.129zm-385.19 285.27c-23.597-.342-47.508-9.904-60.918-24.359-16.922-18.241-23.761-50.894-22.955-73.513.13-3.613.446-7.183.781-10.962 1.169-13.196 2.495-28.153-5.274-44.938-2.033-4.391-4.525-8.57-7.462-12.521 13.058-.711 28.669-.637 45.368 1.382 37.561 4.539 67.491 17.305 88.957 37.943 7.65 7.355 21.891 21.046 26.883 43.596.071.323 5.544 26.179-4.83 49.186-2.652-3.4-5.345-6.767-8.089-10.092-19.845-24.052-42.188-46.247-66.408-65.971-4.121-3.358-10.182-2.736-13.54 1.385-3.356 4.121-2.736 10.183 1.385 13.539 23.239 18.925 44.676 40.221 63.714 63.296 3.919 4.749 7.734 9.585 11.458 14.492-11.735 11.594-29.11 17.792-49.071 17.538zm339.861-253.111c-10.337 22.331-8.627 41.636-6.973 60.306.468 5.282.91 10.271 1.092 15.37 1.143 32.036-8.619 78.363-32.75 104.378-19.21 20.709-53.345 34.404-86.96 34.891-24.8.38-46.901-6.345-63.389-19.057 3.975-7.655 8.208-15.196 12.719-22.606 22.447-36.871 50.848-69.445 84.413-96.819 4.118-3.36 4.735-9.422 1.376-13.541-3.361-4.12-9.422-4.736-13.541-1.376-35.263 28.759-65.103 62.985-88.69 101.727-3.675 6.036-7.163 12.16-10.5 18.351-27.337-35.751-16.642-86.014-16.523-86.554 7.147-32.291 28.152-52.488 38.247-62.193 30.298-29.128 72.429-47.133 125.225-53.514 14.988-1.811 29.346-2.503 42.537-2.503 10.1 0 19.517.406 28.004 1.025-5.852 6.824-10.63 14.216-14.287 22.115z"/></svg>
+              </div>
+              <div class="feature-text">Muda Enxertada</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-circle">
+                <?xml version="1.0"?>
+<svg class="svg-icon-novo" style="height: 70;" xmlns="http://www.w3.org/2000/svg" id="line" viewBox="0 0 64 64"><path d="M46.04913,29.985A20.57062,20.57062,0,0,0,35.94141,16.8418a1.0365,1.0365,0,0,1-.49512-.49512c-1.64844-3.66113-3.94238-4.5166-5.56934-4.58887-.22259-.01184-.44568-.00927-.66864-.01556a6.40031,6.40031,0,0,1,1.68622-3.59186C32.2998,6.72363,34.51758,6,37.48633,6a1,1,0,0,0,0-2c-3.24378,0-5.77716.79321-7.564,2.34167-2.3775-.60656-11.71728-2.50036-15.37738,4.0304-.79492,1.41895-.84277,2.49707-.1416,3.20508a2.352,2.352,0,0,0,1.7168.53906c2.58246,0,7.10669-1.93378,11.45306-4.15515a9.659,9.659,0,0,0-.37884,1.78094c-.22443.00623-.451.00678-.67383.01581-1.63574.07227-3.93067.92676-5.57227,4.57715a1.07371,1.07371,0,0,1-.52051.51172C17.71582,18.23535,8.90625,23.9082,9.4248,38.5918c.51954,14.90722,11.10059,18.7666,14.332,19.59375a1.19892,1.19892,0,0,1,.56543.30273,5.20611,5.20611,0,0,0,3.87207,1.50879,5.13058,5.13058,0,0,0,3.82788-1.47467A15.90379,15.90379,0,0,0,46.04913,29.985ZM15.93066,12.17578a3.404,3.404,0,0,1,.3584-.82519C18.55762,7.2998,23.99121,7.38574,27.2627,7.86133,21.97754,10.56445,17.21484,12.40527,15.93066,12.17578ZM28.19434,57.99707a3.2376,3.2376,0,0,1-2.43164-.89551,3.18187,3.18187,0,0,0-1.51075-.85351c-2.89062-.74024-12.35742-4.207-12.8291-17.72657-.47656-13.5039,7.46973-18.6416,9.89942-19.88671A3.0435,3.0435,0,0,0,22.7666,17.167c.97266-2.16406,2.30176-3.34277,3.83789-3.41113,1.03809-.041,2.09961-.05664,3.17578,0,1.54.06836,2.86817,1.248,3.83985,3.40625a3.03047,3.03047,0,0,0,1.4209,1.46582,18.30641,18.30641,0,0,1,8.60339,10.33844A15.90236,15.90236,0,0,0,30.137,57.49219,3.52923,3.52923,0,0,1,28.19434,57.99707ZM38.67773,58a13.91895,13.91895,0,1,1,13.919-13.919A13.934,13.934,0,0,1,38.67773,58Z"/><path d="M47.502,36.4834a1.00169,1.00169,0,0,0-1.20312.05078l-4.57636,3.74847c-.12225-.09814-.23828-.20233-.36969-.28857l2.1521-5.49213a.99867.99867,0,0,0-.32324-1.15918,7.4038,7.4038,0,0,0-9.00488,0,.99906.99906,0,0,0-.32324,1.15918l2.15374,5.49c-.136.08912-.25647.19635-.38269.29822l-4.57574-3.756a.99722.99722,0,0,0-1.20215-.05078,7.395,7.395,0,0,0-3.19238,6.09277,7.303,7.303,0,0,0,.418,2.4668.9987.9987,0,0,0,.9414.66406c.01953,0,.03906-.001.0586-.002l5.90387-.34863c.04211.15484.08563.30877.14221.45709l-4.97382,3.19134a.99837.99837,0,0,0-.418,1.127A7.43917,7.43917,0,0,0,35.81445,55.417h.16016a.99991.99991,0,0,0,.96777-.74707l1.4975-5.72131c.08051.004.15643.024.23785.024.07941,0,.15332-.01966.23182-.02344l1.4967,5.71973a1,1,0,0,0,.96777.748h.16016a7.44568,7.44568,0,0,0,7.09766-5.28515.99837.99837,0,0,0-.418-1.127L43.2384,45.8125c.05646-.148.09992-.30164.14191-.45612l5.90485.3487c.01953.001.03906.002.05859.002a.99873.99873,0,0,0,.94141-.66406,7.26731,7.26731,0,0,0,.41894-2.45606A7.411,7.411,0,0,0,47.502,36.4834ZM38.67773,46.97266a2.89167,2.89167,0,1,1,1.04041-5.58191l.01038.00671c.0094.00366.01916.00208.02862.00543a2.88874,2.88874,0,0,1-1.07941,5.56977ZM36.00879,34.52148a5.48236,5.48236,0,0,1,5.34082,0L39.4884,39.27136a4.03878,4.03878,0,0,0-1.61615-.00049ZM28.6543,42.57617a5.40528,5.40528,0,0,1,1.748-3.98535l3.95465,3.246a4.81991,4.81991,0,0,0-.498,1.52344l-5.09924.30084A5.50168,5.50168,0,0,1,28.6543,42.57617Zm6.55761,10.80664a5.44591,5.44591,0,0,1-4.30957-3.12988l4.28821-2.75085a4.90383,4.90383,0,0,0,1.31445.93853Zm11.24414-3.12988a5.45511,5.45511,0,0,1-4.31835,3.12988L40.84418,48.4444a4.904,4.904,0,0,0,1.32232-.94318Zm2.14258-6.5918-5.10119-.301a4.81905,4.81905,0,0,0-.50336-1.53308l3.95319-3.23523a5.43962,5.43962,0,0,1,1.65136,5.06933Z"/></svg>
+
+              </div>
+              <div class="feature-text">Rápida Produção</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-circle">
+                <svg class="svg-icon-novo" style="height: 70;" id="_x31__x5F_Line_x5F_" viewBox="0 0 588.892 564.755" xmlns="http://www.w3.org/2000/svg"><path d="m5.88 262.441c-.984 3.922-1.835 7.825-2.574 11.71-4.681 24.614-4.431 48.427 1.005 70.554.003.011.006.022.009.033.349 1.42.724 2.826 1.114 4.224.088.315.182.626.272.94.339 1.186.693 2.363 1.061 3.532.064.202.128.404.193.605 2.907 9.08 6.682 17.647 11.301 25.653 17.057 35.557 40.492 67.267 69.679 94.256 28.267 26.139 61.175 47.199 97.811 62.596 44.557 18.727 92.924 28.21 141.638 28.21 31.259 0 62.665-3.906 93.288-11.782 9.503-2.444 23.14-1.641 36.326-.865 22.688 1.335 46.146 2.716 61.745-9.962 15.292-12.429 17.915-32.795 20.023-49.16.525-4.077 1.021-7.928 1.664-11.401 2.713-14.671 9.115-27.848 15.893-41.797 1.856-3.819 3.775-7.769 5.624-11.769 25.915-56.064 33.454-126.389 21.227-198.02-12.113-70.965-42.086-134.215-84.453-178.33-8.844-9.835-19.32-18.444-31.327-25.696-.046-.028-.093-.055-.139-.083-1.041-.627-2.093-1.246-3.158-1.853-.202-.115-.408-.228-.611-.343-.926-.523-1.859-1.04-2.802-1.548-.276-.148-.555-.293-.833-.44-.899-.477-1.804-.949-2.718-1.412-.265-.134-.533-.265-.799-.398-.643-.321-1.281-.647-1.932-.961-.222-.107-.451-.203-.673-.309-1.476-.704-2.967-1.387-4.472-2.051-.737-.325-1.483-.638-2.227-.953-.908-.385-1.823-.76-2.741-1.131-1.53-.617-3.075-1.211-4.632-1.789-.599-.222-1.197-.448-1.8-.665-1.165-.418-2.338-.823-3.518-1.219-.207-.069-.416-.135-.623-.204-31.832-10.566-68.898-13.2-108.183-8.1-.089.011-.177.023-.266.034-4.658.609-9.346 1.323-14.061 2.149-.733.128-1.466.26-2.2.394-1.955.356-3.913.729-5.876 1.122-1.179.236-2.357.471-3.539.72-1.106.233-2.213.473-3.321.718-1.461.323-2.923.656-4.388 1-1.144.268-2.288.54-3.433.82-1.696.415-3.394.842-5.095 1.284-.819.213-1.637.427-2.457.646-2.18.583-4.363 1.181-6.549 1.808-.501.144-1.003.296-1.505.442-1.954.569-3.91 1.156-5.867 1.761-.592.183-1.184.363-1.776.549-2.314.727-4.63 1.477-6.948 2.253-.474.158-.947.323-1.421.484-2.096.711-4.192 1.441-6.29 2.192-.421.151-.842.297-1.264.45-2.367.856-4.735 1.74-7.103 2.647-.516.198-1.032.4-1.549.6-2.192.85-4.384 1.719-6.577 2.612-.272.111-.543.217-.815.329-2.371.972-4.741 1.976-7.11 3-.576.249-1.151.5-1.727.751-2.362 1.032-4.722 2.081-7.081 3.164-.036.017-.073.032-.109.049-64.675 29.711-121.553 74.919-161.51 128.139-2.664 3.548-5.252 7.132-7.763 10.749-19.231 27.705-32.836 55.861-40.527 83.295-.539 1.928-1.05 3.849-1.531 5.767zm557.583-29.077c11.553 67.684 4.568 133.833-19.667 186.263-1.768 3.825-3.644 7.686-5.458 11.42-7.062 14.534-14.365 29.563-17.571 46.901-.742 4.011-1.296 8.318-1.833 12.482-1.824 14.162-3.711 28.806-12.801 36.194-9.569 7.777-29.084 6.628-47.956 5.518-14.723-.867-29.948-1.762-42.482 1.461-74.141 19.068-153.052 13.564-222.196-15.496-34.483-14.493-65.43-34.29-91.981-58.843-8.948-8.274-17.308-17.028-25.08-26.219.585.291 1.164.588 1.755.874 26.296 12.691 57.347 18.962 90.99 18.962 45.793 0 96.377-11.629 146.206-34.52 68.987-31.691 129.103-81.015 169.273-138.887 33.859-48.779 50.274-98.95 47.656-144.127 14.489 29.55 25.124 62.739 31.145 98.017zm-499.095-48.579c38.162-54.977 95.407-101.897 161.192-132.118 47.293-21.725 95.001-32.777 137.819-32.777 30.586 0 58.677 5.641 82.335 17.059 33.021 15.937 54.858 42.208 63.152 75.974 11.303 46.015-3.128 101.114-40.635 155.148-38.162 54.977-95.407 101.897-161.192 132.118-81.077 37.245-163.377 43.122-220.154 15.719-33.02-15.937-54.858-42.208-63.152-75.974-2.119-8.628-3.334-17.575-3.661-26.775-1.419-39.865 13.822-84.471 44.296-128.374z"/><path d="m81.429 377.698c15.806 12.398 35.881 20.502 59.668 24.086 9.138 1.377 18.643 2.058 28.454 2.058 41.041 0 87.311-11.92 133.232-34.635 56.526-27.961 106.091-69.065 139.566-115.742 0 0 .001-.001.001-.002 34.266-47.78 47.752-96.01 37.975-135.807-.001-.004-.003-.008-.004-.012-5.131-20.875-16.22-38.116-32.958-51.246-15.804-12.398-35.879-20.502-59.666-24.086-47.364-7.135-104.785 4.432-161.684 32.577 0 0-.001.001-.002.001-56.524 27.96-106.088 69.062-139.563 115.738-.001.001-.002.002-.003.004-34.268 47.781-47.755 96.011-37.977 135.808 5.13 20.881 16.22 38.126 32.961 51.258zm56.679 3.284c-34.577-6.692-58.32-24.795-67.935-51.704l162.752-80.506zm22.703 2.663 57.214-79.777 41.843-58.344 26.836 109.23c-44.173 20.699-88.002 30.714-125.893 28.891zm144.227-38.094-27.367-111.39 138.377 20.85c-28.698 35.601-67.347 67.142-111.01 90.54zm124.552-108.725-132.234-19.925 165.66-81.944c2.901 30.239-8.694 65.751-33.426 101.869zm-38.904-173.712c34.577 6.692 58.319 24.795 67.935 51.704l-149.784 74.092-12.968 6.415 91.062-126.975zm-22.702-2.662-99.057 138.122-26.836-109.23c44.173-20.701 88.01-30.718 125.893-28.892zm-144.227 38.093 5.367 21.843 22.001 89.547-138.377-20.85c28.697-35.6 67.346-67.142 111.009-90.54zm-124.553 108.725 132.234 19.925-149.115 73.76-16.545 8.184c-2.9-30.238 8.695-65.75 33.426-101.869z"/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/><g/></svg>
+              </div>
+              <div class="feature-text">Muda Certificada</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-circle">
+                <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg class="svg-icon-novo" style="height: 70;" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 463 463" style="enable-background:new 0 0 463 463;" xml:space="preserve">
+<g>
+	<path d="M418.631,428.991L415,421.729V41.271l3.63-7.261c3.669-7.337,3.285-15.885-1.028-22.864C413.289,4.167,405.815,0,397.611,0
+		H65.389c-8.204,0-15.677,4.167-19.991,11.146c-4.313,6.979-4.697,15.526-1.028,22.864L48,41.271v380.458l-3.63,7.262
+		c-3.669,7.338-3.285,15.885,1.028,22.864S57.184,463,65.388,463h332.224c8.204,0,15.677-4.167,19.99-11.146
+		S422.3,436.329,418.631,428.991z M404.842,443.969c-1.583,2.562-4.219,4.031-7.23,4.031H65.388c-3.012,0-5.647-1.469-7.23-4.031
+		s-1.719-5.576-0.372-8.27l4.422-8.845c0.521-1.042,0.792-2.19,0.792-3.354v-384c0-1.165-0.271-2.313-0.792-3.354l-4.422-8.845
+		c-1.347-2.694-1.211-5.708,0.372-8.27C59.741,16.469,62.377,15,65.389,15h332.223c3.012,0,5.647,1.469,7.231,4.032
+		c1.583,2.562,1.719,5.576,0.372,8.27l-4.422,8.845C400.271,37.188,400,38.335,400,39.5v384c0,1.164,0.271,2.313,0.792,3.354
+		l4.423,8.845C406.561,438.393,406.426,441.407,404.842,443.969z"/>
+	<path d="M375.5,32h-288c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h288c4.142,0,7.5-3.358,7.5-7.5S379.642,32,375.5,32z"/>
+	<path d="M375.5,416h-288c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h288c4.142,0,7.5-3.358,7.5-7.5S379.642,416,375.5,416z"/>
+	<path d="M193.238,214.091c-17.979-17.979-43.809-25.792-67.411-20.393c-2.806,0.642-4.996,2.833-5.638,5.638
+		c-5.401,23.601,2.413,49.431,20.393,67.411c14.216,14.216,33.335,22.076,52.384,22.076c3.621,0,7.241-0.296,10.823-0.875
+		L224,308.159V352h-16.5c-4.142,0-7.5,3.358-7.5,7.5s3.358,7.5,7.5,7.5h48c4.142,0,7.5-3.358,7.5-7.5s-3.358-7.5-7.5-7.5H239
+		v-11.841l20.211-20.211c3.583,0.579,7.201,0.875,10.823,0.875c19.047,0,38.169-7.861,52.383-22.076
+		c17.98-17.979,25.794-43.81,20.393-67.411c-0.642-2.806-2.833-4.996-5.638-5.638c-23.601-5.4-49.432,2.413-67.411,20.393
+		c-16.938,16.938-24.85,40.842-21.195,63.287L239,318.946v-76.296l20.248-20.248c2.609,0.379,5.237,0.586,7.869,0.586
+		c15.326,0,30.704-6.317,42.127-17.742c14.455-14.455,20.734-35.237,16.386-54.238c-0.642-2.806-2.833-4.996-5.638-5.638
+		c-19.002-4.349-39.784,1.931-54.238,16.386c-13.408,13.408-19.774,32.26-17.157,50.084L239,221.437v-2.011
+		c0-14.825-5.773-28.762-16.256-39.244l-0.342-0.342c2.618-17.825-3.749-36.677-17.157-50.085
+		c-14.455-14.456-35.238-20.734-54.238-16.386c-2.806,0.642-4.996,2.833-5.638,5.638c-4.348,19,1.931,39.783,16.385,54.238
+		c11.425,11.425,26.801,17.742,42.128,17.742c2.631,0,5.26-0.207,7.869-0.586l0.387,0.387c7.649,7.649,11.862,17.82,11.862,28.638
+		v67.521l-9.568-9.568C218.087,254.933,210.176,231.029,193.238,214.091z M280.369,256.697
+		c13.142-13.142,31.407-19.513,48.679-17.236c2.276,17.27-4.095,35.538-17.236,48.679c-10.544,10.544-24.387,16.717-38.368,17.574
+		l35.381-35.381c2.929-2.929,2.929-7.678,0-10.606c-2.929-2.929-7.678-2.929-10.606,0l-35.431,35.431
+		C263.624,281.146,269.802,267.264,280.369,256.697z M276.361,172.361c9.6-9.599,22.809-14.411,35.438-13.161
+		c1.254,12.631-3.562,25.839-13.161,35.438c-6.802,6.802-15.419,11.187-24.355,12.727l18.541-18.541
+		c2.929-2.929,2.929-7.678,0-10.606c-2.929-2.929-7.678-2.929-10.606,0l-18.602,18.602
+		C265.141,187.846,269.532,179.19,276.361,172.361z M172.361,162.639c-9.599-9.599-14.414-22.807-13.16-35.438
+		c12.63-1.254,25.84,3.563,35.438,13.161c6.828,6.828,11.22,15.485,12.745,24.459l-18.602-18.602c-2.929-2.93-7.678-2.929-10.606,0
+		c-2.929,2.929-2.929,7.678,0,10.606l18.541,18.541C187.779,173.825,179.162,169.44,172.361,162.639z M151.188,256.141
+		c-13.141-13.142-19.512-31.41-17.236-48.679c17.27-2.278,35.538,4.094,48.679,17.236c10.567,10.567,16.745,24.449,17.581,38.461
+		l-35.431-35.431c-2.929-2.929-7.678-2.929-10.606,0c-2.929,2.929-2.929,7.678,0,10.606l35.38,35.38
+		C175.574,272.856,161.731,266.684,151.188,256.141z"/>
+</g>
+
+<g>
+</g>
+</svg>
+
+              </div>
+              <div class="feature-text">Para Vaso ou Solo</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-circle">
+             <svg id="Layer_1" enable-background="new 0 0 510 510" height="70" viewBox="0 0 510 510" width="300" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g><path d="m465 210c-19.555 0-36.227 12.541-42.42 30h-33.418c-2.888-26-13.185-49.793-28.733-69.216l23.675-23.675c45.413 21.166 86.552-36.353 51.209-72.422-17.544-17.545-46.094-17.545-63.64 0-13.828 13.828-16.749 34.485-8.782 51.209l-23.675 23.675c-19.423-15.548-43.216-25.845-69.216-28.733v-33.418c46.977-17.385 35.719-86.463-15.001-87.42-50.727.961-61.969 70.044-14.999 87.42v33.418c-26 2.888-49.793 13.186-69.216 28.733l-23.675-23.675c7.967-16.724 5.045-37.381-8.782-51.209-17.546-17.545-46.096-17.545-63.64 0-35.337 36.077 5.795 93.585 51.209 72.422l23.675 23.675c-15.548 19.423-25.845 43.216-28.733 69.216h-33.418c-17.385-46.977-86.463-35.719-87.42 15.001.961 50.727 70.044 61.969 87.42 14.999h33.418c2.888 26 13.185 49.792 28.733 69.216l-23.675 23.675c-46.002-21.002-86.261 36.291-51.209 72.421 36.163 35.416 93.615-5.956 72.441-51.228l23.655-23.655c19.424 15.548 43.217 25.845 69.217 28.733v33.418c-46.977 17.385-35.719 86.463 15.001 87.42 50.727-.961 61.97-70.044 14.999-87.42v-33.418c26-2.888 49.793-13.185 69.216-28.733l23.655 23.655c-7.822 16.343-5.345 37.083 8.802 51.228 17.539 17.541 46.091 17.549 63.64.001 17.586-17.586 17.59-46.052 0-63.64-13.826-13.828-34.485-16.75-51.209-8.782l-23.675-23.675c15.548-19.424 25.845-43.216 28.733-69.216h33.418c17.391 46.983 86.463 35.714 87.42-15.001 0-24.812-20.187-44.999-45-44.999zm-61.507-118.486c13.27 0 20.066 16.141 10.606 25.601-5.85 5.85-15.364 5.848-21.214 0-9.457-9.459-2.666-25.601 10.608-25.601zm-148.493-61.514c8.271 0 15 6.729 15 15-.823 19.9-29.18 19.894-30 0 0-8.271 6.728-15 15-15zm-159.1 87.114c-5.849-5.849-5.849-15.365 0-21.214 5.852-5.85 15.364-5.848 21.214 0 5.849 5.849 5.849 15.365 0 21.214-5.848 5.848-15.363 5.85-21.214 0zm-50.9 152.886c-8.271 0-15-6.728-15-15 .823-19.9 29.18-19.894 30 0 0 8.271-6.729 15-15 15zm50.9 144.098c-5.862-5.86-5.862-15.35 0-21.212 9.414-9.411 25.607-2.699 25.607 10.606.001 13.224-16.111 20.107-25.607 10.606zm159.1 65.902c-8.271 0-15-6.728-15-15 .823-19.9 29.18-19.894 30 0 0 8.271-6.729 15-15 15zm0-120c-57.898 0-105-47.102-105-105 5.767-139.297 204.254-139.256 210 .001 0 57.896-47.103 104.999-105 104.999zm163.493 43.492c0 13.331-16.22 19.991-25.608 10.607v-.001c-9.391-9.387-2.743-25.599 10.608-25.599 8.244 0 15 6.653 15 14.993zm46.507-133.492c-8.271 0-15-6.728-15-15 .823-19.9 29.18-19.894 30 0 0 8.271-6.729 15-15 15z" fill="#102f18" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m240 180h30v90h-30z" fill="#102f18" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m240 300h30v30h-30z" fill="#102f18" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></g></svg>
+              </div>
+              <div class="feature-text">Proliferação</div>
+            </div>
+            
+          </div>
+          <!-- FIM DA SEÇÃO DE ICONES -->
+
+
+
+          <!-- SEÇÃO INICIAL  -->
+          <div class="product-details">
+            <div class="gif-placeholder">
+              <img
+                style="
+                  border-radius: 15px !important;
+                  max-width: 560px;
+                  max-height: 400px;
+                "
+                src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/05/produto/2720/muda-frutifera-de-limao-galego-enxertada-muda-e-fruta-agrojardim.png?_gl=1*1g50tvc*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI3ODkyMDIkbzEwMiRnMSR0MTc2Mjc5MzAxNyRqNjAkbDAkaDA."
+                alt=""
+              />
+            </div>
+            <div class="product-info">
+              <h2>Muda de Alta Qualidade</h2>
+              <p>
+                A Muda de Limão Galego Enxertada da AgroJardim se destaca pela sua alta qualidade genética e rápida produção de frutos. Enxertada e cuidadosamente selecionada, ela garante desenvolvimento rápido, excelente resistência e adaptação a diferentes climas em todo o Brasil. Com a muda da AgroJardim, você garante frutos já no primeiro ano, colhendo deliciosos limões frescos com qualidade incomparável.
+            </div>
+          </div>
+          <!-- FIM DA SEÇÃO INICIAL  -->
+
+
+        </div>
+      </section>
+
+
+      <!-- CARROSSEL QUE VAI APARECER NO DESKTOP ALTERA O SRC DE CADA IMAGEM E TEXTO COMO PREFERIR  -->
+      <!-- ======================= FEATURES (DESKTOP) ======================= -->
+      <section class="product-features">
+        <div class="rn-container">
+          <div class="features-carousels-desktop">
+            <!-- Carrossel 1 -->
+            <div class="testimonials-carousel">
+              <div class="swiper features-swiper features-swiper-1">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/lime-slices-texture-arrangement-top-view_23-2149433502.jpg?t=st=1762540230~exp=1762543830~hmac=d559ebc3c53766616f05ff53b48a2156ffcc674e9fd6ebd7fb69951a8849baec&w=1480"
+                          alt="Sistema deslizante nas portas"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Fruto de tamanho pequeno a médio.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/delicious-food-texture-composition-close-up_23-2148964838.jpg?t=st=1762540281~exp=1762543881~hmac=ee51527ad3d119a097bb304146c2f94ddc407d1d01bb8ed99e7be6109a7bb55d&w=1060"
+                          alt="Trilhos de inox com revestimento extra"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Possuí poucas sementes.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/close-up-juicy-lemon_23-2147636454.jpg?t=st=1762540305~exp=1762543905~hmac=d1288ab4cfba90b0c6b3dff74a1545a9c425c06bae9d1058b4ed6a80e020de12&w=1060"
+                          alt="Puxadores em inox"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Sabor ácido suave muito suculento
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/delicious-food-texture-composition-close-up_23-2148964837.jpg?t=st=1762540327~exp=1762543927~hmac=b7f9b53ba2187ee8c7afcda8ee266a7ce9fa18976d520fb8ee84f8ca9a0b5203&w=1060"
+                          alt="Amortecimento suave"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Produz entre março e agosto.
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/lemons-limes_23-2148125078.jpg?t=st=1762540375~exp=1762543975~hmac=bad081a69bd0abd1cc7ec8e2cf0afa286a868449887377f31fe0cbb18e155cc9&w=1060"
+                          alt="Estrutura reforçada"
+                        />
+                      </div>
+                      <div class="feature-description">
+                       Ideal para caipirinhas, marinadas, sobremesas, saladas, molhos e sucos naturais.
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="testimonials-nav swiper-button-next features-next-1"
+                ></div>
+                <div
+                  class="testimonials-nav swiper-button-prev features-prev-1"
+                ></div>
+                <div class="swiper-pagination features-pagination-1"></div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- CARROSSEL QUE VAI APARECER NO MOBILE PODE SER DIFERENTE DO DESKTOP OU PODE SER IGUAL LOGO VOCE ALTERAR IMG E TEXTOS TAMBEM  -->
+          <!-- ======================= FEATURES (MOBILE) ======================= -->
+          <div class="features-carousels-mobile">
+            <!-- Mobile 1 -->
+            <div class="testimonials-carousel">
+              <div class="swiper features-swiper-mob-1">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/premium-photo/high-angle-view-lime-slices-by-cocktail-table_1048944-25876690.jpg?w=1060"
+                          alt="Sistema deslizante nas portas"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Frutos de casca fina e aroma marcante — perfeitos para sucos
+                    e receitas.
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/lemons-limes_23-2148125078.jpg?t=st=1762540375~exp=1762543975~hmac=bad081a69bd0abd1cc7ec8e2cf0afa286a868449887377f31fe0cbb18e155cc9&w=1060"
+                          alt="Trilhos de inox com proteção"
+                        />
+                      </div>
+                      <div class="feature-description">
+                       Frutos de casca fina e aroma marcante — perfeitos para sucos
+                    e receitas.
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/delicious-food-texture-composition-close-up_23-2148964837.jpg?t=st=1762540327~exp=1762543927~hmac=b7f9b53ba2187ee8c7afcda8ee266a7ce9fa18976d520fb8ee84f8ca9a0b5203&w=1060"
+                          alt="Puxadores em inox"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Muda enxertada com rápido início de produção e excelente
+                    vigor no crescimento.
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/close-up-juicy-lemon_23-2147636454.jpg?t=st=1762540305~exp=1762543905~hmac=d1288ab4cfba90b0c6b3dff74a1545a9c425c06bae9d1058b4ed6a80e020de12&w=1060"
+                          alt="Amortecimento suave"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Muda enxertada com rápido início de produção e excelente
+                    vigor no crescimento.
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/delicious-food-texture-composition-close-up_23-2148964838.jpg?t=st=1762540281~exp=1762543881~hmac=ee51527ad3d119a097bb304146c2f94ddc407d1d01bb8ed99e7be6109a7bb55d&w=1060"
+                          alt="Estrutura reforçada"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Envio seguro com gel nutritivo e embalagem ventilada que
+                    protege a muda durante o transporte.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://img.freepik.com/free-photo/top-half-view-yellow-tangerines-with-leaves-wooden-bowl-blue-isolated-background-free-space_140725-140019.jpg?t=st=1762540422~exp=1762544022~hmac=5a7ad5c2ac09594697ef15e84cee6508a188979dcd4bb1af70fb2fb2075f992a&w=1060"
+                          alt="Acabamento premium"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        Envio seguro com gel nutritivo e embalagem ventilada que
+                    protege a muda durante o transporte.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Paginação do mob-1 -->
+                <div class="swiper-pagination features-pagination-mob-1"></div>
+              </div>
+            </div>
+
+            <!-- Mobile 2 -->
+            <div class="testimonials-carousel">
+              <div class="swiper features-swiper-mob-2">
+                <div class="swiper-wrapper">
+                  <!-- (reutilize os mesmos ou outros slides, se necessário) -->
+                </div>
+                <div class="swiper-pagination features-pagination-mob-2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO DE ESPECIFICAÇÕES DA PLANTA -->
+      <!-- ======================= ESPECIFICAÇÕES / OUTRAS SEÇÕES ======================= -->
+      <section class="product-specs">
+        <div class="rn-container">
+          <div class="specs-container">
+            <div class="specs-info">
+              <div class="specs-section">
+                <h3>Especificações Técnicas</h3>
+                <div class="spec-item">
+                  <ul>
+                    <li style="font-size: 1rem !important">
+                      Nome Científico	Citrus aurantifolia
+                    </li>
+                    <li style="font-size: 1rem !important">
+                      Tamanho da Muda	70 a 90cm
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Época de Produção	Março a Agosto
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Tempo para Produzir	1-2 Anos
+                    </li>
+                    <li style="font-size: 1rem !important">
+                   Região Ideal para Plantio	Todo o Brasil
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Propagação	Enxertia
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Época de Produção	Março a Agosto
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Época de Produção	Março a Agosto
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Época de Produção	Março a Agosto
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Época de Produção	Março a Agosto
+                    </li>
+                    <li style="font-size: 1rem !important">
+                     Época de Produção	Março a Agosto
+                    </li>
+                    <!-- <li>Branco/Frente Amadeirado  </li> -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="wardrobe-image">
+              <div class="wardrobe-placeholder">
+                <img
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;border-radius: 15px;
+                  "
+                  src="https://img.freepik.com/free-photo/lime-lemon-slices-arrangement-top-view_23-2148751844.jpg?t=st=1762540574~exp=1762544174~hmac=810d71bfc265b019b83d92700a1ec26c010a0a4ba26c233c846f66fbc68d672c&w=1060"
+                  alt="Imagem do Guarda-Roupa"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- FIM DA SEÇÃO DE ESPECIFICAÇÕES -->
+
+
+
+      <section class="sophistication-section">
+        <div class="rn-container">
+
+
+            <!-- SEÇÃO HTML -->
+          <div class="sophistication-content">
+            <div class="gif-placeholder">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/03/blog/2440/caixas-envio-plantas-agrojardim-blog.png?_gl=1*8oipgz*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI3ODkyMDIkbzEwMiRnMSR0MTc2Mjc5Mzk2NiRqNTUkbDAkaDA."
+                alt=""
+              />
+            </div>
+            <div class="sophistication-text">
+              <h2>Embalagem e Transporte</h2>
+              <p>
+              Aqui na AgroJardim trabalhamos diariamente para lhe garantir a melhor experiência na hora de comprar suas mudas frutíferas online. Para garantir a você um alto padrão de envio, desenvolvemos CAIXAS personalizadas SOB MEDIDA com FUROS para que suas mudas consiga respirar durante todo o trajeto. Além disso, adicionamos um GEL ESPECIAL desenvolvido para reter água e liberar gradualmente,
+              </p>
+              <div class="origin-tag">O mais ALTO PADRÃO de envio de mudas do BRASIL!</div>
+            </div>
+          </div>
+            <!-- FIM DA SEÇÃO HTML -->
+
+
+
+
+          <!-- SEÇÃO SOBRE PORQUE  -->
+          <div class="layout-section">
+            <div class="layout-text">
+              <h2>Como Plantar Corretamente?</h2>
+              <p>
+                Escolha uma área com boa drenagem, rica em matéria orgânica e
+com boa iluminação solar. Após isso, cave um buraco quadrado
+com as medidas de 40cm x 40cm x 40cm. Esse formato evita que as
+raízes se entrelacem e limite o crescimento adequado da planta.
+Retire a muda da embalagem e coloque-a no buraco. Antes de cobrir as raízes, misture o solo retirado com adubo
+orgânico, como esterco curtido, composto orgânico ou húmus de
+minhoca. Após o plantio, molhe generosamente e continue regando pelo
+menos três vezes na semana, até que a muda se adapte bem.
+Use uma estaca para dar mais suporte à muda, evitando que
+entorte e ajudando no enraizamento.
+<button
+  class="origin-tag"
+  style="margin-top: 5px; cursor: pointer; border: none; background-color: #102F18; color: white; padding: 12px 25px;"
+  onclick="scrollToTopAndNotify()"
+>
+  Acesse o Manual de Cultivo Completo
+</button>
+
+              </p>
+            </div>
+            <div class="gif-placeholder">
+              <img
+                src="https://westonwholesale.com/wp-content/uploads/2023/08/AdobeStock_177461824.jpeg"
+                alt=""
+              />
+            </div>
+          </div>
+          <!-- FIM SEÇÃO PORQUE -->
+
+
+
+
+          <!-- SEÇÃO SOBRE O COMPROMISSO  -->
+          <div class="sophistication-content" style="margin-top: 60px">
+           <div class="wardrobe-image">
+              <div class="wardrobe-placeholder">
+                <img
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    display: block;border-radius: 15px;
+                  "
+                  src="https://img.freepik.com/free-photo/lime-lemon-slices-arrangement-top-view_23-2148751844.jpg?t=st=1762540574~exp=1762544174~hmac=810d71bfc265b019b83d92700a1ec26c010a0a4ba26c233c846f66fbc68d672c&w=1060"
+                  alt="Imagem do Guarda-Roupa"
+                />
+              </div>
+            </div>
+            <div class="sophistication-text">
+              <h2>Benefícios Para a Saúde </h2>
+              <p>
+                 O limão galego é uma fruta rica em vitamina C, essencial para fortalecer o sistema imunológico e aumentar a resistência contra infecções. Seus antioxidantes ajudam a combater os radicais livres, protegendo as células e retardando o envelhecimento. Além disso, possui propriedades digestivas, estimulando a produção de enzimas e auxiliando no funcionamento do sistema gastrointestinal. O limão galego também favorece a saúde cardiovascular, ajudando a regular a pressão arterial e a melhorar a circulação sanguínea. Com sua ação desintoxicante e anti-inflamatória, contribui para a eliminação de toxinas do organismo e para a manutenção do equilíbrio corporal.
+
+
+              </p>
+             <div class="origin-tag">Origem: Brasil</div> </div>
+          </div>
+          <!-- FIM DA SEÇÃO DE COMPROMISSO  -->
+
+          
+<!-- SEÇÃO DE HTML -->
+          <div class="layout-section">
+            <div class="layout-text">
+              <h2>Certificações e Segurança</h2>
+              <p>
+                 Todas as mudas são produzidas com substrato casca de pinus + casca de arroz seca.
+Elas são produzidas em estufa telada e coberta seguindo todos os padrões do MAPA e CIDASC. 
+Nossas mudas são isentas de Cancro Cítrico e Green.  
+Todas as mudas são certificadas no MAPA com RENASEM, TERMO DE CONFORMIDADE E CFO.
+              </p>
+            </div>
+            <div class="gif-placeholder">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2024/08/produto/1880/fertilizante-humus-de-minhoca-vitaplan-ambiente-2-agrojardim.png?_gl=1*uvkgmp*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI3ODkyMDIkbzEwMiRnMSR0MTc2Mjc5NDQ4OCRqNjAkbDAkaDA."
+                alt=""
+              />
+            </div>
+          </div>
+          <!-- FIM DA SEÇÃO HTML -->
+
+
+        </div>
+      </section>
+
+      <!-- AQUI VOCE VAI COLOCAR SOBRE A EMPRESA  -->
+      <!-- ======================= DEPOIMENTOS ======================= -->
+      <div class="testimonials-carousel">
+        <div
+          class="sophistication-text"
+          style="text-align: center; margin-left: -10px"
+        >
+          <h2>Somos um Site Seguro? </h2>
+          <p>
+            A AgroJardim atua há mais de 14 anos no mercado de mudas frutíferas e plantas ornamentais, com sede em São João do Oeste, Santa Catarina.
+            Nessa trajetória, já entregamos mais de 50 mil mudas por todo o Brasil com a melhor qualidade do mercado. Se você busca qualidade e confiança, você está
+            no lugar certo!
+          </p>
+        </div>
+
+        <!-- Carrossel de selos: agora com classes de TESTIMONIALS -->
+       <div class="testimonials-carousel">
+              <div class="swiper features-swiper features-swiper-1">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/11/produto/3139/1.png?_gl=1*1o19y2t*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI2MTUyNDQkbzg4JGcxJHQxNzYyNjE2MjAwJGoyOCRsMCRoMA.."
+                          alt="Sistema deslizante nas portas"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!-- Sistema de freios – maior segurança e conforto no uso. -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/11/produto/3141/3.png?_gl=1*ie843p*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI2MTUyNDQkbzg4JGcxJHQxNzYyNjE2MjU4JGo1MyRsMCRoMA.."
+                          alt="Trilhos de inox com revestimento extra"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!-- Envio seguro com gel nutritivo e embalagem ventilada que
+                    protege a muda durante o transporte. -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/11/produto/3140/2.png?_gl=1*uy61de*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI2MTUyNDQkbzg4JGcxJHQxNzYyNjE2MjU1JGo1NiRsMCRoMA.."
+                          alt="Puxadores em inox"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!--Frutos de casca fina e aroma marcante — perfeitos para sucos
+                    e receitas. -->
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/11/produto/3142/whatsapp-image-2025-11-08-at-12-45-39.jpeg?_gl=1*1vkj0th*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI2MTUyNDQkbzg4JGcxJHQxNzYyNjE2ODkxJGo1NiRsMCRoMA.."
+                          alt="Amortecimento suave"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!-- Envio seguro com gel nutritivo e embalagem ventilada que
+                    protege a muda durante o transporte. -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://magazord-public.s3.amazonaws.com/agrojardim/img/2025/11/produto/3143/whatsapp-image-2025-11-08-at-12-47-21.jpeg?_gl=1*9cqvc0*_ga*OTYyNDAyNDE0LjE3NTgxNjM0MDY.*_ga_4JXK3QVJ6X*czE3NjI2MTUyNDQkbzg4JGcxJHQxNzYyNjE2ODk2JGo1MSRsMCRoMA.."
+                          alt="Estrutura reforçada"
+                        />
+                      </div>
+                      <div class="feature-description">
+                      <!--  Frutos de casca fina e aroma marcante — perfeitos para sucos
+                    e receitas. -->
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="testimonials-nav swiper-button-next features-next-1"
+                ></div>
+                <div
+                  class="testimonials-nav swiper-button-prev features-prev-1"
+                ></div>
+                <div class="swiper-pagination features-pagination-1"></div>
+              </div>
+              
+            <!-- Controles e paginação do testimonials -->
+            <div
+              class="testimonials-nav swiper-button-next testimonials-next-1"
+            ></div>
+            <div
+              class="testimonials-nav swiper-button-prev testimonials-prev-1"
+            ></div>
+            <div class="swiper-pagination testimonials-pagination-1"></div> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // Depoimentos (carrossel de selo/segurança)
+      new Swiper("#rd-scope .testimonials-swiper-1", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        navigation: {
+          nextEl: "#rd-scope .testimonials-next-1",
+          prevEl: "#rd-scope .testimonials-prev-1",
+        },
+        pagination: {
+          el: "#rd-scope .testimonials-pagination-1",
+          clickable: true,
+        },
+        speed: 600,
+        loopAdditionalSlides: 1,
+        effect: "slide",
+      });
+
+      // Features (DESKTOP)
+      new Swiper("#rd-scope .features-swiper-1", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+          nextEl: "#rd-scope .features-next-1",
+          prevEl: "#rd-scope .features-prev-1",
+        },
+        pagination: { el: "#rd-scope .features-pagination-1", clickable: true },
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        speed: 600,
+        breakpoints: { 0: { slidesPerView: 1 }, 769: { slidesPerView: 3 } },
+      });
+
+      new Swiper("#rd-scope .features-swiper-3", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+          nextEl: "#rd-scope .features-next-3",
+          prevEl: "#rd-scope .features-prev-3",
+        },
+        pagination: { el: "#rd-scope .features-pagination-3", clickable: true },
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        speed: 600,
+        breakpoints: { 0: { slidesPerView: 1 }, 769: { slidesPerView: 3 } },
+      });
+
+      // Features (MOBILE)
+      new Swiper("#rd-scope .features-swiper-mob-1", {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: true,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        pagination: {
+          el: "#rd-scope .features-pagination-mob-1",
+          clickable: true,
+        },
+        speed: 500,
+      });
+
+      new Swiper("#rd-scope .features-swiper-mob-2", {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: true,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        pagination: {
+          el: "#rd-scope .features-pagination-mob-2",
+          clickable: true,
+        },
+        speed: 500,
+      });
+
+      // Smooth scroll + animações
+      document.querySelectorAll('#rd-scope a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("#rd-scope section").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "opacity .6s ease, transform .6s ease";
+        observer.observe(section);
+      });
+    //    inicio do scroll com popup 
+    function scrollToTopAndNotify() {
+    // rola suavemente até o topo
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // cria o elemento da notificação
+    const notification = document.createElement('div');
+    notification.textContent = 'Finalize a compra para garantir seu brinde 🎁';
+    notification.style.position = 'fixed';
+    notification.style.top = '80px';
+    notification.style.left = '50%';
+    notification.style.transform = 'translateX(-50%)';
+    notification.style.background = '#102F18';
+    notification.style.color = '#fff';
+    notification.style.padding = '12px 20px';
+    notification.style.borderRadius = '8px';
+    notification.style.fontFamily = '"Instrument Sans", sans-serif';
+    notification.style.fontSize = '0.95rem';
+    notification.style.zIndex = '9999';
+    notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+    notification.style.transition = 'opacity .4s ease';
+    notification.style.opacity = '1';
+
+    document.body.appendChild(notification);
+
+    // remove após 3 segundos
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      setTimeout(() => notification.remove(), 400);
+    }, 3000);
+  }
+    </script>
+  </body>
+</html>

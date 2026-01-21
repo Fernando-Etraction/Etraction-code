@@ -1,0 +1,218 @@
+<!-- CUPOM ⟶ DROP-IN COMPLETO -->
+<div class="content-cupom clearfix">
+  <div class="descricao-desconto">
+    <div>PRIMEIRA COMPRA?</div>
+    <p class="obs">
+      Aplique o cupom <strong>BWPRIMEIRA</strong> no carrinho e ganhe
+      <strong>3% OFF</strong> nas suas Compras!&nbsp;
+    </p>
+  </div>
+  <div class="aplicar-desconto">
+    <div class="area-desconto">
+      <input
+        id="cupom"
+        class="cupom"
+        readonly="readonly"
+        type="text"
+        value="BWPRIMEIRA"
+      />
+      <div class="something">Clique e copie o cupom!</div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+  <!--
+  /* ⟶ Anti-flash enquanto posiciona (evita CLS) */
+  .content-cupom.is-hidden { visibility: hidden; opacity: 0; }
+
+  /* SEU CSS (inalterado) */
+  .descricao-desconto p.obs {
+    color: #505050 !important;
+    margin-bottom: 16px !important;
+    font-weight: thin;
+    text-align: center;
+  }
+  h1.title-pesquisa { display: none; }
+  .descricao-pesquisa { margin-top: 0px; }
+  .content-cupom {
+    padding: 30px 55px;
+    background: #EAEAEA;
+    color: #505050;
+    display: table;
+  }
+  .descricao-desconto { width: 50%; float: left; }
+  .descricao-desconto .title {
+    display: block; font-size: 25px; text-transform: uppercase; line-height: 30px;
+    position: relative; margin-bottom: 25px;
+  }
+  .descricao-desconto .title:before {
+    content: ""; position: absolute; bottom: -13px; background-color: #CF9E1A; padding: 3px 35px; width: 75px;
+  }
+  .descricao-desconto div {
+    display: block; font-size: 35px; text-transform: uppercase; font-weight: bold; color: #333; text-align: center;
+  }
+  #main-area .descricao-pesquisa .descricao .content p.obs {
+    color: #333; padding-right: 80px; margin-top: 25px;
+  }
+  .aplicar-desconto { width: 50%; float: left; text-align: center; }
+  .aplicar-desconto .title-desconto { font-size: 15px; text-transform: uppercase; }
+  .area-desconto {
+    background: #fff; padding: 15px 15px 12px; margin-top: 10px;
+    border: 4px dashed #f2f2f2; border-radius: 5%;
+  }
+  .area-desconto .cupom {
+    width: 100%; height: 60px; color: #333; font-weight: bold; font-size: 25px;
+    text-align: center; border: 1px solid #000;
+  }
+  .area-desconto .cupom:hover { cursor: pointer; }
+  .area-desconto .something { display: block; font-size: 12px; color: #505050; margin-top: 10px; }
+  span.something del { font-size: 21px; }
+  @media(max-width: 800px) {
+    .conteudo-adicional-footer { padding: 0; }
+    .exibir-mais-conteudo-adicional { display: none; }
+    .content-cupom { padding: 10px; text-align: center; }
+    .descricao-desconto, .aplicar-desconto { width: 100%; }
+    .conteudo-adicional .description li, .conteudo-adicional .description p {
+      color: #000; text-align: center;
+    }
+    .area-desconto { padding: 5px; }
+    .descricao-desconto div, .descricao-desconto .title { text-align: center; font-size: 25px; }
+    .descricao-desconto p.obs {
+      font-size: .7125em; line-height: 15px; margin: 10px 0;
+    }
+    .descricao-desconto div { display: inline-block; }
+    .descricao-desconto .title:before { margin: auto; left: 0; right: 0; }
+  }
+  -->
+</style>
+<script>
+  // <![CDATA[
+  /* CUPOM: posiciona sem depender do timing da página (sem jQuery) */
+  (function () {
+    // 1) Captura e remove do DOM para evitar flash
+    var cupom = document.querySelector(".content-cupom");
+    if (!cupom) return;
+    cupom.classList.add("is-hidden");
+    var cupomParent = cupom.parentNode;
+    var placeholder = document.createComment("cupom-placeholder"); // marca posição original (backup)
+    cupomParent.replaceChild(placeholder, cupom); // retira sem perder referência
+
+    var SELECTORS = [
+      ".cart-item",
+      ".cart-items",
+      "#cart-content",
+      ".carrinho-itens",
+    ];
+
+    function findTarget() {
+      // tenta achar o último .cart-item; se não houver, pega o primeiro container conhecido
+      var items = document.querySelectorAll(".cart-item");
+      if (items.length) return { el: items[items.length - 1], mode: "after" };
+
+      for (var i = 0; i < SELECTORS.length; i++) {
+        var cont = document.querySelector(SELECTORS[i]);
+        if (cont) return { el: cont, mode: "append" };
+      }
+      return null;
+    }
+
+    function placeCoupon() {
+      var target = findTarget();
+      if (!target) return false;
+
+      if (target.mode === "after") {
+        target.el.insertAdjacentElement("afterend", cupom);
+      } else {
+        target.el.appendChild(cupom);
+      }
+      // revela suavemente no próximo frame
+      requestAnimationFrame(function () {
+        cupom.classList.remove("is-hidden");
+        cupom.style.display = "none";
+        // fade-in simples sem jQuery
+        cupom.style.display = "";
+        cupom.style.transition = "opacity .18s ease";
+        cupom.style.opacity = "0";
+        requestAnimationFrame(function () {
+          cupom.style.opacity = "1";
+        });
+      });
+      return true;
+    }
+
+    // 2) Tenta imediatamente (caso o carrinho já esteja pronto)
+    if (placeCoupon()) return;
+
+    // 3) Observa o DOM até o carrinho surgir (pega inserções a qualquer momento)
+    function ensureObserver() {
+      var root = document.documentElement || document.body;
+      var stop = false;
+
+      var obs = new MutationObserver(function () {
+        if (stop) return;
+        if (placeCoupon()) {
+          stop = true;
+          obs.disconnect();
+        }
+      });
+
+      // se body ainda não existe (script no <head>), espera readystatechange
+      function startObs() {
+        if (!document.body) {
+          document.addEventListener("readystatechange", function onRS() {
+            if (document.readyState !== "loading") {
+              document.removeEventListener("readystatechange", onRS);
+              obs.observe(document.body, { childList: true, subtree: true });
+            }
+          });
+        } else {
+          obs.observe(document.body, { childList: true, subtree: true });
+        }
+      }
+      startObs();
+
+      // **segurança**: para de observar depois de 15s
+      setTimeout(function () {
+        if (!stop) {
+          stop = true;
+          obs.disconnect(); /* recoloca no lugar original se nada foi encontrado */
+          if (!cupom.isConnected && placeholder.parentNode) {
+            placeholder.parentNode.replaceChild(cupom, placeholder);
+            requestAnimationFrame(function () {
+              cupom.classList.remove("is-hidden");
+            });
+          }
+        }
+      }, 15000);
+
+      [
+        "cart:updated",
+        "cart:rendered",
+        "cart:changed",
+        "carrinho:atualizado",
+      ].forEach(function (ev) {
+        document.addEventListener(ev, function () {
+          // tira e recoloca no novo lugar
+          if (cupom.isConnected) cupom.remove();
+          cupom.classList.add("is-hidden");
+          placeCoupon();
+        });
+      });
+    }
+
+    ensureObserver();
+
+    // 5) Copiar cupom (fallback nativo, funciona sem Zord)
+    document.addEventListener("click", function (e) {
+      var input = e.target.closest("#cupom");
+      if (!input) return;
+      try {
+        input.select();
+        document.execCommand("copy");
+        var msg = cupom.querySelector(".something");
+        if (msg) msg.textContent = "Código copiado com sucesso";
+      } catch (err) {}
+    });
+  })();
+  // ]]>
+</script>

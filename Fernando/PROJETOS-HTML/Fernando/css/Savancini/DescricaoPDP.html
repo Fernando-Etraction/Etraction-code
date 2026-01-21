@@ -1,0 +1,611 @@
+<style>
+    .SAVA-container {
+        max-width: 1240px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .SAVA-product-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 213px;
+        align-items: center;
+        padding: 0px;
+    }
+
+    .SAVA-product-info {
+        width: 141.5%;
+        padding: 0;
+    }
+
+    .SAVA-product-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border-radius: 10px;
+    }
+
+    .SAVA-product-image img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 10px;
+        width: 506px;
+        margin-top: 10px;
+        margin-left: 25px;
+    }
+
+    .SAVA-description-section {
+        margin-bottom: 15px;
+        border: 1px solid gray;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .SAVA-subtitle {
+        color: #718096;
+        font-size: 18px;
+        margin-bottom: 25px;
+    }
+
+    .SAVA-description-text {
+        color: #4a5568;
+        line-height: 1.8;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .SAVA-highlight {
+        font-weight: 600;
+        color: #202020;
+    }
+
+    .SAVA-features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .SAVA-feature-box {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 15px;
+        border: 1px solid gray;
+    }
+
+    .SAVA-feature-box h3 {
+        font-size: 20px;
+        color: #2d3748;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .SAVA-feature-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .SAVA-feature-item:last-child {
+        border-bottom: none;
+    }
+
+    .SAVA-feature-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .SAVA-icon {
+        width: 24px;
+        height: 24px;
+        color: #667eea;
+    }
+
+    .SAVA-feature-name {
+        font-weight: 600;
+        color: #2d3748;
+        font-size: 15px;
+    }
+
+    .SAVA-feature-value {
+        color: #718096;
+        font-size: 14px;
+    }
+
+    .SAVA-technical-info {
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 15px;
+        border: 1px solid gray;
+        margin: 15px auto 0;
+        max-width: 1240px;
+    }
+
+    /* Título */
+    .SAVA-technical-info h3 {
+        color: #1d1d1d;
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .SAVA-technical-info {
+        background: #fff;
+        padding: 24px 30px;
+        border-radius: 15px;
+        border: 1px solid gray;
+        margin: 15px auto 0;
+        max-width: 1240px;
+    }
+
+    .SAVA-technical-info h3 {
+        margin: 0 0 12px;
+        font-size: 20px;
+        color: #2d3748;
+        font-weight: 600;
+    }
+
+    /* As colunas ficam só aqui dentro */
+    .SAVA-technical-info .cols {
+        column-count: 2;
+        column-gap: 40px;
+        column-rule: 1px solid gray;
+    }
+
+    .SAVA-technical-info p {
+        display: inline-block;
+        /* evita quebrar o mesmo <p> entre colunas */
+        width: 100%;
+        margin: 15px 0 20px;
+        font-weight: 500;
+        color: #1a1a1a;
+        font-size: 15px;
+        border-bottom: 1px solid gray;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .SAVA-technical-info .cols {
+            column-count: 1;
+            column-rule: none;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .SAVA-product-grid {
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+
+        .SAVA-product-info {
+            padding: 30px;
+        }
+
+        .SAVA-features-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .SAVA-product-image img {
+            margin-left: 0px;
+        }
+
+        .SAVA-product-info {
+            padding: 0;
+            width: 100%;
+        }
+    }
+
+    .SAVA-feature-left svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* === UX da seção técnica === */
+    .SAVA-technical-info {
+        padding: 20px 22px;
+    }
+
+    .SAVA-technical-info h3 {
+        margin-bottom: 12px;
+    }
+
+    .sava-tech-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 6px;
+    }
+
+    .sava-tech-card {
+        border: 1px solid gray;
+        border-radius: 12px;
+        background: #fff;
+        padding: 14px 16px;
+    }
+
+    .sava-tech-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .sava-tech-header h4 {
+        font-size: 16px;
+        color: #1d1d1d;
+        font-weight: 700;
+    }
+
+    .sava-tech-header svg {
+        flex: 0 0 20px;
+        fill: currentColor;
+    }
+
+    .sava-tech-card.do .sava-tech-header {
+        color: #1a7f37;
+    }
+
+    /* verde discreto */
+    .sava-tech-card.dont .sava-tech-header {
+        color: #b42318;
+    }
+
+    /* vermelho discreto */
+
+    .sava-tech-list {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .sava-tech-list li {
+        font-size: 14px;
+        color: #1a1a1a;
+        line-height: 1.5;
+        border-bottom: 1px solid #e6e6e6;
+        padding-bottom: 8px;
+    }
+
+    .sava-tech-list li:last-child {
+        border-bottom: 0;
+    }
+
+    .sava-tech-note {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #475569;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .sava-tech-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .sava-tech-card {
+            padding: 12px 14px;
+        }
+
+        .sava-tech-header h4 {
+            font-size: 15px;
+        }
+
+        .sava-tech-list li {
+            font-size: 14px;
+        }
+    }
+</style>
+
+
+<!-- Duplicate script removed: productData is already declared in the first script block above to avoid "Cannot redeclare block-scoped variable 'productData'". -->
+
+
+<div class="SAVA-container">
+  <div class="SAVA-product-grid">
+    <div class="SAVA-product-info">
+      <div class="SAVA-description-section">
+        <h1 id="descTitle">Descrição</h1>
+        <p class="SAVA-subtitle" id="descSubtitle">Macaquinho Ciclismo...</p>
+        <p class="SAVA-description-text" id="descText1">...</p>
+        <p class="SAVA-description-text" id="descText2">...</p>
+      </div>
+
+      <div class="SAVA-features-grid">
+        <div class="SAVA-feature-box">
+          <h3 id="featureBox1Title">Informações Rápidas</h3>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18">
+                <g>
+                  <line x1="256" y1="0" x2="256" y2="79.662" stroke="#000" stroke-width="30" fill="none" />
+                  <polyline points="291.544,49.194 256,79.662 220.456,49.494" stroke="#000" stroke-width="30" fill="none" />
+                  <line x1="255.85" y1="512" x2="255.85" y2="432.338" stroke="#000" stroke-width="30" fill="none" />
+                  <polyline points="220.306,462.806 255.85,432.338 291.394,462.506" stroke="#000" stroke-width="30" fill="none" />
+                  <path d="M498.617,48.321C461.72,105.243,367.013,145.744,256,145.744S50.28,105.243,13.383,48.321" stroke="#000" stroke-width="30" fill="none" />
+                  <path d="M498.617,463.679C461.72,406.757,367.013,366.256,256,366.256S50.28,406.757,13.383,463.679" stroke="#000" stroke-width="30" fill="none" />
+                  <path
+                    d="M471.49,151.42v209.17c-13.4-8.04-27.94-15.33-43.51-21.79-51.29-21.28-111.32-32.53-173.58-32.53S132.11,317.52,80.82,338.8c-14.34,5.95-27.8,12.6-40.31,19.9V153.31c12.51,7.3,25.97,13.95,40.31,19.9,51.29,21.28,111.32,32.53,173.58,32.53s122.29-11.25,173.58-32.53c14.34-5.95,27.8-12.6,40.31-19.9Z"
+                    stroke="#000" stroke-width="30" fill="none" />
+                </g>
+              </svg>
+              <span class="SAVA-feature-name" id="feature1_1_Name">Elasticidade</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature1_1_Value">leve</span>
+          </div>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="18" height="18">
+                <path
+                  d="M32 62a2 2 0 0 1-1.12-.3C3.35 51.08 5.97 14.2 6 13.83a2 2 0 0 1 1.54-1.79c14.35-3.32 21.21-8.07 22.78-9.27a2 2 0 0 1 3.11 0c1.2.95 8.03 5.94 22.93 9.39a2 2 0 0 1 1.54 1.79c.03.37 2.65 37.25-24.88 47.87A2 2 0 0 1 32 62z"
+                  fill="none" stroke="#000" stroke-width="2" />
+                <circle cx="32" cy="32" r="8" fill="none" stroke="#000" stroke-width="2" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature1_2_Name">UV50+</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature1_2_Value">proteção solar</span>
+          </div>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 682.667 682.667" width="18" height="18">
+                <path
+                  d="M172.038,407.181c32.187,19.674,72.283,32.207,112.768,32.207 117.191,0,212.194-95.002,212.194-212.194S402,14.999,284.806,14.999 72.611,110.002,72.611,227.194c0,19.05,3.098,39.731,7.806,57.296"
+                  fill="none" stroke="#000" stroke-width="30" stroke-linecap="round" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature1_3_Name">Secagem rápida</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature1_3_Value">respirável</span>
+          </div>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="18" height="18">
+                <path
+                  d="m34.71 33.29-7.43-7.43c2.31-2.64 3.72-6.08 3.72-9.86 0-8.27-6.73-15-15-15s-15 6.73-15 15 6.73 15 15 15c3.78 0 7.22-1.41 9.86-3.73l7.43 7.43c.2.2.45.29.71.29s.51-.1.71-.29c.39-.39.39-1.02 0-1.41z"
+                  fill="#000" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature1_4_Name">Zero transparência</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature1_4_Value">versátil</span>
+          </div>
+        </div>
+
+        <div class="SAVA-feature-box">
+          <h3 id="featureBox2Title">Almofada</h3>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18">
+                <path
+                  d="M256,216c-120,0-236-80-236-80v240c0,0,116-80,236-80s236,80,236,80V136C492,136,376,216,256,216z"
+                  stroke="#000" stroke-width="40" fill="none" stroke-linecap="round" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature2_1_Name">Savancini Ultraflex</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature2_1_Value">leve</span>
+          </div>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 682.667 682.667" width="18" height="18">
+                <circle cx="341.333" cy="341.333" r="241" fill="none" stroke="#000" stroke-width="30" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature2_2_Name">Pedais de até 8h</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature2_2_Value">conforto</span>
+          </div>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 682.667 682.667" width="18" height="18">
+                <path
+                  d="M258.62,361.697l103.043-103.043c29.917-29.917,29.917-78.423,0-108.34-29.917-29.917-78.422-29.917-108.339,0l-103.043,103.044c-29.917,29.917-29.917,78.422,0,108.339C180.198,391.614,228.703,391.614,258.62,361.697Z"
+                  fill="none" stroke="#000" stroke-width="30" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature2_3_Name">Antibacteriano</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature2_3_Value">respirável</span>
+          </div>
+
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18">
+                <path
+                  d="m437.019 74.981a256 256 0 1 0 -362.038 362.038 256 256 0 1 0 362.038-362.038z"
+                  fill="none" stroke="#000" stroke-width="25" />
+              </svg>
+              <span class="SAVA-feature-name" id="feature2_4_Name">Antiabrasivo</span>
+            </div>
+            <span class="SAVA-feature-value" id="feature2_4_Value">sem atrito</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="SAVA-product-image">
+      <img
+        id="productImage"
+        src="https://savancini.cdn.magazord.com.br/img/2025/07/produto/13803/sv-170.jpg"
+        alt="Conjunto Feminino Legging + Top Nadador Línea" />
+    </div>
+  </div>
+</div>
+
+<div class="SAVA-technical-info" role="region" aria-labelledby="tech-title">
+  <h3 id="techTitle">Informações Técnicas</h3>
+
+  <div class="sava-tech-grid" role="list">
+    <section class="sava-tech-card do" aria-label="Boas práticas de cuidado">
+      <header class="sava-tech-header">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path
+            d="M20.285 6.709a1 1 0 0 0-1.57-1.245l-8.2 10.34-4.23-4.23a1 1 0 1 0-1.414 1.415l5.06 5.06a1 1 0 0 0 1.51-.11l8.844-11.23z" />
+        </svg>
+        <h4 id="techDoTitle">Faça</h4>
+      </header>
+      <ul class="sava-tech-list">
+        <li id="techDoLi1">Lave no ciclo rápido...</li>
+        <li id="techDoLi2">Use sabão em pó...</li>
+        <li id="techDoLi3">Centrifugue...</li>
+        <li id="techDoLi4">Estenda do avesso.</li>
+        <li id="techDoLi5">Seque na sombra.</li>
+      </ul>
+    </section>
+
+    <section class="sava-tech-card dont" aria-label="O que evitar">
+      <header class="sava-tech-header">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path
+            d="M13.41 12l5.3-5.29a1 1 0 1 0-1.42-1.42L12 10.59 6.71 5.29a1 1 0 0 0-1.42 1.42L10.59 12l-5.3 5.29a1 1 0 1 0 1.42 1.42L12 13.41l5.29 5.3a1 1 0 0 0 1.42-1.42z" />
+        </svg>
+        <h4 id="techDontTitle">Evite</h4>
+      </header>
+      <ul class="sava-tech-list">
+        <li id="techDontLi1">Deixar de molho.</li>
+        <li id="techDontLi2">Lavar à mão...</li>
+        <li id="techDontLi3">Usar alvejantes.</li>
+        <li id="techDontLi4">Usar secadora.</li>
+      </ul>
+    </section>
+  </div>
+
+  <p class="sava-tech-note" aria-live="polite" id="techNote">
+    Dica: ...
+  </p>
+</div>
+
+<script>
+
+    const productData = {
+        // Descrição
+        descTitle: "Descrição",
+        descSubtitle: "Macaquinho Ciclismo Feminino Preto GO Savancini",
+        descText1: `
+    Descubra o equilíbrio perfeito entre estilo e desempenho com o
+    <span class="SAVA-highlight">Macaquinho Ciclismo Feminino Savancini Preto</span>.
+    Projetado para ciclistas que buscam conforto absoluto e performance sem abrir mão da elegância,
+    este modelo valoriza suas curvas com um ajuste preciso e proporciona liberdade total de movimento a cada pedalada.
+  `,
+        descText2: `
+    O tecido tecnológico garante proteção UV50+, ação antibacteriana e o conforto térmico ideal para diferentes condições climáticas,
+    enquanto a estrutura não-transparente traz segurança e confiança em qualquer situação.
+  `,
+
+        // Imagem Principal
+        imgSrc: "https://savancini.cdn.magazord.com.br/img/2025/07/produto/13803/sv-170.jpg",
+        imgAlt: "Conjunto Feminino Legging + Top Nadador Línea",
+
+        // Box 1: Informações Rápidas
+        featureBox1Title: "Informações Rápidas",
+        feature1_1_Name: "Elasticidade",
+        feature1_1_Value: "leve",
+        feature1_2_Name: "UV50+",
+        feature1_2_Value: "proteção solar",
+        feature1_3_Name: "Secagem rápida",
+        feature1_3_Value: "respirável",
+        feature1_4_Name: "Zero transparência",
+        feature1_4_Value: "versátil",
+
+        // Box 2: Almofada
+        featureBox2Title: "Almofada",
+        feature2_1_Name: "Savancini Ultraflex",
+        feature2_1_Value: "leve",
+        feature2_2_Name: "Pedais de até 8h",
+        feature2_2_Value: "conforto",
+        feature2_3_Name: "Antibacteriano",
+        feature2_3_Value: "respirável",
+        feature2_4_Name: "Antiabrasivo",
+        feature2_4_Value: "sem atrito",
+
+        // Informações Técnicas
+        techTitle: "Informações Técnicas",
+        techDoTitle: "Faça",
+        techDoLi1: "Lave no ciclo rápido da máquina.",
+        techDoLi2: "Use sabão em pó; vinagre é opcional como amaciante.",
+        techDoLi3: "Centrifugue e estenda em seguida.",
+        techDoLi4: "Estenda do avesso.",
+        techDoLi5: "Seque na sombra.",
+
+        techDontTitle: "Evite",
+        techDontLi1: "Deixar de molho.",
+        techDontLi2: "Lavar à mão ou esfregar a peça.",
+        techDontLi3: "Usar alvejantes.",
+        techDontLi4: "Usar secadora.",
+
+        techNote: "Dica: para manter a cor, lave peças similares juntas."
+    };
+
+    // Espera o HTML ser totalmente carregado
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Se productData não existir, pare o script
+        if (typeof productData === 'undefined') {
+            console.error("Erro: O objeto productData não foi encontrado.");
+            return;
+        }
+
+        // Descrição
+        document.getElementById("descTitle").textContent = productData.descTitle;
+        document.getElementById("descSubtitle").textContent = productData.descSubtitle;
+        document.getElementById("descText1").innerHTML = productData.descText1; // Use .innerHTML para manter o <span>
+        document.getElementById("descText2").textContent = productData.descText2;
+
+        // Imagem
+        const imgElement = document.getElementById("productImage");
+        imgElement.src = productData.imgSrc;
+        imgElement.alt = productData.imgAlt;
+
+        // Box 1: Informações Rápidas
+        document.getElementById("featureBox1Title").textContent = productData.featureBox1Title;
+        document.getElementById("feature1_1_Name").textContent = productData.feature1_1_Name;
+        document.getElementById("feature1_1_Value").textContent = productData.feature1_1_Value;
+        document.getElementById("feature1_2_Name").textContent = productData.feature1_2_Name;
+        document.getElementById("feature1_2_Value").textContent = productData.feature1_2_Value;
+        document.getElementById("feature1_3_Name").textContent = productData.feature1_3_Name;
+        document.getElementById("feature1_3_Value").textContent = productData.feature1_3_Value;
+        document.getElementById("feature1_4_Name").textContent = productData.feature1_4_Name;
+        document.getElementById("feature1_4_Value").textContent = productData.feature1_4_Value;
+
+        // Box 2: Almofada
+        document.getElementById("featureBox2Title").textContent = productData.featureBox2Title;
+        document.getElementById("feature2_1_Name").textContent = productData.feature2_1_Name;
+        document.getElementById("feature2_1_Value").textContent = productData.feature2_1_Value;
+        document.getElementById("feature2_2_Name").textContent = productData.feature2_2_Name;
+        document.getElementById("feature2_2_Value").textContent = productData.feature2_2_Value;
+        document.getElementById("feature2_3_Name").textContent = productData.feature2_3_Name;
+        document.getElementById("feature2_3_Value").textContent = productData.feature2_3_Value;
+        document.getElementById("feature2_4_Name").textContent = productData.feature2_4_Name;
+        document.getElementById("feature2_4_Value").textContent = productData.feature2_4_Value;
+
+        // Informações Técnicas
+        document.getElementById("techTitle").textContent = productData.techTitle;
+        document.getElementById("techDoTitle").textContent = productData.techDoTitle;
+        document.getElementById("techDoLi1").textContent = productData.techDoLi1;
+        document.getElementById("techDoLi2").textContent = productData.techDoLi2;
+        document.getElementById("techDoLi3").textContent = productData.techDoLi3;
+        document.getElementById("techDoLi4").textContent = productData.techDoLi4;
+        document.getElementById("techDoLi5").textContent = productData.techDoLi5;
+
+        document.getElementById("techDontTitle").textContent = productData.techDontTitle;
+        document.getElementById("techDontLi1").textContent = productData.techDontLi1;
+        document.getElementById("techDontLi2").textContent = productData.techDontLi2;
+        document.getElementById("techDontLi3").textContent = productData.techDontLi3;
+        document.getElementById("techDontLi4").textContent = productData.techDontLi4;
+
+        document.getElementById("techNote").textContent = productData.techNote;
+
+    });
+</script>

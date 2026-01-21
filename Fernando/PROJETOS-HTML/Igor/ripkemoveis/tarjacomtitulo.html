@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antecipa Black - Timer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f6f3 0%, #e8e4df 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c2c2c;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .diagonal-stripes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .diagonal-stripe {
+            position: absolute;
+            width: 200%;
+            height: 80px;
+            background: #8C7C68;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .stripe-1 {
+            top: 50%;
+            left: -50%;
+            transform: translateY(-50%) rotate(4deg);
+            transform-origin: center;
+        }
+        
+        .stripe-2 {
+            top: 50%;
+            left: -50%;
+            transform: translateY(-50%) rotate(-4deg);
+            transform-origin: center;
+        }
+        
+        .moving-text {
+            display: inline-block;
+            color: white;
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            animation: moveTextInfinite 75s linear infinite;
+        }
+        
+        .stripe-2 .moving-text {
+            animation-direction: reverse;
+            animation-duration: 75s;
+        }
+        
+        @keyframes moveTextInfinite {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            color: #b8a082;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #6b6b6b;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+        
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+        
+        .timer-box {
+            background: #ffffff;
+            border: 1px solid #e0ddd8;
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            min-width: 120px;
+            box-shadow: 0 4px 20px rgba(184, 160, 130, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .timer-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(184, 160, 130, 0.15);
+            border-color: #b8a082;
+        }
+        
+        .timer-number {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #2c2c2c;
+            display: block;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+        
+        .timer-label {
+            font-size: 0.85rem;
+            color: #8a8a8a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .cta-section {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.9s both;
+        }
+        
+        .cta-text {
+            font-size: 1.1rem;
+            color: #6b6b6b;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #b8a082;
+            color: #ffffff;
+            padding: 1.5rem 7.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background: #a08968;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(184, 160, 130, 0.3);
+        }
+        
+        .accent-line {
+            width: 60px;
+            height: 2px;
+            background: #b8a082;
+            margin: 2rem auto;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 1.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        
+        
+        @keyframes numberChange {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); color: #b8a082; }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .timer-container {
+                gap: 1rem;
+            }
+            
+            .timer-box {
+                padding: 1.5rem 1rem;
+                min-width: 100px;
+            }
+            
+            .timer-number {
+                font-size: 2.5rem;
+            }
+            
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+            
+            .diagonal-stripe {
+                height: 60px;
+            }
+            
+            .moving-text {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .timer-container {
+                gap: 0.8rem;
+            }
+            
+            .timer-box {
+                padding: 1.2rem 0.8rem;
+                min-width: 85px;
+            }
+            
+            .timer-number {
+                font-size: 2rem;
+            }
+            
+            .diagonal-stripe {
+                height: 50px;
+            }
+            
+            .moving-text {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="diagonal-stripes">
+        <div class="diagonal-stripe stripe-1">
+            <div class="moving-text">BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • BLACK FRIDAY • OFERTAS ESPECIAIS • DESCONTOS ÚNICOS • </div>
+        </div>
+        <div class="diagonal-stripe stripe-2">
+            <div class="moving-text">ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • ANTECIPA BLACK • PROMOÇÕES EXCLUSIVAS • TEMPO LIMITADO • </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1 class="main-title">ANTECIPA BLACK</h1>
+        <p class="subtitle">Ofertas exclusivas por tempo limitado</p>
+        
+        <div class="timer-container">
+            <div class="timer-box">
+                <span class="timer-number" id="days">00</span>
+                <span class="timer-label">Dias</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="hours">00</span>
+                <span class="timer-label">Horas</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="minutes">00</span>
+                <span class="timer-label">Minutos</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-number" id="seconds">00</span>
+                <span class="timer-label">Segundos</span>
+            </div>
+        </div>
+        
+        <div class="accent-line"></div>
+        
+        <div class="cta-section">
+            <p class="cta-text">Não perca as melhores ofertas do ano</p>
+            <button class="cta-button">Ver Ofertas</button>
+        </div>
+    </div>
+
+    <script>
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 7);
+        targetDate.setHours(23, 59, 59, 999);
+        
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = targetDate.getTime() - now;
+            
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                
+                document.querySelector('.cta-text').textContent = 'Promoção encerrada';
+                document.querySelector('.cta-button').textContent = 'Ver Próximas Ofertas';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            updateElement('days', days);
+            updateElement('hours', hours);
+            updateElement('minutes', minutes);
+            updateElement('seconds', seconds);
+        }
+        
+        
+        
+        updateTimer();
+        setInterval(updateTimer, 1000);
+        
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            this.style.transform = 'translateY(-1px) scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = 'translateY(-1px)';
+            }, 150);
+        });
+    </script>
+</body>
+</html>

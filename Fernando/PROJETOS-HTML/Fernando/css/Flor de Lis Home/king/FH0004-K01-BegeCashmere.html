@@ -1,0 +1,487 @@
+<!-- ##########################  DESCRIÇÃO MODERNA - JOGO DE CAMA  ########################## -->
+<style>
+    <!--
+    .description-container * {
+        box-sizing: border-box;
+    }
+
+    .description-container {
+        --bg: #ffffff;
+        --ink: #0f172a;
+        --muted: #475569;
+        --line: #e2e8f0;
+        --brand: #b89c7a;
+        --brand-ink: #3f3a34;
+        --card: #fafafa;
+        --radius: 16px;
+        --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+        background: var(--bg);
+        color: var(--ink);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .description-container .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px 56px;
+    }
+
+    .produto-hero {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 28px;
+        align-items: center;
+        margin-bottom: 36px;
+    }
+
+    .hero-media {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius);
+        background: #f5f5f4;
+        box-shadow: var(--shadow);
+    }
+
+    .hero-media img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        aspect-ratio: 4/3;
+    }
+
+    .hero-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: #fff;
+        color: var(--brand-ink);
+        border: 1px solid var(--line);
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+    }
+
+    .hero-copy h2 {
+        font-size: 28px;
+        line-height: 1.15;
+        margin: 0 0 10px;
+    }
+
+    .hero-copy p {
+        color: var(--muted);
+        margin: 0 0 14px;
+    }
+
+    .hero-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .hero-pills span {
+        border: 1px solid var(--line);
+        padding: 8px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        background: #fff;
+    }
+
+    .benf-algodao-egip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 10px 0 40px;
+    }
+
+    .benf-card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 16px;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 12px;
+        transition: transform .2s ease;
+    }
+
+    .benf-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .benf-card .media {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #eee;
+    }
+
+    .benf-card .media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .benf-card h3 {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .benf-card p {
+        font-size: 14px;
+        color: var(--muted);
+        margin: 6px 0 0;
+    }
+
+    .produto-detalhes {
+        background: linear-gradient(180deg, #fff, #fff9f4);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        margin-bottom: 32px;
+    }
+
+    .produto-detalhes .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 24px;
+        align-items: start;
+    }
+
+    .dlz-specs {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 16px;
+    }
+
+    .dlz-specs h4 {
+        margin: 0 0 10px;
+        font-size: 16px;
+    }
+
+    .dlz-specs ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+    }
+
+    .dlz-specs li {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    .dlz-specs li span:first-child {
+        color: var(--muted);
+    }
+
+    .note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+    }
+
+    .algodao-egip {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 24px;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+        background: #fff;
+    }
+
+    .egip-media {
+        overflow: hidden;
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        background: #f1f5f9;
+    }
+
+    .egip-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        aspect-ratio: 4/3;
+    }
+
+    .egip-copy h3 {
+        margin: 0 0 10px;
+    }
+
+    .egip-copy p {
+        color: var(--muted);
+        margin: 0 0 14px;
+    }
+
+    .egip-bullets {
+        display: grid;
+        gap: 8px;
+    }
+
+    .egip-bullets li {
+        list-style: none;
+        padding-left: 28px;
+        position: relative;
+    }
+
+    .acc {
+        border-top: 1px solid var(--line);
+        margin-top: 24px;
+    }
+
+    .acc-item {
+        border-bottom: 1px solid var(--line);
+    }
+
+    .acc-btn {
+        width: 100%;
+        text-align: left;
+        padding: 14px 4px;
+        background: none;
+        border: 0;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .acc-btn::after {
+        content: "+";
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .acc-item[open] .acc-btn::after {
+        content: "–";
+    }
+
+    .acc-panel {
+        color: var(--muted);
+        padding: 0 0 14px;
+    }
+
+    @media (max-width:1024px) {
+
+        .produto-hero,
+        .produto-detalhes .grid,
+        .algodao-egip {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width:720px) {
+        .benf-algodao-egip {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width:520px) {
+        .benf-algodao-egip {
+            grid-template-columns: 1fr;
+        }
+
+        .hero-copy h2 {
+            font-size: 24px;
+        }
+    }
+    -->
+</style>
+
+<div class="description-container">
+    <div class="wrap">
+
+        <!-- HERO / TÍTULO + FOTO -->
+        <section class="produto-hero">
+            <figure class="hero-media">
+                <!-- TROCAR pela foto principal do set -->
+                <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43557/jogo-de-cama-em-algodao-egipcio-600-fios-fh0004-3.jpg"
+                    alt="Jogo de Cama King Paris em algodão egípcio, Bege Cashmere" />
+                <figcaption class="hero-badge">600 fios • Algodão Egípcio</figcaption>
+            </figure>
+
+            <div class="hero-copy">
+                <h2>Jogo de Cama King Paris — 600 Fios, 100% Algodão Egípcio (Bege Cashmere)</h2>
+                <p>O Paris traz o toque acetinado do cetim 600 fios em um tom bege cashmere elegante.
+                    Maciez superior, caimento impecável e conforto que transforma sua rotina de descanso.</p>
+                <div class="hero-pills">
+                    <span>King Size</span>
+                    <span>600 fios</span>
+                    <span>Toque acetinado</span>
+                    <span>Respirável</span>
+                    <span>Bege Cashmere</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFÍCIOS (6 ITENS) -->
+        <section class="benf-algodao-egip">
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43556/jogo-de-cama-em-algodao-egipcio-600-fios-fh0004-2.jpg"
+                        alt="Fibras longas do algodão egípcio em close">
+                </div>
+                <div>
+                    <h3>Fibras Longas Egípcias</h3>
+                    <p>Mais maciez e resistência, com menor formação de bolinhas ao longo do uso.</p>
+                </div>
+            </article>
+
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/10/banner/43502/5.png"
+                        alt="Toque acetinado e macio do tecido">
+                </div>
+                <div>
+                    <h3>Toque Acetinado</h3>
+                    <p>Superfície lisa com brilho sutil que traduz sofisticação no dia a dia.</p>
+                </div>
+            </article>
+
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43557/jogo-de-cama-em-algodao-egipcio-600-fios-fh0004-3.jpg"
+                        alt="Quarto arejado com cama posta">
+                </div>
+                <div>
+                    <h3>Respirável & Confortável</h3>
+                    <p>Cetim 600 fios garante toque fresco e suave para noites mais agradáveis.</p>
+                </div>
+            </article>
+
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40924/fh0004-q01-0134-3.jpg"
+                        alt="Detalhe de costuras reforçadas">
+                </div>
+                <div>
+                    <h3>Durabilidade Elevada</h3>
+                    <p>Matéria-prima nobre e costuras reforçadas para uso diário com longa vida útil.</p>
+                </div>
+            </article>
+
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43555/jogo-de-cama-em-algodao-egipcio-600-fios-fh0004-1.jpg"
+                        alt="Visual clean e elegante">
+                </div>
+                <div>
+                    <h3>Elegância Versátil</h3>
+                    <p>Design clean que valoriza a cama posta e combina com diversos estilos.</p>
+                </div>
+            </article>
+
+            <article class="benf-card">
+                <div class="media">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/05/produto/40922/fh0004-q01-0134-1.jpg"
+                        alt="Cama em bege cashmere com almofadas neutras">
+                </div>
+                <div>
+                    <h3>Bege Cashmere</h3>
+                    <p>Tom neutro e acolhedor que harmoniza com diferentes composições.</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- DETALHES E ESPECIFICAÇÕES -->
+        <section id="produto-detalhes" class="produto-detalhes">
+            <div class="grid">
+                <div>
+                    <h3 style="margin:0 0 10px;">Detalhes do Produto</h3>
+                    <p class="muted">
+                        Jogo de cama king completo com lençol com elástico, sobrelençol e duas fronhas.
+                        Confeccionado em cetim 600 fios de puro algodão egípcio, oferecendo maciez superior,
+                        brilho sutil e alta durabilidade.
+                    </p>
+                    <ul class="egip-bullets" style="margin-top:12px;">
+                        <li>Composição: 100% Algodão Egípcio (600 fios)</li>
+                        <li>Acabamento: Toque acetinado</li>
+                        <li>Cor: Bege Cashmere</li>
+                        <li>Indicação: Cama King</li>
+                        <li>Origem das fibras: Egito (fibras longas)</li>
+                    </ul>
+                </div>
+
+                <aside class="dlz-specs">
+                    <h4>O que vem no Jogo</h4>
+                    <ul>
+                        <li><span>1 Lençol com elástico</span> <span><em>193 x 200 x 45 cm</em></span></li>
+                        <li><span>1 Lençol</span> <span><em>280 x 280 cm</em></span></li>
+                        <li><span>2 Fronhas</span> <span><em>50 x 70 cm</em></span></li>
+                    </ul>
+                    <div class="note">Medidas indicativas para colchão king padrão (pode haver variação de ±3%).</div>
+                </aside>
+            </div>
+
+            <div class="acc">
+                <details class="acc-item">
+                    <summary class="acc-btn">Cuidados & Lavagem</summary>
+                    <div class="acc-panel">
+                        Lavar separadamente em ciclo delicado; usar sabão neutro; não usar alvejante;
+                        secar à sombra ou em baixa temperatura; passar em temperatura média pelo avesso.
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary class="acc-btn">Trocas & Devoluções</summary>
+                    <div class="acc-panel">
+                        Aceitamos trocas conforme política da loja. O produto deve estar sem uso e com etiquetas.
+                        Consulte prazos e condições na página de políticas.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- BLOCO ALGODÃO EGÍPCIO / STORYTELLING -->
+        <section class="algodao-egip">
+            <figure class="egip-media">
+                <!-- TROCAR por imagem de campo/algodão premium -->
+                <img src="https://dlz.cdn.magazord.com.br/img/2025/10/produto/43518/design-sem-nome-1.png"
+                    alt="Campo de algodão egípcio sob luz suave" />
+            </figure>
+            <div class="egip-copy">
+                <h3>Por que Algodão Egípcio?</h3>
+                <p>
+                    As fibras extra longas conferem maior maciez, resistência e menos pilling.
+                    O resultado é um tecido nobre, com toque acetinado e conforto desde a primeira noite.
+                </p>
+                <ul class="egip-bullets" style="margin-top:10px;">
+                    <li>Fibras longas = tecido mais liso e durável</li>
+                    <li>Regulação térmica natural para noites confortáveis</li>
+                    <li>Acabamento premium com brilho sutil</li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+</div>
+
+<p>
+    <script>
+        // <![CDATA[
+        /* Abre o primeiro acordeão automaticamente em telas > 1024px */
+        (function () {
+            const mq = window.matchMedia('(min-width:1025px)');
+            if (mq.matches) {
+                const first = document.querySelector('.description-container .acc details');
+                if (first && !first.hasAttribute('open')) first.setAttribute('open', '');
+            }
+        })();
+        // ]]>
+    </script>
+</p>
+<!-- ##########################  /FIM DESCRIÇÃO MODERNA  ########################## -->

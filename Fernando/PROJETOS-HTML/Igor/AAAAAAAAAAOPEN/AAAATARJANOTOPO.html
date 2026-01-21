@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+
+    <style>
+      .promo-banner-unico {
+        background-color: #D25B6C;
+        color: #fff;
+        padding: 10px 5%;
+        width: 100%;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .promo-banner-fixo {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+      }
+
+      .promo-texto-unico {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        max-width: 1200px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .promo-info {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 1em;
+        justify-content: center;
+      }
+
+      .coupon-code {
+        background-color: #fff;
+        color: #D25B6C;
+        border: none;
+        padding: 4px 10px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1em;
+        transition: background-color 0.3s;
+      }
+      .coupon-code:hover {
+        background-color: #D25B6C;
+        color: white;
+      }
+
+      .copy-feedback {
+        color: yellow;
+        font-weight: bold;
+        font-size: 0.9em;
+        display: none;
+      }
+
+      .timer-unico {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 0.95em;
+      }
+
+      .timer-block {
+        background-color: #d69ca4;
+        color: #fff;
+        padding: 4px 6px;
+        min-width: 28px;
+        text-align: center;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.95em;
+        line-height: 1.2;
+      }
+
+      .timer-label {
+        display: block;
+        font-size: 0.55em;
+        color: #fff;
+        font-weight: normal;
+        margin-top: 2px;
+      }
+
+      @media (max-width: 480px) {
+        .promo-banner-unico {
+          font-size: 0.85em;
+          padding: 6px 5%;
+        }
+
+        .promo-texto-unico {
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .promo-info {
+          justify-content: center;
+          font-size: 0.9em;
+          gap: 4px;
+        }
+
+        .coupon-code {
+          padding: 3px 8px;
+          font-size: 0.9em;
+        }
+
+        .timer-unico {
+          justify-content: center;
+          gap: 3px;
+          font-size: 0.85em;
+        }
+
+        .timer-block {
+          min-width: 24px;
+          padding: 3px 5px;
+          font-size: 0.85em;
+        }
+
+        .timer-label {
+          font-size: 0.5em;
+        }
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      .close-btn:hover {
+        color: yellow;
+      }
+    </style>
+
+    <!-- jQuery (necessário para o script abaixo) -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <!-- Conteúdo da sua página... -->
+
+    <script>
+      $(function () {
+        // Evita duplicar o banner se o script rodar mais de uma vez
+        if ($(".promo-banner-unico").length === 0) {
+          const $banner = $(`
+            <div class="promo-banner-unico" role="region" aria-label="Oferta Black November">
+              <button class="close-btn" aria-label="Fechar banner" type="button">×</button>
+              <div class="promo-texto-unico">
+                <div class="promo-info">
+                  <span><strong>SITE COM ATÉ 75% OFF</strong> | Use o cupom</span>
+                  <button class="coupon-code" data-coupon="QUERO5" type="button" aria-label="Copiar cupom QUERO5">QUERO5</button>
+                  <span>| Expira em:</span>
+                </div>
+                <div class="timer-unico" aria-live="polite">
+                  <div class="timer-block">
+                    <span id="horas-unico">00</span>
+                    <span class="timer-label">HRS</span>
+                  </div>
+                  <div class="timer-block">
+                    <span id="minutos-unico">00</span>
+                    <span class="timer-label">MIN</span>
+                  </div>
+                  <div class="timer-block">
+                    <span id="segundos-unico">00</span>
+                    <span class="timer-label">SEC</span>
+                  </div>
+                </div>
+                <span class="copy-feedback">Copiado!</span>
+              </div>
+            </div>
+          `);
+
+          // Insere antes do .header-middle (se existir) ou no topo do body
+          const $hdr = $(".header-middle");
+          if ($hdr.length) {
+            $banner.insertBefore($hdr.first());
+          } else {
+            $("body").prepend($banner);
+          }
+        }
+
+        function calcularRestanteHoje() {
+          // Fim do dia local (23:59:59.999)
+          const agora = new Date();
+          const fim = new Date();
+          fim.setHours(23, 59, 59, 999);
+          return Math.max(0, fim - agora);
+        }
+
+        function atualizarCronometro() {
+          const restante = calcularRestanteHoje();
+          const $h = $("#horas-unico");
+          const $m = $("#minutos-unico");
+          const $s = $("#segundos-unico");
+
+          if (restante <= 0) {
+            // Zera e para
+            $h.text("00");
+            $m.text("00");
+            $s.text("00");
+            clearInterval(intervaloCronometro);
+            return;
+          }
+
+          const horas = Math.floor(
+            (restante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutos = Math.floor(
+            (restante % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const segundos = Math.floor((restante % (1000 * 60)) / 1000);
+
+          $h.text(String(horas).padStart(2, "0"));
+          $m.text(String(minutos).padStart(2, "0"));
+          $s.text(String(segundos).padStart(2, "0"));
+        }
+
+        const intervaloCronometro = setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+
+        // Fechar banner
+        $(document).on("click", ".close-btn", function () {
+          $(".promo-banner-unico").fadeOut(200, function () {
+            $(this).remove();
+          });
+        });
+
+        // Fixar no scroll
+        const $banner = $(".promo-banner-unico");
+        $(window).on("scroll", function () {
+          if ($(window).scrollTop() > 100) {
+            $banner.addClass("promo-banner-fixo");
+          } else {
+            $banner.removeClass("promo-banner-fixo");
+          }
+        });
+
+        // Copiar cupom (com fallback para navegadores antigos)
+        $(document).on("click", ".coupon-code", async function () {
+          const coupon = $(this).data("coupon");
+          const $feedback = $(".copy-feedback");
+
+          // Tenta Clipboard API moderna
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(coupon);
+            } else {
+              throw new Error("Clipboard API indisponível");
+            }
+          } catch (e) {
+            // Fallback
+            const $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(coupon).trigger("focus").select();
+            document.execCommand("copy");
+            $temp.remove();
+          }
+
+          $feedback.stop(true, true).fadeIn(150).delay(1500).fadeOut(150);
+        });
+      });
+    </script>
+  </body>
+</html>

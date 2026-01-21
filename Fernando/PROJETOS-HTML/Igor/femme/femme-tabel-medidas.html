@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabela de Medidas</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .modal-medidas {
+      text-align: left;
+    }
+    .modal-medidas .imagem-modelo {
+      position: relative;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .modal-medidas .imagem-modelo img {
+      width: 100%;
+    }
+    .modal-medidas .imagem-modelo .infoModelo {
+      position: absolute;
+      top: 7px;
+      left: 7px;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0);
+      color: #3c3c3c;
+      border-radius: 8px;
+      width: auto;
+      max-width: 200px;
+      text-align: left;
+    }
+    .modal-medidas .infoModelo p {
+      font-size: 12px;
+      margin: 5px 0;
+      color: #3c3c3c;
+    }
+    .modal-medidas .infoModelo h2 {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #3c3c3c;
+    }
+    .modal-medidas table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+    .modal-medidas th,
+    .modal-medidas td {
+      border: none;
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      color: #3c3c3c;
+    }
+    .modal-medidas th:first-child,
+    .modal-medidas td:first-child {
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      .modal-medidas table {
+        font-size: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .modal-medidas .imagem-modelo .infoModelo {
+        left: 2px;
+        top: 2px;
+        padding: 20px;
+        font-size: 9px;
+        max-width: 100px;
+        max-height: auto;
+      }
+      .modal-medidas .infoModelo h2 {
+        font-size: 12px;
+      }
+      .modal-medidas .infoModelo p {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="ver-tabela-de-medidas">Ver Tabela de Medidas</button>
+
+  <div class="medidas-modelo" style="display:none">
+    <img class="modelo-imagem" src="https://cristaaudaciosa.cdn.magazord.com.br/img/2025/06/produto/1737/220725.png" alt="" />
+    <div class="infoModelo">
+      <div data-atributo="Altura">1,56m</div>
+      <div data-atributo="Busto">88cm</div>
+      <div data-atributo="Cintura">63cm</div>
+      <div data-atributo="Quadril">94cm</div>
+    </div>
+  </div>
+
+  <div class="tabela-medidas" style="display:none">
+    <div class="medida" data-tamanho="PP">
+      <div data-atributo="Busto">96cm</div>
+      <div data-atributo="Cintura">74cm</div>
+      <div data-atributo="Quadril">101cm</div>
+    </div>
+    <div class="medida" data-tamanho="P">
+      <div data-atributo="Busto">100cm</div>
+      <div data-atributo="Cintura">78cm</div>
+      <div data-atributo="Quadril">105cm</div>
+    </div>
+    <div class="medida" data-tamanho="M">
+      <div data-atributo="Busto">104cm</div>
+      <div data-atributo="Cintura">82cm</div>
+      <div data-atributo="Quadril">109cm</div>
+    </div>
+    <div class="medida" data-tamanho="G">
+      <div data-atributo="Busto">108cm</div>
+      <div data-atributo="Cintura">86cm</div>
+      <div data-atributo="Quadril">113cm</div>
+    </div>
+    <div class="medida" data-tamanho="GG">
+      <div data-atributo="Busto">112cm</div>
+      <div data-atributo="Cintura">90cm</div>
+      <div data-atributo="Quadril">117cm</div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const botao = document.querySelector('.ver-tabela-de-medidas');
+      if (botao) {
+        botao.addEventListener('click', () => {
+          let modeloImagem = document.querySelector('.modelo-imagem').src;
+
+          let modeloInfo = `
+          <div class="imagem-modelo">
+              <img src="${modeloImagem}" alt="Modelo">
+              <div class="infoModelo">
+                <h2>MEDIDAS DA MODELO:</h2>
+          `;
+
+          document.querySelectorAll('.medidas-modelo .infoModelo > div').forEach(el => {
+            let atributo = el.dataset.atributo;
+            let valor = el.textContent;
+            modeloInfo += `<p><strong>${atributo.toUpperCase()}</strong><br>${valor}</p>`;
+          });
+
+          modeloInfo += '</div></div>';
+
+          let tableHead = '<thead><tr><th>Tamanho</th>';
+          let tableBody = '';
+
+          document.querySelectorAll('.tabela-medidas .medida').forEach(medida => {
+            let tamanho = medida.dataset.tamanho;
+            tableBody += `<tr><td>${tamanho}</td>`;
+
+            medida.querySelectorAll('div').forEach(div => {
+              let atributo = div.dataset.atributo;
+              let valor = div.textContent;
+
+              if (!tableHead.includes(`<th>${atributo} (cm)</th>`)) {
+                tableHead += `<th>${atributo} (cm)</th>`;
+              }
+
+              tableBody += `<td>${valor}</td>`;
+            });
+
+            tableBody += '</tr>';
+          });
+
+          tableHead += '</tr></thead>';
+
+          let htmlContent = `<table>${tableHead}<tbody>${tableBody}</tbody></table>${modeloInfo}`;
+
+          Swal.fire({
+            title: 'Tabela de Medidas',
+            html: htmlContent,
+            showCloseButton: true,
+            showConfirmButton: false,
+            width: '600px',
+            background: '#f9f9f9',
+            customClass: {
+              popup: 'modal-medidas'
+            }
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

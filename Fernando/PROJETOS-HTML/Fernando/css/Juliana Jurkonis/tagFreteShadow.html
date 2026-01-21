@@ -1,0 +1,45 @@
+
+<style>
+
+    /* TAG FRETE */
+.tag-frete {
+    padding:4px !important;
+    background-color: white !important;
+    box-shadow: 0px 0px 0px 1px #e2dddd;
+    border-left:4px solid darkgreen;
+    border-radius: 7px !important;
+    width: 80% !important;
+    
+}
+
+.tag-frete__icon {
+  width: 28px; height: 28px; flex: 0 0 28px;
+}
+
+.tag-frete__title { font-weight: 700; line-height: 1.2; }
+.tag-frete__subtitle { font-size: 13px; color: #777; margin-top: 2px; }
+
+@media (max-width: 768px) {
+  .tag-frete { width: 100%; border-radius: 8px; }
+}
+
+</style>
+
+<script>
+  $(document).ready(function () {
+    // evita duplicar
+    if ($('#tag-frete').length) return;
+
+    // Injeta o banner antes de .container-cupom
+    const $tagFrete = $(`
+      <div id="tag-frete" class="tag-frete" role="note" aria-label="Frete grátis">
+        <div class="tag-frete__text">
+          <div class="tag-frete__title">Frete Grátis para Sul e Sudeste</div>
+          <div class="tag-frete__subtitle">acima de R$299</div>
+        </div>
+      </div>
+    `);
+
+    $tagFrete.insertBefore(".calculo-frete");
+  });
+</script>

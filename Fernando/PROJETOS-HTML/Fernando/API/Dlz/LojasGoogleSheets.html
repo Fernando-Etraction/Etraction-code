@@ -1,0 +1,983 @@
+<section class="lp-lojas" id="lp-lojas">
+  <div class="lp-wrap">
+    <div class="lp-hero">
+
+
+
+      <h2>Lojas</h2>
+      <p>Escolha sua cidade e encontre a loja mais próxima de você.</p>
+
+      <div class="lp-filters">
+        <div class="lp-select-wrapper">
+          <select id="lp_estado">
+            <option value="">Carregando estados...</option>
+          </select>
+          <svg class="lp-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <div class="lp-select-wrapper">
+          <select id="lp_cidade" disabled>
+            <option value="">Selecione uma cidade</option>
+          </select>
+          <svg class="lp-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+
+        <div class="lp-input-wrapper">
+          <svg class="lp-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <input id="lp_busca" type="text" placeholder="Buscar por nome, rua, número ou bairro..." />
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-meta">
+      <span id="lp_status">Carregando...</span>
+      <button id="lp_clear" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        Limpar
+      </button>
+    </div>
+
+    <div id="lp_results" class="lp-list"></div>
+
+    <div class="lp-pagination">
+      <button id="lp_prev" disabled>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        Anterior
+      </button>
+      <span id="lp_pageinfo">Página 1</span>
+      <button id="lp_next" disabled>
+        Próxima
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="lp-footer">
+      <div class="lp-footer-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <strong>Dúvidas?</strong>
+      <span>Fale com um de nossos atendentes.</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  /* === SEÇÃO PRINCIPAL === */
+  .lp-lojas {
+    padding: 40px 24px 60px;
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  .lp-wrap {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  /* === HERO === */
+  .lp-hero {
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    border-radius: 24px;
+    padding: 28px 22px;
+    color: #fff;
+    box-shadow:
+      0 20px 60px rgba(15, 15, 35, 0.35),
+      0 8px 24px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lp-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .lp-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -20%;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .lp-hero-badge {
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(59, 130, 246, 0.2) 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    backdrop-filter: blur(8px);
+  }
+
+  .lp-hero h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lp-hero p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    opacity: 0.85;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #cbd5e1;
+  }
+
+  /* === FILTROS === */
+  .lp-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .lp-select-wrapper,
+  .lp-input-wrapper {
+    position: relative;
+  }
+
+  .lp-select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    pointer-events: none;
+    transition: transform 0.2s ease;
+  }
+
+  .lp-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+  }
+
+  .lp-filters select,
+  .lp-filters input {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e293b;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: inherit;
+  }
+
+  .lp-filters select {
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .lp-input-wrapper input {
+    padding-left: 42px;
+  }
+
+  .lp-filters select:focus,
+  .lp-filters input:focus {
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+    background: #fff;
+  }
+
+  .lp-filters select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #f1f5f9;
+  }
+
+  .lp-filters input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+  }
+
+  /* === META === */
+  .lp-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0 16px;
+    gap: 12px;
+    padding: 0 4px;
+  }
+
+  #lp_status {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  #lp_status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-radius: 50%;
+    animation: lp-blink 2s ease-in-out infinite;
+  }
+
+  @keyframes lp-blink {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.4;
+    }
+  }
+
+  #lp_clear {
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  #lp_clear:hover {
+    background: linear-gradient(180deg, #fff 0%, #f1f5f9 100%);
+    border-color: #cbd5e1;
+    color: #475569;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  #lp_clear:active {
+    transform: translateY(0);
+  }
+
+  /* === LISTA DE LOJAS === */
+  .lp-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .lp-card {
+    background: linear-gradient(180deg, #ffffff 0%, #fefefe 100%);
+    border-radius: 18px;
+    box-shadow:
+      0 4px 16px rgba(15, 23, 42, 0.06),
+      0 1px 3px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lp-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: linear-gradient(180deg, #8b5cf6 0%, #6366f1 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lp-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 12px 32px rgba(15, 23, 42, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.06);
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+
+  .lp-card:hover::before {
+    opacity: 1;
+  }
+
+  .lp-ico {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+  }
+
+  .lp-card:hover .lp-ico {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border-color: #c4b5fd;
+  }
+
+  .lp-card:hover .lp-ico svg path {
+    stroke: #8b5cf6;
+  }
+
+  .lp-card-header {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .lp-info {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .lp-name {
+    margin: 0;
+    font-size: 16px;
+    color: #1e293b;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .lp-addr {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* === BOTÃO WHATSAPP NO CARD === */
+  .lp-card-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+    margin-top: auto;
+  }
+
+  .lp-card-whatsapp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  }
+
+  .lp-card-whatsapp:active {
+    transform: translateY(0);
+  }
+
+  .lp-card-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  /* === PAGINAÇÃO === */
+  .lp-pagination {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+  }
+
+  .lp-pagination button {
+    border: 1px solid #e2e8f0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #475569;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+
+  .lp-pagination button:hover:not(:disabled) {
+    background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+    border-color: #8b5cf6;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+  }
+
+  .lp-pagination button:hover:not(:disabled) svg path {
+    stroke: #fff;
+  }
+
+  .lp-pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f1f5f9;
+  }
+
+  #lp_pageinfo {
+    font-size: 13px;
+    color: #475569;
+    font-weight: 700;
+    padding: 8px 16px;
+    background: #f1f5f9;
+    border-radius: 10px;
+  }
+
+  /* === FOOTER === */
+  .lp-footer {
+    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lp-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.5), transparent);
+  }
+
+  .lp-footer-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.15);
+  }
+
+  .lp-footer strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .lp-footer span {
+    display: block;
+    font-size: 13px;
+    opacity: 0.8;
+    font-weight: 400;
+    color: #94a3b8;
+  }
+
+  /* === ANIMAÇÕES === */
+  @keyframes lp-fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .lp-card {
+    animation: lp-fadeIn 0.4s ease forwards;
+  }
+
+  .lp-card:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+
+  .lp-card:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .lp-card:nth-child(3) {
+    animation-delay: 0.15s;
+  }
+
+  .lp-card:nth-child(4) {
+    animation-delay: 0.2s;
+  }
+
+  .lp-card:nth-child(5) {
+    animation-delay: 0.25s;
+  }
+
+  .lp-card:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+
+  .lp-card:nth-child(7) {
+    animation-delay: 0.35s;
+  }
+
+  .lp-card:nth-child(8) {
+    animation-delay: 0.4s;
+  }
+
+  /* === RESPONSIVO === */
+  @media (max-width: 1024px) {
+    .lp-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lp-filters {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .lp-filters .lp-input-wrapper {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .lp-lojas {
+      padding: 24px 16px 40px;
+    }
+
+    .lp-hero {
+      padding: 24px 20px;
+      border-radius: 20px;
+    }
+
+    .lp-hero h2 {
+      font-size: 22px;
+    }
+
+    .lp-list {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .lp-filters {
+      grid-template-columns: 1fr;
+    }
+
+    .lp-filters .lp-input-wrapper {
+      grid-column: span 1;
+    }
+
+    .lp-card {
+      padding: 16px;
+    }
+
+    .lp-pagination {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .lp-lojas {
+      padding: 20px 12px 32px;
+    }
+
+    .lp-hero {
+      padding: 20px 16px;
+      border-radius: 18px;
+    }
+
+    .lp-hero h2 {
+      font-size: 20px;
+    }
+
+    .lp-hero p {
+      font-size: 13px;
+    }
+
+    .lp-name {
+      font-size: 14px;
+    }
+
+    .lp-card-whatsapp {
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    .lp-pagination button {
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const API_BASE = "https://noisy-moon-df3f.fernando-rodrigues.workers.dev/";
+
+    const elEstado = document.getElementById("lp_estado");
+    const elCidade = document.getElementById("lp_cidade");
+    const elBusca = document.getElementById("lp_busca");
+    const elStatus = document.getElementById("lp_status");
+    const elResults = document.getElementById("lp_results");
+    const btnPrev = document.getElementById("lp_prev");
+    const btnNext = document.getElementById("lp_next");
+    const elPageInfo = document.getElementById("lp_pageinfo");
+    const btnClear = document.getElementById("lp_clear");
+
+    const state = { estado: "", cidade: "", q: "", page: 1, pageSize: 8, pages: 1, total: 0 };
+
+    let debounceT = null;
+
+    // ---- helpers ----
+    const norm = (s) => String(s ?? "").trim();
+    const lower = (s) => String(s ?? "").trim().toLowerCase();
+    const esc = (s) => String(s ?? "")
+      .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+
+    function setStatus(msg) { elStatus.textContent = msg; }
+    function updatePagination() {
+      elPageInfo.textContent = `Página ${state.page} de ${state.pages || 1}`;
+      btnPrev.disabled = state.page <= 1;
+      btnNext.disabled = state.page >= (state.pages || 1);
+    }
+
+    function pick(obj, keys) {
+      if (!obj || typeof obj !== "object") return "";
+      for (const k of keys) {
+        if (obj[k] != null && String(obj[k]).trim() !== "") return obj[k];
+      }
+      return "";
+    }
+
+    function normalizeRow(item) {
+      // suporta retorno com chaves antigas
+      const nome = norm(pick(item, ["nome", "Nome da loja", "Nome", "loja"]));
+      const rua = norm(pick(item, ["rua", "Rua", "logradouro"]));
+      const numero = norm(pick(item, ["numero", "Numero", "Número", "num", "Nº"]));
+      const bairro = norm(pick(item, ["bairro", "Bairro"]));
+      const cidade = norm(pick(item, ["cidade", "Cidade", "Cidades"]));
+      const estado = norm(pick(item, ["estado", "Estado", "Estados", "UF", "uf"]));
+
+      const estado_lc = lower(estado);
+      const cidade_lc = lower(cidade);
+
+      const hay = lower([nome, rua, numero, bairro, cidade, estado].join(" "));
+
+      return {
+        nome, rua, numero, bairro, cidade, estado,
+        estado_lc, cidade_lc, hay,
+        nome_sort: lower(nome)
+      };
+    }
+
+    function statusCount() {
+      const total = state.total || 0;
+      if (!total) return "Nenhuma loja encontrada";
+      const start = (state.page - 1) * state.pageSize + 1;
+      const end = Math.min(total, start + state.pageSize - 1);
+      return `Mostrando ${start}–${end} de ${total}`;
+    }
+
+    function render(rows) {
+      if (!rows || !rows.length) { elResults.innerHTML = ""; return; }
+
+      elResults.innerHTML = rows.map(item => {
+        const line1 = [item.rua, item.numero && `nº ${item.numero}`, item.bairro].filter(Boolean).join(", ");
+        const line2 = [item.cidade, item.estado].filter(Boolean).join(" - ");
+
+        return `
+        <article class="lp-card">
+          <div class="lp-card-header">
+            <div class="lp-ico" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path d="M3 10.5V21h18V10.5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M7 21v-8h10v8" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M2 10.5L12 3l10 7.5" stroke="#111827" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="lp-info">
+              <h3 class="lp-name">${esc(item.nome)}</h3>
+              <p class="lp-addr">${esc(line1)}</p>
+              <p class="lp-addr">${esc(line2)}</p>
+            </div>
+          </div>
+        </article>
+      `;
+      }).join("");
+    }
+
+    // ---- dataset local (1 fetch, depois tudo instantâneo) ----
+    const dataset = {
+      loaded: false,
+      rows: [],
+      estados: [],
+      cidadesByEstado: new Map(), // estado_lc -> array cidades
+    };
+
+    async function fetchAllLojas() {
+      // tenta buscar tudo numa tacada
+      // se teu endpoint respeitar pageSize alto, traz as 2500 em 1 chamada
+      const url = new URL(API_BASE);
+      url.searchParams.set("mode", "lojas");
+      url.searchParams.set("page", "1");
+      url.searchParams.set("pageSize", "3000"); // >= 2500
+
+      const resp = await fetch(url.toString(), { method: "GET" });
+      const text = await resp.text();
+
+      let json;
+      try { json = JSON.parse(text); }
+      catch (e) {
+        console.error("Resposta não-JSON:", text.slice(0, 250));
+        throw new Error("API retornou HTML/erro (veja console).");
+      }
+      if (!json.success) throw new Error(json.error || "Erro na API");
+
+      const raw = Array.isArray(json.data) ? json.data : [];
+      return raw.map(normalizeRow).filter(r => r.nome || r.rua || r.cidade || r.estado);
+    }
+
+    function buildIndex(rows) {
+      const estadosSet = new Set();
+      const cidadesMap = new Map(); // estado_lc -> Set(cidade)
+
+      rows.forEach(r => {
+        if (r.estado_lc) estadosSet.add(r.estado_lc);
+        if (r.estado_lc) {
+          if (!cidadesMap.has(r.estado_lc)) cidadesMap.set(r.estado_lc, new Set());
+          if (r.cidade) cidadesMap.get(r.estado_lc).add(r.cidade);
+        }
+      });
+
+      dataset.estados = Array.from(estadosSet).sort((a, b) => a.localeCompare(b, "pt-BR"));
+      dataset.cidadesByEstado = new Map(
+        Array.from(cidadesMap.entries()).map(([uf, set]) => {
+          const list = Array.from(set).sort((a, b) => a.localeCompare(b, "pt-BR"));
+          return [uf, list];
+        })
+      );
+    }
+
+    function paintEstados() {
+      const listUI = dataset.estados.map(s => s.toUpperCase());
+      elEstado.innerHTML =
+        `<option value="">Selecione o estado</option>` +
+        listUI.map(e => `<option value="${esc(e)}">${esc(e)}</option>`).join("");
+
+      setStatus("Selecione um estado para ver as cidades.");
+    }
+
+    function paintCidades(estadoUI) {
+      const uf = lower(estadoUI);
+      const cidades = dataset.cidadesByEstado.get(uf) || [];
+
+      elCidade.innerHTML =
+        `<option value="">Selecione a cidade</option>` +
+        cidades.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join("");
+
+      elCidade.disabled = false;
+    }
+
+    function applyFilters() {
+      const uf = lower(state.estado);
+      const cid = lower(state.cidade);
+      const q = lower(state.q);
+
+      let filtered = dataset.rows;
+
+      if (uf) filtered = filtered.filter(r => r.estado_lc === uf);
+      if (cid) filtered = filtered.filter(r => r.cidade_lc === cid);
+      if (q) filtered = filtered.filter(r => r.hay.includes(q));
+
+      filtered.sort((a, b) => a.nome_sort.localeCompare(b.nome_sort, "pt-BR"));
+
+      state.total = filtered.length;
+      state.pages = Math.max(1, Math.ceil(state.total / state.pageSize));
+      state.page = Math.min(state.page, state.pages);
+
+      const start = (state.page - 1) * state.pageSize;
+      const paged = filtered.slice(start, start + state.pageSize);
+
+      setStatus(statusCount());
+      render(paged);
+      updatePagination();
+    }
+
+    function resetCidade() {
+      elCidade.disabled = true;
+      elCidade.innerHTML = `<option value="">Selecione uma cidade</option>`;
+      state.cidade = "";
+      elCidade.value = "";
+    }
+
+    function wire() {
+      elEstado.addEventListener("change", () => {
+        state.estado = norm(elEstado.value);
+        state.page = 1;
+
+        resetCidade();
+
+        if (state.estado) {
+          paintCidades(state.estado); // ✅ cidades só do estado
+        }
+
+        applyFilters();
+      });
+
+      elCidade.addEventListener("change", () => {
+        state.cidade = norm(elCidade.value);
+        state.page = 1;
+        applyFilters();
+      });
+
+      elBusca.addEventListener("input", () => {
+        clearTimeout(debounceT);
+        debounceT = setTimeout(() => {
+          state.q = norm(elBusca.value);
+          state.page = 1;
+          applyFilters();
+        }, 250);
+      });
+
+      btnPrev.addEventListener("click", () => {
+        if (state.page > 1) {
+          state.page--;
+          applyFilters();
+        }
+      });
+
+      btnNext.addEventListener("click", () => {
+        if (state.page < state.pages) {
+          state.page++;
+          applyFilters();
+        }
+      });
+
+      btnClear.addEventListener("click", () => {
+        elEstado.value = "";
+        elCidade.value = "";
+        elBusca.value = "";
+
+        state.estado = "";
+        state.cidade = "";
+        state.q = "";
+        state.page = 1;
+
+        resetCidade();
+        applyFilters();
+      });
+    }
+
+    async function init() {
+      try {
+        wire();
+
+        setStatus("Carregando dados...");
+        elEstado.innerHTML = `<option value="">Carregando...</option>`;
+        resetCidade();
+        elResults.innerHTML = "";
+        updatePagination();
+
+        // ✅ cache do browser (session) pra não buscar de novo ao voltar na página
+        const ssKey = "LP_LOJAS_CACHE_V1";
+        const cached = sessionStorage.getItem(ssKey);
+        if (cached) {
+          dataset.rows = JSON.parse(cached);
+        } else {
+          dataset.rows = await fetchAllLojas();
+          sessionStorage.setItem(ssKey, JSON.stringify(dataset.rows));
+        }
+
+        buildIndex(dataset.rows);
+        paintEstados();
+
+        dataset.loaded = true;
+        setStatus("Selecione um estado para começar.");
+        applyFilters();
+
+      } catch (err) {
+        console.error(err);
+        setStatus("Erro: " + (err.message || "ao carregar"));
+      }
+    }
+
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+    else init();
+  })();
+</script>

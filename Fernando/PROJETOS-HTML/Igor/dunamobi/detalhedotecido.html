@@ -1,0 +1,197 @@
+<script>
+(function () {
+  // ========= helpers =========
+  function injectCSS(css) {
+    const s = document.createElement('style');
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  // ========= styles =========
+  injectCSS(`
+    /* Botão conforme solicitado */
+    .btn-tecidos {
+      color: var(--texto-secundario);
+      border: 1px solid var(--cor-bordas);
+      border-radius: 4px;
+      padding: 5px 10px;
+      text-decoration: none;
+      font-size: 12px;
+      background: #fff;
+      cursor: pointer;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: .2s ease;
+    }
+    .btn-tecidos:hover{ filter: brightness(0.98); }
+
+    /* Modal */
+    .tecidos-overlay{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5);
+      display: none; z-index: 9999;
+    }
+    .tecidos-modal{
+      position: fixed; inset: 0;
+      display: none; place-items: center; z-index: 10000;
+    }
+    .tecidos-box{
+      width: min(900px, 92vw);
+      background: #fff;
+      border: 1px solid var(--cor-bordas);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      font-family: inherit;
+    }
+    .tecidos-header{
+      display:flex; justify-content: space-between; align-items:center;
+      padding: 14px 16px; border-bottom:1px solid var(--cor-bordas);
+    }
+    .tecidos-title{ font-size: 16px; font-weight: 600; margin: 0; }
+    .tecidos-close{
+      background: transparent; border:0; font-size: 20px; cursor:pointer; line-height:1;
+      color: var(--texto-secundario);
+    }
+
+    /* Abas */
+    .tecidos-tabs{
+      display:flex; gap:10px; padding:12px 16px; border-bottom:1px solid var(--cor-bordas);
+      flex-wrap: wrap;
+    }
+    .tecido-tab{
+      border:1px solid var(--cor-bordas);
+      background:#fff; color: var(--texto-secundario);
+      border-radius: 20px; padding:8px 14px; font-size:12px; cursor:pointer;
+    }
+    .tecido-tab[aria-selected="true"]{
+      background:#f7f3ff; border-color:#c8b6ff;
+      color:#3d2b99; font-weight:600;
+    }
+
+    /* Conteúdo */
+    .tecidos-content{ padding: 16px; }
+    .tecido-pane{ display:none; }
+    .tecido-pane.active{ display:block; }
+
+    .tecido-grid{
+      display:grid; grid-template-columns: 1fr 400px; gap:18px; align-items:start;
+    }
+    .tecido-text{
+      font-size:14px; color:#333; line-height:1.55;
+    }
+    .tecido-imgwrap{
+      width:400px; height:400px; border:1px solid var(--cor-bordas);
+      border-radius: 6px; overflow:hidden; background:#fafafa; display:flex; align-items:center; justify-content:center;
+    }
+    .tecido-imgwrap img{
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+
+    /* Responsivo */
+    @media (max-width: 760px){
+      .tecido-grid{ grid-template-columns: 1fr; }
+      .tecido-imgwrap{ width:100%; height:auto; aspect-ratio: 1 / 1; }
+    }
+  `);
+
+  // ========= modal markup =========
+  const overlay = document.createElement('div');
+  overlay.className = 'tecidos-overlay';
+  overlay.setAttribute('aria-hidden', 'true');
+
+  const modal = document.createElement('div');
+  modal.className = 'tecidos-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-labelledby', 'tecidos-title');
+
+  modal.innerHTML = `
+    <div class="tecidos-box">
+      <div class="tecidos-header">
+        <h3 id="tecidos-title" class="tecidos-title">Tecidos disponíveis</h3>
+        <button class="tecidos-close" type="button" aria-label="Fechar">&times;</button>
+      </div>
+
+      <div class="tecidos-tabs" role="tablist" aria-label="Seleção de tecidos">
+        <button class="tecido-tab" role="tab" aria-selected="true" aria-controls="pane-poliamida" id="tab-poliamida">Poliamida</button>
+        <button class="tecido-tab" role="tab" aria-selected="false" aria-controls="pane-algodao" id="tab-algodao">Algodão</button>
+      </div>
+
+      <div class="tecidos-content">
+        <section class="tecido-pane active" id="pane-poliamida" role="tabpanel" aria-labelledby="tab-poliamida">
+          <div class="tecido-grid">
+            <div class="tecido-text">
+              <strong>Poliamida 100%</strong> — leve, toque suave, excelente respirabilidade e <em>secagem rápida</em>. Ideal para treinos, lazer e dias quentes.
+              Possui proteção solar FPU50+ e acompanha os movimentos com conforto.
+            </div>
+            <div class="tecido-imgwrap">
+              <img src="https://images.unsplash.com/photo-1582582494700-633a394a2b2a?q=80&w=800&auto=format&fit=crop" alt="Tecido de poliamida em close">
+            </div>
+          </div>
+        </section>
+
+        <section class="tecido-pane" id="pane-algodao" role="tabpanel" aria-labelledby="tab-algodao">
+          <div class="tecido-grid">
+            <div class="tecido-text">
+              <strong>Algodão</strong> — natural e respirável, ótimo para o dia a dia. Proporciona conforto e absorção, com toque macio.
+            </div>
+            <div class="tecido-imgwrap">
+              <img src="https://images.unsplash.com/photo-1610461887039-d8e2a0c19074?q=80&w=800&auto=format&fit=crop" alt="Trama de algodão">
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(modal);
+
+  // ========= button below .buy-area .mais-formas-pagamento .form-pag-link =========
+  const anchor = document.querySelector('.mais-formas-pagamento');
+  if (anchor) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-tecidos';
+    btn.textContent = 'Ver tecidos';
+    anchor.insertAdjacentElement('afterend', btn);
+
+    btn.addEventListener('click', openModal);
+  }
+
+  // ========= interações =========
+  const tabs = Array.from(modal.querySelectorAll('.tecido-tab'));
+  const panes = Array.from(modal.querySelectorAll('.tecido-pane'));
+  const btnClose = modal.querySelector('.tecidos-close');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+      panes.forEach(p => p.classList.remove('active'));
+
+      tab.setAttribute('aria-selected', 'true');
+      const pane = modal.querySelector('#' + tab.getAttribute('aria-controls'));
+      if (pane) pane.classList.add('active');
+    });
+  });
+
+  btnClose.addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  function openModal() {
+    overlay.style.display = 'block';
+    modal.style.display = 'grid';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    overlay.style.display = 'none';
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+})();
+</script>
+

@@ -1,0 +1,238 @@
+<!-- BLOCO ESCONDIDO COM MEDIDAS DA MODELO -->
+<div class="medidas-modelo" style="display: none">
+  <div class="infoModelo">
+    <div data-atributo="Altura">1,64m</div>
+    <div data-atributo="Busto">85cm</div>
+    <div data-atributo="Cintura">62cm</div>
+    <div data-atributo="Quadril">89cm</div>
+  </div>
+</div>
+
+<!-- BLOCO ESCONDIDO COM TABELA DE MEDIDAS -->
+<div class="tabela-medidas" style="display: none">
+  <div class="medida" data-tamanho="P">
+    <div data-atributo="Busto">78-82 cm</div>
+    <div data-atributo="Cintura	">74 cm</div>
+    <div data-atributo="Quadril">140 cm</div>
+    <div data-atributo="Comprimento">76 cm</div>
+    <!-- <div data-atributo="Comprimento">100 cm</div> -->
+    <!-- <div data-atributo="Comp. da Calça">106cm</div> -->
+  </div>
+  <div class="medida" data-tamanho="M">
+    <div data-atributo="Busto">80-84 cm</div>
+    <div data-atributo="Cintura	">76 cm</div>
+    <div data-atributo="Quadril">142 cm</div>
+    <div data-atributo="Comprimento">77 cm</div>
+    <!-- <div data-atributo="Comprimento">101 cm</div> -->
+    <!-- <div data-atributo="Comp. da Calça">107cm</div> -->
+  </div>
+  <div class="medida" data-tamanho="G">
+    <div data-atributo="Busto">82-86 cm</div>
+    <div data-atributo="Cintura	">78 cm</div>
+    <div data-atributo="Quadril">144 cm</div>
+    <div data-atributo="Comprimento">78 cm</div>
+    <!-- <div data-atributo="Comprimento">102 cm</div> -->
+    <!-- <div data-atributo="Comp. da Calça">107cm</div> -->
+  </div>
+</div>
+
+<!-- ESTILO -->
+<style>
+  .modal-medidas {
+    text-align: left;
+  }
+  .modal-medidas .imagem-modelo {
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .modal-medidas .imagem-modelo img {
+    width: 100%;
+  }
+  .modal-medidas .imagem-modelo .infoModelo {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    color: #3c3c3c;
+    border-radius: 8px;
+    width: auto;
+    max-width: 200px;
+    text-align: left;
+  }
+  .modal-medidas .infoModelo p {
+    font-size: 12px;
+    margin: 5px 0;
+    color: #000;
+    /* se a foto for escura mudar para branco ou vice versa */
+  }
+  .modal-medidas .infoModelo h2 {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #000;
+    /* se a foto for escura mudar para branco ou vice versa */
+  }
+  .modal-medidas table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  .modal-medidas th {
+    font-weight: bold;
+  }
+  .modal-medidas th,
+  .modal-medidas td {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    color: #3c3c3c;
+  }
+  .modal-medidas th:first-child,
+  .modal-medidas td:first-child {
+    font-weight: bold;
+    text-align: left;
+  }
+  .modal-medidas .swal2-title {
+    display: none !important;
+  }
+  .modal-medidas .swal2-html-container {
+    margin: 0px !important;
+  }
+  @media (max-width: 768px) {
+    .modal-medidas table {
+      font-size: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-medidas .imagem-modelo .infoModelo {
+      left: 2px;
+      top: 2px;
+      padding: 20px;
+      font-size: 9px;
+      max-width: 100px;
+    }
+    .modal-medidas .infoModelo h2 {
+      font-size: 12px;
+    }
+    .modal-medidas .infoModelo p {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<!-- DEPENDÊNCIAS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- SCRIPT -->
+<script>
+  $(document).ready(function () {
+    function inserirBotaoTabelaMedidas() {
+      if ($(".button-measure-table").length === 0) {
+        const novoBotao = $(`
+        <div class="mb-space-20 h-space-32 w-full button-measure-table" id="button-measure-table" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r0:" data-state="closed" style="margin-top: 5px;">
+          <div class="ver-tabela-de-medidas flex w-fit cursor-pointer items-center gap-space-8 rounded-sm border border-secondary-100 p-space-8">
+            <img class="lazyload-svg ls-is-cached lazyloaded" src="https://public-resources.cdn.magazord.com.br/assets/global/common-icons/commerce/icon-ruler.svg" width="18" height="17" alt="Tabela de medidas" title="Tabela de medidas">
+            <span class="text text-xs text-secondary-800">Tabela de medidas</span>
+          </div>
+        </div>
+      `);
+        const alvo = $(".button-buy");
+        if (alvo.length > 0) {
+          alvo.before(novoBotao);
+          ativarScriptTabela();
+          console.log("Botão de tabela de medidas inserido.");
+        }
+      }
+    }
+
+    function ativarScriptTabela() {
+      $(".ver-tabela-de-medidas")
+        .off("click")
+        .on("click", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          let modeloImagem =
+            $(".gallery-main img").first().attr("data-src") ||
+            $(".gallery-main img").first().attr("src");
+          let modeloInfo = `<div class="imagem-modelo"><img src="${modeloImagem}" alt="Modelo"><div class="infoModelo"><h2>MEDIDAS DA MODELO:</h2>`;
+
+          $(".medidas-modelo .infoModelo > div").each(function () {
+            let atributo = $(this).data("atributo");
+            let valor = $(this).text();
+            modeloInfo += `<p><strong>${atributo.toUpperCase()}</strong><br>${valor}</p>`;
+          });
+
+          modeloInfo += "</div></div>";
+
+          let medidasAgrupadas = {};
+          let colunasSet = new Set();
+          let linhasSet = new Set();
+
+          $(".tabela-medidas .medida").each(function () {
+            let tamanho = $(this).data("tamanho");
+            $(this)
+              .children("div")
+              .each(function () {
+                let atributo = $(this).data("atributo");
+                let valor = $(this).text();
+
+                if (!medidasAgrupadas[atributo])
+                  medidasAgrupadas[atributo] = {};
+                medidasAgrupadas[atributo][tamanho] = valor;
+
+                colunasSet.add(tamanho);
+                linhasSet.add(atributo);
+              });
+          });
+
+          const ordemTamanhos = ["PP", "P", "M", "G", "GG", "Único"];
+          let colunas = Array.from(colunasSet);
+          colunas.sort(
+            (a, b) => ordemTamanhos.indexOf(a) - ordemTamanhos.indexOf(b)
+          );
+
+          let tableHead = "<thead><tr><th></th>";
+          colunas.forEach((t) => (tableHead += `<th>${t}</th>`));
+          tableHead += "</tr></thead>";
+
+          let tableBody = "<tbody>";
+          for (let atributo of linhasSet) {
+            tableBody += `<tr><td>${atributo}</td>`;
+            colunas.forEach((t) => {
+              let valor = medidasAgrupadas[atributo]?.[t] || "-";
+              tableBody += `<td>${valor}</td>`;
+            });
+            tableBody += "</tr>";
+          }
+          tableBody += "</tbody>";
+
+          let htmlContent = `<table>${tableHead}${tableBody}</table>${modeloInfo}`;
+
+          zrd("swal", function (sw) {
+            sw.fire({
+              title: "Tabela de Medidas",
+              html: htmlContent,
+              showCloseButton: true,
+              showConfirmButton: false,
+              width: "600px",
+              background: "#f9f9f9",
+              customClass: { popup: "modal-medidas" },
+            });
+          });
+        });
+    }
+
+    // Tenta inserir o botão várias vezes, caso desapareça
+    inserirBotaoTabelaMedidas();
+    const observerInterval = setInterval(inserirBotaoTabelaMedidas, 0);
+
+    // Encerra o loop após 15s (10 tentativas)
+    setTimeout(() => clearInterval(observerInterval), 45000);
+  });
+</script>

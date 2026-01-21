@@ -1,0 +1,213 @@
+<style>
+    <!--
+    .area-buy-product #button-measure-table {
+        display: none;
+    }
+
+    dialog {
+        padding: 20px;
+        border-radius: 6px;
+    }
+
+    .tabela-medidas {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+    }
+
+    .tabela-medidas .measurements-table {
+        width: 100%;
+        max-width: 600px;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .tabela-medidas .measurements-table,
+    .tabela-medidas .measurements-table th,
+    .tabela-medidas .measurements-table td {
+        border: 1px solid black;
+    }
+
+    .tabela-medidas .measurements-table th,
+    .tabela-medidas .measurements-table td {
+        padding: 10px;
+        text-align: left;
+    }
+
+    .tabela-medidas .measurements-table td {
+        font-size: 14px;
+    }
+
+    .tabela-medidas .measurements-table th {
+        background-color: #3c3c3c;
+        color: #fff;
+    }
+
+    .tabela-medidas .category-btn {
+        margin: 5px;
+        padding: 10px;
+        cursor: pointer;
+        background-color: white;
+        border: 1px solid #f2f2f2;
+        border-radius: 5px;
+    }
+
+    .tabela-medidas .category-btn.active {
+        background-color: #282828;
+        color: white;
+    }
+
+    .tabela-medidas .category-btn:hover {
+        box-shadow: 0 0 0 2px #252525;
+        animation-duration: 1000ms;
+    }
+
+    .tabela-medidas .title {
+        font-size: 24px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+        .tabela-medidas .measurements-table {
+            width: 106%
+        }
+
+        .tabela-medidas .title {
+            font-size: 20px;
+        }
+    }
+
+    #buttonFechar {
+        background-color: #fff;
+        cursor: pointer;
+        border: 0px;
+    }
+
+    #buttonFechar:hover {
+        font-weight: bold;
+    }
+
+    #dialogstyle {
+        border: 0px;
+    }
+
+    .btn-tabela {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        height: fit-content;
+        background-color: white;
+        gap: 8px;
+        padding: 5px;
+        border: 1px solid var(--cor-bordas);
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .btn-tabela svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-tabela:hover {
+        box-shadow: 0 0 0 2px #000;
+    }
+    -->
+</style>
+<p>
+    <script>// <![CDATA[
+        function showTabelaMedidasMeasurements(category) {
+            var data = {
+                'legging': {
+                    'Tamanho': ['<strong>PP</strong>', '<strong>P</strong>', '<strong>M</strong>', '<strong>G</strong>', '<strong>GG</strong>'],
+                    'Cintura': ['66–72 cm', '70–76 cm', '74–84 cm', '83–90 cm', '88–95 cm'],
+                    'Quadril': ['92–97 cm', '98–102 cm', '102–106 cm', '106–110 cm', '111–116 cm']
+                },
+                'macaquinhos': {
+                    'Tamanho': ['<strong>PP</strong>', '<strong>P</strong>', '<strong>M</strong>', '<strong>G</strong>', '<strong>GG</strong>'],
+                    'Cintura': ['66–72 cm', '70–76 cm', '74–84 cm', '83–90 cm', '88–95 cm'],
+                    'Quadril': ['92–97 cm', '98–102 cm', '102–106 cm', '106–110 cm', '111–116 cm']
+                },
+                'top': {
+                    'Tamanho': ['<strong>PP</strong>', '<strong>P</strong>', '<strong>M</strong>', '<strong>G</strong>', '<strong>GG</strong>'],
+                    'Peito': ['83–87 cm', '88–92 cm', '93–97 cm', '96–100 cm', '100–106 cm']
+                },
+                'shorts': {
+                    'Tamanho': ['<strong>PP</strong>', '<strong>P</strong>', '<strong>M</strong>', '<strong>G</strong>', '<strong>GG</strong>'],
+                    'Cintura': ['66–72 cm', '70–76 cm', '74–84 cm', '83–90 cm', '88–95 cm'],
+                    'Quadril': ['92–97 cm', '98–102 cm', '102–106 cm', '106–110 cm', '111–116 cm']
+                }
+            };
+
+
+            var table = '<thead><tr>';
+            for (var key in data[category]) {
+                table += '<th>' + key + '</th>';
+            }
+            table += '</tr></thead><tbody>';
+
+            for (var i = 0; i < data[category]['Tamanho'].length; i++) {
+                table += '<tr>';
+                for (var key in data[category]) {
+                    table += '<td>' + data[category][key][i] + '</td>';
+                }
+                table += '</tr>';
+            }
+            table += '</tbody>';
+
+            document.getElementById('tabelaMedidasMeasurementsTable').innerHTML = table;
+
+            var buttons = document.getElementsByClassName('category-btn');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            event.currentTarget.classList.add('active');
+
+        }
+
+        $(document).ready(function () {
+
+
+            $('.area-derivacoes').after(`
+<button class="btn-tabela" id="buttonAbrir"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" class=" lazyload-svg replaced-svg">
+  <path d="M15.2169 2.77888L2.7807 15.2151C2.4878 15.508 2.4878 15.9829 2.7807 16.2758L7.72006 21.2151C8.01295 21.508 8.48783 21.508 8.78072 21.2151L21.217 8.7789C21.5099 8.48601 21.5099 8.01114 21.217 7.71824L16.2776 2.77888C15.9847 2.48599 15.5098 2.48599 15.2169 2.77888Z" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M12.375 5.625L15.375 8.625" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M9 9L12 12" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M5.625 12.375L8.625 15.375" stroke="#000000" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg><p>Tabela de Medidas<p></button>
+<dialog id="dialogstyle">
+<button id="buttonFechar">X</button>
+<div class="tabela-medidas">
+<div class="title">Guia de Tamanhos</div>
+<div>
+    <button class="category-btn" onclick="showTabelaMedidasMeasurements('legging')">Legging</button>
+    <button class="category-btn" onclick="showTabelaMedidasMeasurements('top')">Top</button>
+    <button class="category-btn" onclick="showTabelaMedidasMeasurements('shorts')">Shorts</button>
+    <button class="category-btn" onclick="showTabelaMedidasMeasurements('macaquinhos')">Macaquinhos</button>
+</div>
+
+<table class="measurements-table" id="tabelaMedidasMeasurementsTable">
+    <!-- Table content will be inserted here -->
+</table>
+</div>
+</dialog>
+`)
+            const button = document.getElementById("buttonAbrir")
+            const modal = document.querySelector("dialog")
+            const buttonFechar = document.getElementById("buttonFechar")
+
+            button.onclick = function () {
+                modal.showModal()
+            }
+            buttonFechar.onclick = function () {
+                modal.close()
+
+
+            }
+        });
+        // ]]></script>
+</p>

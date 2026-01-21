@@ -1,0 +1,1158 @@
+<p>
+<script>// <![CDATA[
+function inserirDimensoesAcimaDoMenu() {
+    
+    const cssContent = `
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+        .dimensoes-container {
+            margin: 20px auto;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Rubik', sans-serif;
+            max-width: 680px;
+    margin-left: 80px;
+    margin-top: -35px;
+        }
+        
+        .dimensoes-container ::selection{
+            background-color: transparent;
+        }
+
+        .dimensoes-titulo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+        }
+
+        .dimensoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .dimensao-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dimensao-item:hover {
+            background: rgba(0, 123, 255, 0);
+            transform: scale(1.02);
+        }
+
+        .dimensao-icone {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(0, 0, 0);
+            border-radius: 6px;
+            font-size: 22px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .dimensao-info {
+            flex: 1;
+        }
+
+        .dimensao-label {
+            font-size: 14px;
+            color: #6c757d;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .dimensao-valor {
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .dimensoes-rodape {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #dee2e6;
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dimensoes-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dimensao-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dimensao-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dimensao-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dimensao-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .dimensoes-container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .dimensoes-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .dimensoes-titulo {
+                font-size: 16px;
+            }
+
+            .dimensao-valor {
+                font-size: 15px;
+            }
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        .unidade-toggle {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 5px;
+        }
+
+        .unidade-toggle:hover {
+            background: #495057;
+        }
+    `;
+
+    // HTML das dimensões
+    const htmlContent = `
+        <div class="dimensoes-container">
+            <div class="dimensoes-titulo">Dimensões</div>
+            <div class="dimensoes-grid">
+                <div class="dimensao-item tooltip" data-tooltip="Medida horizontal do produto">
+                    <div class="dimensao-icone">↔</div>
+                    <div class="dimensao-info">
+                        <div class="dimensao-label">Largura:</div>
+                        <div class="dimensao-valor" data-cm="238.00">238,00 cm</div>
+                    </div>
+                </div>
+
+                <div class="dimensao-item tooltip" data-tooltip="Medida vertical do produto">
+                    <div class="dimensao-icone">↕</div>
+                    <div class="dimensao-info">
+                        <div class="dimensao-label">Altura:</div>
+                        <div class="dimensao-valor" data-cm="218.00">218,00 cm</div>
+                    </div>
+                </div>
+
+                <div class="dimensao-item tooltip" data-tooltip="Medida de profundidade do produto">
+                    <div class="dimensao-icone">↓↓ </div>
+                    <div class="dimensao-info">
+                        <div class="dimensao-label">Profundidade:</div>
+                        <div class="dimensao-valor" data-cm="51.00">51,00 cm</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Procura pelo menu-container
+    const menuContainer = document.querySelector('.menu-container');
+    
+    if (!menuContainer) {
+        console.error('Elemento .menu-container não encontrado');
+        return;
+    }
+
+    // Verifica se as dimensões já foram inseridas
+    if (document.querySelector('.dimensoes-container')) {
+        console.log('Dimensões já foram inseridas');
+        return;
+    }
+
+    // Cria e adiciona o CSS
+    const style = document.createElement('style');
+    style.textContent = cssContent;
+    document.head.appendChild(style);
+
+    // Cria o elemento das dimensões
+    const dimensoesElement = document.createElement('div');
+    dimensoesElement.innerHTML = htmlContent;
+
+    // Insere antes do menu-container
+    menuContainer.parentNode.insertBefore(dimensoesElement.firstElementChild, menuContainer);
+
+    // Adiciona as funcionalidades JavaScript
+    adicionarFuncionalidadesDimensoes();
+}
+
+// Funções JavaScript das dimensões
+function adicionarFuncionalidadesDimensoes() {
+    
+    function toggleUnit(button) {
+        const valorDiv = button.parentElement;
+        const cm = parseFloat(valorDiv.getAttribute('data-cm'));
+        const isCurrentlyCm = button.textContent === 'cm';
+        
+        if (isCurrentlyCm) {
+            const metros = (cm / 100).toFixed(2);
+            valorDiv.innerHTML = `${metros} m<button class="unidade-toggle" onclick="toggleUnit(this)">m</button>`;
+        } else {
+            valorDiv.innerHTML = `${cm.toFixed(2).replace('.', ',')} cm`;
+        }
+        
+        valorDiv.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+            valorDiv.style.transform = 'scale(1)';
+        }, 200);
+    }
+
+    function copyDimensions() {
+        const dimensoes = document.querySelectorAll('.dimensao-valor');
+        let texto = 'Dimensões do Produto:\n';
+        
+        dimensoes.forEach((dim, index) => {
+            const label = dim.parentElement.querySelector('.dimensao-label').textContent;
+            const valor = dim.textContent.replace('cm', '').replace('m', '').trim();
+            const unidade = dim.textContent.includes('cm') ? 'cm' : 'm';
+            texto += `${label} ${valor} ${unidade}\n`;
+        });
+        
+        navigator.clipboard.writeText(texto).then(() => {
+            showNotification('Dimensões copiadas!');
+        });
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            font-size: 14px;
+            animation: fadeInUp 0.3s ease;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    window.toggleUnit = toggleUnit;
+    window.copyDimensions = copyDimensions;
+    window.showNotification = showNotification;
+
+    // Adiciona event listeners para duplo clique
+    document.querySelectorAll('.dimensao-item').forEach(item => {
+        item.addEventListener('dblclick', copyDimensions);
+    });
+}
+
+// Executa quando o DOM estiver carregado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inserirDimensoesAcimaDoMenu);
+} else {
+    inserirDimensoesAcimaDoMenu();
+}
+// ]]></script>
+</p>
+<style><!--
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+       
+
+        .rn-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .product-description {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .product-description h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .feature-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .gif-placeholder {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gif-placeholder p {
+            color: #666;
+            font-size: 0.9rem;
+            max-width: 250px;
+        }
+
+        .product-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .product-features {
+            padding: 60px 0;
+            background-color: #fafafa;
+        }
+
+        .features-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+        }
+
+        .feature-gif {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 165px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .feature-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .features-swiper {
+            width: 100%;
+            padding: 20px 0;
+            display: none;
+        }
+
+        .features-swiper .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            width: 320px;
+        }
+
+        .features-swiper .feature-card {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .product-specs {
+            padding: 60px 0;
+        }
+
+        .specs-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .wardrobe-image {
+            text-align: center;
+        }
+
+        .wardrobe-placeholder {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .dimension-label {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .dimension-height {
+            top: 20px;
+            right: 20px;
+        }
+
+        .dimension-width {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dimension-depth {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .specs-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .specs-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .spec-value {
+            margin-left: auto;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .colors-list {
+            list-style: none;
+        }
+
+        .colors-list li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .colors-list li:before {
+            content: "•";
+            color: #666;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .gif-placeholder-specs {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 30px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gif-placeholder-specs p {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .sophistication-section {
+            padding: 60px 0;
+            background-color: #fafafa;
+        }
+
+        .sophistication-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .sophistication-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .sophistication-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .origin-tag {
+            background-color: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .layout-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .layout-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .layout-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .layout-gif {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .packaging-section {
+            padding: 60px 0;
+        }
+
+        .packaging-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .packaging-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .packaging-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .packaging-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-section {
+            padding: 60px 0;
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .testimonials-carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .swiper {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 410px;
+        }
+
+        .testimonial-card {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 80px;
+            width: 100%;
+            max-width: 400px;
+            min-height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #666;
+            background: #e0e0e0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-top: -20px;
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: #e0e0e0;
+        }
+
+        .swiper-pagination-bullet {
+            background: #ccc;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #666;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+
+            .product-details,
+            .specs-container,
+            .sophistication-content,
+            .layout-section,
+            .packaging-content {
+                text-align: center;
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .product-details,
+            .specs-container,
+            .sophistication-content,
+            .layout-section {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .product-details .gif-placeholder {
+                order: 1;
+            }
+
+            .product-details .product-info {
+                order: 2;
+            }
+
+            .specs-container .wardrobe-image {
+                order: 1;
+            }
+
+            .specs-container .specs-info {
+                order: 2;
+            }
+
+            .layout-section .gif-placeholder {
+                order: 1;
+            }
+
+            .layout-section .layout-text {
+                order: 2;
+            }
+
+            .features-grid {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+            }
+
+            .features-grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-description h1 {
+                font-size: 2rem;
+            }
+
+            .rn-container {
+                padding: 0 15px;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none;
+            }
+
+            .gif-placeholder {
+                background-color: #f0f0f0;
+                border-radius: 15px;
+                padding: 130px;
+                text-align: center;
+                max-width: 400px !important;
+                min-height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .wardrobe-placeholder{
+                padding: 85px;
+            }
+
+            .features-swiper { display: block; }
+            .features-grid-2 { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .product-description h1 {
+                font-size: 1.8rem;
+            }
+        }
+--></style>
+<section class="product-description">
+<div class="rn-container">
+<h1>&nbsp;</h1>
+<div class="features-grid">
+<div class="feature-item">
+<div class="feature-circle">Material em MDF</div>
+<div class="feature-text">Material em MDF</div>
+</div>
+<div class="feature-item">
+<div class="feature-circle">Portas de Correr</div>
+<div class="feature-text">Portas de Correr</div>
+</div>
+<div class="feature-item">
+<div class="feature-circle">3 Meses de Garantia</div>
+<div class="feature-text">3 Meses de Garantia</div>
+</div>
+<div class="feature-item">
+<div class="feature-circle">Montagem M&eacute;dia</div>
+<div class="feature-text">Montagem M&eacute;dia</div>
+</div>
+</div>
+<div class="product-details">
+<div class="gif-placeholder">
+<p>Colocar GIF do andamento feito para ter um MDF de qualidade.</p>
+</div>
+<div class="product-info">
+<h2>MDF de Alta Qualidade</h2>
+<p>Nosso MDF supera muitos tipos de madeira maci&ccedil;a em estabilidade e acabamento. Sua estrutura uniforme evita imperfei&ccedil;&otilde;es naturais, como n&oacute;s e rachaduras, comuns em madeiras tradicionais. Al&eacute;m disso, oferece maior resist&ecirc;ncia a empenamentos e varia&ccedil;&otilde;es clim&aacute;ticas, garantindo durabilidade e um visual sempre impec&aacute;vel.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="product-features">
+<div class="rn-container">
+<div class="features-grid-2">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Sistema deslizante nas portas</div>
+</div>
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Trilhos de inox com revestimento extra contra oxida&ccedil;&atilde;o</div>
+</div>
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Puxadores de inox com revestimento extra contra oxida&ccedil;&atilde;o</div>
+</div>
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Revestimento interno com tecido de prote&ccedil;&atilde;o extra em todas as pe&ccedil;as</div>
+</div>
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Camada superior de verniz na parte de tr&aacute;s para prote&ccedil;&atilde;o extra contra mofo</div>
+</div>
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Pintura com acabamento Pintura UV de alta resistencia</div>
+</div>
+</div>
+<div class="testimonials-carousel">
+<div class="swiper features-swiper">
+<div class="swiper-wrapper">
+<div class="swiper-slide">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Sistema deslizante nas portas</div>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Trilhos de inox com revestimento extra contra oxida&ccedil;&atilde;o</div>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Puxadores de inox com revestimento extra contra oxida&ccedil;&atilde;o</div>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Revestimento interno com tecido de prote&ccedil;&atilde;o extra em todas as pe&ccedil;as</div>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Camada superior de verniz na parte de tr&aacute;s para prote&ccedil;&atilde;o extra contra mofo</div>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="feature-card">
+<div class="feature-gif">GIF</div>
+<div class="feature-description">Pintura com acabamento Pintura UV de alta resistencia</div>
+</div>
+</div>
+</div>
+<div class="swiper-button-next features-next"></div>
+<div class="swiper-button-prev features-prev"></div>
+<div class="swiper-pagination features-pagination"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="product-specs">
+<div class="rn-container">
+<div class="specs-container">
+<div class="wardrobe-image">
+<div class="wardrobe-placeholder">
+<p>Imagem do Guarda-Roupa</p>
+</div>
+</div>
+<div class="specs-info">
+<div class="specs-section">
+<h3>Dimens&otilde;es</h3>
+<div class="spec-item"><span class="spec-icon">&uarr;</span> <span>Altura</span> <span class="spec-value">220.00CM</span></div>
+<div class="spec-item"><span class="spec-icon">&harr;</span> <span>Largura</span> <span class="spec-value">200.00CM</span></div>
+<div class="spec-item"><span class="spec-icon">↖</span> <span>Profundidade</span> <span class="spec-value">60.00CM</span></div>
+<div class="spec-item"><span class="spec-icon">⌂</span> <span>Peso</span> <span class="spec-value">142.50KG</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="product-specs">
+<div class="rn-container">
+<div class="specs-container">
+<div class="specs-info">
+<div class="specs-section">
+<h3>Disponivel</h3>
+<div class="spec-item">
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illo iusto, a nam temporibus odit quam corporis itaque quasi? Similique laudantium, unde adipisci ullam sint modi molestiae soluta consectetur necessitatibus.</p>
+</div>
+</div>
+</div>
+<div class="wardrobe-image">
+<div class="wardrobe-placeholder">
+<p>Imagem do Guarda-Roupa</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="sophistication-section">
+<div class="rn-container">
+<div class="sophistication-content">
+<div class="gif-placeholder">
+<p>GIF</p>
+</div>
+<div class="sophistication-text">
+<h2>Sofistica&ccedil;&atilde;o e Design</h2>
+<p>O Guarda-Roupa Elyse representa a perfeita uni&atilde;o entre sofistica&ccedil;&atilde;o est&eacute;tica e funcionalidade excepcional. Com acabamento elegante e design moderno, ele se harmoniza perfeitamente com qualquer ambiente, oferecendo durabilidade e custo-benef&iacute;cio incompar&aacute;veis. Uma escolha ideal para quem busca qualidade, estilo e praticidade.</p>
+<div class="origin-tag">Origem: Brasil</div>
+</div>
+</div>
+<div class="layout-section">
+<div class="layout-text">
+<h2>Layout Interno do Seu Jeito</h2>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+</div>
+<div class="gif-placeholder">GIF</div>
+</div>
+<div class="sophistication-content" style="margin-top: 60px;">
+<div class="gif-placeholder">
+<p>GIF</p>
+</div>
+<div class="sophistication-text">
+<h2>Sofistica&ccedil;&atilde;o e Design</h2>
+<p>O Guarda-Roupa Elyse representa a perfeita uni&atilde;o entre sofistica&ccedil;&atilde;o est&eacute;tica e funcionalidade excepcional. Com acabamento elegante e design moderno, ele se harmoniza perfeitamente com qualquer ambiente, oferecendo durabilidade e custo-benef&iacute;cio incompar&aacute;veis. Uma escolha ideal para quem busca qualidade, estilo e praticidade.</p>
+<div class="origin-tag">Origem: Brasil</div>
+</div>
+</div>
+</div>
+</section>
+<section class="about-section">
+<div class="rn-container">
+<h2>Somos um site seguro?</h2>
+<p>A Rudnick M&oacute;veis atua h&aacute; mais de 86 anos no mercado, com sede em S&atilde;o Bento do Sul. Ao longo dessa trajet&oacute;ria, conquistamos clientes em todo o Brasil, sempre entregando m&oacute;veis de qualidade superior, fabricados com a excel&ecirc;ncia que &eacute; a marca da nossa hist&oacute;ria.</p>
+<div class="testimonials-carousel">
+<div class="swiper">
+<div class="swiper-wrapper">
+<div class="swiper-slide">
+<div class="testimonial-card">
+<p>"M&oacute;vel de qualidade superior, vale cada centavo investido!"</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="testimonial-card">
+<p>"Produto dur&aacute;vel e design moderno. Superou expectativas."</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="testimonial-card">
+<p>"Atendimento excepcional e entrega pontual. Muito satisfeito!"</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="testimonial-card">
+<p>"M&oacute;vel de qualidade superior, vale cada centavo investido."</p>
+</div>
+</div>
+<div class="swiper-slide">
+<div class="testimonial-card">
+<p>"M&oacute;vel de qualidade superior, vale cada centavo investido."</p>
+</div>
+</div>
+</div>
+<!-- Navegação -->
+<div class="swiper-button-next"></div>
+<div class="swiper-button-prev"></div>
+<!-- Paginação -->
+<div class="swiper-pagination"></div>
+</div>
+</div>
+</div>
+</section>
+<p>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>// <![CDATA[
+const swiper = new Swiper('.swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            effect: 'slide',
+            speed: 600,
+            loopAdditionalSlides: 1,
+            pauseOnMouseEnter: true,
+        });
+        const featuresSwiper = new Swiper('.features-swiper', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+            navigation: {
+                nextEl: '.features-next',
+                prevEl: '.features-prev',
+            },
+            pagination: {
+                el: '.features-pagination',
+                clickable: true,
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            speed: 600,
+        });
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+// ]]></script>
+</p>

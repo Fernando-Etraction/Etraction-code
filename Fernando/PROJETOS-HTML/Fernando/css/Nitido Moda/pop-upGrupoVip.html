@@ -1,0 +1,199 @@
+<style>
+    /* === POP-UP VIP — base (desktop) === */
+    #vip-left-wrap {
+        position: fixed;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 9999;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif
+    }
+
+    #vip-left-wrap .vip-core {
+        position: relative;
+        display: flex;
+        align-items: center
+    }
+
+    #vip-left-wrap .vip-btn {
+        width: 56px;
+        height: 56px;
+        display: grid;
+        place-items: center;
+        background: #000;
+        color: #fff;
+        /* preto no fundo e ícone branco */
+        border-radius: 0 14px 14px 0;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+        text-decoration: none;
+        outline: none
+    }
+
+    #vip-left-wrap .vip-btn svg {
+        width: 30px;
+        height: 30px;
+        display: block
+    }
+
+    #vip-left-wrap .vip-tip {
+        position: absolute;
+        left: 64px;
+        top: 50%;
+        transform: translateY(-50%) translateX(-8px);
+        background: #111;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 12px;
+        padding: 10px 12px;
+        line-height: 1.15;
+        white-space: nowrap;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .22);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .2s ease, opacity .2s ease
+    }
+
+    #vip-left-wrap .vip-tip:before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+        width: 12px;
+        height: 12px;
+        background: #111;
+        border-left: 1px solid rgba(255, 255, 255, .08);
+        border-top: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    #vip-left-wrap .vip-tip b {
+        color: darkgreen;
+    }
+
+    /* destaque agora preto */
+    #vip-left-wrap .vip-core:hover .vip-tip,
+    #vip-left-wrap.is-open .vip-tip {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+        pointer-events: auto
+    }
+
+    #vip-left-wrap .vip-tip a {
+        color: #fff;
+        text-decoration: none
+    }
+
+    #vip-left-wrap .vip-tip a:hover {
+        opacity: .9
+    }
+
+    #vip-left-wrap .vip-btn:focus-visible {
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, .35), 0 6px 18px rgba(0, 0, 0, .18)
+    }
+
+    /* === Mobile: mantém no meio; só reduz tamanhos === */
+    @media (max-width:768px) {
+        #vip-left-wrap {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+        #vip-left-wrap .vip-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 0 12px 12px 0
+        }
+
+        #vip-left-wrap .vip-btn svg {
+            width: 30px;
+            height: 30px
+        }
+
+        #vip-left-wrap .vip-tip {
+            left: 52px;
+            padding: 8px 10px;
+            font-size: 13px;
+            line-height: 1.2;
+            max-width: 70vw;
+            transform: translateY(-50%) translateX(-6px)
+        }
+
+        #vip-left-wrap .vip-tip:before {
+            left: -5px;
+            width: 10px;
+            height: 10px
+        }
+
+        @media (hover:none) {
+            #vip-left-wrap .vip-core:hover .vip-tip {
+                opacity: 0;
+                transform: translateY(-50%) translateX(-6px)
+            }
+
+            #vip-left-wrap.is-open .vip-tip {
+                opacity: 1;
+                transform: translateY(-50%) translateX(0)
+            }
+        }
+    }
+</style>
+<script>
+(function(){
+  var link = "https://www.nitidomodaevangelica.com/grupo-vip";
+
+  /* Novo ícone: adaptado para stroke=currentColor (herda branco do botão) */
+  var svg =
+  '<svg viewBox="0 0 682.66669 682.66669" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+
+    '<g transform="matrix(1.3333333,0,0,-1.3333333,0,682.66667)">'+
+      '<g clip-path="url(#c)">'+
+        '<g transform="translate(316.249,118.2783)"><path d="M 0,0 V 110.5 H 30.126 C 46.763,110.5 60.25,97.013 60.25,80.375 60.25,63.738 46.763,50.25 30.126,50.25 H 0" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="square" stroke-linejoin="miter"/></g>'+
+        '<g transform="translate(255.9995,228.7832)"><path d="M 0,0 V -110.505" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="square" stroke-linejoin="miter"/></g>'+
+        '<g transform="translate(197.7495,222.7832)"><path d="m 0,0 -30.125,-104.505 h -2 L -62.25,0" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="square" stroke-linejoin="miter"/></g>'+
+        '<g transform="translate(256,391.4058)"><path d="M 0,0 -24.125,-36.716 -60.25,-14 l 10,-88.375 H 50.25 L 60.25,-14 24.125,-36.716 Z" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="butt" stroke-linejoin="miter"/></g>'+
+        '<g transform="translate(494.9961,256)"><path d="m 0,0 -23.229,-42.933 5.091,-48.552 -37.947,-30.717 -13.916,-46.794 -46.794,-13.915 -30.717,-37.947 -48.551,5.091 -42.933,-23.229 -42.933,23.229 -48.552,-5.091 -30.717,37.947 -46.794,13.916 -13.915,46.794 -37.947,30.717 5.091,48.552 -23.229,42.932 23.229,42.933 -5.091,48.552 37.947,30.717 13.916,46.794 46.794,13.915 30.717,37.947 48.552,-5.091 42.932,23.229 42.933,-23.229 48.551,5.091 30.718,-37.947 46.794,-13.916 13.915,-46.794 37.947,-30.717 -5.091,-48.552 z" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="butt" stroke-linejoin="miter"/></g>'+
+      '</g>'+
+      '<defs><clipPath id="c"><path d="M 0,512 H 512 V 0 H 0 Z"/></clipPath></defs>'+
+    '</g>'+
+  '</svg>';
+
+  var wrap = document.createElement('div');
+  wrap.id = 'vip-left-wrap';
+  wrap.innerHTML =
+    '<div class="vip-core">'+
+      '<a class="vip-btn" href="'+link+'" target="_blank" rel="noopener" aria-label="Entrar no Grupo VIP">'+
+        svg+
+      '</a>'+
+      '<div class="vip-tip" role="dialog" aria-live="polite">'+
+        '<a href="'+link+'" target="_blank" rel="noopener">Entre no <b>Grupo VIP</b> no WhatsApp</a>'+
+      '</div>'+
+    '</div>';
+
+  document.body.appendChild(wrap);
+
+  // Abre automaticamente por 5s ao carregar
+  var AUTO_MS = 5000;
+  wrap.classList.add('is-open');
+  setTimeout(function(){ wrap.classList.remove('is-open'); }, AUTO_MS);
+
+  var core = wrap.querySelector('.vip-core');
+
+  // Toque: alterna abrir/fechar tooltip sem impedir clique no link
+  core.addEventListener('click', function(e){
+    if(!e.target.closest('a[href]')){
+      wrap.classList.toggle('is-open');
+      e.preventDefault();
+    }
+  });
+
+  // Fecha ao clicar fora
+  document.addEventListener('click', function(e){
+    if(!wrap.contains(e.target)) wrap.classList.remove('is-open');
+  });
+
+  // Fecha ao rolar
+  window.addEventListener('scroll', function(){
+    if(wrap.classList.contains('is-open')) wrap.classList.remove('is-open');
+  });
+})();
+</script>

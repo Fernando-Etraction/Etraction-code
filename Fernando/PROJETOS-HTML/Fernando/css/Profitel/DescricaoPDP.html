@@ -1,0 +1,1308 @@
+<style type="text/css">
+    :root {
+        --primary: #1a1a1a;
+        --secondary: #4a4a4a;
+        --accent: #d4af37;
+        --bg-light: #fafafa;
+        --bg-white: #ffffff;
+        --border: #e0e0e0;
+        --text-dark: #2d2d2d;
+        --text-medium: #666;
+        --text-light: #999;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
+
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        color: var(--text-dark);
+        background: var(--bg-white);
+        line-height: 1.6
+    }
+
+    .ptor-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px
+    }
+
+    /* HERO */
+    .ptor-hero {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 80px 0 60px;
+        text-align: center;
+        border-bottom: 4px solid var(--accent)
+    }
+
+    .ptor-hero .ptor-title-profitel {
+        font-size: 3rem !important;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 24px;
+        line-height: 1.2;
+        letter-spacing: -.5px
+    }
+
+    .ptor-hero .ptor-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-medium);
+        max-width: 900px;
+        margin: 0 auto;
+        line-height: 1.8
+    }
+
+    .ptor-hero .ptor-subtitle strong {
+        color: var(--primary);
+        font-weight: 700
+    }
+
+    /* SEÇÕES */
+    .ptor-section {
+        padding: 80px 0
+    }
+
+    .ptor-section-header {
+        text-align: center;
+        margin-bottom: 56px
+    }
+
+    .ptor-section-header .ptor-section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 16px;
+        position: relative;
+        display: inline-block
+    }
+
+    .ptor-section-header .ptor-section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 2px
+    }
+
+    .ptor-section-header p {
+        font-size: 1.15rem;
+        color: var(--text-medium);
+        margin-top: 24px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto
+    }
+
+    .ptor-section:nth-child(odd) {
+        background: var(--bg-white)
+    }
+
+    .ptor-section:nth-child(even) {
+        background: var(--bg-light)
+    }
+
+    /* CARROSSEL */
+    .ptor-carousel-wrapper {
+        background: var(--bg-white);
+        padding: 40px 0;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+        overflow: hidden;
+        position: relative
+    }
+
+    .ptor-carousel-track {
+        display: flex;
+        gap: 0;
+        animation: scroll 40s linear infinite;
+        width: fit-content
+    }
+
+    .ptor-carousel-item {
+        flex-shrink: 0;
+        width: 180px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px
+    }
+
+    .ptor-carousel-icon {
+        width: 64px;
+        height: 64px;
+        color: var(--primary);
+        background: var(--bg-light);
+        border-radius: 50%;
+        padding: 14px
+    }
+
+    .ptor-carousel-text {
+        font-size: .9rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: .5px
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0)
+        }
+
+        100% {
+            transform: translateX(calc(-180px * 6))
+        }
+    }
+
+    .ptor-carousel-wrapper:hover .ptor-carousel-track {
+        animation-play-state: paused
+    }
+
+    /* ESPECIFICAÇÕES */
+    .ptor-specs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center
+    }
+
+    .ptor-specs-list {
+        background: var(--bg-white);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .08)
+    }
+
+    .ptor-specs-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 3px solid var(--accent)
+    }
+
+    .ptor-spec-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 2px solid var(--border);
+        transition: all .3s ease
+    }
+
+    .ptor-spec-row:hover {
+        background: var(--bg-light);
+        padding-left: 12px;
+        margin-left: -12px;
+        margin-right: -12px;
+        padding-right: 12px
+    }
+
+    .ptor-spec-row:last-child {
+        border-bottom: none
+    }
+
+    .ptor-spec-label {
+        font-size: 1.05rem;
+        color: var(--text-medium);
+        display: flex;
+        align-items: center;
+        gap: 12px
+    }
+
+    .ptor-spec-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary)
+    }
+
+    .ptor-specs-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .12)
+    }
+
+    .ptor-specs-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform .5s ease
+    }
+
+    .ptor-specs-image:hover img {
+        transform: scale(1.05)
+    }
+
+    /* TORONTO SECTION */
+    .ptor-toronto-section {
+        background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        padding: 100px 0;
+        position: relative;
+        overflow: hidden
+    }
+
+    .ptor-toronto-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--accent) 0%, #f4d03f 100%)
+    }
+
+    .ptor-toronto-header {
+        text-align: center;
+        margin-bottom: 60px
+    }
+
+    .ptor-toronto-title {
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--bg-white);
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px
+    }
+
+    .ptor-toronto-header p {
+        font-size: 1.2rem;
+        color: #ccc;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.9
+    }
+
+    .ptor-toronto-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto
+    }
+
+    .ptor-toronto-card {
+        background: var(--bg-white);
+        border-radius: 24px;
+        padding: 48px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+        position: relative;
+        overflow: hidden
+    }
+
+    .ptor-toronto-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: var(--accent)
+    }
+
+    .ptor-card-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 28px;
+        display: flex;
+        align-items: center;
+        gap: 12px
+    }
+
+    .ptor-kit-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 40px
+    }
+
+    .ptor-kit-item {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 24px;
+        border-radius: 16px;
+        border: 2px solid var(--border);
+        transition: all .3s ease
+    }
+
+    .ptor-kit-item:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(212, 175, 55, .2)
+    }
+
+    .ptor-kit-item strong {
+        display: block;
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-bottom: 8px;
+        font-weight: 700
+    }
+
+    .ptor-kit-item span {
+        font-size: .95rem;
+        color: var(--text-medium);
+        line-height: 1.6
+    }
+
+    .ptor-chips-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 32px
+    }
+
+    .ptor-chip {
+        background: var(--primary);
+        color: var(--bg-white);
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: .95rem;
+        font-weight: 700;
+        transition: all .3s ease;
+        cursor: default
+    }
+
+    .ptor-chip:hover {
+        background: var(--accent);
+        color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, .4)
+    }
+
+    .ptor-textile-info {
+        background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+        padding: 24px;
+        border-radius: 16px;
+        border: 3px solid var(--accent);
+        text-align: center;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--primary)
+    }
+
+    .ptor-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 32px
+    }
+
+    .ptor-meta-box {
+        background: var(--bg-light);
+        padding: 28px 20px;
+        border-radius: 16px;
+        text-align: center;
+        border: 2px solid var(--border);
+        transition: all .3s ease
+    }
+
+    .ptor-meta-box:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px)
+    }
+
+    .ptor-meta-label {
+        font-size: .9rem;
+        color: var(--text-medium);
+        display: block;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600
+    }
+
+    .ptor-meta-value {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--primary)
+    }
+
+    .ptor-category-box {
+        grid-column: 1/-1;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)
+    }
+
+    .ptor-cta-button {
+        display: block;
+        width: 100%;
+        background: linear-gradient(135deg, var(--primary) 0%, #000 100%);
+        color: var(--bg-white);
+        padding: 20px 40px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-align: center;
+        transition: all .3s ease;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+        text-transform: uppercase;
+        letter-spacing: 1px
+    }
+
+    .ptor-cta-button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, .4);
+        background: linear-gradient(135deg, var(--accent) 0%, #f4d03f 100%);
+        color: var(--primary)
+    }
+
+    .ptor-note-text {
+        margin-top: 20px;
+        font-size: .9rem;
+        color: var(--text-light);
+        text-align: center;
+        font-style: italic
+    }
+
+    /* FICHA TÉCNICA */
+    .ptor-techsheet-box {
+        background: var(--bg-light);
+        padding: 48px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .08)
+    }
+
+    .ptor-techsheet-box img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, .15)
+    }
+
+    /* CUIDADOS */
+    .ptor-usage-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 48px;
+        align-items: center
+    }
+
+    .ptor-usage-list {
+        background: var(--bg-white);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .08)
+    }
+
+    .ptor-usage-list ul {
+        list-style: none;
+        padding: 0
+    }
+
+    .ptor-usage-list li {
+        padding: 16px 0 16px 48px;
+        font-size: 1.1rem;
+        color: var(--text-medium);
+        position: relative;
+        border-bottom: 2px solid var(--border)
+    }
+
+    .ptor-usage-list li:last-child {
+        border-bottom: none
+    }
+
+    .ptor-usage-list li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        top: 16px;
+        width: 32px;
+        height: 32px;
+        background: var(--accent);
+        color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 1.2rem
+    }
+
+    .ptor-usage-image {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .12)
+    }
+
+    .ptor-usage-image img {
+        width: 100%;
+        height: auto;
+        display: block
+    }
+
+    /* FAQ */
+    .ptor-faq-container {
+        max-width: 900px;
+        margin: 0 auto
+    }
+
+    .ptor-faq-item {
+        background: var(--bg-white);
+        padding: 32px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
+        border-left: 5px solid var(--accent);
+        transition: all .3s ease
+    }
+
+    .ptor-faq-item:hover {
+        transform: translateX(8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .12)
+    }
+
+    .ptor-faq-question {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 12px
+    }
+
+    .ptor-faq-answer {
+        font-size: 1.05rem;
+        color: var(--text-medium);
+        line-height: 1.8
+    }
+
+    /* CTA FINAL */
+    .ptor-final-cta {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        padding: 80px 0;
+        text-align: center;
+        color: var(--bg-white)
+    }
+
+    .ptor-final-cta-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        color: var(--bg-white)
+    }
+
+    .ptor-final-cta p {
+        font-size: 1.2rem;
+        color: #ccc;
+        max-width: 700px;
+        margin: 0 auto 32px;
+        line-height: 1.8
+    }
+
+    .ptor-final-cta .ptor-cta-button {
+        max-width: 400px;
+        margin: 0 auto
+    }
+
+    /* SOBRE */
+    .ptor-about-section {
+        background: var(--bg-light);
+        padding: 80px 0;
+        text-align: center
+    }
+
+    .ptor-about-content {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--bg-white);
+        padding: 48px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .08)
+    }
+
+    .ptor-about-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        margin-bottom: 28px
+    }
+
+    .ptor-about-content p {
+        font-size: 1.15rem;
+        color: var(--text-medium);
+        line-height: 1.9
+    }
+
+    .ptor-about-content strong {
+        color: var(--primary);
+        font-weight: 700
+    }
+
+    /* RESPONSIVO */
+    @media(max-width:1024px) {
+
+        .ptor-specs-grid,
+        .ptor-usage-grid,
+        .ptor-toronto-grid {
+            grid-template-columns: 1fr
+        }
+
+        .ptor-section-header .ptor-section-title {
+            font-size: 2rem
+        }
+
+        .ptor-toronto-title {
+            font-size: 2.5rem
+        }
+    }
+
+    @media(max-width:768px) {
+        .ptor-hero {
+            padding: 48px 0 36px
+        }
+
+        .ptor-title-profitel {
+            font-size: 2rem !important;
+            margin-bottom: 20px;
+            line-height: 1.3
+        }
+
+        .ptor-hero .ptor-subtitle {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            padding: 0 8px
+        }
+
+        .ptor-section {
+            padding: 48px 0
+        }
+
+        .ptor-section-header {
+            margin-bottom: 40px
+        }
+
+        .ptor-section-title {
+            font-size: 1.75rem;
+            margin-bottom: 12px
+        }
+
+        .ptor-section-title::after {
+            width: 60px;
+            height: 3px;
+            bottom: -10px
+        }
+
+        .ptor-section-header p {
+            font-size: 1rem;
+            margin-top: 20px;
+            padding: 0 8px
+        }
+
+        .ptor-carousel-wrapper {
+            padding: 32px 0;
+            border-radius: 16px;
+            margin: 0 -12px
+        }
+
+        .ptor-carousel-item {
+            width: 140px;
+            padding: 20px 16px;
+            gap: 10px
+        }
+
+        .ptor-carousel-icon {
+            width: 56px;
+            height: 56px;
+            padding: 12px
+        }
+
+        .ptor-carousel-text {
+            font-size: .8rem;
+            letter-spacing: .3px
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(calc(-140px * 6))
+            }
+        }
+
+        .ptor-specs-list {
+            padding: 28px 20px;
+            border-radius: 16px
+        }
+
+        .ptor-specs-title {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px
+        }
+
+        .ptor-spec-row {
+            padding: 16px 0;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px
+        }
+
+        .ptor-spec-label {
+            font-size: .95rem
+        }
+
+        .ptor-spec-value {
+            font-size: 1.05rem;
+            font-weight: 800
+        }
+
+        .ptor-specs-image {
+            border-radius: 16px;
+            margin-top: 24px
+        }
+
+        .ptor-toronto-section {
+            padding: 60px 0
+        }
+
+        .ptor-toronto-header {
+            margin-bottom: 40px
+        }
+
+        .ptor-toronto-title {
+            font-size: 1.85rem;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            letter-spacing: .5px
+        }
+
+        .ptor-toronto-header p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            padding: 0 8px
+        }
+
+        .ptor-toronto-card {
+            padding: 28px 20px;
+            border-radius: 20px;
+            margin-bottom: 24px
+        }
+
+        .ptor-card-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            flex-wrap: wrap
+        }
+
+        .ptor-kit-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 32px
+        }
+
+        .ptor-kit-item {
+            padding: 20px;
+            border-radius: 12px
+        }
+
+        .ptor-kit-item strong {
+            font-size: 1.15rem
+        }
+
+        .ptor-kit-item span {
+            font-size: .9rem
+        }
+
+        .ptor-chips-container {
+            gap: 10px;
+            margin-bottom: 28px
+        }
+
+        .ptor-chip {
+            padding: 10px 20px;
+            font-size: .85rem
+        }
+
+        .ptor-textile-info {
+            padding: 20px;
+            font-size: 1.05rem;
+            border-radius: 12px
+        }
+
+        .ptor-meta-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 28px
+        }
+
+        .ptor-meta-box {
+            padding: 20px 16px;
+            border-radius: 12px
+        }
+
+        .ptor-meta-label {
+            font-size: .8rem;
+            margin-bottom: 6px
+        }
+
+        .ptor-meta-value {
+            font-size: 1.1rem;
+            line-height: 1.3
+        }
+
+        .ptor-category-box {
+            grid-column: 1/-1
+        }
+
+        .ptor-cta-button {
+            padding: 18px 32px;
+            font-size: 1.05rem;
+            border-radius: 10px
+        }
+
+        .ptor-note-text {
+            margin-top: 16px;
+            font-size: .85rem
+        }
+
+        .ptor-techsheet-box {
+            padding: 28px 20px;
+            border-radius: 16px
+        }
+
+        .ptor-usage-list {
+            padding: 28px 20px;
+            border-radius: 16px
+        }
+
+        .ptor-usage-list li {
+            padding: 14px 0 14px 44px;
+            font-size: 1rem
+        }
+
+        .ptor-usage-list li::before {
+            width: 28px;
+            height: 28px;
+            top: 14px;
+            font-size: 1.1rem
+        }
+
+        .ptor-usage-image {
+            border-radius: 16px;
+            margin-top: 24px
+        }
+
+        .ptor-faq-item {
+            padding: 24px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border-left-width: 4px
+        }
+
+        .ptor-faq-question {
+            font-size: 1.1rem;
+            margin-bottom: 10px
+        }
+
+        .ptor-faq-answer {
+            font-size: .95rem;
+            line-height: 1.7
+        }
+
+        .ptor-final-cta {
+            padding: 60px 0
+        }
+
+        .ptor-final-cta-title {
+            font-size: 1.85rem;
+            line-height: 1.3;
+            margin-bottom: 16px
+        }
+
+        .ptor-final-cta p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            padding: 0 8px
+        }
+
+        .ptor-about-section {
+            padding: 60px 0
+        }
+
+        .ptor-about-content {
+            padding: 32px 24px;
+            border-radius: 16px
+        }
+
+        .ptor-about-title {
+            font-size: 1.85rem;
+            margin-bottom: 20px
+        }
+
+        .ptor-about-content p {
+            font-size: 1rem;
+            line-height: 1.8
+        }
+
+        .ptor-container {
+            padding: 0 16px
+        }
+    }
+
+    @media(min-width:769px) and (max-width:1024px) {
+        .ptor-title-profitel {
+            font-size: 2.5rem !important
+        }
+
+        .ptor-hero .ptor-subtitle {
+            font-size: 1.15rem
+        }
+
+        .ptor-section-title {
+            font-size: 2.2rem
+        }
+
+        .ptor-toronto-title {
+            font-size: 2.75rem
+        }
+
+        .ptor-toronto-card {
+            padding: 40px 32px
+        }
+
+        .ptor-kit-grid {
+            grid-template-columns: 1fr 1fr
+        }
+
+        .ptor-meta-grid {
+            grid-template-columns: repeat(3, 1fr)
+        }
+    }
+</style>
+<!-- HERO -->
+<section class="ptor-hero">
+    <div class="ptor-container">
+        <div class="ptor-title-profitel">Jogo de Banho de Hotel 5 peças<br />
+            Toronto (TEKA Profiline)</div>
+
+        <p class="ptor-subtitle">Maciez, alta absorção e durabilidade para uso profissional. O Jogo de Banho Toronto
+            reúne toalhas de <strong>500 g/m²</strong> (banho/rosto), em <strong>90% algodão</strong> e <strong>10%
+                poliéster</strong>, com <strong>costuras duplas nas bainhas</strong> e resistência à <strong>lavagem
+                industrial</strong> — ideal para hotéis e pousadas.</p>
+    </div>
+</section>
+<!-- DIFERENCIAIS -->
+
+<section class="ptor-section">
+    <div class="ptor-container">
+        <div class="ptor-section-header">
+            <div class="ptor-section-title">Diferenciais</div>
+
+            <p>Conjunto ideal para hotelaria: desempenho, padronização e durabilidade</p>
+        </div>
+
+        <div class="ptor-carousel-wrapper">
+            <div class="ptor-carousel-track">
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M12 12v7a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3v-2.5a2.5 2.5 0 0 0-5 0V19"></path>
+                    </svg> <span class="ptor-carousel-text">Toque<br />
+                        Macio</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M3 7h18M3 15h18"></path>
+                    </svg> <span class="ptor-carousel-text">Costuras<br />
+                        Duplas</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <rect height="18" rx="2" width="18" x="3" y="3"></rect>
+                        <circle cx="12" cy="12" r="5"></circle>
+                    </svg> <span class="ptor-carousel-text">Lavagem<br />
+                        Industrial</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 3a9 9 0 0 1 9 9h-9V3Z"></path>
+                    </svg> <span class="ptor-carousel-text">90% Algodão<br />
+                        10% Poliéster</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <rect height="3" rx="1.5" width="16" x="4" y="16"></rect>
+                        <rect height="3" rx="1.5" width="14" x="5" y="12"></rect>
+                    </svg> <span class="ptor-carousel-text">Kit Completo<br />
+                        5 Peças</span></div>
+                <!-- Duplicados para loop contínuo -->
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M12 3s6 6 6 10a6 6 0 1 1-12 0c0-4 6-10 6-10Z"></path>
+                    </svg> <span class="ptor-carousel-text">Alta absorção<br />
+                        500 g/m²</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M12 12v7a3 3 0 0 0 3 3h1a3 3 0 0 0 3-3v-2.5a2.5 2.5 0 0 0-5 0V19"></path>
+                    </svg> <span class="ptor-carousel-text">Toque<br />
+                        Macio</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <path d="M3 7h18M3 15h18"></path>
+                    </svg> <span class="ptor-carousel-text">Costuras<br />
+                        Duplas</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <rect height="18" rx="2" width="18" x="3" y="3"></rect>
+                        <circle cx="12" cy="12" r="5"></circle>
+                    </svg> <span class="ptor-carousel-text">Lavagem<br />
+                        Industrial</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M12 3a9 9 0 0 1 9 9h-9V3Z"></path>
+                    </svg> <span class="ptor-carousel-text">90% Algodão<br />
+                        10% Poliéster</span></div>
+
+                <div class="ptor-carousel-item"><svg class="ptor-carousel-icon" fill="none" stroke="currentColor"
+                        stroke-width="2" viewbox="0 0 24 24">
+                        <rect height="3" rx="1.5" width="16" x="4" y="16"></rect>
+                        <rect height="3" rx="1.5" width="14" x="5" y="12"></rect>
+                    </svg> <span class="ptor-carousel-text">Kit Completo<br />
+                        5 Peças</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ESPECIFICAÇÕES -->
+
+<section class="ptor-section">
+    <div class="ptor-container">
+        <div class="ptor-section-header">
+            <div class="ptor-section-title">Especificações</div>
+
+            <p>Dados técnicos completos do conjunto de 5 peças</p>
+        </div>
+
+        <div class="ptor-specs-grid">
+            <div class="ptor-specs-list">
+                <div class="ptor-specs-title">Dados do conjunto</div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Marca</span><span class="ptor-spec-value">TEKA
+                        Profiline (Linha Toronto)</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Composição</span><span
+                        class="ptor-spec-value">90% Algodão / 10% Poliéster</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Gramatura</span><span
+                        class="ptor-spec-value">500 g/m² (banho/rosto)</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Banho (2x)</span><span
+                        class="ptor-spec-value">75 × 150 cm — 500 g/m²</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Rosto (2x)</span><span
+                        class="ptor-spec-value">48 × 85 cm — 500 g/m²</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Piso (1x)</span><span
+                        class="ptor-spec-value">48 × 80 cm — <strong>700 g/m²</strong></span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Cor</span><span
+                        class="ptor-spec-value">Branco</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">SKU</span><span
+                        class="ptor-spec-value">823280000000300</span></div>
+
+                <div class="ptor-spec-row"><span class="ptor-spec-label">Peso total</span><span
+                        class="ptor-spec-value">≈ 1,900 kg</span></div>
+            </div>
+
+            <div class="ptor-specs-image"><img alt="Jogo de Banho Toronto"
+                    src="https://cdn.awsli.com.br/2536/2536086/arquivos/toronto-banho.jpg" /></div>
+        </div>
+    </div>
+</section>
+<!-- CONTEÚDO DO KIT -->
+
+<section class="ptor-toronto-section">
+    <div class="ptor-container">
+        <div class="ptor-toronto-header">
+            <div class="ptor-toronto-title">Conteúdo do Kit e Diferenciais</div>
+
+            <p>Kit completo para hospedagem com gramatura profissional, costuras reforçadas e resistência à lavagem
+                industrial</p>
+        </div>
+
+        <div class="ptor-toronto-grid">
+            <div class="ptor-toronto-card">
+                <div class="ptor-card-title">📦 Composição do Kit (5 peças)</div>
+
+                <div class="ptor-kit-grid">
+                    <div class="ptor-kit-item"><strong>Banho (2x)</strong><span>Tamanho: 75 × 150 cm<br />
+                            Gramatura: 500 g/m²</span></div>
+
+                    <div class="ptor-kit-item"><strong>Rosto (2x)</strong><span>Tamanho: 48 × 85 cm<br />
+                            Gramatura: 500 g/m²</span></div>
+
+                    <div class="ptor-kit-item"><strong>Piso (1x)</strong><span>Tamanho: 48 × 80 cm<br />
+                            Gramatura: <strong>700 g/m²</strong></span></div>
+
+                    <div class="ptor-kit-item"><strong>Cor</strong><span>Branco</span></div>
+                </div>
+
+                <div class="ptor-card-title">⭐ Diferenciais do Conjunto</div>
+
+                <div class="ptor-chips-container"><span class="ptor-chip">Alta absorção (500 g/m²)</span> <span
+                        class="ptor-chip">Toque macio</span> <span class="ptor-chip">Costuras duplas</span> <span
+                        class="ptor-chip">Lavagem industrial</span> <span class="ptor-chip">Produto profissional</span>
+                </div>
+
+                <div class="ptor-card-title">🧵 Composição Têxtil</div>
+
+                <div class="ptor-textile-info">90% Algodão • 10% Poliéster</div>
+            </div>
+
+            <div class="ptor-toronto-card">
+                <div class="ptor-card-title">📋 Ficha Técnica</div>
+
+                <div class="ptor-meta-grid">
+                    <div class="ptor-meta-box"><span class="ptor-meta-label">Marca</span><span
+                            class="ptor-meta-value">TEKA<br />
+                            Profiline</span></div>
+
+                    <div class="ptor-meta-box"><span class="ptor-meta-label">SKU</span><span
+                            class="ptor-meta-value">823280<br />
+                            000000300</span></div>
+
+                    <div class="ptor-meta-box"><span class="ptor-meta-label">Peso</span><span class="ptor-meta-value">≈
+                            1,900<br />
+                            kg</span></div>
+
+                    <div class="ptor-meta-box ptor-category-box"><span class="ptor-meta-label">Categoria</span><span
+                            class="ptor-meta-value">Jogo de Banho (5 peças)</span></div>
+                </div>
+                <a class="ptor-cta-button"
+                    href="https://www.profitel.com.br/jogo-de-banho-de-hotel-5-pecas-toronto-teka-profiline"
+                    rel="noopener" target="_blank">🛒 Ver Produto Completo</a>
+
+                <div class="ptor-note-text">Medidas e peso aproximados; ajuste conforme sua operação de lavanderia.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FICHA TÉCNICA VISUAL -->
+
+<section class="ptor-section">
+    <div class="ptor-container">
+        <div class="ptor-section-header">
+            <div class="ptor-section-title">Ficha Técnica (Visual)</div>
+
+            <p>Material técnico para repasse interno e padronização do enxoval</p>
+        </div>
+
+        <div class="ptor-techsheet-box"> </div>
+    </div>
+</section>
+<!-- CUIDADOS -->
+
+<section class="ptor-section">
+    <div class="ptor-container">
+        <div class="ptor-section-header">
+            <div class="ptor-section-title">Cuidados e Boas Práticas</div>
+
+            <p>Orientações para manter a qualidade e durabilidade do produto</p>
+        </div>
+
+        <div class="ptor-usage-grid">
+            <div class="ptor-usage-list">
+                <ul>
+                    <li>Lavar separadamente na primeira lavagem</li>
+                    <li>Evitar amaciantes em excesso (reduzem a absorção)</li>
+                    <li>Secar à sombra ou em baixa temperatura</li>
+                    <li>Em lavanderia, seguir protocolo técnico (dosagem/pH)</li>
+                    <li>Usar alvejante clorado somente quando indicado pela linha profissional</li>
+                </ul>
+            </div>
+
+            <div class="ptor-usage-image"><img alt="Cuidados com as toalhas"
+                    src="https://cdn.awsli.com.br/2536/2536086/arquivos/jogo-de-banho-toronto-teka-ambientada.jpg" />
+            </div>
+        </div>
+    </div>
+</section>
+<!-- FAQ -->
+
+<section class="ptor-section">
+    <div class="ptor-container">
+        <div class="ptor-section-header">
+            <div class="ptor-section-title">Perguntas Frequentes</div>
+
+            <p>Tire suas dúvidas sobre o Jogo de Banho Toronto</p>
+        </div>
+
+        <div class="ptor-faq-container">
+            <div class="ptor-faq-item">
+                <div class="ptor-faq-question">As toalhas encolhem?</div>
+
+                <div class="ptor-faq-answer">Um leve encolhimento pode ocorrer nas primeiras lavagens. Siga os cuidados
+                    indicados para estabilidade dimensional.</div>
+            </div>
+
+            <div class="ptor-faq-item">
+                <div class="ptor-faq-question">Posso usar alvejante?</div>
+
+                <div class="ptor-faq-answer">A linha profissional indica solidez; o uso de cloro deve ser técnico e
+                    controlado. Em casa, prefira agentes oxigenados.</div>
+            </div>
+
+            <div class="ptor-faq-item">
+                <div class="ptor-faq-question">Serve para uso intenso (hotel/pousada)?</div>
+
+                <div class="ptor-faq-answer">Sim. Foi desenvolvido para rotinas de hospedagem, com costuras duplas e
+                    gramatura de 500 g/m².</div>
+            </div>
+
+            <div class="ptor-faq-item">
+                <div class="ptor-faq-question">O toque é macio?</div>
+
+                <div class="ptor-faq-answer">Sim, a composição 90% algodão proporciona maciez com boa resistência.</div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- CTA FINAL -->
+
+<section class="ptor-final-cta">
+    <div class="ptor-container">
+        <div class="ptor-final-cta-title">Linha Toronto: Qualidade Profissional no Dia a Dia</div>
+
+        <p>Equipe seu enxoval com um kit completo, pronto para alto giro e reposição rápida, mantendo padrão e conforto
+            para os hóspedes.</p>
+        <a class="ptor-cta-button"
+            href="https://www.profitel.com.br/jogo-de-banho-de-hotel-5-pecas-toronto-teka-profiline" rel="noopener"
+            target="_blank">Ver Produto Completo</a>
+    </div>
+</section>
+<!-- SOBRE A PROFITEL -->
+
+<section class="ptor-about-section">
+    <div class="ptor-container">
+        <div class="ptor-about-content">
+            <div class="ptor-about-title">Sobre a ProfiTel</div>
+
+            <p>A <strong>ProfiTel</strong> é especializada em enxoval profissional para hotelaria, com curadoria de
+                marcas como a <strong>TEKA Profiline</strong>. Oferecemos soluções de alto desempenho — cama e banho —
+                com foco em durabilidade, padrão de qualidade e reposição ágil para a alta temporada. Atendimento
+                consultivo, condições comerciais flexíveis e suporte do pedido ao pós-venda.</p>
+        </div>
+    </div>
+</section>

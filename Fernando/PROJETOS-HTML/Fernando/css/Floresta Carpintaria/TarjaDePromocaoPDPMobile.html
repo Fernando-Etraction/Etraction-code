@@ -1,0 +1,216 @@
+
+(function () {
+  const DEADLINE = "2025-11-28T23:59:59";
+  const TARGET_SELECTOR = ".product-price-container"; // inserir DEPOIS deste elemento
+  const LOG = (msg, ...a) => console.log("[BF FLORESTA]", msg, ...a);
+
+  // ============================================
+  // CSS
+  // ============================================
+  function injectCSS() {
+    if (document.getElementById("bf-cupons-style")) return;
+
+    const css = `
+:root { --fc: #09AE59; --fc-bg: #EAF9F1; }
+
+.bf-cupons-wrap { display:flex; width:100%; margin-top:12px; }
+.bf-cupons {
+  width:100%;
+  background:var(--fc-bg);
+  color:var(--fc);
+  border:1px solid var(--fc);
+  border-radius:12px;
+  padding:14px 16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.bf-head { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; align-items:center; text-align:center; }
+.bf-ico { display:flex; width:22px; height:22px; border-radius:50%; background:#fff; align-items:center; justify-content:center; border:1px solid #d1d1d1; }
+.bf-title { font-weight:700; font-size:13px; color:#000; text-transform:uppercase; }
+.bf-sub { font-size:12px; color:#333; text-align:center; margin-top:-2px; }
+
+.bf-timer { display:flex; gap:6px; }
+.bf-digit {
+  background:#fff;
+  border:1px solid #cfe7da;
+  padding:6px 6px;
+  border-radius:8px;
+  min-width:32px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  line-height:1.1;
+}
+.bf-digit .val { font-weight:700; }
+.bf-digit .lab { font-size:10px; opacity:.75; color:#09AE59; }
+
+.cupom-info {
+  background:#f8f8f8;
+  border-left:4px solid var(--fc);
+  padding:10px;
+  border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.cupom-info p { margin:0; color:#145b34; font-size:14px; }
+
+.cupom-codigo {
+  background:var(--fc);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:8px;
+  font-weight:600;
+  font-size:13px;
+  cursor:pointer;
+  user-select:none;
+  white-space:nowrap;
+  border:1px solid var(--fc);
+}
+.cupom-codigo:hover { filter:brightness(0.95); }
+.cupom-codigo.copied { background:#4CAF50; border-color:#4CAF50; }
+
+@media (max-width: 480px) {
+  .cupom-info { flex-direction:column; align-items:stretch; }
+  .cupom-codigo { width:100%; text-align:center; }
+}
+`;
+    const st = document.createElement("style");
+    st.id = "bf-cupons-style";
+    st.textContent = css;
+    document.head.appendChild(st);
+  }
+
+  // ============================================
+  // HTML (faixa com timer + cupons, sem modal)
+  // ============================================
+  function createHTML() {
+    const wrap = document.createElement("div");
+    wrap.className = "bf-cupons-wrap";
+    wrap.innerHTML = `
+      <div class="bf-cupons">
+        <div class="bf-head">
+          <span class="bf-ico" aria-hidden="true">⏱</span>
+          <span class="bf-title">BLACK FRIDAY NA FLORESTA CARPINTARIA 🔥</span>
+          <div class="bf-timer js-bf-timer" aria-live="polite"></div>
+        </div>
+        <div class="bf-sub">Aplique o cupom no carrinho para garantir o desconto!</div>
+
+        <p><strong>Cupons:</strong></p>
+
+        <div class="cupom-info">
+          <p>BLACK50 — R$ 50,00 acima de R$ 1.200</p>
+          <div class="cupom-codigo" data-code="BLACK50" role="button" tabindex="0" aria-label="Copiar código BLACK50">Copiar código</div>
+        </div>
+
+        <div class="cupom-info">
+          <p>BLACK100 — R$ 100,00 acima de R$ 2.000</p>
+          <div class="cupom-codigo" data-code="BLACK100" role="button" tabindex="0" aria-label="Copiar código BLACK100">Copiar código</div>
+        </div>
+
+        <div class="cupom-info">
+          <p>BLACK150 — R$ 150,00 acima de R$ 3.000</p>
+          <div class="cupom-codigo" data-code="BLACK150" role="button" tabindex="0" aria-label="Copiar código BLACK150">Copiar código</div>
+        </div>
+      </div>
+    `;
+    return wrap;
+  }
+
+  // ============================================
+  // TIMER
+  // ============================================
+  function initTimer(root) {
+    const el = root.querySelector(".js-bf-timer");
+    if (!el) return;
+    const deadline = new Date(DEADLINE).getTime();
+
+    function render(d, h, m, s) {
+      el.innerHTML = `
+        <div class="bf-digit"><span class="val">${d}</span><span class="lab">dias</span></div>
+        <div class="bf-digit"><span class="val">${h}</span><span class="lab">hrs</span></div>
+        <div class="bf-digit"><span class="val">${m}</span><span class="lab">min</span></div>
+        <div class="bf-digit"><span class="val">${s}</span><span class="lab">seg</span></div>
+      `;
+    }
+
+    function tick() {
+      let dist = deadline - Date.now();
+      if (dist < 0) dist = 0;
+      const d = Math.floor(dist / 86400000);
+      const h = Math.floor((dist % 86400000) / 3600000);
+      const m = Math.floor((dist % 3600000) / 60000);
+      const s = Math.floor((dist % 60000) / 1000);
+      render(d, h, m, s);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // ============================================
+  // COPY CODES
+  // ============================================
+  function initCopy(root) {
+    root.querySelectorAll(".cupom-codigo").forEach(btn => {
+      function copy() {
+        const code = btn.dataset.code;
+        navigator.clipboard.writeText(code).then(() => {
+          const original = btn.textContent;
+          btn.textContent = "Copiado!";
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = original;
+            btn.classList.remove("copied");
+          }, 2000);
+        }).catch(err => LOG("Erro ao copiar:", err));
+      }
+      btn.addEventListener("click", copy);
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          copy();
+        }
+      });
+    });
+  }
+
+  // ============================================
+  // INSERT (DEPOIS de .product-price-container)
+  // ============================================
+  function insert() {
+    const target = document.querySelector(TARGET_SELECTOR);
+    const box = createHTML();
+
+    if (target) {
+      target.insertAdjacentElement("afterend", box);
+      LOG("Faixa de cupons inserida após", TARGET_SELECTOR);
+    } else {
+      LOG(`Elemento alvo não encontrado: ${TARGET_SELECTOR}. Inserindo no final do <body> como fallback.`);
+      document.body.appendChild(box);
+    }
+
+    initTimer(box);
+    initCopy(box);
+  }
+
+  // ============================================
+  // START
+  // ============================================
+  function start() {
+    injectCSS();
+    insert();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+

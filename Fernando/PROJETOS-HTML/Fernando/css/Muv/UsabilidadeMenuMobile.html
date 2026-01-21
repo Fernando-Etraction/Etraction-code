@@ -1,0 +1,96 @@
+<style>
+/* Faz o LI virar referência */
+.menu-mobile-box li.has-children {
+  position: relative !important;
+}
+
+/* O botão vira uma camada invisível clicável no item inteiro */
+.menu-mobile-box li.has-children > button {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  z-index: 50 !important;
+}
+
+/* O link fica abaixo do botão (mas ainda visível) */
+.menu-mobile-box li.has-children > a {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* SVG não rouba clique */
+.menu-mobile-box svg,
+.menu-mobile-box svg * {
+  pointer-events: none !important;
+}
+
+</style>
+<script>
+(function () {
+  function getSubmenuByLink(link) {
+    var id = link.getAttribute('aria-controls');
+    if (!id) return null;
+    return document.getElementById(id) || link.parentElement.querySelector('#' + id);
+  }
+
+  function toggleSubmenu(link, submenu) {
+    // Magazord costuma usar "hidden" + classes de animação
+    var isHidden = submenu.hasAttribute('hidden') || submenu.classList.contains('hidden');
+    var willOpen = isHidden;
+
+    // aria
+    link.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+
+    if (willOpen) {
+      submenu.removeAttribute('hidden');
+      submenu.classList.remove('hidden');
+      submenu.classList.remove('animate-slideOutRight');
+      submenu.classList.add('animate-slideInRight');
+    } else {
+      submenu.classList.remove('animate-slideInRight');
+      submenu.classList.add('animate-slideOutRight');
+
+      // espera a animação e esconde
+      window.clearTimeout(submenu.__mzHideTimer);
+      submenu.__mzHideTimer = window.setTimeout(function () {
+        submenu.setAttribute('hidden', '');
+        submenu.classList.add('hidden');
+      }, 300);
+    }
+  }
+
+  // CAPTURE: roda antes do JS do tema (muito importante na Magazord)
+  document.addEventListener('click', function (e) {
+    // só quando clicar no LINK do item que tem submenu
+    var link = e.target.closest('.menu-mobile-box a[aria-controls]');
+    if (!link) return;
+
+    // se clicou dentro do próprio submenu, não intercepta (deixa navegar)
+    if (e.target.closest('ul[id^="submenu-"]')) return;
+
+    var submenu = getSubmenuByLink(link);
+    if (!submenu) return;
+
+    // impede navegar e corta handlers do tema
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+
+    // Se existir o botão de toggle ao lado, dispara ele (mantém comportamento nativo)
+    var li = link.closest('li');
+    var btn = li ? li.querySelector(':scope > button') : null;
+
+    if (btn) {
+      btn.click();
+      return;
+    }
+
+    // fallback: alterna direto (caso não tenha button)
+    toggleSubmenu(link, submenu);
+
+  }, true);
+})();
+</script>
+

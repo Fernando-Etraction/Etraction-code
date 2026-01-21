@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupom Natal - Bolsas Especiais</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #0a1628, #1a2332, #0f1923);
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Estrelas brilhantes */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Neve caindo */
+        .snowflake {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            opacity: 0.8;
+            animation: snowfall linear infinite;
+            user-select: none;
+        }
+
+        @keyframes snowfall {
+            0% {
+                top: -10%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                top: 110%;
+                opacity: 0;
+            }
+        }
+
+        /* Árvores decorativas */
+        .christmas-tree {
+            position: absolute;
+            font-size: 80px;
+            opacity: 0.1;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: rotate(-2deg);
+            }
+
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .tree-left {
+            bottom: -20px;
+            left: 20px;
+        }
+
+        .tree-right {
+            bottom: -20px;
+            right: 20px;
+            animation-delay: 2s;
+        }
+
+        .coupon-container {
+            position: relative;
+            width: 550px;
+            max-width: 95%;
+            z-index: 10;
+        }
+
+        .coupon-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(194, 24, 24, 0.2);
+            transition: transform 0.3s ease;
+            border: 3px solid rgba(194, 24, 24, 0.2);
+        }
+
+        .coupon-card:hover {
+            transform: scale(1.02);
+            box-shadow:
+                0 35px 90px rgba(0, 0, 0, 0.6),
+                0 0 80px rgba(194, 24, 24, 0.3);
+        }
+
+        /* Header natalino */
+        .coupon-header {
+            background: linear-gradient(135deg, #c21818 0%, #e03131 50%, #c21818 100%);
+            padding: 25px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .light {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 0 5px;
+            animation: blink 1.5s infinite;
+        }
+
+        .light:nth-child(odd) {
+            background: #ffd700;
+            animation-delay: 0s;
+        }
+
+        .light:nth-child(even) {
+            background: #00ff00;
+            animation-delay: 0.75s;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                box-shadow: none;
+            }
+
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 15px currentColor;
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .header-title {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 36px;
+            color: white;
+            text-shadow:
+                0 2px 4px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 215, 0, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Corpo principal */
+        .coupon-body {
+            padding: 35px 30px;
+            text-align: center;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #0f7a3e 0%, #16a34a 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(16, 122, 62, 0.4);
+        }
+
+        .bag-display {
+            font-size: 70px;
+            margin: 15px 0;
+            filter: drop-shadow(0 5px 15px rgba(194, 24, 24, 0.3));
+            animation: swing 3s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        .main-text {
+            font-size: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .main-text .highlight {
+            color: #c21818;
+            font-weight: 800;
+        }
+
+        /* Card do código */
+        .code-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 3px dashed #c21818;
+            border-radius: 16px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-section::before {
+            content: '❄️';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 30px;
+            opacity: 0.2;
+        }
+
+        .code-section::after {
+            content: '🎁';
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 30px;
+            opacity: 0.2;
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .code-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: #c21818;
+            letter-spacing: 12px;
+            margin-bottom: 15px;
+            text-shadow: 0 3px 6px rgba(194, 24, 24, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .discount-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #0f7a3e 0%, #16a34a 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 18px;
+            box-shadow: 0 6px 20px rgba(16, 122, 62, 0.5);
+        }
+
+        /* Aviso importante */
+        .warning-box {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            border-left: 5px solid #ff9800;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .warning-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .warning-icon {
+            font-size: 24px;
+        }
+
+        .warning-title {
+            font-size: 13px;
+            color: #e67e00;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        .warning-text {
+            font-size: 15px;
+            color: #2c3e50;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .warning-text .category {
+            color: #c21818;
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: #c21818;
+            text-decoration-thickness: 2px;
+        }
+
+        /* Botão de copiar */
+        .copy-button {
+            width: 100%;
+            background: linear-gradient(135deg, #c21818 0%, #e03131 100%);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow:
+                0 8px 24px rgba(194, 24, 24, 0.5),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .copy-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 12px 32px rgba(194, 24, 24, 0.6),
+                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .copy-button:active {
+            transform: translateY(-1px);
+        }
+
+        .button-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer decorativo */
+        .coupon-footer {
+            background: linear-gradient(135deg, #0f7a3e 0%, #16a34a 100%);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .footer-text {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Feedback de sucesso */
+        .success-popup {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-120px);
+            background: linear-gradient(135deg, #0f7a3e 0%, #16a34a 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: 0 15px 50px rgba(16, 122, 62, 0.6);
+            opacity: 0;
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .success-popup.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .success-check {
+            width: 28px;
+            height: 28px;
+            background: white;
+            color: #16a34a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Estrelas -->
+    <script>
+        // Criar estrelas aleatórias
+        for (let i = 0; i < 50; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (2 + Math.random() * 2) + 's';
+            document.body.appendChild(star);
+        }
+
+        // Criar neve caindo
+        for (let i = 0; i < 15; i++) {
+            const snow = document.createElement('div');
+            snow.className = 'snowflake';
+            snow.textContent = '❄';
+            snow.style.left = Math.random() * 100 + '%';
+            snow.style.animationDuration = (10 + Math.random() * 5) + 's';
+            snow.style.animationDelay = Math.random() * 5 + 's';
+            snow.style.fontSize = (15 + Math.random() * 15) + 'px';
+            document.body.appendChild(snow);
+        }
+    </script>
+
+    <!-- Árvores decorativas -->
+    <div class="christmas-tree tree-left">🎄</div>
+    <div class="christmas-tree tree-right">🎄</div>
+
+    <div class="coupon-container">
+        <div class="coupon-card">
+            <!-- Header -->
+            <div class="coupon-header">
+                <div class="header-lights">
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                    <div class="light"></div>
+                </div>
+                <div class="header-content">
+                    <div class="header-icon">🎅</div>
+                    <h1 class="header-title">Promoção de Natal</h1>
+                    <p class="header-subtitle">✨ Oferta Especial ✨</p>
+                </div>
+            </div>
+
+            <!-- Corpo -->
+            <div class="coupon-body">
+                <div class="promo-badge">🎁 Cupom Exclusivo</div>
+
+                <div class="bag-display">👜</div>
+
+                <p class="main-text">
+                    Ganhe desconto especial em<br>
+                    <span class="highlight">Bolsas de Natal!</span>
+                </p>
+
+                <div class="code-section">
+                    <div class="code-label">🎯 Use este código</div>
+                    <div class="code-value">BOLSAS25</div>
+                    <div class="discount-display">
+                        <span>⭐</span>
+                        <span>25% OFF</span>
+                        <span>⭐</span>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-header">
+                        <span class="warning-icon">⚠️</span>
+                        <div class="warning-title">Atenção - Leia antes de usar</div>
+                    </div>
+                    <div class="warning-text">
+                        Válido apenas para produtos da categoria <span class="category">Bolsas de Natal</span>
+                    </div>
+                </div>
+
+                <button class="copy-button" onclick="copyCoupon()">
+                    <span class="button-text">📋 Copiar Código Agora</span>
+                </button>
+            </div>
+
+            <!-- Footer -->
+            <div class="coupon-footer">
+                <div class="footer-text">
+                    <span>🎄</span>
+                    <span>Feliz Natal e Boas Compras!</span>
+                    <span>🎄</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de sucesso -->
+    <div class="success-popup" id="successPopup">
+        <div class="success-check">✓</div>
+        <span>Código BOLSAS25 copiado!</span>
+    </div>
+
+    <script>
+        function copyCoupon() {
+            const couponCode = 'BOLSAS25';
+
+            navigator.clipboard.writeText(couponCode).then(() => {
+                const popup = document.getElementById('successPopup');
+                popup.classList.add('show');
+
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 3000);
+            }).catch((err) => {
+                console.error('Erro ao copiar:', err);
+                alert('Código do cupom: ' + couponCode + '\n\nCopie manualmente!');
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,303 @@
+<script>
+  (function ($) {
+    $(function () {
+      const urlsBloqueadas = [
+        "/vale-presente-r-500-unico",
+        "/vale-presente-r-300-unico",
+        "/vale-presente-r-100-unico",
+      ];
+      if (urlsBloqueadas.includes(window.location.pathname)) return;
+
+      // ===== CSS (injetado 1x) =====
+      const STYLE_ID = "HOME-esquenta-cupom-styles";
+      if (!document.getElementById(STYLE_ID)) {
+        const css = `
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+/* Container geral (max 800px) */
+.HOME-container-cupom{
+  font-family:"Rubik",sans-serif; box-shadow:0 0 5px #cecece; border-radius:10px;
+  padding:15px; margin:20px auto; background:#fff; max-width:800px; width:100%;
+}
+
+/* Duas linhas */
+.HOME-content-cupom{ display:flex; flex-direction:column; gap:14px; }
+.HOME-cc-row{ display:flex; justify-content:space-between; align-items:center; gap:24px; }
+
+/* Cabeçalhos */
+.HOME-head-description,.HOME-regra-description{
+  font-size:18px; font-weight:700; display:flex; align-items:center;
+  column-gap:12px; row-gap:6px; white-space:nowrap;
+}
+
+/* TIMER compacto */
+#esquenta-cupom .HOME-timer-group{
+  display:inline-flex !important; flex-direction:row !important; align-items:center !important;
+  gap:6px !important; white-space:nowrap !important;
+}
+#esquenta-cupom .HOME-time-box{
+  display:inline-flex; flex-direction:column; justify-content:center; align-items:center;
+  width:42px; min-width:42px; padding:6px 4px; border-radius:10px; background:#f7f9fc; border:1px solid #e3e7ee;
+  line-height:1.05; text-align:center;
+}
+#esquenta-cupom .HOME-time-box .HOME-time{ font-weight:800; font-size:14px; color:#0f172a; letter-spacing:.3px; }
+#esquenta-cupom .HOME-time-box .HOME-label{ font-size:9px; color:#64748b; margin-top:2px; text-transform:lowercase; }
+#esquenta-cupom .HOME-timer-group .HOME-sep{ display:inline-block; font-weight:700; color:#0f172a; margin:0 2px; line-height:1; }
+
+/* Cupom (alinhado com o timer) */
+.HOME-cupom-area{
+  position:relative;
+  padding-top:18px;                /* espaço p/ o label absoluto */
+  display:flex; flex-direction:column; align-items:center; gap:6px; min-width:170px;
+}
+.HOME-copy-message{ position:absolute; top:0; left:0; right:0; }
+.HOME-copy-message p{ margin:0; font-size:12px; text-align:center; color:#555; }
+.HOME-copy-cupom{
+  background:#f2f2f2; color:#333; border:.5px dashed #333; padding:8px 14px; border-radius:6px;
+  cursor:pointer; width:144px; text-align:center; display:flex; align-items:center; justify-content:center;
+  font-weight:700; transition:background-color .2s ease; user-select:none;
+}
+.HOME-copy-cupom:hover{ background:#e2e2e2; }
+
+/* 2ª linha: texto + botão colados */
+.HOME-frete-inline{ display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.HOME-btn-regras-frete{
+  background:#000; color:#fff; border:0; padding:10px 14px; border-radius:8px; cursor:pointer;
+  font-weight:700; line-height:1; transition:opacity .2s ease;
+}
+.HOME-btn-regras-frete:hover{ opacity:.9; }
+.HOME-btn-regras-frete:focus{ outline:2px solid #0ea5e9; outline-offset:2px; }
+
+/* Modal (max 800px) */
+.HOME-modal-frete[hidden]{ display:none !important; }
+.HOME-modal-frete{ position:fixed; inset:0; z-index:9999; }
+.HOME-modal-frete .HOME-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.45); }
+.HOME-modal-frete .HOME-dialog{
+  position:relative; max-width:800px; width:calc(100% - 24px); margin:32px auto; background:#fff; border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2); padding:18px;
+}
+.HOME-modal-frete header{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+.HOME-modal-frete h3{ margin:0; font-size:18px; font-weight:800; color:#0f172a; }
+.HOME-modal-frete .HOME-close{ background:transparent; border:0; cursor:pointer; font-size:22px; line-height:1; padding:6px; border-radius:6px; }
+.HOME-modal-frete .HOME-close:focus{ outline:2px solid #0ea5e9; outline-offset:2px; }
+.HOME-modal-frete .HOME-content{ color:#334155; font-size:14px; line-height:1.4; }
+.HOME-modal-frete .HOME-content ul{ margin:8px 0 0 18px; }
+.HOME-modal-frete .HOME-content li+li{ margin-top:6px; }
+
+body.no-scroll{ overflow:hidden; }
+
+/* Responsivo */
+@media (max-width:768px){
+.HOME-btn-regras-frete{
+    width: 100%;
+}
+  .HOME-head-description,.HOME-regra-description{ font-size:16px; flex-wrap:wrap; }
+  .HOME-cc-row{ gap:12px; flex-wrap:wrap; }
+  .HOME-cupom-area{ width:100%; padding-top:0; }
+  .HOME-copy-message{ position:static; }
+  .HOME-copy-cupom{ width:100%; }
+}
+`;
+        const style = document.createElement("style");
+        style.id = STYLE_ID;
+        style.textContent = css;
+        document.head.appendChild(style);
+      }
+
+      // ===== HTML =====
+      function bannerHTML() {
+        return `
+<div class="HOME-container-cupom" id="esquenta-cupom" data-deadline="2025-10-31T23:59:59-03:00" aria-label="Esquenta Black - Cupom e Regras de Frete">
+  <div class="HOME-content-cupom">
+
+    <!-- Linha 1 -->
+    <div class="HOME-cc-row">
+      <div class="HOME-promo-description">
+        <div class="HOME-head-description">
+          <span>ESQUENTA BLACK | <span style="font-weight:400;">Encerra em:</span></span>
+          <div id="cupom-timer" class="HOME-timer-group" role="timer" aria-live="polite" aria-label="Tempo restante da oferta">
+            <div class="HOME-time-box"><span class="HOME-time" id="t-days">00</span><span class="HOME-label">dias</span></div>
+            <span class="HOME-sep">:</span>
+            <div class="HOME-time-box"><span class="HOME-time" id="t-hours">00</span><span class="HOME-label">hrs</span></div>
+            <span class="HOME-sep">:</span>
+            <div class="HOME-time-box"><span class="HOME-time" id="t-mins">00</span><span class="HOME-label">min</span></div>
+            <span class="HOME-sep">:</span>
+            <div class="HOME-time-box"><span class="HOME-time" id="t-secs">00</span><span class="HOME-label">seg</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="HOME-cupom-area">
+        <div class="HOME-copy-message" aria-live="polite"><p>Clique para copiar</p></div>
+        <div class="HOME-copy-cupom" id="copyButton" data-cupom="ESQUENTA" role="button" tabindex="0" aria-label="Copiar cupom ESQUENTA">ESQUENTA</div>
+      </div>
+    </div>
+
+    <!-- Linha 2 -->
+    <div class="HOME-cc-row">
+      <div class="HOME-frete-inline" aria-label="Regras de frete promocional">
+        <div class="HOME-regra-description"><span>Ver regras de frete promocional</span></div>
+        <button type="button" class="HOME-btn-regras-frete" id="openRegrasBtn" aria-haspopup="dialog" aria-controls="modalFrete">Regras de frete</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="HOME-modal-frete" id="modalFrete" hidden aria-hidden="true">
+    <div class="HOME-backdrop" data-close="1"></div>
+    <div class="HOME-dialog" role="dialog" aria-modal="true" aria-labelledby="modalFreteTitle" aria-describedby="modalFreteDesc">
+      <header>
+        <h3 id="modalFreteTitle">Regras de frete promocional</h3>
+        <button class="HOME-close" type="button" aria-label="Fechar" data-close="1">×</button>
+      </header>
+      <div class="HOME-content" id="modalFreteDesc">
+        <p><strong>Cupom:</strong><br>
+          <strong>ESQUENTA</strong> = R$ 50,00 de desconto em compras acima de <strong>R$ 1.000,00</strong>.
+        </p>
+        <p><strong>Frete:</strong></p>
+        <ul>
+          <li>Frete <strong>Grátis</strong> para <strong>SP</strong>.</li>
+          <li>Frete Fixo <strong>R$ 19,90</strong> para <strong>RJ, ES e MG</strong>.</li>
+          <li>Frete Fixo <strong>R$ 24,90</strong> para <strong>Região Sul</strong>.</li>
+          <li>Frete Fixo <strong>R$ 49,90</strong> para <strong>Centro-Oeste</strong>.</li>
+          <li>Frete Fixo <strong>R$ 99,90</strong> para <strong>Nordeste</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>`;
+      }
+
+      // ===== Anchor finder robusto =====
+      function findCartAnchor() {
+        const selectors = [
+          ".cart-table-section",
+          ".cart-table",
+          ".cart__table",
+          ".cart-content",
+          ".cart__content",
+          "#cart",
+          "#CartContainer",
+          "#cart-container",
+          "main .cart",
+          ".page-cart .cart",
+          ".main-cart .cart",
+          "[class*='cart']:not(html):not(body)" // fallback genérico
+        ];
+        for (const sel of selectors) {
+          const $el = $(sel).first();
+          if ($el.length) return $el;
+        }
+        return $(); // vazio
+      }
+
+      // ===== Modal helpers =====
+      let _lastFocus = null;
+      function openModalFrete(){
+        const $modal = $("#modalFrete"); if(!$modal.length) return;
+        _lastFocus = document.activeElement;
+        $modal.removeAttr("hidden").attr("aria-hidden","false");
+        $("body").addClass("no-scroll");
+        $modal.find(".HOME-close").trigger("focus");
+        $(document).on("keydown.esquentaModal",(e)=>{ if(e.key==="Escape") closeModalFrete(); });
+      }
+      function closeModalFrete(){
+        const $modal = $("#modalFrete");
+        $modal.attr("aria-hidden","true").attr("hidden","");
+        $("body").removeClass("no-scroll");
+        $(document).off("keydown.esquentaModal");
+        if(_lastFocus && typeof _lastFocus.focus==="function") _lastFocus.focus();
+      }
+
+      // ===== Timer =====
+      function zero2(n){ return String(n).padStart(2,"0"); }
+      function getRemainingSeconds(){
+        const box = document.getElementById("esquenta-cupom"); if(!box) return 0;
+        const deadlineAttr = (box.getAttribute("data-deadline")||"").trim();
+        const now = new Date();
+        if(deadlineAttr){
+          const end = new Date(deadlineAttr);
+          return Math.max(0, Math.floor((end - now)/1000));
+        }else{
+          const midnight = new Date(); midnight.setHours(24,0,0,0);
+          return Math.max(0, Math.floor((midnight - now)/1000));
+        }
+      }
+      function renderTimer(){
+        const elDays=document.getElementById("t-days");
+        const elHours=document.getElementById("t-hours");
+        const elMins=document.getElementById("t-mins");
+        const elSecs=document.getElementById("t-secs");
+        if(!(elDays&&elHours&&elMins&&elSecs)) return;
+        let sec=getRemainingSeconds();
+        const days=Math.floor(sec/86400); sec-=days*86400;
+        const hrs=Math.floor(sec/3600); sec-=hrs*3600;
+        const min=Math.floor(sec/60); const s=sec-min*60;
+        elDays.textContent=zero2(days);
+        elHours.textContent=zero2(hrs);
+        elMins.textContent=zero2(min);
+        elSecs.textContent=zero2(s);
+      }
+
+      // ===== Interações =====
+      async function copiarCupom(code){
+        try{
+          if(navigator.clipboard?.writeText) await navigator.clipboard.writeText(code);
+          else{
+            const input=document.createElement("input"); input.value=code;
+            document.body.appendChild(input); input.select();
+            const ok=document.execCommand("copy"); document.body.removeChild(input);
+            if(!ok) throw new Error("copy fail");
+          }
+          $(".HOME-copy-message").html("<p>Copiado!</p>");
+        }catch(_){
+          $(".HOME-copy-message").html("<p>Não foi possível copiar</p>");
+        }
+      }
+
+      // ===== Montagem =====
+      function insertBanner() {
+        // remove antigo (se existir)
+        $("#esquenta-cupom").remove();
+
+        const $banner = $(bannerHTML());
+        const $anchor = findCartAnchor();
+
+        if ($anchor.length) {
+          $banner.insertAfter($anchor); // INSERE ABAIXO do cart
+        } else {
+          $("body").append($banner);    // fallback
+        }
+        wireUp();
+      }
+
+      function wireUp(){
+        $("#copyButton").off(".esquenta").on("click.esquenta keypress.esquenta",(e)=>{
+          if(e.type==="click"|| (e.type==="keypress"&&(e.key==="Enter"||e.key===" "))){
+            copiarCupom($("#copyButton").data("cupom"));
+          }
+        });
+        if(window._HOME_esquentaInterval) clearInterval(window._HOME_esquentaInterval);
+        renderTimer(); window._HOME_esquentaInterval=setInterval(renderTimer,1000);
+        $("#openRegrasBtn").off(".esquenta").on("click.esquenta keypress.esquenta",(e)=>{
+          if(e.type==="click"|| (e.type==="keypress"&&(e.key==="Enter"||e.key===" "))) openModalFrete();
+        });
+        $("#modalFrete").off("click.esquenta").on("click.esquenta",(e)=>{ if($(e.target).data("close")) closeModalFrete(); });
+      }
+
+      // tenta montar com retry (para carrinho que renderiza depois)
+      function mountWithRetry(tries=10){
+        const $anchor = findCartAnchor();
+        if ($anchor.length || tries === 0) { insertBanner(); return; }
+        setTimeout(()=>mountWithRetry(tries-1), 500);
+      }
+      mountWithRetry();
+
+      // Observa re-render
+      $(document).ajaxComplete(function(){ if(!document.getElementById("esquenta-cupom")) mountWithRetry(); });
+      const observer=new MutationObserver(()=>{ if(!document.getElementById("esquenta-cupom")) mountWithRetry(); });
+      observer.observe(document.body,{childList:true,subtree:true});
+    });
+  })(jQuery);
+</script>

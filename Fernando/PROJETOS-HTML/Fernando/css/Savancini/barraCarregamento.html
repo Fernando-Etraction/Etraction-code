@@ -1,0 +1,99 @@
+<p>Duas vezes mais estilo, conforto e tecnologia &mdash; e o segundo macaquinho sai por apenas R$129 no pix ou 135,79 no cart&atilde;o em at&eacute; 10x sem juros!&nbsp;<br /> Este combo exclusivo Savancini &eacute; a oportunidade perfeita para renovar seu guarda-roupa de ciclismo com pe&ccedil;as que unem beleza e performance de verdade. Escolha dois macaquinhos GO! e sinta a diferen&ccedil;a de pedalar com tecidos inteligentes e design pensado para mulheres que vivem o esporte com paix&atilde;o.</p>
+<p>Com almofada em espuma densidade 100, o GO! garante conforto mesmo nas longas dist&acirc;ncias. O tecido com prote&ccedil;&atilde;o UV50+ e tratamento antibacteriano protege sua pele, enquanto a tecnologia de conforto t&eacute;rmico e zero transpar&ecirc;ncia mant&eacute;m o equil&iacute;brio ideal entre seguran&ccedil;a e leveza. E o melhor: ele &eacute; easy care, ou seja, voc&ecirc; lava, seca e usa sem precisar passar.</p>
+<p>Al&eacute;m de tudo, conta com bolsos traseiros funcionais e uma modelagem que valoriza o corpo sem apertar.<br /> Aproveite o momento &mdash; dois macaquinhos incr&iacute;veis, qualidade Savancini e um pre&ccedil;o que faz valer cada pedal.</p>
+<p>Combo 2 macaquinhos!<br />- Almofada em espuma densidade 100;<br />- N&atilde;o fica transparente;<br />- Prote&ccedil;&atilde;o UV50+<br />- Prote&ccedil;&atilde;o antibacteriana;<br />- Easy care &ndash; n&atilde;o &eacute; necess&aacute;rio passar;<br />- Bolsos traseiros;<br />- Conforto t&eacute;rmico.<br /><br />Composi&ccedil;&atilde;o: 90% Poli&eacute;ster e 10% elastano.</p>
+<p>/*[Etraction] Altera&ccedil;&atilde;o de bucket pre&ccedil;o e propiedade de selecionar itens*/</p>
+<div class="combo-progress">
+<div class="combo-progress-bar"></div>
+</div>
+<style><!--
+.ra-conjunto .flex.items-center.justify-between.text-sm.text-secondary-400 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .ra-conjunto .combo-progress {
+        width: 60px;
+        height: 6px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .ra-conjunto .combo-progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #00c04b;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+--></style>
+<script>// <![CDATA[
+document.addEventListener("DOMContentLoaded", function () {
+    
+    // --- LÓGICA 1 (ATUALIZADA): Mover bloco de TOTAL para baixo das estrelas ---
+    
+    // 1. A função que tenta mover o bloco total
+    function moverBlocoTotal() {
+        // O bloco das estrelas (ponto de referência)
+        const blocoEstrelas = document.querySelector('.center.flex.items-center.gap-space-4.text-xl.text-secondary-400');
+        
+        // O bloco de preço total (que queremos mover)
+        const blocoTotal = document.querySelector('.total.mb-space-8.flex.w-full'); 
+
+        // 2. Se encontrar os dois...
+        if (blocoEstrelas && blocoTotal) {
+            
+            // Move o 'blocoTotal' para logo depois (abaixo) do 'blocoEstrelas'
+            blocoEstrelas.insertAdjacentElement('afterend', blocoTotal);
+            
+            // 3. IMPORTANTE: Para de observar
+            // Já fizemos o trabalho, não precisamos mais rodar este código.
+            observerLogic1.disconnect(); 
+        }
+    }
+
+    // 4. Cria o observador que chama a função 'moverBlocoTotal'
+    const observerLogic1 = new MutationObserver(moverBlocoTotal);
+
+    // 5. Inicia o observador
+    observerLogic1.observe(document.body, {
+        childList: true, // Observa adição/remoção de filhos
+        subtree: true    // Observa toda a árvore de descendentes
+    });
+
+    // 6. Tenta rodar a função uma vez (caso já estejam na página)
+    moverBlocoTotal();
+
+    
+    // --- LÓGICA 2 (MANTIDA): Criar barra de progresso ---
+    const target = document.querySelector('.flex.items-center.justify-between.text-sm.text-secondary-400');
+    
+    if (target) { 
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'combo-progress';
+        const progressBar = document.createElement('div');
+        progressBar.className = 'combo-progress-bar';
+        progressContainer.appendChild(progressBar);
+        target.appendChild(progressContainer);
+
+        const observerLogic2 = new MutationObserver(() => {
+            const texto = target.textContent.trim();
+            const match = texto.match(/(\d+)\/(\d+)/);
+            if (match) {
+                const atual = parseInt(match[1]);
+                const total = parseInt(match[2]);
+                progressBar.style.width = (atual / total * 100) + '%';
+            }
+        });
+
+        observerLogic2.observe(target, { childList: true, characterData: true, subtree: true });
+    }
+
+});
+// ]]></script>

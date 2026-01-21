@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" />
+    <title>Página do Produto</title>
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+     #rd-scope .spec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-left: none;
+    border-right: none;
+    gap: 20px;
+  }
+  #rd-scope .spec-grid ul {
+    margin: 0;
+    padding: 20px;
+  }
+  #rd-scope .spec-grid ul:first-child {
+    border-right: 1px solid #ddd;
+  }
+  #rd-scope .spec-grid li {
+    margin-bottom: 10px;
+    color: #555;
+  }
+  @media (max-width: 768px) {
+    #rd-scope .spec-grid {
+      grid-template-columns: 1fr;
+    }
+    #rd-scope .spec-grid ul:first-child {
+      border-right: none;
+    }
+  }
+      @media (min-width: 800px) {
+        .about-section {
+          overflow: hidden;
+        }
+      }
+
+      /* ===== Escopo ===== */
+      #rd-scope .svg-icon {
+        width: 60px;
+        height: 60px;
+      }
+      #rd-scope .rn-container {
+         font-family: "Instrument Sans", sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      #rd-scope .product-description { font-family: "Instrument Sans", sans-serif;
+        padding: 60px 0;
+        text-align: center;
+      }
+      #rd-scope .product-description h1 { font-family: "Instrument Sans", sans-serif;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: #333;
+      }
+
+      #rd-scope .features-grid { font-family: "Instrument Sans", sans-serif;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+      }
+      #rd-scope .feature-item { font-family: "Instrument Sans", sans-serif;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+      }
+      #rd-scope .feature-circle { font-family: "Instrument Sans", sans-serif;
+        border: 1px solid #102F18;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-weight: 700;
+        color: #666;
+      }
+      #rd-scope .feature-text { font-family: "Instrument Sans", sans-serif;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      #rd-scope .product-details { font-family: "Instrument Sans", sans-serif;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        margin-top: 40px;
+      }
+      #rd-scope .gif-placeholder { font-family: "Instrument Sans", sans-serif;
+        border-radius: 15px;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      #rd-scope .gif-placeholder img {
+        border-radius: 15px;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+      #rd-scope .product-info h2 { font-family: "Instrument Sans", sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .product-info p { font-family: "Instrument Sans", sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+
+      #rd-scope .product-features { font-family: "Instrument Sans", sans-serif;
+        padding: 60px 0;
+        background: #ffffff;
+      }
+      #rd-scope .features-grid-2 { font-family: "Instrument Sans", sans-serif;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 40px;
+      }
+      #rd-scope .feature-card { font-family: "Instrument Sans", sans-serif;
+        text-align: center;
+        margin: 0 auto;
+      }
+      #rd-scope .feature-gif {
+        background: #f0f0f0;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        width: 100%;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 0;
+        max-width: 480px;
+      }
+      #rd-scope .feature-gif img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      #rd-scope .feature-description { font-family: "Instrument Sans", sans-serif;
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.5;
+      }
+
+      /* ===== Swiper base (escopo) ===== */
+      #rd-scope .swiper {
+        width: 1240px;
+        max-width: 100vw;
+        margin: 0 auto;
+        padding: 20px 0;
+        overflow: hidden; /* evita “vazar” slide vizinho */
+      }
+      #rd-scope .swiper-wrapper {
+        align-items: stretch;
+      }
+      #rd-scope .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 410px; /* desktop default */
+        height: 410px;
+      }
+      /* features desktop: slides menores */
+      #rd-scope .features-swiper .swiper-slide {
+        width: 320px;
+      }
+      #rd-scope .features-swiper .feature-card {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      #rd-scope .product-specs {
+        padding: 60px 0;
+      }
+      #rd-scope .specs-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      #rd-scope .wardrobe-image {
+        text-align: center;
+      }
+      #rd-scope .wardrobe-placeholder {
+        border-radius: 15px;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      #rd-scope .specs-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      #rd-scope .specs-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .spec-item {
+        display: flex
+;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ababab;
+    padding: 0 12px;
+    border-radius: 25px;
+      }
+      #rd-scope .spec-icon {
+        margin-right: 15px;
+        font-size: 1.2rem;
+        color: #666;
+      }
+      #rd-scope .spec-value {
+        margin-left: auto;
+        font-weight: 700;
+        color: #333;
+      }
+
+      #rd-scope .sophistication-section {
+        padding: 60px 0;
+        background: #fafafa;
+      }
+      #rd-scope .sophistication-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 60px;
+      }
+      #rd-scope .sophistication-text h2 {
+        font-family: "Instrument Sans", sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .sophistication-text p {
+         font-family: "Instrument Sans", sans-serif;
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 20px;
+      }
+      #rd-scope .origin-tag {
+        background: #f0f0f0;
+        padding: 8px 16px;
+        border-radius: 20px;
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      #rd-scope .layout-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      #rd-scope .layout-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .layout-text p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+      #rd-scope .layout-gif {
+        background: #f0f0f0;
+        border-radius: 15px;
+        padding: 40px;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+
+      #rd-scope .packaging-section {
+        padding: 60px 0;
+      }
+      #rd-scope .packaging-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: center;
+      }
+      #rd-scope .packaging-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+      #rd-scope .packaging-text h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      #rd-scope .packaging-text p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #555;
+      }
+
+      #rd-scope .about-section {
+        padding: 60px 0;
+        background: #fafafa;
+        text-align: center;
+      }
+      #rd-scope .about-section h2 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: #333;
+      }
+      #rd-scope .about-section p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #555;
+        max-width: 800px;
+        margin: 0 auto 40px;
+      }
+
+      #rd-scope .testimonials-carousel {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        flex-direction: column;
+      }
+      #rd-scope .features-carousels-desktop {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+      }
+
+      /* Controles */
+      #rd-scope .features-nav,
+      #rd-scope .testimonials-nav {
+        color: #666;
+        background: #e0e0e0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-top: -20px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+      #rd-scope .features-nav:after,
+      #rd-scope .testimonials-nav:after {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      #rd-scope .swiper-pagination-bullet {
+        background: #ccc;
+        opacity: 0.5;
+      }
+      #rd-scope .swiper-pagination-bullet-active {
+        background: #666;
+        opacity: 1;
+      }
+      #rd-scope .swiper-button-next,
+      #rd-scope .swiper-button-prev,
+      #rd-scope .features-nav,
+      #rd-scope .testimonials-nav {
+        top: 50% !important;
+        transform: translateY(-50%);
+      }
+      #rd-scope .features-swiper,
+      #rd-scope .testimonials-swiper-1 {
+        position: relative;
+      }
+      #rd-scope .testimonials-carousel {
+        width: 1240px;
+        max-width: 100vw;
+        margin: 0 auto 30px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #rd-scope .swiper-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      @media (max-width: 1300px) {
+        #rd-scope .testimonials-carousel,
+        #rd-scope .swiper {
+          width: 100vw;
+          max-width: 100vw;
+        }
+      }
+
+      /* ======== MOBILE FIX ======== */
+      @media (max-width: 1024px) {
+        #rd-scope .swiper,
+        #rd-scope .testimonials-carousel {
+          margin: 0 auto !important;
+        }
+        #rd-scope .swiper-wrapper {
+          margin: 0 !important;
+        }
+        /* garantir 1 por vez e altura auto */
+        #rd-scope .swiper-slide {
+          width: 100% !important;
+          height: auto !important;
+        }
+        #rd-scope .features-swiper .swiper-slide {
+          width: 100% !important;
+        }
+        /* esconder setas no mobile */
+        #rd-scope .features-nav,
+        #rd-scope .testimonials-nav {
+          display: none !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #rd-scope .features-carousels-desktop {
+          display: none;
+        }
+        #rd-scope .features-carousels-mobile {
+          display: block;
+        }
+        #rd-scope .product-details,
+        #rd-scope .specs-container,
+        #rd-scope .sophistication-content,
+        #rd-scope .layout-section,
+        #rd-scope .packaging-content {
+          text-align: center;
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        #rd-scope .product-details,
+        #rd-scope .specs-container,
+        #rd-scope .sophistication-content,
+        #rd-scope .layout-section {
+          display: flex;
+          flex-direction: column;
+        }
+        #rd-scope .product-details .gif-placeholder {
+          order: 1;
+        }
+        #rd-scope .product-details .product-info {
+          order: 2;
+        }
+        #rd-scope .specs-container .wardrobe-image {
+          order: 1;
+        }
+        #rd-scope .specs-container .specs-info {
+          order: 2;
+        }
+        #rd-scope .layout-section .gif-placeholder {
+          order: 1;
+        }
+        #rd-scope .layout-section .layout-text {
+          order: 2;
+        }
+        #rd-scope .features-grid {
+          flex-direction: column;
+          align-items: center;
+          display: none;
+        }
+        #rd-scope .features-grid-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        #rd-scope .product-description h1 {
+          font-size: 2rem;
+        }
+        #rd-scope .rn-container {
+          place-items: center;
+          padding: 0 15px;
+        }
+        #rd-scope .gif-placeholder {
+          border-radius: 15px;
+          max-width: 400px !important;
+          min-height: 400px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #rd-scope .features-swiper {
+          display: block;
+        }
+        #rd-scope .features-grid-2 {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        #rd-scope .features-grid-2 {
+          grid-template-columns: 1fr;
+        }
+        #rd-scope .product-description h1 {
+          font-size: 1.8rem;
+        }
+      }
+      @media (min-width: 780px) {
+        #rd-scope .features-carousels-mobile {
+          display: none !important;
+        }
+      }
+
+      .dimensions-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .dimension-arrow {
+        position: absolute;
+      }
+      .dimension-arrow.height {
+        left: 20px;
+        height: 100%;
+        width: 50px;
+      }
+      .dimension-arrow.width {
+        top: 20px;
+        width: 80%;
+        height: 50px;
+      }
+      .dimension-arrow.depth {
+        right: 20px;
+        top: 50%;
+        transform: rotate(-45deg);
+        width: 60%;
+        height: 50px;
+      }
+      .dimension-arrow text {
+         font-family: "Instrument Sans", sans-serif;
+        font-weight: bold;
+      }
+      .svg-icon-novo path {
+        fill: #102F18;
+      }
+     #rd-scope .tech-specs {
+  padding: 50px 0;
+  background: #f7f7f7;
+}
+#rd-scope .tech-specs__title {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #333;
+  position: relative;
+  margin-bottom: 26px;
+}
+#rd-scope .tech-specs__title::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #333;
+  margin: 10px auto 0;
+  border-radius: 2px;
+  opacity: .25;
+}
+
+/* grade 4 colunas (responsiva) */
+#rd-scope .spec-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+#rd-scope .spec-card {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 14px;
+  align-items: start;
+  background: #fff;
+  border-radius: 8px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+#rd-scope .spec-card__icon {
+  width: 56px; height: 56px;
+  display: grid; place-items: center;
+}
+#rd-scope .spec-card__icon svg {
+  width: 48px; height: 48px;
+  color: #000;             /* ícones pretos como na imagem */
+}
+#rd-scope .spec-card__body h3 {
+  margin: 2px 0 6px;
+  font-weight: 800;
+  color: #0c0c0c;
+}
+#rd-scope .spec-card__body ul {
+  margin: 0; padding-left: 0; list-style: none;
+}
+#rd-scope .spec-card__body li {
+  color: #555;
+  line-height: 1.35;
+}
+
+/* breakpoints */
+@media (max-width: 1200px){
+  #rd-scope .spec-cards { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px){
+  #rd-scope .spec-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px){
+  #rd-scope .spec-cards { grid-template-columns: 1fr; }
+}
+    
+
+    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+  </head>
+  <body>
+    <div id="rd-scope">
+      <!-- ======= Descrição / header ======= -->
+       <!-- AQUI É ONDE VOCE VAI COLOCAR SVG QUE VOCE COPIA POR EXEMPLO DO FREEPIKE OU APENAS PODE SUBSTITUIR O SVG POR  <img src="https://img.freepik.com/free-photo/close-up-juicy-lemon_23-2147636454.jpg?t=st=1762540305~exp=1762543905~hmac=d1288ab4cfba90b0c6b3dff74a1545a9c425c06bae9d1058b4ed6a80e020de12&w=1060"
+                alt=""
+              />
+              -->
+      <section class="product-description">
+  <div class="rn-container">
+    <h1>Descrição do produto</h1>
+
+    <div class="product-details">
+      <div class="gif-placeholder">
+        <img
+          style="border-radius: 15px !important; max-width: 560px; max-height: 400px;"
+          src="https://mobiliae.cdn.magazord.com.br/img/2025/09/produto/410/mx-fundo-externo-roupeiro-seul-freijo-offwhite.jpg"
+          alt="Guarda-Roupa Seul Freijó Off White"
+        />
+      </div>
+      <div class="product-info">
+        <h2>Guarda-Roupa Seul 2 Portas de Correr e 4 Gavetas</h2>
+        <p>
+          O Guarda-Roupa Casal Seul da Mobiliae combina praticidade, beleza e
+          durabilidade em um design moderno e sofisticado. Produzido 100% em MDF
+          de alta resistência, conta com duas portas de correr com trilhos de
+          alumínio e puxadores embutidos, proporcionando um deslizamento suave e
+          silencioso. Suas quatro gavetas espaçosas e prateleiras internas bem
+          distribuídas garantem organização ideal para roupas e acessórios,
+          tornando o ambiente mais funcional e elegante.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Avaliações -->
+
+
+<!-- Especificações Técnicas -->
+
+<!-- Especificações Técnicas -->
+<section class="tech-specs">
+  <div class="rn-container">
+    <h2 class="tech-specs__title">Características</h2>
+
+    <div class="spec-cards">
+      <!-- Card 1 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Paleta -->
+          <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h1.5a2.5 2.5 0 0 0 0-5H12a2 2 0 1 1 0-4h2a2 2 0 1 0 0-4h-.5A3.5 3.5 0 0 1 12 3Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Design</h3>
+          <ul>
+            <li>Inovador</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Manequim -->
+          <svg viewBox="0 0 24 24"><path d="M12 3c2.5 0 4 1.8 4 4v2c0 1.7-1.3 3-3 3h-2c-1.7 0-3-1.3-3-3V7c0-2.2 1.5-4 4-4Zm-5 15 3-5m7 5-3-5m-2 0v6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Design</h3>
+          <ul>
+            <li>Revolucionado</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Régua -->
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 9v2m3-2v2m3-2v2m3-2v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Gavetas</h3>
+          <ul>
+            <li>Suaves</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Rolo de tecido -->
+          <svg viewBox="0 0 24 24"><path d="M5 6a4 4 0 1 1 0 8h12a2 2 0 0 0 0-4H9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 10c0 4 2 8 6 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Madeira</h3>
+          <ul>
+            <li>Durável</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Coração -->
+          <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.6-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.4-7 10-7 10Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Acabamentos Especiais</h3>
+          <!-- <ul>
+            <li>Barra Arredondada</li>
+            <li>Friso</li>
+            <li>Pence</li>
+            <li>Ponteira Dourada</li>
+            <li>Transpasse</li>
+          </ul> -->
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Coroa -->
+          <svg viewBox="0 0 24 24"><path d="M3 10 7 8l5 5 5-5 4 2v6H3v-6Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Estilo</h3>
+          <ul>
+            <li>Refinado</li>
+            <!-- <li>Despojado</li>
+            <li>Esporte Chic</li>
+            <li>Moderno</li> -->
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Fita métrica -->
+          <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7 8v4m4-4v2m4-2v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Largura</h3>
+          <ul>
+            <li>Mais metro</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="spec-card">
+        <div class="spec-card__icon" aria-hidden="true">
+          <!-- Roda/Paleta -->
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 5v5m0 2v7m-7-7h5m2 0h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="spec-card__body">
+          <h3>Portas</h3>
+          <ul>
+            <li>de Correr</li>
+            <!-- <li>Inverno Escuro</li>
+            <li>Inverno Brilhante</li>
+            <li>Verão Suave</li>
+            <li>Tons Universais</li> -->
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- Benefícios -->
+<section class="sophistication-section">
+  <div class="rn-container">
+    <div class="sophistication-content" style="margin-top: 60px">
+      <div class="wardrobe-image">
+        <div class="wardrobe-placeholder">
+          <img
+            style="width: 100%; height: 100%; object-fit: cover; display: block;border-radius: 15px;"
+            src="https://mobiliae.cdn.magazord.com.br/img/2025/09/produto/406/mx-diferencial-roupeiro-seul-freijo-offwhite.jpg"
+            alt="Detalhes do Guarda-Roupa Seul"
+          />
+        </div>
+      </div>
+      <div class="sophistication-text">
+        <h2>Diferenciais do Guarda-Roupa Seul</h2>
+        <p>
+          O Guarda-Roupa Seul oferece amplo espaço interno e compartimentos bem
+          planejados para roupas, sapatos e acessórios. Seu design contemporâneo
+          harmoniza com diversos estilos de quarto, enquanto o sistema de portas
+          de correr otimiza o espaço, tornando o ambiente mais prático e
+          confortável. Além disso, o MDF de alta densidade garante durabilidade
+          e resistência, mantendo o móvel bonito por muitos anos.
+        </p>
+        <div class="origin-tag">Fabricado no Brasil</div>
+      </div>
+    </div>
+
+    <div class="layout-section">
+      <div class="layout-text">
+        <h2>Sustentabilidade</h2>
+        <p>
+          A Mobiliae valoriza a sustentabilidade em cada etapa: escolha responsável de matérias-primas, processos eficientes e reaproveitamento de resíduos. Buscamos reduzir emissões, economizar água e energia, e promover fornecedores conscientes. Assim entregamos produtos duráveis e bonitos, sempre cuidando do planeta, das pessoas e do futuro em que queremos viver.
+        </p>
+      </div>
+      <div class="gif-placeholder">
+        <img
+          src="https://mobiliae.cdn.magazord.com.br/img/2025/09/produto/409/mx-diferencial-2-roupeiro-seul-freijo-offwhite.jpg"
+          alt="Compromisso Mobiliae"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sobre a Empresa -->
+<div class="testimonials-carousel">
+  <div class="sophistication-text" style="text-align: center; margin-left: -10px">
+    <h2>Por que escolher a Mobiliae?</h2>
+    <p>
+      A Mobiliae é referência em móveis de alta qualidade no Brasil, oferecendo
+      produtos desenvolvidos com design contemporâneo, funcionalidade e
+      durabilidade. Com atendimento especializado e entrega confiável, garantimos
+      a melhor experiência de compra online, levando conforto e elegância para o
+      seu lar.
+    </p>
+  </div>
+</div>
+
+        <!-- Carrossel de selos: agora com classes de TESTIMONIALS -->
+       <div class="testimonials-carousel">
+              <div class="swiper features-swiper features-swiper-1">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://www.lamobilimoveis.com.br/wp-content/uploads/2018/02/mobiliario-corporativo-em-favor-da-imagem-da-empresa-1280x720.png"
+                          alt="Sistema deslizante nas portas"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!-- Sistema de freios – maior segurança e conforto no uso. -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://www.divdesign.com.br/wp-content/uploads/2021/11/tendencias-moveis-escritorio-div-design.jpg"
+                          alt="Trilhos de inox com revestimento extra"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!-- Envio seguro com gel nutritivo e embalagem ventilada que
+                    protege a muda durante o transporte. -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKkgsg5RsfDoHNVehJhlGtfQXW7ipczHVi1g&s"
+                          alt="Puxadores em inox"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!--Frutos de casca fina e aroma marcante — perfeitos para sucos
+                    e receitas. -->
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROygiTbywKliRuaBHlHU-7SgEKZBHglwameQ&s"
+                          alt="Amortecimento suave"
+                        />
+                      </div>
+                      <div class="feature-description">
+                        <!-- Envio seguro com gel nutritivo e embalagem ventilada que
+                    protege a muda durante o transporte. -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="feature-card">
+                      <div class="feature-gif">
+                        <img
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHielvDmyfgvNRBizl0JMJGPpY8rj4Stkrxw&s"
+                          alt="Estrutura reforçada"
+                        />
+                      </div>
+                      <div class="feature-description">
+                      <!--  Frutos de casca fina e aroma marcante — perfeitos para sucos
+                    e receitas. -->
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="testimonials-nav swiper-button-next features-next-1"
+                ></div>
+                <div
+                  class="testimonials-nav swiper-button-prev features-prev-1"
+                ></div>
+                <div class="swiper-pagination features-pagination-1"></div>
+              </div>
+              
+            <!-- Controles e paginação do testimonials -->
+            <div
+              class="testimonials-nav swiper-button-next testimonials-next-1"
+            ></div>
+            <div
+              class="testimonials-nav swiper-button-prev testimonials-prev-1"
+            ></div>
+            <div class="swiper-pagination testimonials-pagination-1"></div> 
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</html>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // Depoimentos (carrossel de selo/segurança)
+      new Swiper("#rd-scope .testimonials-swiper-1", {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        navigation: {
+          nextEl: "#rd-scope .testimonials-next-1",
+          prevEl: "#rd-scope .testimonials-prev-1",
+        },
+        pagination: {
+          el: "#rd-scope .testimonials-pagination-1",
+          clickable: true,
+        },
+        speed: 600,
+        loopAdditionalSlides: 1,
+        effect: "slide",
+      });
+
+      // Features (DESKTOP)
+      new Swiper("#rd-scope .features-swiper-1", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+          nextEl: "#rd-scope .features-next-1",
+          prevEl: "#rd-scope .features-prev-1",
+        },
+        pagination: { el: "#rd-scope .features-pagination-1", clickable: true },
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        speed: 600,
+        breakpoints: { 0: { slidesPerView: 1 }, 769: { slidesPerView: 3 } },
+      });
+
+      new Swiper("#rd-scope .features-swiper-3", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+          nextEl: "#rd-scope .features-next-3",
+          prevEl: "#rd-scope .features-prev-3",
+        },
+        pagination: { el: "#rd-scope .features-pagination-3", clickable: true },
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        speed: 600,
+        breakpoints: { 0: { slidesPerView: 1 }, 769: { slidesPerView: 3 } },
+      });
+
+      // Features (MOBILE)
+      new Swiper("#rd-scope .features-swiper-mob-1", {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: true,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        pagination: {
+          el: "#rd-scope .features-pagination-mob-1",
+          clickable: true,
+        },
+        speed: 500,
+      });
+
+      new Swiper("#rd-scope .features-swiper-mob-2", {
+        slidesPerView: 1,
+        spaceBetween: 16,
+        loop: true,
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        pagination: {
+          el: "#rd-scope .features-pagination-mob-2",
+          clickable: true,
+        },
+        speed: 500,
+      });
+
+      // Smooth scroll + animações
+      document.querySelectorAll('#rd-scope a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const t = document.querySelector(a.getAttribute("href"));
+          if (t) t.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
+
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("#rd-scope section").forEach((section) => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(30px)";
+        section.style.transition = "opacity .6s ease, transform .6s ease";
+        observer.observe(section);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,280 @@
+<style>
+    
+    #header-react-app {
+        margin-top: 47px;
+        transition: margin-top 0.3s ease;
+    }
+    
+
+    .risty-promo-banner-unico {
+        z-index: 999; 
+        background-color: #000;
+        color: #fff;
+        padding: 5px 5%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        text-align: center;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateY(0);
+        opacity: 1;
+        transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .risty-promo-banner-unico.hidden {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    .risty-promo-texto-unico {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        max-width: 570px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .risty-promo-info {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 1em;
+        justify-content: center;
+    }
+
+    .risty-coupon-code {
+        background-color: #fff;
+        color: #000;
+        border: none;
+        padding: 4px 10px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 1em;
+        transition: background-color 0.3s;
+    }
+
+    .risty-coupon-code:hover {
+        background-color: #000;
+        color: #fff;
+        border: 1px solid #fff;
+    }
+
+    .risty-copy-feedback {
+        color: yellow;
+        font-weight: bold;
+        font-size: 0.9em;
+        display: none;
+    }
+
+    .risty-timer-unico {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 0.95em;
+    }
+
+    .risty-timer-block {
+        background-color: #333;
+        color: #fff;
+        padding: 4px 6px;
+        min-width: 28px;
+        text-align: center;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.95em;
+        line-height: 1.2;
+    }
+
+    .risty-timer-label {
+        display: block;
+        font-size: 0.55em;
+        color: #fff;
+        font-weight: normal;
+        padding-top: 2px;
+    }
+
+    @media (max-width: 480px) {
+         #header-react-app {
+            margin-top: 70px;
+            transition: margin-top 0.3s ease;
+        }
+        .risty-promo-banner-unico {
+            font-size: 0.85em;
+            padding: 10px 4%;
+        }
+
+        .risty-promo-texto-unico {
+            flex-direction: row;
+            gap: 4px;
+        }
+
+        .risty-promo-info {
+            justify-content: center;
+            font-size: 0.9em;
+            gap: 4px;
+        }
+
+        .risty-coupon-code {
+            padding: 3px 8px;
+            font-size: 0.9em;
+        }
+
+        .risty-timer-unico {
+            justify-content: center;
+            gap: 3px;
+            font-size: 0.85em;
+        }
+
+        .risty-timer-block {
+            min-width: 24px;
+            padding: 3px 5px;
+            font-size: 0.85em;
+        }
+
+        .risty-timer-label {
+            font-size: 0.5em;
+        }
+    }
+
+    .risty-close-btn {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .risty-close-btn:hover {
+        color: yellow;
+    }
+
+    .risty-promo-banner-unico.interno {
+        padding: 0px 5% !important;
+    }
+</style>
+<script>
+    // Mantive a lógica original. Só troque o link/rotas acima se quiser comportamentos diferentes em outros domínios.
+    if (window.location.href !== "https://www.risty.com.br/") {
+        $(".risty-promo-banner-unico").css("padding", "0px 5%").addClass("interno");
+    }
+    if (window.location.href == "https://www.risty.com.br/combo-conjuntos-299") {
+        $(".risty-promo-banner-unico").css("padding", "0px 5%");
+    }
+
+    // <![CDATA[
+    $(document).ready(function () {
+
+        // Insere o banner no topo do body (fixo)
+        $("body").prepend(`
+            <div class="risty-promo-banner-unico" role="region" aria-label="Black Friday Móveis até 30% OFF">
+                <button class="risty-close-btn" aria-label="Fechar banner">×</button>
+                <div class="risty-promo-texto-unico">
+                   <a href="https://www.sonharedecor.com.br/black-2025?zord=true" style="color:white !important;" aria-label="Ir para Black Friday Móveis até 30% OFF">
+                      <div class="risty-promo-info">
+                          <span><strong>Black Friday</strong> Móveis até 30% OFF | Expira em:</span>
+                      </div>
+                   </a>
+                    <div class="risty-timer-unico" aria-live="polite">
+                        <div class="risty-timer-block">
+                            <span id="horas-unico">00</span>
+                            <span class="risty-timer-label">HRS</span>
+                        </div>
+                        <div class="risty-timer-block">
+                            <span id="minutos-unico">00</span>
+                            <span class="risty-timer-label">MIN</span>
+                        </div>
+                        <div class="risty-timer-block">
+                            <span id="segundos-unico">00</span>
+                            <span class="risty-timer-label">SEC</span>
+                        </div>
+                    </div>
+                    <span class="risty-copy-feedback">Copiado!</span>
+                </div>
+            </div>
+        `);
+
+        // Cronômetro até o fim do dia
+        function atualizarCronometro() {
+            const horaFinal = new Date();
+            horaFinal.setHours(23, 59, 59, 999);
+
+            const agora = new Date();
+            const tempoRestante = horaFinal - agora;
+
+            if (tempoRestante <= 0) {
+                $("#horas-unico").text("00");
+                $("#minutos-unico").text("00");
+                $("#segundos-unico").text("00");
+                clearInterval(intervaloCronometro);
+            } else {
+                const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+
+                $("#horas-unico").text(String(horas).padStart(2, '0'));
+                $("#minutos-unico").text(String(minutos).padStart(2, '0'));
+                $("#segundos-unico").text(String(segundos).padStart(2, '0'));
+            }
+        }
+
+        const intervaloCronometro = setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+
+        // Botão fechar
+        $(document).on("click", ".risty-close-btn", function() {
+            $(".risty-promo-banner-unico").addClass("hidden");
+            $("#header-react-app").css("margin-top", "0");
+        });
+
+        // Copiar cupom (mantido caso use no futuro)
+        $(document).on("click", ".risty-coupon-code", function() {
+            var coupon = $(this).data("coupon");
+            var tempInput = $("<input>");
+            $("body").append(tempInput);
+            tempInput.val(coupon).select();
+            document.execCommand("copy");
+            tempInput.remove();
+
+            $(".risty-copy-feedback").fadeIn(200).delay(1500).fadeOut(200);
+        });
+
+        // Esconde ao rolar e reaparece no topo
+        let ultimoScroll = 0;
+        let banner = $(".risty-promo-banner-unico");
+
+        $(window).on("scroll", function () {
+            let scrollAtual = $(this).scrollTop();
+
+            if (scrollAtual > 50 && scrollAtual > ultimoScroll) {
+                banner.addClass("hidden");
+                if (scrollAtual > 200) {
+                    $("#header-react-app").css("margin-top", "0");
+                }
+            } else if (scrollAtual <= 50) {
+                banner.removeClass("hidden");
+                $("#header-react-app").css("margin-top", "47px");
+            }
+
+            ultimoScroll = scrollAtual;
+        });
+
+    });
+    // ]]>
+</script>

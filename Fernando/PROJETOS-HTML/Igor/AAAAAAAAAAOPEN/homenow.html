@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Topo de Pesquisa – Promo com Cupom</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+      :root {
+        --bg: #f2f2f2;
+        --ink: #111111;
+        --ink-weak: #555;
+        --accent: #000000;
+        --surface: #ffffff;
+        --border: #eaeaea;
+        --radius: 14px;
+        --shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+        --overlay: rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      
+    
+
+      .reviews-section {
+        background: #fff;
+        padding: 40px clamp(16px, 4vw, 40px);
+        margin: 20px auto;
+        max-width: 1200px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .reviews-title {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .reviews-title h2 {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0 0 8px 0;
+        color: var(--ink);
+      }
+
+      .reviews-title .subtitle {
+        font-size: 16px;
+        color: var(--ink-weak);
+        margin: 0;
+      }
+
+      .reviews-title .bar {
+        width: 80px;
+        height: 4px;
+        background: var(--accent);
+        border-radius: 999px;
+        margin: 12px auto 0;
+      }
+
+      .reviews-swiper {
+        width: 100% !important;
+        padding: 20px 0 40px 0 !important;
+        overflow: hidden !important;
+      }
+
+      .reviews-swiper .swiper-wrapper {
+        display: flex !important;
+        transition-timing-function: linear !important;
+      }
+
+      .reviews-swiper .swiper-slide {
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      /* Desktop: mostrar apenas 4 cards sem carrossel */
+      @media (min-width: 1024px) {
+        .reviews-swiper .swiper-wrapper {
+          display: grid !important;
+          grid-template-columns: repeat(4, 1fr) !important;
+          gap: 20px !important;
+          transform: none !important;
+          flex-wrap: nowrap !important;
+        }
+        
+        .reviews-swiper .swiper-slide {
+          width: auto !important;
+          margin-right: 0 !important;
+          flex-shrink: 1 !important;
+        }
+        
+        /* Esconder avaliações extras (mostrar apenas as primeiras 4) */
+        .reviews-swiper .swiper-slide:nth-child(n+5) {
+          display: none !important;
+        }
+        
+        .reviews-swiper .swiper-button-next,
+        .reviews-swiper .swiper-button-prev {
+          display: none !important;
+        }
+        
+        .reviews-swiper .swiper-pagination {
+          display: none !important;
+        }
+      }
+
+      /* Mobile: garantir que o carrossel funcione */
+      @media (max-width: 1023px) {
+        .reviews-swiper {
+          position: relative !important;
+        }
+        
+        .reviews-swiper .swiper-wrapper {
+          display: flex !important;
+          flex-wrap: nowrap !important;
+        }
+        
+        .reviews-swiper .swiper-slide {
+          width: 100% !important;
+          flex-shrink: 0 !important;
+        }
+        
+        @media (min-width: 640px) {
+          .reviews-swiper .swiper-slide {
+            width: calc(50% - 10px) !important;
+          }
+        }
+      }
+
+      .review-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 24px;
+        margin: 0 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: auto;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .review-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+
+      .review-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .review-avatar {
+        display: none !important;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .review-info h4 {
+        margin: 0 0 4px 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .review-info .location {
+        font-size: 14px;
+        color: var(--ink-weak);
+        margin: 0;
+      }
+
+      .review-rating {
+        display: flex;
+        gap: 2px;
+        margin-bottom: 12px;
+      }
+
+      .star {
+        color: #ffd700;
+        font-size: 18px;
+      }
+
+      .review-text {
+        flex: 1;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--ink);
+        margin: 0;
+      }
+
+      .review-date {
+        font-size: 13px;
+        color: var(--ink-weak);
+        margin-top: 12px;
+        text-align: right;
+      }
+
+      .swiper-pagination {
+        bottom: 0 !important;
+      }
+
+      .swiper-pagination-bullet {
+        background: var(--ink-weak) !important;
+        opacity: 0.3 !important;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: var(--accent) !important;
+        opacity: 1 !important;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: var(--accent) !important;
+        width: 44px !important;
+        height: 44px !important;
+        margin-top: -22px !important;
+      }
+
+      .swiper-button-next:after,
+      .swiper-button-prev:after {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+      }
+
+      @media (max-width: 768px) {
+        .reviews-section {
+          padding: 24px 16px;
+          margin: 16px;
+        }
+
+        .reviews-title h2 {
+          font-size: 24px;
+        }
+
+        .review-card {
+          padding: 20px;
+          margin: 0 5px;
+        }
+
+        .review-header {
+          gap: 10px;
+        }
+
+        .review-avatar {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+        }
+
+        .review-info h4 {
+          font-size: 15px;
+        }
+
+        .review-text {
+          font-size: 14px;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Seção de Avaliações -->
+    <section class="reviews-section">
+      <div class="reviews-title">
+        <h2>Avaliações de Clientes</h2>
+        <p class="subtitle">Veja o que nossos clientes falam sobre nossos produtos</p>
+        <div class="bar"></div>
+      </div>
+
+      <div class="swiper reviews-swiper">
+        <div class="swiper-wrapper">
+          <!-- Avaliação 1 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">M</div>
+                <div class="review-info">
+                  <h4>Marina Silva</h4>
+                  <p class="location">São Paulo - SP</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <p class="review-text">
+                "Produtos incríveis! Meu cachorro ficou lindo com a bandana. A qualidade é excelente e o atendimento foi perfeito. Recomendo demais!"
+              </p>
+              <div class="review-date">15/01/2025</div>
+            </div>
+          </div>
+
+          <!-- Avaliação 2 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">R</div>
+                <div class="review-info">
+                  <h4>Rafael Costa</h4>
+                  <p class="location">Rio de Janeiro - RJ</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <p class="review-text">
+                "Entrega super rápida! Comprei o peitoral antipuxão e minha gata adorou. Material de primeira qualidade e muito confortável."
+              </p>
+              <div class="review-date">12/01/2025</div>
+          </div>
+          </div>
+
+          <!-- Avaliação 3 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">A</div>
+                <div class="review-info">
+                  <h4>Ana Paula</h4>
+                  <p class="location">Belo Horizonte - MG</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <p class="review-text">
+                "Já é minha terceira compra! Sempre capricham na embalagem e enviam brindes. Os produtos são lindos e duradouros. Amo essa loja!"
+              </p>
+              <div class="review-date">10/01/2025</div>
+            </div>
+          </div>
+
+          <!-- Avaliação 4 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">L</div>
+                <div class="review-info">
+                  <h4>Lucas Oliveira</h4>
+                  <p class="location">Curitiba - PR</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <p class="review-text">
+                "Peitoral perfeito para meu Golden Retriever! Resistente, bonito e muito confortável. Chegou antes do prazo e bem embalado."
+              </p>
+              <div class="review-date">08/01/2025</div>
+        </div>
+      </div>
+
+          <!-- Avaliação 5 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">J</div>
+                <div class="review-info">
+                  <h4>Juliana Santos</h4>
+                  <p class="location">Porto Alegre - RS</p>
+          </div>
+        </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <p class="review-text">
+                "Comprei várias bandanas temáticas e ficaram lindas! Meu cachorro virou a sensação do parque. Qualidade impecável!"
+              </p>
+              <div class="review-date">05/01/2025</div>
+          </div>
+        </div>
+
+          <!-- Avaliação 6 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">C</div>
+                <div class="review-info">
+                  <h4>Carlos Mendes</h4>
+                  <p class="location">Salvador - BA</p>
+        </div>
+      </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+        </div>
+              <p class="review-text">
+                "Guia de corda unificada é perfeita! Prática e segura. Minha cadela se adaptou rapidamente. Recomendo para todos os pets!"
+              </p>
+              <div class="review-date">03/01/2025</div>
+            </div>
+          </div>
+
+          <!-- Avaliação 7 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">F</div>
+                <div class="review-info">
+                  <h4>Fernanda Lima</h4>
+                  <p class="location">Fortaleza - CE</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+              </div>
+              <p class="review-text">
+                "Atendimento nota 10! Me ajudaram a escolher o tamanho certo. Produtos chegaram perfeitos e com cheirinho delicioso."
+              </p>
+              <div class="review-date">01/01/2025</div>
+            </div>
+          </div>
+
+          <!-- Avaliação 8 -->
+          <div class="swiper-slide">
+            <div class="review-card">
+              <div class="review-header">
+                <div class="review-avatar">P</div>
+                <div class="review-info">
+                  <h4>Pedro Henrique</h4>
+                  <p class="location">Recife - PE</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+              <p class="review-text">
+                "Coleira antipuxão salvou meu braço! Meu cachorro parou de puxar nas caminhadas. Produto de qualidade excepcional!"
+              </p>
+              <div class="review-date">28/12/2024</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navegação do Swiper -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <!-- Swiper JS - Carregar primeiro -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // === SWIPER DE AVALIAÇÕES ===
+      document.addEventListener('DOMContentLoaded', function() {
+        // Aguardar um pouco mais para garantir que tudo carregou
+        setTimeout(function() {
+          initSwiper();
+        }, 100);
+      });
+
+      function initSwiper() {
+        // Verificar se é desktop ou mobile
+        function isDesktop() {
+          return window.innerWidth >= 1024;
+        }
+
+        // Verificar se o Swiper está disponível
+        if (typeof Swiper === 'undefined') {
+          console.warn('Swiper não carregou, tentando novamente...');
+          setTimeout(initSwiper, 500);
+          return;
+        }
+
+        // Configuração do Swiper apenas para mobile
+        const swiperConfig = {
+          // Configurações básicas
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          },
+          
+          // Responsividade apenas para mobile/tablet
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            }
+          },
+
+          // Navegação
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+
+          // Paginação
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+          },
+
+          // Efeitos
+          effect: 'slide',
+          speed: 600,
+          
+          // Acessibilidade
+          a11y: {
+            enabled: true,
+            prevSlideMessage: 'Avaliação anterior',
+            nextSlideMessage: 'Próxima avaliação',
+            firstSlideMessage: 'Esta é a primeira avaliação',
+            lastSlideMessage: 'Esta é a última avaliação',
+          },
+
+          // Eventos
+          on: {
+            init: function () {
+              console.log('Swiper de avaliações inicializado com sucesso');
+            },
+            slideChange: function () {
+              // Opcional: adicionar analytics ou outras funcionalidades
+            }
+          }
+        };
+
+        // Inicializar Swiper apenas se não for desktop
+        let reviewsSwiper = null;
+        
+        if (!isDesktop()) {
+          try {
+            reviewsSwiper = new Swiper('.reviews-swiper', swiperConfig);
+            console.log('Swiper criado com sucesso');
+          } catch (error) {
+            console.error('Erro ao criar Swiper:', error);
+          }
+        }
+
+        // Detectar mudança de tamanho da tela
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(function() {
+            if (isDesktop() && reviewsSwiper) {
+              // Se mudou para desktop, destruir o Swiper
+              try {
+                reviewsSwiper.destroy(true, true);
+                reviewsSwiper = null;
+                console.log('Swiper destruído (mudou para desktop)');
+              } catch (error) {
+                console.error('Erro ao destruir Swiper:', error);
+              }
+            } else if (!isDesktop() && !reviewsSwiper) {
+              // Se mudou para mobile, inicializar o Swiper
+              try {
+                reviewsSwiper = new Swiper('.reviews-swiper', swiperConfig);
+                console.log('Swiper criado (mudou para mobile)');
+              } catch (error) {
+                console.error('Erro ao criar Swiper no resize:', error);
+              }
+            }
+          }, 250);
+        });
+
+        // Pausar autoplay quando a página não está visível (apenas se Swiper existe)
+        document.addEventListener('visibilitychange', function() {
+          if (reviewsSwiper && reviewsSwiper.autoplay) {
+            if (document.hidden) {
+              reviewsSwiper.autoplay.stop();
+            } else {
+              reviewsSwiper.autoplay.start();
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,192 @@
+    <style>
+
+
+        .bf-tag {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0F0F0F 100%);
+            border: 2px solid #FBFF05;
+            padding: 20px 24px;
+            width: fit-content;
+            border-radius: 12px;
+            margin: 20px auto;
+            font-family: "Poppins", sans-serif;
+            box-shadow: 0 8px 24px rgba(251, 255, 5, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bf-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 255, 5, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .bf-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FBFF05;
+            text-align: center;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(251, 255, 5, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1); 
+            }
+            50% { 
+                opacity: 0.9; 
+                transform: scale(1.05); 
+            }
+        }
+
+        .bf-boxes {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bf-box {
+            background: linear-gradient(145deg, #FBFF05 0%, #f0f500 100%);
+            color: #000;
+            padding: 6px 8px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 55px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .bf-box:hover {
+            transform: translateY(-2px);
+        }
+
+        .bf-box span {
+            font-size: 19px;
+            font-weight: 800;
+            line-height: 1;
+            display: block;
+            letter-spacing: 0.5px;
+        }
+
+        .bf-box small {
+            font-size: 10px;
+            font-weight: 600;
+            opacity: 0.75;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 480px) {
+            .bf-tag {
+                padding: 16px 20px;
+            }
+
+            .bf-title {
+                font-size: 16px;
+            }
+
+            .bf-box {
+                min-width: 48px;
+                padding: 10px 12px;
+            }
+
+            .bf-box span {
+                font-size: 20px;
+            }
+
+            .bf-box small {
+                font-size: 9px;
+            }
+        }
+    </style>
+
+<script>
+jQuery(function($) {
+
+    const bannerBlackFriday = `
+    <div class="bf-tag">
+        <span class="bf-title">🚨 Preço de Black Friday 🚨</span>
+        <div class="bf-boxes">
+            <div class="bf-box">
+                <span id="bfDias">00</span>
+                <small>dias</small>
+            </div>
+            <div class="bf-box">
+                <span id="bfHoras">00</span>
+                <small>horas</small>
+            </div>
+            <div class="bf-box">
+                <span id="bfMinutos">00</span>
+                <small>min</small>
+            </div>
+            <div class="bf-box">
+                <span id="bfSegundos">00</span>
+                <small>seg</small>
+            </div>
+        </div>
+    </div>
+    `;
+
+    // Insere apenas uma vez
+    const $target = $('.values-area, .avaliacoes').first();
+    if ($target.length > 0) {
+        $target.after(bannerBlackFriday);
+    }
+
+    /** TIMER — FINALIZA EM 30/11/2025 23:59:59 **/
+    const bfDate = new Date(2025, 10, 30, 23, 59, 59);
+
+    function atualizarTimer() {
+        const agora = new Date();
+        const distancia = bfDate.getTime() - agora.getTime();
+
+        if (distancia <= 0) {
+            $("#bfDias, #bfHoras, #bfMinutos, #bfSegundos").text("00");
+            return;
+        }
+
+        const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+        const format = (n) => (n < 10 ? "0" + n : n);
+
+        $("#bfDias").text(format(dias));
+        $("#bfHoras").text(format(horas));
+        $("#bfMinutos").text(format(minutos));
+        $("#bfSegundos").text(format(segundos));
+    }
+
+    atualizarTimer();
+    setInterval(atualizarTimer, 1000);
+
+});
+</script>
+

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal People - Macaquinho Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background: #fff;
+        }
+
+        /* Barra de Vantagens */
+        .vantagens-bar {
+            background: linear-gradient(135deg, #1C1E1A 0%, #2a2d28 100%);
+            padding: 25px 0;
+            overflow: hidden;
+        }
+
+        .vantagens-container {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        .vantagem-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .vantagem-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .vantagem-item svg {
+            min-width: 40px;
+            height: 40px;
+            fill: #C99E9F;
+        }
+
+        .vantagem-texto {
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .vantagem-texto strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+            color: #C99E9F;
+        }
+
+        /* Seção Por que Escolher */
+        .colecoes-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .colecoes-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            color: #1C1E1A;
+            font-weight: 700;
+        }
+
+        .colecoes-container {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .colecoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .colecao-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border-bottom: 4px solid #C99E9F;
+        }
+
+        .colecao-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(201, 158, 159, 0.2);
+        }
+
+        .colecao-img {
+            width: 100%;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f8f8 0%, #f1f1f1 100%);
+        }
+
+        .colecao-img img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .colecao-card:hover .colecao-img img {
+            transform: scale(1.05);
+        }
+
+        .colecao-content {
+            padding: 15px;
+        }
+
+        .colecao-content h3 {
+            font-size: 1.1rem;
+            color: #1C1E1A;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .colecao-content p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Seção Sobre o Produto */
+        .sobre-produto {
+            padding: 80px 20px;
+            background: #fff;
+        }
+
+        .sobre-container {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .sobre-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .sobre-header .title {
+            font-size: 2.5rem;
+            color: #1C1E1A;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .sobre-header .text-information {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 35px;
+            border-radius: 16px;
+            border-left: 4px solid #C99E9F;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .feature-card span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1C1E1A;
+            margin-bottom: 8px;
+        }
+
+        .feature-card small {
+            display: block;
+            font-size: 0.9rem;
+            color: #C99E9F;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Seção Detalhes com Imagem */
+        .detalhes-section {
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .detalhes-container {
+            max-width: 1340px;
+            margin: 0 auto;
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .detalhes-img {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .detalhes-img img {
+            width: 100%;
+            height: 550px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .detalhes-content {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .detalhe-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 3px solid #C99E9F;
+        }
+
+        .detalhe-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(201, 158, 159, 0.15);
+        }
+
+        .detalhe-box .title {
+            display: block;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1C1E1A;
+            margin-bottom: 15px;
+        }
+
+        .detalhe-box .text-information {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Responsivo */
+        @media (max-width: 1024px) {
+            .vantagens-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .detalhes-container {
+                flex-direction: column;
+            }
+
+            .detalhes-img {
+                max-width: 100%;
+            }
+
+            .detalhes-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .colecoes-section h2,
+            .sobre-header .title {
+                font-size: 2rem;
+            }
+
+            .vantagens-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .vantagem-item {
+                padding: 12px;
+            }
+
+            .colecoes-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detalhes-img img {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Por que Escolher Royal People -->
+    <section class="colecoes-section">
+        <div class="colecoes-container">
+            <h2>afadfasfas</h2>
+
+            <div class="colecoes-grid">
+                <!-- ZERO TRANSPARÊNCIA -->
+                <div class="colecao-card">
+                    <div class="colecao-img">
+                        <img src="https://magazord-public.s3.amazonaws.com/royalpeople/img/2025/11/produto/879/hide.png"
+                            alt="Ícone Zero Transparência">
+                    </div>
+                    <div class="colecao-content">
+                        <h3>Zero Trência</h3>
+                        <p>Tecido encorpado que não marca e evita qualquer transparência, garantindo segurança total em
+                            agachamentos e movimentos intensos.</p>
+                    </div>
+                </div>
+
+                <!-- MODELAGEM ANATÔMICA -->
+                <div class="colecao-card">
+                    <div class="colecao-img">
+                        <img src="https://magazord-public.s3.amazonaws.com/royalpeople/img/2025/11/produto/878/mannequin-222227.png"
+                            alt="Ícone Modelagem Anatômica">
+                    </div>
+                    <div class="colecao-content">
+                        <h3>Modelagem Anatômica</h3>
+                        <p>Caimento que acompanha as curvas do corpo, valorizando a silhueta sem apertar e oferecendo
+                            liberdade total de movimento.</p>
+                    </div>
+                </div>
+
+                <!-- TECIDO CONFORTÁVEL E MACIO -->
+                <div class="colecao-card">
+                    <div class="colecao-img">
+                        <img src="https://magazord-public.s3.amazonaws.com/royalpeople/img/2025/11/produto/877/plant.png"
+                            alt="Ícone Tecido Confortável e Macio">
+                    </div>
+                    <div class="colecao-content">
+                        <h3>Tecido Confortável e Macio</h3>
+                        <p>Toque suave na pele, alta respirabilidade e elasticidade ideal para treinos longos, sem
+                            incômodo ou atrito.</p>
+                    </div>
+                </div>
+
+                <!-- PROTEÇÃO UV+50 -->
+                <div class="colecao-card">
+                    <div class="colecao-img">
+                        <img src="https://magazord-public.s3.amazonaws.com/royalpeople/img/2025/11/produto/876/protection-2100165.png"
+                            alt="Ícone Proteção UV+50">
+                    </div>
+                    <div class="colecao-content">
+                        <h3>Proteção UV+50</h3>
+                        <p>Tecido com proteção UV+50 que ajuda a blindar a pele contra os raios solares durante treinos
+                            ao ar livre.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Detalhes com Imagem -->
+    <section class="detalhes-section">
+        <div class="detalhes-container">
+            <div class="detalhes-img">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&h=550&fit=crop"
+                    alt="Detalhes do produto">
+            </div>
+
+            <div class="detalhes-content">
+                <div class="detalhe-box">
+                    <span class="title">Design Moderno</span>
+                    <p class="text-information">O Macaquinho Feminino Fitness Royal People é a escolha ideal para
+                        mulheres que buscam uma peça versátil, confortável e estilosa para suas atividades físicas.</p>
+                </div>
+
+                <div class="detalhe-box">
+                    <span class="title">Versatilidade</span>
+                    <p class="text-information">Perfeito tanto para treinos intensos quanto para momentos casuais. Com
+                        design moderno e funcionalidade, ele se destaca como uma peça-chave no guarda-roupa fitness.</p>
+                </div>
+
+                <div class="detalhe-box">
+                    <span class="title">Tecnologia Premium</span>
+                    <p class="text-information">Desenvolvido com tecidos de última geração que proporcionam compressão
+                        ideal, suporte e conforto durante toda a atividade física.</p>
+                </div>
+
+                <div class="detalhe-box">
+                    <span class="title">Qualidade Royal</span>
+                    <p class="text-information">Costura reforçada, acabamento impecável e atenção aos detalhes que fazem
+                        toda a diferença na durabilidade e performance da peça.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

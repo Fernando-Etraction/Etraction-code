@@ -1,0 +1,170 @@
+<div class="container-cupom"><span class="title"><strong>Cupom Primeira Compra</strong> &mdash; use o cupom:</span>
+<div class="cupom-box"><input id="code" readonly="readonly" type="text" value="BRIZZE10" /></div>
+<span class="subtitle">e <strong>ganhe 10% OFF</strong> <small>*V&aacute;lido na Primeira Compra</small></span>
+<div id="copied" class="copied-msg">Copiado!</div>
+</div>
+<style><!--
+.container-cupom {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap:10px;
+  }
+
+  .container-cupom .title {
+    display: block;
+  
+    font-size: 16px;
+    color: #222;
+  }
+
+  .container-cupom .cupom-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+    
+  }
+
+  .container-cupom input#code {
+    background: #f2f2f2;
+    border: 1px dashed #ccc;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 10px;
+    width: 160px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .container-cupom input#code:hover {
+    background: #e0e0e0;
+  }
+
+  .container-cupom button#copy-btn {
+    background: #333;
+    border: none;
+    color: #fff;
+     padding: 8px 12px;
+    font-weight: bold;
+    
+    margin-left: -10px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .container-cupom button#copy-btn:hover {
+    background: #555;
+  }
+
+  .container-cupom .subtitle {
+    display: block;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .container-cupom .subtitle small {
+    display: block;
+    margin-top: 4px;
+    color: #999;
+    font-size: 12px;
+  }
+
+  .copied-msg {
+    display: none;
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    animation: fadeInOut 2s forwards;
+    pointer-events: none;
+  }
+
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -10px);}
+    20% { opacity: 1; transform: translate(-50%, 0);}
+    80% { opacity: 1; transform: translate(-50%, 0);}
+    100% { opacity: 0; transform: translate(-50%, -10px);}
+  }
+
+  @media only screen and (max-width: 600px) {
+    .container-cupom {
+    flex-direction: column;
+  }
+    .container-cupom .cupom-box {
+      flex-direction: column;
+    }
+
+    .container-cupom input#code,
+    .container-cupom button#copy-btn {
+      width: 100%;
+    }
+    
+  }
+--></style>
+<script>// <![CDATA[
+// Mantém seu código jQuery para inserção do cupom após a lista do carrinho
+  $(document).ready(function() {
+    $(".container-cupom").insertAfter(".lista-carrinho");
+  });
+
+  window.addEventListener("load", (event) => {
+    const cupom = $(".container-cupom");
+    if ($("#cart-area .container-cupom").length == 0){
+      $(".lista-carrinho").after(cupom);
+    }
+
+    let elem = document.querySelector('#main-cart-area');
+    function callback() {
+      if ($("#cart-area .container-cupom").length == 0){
+        $(".lista-carrinho").after(cupom);
+      }
+    }
+
+    let observer = new MutationObserver(callback);
+    observer.observe(elem, {
+      childList: true
+    });
+  });
+
+  // Script Vanilla para copiar ao clicar no input
+  document.addEventListener("DOMContentLoaded", () => {
+    const codeInput = document.getElementById("code");
+    const copiedMsg = document.getElementById("copied");
+
+    function copyCode() {
+      navigator.clipboard.writeText(codeInput.value).then(() => {
+        copiedMsg.style.display = "block";
+        setTimeout(() => {
+          copiedMsg.style.display = "none";
+        }, 2000);
+      });
+    }
+
+    codeInput.addEventListener("click", copyCode);
+  });
+// ]]></script>

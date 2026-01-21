@@ -1,0 +1,306 @@
+<script>
+function inserirDimensoesAcimaDoMenu() {
+    
+    const cssContent = `
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+        .dimensoes-container {
+            margin: 0px auto;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Rubik', sans-serif;
+            max-width: none;
+        }
+        
+        .dimensoes-container ::selection{
+            background-color: transparent;
+        }
+
+        .dimensoes-titulo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            margin-left: 50px;
+        }
+
+        .dimensoes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+            gap: 20px;
+        }
+
+        .dimensao-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #dceee4;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dimensao-item:hover {
+            background: rgba(0, 123, 255, 0);
+            transform: scale(1.02);
+        }
+
+        .dimensao-icone {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(0, 0, 0);
+            border-radius: 6px;
+            font-size: 22px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .dimensao-info {
+            flex: 1;
+        }
+
+        .dimensao-label {
+            font-size: 14px;
+            color: #3d3d3d;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .dimensao-valor {
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: 400;
+}
+
+        .dimensoes-rodape {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #dee2e6;
+            font-size: 12px;
+            color: #6c757d;
+            text-align: center;
+        }
+
+        /* Animação de entrada */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dimensoes-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dimensao-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .dimensao-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .dimensao-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dimensao-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .dimensoes-container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .dimensoes-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .dimensoes-titulo {
+                font-size: 16px;
+            }
+
+            .dimensao-valor {
+                font-size: 15px;
+            }
+        }
+
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        .unidade-toggle {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 5px;
+        }
+
+        .unidade-toggle:hover {
+            background: #495057;
+        }
+    `;
+
+    // HTML das dimensões
+    const htmlContent = `
+    <div class="dimensoes-container">
+        <div class="dimensoes-grid">
+            <div class="dimensao-item tooltip" data-tooltip="Sobre o Material">
+                <div class="dimensao-icone">
+                    <img src="https://agrojardim.cdn.magazord.com.br/img/2025/09/banner/3013/1.png" alt="Mãos apertando" style="width:32px;height:32px;">
+                </div>
+                <div class="dimensao-info">
+                    <div class="dimensao-label"><b>Material de Alta Qualidade </b></div>
+                </div>
+            </div>
+
+            <div class="dimensao-item tooltip" data-tooltip="Desconto especial">
+                <div class="dimensao-icone">
+                    <img src="https://agrojardim.cdn.magazord.com.br/img/2025/09/banner/3014/2.png" alt="Desconto" style="width:32px;height:32px;">
+                </div>
+                <div class="dimensao-info">
+                    <div class="dimensao-label"><b>Em Até 10x Sem Juros</b></div>
+                </div>
+            </div>
+
+            <div class="dimensao-item tooltip" data-tooltip="Parcelamento">
+                <div class="dimensao-icone">
+                    <img src="https://agrojardim.cdn.magazord.com.br/img/2025/09/banner/3015/3.png" alt="Cartão" style="width:32px;height:32px;">
+                </div>
+                <div class="dimensao-info">
+                    <div class="dimensao-label"><b>Atendimento Humanizado</b></div>
+                </div>
+            </div>
+
+            <div class="dimensao-item tooltip" data-tooltip="Garantia total">
+                <div class="dimensao-icone">
+                    <img src="https://agrojardim.cdn.magazord.com.br/img/2025/09/banner/3016/4.png" alt="Garantia" style="width:32px;height:32px;">
+                </div>
+                <div class="dimensao-info">
+                    <div class="dimensao-label"><b>Garantia total</b></div>
+                    <div class="dimensao-valor">Em caso de problemas</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+
+    // Procura pelo menu-container
+    const menuContainer = document.querySelector('.compre-junto') || document.querySelector('.descricao-produto');
+    
+    if (!menuContainer) {
+        console.error('Elemento .topo-produto não encontrado');
+        return;
+    }
+
+    if (document.querySelector('.dimensoes-container')) {
+        console.log('Dimensões já foram inseridas');
+        return;
+    }
+
+    // Cria e adiciona o CSS
+    const style = document.createElement('style');
+    style.textContent = cssContent;
+    document.head.appendChild(style);
+
+    // Cria o elemento das dimensões
+    const dimensoesElement = document.createElement('div');
+    dimensoesElement.innerHTML = htmlContent;
+
+    // Insere antes do menu-container
+    menuContainer.parentNode.insertBefore(dimensoesElement.firstElementChild, menuContainer);
+
+    // Adiciona as funcionalidades JavaScript
+    adicionarFuncionalidadesDimensoes();
+}
+
+// Funções JavaScript das dimensões
+function adicionarFuncionalidadesDimensoes() {
+    
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 9999;
+            font-size: 14px;
+            animation: fadeInUp 0.3s ease;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    window.showNotification = showNotification;
+
+    // Adiciona event listeners para duplo clique
+    document.querySelectorAll('.dimensao-item').forEach(item => {
+        item.addEventListener('dblclick', copyDimensions);
+    });
+}
+
+// Executa quando o DOM estiver carregado
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inserirDimensoesAcimaDoMenu);
+} else {
+    inserirDimensoesAcimaDoMenu();
+}
+    </script>
+
+<style>
+    .descricao-completa{
+        display: none !important;
+    }
+</style>
+

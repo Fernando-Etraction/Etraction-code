@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #fafafa;
+        color: #333;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+
+      .grid-item {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .grid-item:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      }
+
+      .hero-image {
+        background: linear-gradient(135deg, #f0d9e8 0%, #e8c5d8 100%);
+        height: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-image::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          transparent 45%,
+          rgba(255, 255, 255, 0.8) 48%,
+          rgba(255, 255, 255, 0.8) 52%,
+          transparent 55%,
+          transparent 100%
+        );
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .hero-icon {
+        font-size: 120px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .text-section {
+        padding: 40px;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .text-section h2 {
+        color: #d4a5c9;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .text-section p {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 15px;
+      }
+
+      .text-section a {
+        color: #d4a5c9;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s ease;
+        border-bottom: 2px solid #d4a5c9;
+        padding-bottom: 2px;
+      }
+
+      .text-section a:hover {
+        color: #c88bb8;
+      }
+
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+      }
+
+      .product-card {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        background: white;
+        transition: transform 0.3s ease;
+      }
+
+      .product-image {
+        width: 100%;
+        height: 300px;
+        background: linear-gradient(135deg, #e8c5e0 0%, #f0d9e8 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 80px;
+      }
+
+      .product-info {
+        padding: 30px;
+      }
+
+      .product-info h3 {
+        color: #d4a5c9;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .product-info p {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 15px;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #d4a5c9 0%, #e8c5d8 100%);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .features-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 60px;
+        padding: 40px;
+        border-radius: 16px;
+      }
+
+      .feature-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .feature-icon {
+        width: 80px;
+        height: 80px;
+        border: 2px solid #d4a5c9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        font-size: 40px;
+      }
+
+      .feature-item h3 {
+        color: #e84b8a;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .feature-item p {
+        font-size: 13px;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      @media (max-width: 768px) {
+        .grid,
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-item {
+          grid-column: auto;
+        }
+
+        .hero-image {
+          height: 280px;
+        }
+
+        .text-section {
+          padding: 30px;
+        }
+
+        .text-section h2 {
+          font-size: 16px;
+        }
+
+        .text-section p {
+          font-size: 13px;
+        }
+
+        .features-section {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+   
+    <div class="container">
+         <h1>Descrição do Produto</h1>
+    <p style="margin-bottom: 15px; margin-top: 10px;">
+      O Kit Desmaia Cabelo Completo Forever Liss traz hidratação intensa, maciez
+      e brilho para todos os tipos de fios. Nesse combo completo de produtos,
+      você recebe tudo da linha Desmaia Cabelo da Forever Liss, com shampoo,
+      condicionador, sérum, leave-in e creme Desmaia Cabelo. Aproveite para
+      transformar seus cuidados e cuidar dos cabelos com praticidade!
+    </p>
+      <div class="grid">
+        <!-- Top Left: Hero Image -->
+        <div class="grid-item">
+          <div class="hero-image">
+            <div class="hero-icon"><img src="" alt="" /></div>
+          </div>
+        </div>
+
+        <!-- Top Right: Main Description -->
+        <div class="grid-item">
+          <div class="text-section">
+            <h2>Desmaia Cabelo Forever Liss</h2>
+            <p>
+              O Desmaia Cabelo da Forever Liss é uma linha ideal para quem busca
+              fios hidratados, sedosos e sem frizz. Com ingredientes como
+              Queratina Brasileira, D-Pantenol, Colágeno e Sinergia de
+              Aminoácidos, os produtos repõem os nutrientes dos cabelos e
+              promovem brilho intenso. Perfeito para tratar madeixas que estão
+              ressecadas ou com volume excessivo, garantindo efeito liso e
+              saudável desde a primeira aplicação.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Product Cards -->
+      <div class="grid full-width">
+        <!-- Bottom Left: Kit Description -->
+        <div class="grid-item">
+          <div class="text-section">
+            <h2>Kit Desmaia Cabelo</h2>
+            <p>
+              Se você está cansada do frizz e do volume, o
+              <strong>Kit Desmaia Cabelo</strong> é a solução que você precisa
+              para conquistar fios disciplinados, saudáveis e brilhosos.
+              Aproveite para conferir outras opções nas
+              <a href="#">Linhas Forever Liss</a> e conheça os Mais Vendidos da
+              Forever Liss para complementar sua rotina capilar com os melhores
+              produtos!
+            </p>
+            <button class="btn">Comprar Agora</button>
+          </div>
+        </div>
+
+        <!-- Bottom Right: Visual Product -->
+        <div class="grid-item">
+          <div class="hero-image">
+            <div class="hero-icon"><img src="" alt="" /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="features-section">
+        <div class="feature-item">
+          <div class="feature-icon"><img src="" alt="" /></div>
+          <h3>Cruelty Free</h3>
+          <p>Zero crueldade animal</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><img src="" alt="" /></div>
+          <h3>Fórmulas + leves</h3>
+          <p>Tratamentos que não pesam e respeitam seus fios</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><img src="" alt="" /></div>
+          <h3>Salão em casa</h3>
+          <p>Fácil aplicação, resultado que surpreende</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

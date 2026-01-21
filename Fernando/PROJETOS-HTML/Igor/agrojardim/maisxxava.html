@@ -1,0 +1,401 @@
+<!-- COPY 1 -->
+<script>
+  $(document).ready(function () {
+    let numAvaliacoes =
+      parseInt($(".num-avaliacoes a").text().replace(/\D/g, ""), 10) || 0;
+
+    if (numAvaliacoes === 0) {
+      $(".avaliacoes").remove();
+    } else if (numAvaliacoes < 10) {
+      // Altera o texto para "Ver Avaliações" caso o número seja menor que 10.
+      $(".faca-avaliacao").html(
+        '<span style="font-size:12px;">Ver Avaliações</span>'
+      );
+    } else {
+      // Remove o elemento de número de avaliações e altera o texto para "Mais de [número] avaliações!".
+      $(".num-avaliacoes").remove();
+      $(".faca-avaliacao").html(
+        '<span style="font-size:12px;">Mais de ' +
+          numAvaliacoes +
+          " avaliações!</span>"
+      );
+    }
+  });
+</script>
+
+<!-- COPY 2 -->
+<script>
+  $(document).ready(function () {
+    let numAvaliacoes =
+      parseInt($(".num-avaliacoes a").text().replace(/\D/g, ""), 10) || 0;
+
+    if (numAvaliacoes === 0) {
+      $(".avaliacoes").remove();
+    } else if (numAvaliacoes < 10) {
+      // Altera o texto para "Ver Avaliações" caso o número seja menor que 10.
+      $(".faca-avaliacao").html(
+        '<span style="font-size:12px;">Ver Avaliações</span>'
+      );
+    } else {
+      // Remove o elemento de número de avaliações e altera o texto para "Mais de [número] avaliações!".
+      $(".num-avaliacoes").remove();
+      $(".faca-avaliacao").html(
+        '<span style="font-size:12px;">Mais de ' +
+          numAvaliacoes +
+          " pessoas recomendam!</span>"
+      );
+    }
+  });
+</script>
+
+<!-- COPY 3 -->
+<script>
+  $(document).ready(function () {
+    let numAvaliacoes =
+      parseInt($(".num-avaliacoes a").text().replace(/\D/g, ""), 10) || 0;
+
+    if (numAvaliacoes === 0) {
+      $(".avaliacoes").remove();
+    } else if (numAvaliacoes < 10) {
+      // Altera o texto para "Ver Avaliações" caso o número seja menor que 10.
+      $(".faca-avaliacao").html(
+        '<span style="font-size:12px;">Ver Avaliações</span>'
+      );
+    } else {
+      // Remove o elemento de número de avaliações e altera o texto para "Mais de [número] avaliações!".
+      $(".num-avaliacoes").remove();
+      $(".faca-avaliacao").html(
+        '<span style="font-size:12px;">Mais de ' +
+          numAvaliacoes +
+          " pessoas amam amofadas!</span>"
+      );
+    }
+  });
+</script>
+
+<!-- ECONOMIZE -->
+<script type="text/javascript">
+  function economize() {
+    try {
+      const precoAntigoEl = $(".valor-de .line-through");
+      const precoAtualEl = $(".preco-pix strong");
+      if (precoAntigoEl.length && precoAtualEl.length) {
+        let precoAntigoStr = precoAntigoEl.text().trim();
+        let precoAtualStr = precoAtualEl.text().trim();
+        const precoAntigo = parsePrice(precoAntigoStr);
+        const precoAtual = parsePrice(precoAtualStr);
+        console.log("Preço antigo:", precoAntigo);
+        console.log("Preço atual:", precoAtual);
+
+        if (
+          !isNaN(precoAntigo) &&
+          !isNaN(precoAtual) &&
+          precoAntigo > precoAtual
+        ) {
+          const economia = (precoAntigo - precoAtual)
+            .toFixed(2)
+            .replace(".", ",");
+
+          const economiaHtml = `
+                    <div class="economize" style="
+                        color:#059669;
+                        display:flex;
+                        flex-direction: column;
+                        align-items:flex-start;
+                        gap: 4px;
+                        margin-top:10px;
+                        background-color:#f0fdf4;
+                        padding:10px 15px;
+                        border-radius:10px;
+                        font-weight: 500;
+                        font-size: 0.95rem;
+                    ">
+                       <span style="color:#16a34a; font-weight:bold; font-size: 1.05rem;">Oferta Especial!</span>
+                       <span>Você economiza <strong>R$ ${economia}</strong></span>
+                       <span id="timer-promocao" style="font-weight: bold; font-size: 0.9rem; color: #166534;"></span>
+                    </div>
+                `;
+
+          $(".economize").remove();
+          $(".preco-principal").after(economiaHtml);
+
+          iniciarContador();
+        }
+      } else {
+        console.log("Elementos de preço não encontrados.");
+      }
+    } catch (e) {
+      console.error("Erro na função economize:", e);
+    }
+  }
+
+  function parsePrice(text) {
+    if (!text) return NaN;
+    return parseFloat(
+      text
+        .replace("R$", "")
+        .replace(/\./g, "")
+        .replace(",", ".")
+        .replace(/\s/g, "")
+    );
+  }
+
+  function iniciarContador() {
+    const fim = new Date("2025-08-03T23:59:59").getTime();
+    const timerEl = document.getElementById("timer-promocao");
+
+    function atualizar() {
+      const agora = new Date().getTime();
+      const restante = fim - agora;
+
+      if (restante <= 0) {
+        timerEl.textContent = "Promoção encerrada";
+        return;
+      }
+
+      const d = Math.floor(restante / (1000 * 60 * 60 * 24));
+      const h = Math.floor(
+        (restante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const m = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((restante % (1000 * 60)) / 1000);
+
+      timerEl.textContent = `Termina em: ${d}d ${h
+        .toString()
+        .padStart(2, "0")}h ${m.toString().padStart(2, "0")}m ${s
+        .toString()
+        .padStart(2, "0")}s`;
+    }
+
+    atualizar();
+    setInterval(atualizar, 1000);
+  }
+
+  setTimeout(function () {
+    economize();
+  }, 500);
+</script>
+
+<!-- TIMER NA PDP  -->
+<script>
+  (function () {
+    // --- CONFIG --- //
+    const TARGET_SELECTOR = ".buy-area .values-area.forma-pagamento-4";
+    const DEADLINE_ISO = "2025-10-17T12:00:00-03:00"; // ajuste se quiser
+
+    // --- UTIL --- //
+    function once(id, injectFn) {
+      if (document.getElementById(id)) return;
+      injectFn();
+    }
+    function insertAfter(newNode, referenceNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
+    function waitForSelector(sel, timeoutMs = 15000) {
+      return new Promise((resolve, reject) => {
+        const found = document.querySelector(sel);
+        if (found) return resolve(found);
+
+        const obs = new MutationObserver(() => {
+          const el = document.querySelector(sel);
+          if (el) {
+            obs.disconnect();
+            resolve(el);
+          }
+        });
+        obs.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+        });
+
+        setTimeout(() => {
+          obs.disconnect();
+          const late = document.querySelector(sel);
+          late
+            ? resolve(late)
+            : reject(new Error("Elemento não encontrado: " + sel));
+        }, timeoutMs);
+      });
+    }
+
+    // --- INJEÇÃO: <link> e <style> no <head> --- //
+    once("faixa-font-inter", () => {
+      const link = document.createElement("link");
+      link.id = "faixa-font-inter";
+      link.rel = "stylesheet";
+      link.href =
+        "https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap";
+      document.head.appendChild(link);
+    });
+
+    once("faixa-style", () => {
+      const style = document.createElement("style");
+      style.id = "faixa-style";
+      style.textContent = `
+  .faixa-oferta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #000;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    width: max-content;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+  }
+  .faixa-oferta .ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: #fff1f1; color: #000; flex: 0 0 28px;
+  }
+  .faixa-oferta .txt { letter-spacing: .3px; }
+
+  .timer { display: flex; align-items: center; gap: 6px; margin-left: 30px; border-radius: 8px; }
+  .digito {
+    background: gray; color: #fff; border-radius: 6px;
+    padding: 6px 6px 4px; min-width: 34px; text-align: center; line-height: 1; font-weight: 800;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.08);
+  }
+  .label { display: block; font-size: 9px; font-weight: 700; opacity: .9; margin-top: 2px; letter-spacing: .4px; }
+  .sep { font-weight: 800; opacity: .9; margin: 0 2px; }
+
+  .faixa-wrap { display: flex; justify-content: center; float: left; }
+  .faixa-oferta { margin: 8px auto; gap: 8px; padding: 8px 10px; font-size: 13px; letter-spacing: .2px; transform: translateZ(0); }
+  .faixa-oferta .ico { width: 22px; height: 22px; flex: 0 0 22px; }
+  .faixa-oferta .txt { font-weight: 700; }
+  .timer { padding: 0; gap: 4px; border-radius: 6px; }
+  .digito { min-width: 28px; padding: 0 4px 8px; border-radius: 5px; margin-bottom: -6px; }
+  .digito .val { font-size: 14px; }
+  .label { font-size: 8.5px; margin-top: 1px; }
+  .sep { margin: 0 1px; }
+
+  .digito.dias { min-width: 36px; }
+  svg path { fill: #B58D61; }
+
+  @media (max-width: 520px) {
+    .faixa-oferta { width: 100%; justify-content: center; font-size: 13px; }
+    .timer { margin-left: 0; justify-content: center; flex-wrap: nowrap; margin-right: 20px; }
+    .digito { min-width: 26px; margin-bottom: 0; }
+    .faixa-wrap { float: none; }
+    .faixa-oferta .txt { margin-right: 70px; }
+  }`;
+      document.head.appendChild(style);
+    });
+
+    // --- TEMPLATE HTML (sem a linha XML no SVG, que quebra no innerHTML) --- //
+    const BANNER_HTML = `
+<div class="faixa-wrap">
+  <div class="faixa-oferta js-countdown" data-deadline="${DEADLINE_ISO}">
+    <span class="ico" aria-hidden="true">
+<svg version="1.1" viewBox="0 0 457.544 457.544" style="width:16px" aria-hidden="true">
+<g id="XMLID_463_"><g>
+<path d="M371.706,354.903c-0.014-0.003-0.025-0.014-0.027-0.029c-4.551-28.528-14.82-57.299-29.418-82.121
+c-12.783-21.734-28.209-39.64-45.332-52.768c-0.019-0.015-0.019-0.042,0-0.057c33.017-25.437,59.423-68.366,71.095-116.569
+c0.003-0.014,0.015-0.025,0.029-0.027c25.025-3.816,44.241-25.55,44.098-51.658C411.994,22.945,388.044,0,359.314,0H98.229
+c-28.73,0-52.68,22.945-52.837,51.674c-0.143,26.107,19.072,47.842,44.097,51.658c0.014,0.002,0.026,0.013,0.029,0.027
+c11.672,48.204,38.078,91.133,71.095,116.569c0.019,0.014,0.019,0.042,0,0.057c-17.122,13.128-32.548,31.034-45.331,52.768
+c-14.599,24.821-24.868,53.593-29.418,82.121c-0.002,0.015-0.013,0.026-0.027,0.029c-23.146,5.259-40.472,26.013-40.445,50.734
+c0.03,28.553,24.266,51.907,52.819,51.907h261.123c28.553,0,52.788-23.353,52.819-51.907
+C412.178,380.916,394.852,360.162,371.706,354.903z M359.585,429.199H97.354c-13.024,0-23.62-10.596-23.62-23.62
+c0-12.009,9.203-23.62,24.706-23.62c7.251,0,13.333-5.473,14.093-12.684c6.234-59.073,39.468-115.291,80.819-136.711
+c5.739-2.974,8.872-9.55,7.209-16.135c-1.009-3.994-3.846-7.275-7.497-9.183c-32.617-17.046-61.079-57.284-74.063-103.274
+c-0.007-0.023,0.011-0.047,0.035-0.047l156.308,0.079c3.77,0.002,7.387-1.495,10.054-4.16c2.667-2.665,4.165-6.281,4.165-10.052
+c0-7.849-6.363-14.212-14.212-14.212H97.958c-13.91,0-25.126-11.389-24.167-25.265c0.848-12.259,11.092-21.974,23.563-21.974
+h262.23c13.909,0,25.126,11.389,24.167,25.265c-0.848,12.259-11.092,21.974-23.563,21.974h-3.678
+c-6.779,0-12.656,4.78-13.935,11.437c-10.158,52.854-41.531,101.126-78.111,120.235c-3.647,1.905-6.478,5.188-7.485,9.178
+c-1.662,6.584,1.469,13.16,7.209,16.134c37.665,19.511,68.587,67.895,78.513,121.008c0.004,0.022-0.013,0.043-0.036,0.043h-39.743
+c-0.018,0-0.033-0.013-0.036-0.031c-5.38-40.217-34.802-82.847-74.116-82.847c-40.269,0-71.892,45.72-74.872,90.645
+c-0.799,12.051,5,20.577,13.967,20.577h192.322c12.471,0,22.715,9.715,23.563,21.974
+C384.711,417.811,373.494,429.199,359.585,429.199z M274.18,353.573c0.004,0.023-0.013,0.044-0.036,0.044h-90.725
+c-0.023,0-0.04-0.021-0.036-0.044c5.298-28.646,25.225-54.491,45.389-54.491C248.701,299.082,268.854,324.428,274.18,353.573z"/>
+</g></g></svg>
+    </span>
+
+    <span class="txt">Oferta expira em:</span>
+
+    <div class="timer" aria-live="polite">
+      <div class="digito dias">
+        <span class="val js-dias">00</span><span class="label">DIAS</span>
+      </div>
+      <span class="sep">:</span>
+      <div class="digito">
+        <span class="val js-horas">00</span><span class="label">HRS</span>
+      </div>
+      <span class="sep">:</span>
+      <div class="digito">
+        <span class="val js-minutos">00</span><span class="label">MIN</span>
+      </div>
+      <span class="sep">:</span>
+      <div class="digito">
+        <span class="val js-segundos">00</span><span class="label">SEC</span>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+    // --- INJETAR HTML ABAIXO DO TARGET --- //
+    function injectBannerBelow(targetEl) {
+      // Evita duplicar
+      if (document.querySelector(".faixa-oferta.js-countdown")) return;
+
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = BANNER_HTML.trim();
+      const block = wrapper.firstElementChild;
+      insertAfter(block, targetEl);
+    }
+
+    // --- SCRIPT DO COUNTDOWN (uma única vez) --- //
+    once("faixa-countdown-js", () => {
+      const s = document.createElement("script");
+      s.id = "faixa-countdown-js";
+      s.textContent = `(function(){
+      const DAY_MS=86400000,HOUR_MS=3600000,MIN_MS=60000;
+      const pad2=n=>String(n).padStart(2,"0");
+      function getDeadline(el){
+        const attr=el.getAttribute("data-deadline");
+        const parsed=attr && !isNaN(Date.parse(attr)) ? new Date(attr) : null;
+        return parsed;
+      }
+      document.querySelectorAll(".js-countdown").forEach(function(wrapper){
+        const deadline=getDeadline(wrapper);
+        const $dias=wrapper.querySelector(".js-dias");
+        const $h=wrapper.querySelector(".js-horas");
+        const $m=wrapper.querySelector(".js-minutos");
+        const $s=wrapper.querySelector(".js-segundos");
+        if(!deadline){ $dias.textContent=$h.textContent=$m.textContent=$s.textContent="00"; return; }
+        function update(){
+          const now=Date.now(); let dist=deadline.getTime()-now;
+          if(dist<=0){ $dias.textContent=$h.textContent=$m.textContent=$s.textContent="00"; clearInterval(interval); return; }
+          const days=Math.floor(dist/DAY_MS); dist%=DAY_MS;
+          const hrs=Math.floor(dist/HOUR_MS); dist%=HOUR_MS;
+          const min=Math.floor(dist/MIN_MS); dist%=MIN_MS;
+          const sec=Math.floor(dist/1000);
+          $dias.textContent=String(days).length>=3?String(days):pad2(days);
+          $h.textContent=pad2(hrs); $m.textContent=pad2(min); $s.textContent=pad2(sec);
+        }
+        update();
+        const interval=setInterval(update,1000);
+        const obs=new MutationObserver(()=>{ if(!document.body.contains(wrapper)){ clearInterval(interval); obs.disconnect(); }});
+        obs.observe(document.body,{childList:true,subtree:true});
+      });
+    })();`;
+      document.body.appendChild(s);
+    });
+
+    // --- Espera o target aparecer e injeta --- //
+    waitForSelector(TARGET_SELECTOR)
+      .then(injectBannerBelow)
+      .catch(function (err) {
+        // Se não achar, ainda tentamos inserir no topo da .buy-area (fallback suave)
+        const alt = document.querySelector(".buy-area");
+        if (alt) injectBannerBelow(alt);
+        // console.warn("Fallback aplicado:", err);
+      });
+  })();
+</script>

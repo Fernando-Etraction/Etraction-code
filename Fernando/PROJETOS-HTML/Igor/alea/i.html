@@ -1,0 +1,243 @@
+<!-- BLOCO ESCONDIDO COM MEDIDAS DA MODELO -->
+<div class="medidas-modelo" style="display: none;">
+<div class="infoModelo">
+<div data-atributo="Altura">1,64m</div>
+<div data-atributo="Busto">85cm</div>
+<div data-atributo="Cintura">62cm</div>
+<div data-atributo="Quadril">89cm</div>
+</div>
+</div>
+<!-- BLOCO ESCONDIDO COM TABELA DE MEDIDAS -->
+<div class="tabela-medidas" style="display: none !important;">
+<div class="medida" style="font-weight: bold;" data-tamanho="P">
+<div data-atributo="Busto">80cm</div>
+<div data-atributo="Manga">57cm</div>
+<div data-atributo="Comp. da Blusa">63cm</div>
+<div data-atributo="Cintura"> 60-74 cm</div>
+<div data-atributo="Quadril">70-98 cm</div>
+<div data-atributo="Comp. da Cal&ccedil;a"> 136 cm</div>
+</div>
+<div class="medida" style="font-weight: bold !important;"  data-tamanho="M">
+<div data-atributo="Busto"> 90 cm</div>
+<div data-atributo="Manga">58cm</div>
+<div data-atributo="Comp. da Blusa">64cm</div>
+<div data-atributo="Cintura"> 68-80 cm	</div>
+<div data-atributo="Quadril"> 80-102 cm	</div>
+<div data-atributo="Comp. da Cal&ccedil;a"> 140 cm	</div>
+</div>
+<div class="medida" style="font-weight: bold !important;"  data-tamanho="G">
+<div data-atributo="Busto"> 100 cm</div>
+<div data-atributo="Manga">58cm</div>
+<div data-atributo="Comp. da Blusa">64cm</div>
+<div data-atributo="Cintura"> 72-86 cm</div>
+<div data-atributo="Quadril">110cm</div>
+<div data-atributo="Comp. da Cal&ccedil;a">107cm</div>
+</div>
+</div>
+<!-- ESTILO -->
+<style><!--
+.modal-medidas {
+  text-align: left;
+}
+.modal-medidas .imagem-modelo {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.modal-medidas .imagem-modelo img {
+  width: 100%;
+}
+.modal-medidas .imagem-modelo .infoModelo {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  color: #3c3c3c;
+  border-radius: 8px;
+  width: auto;
+  max-width: 200px;
+  text-align: left;
+}
+.medida{
+    font-weight: bold !important;
+}
+.modal-medidas .infoModelo p {
+  font-size: 12px;
+  margin: 5px 0;
+  color: #3c3c3c;
+}
+.modal-medidas .infoModelo h2 {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #3c3c3c;
+}
+.modal-medidas table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.modal-medidas th{
+    font-weight: bold !important;
+}
+.modal-medidas th,
+.modal-medidas td {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  color: #3c3c3c;
+}
+.modal-medidas th:first-child,
+.modal-medidas td:first-child {
+  font-weight: bold;
+  text-align: left;
+}
+.modal-medidas .swal2-title {
+  display: none !important;
+}
+.modal-medidas .swal2-html-container {
+  margin: 0px !important;
+}
+@media (max-width: 768px) {
+  .modal-medidas table {
+    font-size: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-medidas .imagem-modelo .infoModelo {
+    left: 2px;
+    top: 2px;
+    padding: 20px;
+    font-size: 9px;
+    max-width: 100px;
+  }
+  .modal-medidas .infoModelo h2 {
+    font-size: 12px;
+  }
+  .modal-medidas .infoModelo p {
+    font-size: 10px;
+  }
+}
+--></style>
+<!-- DEPENDÊNCIAS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- SCRIPT -->
+<script>
+$(document).ready(function () {
+  function inserirBotaoTabelaMedidas() {
+    $('.variacao-lista.variacao-lista-2').each(function () {
+      const $variacao = $(this);
+
+      // Verifica se o botão já foi inserido ao lado da variação
+      if ($variacao.next('.button-measure-table').length > 0) return;
+      $variacao.find('.button-measure-table').remove(); // Remove botões antigos
+
+      const novoBotao = $(`
+        <div class="mb-space-20 h-space-32 w-full button-measure-table" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r0:" data-state="closed" style="margin-top: 5px;">
+          <div class="ver-tabela-de-medidas flex w-fit cursor-pointer items-center gap-space-8 rounded-sm border border-secondary-100 p-space-8">
+            <img class="lazyload-svg" src="https://public-resources.cdn.magazord.com.br/assets/global/common-icons/commerce/icon-ruler.svg" width="18" height="17" alt="Tabela de medidas" title="Tabela de medidas">
+            <span class="text text-xs text-secondary-800">Tabela de medidas</span>
+          </div>
+        </div>
+      `);
+
+      $variacao.after(novoBotao);
+    });
+
+    ativarScriptTabela();
+  }
+
+  function ativarScriptTabela() {
+    $('.ver-tabela-de-medidas').off('click').on('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      let modeloImagem = $('.gallery-main img').first().attr('data-src') || $('.gallery-main img').first().attr('src');
+      let modeloInfo = `<div class="imagem-modelo"><img src="${modeloImagem}" alt="Modelo"><div class="infoModelo"><h2>MEDIDAS DA MODELO:</h2>`;
+
+      $('.medidas-modelo .infoModelo > div').each(function () {
+        let atributo = $(this).data('atributo');
+        let valor = $(this).text();
+        modeloInfo += `<p><strong>${atributo.toUpperCase()}</strong><br>${valor}</p>`;
+      });
+
+      modeloInfo += '</div></div>';
+
+      let medidasAgrupadas = {};
+      let colunasSet = new Set();
+      let linhasSet = new Set();
+
+      $('.tabela-medidas .medida').each(function () {
+        let tamanho = $(this).data('tamanho');
+        $(this).children('div').each(function () {
+          let atributo = $(this).data('atributo');
+          let valor = $(this).text();
+
+          if (!medidasAgrupadas[atributo]) medidasAgrupadas[atributo] = {};
+          medidasAgrupadas[atributo][tamanho] = valor;
+
+          colunasSet.add(tamanho);
+          linhasSet.add(atributo);
+        });
+      });
+
+      const ordemTamanhos = ['PP', 'P', 'M', 'G', 'GG', 'Único'];
+      let colunas = Array.from(colunasSet);
+      colunas.sort((a, b) => ordemTamanhos.indexOf(a) - ordemTamanhos.indexOf(b));
+
+      let tableHead = '<thead><tr><th></th>';
+      colunas.forEach(t => tableHead += `<th>${t}</th>`);
+      tableHead += '</tr></thead>';
+
+      let tableBody = '<tbody>';
+      for (let atributo of linhasSet) {
+        tableBody += `<tr><td>${atributo}</td>`;
+        colunas.forEach(t => {
+          let valor = medidasAgrupadas[atributo]?.[t] || '-';
+          tableBody += `<td>${valor}</td>`;
+        });
+        tableBody += '</tr>';
+      }
+      tableBody += '</tbody>';
+
+      let htmlContent = `<table>${tableHead}${tableBody}</table>${modeloInfo}`;
+
+      zrd('swal', function (sw) {
+        sw.fire({
+          title: 'Tabela de Medidas',
+          html: htmlContent,
+          showCloseButton: true,
+          showConfirmButton: false,
+          width: '600px',
+          background: '#f9f9f9',
+          customClass: { popup: 'modal-medidas' }
+        });
+      });
+    });
+  }
+
+  // Executa a primeira vez
+  inserirBotaoTabelaMedidas();
+
+  // MutationObserver com debounce para evitar chamadas repetidas
+  let debounceTimeout;
+  const observer = new MutationObserver(() => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      inserirBotaoTabelaMedidas();
+    }, 300); // espera 300ms sem alterações para executar
+  });
+
+  const alvo = document.querySelector('body');
+  if (alvo) {
+    observer.observe(alvo, {
+      childList: true,
+      subtree: true
+    });
+  }
+});
+</script>

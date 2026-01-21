@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <style>
+    /* ===== Estilos do widget ===== */
+    .economize{
+      color:#fff;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:4px;
+      margin-top:10px;
+      background:#3A6453;
+      padding:6px 14px;
+      border-radius:10px;
+      font-weight:500;
+      font-size:0.95rem;
+      max-width: 280px;
+    }
+    .economize__titulo{
+      color:#fff;
+      font-weight:700;
+      font-size:1.05rem;
+      line-height:1.2;
+    }
+    .economize[hidden]{ display:none !important; }
+    .economize strong{ color:#fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Onde o aviso de economia aparece -->
+  <div class="economize" id="economize-widget" hidden>
+    <span class="economize__titulo">Desconto - À Vista</span>
+    <span>Você economiza <strong id="valor-economia">R$ 0,00</strong></span>
+  </div>
+
+  <script>
+    (function () {
+      /* ===================== Config ===================== */
+      const INSTALLMENT_RE = /(x\s*de|\bparcel|\bvezes|\bm[eê]s|\bsem\s+juros)/i;
+      const THROTTLE_MS = 1200; // mínimo entre execuções
+      let lastRun = 0, debounceId, lastKey = '';
+      let observer, offTimer;
+
+      /* ===================== Utils ===================== */
+      // Parser robusto para valores monetários (BRL e fallbacks)
+      function parsePrice(text) {
+        if (!text) return NaN;
+        if (INSTALLMENT_RE.test(text)) return NaN; // ignora parcelamento
+        const onlyNums = text
+          .replace(/[^\d.,]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        // 1) Padrão BR: 3.449,99 ou 449,99
+        const br = onlyNums.match(/\d{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2}/);
+        if (br) return parseFloat(br[0].replace(/\./g, '').replace(',', '.'));
+
+        // 2) Padrão US: 3,449.99 ou 449.99
+        const us = onlyNums.match(/\d{1,3}(?:,\d{3})*\.\d{2}|\d+\.\d{2}/);
+        if (us) return parseFloat(us[0].replace(/,/g, ''));
+
+        // 3) Inteiro (fallback final)
+        const intg = onlyNums.match(/\d+/);
+        return intg ? parseFloat(intg[0]) : NaN;
+      }
+
+      // Devolve "1.230,90"
+      function formatBRL(n) {
+        return Number(n).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      // Busca “inteligente” como último recurso
+      function findPriceElements() {
+        const all = document.querySelectorAll('*');
+        const candidates = [];
+        for (let i = 0; i < all.length; i++) {
+          const t = all[i].textContent || '';
+          if (/R\$\s*\d/.test(t) && !INSTALLMENT_RE.test(t)) candidates.push(all[i]);
+        }
+        return {
+          oldPrice: candidates.find(el =>
+            /de[:\s]/i.test(el.textContent) ||
+            el.classList.contains('old') ||
+            el.style.textDecoration === 'line-through' ||
+            el.querySelector('s')
+          ),
+          currentPrice: candidates.find(el =>
+            /(por|à vista|avista|agora)/i.test(el.textContent) ||
+            el.classList.contains('price') ||
+            el.classList.contains('new-price')
+          )
+        };
+      }
+
+      /* ===================== Lógica principal ===================== */
+      function lerPrecosDaPagina() {
+        // Preço antigo: pegue apenas o <span> para evitar o "De:"
+        let elAntigo = document.querySelector('.new-old-price span');
+
+        // Preço atual: preferir à vista
+        let elAtual = document.querySelector('.price-avista');
+        if (elAtual && INSTALLMENT_RE.test(elAtual.textContent || '')) elAtual = null;
+
+        // Fallback “inteligente” se necessário
+        if (!elAntigo || !elAtual) {
+          const found = findPriceElements();
+          elAntigo = elAntigo || found.oldPrice;
+          elAtual  = elAtual  || found.currentPrice;
+        }
+
+        if (!elAntigo || !elAtual) return { antigo: NaN, atual: NaN };
+
+        const antigo = parsePrice(elAntigo.textContent);
+        const atual  = parsePrice(elAtual.textContent);
+        return { antigo, atual };
+      }
+
+      function atualizarWidget() {
+        const now = Date.now();
+        if (now - lastRun < THROTTLE_MS) return; // throttle
+        lastRun = now;
+
+        try {
+          const { antigo, atual } = lerPrecosDaPagina();
+          const widget = document.getElementById('economize-widget');
+          const valor  = document.getElementById('valor-economia');
+          if (!widget || !valor) return;
+
+          const key = `${antigo}|${atual}`;
+          if (key === lastKey) return; // sem mudanças
+          lastKey = key;
+
+          if (!isNaN(antigo) && !isNaN(atual) && antigo > atual) {
+            const economia = antigo - atual;
+            valor.textContent = 'R$ ' + formatBRL(economia); // milhares + decimais
+            widget.hidden = false;
+
+            // Se estabilizou, desligar observer após 2s sem mudanças
+            clearTimeout(offTimer);
+            offTimer = setTimeout(() => { if (observer) observer.disconnect(); }, 2000);
+          } else {
+            widget.hidden = true;
+          }
+        } catch (e) {
+          console.error('[Economize] Erro:', e);
+        }
+      }
+
+      /* ===================== Inicialização ===================== */
+      // 1) Aguarda render de temas que montam preço via JS
+      setTimeout(atualizarWidget, 500);
+
+      // 2) Observa mudanças no DOM (SPA / variação de SKU) com debounce
+      observer = new MutationObserver(() => {
+        clearTimeout(debounceId);
+        debounceId = setTimeout(atualizarWidget, 200);
+      });
+
+      // Observe apenas regiões mais prováveis (reduz ruído)
+      const targets = [
+        document.querySelector('.product-price'),
+        document.querySelector('.new-old-price'),
+        document.querySelector('.price-avista')
+      ].filter(Boolean);
+
+      if (targets.length) {
+        targets.forEach(t => observer.observe(t, { childList: true, characterData: true, subtree: true }));
+      } else {
+        // fallback: documento inteiro
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      }
+    })();
+  </script>
+</body>
+</html>

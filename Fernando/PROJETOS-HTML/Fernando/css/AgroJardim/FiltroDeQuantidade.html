@@ -1,0 +1,117 @@
+<style>
+    /* Garante que o li permita posicionamento absoluto /* li precisa aceitar posicionamento absoluto do balão */
+    .variacao-lista ul li {
+        position: relative;
+    }
+
+    /* Balão "melhor custo-benefício" */
+    .cheap-balloon {
+        position: absolute;
+        top: -32px;
+        /* ajuste fino conforme o layout */
+        right: 10px;
+        padding: 6px 12px;
+        background: #16a34a;
+        color: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 999px;
+        white-space: nowrap;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        z-index: 999;
+        opacity: 0;
+        transform: translateY(6px) scale(.95);
+        animation:
+            cheap-balloon-in .4s ease-out forwards,
+            cheap-balloon-out .4s ease-in 2.6s forwards;
+        /* começa a sumir com 2.6s */
+    }
+
+    /* “rabinho” do balão */
+    .cheap-balloon::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        right: 20px;
+        border-width: 6px 6px 0 6px;
+        border-style: solid;
+        border-color: #16a34a transparent transparent transparent;
+    }
+
+    @keyframes cheap-balloon-in {
+        from {
+            opacity: 0;
+            transform: translateY(6px) scale(.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes cheap-balloon-out {
+        from {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(-6px) scale(.95);
+        }
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // pega todas as opções dessa variação
+        const items = document.querySelectorAll(
+            '.variacao-lista ul li[data-nome-derivacao]'
+        );
+        if (!items.length) return;
+
+        let melhorItem = null;
+        let maiorQtd = 0;
+
+        // descobre qual é a opção com maior quantidade
+        items.forEach(function (li) {
+            const qtdStr = li.getAttribute('data-nome-derivacao') || '0';
+            const qtd = parseFloat(qtdStr.replace(/\./g, '').replace(',', '.')) || 0;
+
+            if (qtd > maiorQtd) {
+                maiorQtd = qtd;
+                melhorItem = li;
+            }
+        });
+
+        if (!melhorItem) return;
+
+        function mostrarBalao() {
+            // não deixa criar mais de um
+            if (melhorItem.querySelector('.cheap-balloon')) return;
+
+            const balloon = document.createElement('div');
+            balloon.className = 'cheap-balloon';
+            balloon.textContent = 'Melhor custo-benefício';
+
+            melhorItem.appendChild(balloon);
+
+            // remove do DOM depois de 3 segundos
+            setTimeout(function () {
+                if (balloon && balloon.parentNode) {
+                    balloon.parentNode.removeChild(balloon);
+                }
+            }, 3000);
+        }
+
+        // quando essa opção for clicada e ficar selecionada, mostra o balão
+        melhorItem.addEventListener('click', function () {
+            // pequeno delay pra dar tempo da classe "selected" ser aplicada pelo tema
+            setTimeout(function () {
+                if (melhorItem.classList.contains('selected')) {
+                    mostrarBalao();
+                }
+            }, 50);
+        });
+    });
+</script>

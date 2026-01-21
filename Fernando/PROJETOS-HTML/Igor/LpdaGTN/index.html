@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTN Shop - Sua Loja Digital</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 107, 107, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(78, 205, 196, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ffffff, #cccccc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            margin-bottom: 50px;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 150px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 100px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 80px;
+            align-items: center;
+        }
+
+        .product-card {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 40px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-description {
+            font-size: 16px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* App Section */
+        .app-section {
+            padding: 150px 50px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05), rgba(78, 205, 196, 0.05));
+            position: relative;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .app-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .app-content p {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn img {
+            height: 60px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-mockups {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 200px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 30px;
+            padding: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            border-radius: 50%;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-1 { top: 20%; left: 10%; }
+        .floating-2 { top: 60%; right: 15%; }
+        .floating-3 { bottom: 20%; left: 20%; }
+
+        /* Footer */
+        footer {
+            padding: 100px 50px 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-text {
+            font-size: 16px;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .products {
+                padding: 100px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .app-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
+            }
+
+            .app-section {
+                padding: 100px 20px;
+            }
+
+            .phone-mockup {
+                width: 150px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">GTN Shop</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#app">App</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="floating-element floating-1"></div>
+        <div class="floating-element floating-2"></div>
+        <div class="floating-element floating-3"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">GTN SHOP</h1>
+            <p class="hero-subtitle">Sua experiência de compra digital revolucionária</p>
+            <a href="#app" class="cta-button">Baixar App</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="produtos">
+        <h2 class="section-title">Produtos em Destaque</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://magazord-public.s3.sa-east-1.amazonaws.com/gtnshop/img/2025/07/produto/11955/medium/2.png" alt="Produto 1" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Produto Premium</h3>
+                    <p class="product-description">Descubra nossa linha premium com qualidade excepcional e design inovador.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://magazord-public.s3.sa-east-1.amazonaws.com/gtnshop/img/2025/07/produto/11954/medium/1.png" alt="Produto 2" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">Coleção Especial</h3>
+                    <p class="product-description">Uma seleção exclusiva dos melhores produtos para você.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Section -->
+    <section class="app-section" id="app">
+        <div class="app-container">
+            <div class="app-content">
+                <h2>Baixe o App GTN Shop</h2>
+                <p>Tenha toda a experiência GTN Shop na palma da sua mão. Compre, navegue e descubra produtos incríveis com nosso aplicativo mobile.</p>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn">
+                        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download na App Store">
+                    </a>
+                    <a href="#" class="download-btn">
+                        <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Baixar no Google Play">
+                    </a>
+                </div>
+            </div>
+            <div class="app-mockups">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kGPOowGOdM87uuXBYwYQQnTAeOlo3C.png" alt="GTN Shop App">
+                    </div>
+                </div>
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-kGPOowGOdM87uuXBYwYQQnTAeOlo3C.png" alt="GTN Shop App">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">GTN Shop</div>
+            <p class="footer-text">© 2025 GTN Shop. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX - 10,
+                y: e.clientY - 10,
+                duration: 0.1
+            });
+            
+            gsap.to(cursorFollower, {
+                x: e.clientX - 20,
+                y: e.clientY - 20,
+                duration: 0.3
+            });
+        });
+
+        // Cursor hover effects
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 1.5, duration: 0.3 });
+                gsap.to(cursorFollower, { scale: 1.5, duration: 0.3 });
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1, duration: 0.3 });
+                gsap.to(cursorFollower, { scale: 1, duration: 0.3 });
+            });
+        });
+
+        // Initial animations
+        gsap.set(['.hero-title', '.hero-subtitle', '.cta-button'], { y: 100, opacity: 0 });
+        gsap.set('.nav-container', { y: -100, opacity: 0 });
+        gsap.set('.floating-element', { scale: 0, rotation: 180 });
+
+        // Navigation animation
+        gsap.to('.nav-container', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            delay: 0.2
+        });
+
+        // Hero animations
+        const heroTl = gsap.timeline({ delay: 0.5 });
+        
+        heroTl.to('.hero-title', {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out"
+        })
+        .to('.hero-subtitle', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.8")
+        .to('.cta-button', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.6");
+
+        // Floating elements animation
+        gsap.to('.floating-element', {
+            scale: 1,
+            rotation: 0,
+            duration: 1.5,
+            ease: "back.out(1.7)",
+            stagger: 0.2,
+            delay: 1
+        });
+
+        // Continuous floating animation
+        gsap.to('.floating-1', {
+            y: -30,
+            x: 20,
+            rotation: 360,
+            duration: 8,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.floating-2', {
+            y: 40,
+            x: -25,
+            rotation: -360,
+            duration: 10,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.floating-3', {
+            y: -20,
+            x: 30,
+            rotation: 180,
+            duration: 12,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        // Scroll-triggered animations
+        gsap.utils.toArray('.product-card').forEach((card, i) => {
+            gsap.set(card, { y: 100, opacity: 0, rotationY: 45 });
+            
+            ScrollTrigger.create({
+                trigger: card,
+                start: "top 80%",
+                onEnter: () => {
+                    gsap.to(card, {
+                        y: 0,
+                        opacity: 1,
+                        rotationY: 0,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        delay: i * 0.2
+                    });
+                }
+            });
+        });
+
+        // Section title animations
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.set(title, { y: 50, opacity: 0 });
+            
+            ScrollTrigger.create({
+                trigger: title,
+                start: "top 85%",
+                onEnter: () => {
+                    gsap.to(title, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out"
+                    });
+                }
+            });
+        });
+
+        // App section animations
+        gsap.set('.app-content > *', { x: -100, opacity: 0 });
+        gsap.set('.phone-mockup', { y: 100, opacity: 0, rotationY: 45 });
+
+        ScrollTrigger.create({
+            trigger: '.app-section',
+            start: "top 70%",
+            onEnter: () => {
+                gsap.to('.app-content > *', {
+                    x: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out",
+                    stagger: 0.2
+                });
+                
+                gsap.to('.phone-mockup', {
+                    y: 0,
+                    opacity: 1,
+                    rotationY: 0,
+                    duration: 1.2,
+                    ease: "back.out(1.7)",
+                    stagger: 0.2,
+                    delay: 0.3
+                });
+            }
+        });
+
+        // Phone mockup hover animations
+        document.querySelectorAll('.phone-mockup').forEach(phone => {
+            phone.addEventListener('mouseenter', () => {
+                gsap.to(phone, {
+                    y: -20,
+                    rotationY: 10,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+            
+            phone.addEventListener('mouseleave', () => {
+                gsap.to(phone, {
+                    y: 0,
+                    rotationY: 0,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Parallax effect for hero background
+        gsap.to('.hero-bg', {
+            yPercent: -50,
+            ease: "none",
+            scrollTrigger: {
+                trigger: '.hero',
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Product image hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            const image = card.querySelector('.product-image');
+            
+            card.addEventListener('mouseenter', () => {
+                gsap.to(image, {
+                    scale: 1.1,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(image, {
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: target,
+                        ease: "power3.inOut"
+                    });
+                }
+            });
+        });
+
+        // CTA button animation
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            gsap.to(this, {
+                scale: 0.95,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    const target = document.querySelector('#app');
+                    gsap.to(window, {
+                        duration: 1.5,
+                        scrollTo: target,
+                        ease: "power3.inOut"
+                    });
+                }
+            });
+        });
+
+        // Footer animation
+        gsap.set('.footer-content > *', { y: 30, opacity: 0 });
+
+        ScrollTrigger.create({
+            trigger: 'footer',
+            start: "top 90%",
+            onEnter: () => {
+                gsap.to('.footer-content > *', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    stagger: 0.2
+                });
+            }
+        });
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            gsap.from('body', {
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.out"
+            });
+        });
+    </script>
+</body>
+</html>

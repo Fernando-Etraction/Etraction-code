@@ -1,0 +1,500 @@
+<style>
+    /* ==== Layout / visual ==== */
+    .ld-carousel {
+        position: relative;
+        z-index: 1
+    }
+
+    .ld-carousel .carousel-wrap {
+        max-width: 1240px;
+        margin: 0 auto 24px;
+        padding: 0 16px;
+        position: relative
+    }
+
+    .ld-carousel .influencer-title h2 {
+        font-size: 2rem;
+        margin-bottom: 18px;
+        font-weight: 800;
+        letter-spacing: .5px;
+        text-align: center
+    }
+
+    .ld-carousel .carousel-viewport {
+        overflow: hidden
+    }
+
+    .ld-carousel .carousel-container {
+        width: 100%;
+        display: flex;
+        gap: 16px;
+        padding: 8px 4px 20px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        cursor: grab;
+        user-select: none;
+        overflow-x: auto;
+        position: relative;
+        z-index: 1
+    }
+
+    .ld-carousel .carousel-container:active {
+        cursor: grabbing
+    }
+
+    .ld-carousel .carousel-container::-webkit-scrollbar {
+        height: 0
+    }
+
+    /* Card */
+    .ld-carousel .look-card {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        width: 280px;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+        background: #f8f8f8;
+        z-index: 1
+    }
+
+    .ld-carousel .look-card img {
+        width: 100%;
+        height: 360px;
+        display: block;
+        object-fit: fill;
+    }
+
+    .ld-carousel .look-card .btn {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        background: #fff;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+        transition: background .3s, color .3s;
+        z-index: 5;
+        pointer-events: auto !important
+    }
+
+    .ld-carousel .look-card .btn:hover {
+        color: #fff;
+        background: #000
+    }
+
+    /* Setas pretas (fora das fotos) */
+    .ld-carousel .carousel-nav {
+        pointer-events: none
+    }
+
+    .ld-carousel .nav-btn {
+        pointer-events: auto !important;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
+        color: #000 !important;
+        padding: 4px;
+        cursor: pointer;
+        z-index: 10;
+        line-height: 1;
+        display: grid;
+        place-items: center
+    }
+
+    .ld-carousel .nav-btn svg {
+        width: 32px;
+        height: 32px;
+        display: block
+    }
+
+    .ld-carousel .nav-btn[disabled] {
+        opacity: .2;
+        cursor: default
+    }
+
+    /* “Fora” do trilho no desktop/tablet */
+    .ld-carousel.ld-outside-black .carousel-wrap {
+        overflow: visible
+    }
+
+    .ld-carousel.ld-outside-black .nav-prev {
+        left: -56px
+    }
+
+    .ld-carousel.ld-outside-black .nav-next {
+        right: -56px
+    }
+
+    /* Em telas pequenas, setas voltam para dentro */
+    @media (max-width:768px) {
+        .ld-carousel .look-card {
+            width: calc(100% - 48px)
+        }
+
+        .ld-carousel .product-block {
+            align-items: flex-start
+        }
+
+        .ld-carousel.ld-outside-black .nav-prev {
+            left: 6px
+        }
+
+        .ld-carousel.ld-outside-black .nav-next {
+            right: 6px
+        }
+    }
+
+    /* Modal */
+    .ld-carousel .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        inset: 0;
+        background: rgba(0, 0, 0, .6);
+        justify-content: center;
+        align-items: center;
+        padding: 16px
+    }
+
+    .ld-carousel .modal.is-open {
+        display: flex;
+    }
+
+    .ld-carousel .modal-content {
+        background: #fff;
+        padding: 28px 28px 18px;
+        border-radius: 12px;
+        max-width: 540px;
+        width: 100%;
+        position: relative
+    }
+
+    .ld-carousel .close {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+        font-size: 28px;
+        cursor: pointer;
+        color: #000;
+        line-height: 1
+    }
+
+    .ld-carousel .product-block {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin-bottom: 20px
+    }
+
+    .ld-carousel .product-block img {
+        width: 100px;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 6px;
+        background: #f2f2f2
+    }
+
+    .ld-carousel .product-info {
+        flex: 1;
+        min-width: 0
+    }
+
+    .ld-carousel .product-info h4 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700
+    }
+
+    .ld-carousel .product-info .price {
+        font-weight: 700;
+        margin-top: 8px
+    }
+
+    .ld-carousel .view-product {
+        width: 100%;
+        background: #000;
+        color: #fff;
+        font-weight: 700;
+        border: none;
+        padding: 14px;
+        border-radius: 30px;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 10px
+    }
+
+    .ld-carousel .view-product:hover {
+        opacity: .9
+    }
+</style>
+
+<div class="ld-carousel ld-outside-black" id="ld-carousel-root" data-ready="0">
+    <div class="influencer-title carousel-wrap">
+        <h2>Quem comprou, amou!</h2>
+    </div>
+
+    <div class="carousel-wrap">
+        <div class="carousel-viewport">
+            <div class="carousel-container" id="ld-carousel-track" aria-label="Carrossel de looks">
+                <!-- Look 01 -->
+                <div class="look-card" id="look01">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8141/teste-image.png"
+                        alt="Look 01">
+                    <button class="btn" data-name="Coleção Palavras" data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/capa-almofada-linhao-branco-palavra-relax-45x30"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2024/02/produto/3693/capa-almofada-linhao-branco-palavra-relax-45x30-detalhes.png">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 02 -->
+                <div class="look-card" id="look02">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8153/design-sem-nome-16.png"
+                        alt="Look 02">
+                    <button class="btn" data-name="Coleção Plantas da Natureza " data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao/plantas-natureza"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2025/04/produto/6497/modelo-site.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 03 (categoria) -->
+                <div class="look-card" id="look03">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8154/design-sem-nome-17.png"
+                        alt="Look 03">
+                    <button class="btn" data-name="Coleção Monstera" data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao/monstera"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2022/01/produto/748/kit-de-almofadas-313-libelula-losangs-2.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 04 -->
+                <div class="look-card" id="look04">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8142/164b3dc0-6e83-431e-adac-d19e84455d4b.jpg"
+                        alt="Look 04">
+                    <button class="btn" data-name="Coleção Folhagens" data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao-folhagens"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2025/08/produto/7666/kit-6-capas-almofadas-linhao-folhagens-e-veludo-verde-oliva.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 05 -->
+                <div class="look-card" id="look05">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8160/design-sem-nome-18.png"
+                        alt="Look 05">
+                    <button class="btn" data-name="Coleção Verão Tropical" data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao-verao-tropical"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2024/11/produto/5848/kit-4-capas-almofadas-linhao-animal-print-e-coqueiros.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 06 -->
+                <div class="look-card" id="look06">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8163/design-sem-nome-21.png"
+                        alt="Look 06">
+                    <button class="btn" data-name="Coleção Verão Lobster " data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao-verao-lobster"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2024/11/produto/5720/capa-almofada-lagosta-praia-em-linhao-branco-45x30.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 07 -->
+                <div class="look-card" id="look07">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8161/design-sem-nome-19.png"
+                        alt="Look 07">
+                    <button class="btn" data-name="Coleção Selva Negra" data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao/selva-negra"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2024/04/produto/4721/kit-4-capas-almofadas-veludo-mostarda-abelha-e-pavao.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 08 (categoria) -->
+                <div class="look-card" id="look08">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8162/design-sem-nome-20.png"
+                        alt="Look 08">
+                    <button class="btn" data-name="Coleção Lisas de Veludo" Promoção de Até 60% de desconto
+                        data-url="https://www.amofadas.com/colecao/lisas-veludo"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2025/04/produto/6836/capa-almofada-veludo-45x45-12.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 09 -->
+                <div class="look-card" id="look09">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8164/design-sem-nome-22.png"
+                        alt="Look 09">
+                    <button class="btn" data-name="Coleção Boho-Dreams" data-price="Promoção de Até 60% de desconto"
+                        data-url="https://www.amofadas.com/colecao/boho-dreams"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2022/05/produto/1666/para-por-no-sitee.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+                <!-- Look 10 -->
+                <div class="look-card" id="look10">
+                    <img src="https://magazord-public.s3.amazonaws.com/amofadas/img/2025/10/produto/8165/design-sem-nome-23.png"
+                        alt="Look 09">
+                    <button class="btn" data-name="Coleção Capas impermeáveis" data-price="Promoção de Até 60% de desconto"https://www.amofadas.com/almofadas/capas/impermeaveis"
+                        data-img="https://amofadas.cdn.magazord.com.br/img/2025/05/produto/7027/linha-piscina-impermeavel-16.jpg">
+                        Conheça a Coleção
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setas -->
+        <div class="carousel-nav" aria-hidden="false">
+            <button class="nav-btn nav-prev" id="ld-prev" aria-label="Anterior" title="Anterior">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="nav-btn nav-next" id="ld-next" aria-label="Próximo" title="Próximo">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="ld-modal-container" aria-live="polite"></div>
+</div>
+
+<script>
+    (function () {
+        function q(sel, root) { return (root || document).querySelector(sel) }
+        function openModal(root, data) {
+            var container = q('#ld-modal-container', root);
+            if (!container) return;
+            container.innerHTML = '';
+            var overlay = document.createElement('div');
+            overlay.className = 'modal is-open';
+            overlay.setAttribute('role', 'dialog');
+            overlay.setAttribute('aria-modal', 'true');
+
+            var content = document.createElement('div');
+            content.className = 'modal-content';
+
+            var close = document.createElement('span');
+            close.className = 'close';
+            close.setAttribute('aria-label', 'Fechar modal');
+            close.textContent = '×';
+
+            var h2 = document.createElement('h2');
+            h2.style.margin = '0 0 16px';
+            h2.style.fontWeight = '800';
+            h2.textContent = 'DETALHES DO PRODUTO';
+
+            var block = document.createElement('div');
+            block.className = 'product-block';
+
+            var img = document.createElement('img');
+            img.src = data.img || '';
+            img.alt = data.name || 'Produto';
+
+            var info = document.createElement('div');
+            info.className = 'product-info';
+
+            var h4 = document.createElement('h4');
+            h4.textContent = data.name || 'Produto';
+
+            var price = document.createElement('div');
+            price.className = 'price';
+            price.textContent = data.price || '';
+
+            var a = document.createElement('a');
+            a.className = 'view-product';
+            a.href = data.url || '#';
+            a.textContent = 'Veja Mais';
+            a.setAttribute('title', 'Veja Mais ' + (data.name || 'Produto'));
+            a.setAttribute('aria-label', 'Veja Mais ' + (data.name || 'Produto'));
+
+            info.appendChild(h4);
+            if (data.price) info.appendChild(price);
+            info.appendChild(a);
+
+            block.appendChild(img);
+            block.appendChild(info);
+
+            content.appendChild(close);
+            content.appendChild(h2);
+            content.appendChild(block);
+
+            overlay.appendChild(content);
+            container.appendChild(overlay);
+
+            function closeModal() { overlay.classList.remove('is-open'); overlay.remove(); }
+            overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+            close.addEventListener('click', closeModal);
+            document.addEventListener('keydown', function esc(ev) { if (ev.key === 'Escape') { closeModal(); document.removeEventListener('keydown', esc); } });
+        }
+
+        function init() {
+            var root = q('#ld-carousel-root');
+            var track = q('#ld-carousel-track', root);
+            var prevBtn = q('#ld-prev', root);
+            var nextBtn = q('#ld-next', root);
+            if (!root || !track) { return; }
+
+            // Botão "Quero esse look"
+            track.addEventListener('click', function (e) {
+                var btn = e.target.closest('.btn');
+                if (!btn) return;
+                e.preventDefault();
+                openModal(root, {
+                    name: btn.getAttribute('data-name') || 'Produto',
+                    price: btn.getAttribute('data-price') || '',
+                    url: btn.getAttribute('data-url') || '#',
+                    img: btn.getAttribute('data-img') || (btn.closest('.look-card')?.querySelector('img')?.src || '')
+                });
+            }, true);
+
+            // Setas
+            function getStep() {
+                var vw = window.innerWidth;
+                var viewport = track.parentElement;
+                if (vw <= 768) return viewport.clientWidth;      // 1 por vez
+                if (vw <= 1024) return viewport.clientWidth / 2;   // 2 por vez
+                var card = track.querySelector('.look-card');
+                return card ? (card.offsetWidth + 16) * 3 : viewport.clientWidth; // ~3 cards desktop
+            }
+            function updateNav() {
+                var max = track.scrollWidth - track.clientWidth - 2;
+                if (prevBtn) prevBtn.disabled = track.scrollLeft <= 2;
+                if (nextBtn) nextBtn.disabled = track.scrollLeft >= max;
+            }
+            if (prevBtn) prevBtn.addEventListener('click', function () { track.scrollBy({ left: -getStep(), behavior: 'smooth' }); });
+            if (nextBtn) nextBtn.addEventListener('click', function () { track.scrollBy({ left: getStep(), behavior: 'smooth' }); });
+            track.addEventListener('scroll', updateNav);
+            window.addEventListener('resize', updateNav);
+            updateNav();
+
+            // Drag/Touch
+            var isDown = false, startX = 0, startScroll = 0;
+            track.addEventListener('mousedown', function (e) { isDown = true; startX = e.pageX; startScroll = track.scrollLeft; });
+            track.addEventListener('mousemove', function (e) { if (!isDown) return; track.scrollLeft = startScroll - (e.pageX - startX); });
+            ['mouseleave', 'mouseup'].forEach(function (ev) { track.addEventListener(ev, function () { isDown = false; }); });
+            track.addEventListener('touchstart', function (e) { isDown = true; startX = e.touches[0].pageX; startScroll = track.scrollLeft; }, { passive: true });
+            track.addEventListener('touchmove', function (e) { if (!isDown) return; track.scrollLeft = startScroll - (e.touches[0].pageX - startX); }, { passive: true });
+            track.addEventListener('touchend', function () { isDown = false; });
+
+            // Scroll lateral com roda do mouse
+            track.addEventListener('wheel', function (e) {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); track.scrollLeft += e.deltaY; }
+            }, { passive: false });
+
+            root.setAttribute('data-ready', '1');
+        }
+
+        if (document.readyState !== 'loading') init();
+        else document.addEventListener('DOMContentLoaded', init);
+    })();
+</script>

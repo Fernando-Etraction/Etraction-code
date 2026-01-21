@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Teste de textura de esmalte</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+  :root{ --bg:#f7f7f7; --card:#ffffff; --ink:#111; --muted:#666; --brand:#111; --border:#e9e9ee; }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:"Rubik",sans-serifa !important; color:var(--ink); background:var(--bg)}
+  .wrap{max-width:1100px; margin:24px auto; padding:0 16px; display:grid; gap:16px; grid-template-columns:1fr 1.2fr;}
+  @media (max-width:980px){ .wrap{ grid-template-columns:1fr; } }
+  .card{background:var(--card); border:1px solid var(--border); border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.05)}
+  .pad{padding:16px}
+  h1{font-size:20px; margin:0 0 8px}
+  .muted{color:var(--muted); font-size:14px; margin:0 0 12px}
+
+  .controls{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+  .ctrl{display:flex; flex-direction:column; gap:6px}
+  label{font-size:12px; color:#444}
+  select,input[type="range"],button{height:40px; padding:0 12px; border:1px solid var(--border); border-radius:12px; background:#fff}
+  input[type="range"]{padding:0 4px}
+  .row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+  button{cursor:pointer; background:var(--brand); color:#fff}
+  button.secondary{background:#fff; color:#111}
+
+  .stageWrap{padding:16px}
+  .stage{position:relative; width:100%; height:520px; border:2px dashed #d7d7dd; background:#fff; border-radius:16px; overflow:hidden}
+  .stage::before{content:"Quadro de teste — clique e arraste para riscar"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color:#9b9b9b; font-size:14px; pointer-events:none}
+  canvas{position:absolute; inset:0; width:100%; height:100%}
+
+  .swatch{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; border:1px solid var(--border)}
+  .swatch i{width:18px; height:18px; border-radius:50%; display:inline-block; border:1px solid #ddd}
+
+  .footer{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-top:10px}
+  .hotkeys{font-size:12px; color:#777}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <section class="card pad">
+    <h1>Configurações</h1>
+    <p class="muted">Escolha o <strong>tipo</strong> do esmalte, a <strong>cor</strong> e o <strong>tamanho do pincel</strong>. Clique em <em>Testar</em> e desenhe no quadro.</p>
+
+    <div class="controls">
+      <div class="ctrl">
+        <label for="tipo">Tipo do esmalte</label>
+        <select id="tipo">
+          <option value="cremoso" selected>Cremoso (brilho suave)</option>
+          <option value="fosco">Fosco (sem brilho)</option>
+          <option value="jelly">Jelly (translúcido)</option>
+          <option value="metalico">Metálico (leve shimmer)</option>
+          <option value="glitter">Glitter (partículas)</option>
+        </select>
+      </div>
+
+      <div class="ctrl">
+        <label for="corSelect">Cor (paleta fixa)</label>
+        <select id="corSelect"></select>
+      </div>
+
+      <div class="ctrl">
+        <label for="size">Tamanho do pincel <span id="sizeVal" class="muted"></span></label>
+        <input id="size" type="range" min="6" max="60" value="60" />
+      </div>
+
+      <div class="ctrl">
+        <label for="opacidade">Opacidade <span id="opVal" class="muted"></span></label>
+        <input id="opacidade" type="range" min="0.2" max="1" step="0.05" value="1" />
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:12px">
+      <button id="btnTestar">Testar</button>
+      <button id="btnLimpar" class="secondary">Limpar quadro</button>
+      <div class="swatch"><i id="swatch"></i><span id="hex">#e9dec6</span></div>
+    </div>
+
+    <div class="footer">
+      <div class="hotkeys">Dica: pressione <strong>H</strong> para alternar guia de brilho, <strong>G</strong> para mais glitter.</div>
+      <div class="hotkeys">Suporta mouse e toque (mobile).</div>
+    </div>
+  </section>
+
+  <section class="card stageWrap">
+    <div id="stage" class="stage">
+      <canvas id="cv"></canvas>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  const el = (id) => document.getElementById(id);
+  const tipo = el('tipo');
+
+  // Paleta fixa (nomes exibidos; HEX usados no traço)
+  const PALETA = [
+    { name:'BC25', hex:'#e9dec6', desc:'Base para pele clara com subtom frio (amarelado)' },
+    { name:'BN25', hex:'#d9c6a2', desc:'Base para pele clara com subtom neutro' },
+    { name:'BW25', hex:'#d3b283', desc:'Base para pele clara com subtom quente (rosado)' },
+    { name:'BC35', hex:'#d5a35f', desc:'Base para pele média com subtom frio (amarelado)' },
+    { name:'BC45', hex:'#be884f', desc:'Base para pele média escura com subtom frio (amarelado)' },
+    { name:'BW45', hex:'#946f52', desc:'Base para pele média escura com subtom quente (rosado)' },
+    { name:'BW55', hex:'#6e4019', desc:'Base para pele escura com subtom quente (rosado)' }
+  ];
+  let corAtual = PALETA[0].hex;
+
+  const size    = el('size');
+  const sizeVal = el('sizeVal');
+  const op      = el('opacidade');
+  const opVal   = el('opVal');
+  const swatch  = el('swatch');
+  const hexText = el('hex');
+  const corSelect = el('corSelect');
+  const stage = el('stage');
+  const cv = el('cv');
+  const ctx = cv.getContext('2d', { willReadFrequently:true });
+  const btnTestar = el('btnTestar');
+  const btnLimpar = el('btnLimpar');
+
+  function fit(){
+    const r = stage.getBoundingClientRect();
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    cv.width = Math.floor(r.width * dpr);
+    cv.height = Math.floor(r.height * dpr);
+    cv.style.width = r.width + 'px';
+    cv.style.height = r.height + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawChecker();
+  }
+  window.addEventListener('resize', ()=>{ fit(); updateUI(); });
+
+  let glossAngle = Math.PI/8;
+  function drawChecker(){
+    const r = stage.getBoundingClientRect();
+    ctx.clearRect(0,0,r.width,r.height);
+    const g = ctx.createLinearGradient(0,0,0,r.height);
+    g.addColorStop(0,'#fff'); g.addColorStop(1,'#fdfdfd');
+    ctx.fillStyle = g; ctx.fillRect(0,0,r.width,r.height);
+    ctx.save();
+    ctx.globalAlpha = 0.06;
+    ctx.translate(r.width/2, r.height/2);
+    ctx.rotate(glossAngle);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(-r.width, -16, r.width*2, 32);
+    ctx.restore();
+  }
+
+  function updateUI(){
+    sizeVal.textContent = '('+size.value+'px)';
+    opVal.textContent   = '('+op.value+')';
+    swatch.style.background = corAtual;
+    hexText.textContent = corAtual.toLowerCase();
+  }
+  size.addEventListener('input', updateUI);
+  op.addEventListener('input', updateUI);
+
+  function rnd(a,b){ return a + Math.random()*(b-a); }
+  function hexToRGB(hex){
+    const n = hex.replace('#','');
+    const v = parseInt(n.length===3 ? n.split('').map(x=>x+x).join('') : n, 16);
+    return { r:(v>>16)&255, g:(v>>8)&255, b:v&255 };
+  }
+  function withAlpha(hex, a){ const {r,g,b}=hexToRGB(hex); return `rgba(${r},${g},${b},${a})`; }
+
+  // SELECT de cores (nomes)
+  function buildSelect(){
+    corSelect.innerHTML = '';
+    PALETA.forEach((item)=>{
+      const opt = document.createElement('option');
+      opt.value = item.hex;
+      opt.textContent = item.name;
+      opt.title = `${item.name} — ${item.desc}`;
+      corSelect.appendChild(opt);
+    });
+    corAtual = PALETA[0].hex;
+    corSelect.value = corAtual;
+    corSelect.addEventListener('change', ()=>{ corAtual = corSelect.value; updateUI(); });
+  }
+
+  // Pincéis
+  function strokeCremoso(p0, p1){
+    const w = +size.value, a = +op.value;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = withAlpha(corAtual, a);
+    ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
+    ctx.strokeStyle = withAlpha(corAtual, a*0.6);
+    ctx.lineWidth = Math.max(2, w*0.5);
+    ctx.beginPath(); ctx.moveTo(p0.x+rnd(-1,1), p0.y+rnd(-1,1));
+    ctx.lineTo(p1.x+rnd(-1,1), p1.y+rnd(-1,1)); ctx.stroke();
+    const lighter = 'rgba(255,255,255,' + (0.07 + a*0.05) + ')';
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    ctx.strokeStyle = lighter; ctx.lineWidth = Math.max(1, w*0.22);
+    ctx.beginPath(); ctx.moveTo(p0.x+w*0.18, p0.y+w*0.18); ctx.lineTo(p1.x+w*0.18, p1.y+w*0.18); ctx.stroke();
+    ctx.restore();
+  }
+  function strokeFosco(p0, p1){
+    const w = +size.value, a = Math.min(+op.value, 0.95);
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.strokeStyle = withAlpha(corAtual, a); ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
+    ctx.save(); ctx.globalCompositeOperation='multiply';
+    ctx.strokeStyle='rgba(0,0,0,0.06)'; ctx.lineWidth=Math.max(1,w*0.18);
+    ctx.beginPath(); ctx.moveTo(p0.x-w*0.12,p0.y-w*0.12); ctx.lineTo(p1.x-w*0.12,p1.y-w*0.12); ctx.stroke(); ctx.restore();
+  }
+  function strokeJelly(p0, p1){
+    const w = +size.value, a = Math.min(+op.value, 0.6);
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.strokeStyle = withAlpha(corAtual, a); ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
+    ctx.strokeStyle = withAlpha(corAtual, Math.min(1,a+0.2)); ctx.lineWidth = Math.max(1,w*0.2);
+    ctx.beginPath(); ctx.moveTo(p0.x,p0.y); ctx.lineTo(p1.x,p1.y); ctx.stroke();
+  }
+  function strokeMetalico(p0, p1){
+    const w = +size.value, a = +op.value;
+    strokeCremoso(p0,p1);
+    ctx.save(); ctx.globalCompositeOperation='screen';
+    const steps = Math.ceil(Math.hypot(p1.x-p0.x,p1.y-p0.y)/6);
+    for(let i=0;i<steps;i++){
+      const t=i/steps; const x=p0.x+(p1.x-p0.x)*t; const y=p0.y+(p1.y-p0.y)*t;
+      ctx.save(); ctx.translate(x,y); ctx.rotate(glossAngle);
+      ctx.fillStyle='rgba(255,255,255,'+(0.08+a*0.08)+')';
+      ctx.fillRect(-w*0.5,-w*0.06,w*1.0,w*0.12); ctx.restore();
+    }
+    ctx.restore();
+  }
+  function strokeGlitter(p0, p1){
+    const w = +size.value, a = +op.value;
+    strokeJelly(p0,p1);
+    const dist = Math.hypot(p1.x-p0.x,p1.y-p0.y);
+    const dots = Math.ceil(dist/3);
+    const baseAlpha = 0.25 + a*0.35;
+    for(let i=0;i<dots;i++){
+      const t=i/dots;
+      const x=p0.x+(p1.x-p0.x)*t+rnd(-w*0.35,w*0.35);
+      const y=p0.y+(p1.y-p0.y)*t+rnd(-w*0.35,w*0.35);
+      const r=rnd(w*0.06,w*0.22);
+      ctx.beginPath(); ctx.fillStyle=withAlpha('#ffffff', baseAlpha*rnd(0.6,1.0));
+      ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    }
+  }
+  const brushes = { cremoso:strokeCremoso, fosco:strokeFosco, jelly:strokeJelly, metalico:strokeMetalico, glitter:strokeGlitter };
+
+  function getPos(e){
+    const rect = cv.getBoundingClientRect();
+    if (e.touches && e.touches[0]) return { x:e.touches[0].clientX-rect.left, y:e.touches[0].clientY-rect.top };
+    return { x:e.clientX-rect.left, y:e.clientY-rect.top };
+  }
+  let drawing=false, last=null;
+  function start(e){ drawing=true; last=getPos(e); }
+  function move(e){
+    if(!drawing) return;
+    const p=getPos(e);
+    const dx=p.x-last.x, dy=p.y-last.y, speed=Math.hypot(dx,dy);
+    const base=+size.value, factor=0.75+0.35/(1+speed*0.08);
+    const old=size.value; size.value=Math.max(6,Math.min(60,Math.round(base*factor)));
+    brushes[tipo.value](last,p);
+    size.value=old; last=p; e.preventDefault();
+  }
+  function end(){ drawing=false; last=null; }
+
+  cv.addEventListener('mousedown', start);  window.addEventListener('mousemove', move);  window.addEventListener('mouseup', end);
+  cv.addEventListener('touchstart', start, {passive:false}); window.addEventListener('touchmove', move, {passive:false}); window.addEventListener('touchend', end);
+
+  btnTestar.addEventListener('click', (e)=>{ e.preventDefault(); drawChecker(); });
+  btnLimpar.addEventListener('click', (e)=>{ e.preventDefault(); drawChecker(); });
+
+  window.addEventListener('keydown', (e)=>{
+    if(e.key.toLowerCase()==='h'){ glossAngle += Math.PI/18; drawChecker(); }
+    if(e.key.toLowerCase()==='g' && tipo.value==='glitter'){
+      const c={x:cv.width/2,y:cv.height/2};
+      for(let i=0;i<80;i++){
+        const p0={x:c.x+Math.cos(i)*2,y:c.y+Math.sin(i)*2};
+        const p1={x:p0.x+Math.random()*2,y:p0.y+Math.random()*2};
+        strokeGlitter(p0,p1);
+      }
+    }
+  });
+
+  // init
+  fit();
+  buildSelect();
+  updateUI();
+})();
+</script>
+</body>
+</html>
