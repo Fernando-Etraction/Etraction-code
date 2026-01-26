@@ -15,14 +15,16 @@
     <style>
       :root {
         --bg: #ffffff;
-        --bg-soft: #ffffff; /* fundo branco */
+        --bg-soft: #fafafa; /* fundo off-white premium */
         --card: #ffffff; /* cartões brancos */
-        --border: #000000; /* borda preta */
-        --text: #000000; /* texto preto */
-        --muted: #000000; /* sem cinza: usar preto */
-        --shadow: none; /* sem sombra */
-        --radius: 18px;
-        --radius-sm: 12px;
+        --border: #e8e8e8; /* borda sutil cinza claro */
+        --text: #1a1a1a; /* texto preto premium */
+        --text-muted: #777777;
+        --accent: #000000;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* sombra elegante */
+        --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
+        --radius: 20px;
+        --radius-sm: 14px;
         --maxw: 1120px;
       }
 
@@ -37,17 +39,18 @@
         font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial,
           sans-serif;
         color: var(--text);
-        background: var(--bg);
-        line-height: 1.65;
+        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+        line-height: 1.8;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
+        letter-spacing: 0.3px;
       }
 
       /* Utilitários / layout */
       .container {
         max-width: var(--maxw);
         margin-inline: auto;
-        padding: 28px 20px;
+        padding: 40px 20px;
       }
       .grid {
         display: grid;
@@ -66,8 +69,13 @@
         background: var(--bg-soft);
         border-radius: var(--radius);
         box-shadow: var(--shadow);
-        padding: 22px;
-        border: 1px solid var(--border); /* borda preta */
+        padding: 36px 32px;
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+      }
+      .card:hover {
+        box-shadow: var(--shadow-md);
+        border-color: #ccc;
       }
       .card--white {
         background: var(--card);
@@ -77,24 +85,30 @@
       }
 
       .muted {
-        color: var(--muted);
+        color: var(--text-muted);
       }
 
       h2,
       h3 {
-        line-height: 1.25;
-        margin: 0 0 0.5rem 0;
+        line-height: 1.3;
+        margin: 0 0 1rem 0;
       }
       h2 {
-        font-size: clamp(1.35rem, 2.2vw, 1.8rem);
-        font-weight: 500;
+        font-size: clamp(1.5rem, 2.4vw, 2rem);
+        font-weight: 700;
+        letter-spacing: -0.8px;
+        color: var(--text);
       }
       h3 {
-        font-size: clamp(1.05rem, 1.6vw, 1.2rem);
-        font-weight: 500;
+        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        color: var(--text);
       }
       p {
-        margin: 0.6rem 0;
+        margin: 0.8rem 0;
+        font-weight: 400;
+        color: var(--text);
       }
 
       figure {
@@ -103,7 +117,12 @@
         border-radius: var(--radius);
         background: var(--bg-soft);
         box-shadow: var(--shadow);
-        border: 1px solid var(--border); /* borda preta */
+        border: 1px solid var(--border);
+        transition: all 0.3s ease;
+      }
+      figure:hover {
+        box-shadow: var(--shadow-md);
+        border-color: #ccc;
       }
       img {
         display: block;
@@ -127,16 +146,25 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background: var(--card);
-        border: 1px solid var(--border); /* borda preta */
+        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+        border: 1px solid var(--border);
         border-radius: var(--radius-sm);
-        padding: 12px 14px;
-        font-weight: 400;
-        transition: none; /* sem efeitos/cores */
+        padding: 18px 20px;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        color: var(--text);
+      }
+      .quick-item:hover {
+        border-color: #999;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
       }
       .quick-item small {
         font-weight: 700;
-        color: var(--muted);
+        color: var(--text-muted);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
       }
 
       /* ===== Acordeão com ícones no summary e chevron à direita ===== */
@@ -152,14 +180,18 @@
       .acc-summary {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        padding: 14px 16px;
+        gap: 1rem;
+        padding: 18px 20px;
         cursor: pointer;
         list-style: none;
-        font-weight: 400;
+        font-weight: 700;
         user-select: none;
         color: var(--text);
         background: var(--card);
+        transition: background 0.2s ease;
+      }
+      .acc-summary:hover {
+        background: #f9f9f9;
       }
       .acc-summary::-webkit-details-marker {
         display: none;
@@ -177,6 +209,7 @@
         background: currentColor;
         -webkit-mask: var(--icon) no-repeat center / contain;
         mask: var(--icon) no-repeat center / contain;
+        transition: all 0.3s ease;
       }
 
       /* Chevron à direita */
@@ -231,8 +264,9 @@
       }
       .care-hr {
         border: none;
-        border-top: 1px solid var(--border);
-        margin: 12px 0;
+        border-top: 2px solid var(--border);
+        margin: 20px 0;
+        opacity: 0.4;
       }
 
       /* Responsividade */
@@ -281,62 +315,68 @@
       <div class="grid">
         <article class="card">
           <header class="prose">
-            <h2>Descrição</h2>
-            <p class="muted" style="font-weight: 600; margin: 0.25rem 0 1rem 0">
-              Conjunto Feminino Legging + Top Nadador Classic – Camurça · Muv
-              Fit
+            <h2 style="color: var(--text); margin-bottom: 0.8rem">✨ Conjunto Classic Camurça</h2>
+            <p class="muted" style="font-weight: 500; margin: 0.25rem 0 1.5rem 0; font-size: 0.95rem; color: var(--text-muted)">
+              Legging + Top Nadador — Elegância Funcional Premium
             </p>
           </header>
 
           <div class="prose">
-            <p>
-              O <strong>Conjunto Classic Camurça</strong> foi criado para unir
-              estilo, performance e versatilidade em um visual completo. A
-              modelagem anatômica valoriza a silhueta com
-              <strong>cintura alta</strong> na legging e sustentação confortável
-              no <strong>top nadador</strong>, garantindo liberdade de movimento
-              sem apertar ou marcar.
+            <p style="font-size: 1.05rem; font-weight: 500; line-height: 1.9">
+              O <strong>Conjunto Classic Camurça</strong> é a expressão da elegância funcional moderna. Criado para mulheres que entendem que a verdadeira performance não compromete beleza — muito pelo contrário, as potencializa.
             </p>
-            <p>
-              Confeccionado em tecido de <strong>média compressão</strong> e
-              toque ultra macio, o conjunto traz
-              <strong>Tecnologia Dry</strong> para evaporação rápida do suor e
-              <strong>Proteção UV50+</strong> para treinos ao ar livre. O grande
-              diferencial é a <strong>Tecnologia Blackout</strong>, que garante
-              <strong>ZERO TRANSPARÊNCIA</strong> em qualquer movimento — agache
-              sem medo. <em>O top não acompanha bojo</em>, mas possui entrada
-              para você usar o bojo de sua preferência. Composição:
-              <strong>86% Poliéster / 14% Elastano</strong>.
+            
+            <p style="margin-top: 1.2rem">
+              <strong>🎯 Três pilares sustentam este conjunto:</strong> Performance excepcional, conforto premium e estilo refinado.
+            </p>
+
+            <p style="margin-top: 1rem">
+              A modelagem de precisão abraça a silhueta natural com uma <strong>cintura alta estratégica</strong> que modela sem restringir, enquanto o <strong>top nadador com suporte ergonômico</strong> oferece liberdade absoluta de movimento. Confeccionado em tecido de <strong>média compressão com acabamento luxuosamente macio</strong>, cada movimento é pura elegância.
+            </p>
+
+            <div style="margin-top: 1.5rem; padding: 18px 20px; background: white; border-left: 4px solid #000; border-radius: 8px; border-top-left-radius: 0; border-bottom-left-radius: 0">
+              <p style="margin: 0; font-size: 0.95rem; font-weight: 600">
+                <strong>🔧 Tecnologias Integradas:</strong>
+              </p>
+              <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; line-height: 1.8; color: var(--text-muted)">
+                • Tecnologia Dry avançada para dissipação instantânea<br>
+                • Proteção UV50+ espectro completo<br>
+                • Revolucionária Tecnologia Blackout garantindo opacidade absoluta
+              </p>
+            </div>
+
+            <p style="margin-top: 1.2rem">
+              O top minimalista vem sem bojo, permitindo total personalização. <strong style="font-size: 1rem">Composição premium: 86% Poliéster / 14% Elastano</strong> — durabilidade incomparável.
             </p>
           </div>
         </article>
 
         <aside class="card" aria-labelledby="info-rapidas-title">
-          <h3 id="info-rapidas-title">Informações Rápidas</h3>
+          <h3 id="info-rapidas-title" style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; color: var(--text); margin-bottom: 1.5rem; font-weight: 700">✨ DESTAQUES PREMIUM</h3>
           <div class="quick">
             <div class="quick-item">
-              Zero Transparência
+              <span>Zero Transparência</span>
               <small>Blackout</small>
             </div>
             <div class="quick-item">
-              Cintura Alta
-              <small>média compressão</small>
+              <span>Cintura Alta</span>
+              <small>Compressão M</small>
             </div>
             <div class="quick-item">
-              Tecnologia Dry
-              <small>secagem rápida</small>
+              <span>Tecnologia Dry</span>
+              <small>Secagem Rápida</small>
             </div>
             <div class="quick-item">
-              Proteção UV50+
-              <small>outdoor</small>
+              <span>Proteção UV50+</span>
+              <small>Outdoor</small>
             </div>
             <div class="quick-item">
-              Top sem bojo
-              <small>entrada p/ bojo</small>
+              <span>Top Customizável</span>
+              <small>Sem Bojo</small>
             </div>
             <div class="quick-item">
-              86% Poliéster / 14% Elastano
-              <small>dupla frontura</small>
+              <span>86% Poliéster</span>
+              <small>14% Elastano</small>
             </div>
           </div>
         </aside>
@@ -347,12 +387,9 @@
     <section class="container">
       <div class="grid-balanced">
         <div class="prose">
-          <h3>Zero transparência para treinar com confiança</h3>
-          <p class="muted">
-            A <strong>Tecnologia Blackout</strong> combina tecido de
-            <em>dupla frontura</em>
-            e forro interno escuro para cobertura total, mesmo em agachamentos e
-            alongamentos mais intensos — mais foco, menos preocupação.
+          <h3 style="margin-bottom: 1.2rem">✓ Opacidade Perfeita para Confiança Total</h3>
+          <p class="muted" style="line-height: 1.9; font-size: 1.02rem; color: var(--text); font-weight: 400">
+            A propriedade <strong>Tecnologia Blackout Premium</strong> combina engenhosidade de design com <em>dupla frontura especializada</em> e forro interno de absorção ótica, garantindo cobertura total e impecável — mesmo em movimentos de amplitude máxima. Agachamentos profundos, alongamentos intensos, qualquer movimento. <strong>Treine com a segurança que você merece</strong>, sem qualquer comprometimento estético.
           </p>
         </div>
 
@@ -383,56 +420,50 @@
           <details class="card--white" data-icon="blackout" open>
             <summary class="acc-summary">
               <span class="acc-ic" aria-hidden="true"></span>
-              Blackout = Zero Transparência
+              <strong>Tecnologia Blackout Premium</strong>
             </summary>
-            <div class="acc-panel">
-              Cobertura total em qualquer movimento graças à combinação de
-              <strong>dupla frontura</strong> e forro interno preto. Treine com
-              confiança, sem esbranquiçar o tecido.
+            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
+              Opacidade absoluta garantida em qualquer movimento através de arquitetura textil refinada. <strong>Dupla frontura de precisão</strong> + forro interno de absorção ótica = elegância visual impecável. Sem preocupações, sem surpresas — apenas performance segura em cada treino.
             </div>
           </details>
 
           <details class="card--white" data-icon="cintura">
             <summary class="acc-summary">
               <span class="acc-ic" aria-hidden="true"></span>
-              Cintura Alta & Média Compressão
+              <strong>Cintura Alta & Compressão Inteligente</strong>
             </summary>
-            <div class="acc-panel">
-              Modela e apoia sem restringir, com caimento estável do aquecimento
-              ao pós-treino.
+            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
+              Design anatômico que modela e sustenta sem restringir respiração. A <strong>compressão média</strong> oferece suporte estrutural mantendo caimento impecável — do aquecimento ao pós-treino, você sente a diferença em cada momento.
             </div>
           </details>
 
           <details class="card--white" data-icon="dry">
             <summary class="acc-summary">
               <span class="acc-ic" aria-hidden="true"></span>
-              Secagem Rápida (Tecnologia Dry)
+              <strong>Tecnologia Dry Avançada</strong>
             </summary>
-            <div class="acc-panel">
-              Dispersa o suor e acelera a evaporação para manter a sensação de
-              frescor.
+            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
+              Sistema superior de dissipação dispersa umidade instantaneamente e acelera evaporação natural. <strong>Resultado:</strong> sensação de frescor mesmo em treinos intensos. Você permanece seca, confortável e focada do início ao fim.
             </div>
           </details>
 
           <details class="card--white" data-icon="uv">
             <summary class="acc-summary">
               <span class="acc-ic" aria-hidden="true"></span>
-              Proteção UV50+
+              <strong>Proteção UV50+ Espectro Completo</strong>
             </summary>
-            <div class="acc-panel">
-              Ideal para atividades ao ar livre, ajudando a proteger a pele da
-              radiação solar.
+            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
+              Proteção solar de categoria premium integrada à fibra bloqueia até <strong>50+ UPF</strong>, oferecendo defesa total contra radiação UV em atividades outdoor. <strong>Cuide da sua pele</strong> enquanto treina com estilo e confiança.
             </div>
           </details>
 
           <details class="card--white" data-icon="top">
             <summary class="acc-summary">
               <span class="acc-ic" aria-hidden="true"></span>
-              Top Nadador com Entrada para Bojo
+              <strong>Top com Design Customizável</strong>
             </summary>
-            <div class="acc-panel">
-              O top não acompanha bojo, mas possui <strong>entrada</strong> para
-              adicionar o seu.
+            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
+              Design minimalista sem bojo permite que você escolha e customize com o acessório de sua preferência. <strong>Personalização total</strong> para máximo conforto e ajuste perfeito ao seu corpo único.
             </div>
           </details>
         </div>
@@ -441,42 +472,33 @@
 
     <!-- NOVO: BLOCO DE CUIDADOS COM A PEÇA -->
     <section class="container" aria-labelledby="care-title">
-      <article class="card prose" id="care-block">
-        <h2 id="care-title">Cuidados com a peça</h2>
+      <article class="card prose" id="care-block" style="background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%); border: 1px solid var(--border)">
+        <h2 id="care-title" style="color: var(--text); margin-bottom: 1.5rem">🛡️ Preservação Premium — Guia de Excelência</h2>
 
-        <h3 style="margin-top: 0.75rem">Dicas de Uso:</h3>
-        <p>
-          O poliéster pode ser sensível a atritos, então evite o contato da sua
-          roupa com fixadores e fechos de contato, como o velcro. Eles podem
-          acabar desfiando o tecido. Recomendamos também evitar contato com
-          superfícies muito ásperas, como paredes texturizadas.
+        <h3 style="margin-top: 1.5rem; color: var(--text); font-weight: 700">💡 Recomendações de Uso:</h3>
+        <p style="line-height: 1.8; font-weight: 400">
+          A qualidade premium do poliéster requer atenção especial para sua longevidade. Proteja sua peça evitando contato com velcro e superfícies ásperas que possam danificar a fibra. Estas precauções simples garantem que seu conjunto mantenha perfeição estética e elasticidade por muito mais tempo.
         </p>
 
         <hr class="care-hr" />
 
-        <h3>Dicas de Lavagem:</h3>
-        <p>
-          Para preservar a qualidade e durabilidade da sua legging, recomendamos
-          lavá-la à mão e com sabão neutro, de preferência de modo suave,
-          secá-la à sombra. Evite produtos agressivos para preservar a
-          elasticidade e a cor da sua legging. Não utilizar ferro de passar.
+        <h3 style="color: var(--text); font-weight: 700">🧼 Protocolo de Lavagem Premium:</h3>
+        <p style="line-height: 1.8; font-weight: 400">
+          Para manter qualidade incomparável, recomendamos <strong>lavagem manual com sabão neutro</strong> executada com movimentos suaves. Seque à sombra em local arejado — nunca exponha ao sol direto que possa alterar cores. <strong>Jamais utilize ferro de passar</strong> ou produtos químicos agressivos. Assim você preserva elasticidade, vivacidade e durabilidade excepcional.
         </p>
 
         <hr class="care-hr" />
 
-        <h3>Atenção às Cores:</h3>
-        <p>
-          Podem haver variações nas cores do produto de acordo com o brilho do
-          seu monitor ou tela de celular.
+        <h3 style="color: var(--text); font-weight: 700">🎨 Variações de Cor & Tela:</h3>
+        <p style="line-height: 1.8; font-weight: 400">
+          Pequenas variações nas tonalidades podem ocorrer conforme brilho e calibração do seu monitor ou dispositivo. Isso é completamente normal — não representa qualquer falha na qualidade. <strong>Cada peça é única e especial, como você.</strong>
         </p>
 
         <hr class="care-hr" />
 
-        <h3>Precisou Devolver? Sem problemas.</h3>
-        <p>
-          Você tem até 7 dias após o recebimento para solicitar a devolução do
-          seu pedido. Basta entrar em contato com nosso atendimento e seguiremos
-          com o processo de forma rápida e simples.
+        <h3 style="color: var(--text); font-weight: 700">✅ Satisfação Garantida — 7 Dias de Garantia</h3>
+        <p style="line-height: 1.8; font-weight: 400">
+          Sua satisfação é nossa prioridade máxima. Você tem <strong>7 dias após recebimento</strong> para solicitar devolução sem qualquer dúvida. Nosso atendimento especializado tratará seu pedido com rapidez, transparência e excelência que você merece.
         </p>
       </article>
     </section>

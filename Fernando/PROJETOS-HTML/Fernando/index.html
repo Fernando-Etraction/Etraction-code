@@ -1,407 +1,243 @@
 <style>
     <!--
-    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap");
-
-
-
-    /* ================== DESCRIÇÃO ================== */
-    .description-section {
-        font-family: "Manrope", sans-serif;
-
-        max-width: 1200px;
-        margin: 80px auto;
-        padding: 0 20px;
+    /* RESET BÁSICO */
+    #pf-cat-swiper {
+        width: 100%;
+        padding-bottom: 10px;
     }
 
-    .description-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-        align-items: center;
-        margin-bottom: 20px;
+    .pf-catcarousel {
+        padding: 32px 0 24px;
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        position: relative;
     }
 
-    /* Zigzag: reverter imagem e texto alternadamente */
-    .description-container:nth-child(even) {
-        grid-template-columns: 1fr 1fr;
+    .pf-catcarousel__title {
+        margin: 0 0 32px;
+        text-align: center;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a1a1a;
+        letter-spacing: -0.5px;
     }
 
-    .description-container:nth-child(even) .description-image {
-        order: -1;
+    .pf-catcarousel__wrap {
+        position: relative;
+        padding: 0 10px;
+        /* Reduzi o padding lateral para ganhar espaço no mobile */
     }
 
-    .description-content {
+    /* ===== Swiper ===== */
+    .pf-swiper {
+        padding: 12px 4px 24px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .pf-swiper .swiper-wrapper {
+        align-items: stretch;
+        display: flex;
+    }
+
+    .pf-swiper .swiper-slide {
+        height: auto;
+    }
+
+    /* Item */
+    .pf-catitem {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        padding: 20px 0;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        user-select: none;
+        transition: transform 0.3s ease;
+        padding-top: 10px;
     }
 
-    .description-content h2 {
-        font-size: 36px;
-        font-weight: 700;
-        margin-bottom: 24px;
-        color: #1a1a1a;
+    .pf-catitem:hover {
+        transform: translateY(-6px);
+    }
+
+    .pf-catitem__circle {
+        width: 128px;
+        height: 128px;
+        border-radius: 50%;
+        border: 2px solid rgba(0, 0, 0, 0.06);
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .pf-catitem:hover .pf-catitem__circle {
+        border-color: rgba(255, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
+
+    .pf-catitem__circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        pointer-events: none;
+    }
+
+    .pf-catitem__label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+        text-align: center;
+        max-width: 140px;
         line-height: 1.3;
     }
 
-    .description-content p {
-        font-size: 16px;
-        line-height: 1.8;
-        color: #555;
-        margin-bottom: 20px;
+    .pf-catitem:hover .pf-catitem__label {
+        color: #ff0000;
     }
 
-    .description-content p:last-child {
-        margin-bottom: 0;
-    }
-
-    .description-image {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        min-height: 250px;
-    }
-
-    .description-image img {
-        width: 400px;
-        height: 400px;
-        border-radius: 12px;
-        object-fit: cover;
-        display: block;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    /* ================== FAQ ================== */
-    .faq-section {
-        max-width: 900px;
-        margin: 100px auto;
-        padding: 0 20px;
-    }
-
-    .faq-title {
-        text-align: center;
-        font-size: 36px;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: #1a1a1a;
-    }
-
-    .faq-subtitle {
-        text-align: center;
-        font-size: 16px;
-        color: #999;
-        margin-bottom: 50px;
-    }
-
-    .faq-container {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .faq-item {
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        background: #fff;
-    }
-
-    .faq-item:hover {
-        border-color: #d0d0d0;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-
-    .faq-question {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px 22px;
-        cursor: pointer;
-        user-select: none;
-        background: #fff;
-        border: none;
-        width: 100%;
-        text-align: left;
-        font-size: 16px;
-        font-weight: 600;
-        color: #333;
-        font-family: "Manrope", sans-serif;
-        transition: background 0.2s ease;
-    }
-
-    .faq-item:hover .faq-question {
-        background: #f9f9f9;
-    }
-
-    .faq-icon {
-        width: 20px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #999;
-        font-size: 18px;
-        font-weight: bold;
-        transition: transform 0.3s ease, color 0.3s ease;
-        flex-shrink: 0;
-        margin-left: 16px;
-    }
-
-    .faq-item.active .faq-icon {
-        transform: rotate(45deg);
-        color: #333;
-    }
-
-    .faq-answer {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-        padding: 0 22px;
-        background: #fff;
-    }
-
-    .faq-item.active .faq-answer {
-        max-height: 500px;
-        padding: 0 22px 20px 22px;
-    }
-
-    .faq-answer-text {
-        font-size: 15px;
-        line-height: 1.7;
-        color: #666;
-    }
-
-    .faq-answer-text p {
-        margin-bottom: 12px;
-    }
-
-    .faq-answer-text ul {
-        list-style: none;
-        padding-left: 0;
-        margin: 10px 0;
-    }
-
-    .faq-answer-text li {
-        padding-left: 22px;
-        position: relative;
-        margin-bottom: 10px;
-    }
-
-    .faq-answer-text li:before {
-        content: "✓";
+    /* ===== Setas (Desktop) ===== */
+    .pf-swiper-btn {
         position: absolute;
-        left: 0;
-        color: #999;
-        font-weight: bold;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: #ff0000;
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+        outline: none;
     }
 
-    /* ================== RESPONSIVIDADE ================== */
+    .pf-swiper-prev {
+        left: 0px;
+    }
+
+    .pf-swiper-next {
+        right: 0px;
+    }
+
+    .pf-swiper-btn.swiper-button-disabled {
+        opacity: 0;
+        /* Some completamente quando não tem mais slide */
+        pointer-events: none;
+    }
+
+    /* ===== Responsividade ===== */
     @media (max-width: 768px) {
-        .description-section {
-            margin: 60px auto;
+        .pf-catcarousel__title {
+            font-size: 22px;
+            margin-bottom: 20px;
         }
 
-        .description-container {
-            grid-template-columns: 1fr;
-            gap: 30px;
-            margin-bottom: 80px;
+        .pf-catitem__circle {
+            width: 100px;
+            height: 100px;
         }
 
-        .description-container:nth-child(even) .description-image {
-            order: unset;
+        /* Ajuste das setas para Mobile */
+        .pf-swiper-btn {
+            display: flex !important;
+            /* Força aparecer */
+            width: 32px;
+            /* Menor */
+            height: 32px;
+            /* Menor */
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.9);
         }
 
-        .description-container:nth-child(even) {
-            grid-template-columns: 1fr;
+        /* Cola mais na borda no mobile */
+        .pf-swiper-prev {
+            left: -5px;
         }
 
-        .description-content h2 {
-            font-size: 28px;
-            margin-bottom: 16px;
+        .pf-swiper-next {
+            right: -5px;
         }
+    }
 
-        .description-content p {
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .description-image {
-            min-height: 280px;
-        }
-
-        .faq-section {
-            margin: 60px auto;
-        }
-
-        .faq-title {
-            font-size: 28px;
-        }
-
-        .faq-question {
-            font-size: 15px;
-            padding: 16px 16px;
-        }
-
-        .faq-icon {
-            margin-left: 12px;
-        }
-
-        .faq-answer {
-            padding: 0 16px;
-        }
-
-        .faq-item.active .faq-answer {
-            padding: 0 16px 16px 16px;
-        }
-
-        .faq-answer-text {
-            font-size: 14px;
+    @media (max-width: 480px) {
+        .pf-catitem__circle {
+            width: 90px;
+            height: 90px;
         }
     }
     -->
 </style>
-<!-- DESCRIÇÃO -->
-<div class="description-section"><!-- SEÇÃO 1 -->
-    <div class="description-container">
-        <div class="description-content"><!-- Troca de titulo -->
-            <h2>Misturador de Mesa Chess Chrome Docol: Design sofisticado com bica alta e acabamento cromado</h2>
-            <!-- Troca de texto -->
-            <p style="text-align: justify;">O Misturador Para Cozinha de Mesa Bica Alta Chess Chrome Docol une design
-                sofisticado, funcionalidade e a qualidade reconhecida da Docol. Com bica alta, oferece mais
-                espa&ccedil;o e conforto para lavar lou&ccedil;as, alimentos e utens&iacute;lios, facilitando as tarefas
-                do dia a dia.</p>
-        </div>
-        <div class="description-image"><!-- Imagem 01 --> <img
-                src="https://magnoliahome.cdn.magazord.com.br/img/2026/01/produto/899/design-sem-nome-2026-01-08t174337-036.jpg"
-                alt="Misturador Beta Motion na cozinha" /></div>
-    </div>
-    <!-- SEÇÃO 2 -->
-    <div class="description-container">
-        <div class="description-image"><!-- Imagem 02 --> <img
-                src="https://magnoliahome.cdn.magazord.com.br/img/2026/01/produto/897/design-sem-nome-2026-01-08t174029-049.jpg"
-                alt="Detalhe do Misturador Beta Motion" /></div>
-        <div class="description-content"><!-- Troca de titulo -->
-            <h2>Tecnologia Flex&iacute;vel com Duplo Jato</h2>
-            <!-- Troca de texto -->
-            <p style="text-align: justify;">Seu acabamento Chrome garante brilho duradouro, resist&ecirc;ncia &agrave;
-                corros&atilde;o e f&aacute;cil limpeza, mantendo o produto bonito por muito mais tempo. O sistema de
-                acionamento suave permite controle preciso da temperatura e da vaz&atilde;o da &aacute;gua,
-                proporcionando economia e praticidade.</p>
-            <p style="text-align: justify;">Ideal para cozinhas modernas e elegantes, o Misturador Chess combina
-                est&eacute;tica contempor&acirc;nea com alto desempenho, sendo a escolha perfeita para quem busca
-                durabilidade, conforto e estilo em um &uacute;nico produto.</p>
+<section class="pf-catcarousel">
+    <h2 class="pf-catcarousel__title">Escolha uma categoria</h2>
+    <div class="pf-catcarousel__wrap">
+        <div id="pf-cat-swiper" class="swiper pf-swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a class="pf-catitem" href="https://www.pontaodasfabricas.com.br/cama/lencol-avulso?caracteristica=composicao%3A100-poliester">
+                        <span class="pf-catitem__circle">
+                             <img src="https://pontaodasfabricas.cdn.magazord.com.br/img/2025/05/produto/12806/nude.png" alt="Solteiro" />
+                        </span> 
+                        <span class="pf-catitem__label">Poliéster</span> 
+                    </a>
+                </div>
+
+                <div class="swiper-slide">
+                    <a class="pf-catitem" href="https://www.pontaodasfabricas.com.br/cama/lencol-avulso?caracteristica=composicao%3A100-algodao">
+                        <span class="pf-catitem__circle">
+                             <img src="https://pontaodasfabricas.cdn.magazord.com.br/img/2024/09/produto/4944/salmao-1.png" alt="Solteiro" />
+                        </span> 
+                        <span class="pf-catitem__label">Algodão</span> 
+                    </a>
+                </div>
+
+            </div>
+            <button class="pf-swiper-btn pf-swiper-prev" type="button">&lsaquo;</button> <button
+                class="pf-swiper-btn pf-swiper-next" type="button">&rsaquo;</button>
         </div>
     </div>
-    <!-- SEÇÃO 3 -->
-    <div class="description-container">
-        <div class="description-content"><!-- Troca de titulo -->
-            <h2>Diferenciais do Produto</h2>
-            <!-- Troca de texto -->
-            <p>- Design Sofisticado</p>
-            <p>- Bica Alta</p>
-            <p>- Qualidade Docol</p>
-            <p>- Instala&ccedil;&atilde;o de Mesa</p>
-            <p>- Acionamento Suave</p>
-            <p>- Durabilidade e Resist&ecirc;ncia</p>
-            <p>- F&aacute;cil Limpeza</p>
-            <p></p>
-        </div>
-        <div class="description-image"><!-- Imagem 03 --> <img
-                src="https://magnoliahome.cdn.magazord.com.br/img/2026/01/produto/898/4.jpg"
-                alt="Acabamento do Misturador Beta Motion" /></div>
-    </div>
-</div>
-<!-- FAQ SECTION -->
-<div class="faq-section">
-  <!-- Titilo FAQ -->
-  <h2 class="faq-title">Perguntas Frequentes</h2>
+</section>
+<p>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>// <![CDATA[
+        document.addEventListener('DOMContentLoaded', function () {
+            new Swiper("#pf-cat-swiper", {
+                slidesPerView: 2,
+                spaceBetween: 15,
+                grabCursor: true,
 
-  <!-- Subtítulo FAQ -->
-  <p class="faq-subtitle">Tire suas d&uacute;vidas sobre Misturador Para Cozinha De Mesa Bica Alta Chess Chrome Docol</p>
+                navigation: {
+                    nextEl: ".pf-swiper-next",
+                    prevEl: ".pf-swiper-prev"
+                },
 
-  <div class="faq-container">
-    <!-- FAQ 1 -->
-    <div class="faq-item">
-      <button class="faq-question">
-        <span>O que &eacute; o Misturador Chess Chrome Docol?</span>
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-text">
-          <p>&Eacute; um misturador para cozinha de mesa com bica alta, desenvolvido para oferecer praticidade, resist&ecirc;ncia e design sofisticado.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ 2 -->
-    <div class="faq-item">
-      <button class="faq-question">
-        <span>O produto &eacute; indicado para instala&ccedil;&atilde;o em mesa ou bancada?</span>
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-text">
-          <p>Sim. Este modelo &eacute; pr&oacute;prio para instala&ccedil;&atilde;o de mesa, diretamente na bancada ou na cuba.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ 3 -->
-    <div class="faq-item">
-      <button class="faq-question">
-        <span>O Misturador Chess possui bica alta?</span>
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-text">
-          <p>Sim. A bica alta facilita o uso em cubas profundas e ajuda na lavagem de lou&ccedil;as maiores.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ 4 -->
-    <div class="faq-item">
-      <button class="faq-question">
-        <span>Este misturador possui &aacute;gua quente e fria?</span>
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-text">
-          <p>Sim. Ele &eacute; um misturador, permitindo o uso de &aacute;gua quente e fria, conforme o sistema hidr&aacute;ulico do local.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FAQ 5 -->
-    <div class="faq-item">
-      <button class="faq-question">
-        <span>O produto possui arejador?</span>
-        <span class="faq-icon">+</span>
-      </button>
-      <div class="faq-answer">
-        <div class="faq-answer-text">
-          <p>Sim. Conta com arejador que proporciona um jato mais uniforme e ajuda a reduzir respingos.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // <![CDATA[
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
-        faqItems.forEach(i => {
-          if (i !== item) i.classList.remove('active');
+                breakpoints: {
+                    480: {
+                        slidesPerView: 3,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 4,
+                        spaceBetween: 30
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 20
+                    }
+                }
+            });
         });
-        item.classList.toggle('active');
-      });
-    });
-    // ]]>
-  </script>
-</div>
+        // ]]></script>
+</p>
