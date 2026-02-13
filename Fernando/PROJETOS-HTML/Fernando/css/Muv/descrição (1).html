@@ -1,525 +1,631 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<style><!--
+.muv-desc{
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --soft:#f5f6f7;
+  --card:#ffffff;
+  --black:#0b0b0c;
 
-    <title>Conjunto Classic Camurça — Muv Fit</title>
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color:var(--text);
+  line-height:1.5;
+  background:#fff;
+  font-size: 16px;
+}
+.muv-desc *{ box-sizing:border-box; }
 
-    <!-- Fonte -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-      rel="stylesheet"
-    />
+.muv-desc .wrap{
+  width: min(1120px, 92vw);
+  margin: 28px auto 34px;
+}
 
-    <style>
-      :root {
-        --bg: #ffffff;
-        --bg-soft: #fafafa; /* fundo off-white premium */
-        --card: #ffffff; /* cartões brancos */
-        --border: #e8e8e8; /* borda sutil cinza claro */
-        --text: #1a1a1a; /* texto preto premium */
-        --text-muted: #777777;
-        --accent: #000000;
-        --shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* sombra elegante */
-        --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
-        --radius: 20px;
-        --radius-sm: 14px;
-        --maxw: 1120px;
+/* Utilitário para imagens de ícone */
+.muv-desc .icon-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ================= TOP ================= */
+.muv-desc .hero{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items:center;
+}
+
+.muv-desc .photo{
+  border-radius: 10px;
+  overflow:hidden;
+  background:#f3f4f6;
+  border:1px solid rgba(229,231,235,.9);
+  box-shadow: 0 10px 30px rgba(17,24,39,.06);
+  margin: 0;
+}
+.muv-desc .photo img{
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:cover;
+}
+
+.muv-desc .title{
+  display: block;
+  margin: 0 0 16px;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing:-.02em;
+  line-height: 1.15;
+}
+
+.muv-desc .subtitle{
+  display: block;
+  margin:0 0 24px;
+  color: var(--muted);
+  font-size: 16px;
+  max-width: 58ch;
+}
+
+/* ===== Destaques ===== */
+.muv-desc .hl-card{
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  padding: 20px;
+  width: 100%;
+  max-width: 450px;
+}
+.muv-desc .hl-head{
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 14px;
+  color:#111827;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.muv-desc .hl-rows{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.muv-desc .hl-row{
+  display:grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items:center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: var(--soft);
+  border-radius: 8px;
+}
+
+.muv-desc .hl-ico{
+  width: 32px;
+  height: 32px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.muv-desc .hl-name{
+  font-size: 15px;
+  font-weight: 600;
+  color:#111827;
+}
+
+.muv-desc .hl-tag{
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(17,24,39,.5);
+  justify-self:end;
+}
+
+/* ================= BANNER (GIF AUMENTADO) ================= */
+.muv-desc .banner{
+  margin: 40px 0 36px;
+  background:
+    radial-gradient(900px 260px at 50% 0%, rgba(255,255,255,.10), transparent 55%),
+    radial-gradient(700px 240px at 50% 100%, rgba(255,255,255,.06), transparent 60%),
+    var(--black);
+  color:#fff;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.18);
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 40px;
+  align-items: center;
+  text-align: left;
+}
+
+.muv-desc .pill{
+  display:inline-flex;
+  align-items:center;
+  gap: 10px;
+  background:#fff;
+  color:#111827;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.muv-desc .banner-title{
+  display: block;
+  margin: 0 0 14px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.muv-desc .banner-text{
+  display: block;
+  margin: 0;
+  max-width: none;
+  color: rgba(255,255,255,.85);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.muv-desc .banner-image {
+  margin: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+  width: 350px;
+  height: 350px;
+  flex-shrink: 0;
+}
+
+.muv-desc .banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: rgba(255,255,255,0.05);
+}
+
+/* ================= LOWER ================= */
+.muv-desc .lower{
+  gap: 40px;
+  align-items:start;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(229,231,235,.75);
+}
+
+.muv-desc .acc{
+  border-top: 1px solid rgba(229,231,235,.85);
+  padding-top: 8px;
+}
+
+.muv-desc .acc-item{
+  border-bottom: 1px solid rgba(229,231,235,.85);
+}
+
+.muv-desc .acc-btn{
+  width:100%;
+  padding: 18px 0;
+  background: transparent;
+  border: 0;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+  text-align:left;
+  color:#111827;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.muv-desc .acc-icon{
+  font-weight: 900;
+  color: rgba(17,24,39,.55);
+  font-size: 20px;
+  line-height: 1;
+  width: 24px;
+  text-align:right;
+  user-select:none;
+}
+
+.muv-desc .acc-content{
+  display:none;
+  padding: 0 0 18px;
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 88ch;
+  line-height: 1.6;
+}
+
+.muv-desc .acc-item[data-expanded="true"] .acc-content{ display:block; }
+.muv-desc .acc-item[data-expanded="true"] .acc-icon{ color: rgba(17,24,39,.65); }
+
+/* ================= BOTTOM ================= */
+.muv-desc .bottom{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding-top: 32px;
+}
+
+.muv-desc .b-head{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  color:#111827;
+}
+
+.muv-desc .b-text{
+  display: block;
+  margin:0;
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 40ch;
+  line-height: 1.5;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 900px){
+  .muv-desc .hero{ grid-template-columns: 1fr; gap: 24px; }
+  .muv-desc .lower{ grid-template-columns: 1fr; }
+  .muv-desc .bottom{ grid-template-columns: 1fr; gap: 24px; }
+
+  .muv-desc .banner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 36px 20px;
+    gap: 30px;
+  }
+  .muv-desc .banner-text { margin: 0 auto; }
+
+  .muv-desc .banner-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+  }
+}
+--></style>
+<div class="muv-desc">
+<div class="wrap">
+<section class="hero">
+<figure class="photo"><img id="muv-hero-img" alt="Cal&ccedil;a Legging Feminina Classic Cinza Gelo" /></figure>
+<div>
+<div class="title">Conjunto Feminino Legging + Top Nadador Classic</div>
+<div class="subtitle">O equil&iacute;brio perfeito entre tecnologia e design minimalista. Modelagem anat&ocirc;mica que valoriza a silhueta, sustenta&ccedil;&atilde;o confort&aacute;vel e tecido de toque ultra macio.</div>
+<div class="hl-card">
+<div class="hl-head">Destaques</div>
+<ul class="hl-rows">
+<li class="hl-row">
+<div class="hl-ico"><img class="icon-img" src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5109/hidden-5758686.png" alt="Zero Transpar&ecirc;ncia" /></div>
+<span class="hl-name">Zero Transpar&ecirc;ncia</span> <span class="hl-tag">BLACKOUT</span></li>
+<li class="hl-row">
+<div class="hl-ico"><img class="icon-img" src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5110/diet-5525084.png" alt="Cintura Alta" /></div>
+<span class="hl-name">Cintura Alta</span> <span class="hl-tag">MODELADORA</span></li>
+<li class="hl-row">
+<div class="hl-ico"><img class="icon-img" src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5106/697a7196b44813ffcebeae52488330b7.png" alt="Compress&atilde;o" /></div>
+<span class="hl-name">M&eacute;dia Compress&atilde;o</span> <span class="hl-tag">CONFORTO</span></li>
+<li class="hl-row">
+<div class="hl-ico"><img class="icon-img" src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5108/suncare-17573875.png" alt="Prote&ccedil;&atilde;o UV" /></div>
+<span class="hl-name">Prote&ccedil;&atilde;o UV50+</span> <span class="hl-tag">OUTDOOR</span></li>
+<li class="hl-row">
+<div class="hl-ico"><img class="icon-img" src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5107/weather-15960461.png" alt="Tecnologia Dry" /></div>
+<span class="hl-name">Tecnologia Dry</span> <span class="hl-tag">SECAGEM R&Aacute;PIDA</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section class="banner">
+<div class="banner-content">
+<div class="pill">TECNOLOGIA EXCLUSIVA</div>
+<div class="banner-title">Blackout: Zero Transpar&ecirc;ncia</div>
+<div class="banner-text">A combina&ccedil;&atilde;o de <strong>Dupla Frontura</strong> + <strong>Forro Interno Preto</strong> garante cobertura total. Agache, corra e alongue com 100% de confian&ccedil;a, sem que a pe&ccedil;a fique transparente ou esbranqui&ccedil;ada sob tens&atilde;o.</div>
+</div>
+<figure class="banner-image"><img src="https://magazord-public.s3.amazonaws.com/muvfit/img/2026/01/produto/5116/design-sem-nome-2.gif" alt="Tecnologia Blackout" width="350" height="350" /></figure>
+</section>
+<section class="lower">
+<div class="acc" data-acc="">
+<div class="acc-item" data-expanded="true">
+<div class="acc-btn"><span>Composi&ccedil;&atilde;o e Tecido</span> <span class="acc-icon">&ndash;</span></div>
+<div class="acc-content">Confeccionado em 86% Poli&eacute;ster e 14% Elastano. A trama de dupla frontura garante durabilidade superior, evita marca&ccedil;&otilde;es na pele e oferece toque macio e gelado.</div>
+</div>
+<div class="acc-item" data-expanded="false">
+<div class="acc-btn"><span>Detalhes do Top</span> <span class="acc-icon">+</span></div>
+<div class="acc-content">Sustenta&ccedil;&atilde;o confort&aacute;vel com modelagem anat&ocirc;mica e acabamento minimalista para o dia a dia e treinos.</div>
+</div>
+<div class="acc-item" data-expanded="false">
+<div class="acc-btn"><span>Performance (Dry e UV)</span> <span class="acc-icon">+</span></div>
+<div class="acc-content">Tecnologia Dry para secagem r&aacute;pida e maior conforto durante o uso, al&eacute;m de prote&ccedil;&atilde;o UV50+ para atividades ao ar livre.</div>
+</div>
+</div>
+</section>
+<section class="bottom">
+<div>
+<div class="b-head">CUIDADOS DE USO</div>
+<div class="b-text">Evite contato com superf&iacute;cies &aacute;speras (como velcro, paredes chapiscadas) para n&atilde;o puxar fios. O tecido &eacute; nobre e exige cuidado com atrito.</div>
+</div>
+<div>
+<div class="b-head">LAVAGEM</div>
+<div class="b-text">Lave &agrave; m&atilde;o com sab&atilde;o neutro. Seque &agrave; sombra. N&atilde;o use ferro de passar e evite alvejantes para preservar a elasticidade.</div>
+</div>
+<div>
+<div class="b-head">TROCA E DEVOLU&Ccedil;&Atilde;O</div>
+<div class="b-text">N&atilde;o serviu? Sem problemas. Voc&ecirc; tem at&eacute; 7 dias ap&oacute;s o recebimento para solicitar a devolu&ccedil;&atilde;o de forma simples.</div>
+</div>
+</section>
+</div>
+<!-- Acordeão (SEU script) -->
+<script>// <![CDATA[
+(function(){
+    document.querySelectorAll(".muv-desc [data-acc]").forEach((acc) => {
+      const items = Array.from(acc.querySelectorAll(".acc-item"));
+
+      function syncIcon(item){
+        const icon = item.querySelector(".acc-icon");
+        if(!icon) return;
+        const open = item.getAttribute("data-expanded") === "true";
+        icon.textContent = open ? "–" : "+";
       }
 
-      html {
-        scroll-behavior: smooth;
-      }
-      strong {
-        font-weight: 600;
-      }
-      body {
-        margin: 0;
-        font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial,
-          sans-serif;
-        color: var(--text);
-        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-        line-height: 1.8;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        letter-spacing: 0.3px;
-      }
+      items.forEach(syncIcon);
 
-      /* Utilitários / layout */
-      .container {
-        max-width: var(--maxw);
-        margin-inline: auto;
-        padding: 40px 20px;
-      }
-      .grid {
-        display: grid;
-        gap: 24px;
-        align-items: stretch;
-        grid-template-columns: 1.2fr 0.8fr;
-      }
-      .grid-balanced {
-        display: grid;
-        gap: 28px;
-        align-items: center;
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .card {
-        background: var(--bg-soft);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: 36px 32px;
-        border: 1px solid var(--border);
-        transition: all 0.3s ease;
-      }
-      .card:hover {
-        box-shadow: var(--shadow-md);
-        border-color: #ccc;
-      }
-      .card--white {
-        background: var(--card);
-        border: 1px solid var(--border); /* borda preta */
-        border-radius: var(--radius-sm);
-        box-shadow: none;
-      }
-
-      .muted {
-        color: var(--text-muted);
-      }
-
-      h2,
-      h3 {
-        line-height: 1.3;
-        margin: 0 0 1rem 0;
-      }
-      h2 {
-        font-size: clamp(1.5rem, 2.4vw, 2rem);
-        font-weight: 700;
-        letter-spacing: -0.8px;
-        color: var(--text);
-      }
-      h3 {
-        font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        color: var(--text);
-      }
-      p {
-        margin: 0.8rem 0;
-        font-weight: 400;
-        color: var(--text);
-      }
-
-      figure {
-        margin: 0;
-        overflow: hidden;
-        border-radius: var(--radius);
-        background: var(--bg-soft);
-        box-shadow: var(--shadow);
-        border: 1px solid var(--border);
-        transition: all 0.3s ease;
-      }
-      figure:hover {
-        box-shadow: var(--shadow-md);
-        border-color: #ccc;
-      }
-      img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .hero-img {
-        height: clamp(240px, 36vw, 380px);
-        object-fit: cover;
-        border-radius: var(--radius);
-        background: #fff;
-      }
-
-      /* Informações rápidas */
-      .quick {
-        display: grid;
-        gap: 10px;
-        margin-top: 24px;
-      }
-      .quick-item {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        padding: 18px 20px;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        color: var(--text);
-      }
-      .quick-item:hover {
-        border-color: #999;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-      }
-      .quick-item small {
-        font-weight: 700;
-        color: var(--text-muted);
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-      }
-
-      /* ===== Acordeão com ícones no summary e chevron à direita ===== */
-      .accordion {
-        display: grid;
-        gap: 12px;
-      }
-      details.card--white {
-        padding: 0;
-        overflow: hidden;
-      }
-
-      .acc-summary {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 18px 20px;
-        cursor: pointer;
-        list-style: none;
-        font-weight: 700;
-        user-select: none;
-        color: var(--text);
-        background: var(--card);
-        transition: background 0.2s ease;
-      }
-      .acc-summary:hover {
-        background: #f9f9f9;
-      }
-      .acc-summary::-webkit-details-marker {
-        display: none;
-      }
-      .acc-summary::marker {
-        content: "";
-      }
-
-      /* Ícone à esquerda, controlado por --icon */
-      .acc-ic {
-        flex: 0 0 20px;
-        width: 20px;
-        height: 20px;
-        opacity: 1;
-        background: currentColor;
-        -webkit-mask: var(--icon) no-repeat center / contain;
-        mask: var(--icon) no-repeat center / contain;
-        transition: all 0.3s ease;
-      }
-
-      /* Chevron à direita */
-      .acc-summary::after {
-        content: "";
-        margin-left: auto;
-        width: 18px;
-        height: 18px;
-        opacity: 1;
-        background: currentColor;
-        -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
-          no-repeat center / contain;
-        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
-          no-repeat center / contain;
-        transform: rotate(0deg);
-        transition: transform 0.25s ease;
-      }
-      details[open] > .acc-summary::after {
-        transform: rotate(180deg);
-      }
-
-      /* Conteúdo do dropdown */
-      .acc-panel {
-        padding: 0 16px 14px 16px;
-        color: var(--text);
-        background: #fff;
-      }
-
-      /* Ícones por item (definidos via data-icon no <details>) */
-      details[data-icon="blackout"] {
-        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-3z" fill="black"/></svg>');
-      }
-      details[data-icon="cintura"] {
-        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 3h12v3c0 1.7-1.3 3.2-3 3.9L13 12l2 2.1c1.7.7 3 2.2 3 3.9v3H6v-3c0-1.7 1.3-3.2 3-3.9L11 12 9 9.9C7.3 9.2 6 7.7 6 6V3z" fill="black"/></svg>');
-      }
-      details[data-icon="dry"] {
-        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.8 6 10.5A6 6 0 1 1 6 13.5C6 9.8 9 7 12 3z" fill="black"/></svg>');
-      }
-      details[data-icon="uv"] {
-        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="black"/><path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="black" stroke-width="2" stroke-linecap="round"/></svg>');
-      }
-      details[data-icon="top"] {
-        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3c.5 1.7 1.8 3 3 3s2.5-1.3 3-3l4 2.5-2 3V21H7V8.5l-2-3L9 3z" fill="black"/></svg>');
-      }
-
-      /* Bloco Cuidados */
-      .care-list {
-        padding-left: 1.25rem;
-      }
-      .care-list li {
-        margin: 0.35rem 0;
-      }
-      .care-hr {
-        border: none;
-        border-top: 2px solid var(--border);
-        margin: 20px 0;
-        opacity: 0.4;
-      }
-
-      /* Responsividade */
-      @media (max-width: 1024px) {
-        .grid {
-          grid-template-columns: 1fr;
-        }
-        .grid-balanced {
-          grid-template-columns: 1fr;
-        }
-        .prose {
-          max-width: 100%;
-        }
-      }
-
-      /* Foco visível (preto) */
-      :focus-visible {
-        outline: 2px solid #000;
-        outline-offset: 2px;
-        border-radius: 8px;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Utilitários opcionais do seu projeto -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var el = document.querySelector(".w-md-60");
-        if (el) {
-          el.style.setProperty("width", "100%", "important");
-          el.style.setProperty("max-width", "100%", "important");
-        }
-      });
-      document.addEventListener("DOMContentLoaded", function () {
-        const el = Array.from(
-          document.querySelectorAll(".font-weight-bold.mb-3")
-        ).find((div) => div.textContent.trim() === "Descrição");
-        if (el) {
-          el.style.textAlign = "center";
-        }
-      });
-    </script>
-
-    <!-- DESCRIÇÃO PRINCIPAL -->
-    <section class="container">
-      <div class="grid">
-        <article class="card">
-          <header class="prose">
-            <h2 style="color: var(--text); margin-bottom: 0.8rem">✨ Conjunto Classic Camurça</h2>
-            <p class="muted" style="font-weight: 500; margin: 0.25rem 0 1.5rem 0; font-size: 0.95rem; color: var(--text-muted)">
-              Legging + Top Nadador — Elegância Funcional Premium
-            </p>
-          </header>
-
-          <div class="prose">
-            <p style="font-size: 1.05rem; font-weight: 500; line-height: 1.9">
-              O <strong>Conjunto Classic Camurça</strong> é a expressão da elegância funcional moderna. Criado para mulheres que entendem que a verdadeira performance não compromete beleza — muito pelo contrário, as potencializa.
-            </p>
-            
-            <p style="margin-top: 1.2rem">
-              <strong>🎯 Três pilares sustentam este conjunto:</strong> Performance excepcional, conforto premium e estilo refinado.
-            </p>
-
-            <p style="margin-top: 1rem">
-              A modelagem de precisão abraça a silhueta natural com uma <strong>cintura alta estratégica</strong> que modela sem restringir, enquanto o <strong>top nadador com suporte ergonômico</strong> oferece liberdade absoluta de movimento. Confeccionado em tecido de <strong>média compressão com acabamento luxuosamente macio</strong>, cada movimento é pura elegância.
-            </p>
-
-            <div style="margin-top: 1.5rem; padding: 18px 20px; background: white; border-left: 4px solid #000; border-radius: 8px; border-top-left-radius: 0; border-bottom-left-radius: 0">
-              <p style="margin: 0; font-size: 0.95rem; font-weight: 600">
-                <strong>🔧 Tecnologias Integradas:</strong>
-              </p>
-              <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; line-height: 1.8; color: var(--text-muted)">
-                • Tecnologia Dry avançada para dissipação instantânea<br>
-                • Proteção UV50+ espectro completo<br>
-                • Revolucionária Tecnologia Blackout garantindo opacidade absoluta
-              </p>
-            </div>
-
-            <p style="margin-top: 1.2rem">
-              O top minimalista vem sem bojo, permitindo total personalização. <strong style="font-size: 1rem">Composição premium: 86% Poliéster / 14% Elastano</strong> — durabilidade incomparável.
-            </p>
-          </div>
-        </article>
-
-        <aside class="card" aria-labelledby="info-rapidas-title">
-          <h3 id="info-rapidas-title" style="text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; color: var(--text); margin-bottom: 1.5rem; font-weight: 700">✨ DESTAQUES PREMIUM</h3>
-          <div class="quick">
-            <div class="quick-item">
-              <span>Zero Transparência</span>
-              <small>Blackout</small>
-            </div>
-            <div class="quick-item">
-              <span>Cintura Alta</span>
-              <small>Compressão M</small>
-            </div>
-            <div class="quick-item">
-              <span>Tecnologia Dry</span>
-              <small>Secagem Rápida</small>
-            </div>
-            <div class="quick-item">
-              <span>Proteção UV50+</span>
-              <small>Outdoor</small>
-            </div>
-            <div class="quick-item">
-              <span>Top Customizável</span>
-              <small>Sem Bojo</small>
-            </div>
-            <div class="quick-item">
-              <span>86% Poliéster</span>
-              <small>14% Elastano</small>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <!-- BLOCO DE DESTAQUE -->
-    <section class="container">
-      <div class="grid-balanced">
-        <div class="prose">
-          <h3 style="margin-bottom: 1.2rem">✓ Opacidade Perfeita para Confiança Total</h3>
-          <p class="muted" style="line-height: 1.9; font-size: 1.02rem; color: var(--text); font-weight: 400">
-            A propriedade <strong>Tecnologia Blackout Premium</strong> combina engenhosidade de design com <em>dupla frontura especializada</em> e forro interno de absorção ótica, garantindo cobertura total e impecável — mesmo em movimentos de amplitude máxima. Agachamentos profundos, alongamentos intensos, qualquer movimento. <strong>Treine com a segurança que você merece</strong>, sem qualquer comprometimento estético.
-          </p>
-        </div>
-
-        <figure>
-          <img
-            class="hero-img"
-            src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg"
-            alt="Conjunto Classic Camurça: legging cintura alta e top nadador com tecnologia blackout"
-          />
-        </figure>
-      </div>
-    </section>
-
-    <!-- BENEFÍCIOS EM ACORDEÃO (ícones no summary + um aberto por vez) -->
-    <section class="container">
-      <div
-        class="grid"
-        style="grid-template-columns: 360px 1fr; align-items: start"
-      >
-        <figure>
-          <img
-            src="https://muvfit.cdn.magazord.com.br/img/2025/07/produto/2720/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta-3.jpg"
-            alt="Detalhe da legging Classic Camurça com dupla frontura e forro interno"
-          />
-        </figure>
-
-        <div class="accordion js-accordion" style="min-width: 0">
-          <details class="card--white" data-icon="blackout" open>
-            <summary class="acc-summary">
-              <span class="acc-ic" aria-hidden="true"></span>
-              <strong>Tecnologia Blackout Premium</strong>
-            </summary>
-            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
-              Opacidade absoluta garantida em qualquer movimento através de arquitetura textil refinada. <strong>Dupla frontura de precisão</strong> + forro interno de absorção ótica = elegância visual impecável. Sem preocupações, sem surpresas — apenas performance segura em cada treino.
-            </div>
-          </details>
-
-          <details class="card--white" data-icon="cintura">
-            <summary class="acc-summary">
-              <span class="acc-ic" aria-hidden="true"></span>
-              <strong>Cintura Alta & Compressão Inteligente</strong>
-            </summary>
-            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
-              Design anatômico que modela e sustenta sem restringir respiração. A <strong>compressão média</strong> oferece suporte estrutural mantendo caimento impecável — do aquecimento ao pós-treino, você sente a diferença em cada momento.
-            </div>
-          </details>
-
-          <details class="card--white" data-icon="dry">
-            <summary class="acc-summary">
-              <span class="acc-ic" aria-hidden="true"></span>
-              <strong>Tecnologia Dry Avançada</strong>
-            </summary>
-            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
-              Sistema superior de dissipação dispersa umidade instantaneamente e acelera evaporação natural. <strong>Resultado:</strong> sensação de frescor mesmo em treinos intensos. Você permanece seca, confortável e focada do início ao fim.
-            </div>
-          </details>
-
-          <details class="card--white" data-icon="uv">
-            <summary class="acc-summary">
-              <span class="acc-ic" aria-hidden="true"></span>
-              <strong>Proteção UV50+ Espectro Completo</strong>
-            </summary>
-            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
-              Proteção solar de categoria premium integrada à fibra bloqueia até <strong>50+ UPF</strong>, oferecendo defesa total contra radiação UV em atividades outdoor. <strong>Cuide da sua pele</strong> enquanto treina com estilo e confiança.
-            </div>
-          </details>
-
-          <details class="card--white" data-icon="top">
-            <summary class="acc-summary">
-              <span class="acc-ic" aria-hidden="true"></span>
-              <strong>Top com Design Customizável</strong>
-            </summary>
-            <div class="acc-panel" style="line-height: 1.8; font-size: 0.95rem">
-              Design minimalista sem bojo permite que você escolha e customize com o acessório de sua preferência. <strong>Personalização total</strong> para máximo conforto e ajuste perfeito ao seu corpo único.
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- NOVO: BLOCO DE CUIDADOS COM A PEÇA -->
-    <section class="container" aria-labelledby="care-title">
-      <article class="card prose" id="care-block" style="background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%); border: 1px solid var(--border)">
-        <h2 id="care-title" style="color: var(--text); margin-bottom: 1.5rem">🛡️ Preservação Premium — Guia de Excelência</h2>
-
-        <h3 style="margin-top: 1.5rem; color: var(--text); font-weight: 700">💡 Recomendações de Uso:</h3>
-        <p style="line-height: 1.8; font-weight: 400">
-          A qualidade premium do poliéster requer atenção especial para sua longevidade. Proteja sua peça evitando contato com velcro e superfícies ásperas que possam danificar a fibra. Estas precauções simples garantem que seu conjunto mantenha perfeição estética e elasticidade por muito mais tempo.
-        </p>
-
-        <hr class="care-hr" />
-
-        <h3 style="color: var(--text); font-weight: 700">🧼 Protocolo de Lavagem Premium:</h3>
-        <p style="line-height: 1.8; font-weight: 400">
-          Para manter qualidade incomparável, recomendamos <strong>lavagem manual com sabão neutro</strong> executada com movimentos suaves. Seque à sombra em local arejado — nunca exponha ao sol direto que possa alterar cores. <strong>Jamais utilize ferro de passar</strong> ou produtos químicos agressivos. Assim você preserva elasticidade, vivacidade e durabilidade excepcional.
-        </p>
-
-        <hr class="care-hr" />
-
-        <h3 style="color: var(--text); font-weight: 700">🎨 Variações de Cor & Tela:</h3>
-        <p style="line-height: 1.8; font-weight: 400">
-          Pequenas variações nas tonalidades podem ocorrer conforme brilho e calibração do seu monitor ou dispositivo. Isso é completamente normal — não representa qualquer falha na qualidade. <strong>Cada peça é única e especial, como você.</strong>
-        </p>
-
-        <hr class="care-hr" />
-
-        <h3 style="color: var(--text); font-weight: 700">✅ Satisfação Garantida — 7 Dias de Garantia</h3>
-        <p style="line-height: 1.8; font-weight: 400">
-          Sua satisfação é nossa prioridade máxima. Você tem <strong>7 dias após recebimento</strong> para solicitar devolução sem qualquer dúvida. Nosso atendimento especializado tratará seu pedido com rapidez, transparência e excelência que você merece.
-        </p>
-      </article>
-    </section>
-
-    <!-- JS: fecha os demais quando um abre -->
-    <script>
-      (function () {
-        const groups = document.querySelectorAll(".js-accordion");
-        groups.forEach((group) => {
-          const items = Array.from(group.querySelectorAll("details"));
-          items.forEach((dtl) => {
-            dtl.addEventListener("toggle", () => {
-              if (dtl.open) {
-                items.forEach((other) => {
-                  if (other !== dtl) other.open = false;
-                });
-              }
-            });
-          });
+      function closeOthers(except){
+        items.forEach((it) => {
+          if(it === except) return;
+          it.setAttribute("data-expanded","false");
+          syncIcon(it);
         });
-      })();
-    </script>
-  </body>
-</html>
+      }
+
+      items.forEach((item) => {
+        const btn = item.querySelector(".acc-btn");
+        if (!btn) return;
+
+        btn.addEventListener("click", () => {
+          const isOpen = item.getAttribute("data-expanded") === "true";
+          closeOthers(item);
+          item.setAttribute("data-expanded", isOpen ? "false" : "true");
+          syncIcon(item);
+        });
+      });
+    });
+  })();
+// ]]></script>
+<!-- Troca automática SOMENTE da imagem do TOP (com LOGS + remove tudo após "?") -->
+<script>// <![CDATA[
+(function () {
+    const LOG_PREFIX = "[muv-hero]";
+    const MAX_TRIES = 30;
+    const TRY_DELAY = 400;
+
+    function log(...args){ console.log(LOG_PREFIX, ...args); }
+    function warn(...args){ console.warn(LOG_PREFIX, ...args); }
+    function group(title, fn){
+      if (console.groupCollapsed) {
+        console.groupCollapsed(LOG_PREFIX, title);
+        try { fn(); } finally { console.groupEnd(); }
+      } else {
+        log(title);
+        fn();
+      }
+    }
+
+    function safeDocs() {
+      const docs = [document];
+      try {
+        if (window.parent && window.parent !== window && window.parent.document) {
+          docs.push(window.parent.document);
+          log("Acessando parent.document ✅");
+        }
+      } catch(e) { warn("Sem acesso a parent.document (cross-origin/iframe)."); }
+
+      try {
+        if (window.top && window.top !== window && window.top.document) {
+          docs.push(window.top.document);
+          log("Acessando top.document ✅");
+        }
+      } catch(e) { warn("Sem acesso a top.document (cross-origin/iframe)."); }
+
+      return Array.from(new Set(docs));
+    }
+
+    function getBestFromImg(img) {
+      if (!img) return "";
+      return (
+        img.getAttribute("data-src-zoom") ||
+        img.getAttribute("data-src") ||
+        img.getAttribute("src") ||
+        ""
+      );
+    }
+
+    // remove tudo após "?"
+    function cleanUrl(url) {
+      return (url || "").replace(/\?.*$/, "");
+    }
+
+    function isValid(url) {
+      if (!url) return false;
+      if (url.startsWith("data:image/")) return false;
+      if (url.includes("data:image/svg")) return false;
+      if (url.includes("data:image/gif")) return false;
+      if (url.includes("avaliacao_anexo")) return false;
+      return true;
+    }
+
+    function isProduct(url) {
+      return url.includes("/img/") && url.includes("/produto/");
+    }
+
+    function parseIms(url) {
+      const m = (url || "").match(/[\?&]ims=(\d+)x(\d+)/i);
+      if (!m) return { area: 0, ims: "" };
+      const w = parseInt(m[1], 10) || 0;
+      const h = parseInt(m[2], 10) || 0;
+      return { area: w * h, ims: m[0] };
+    }
+
+    function collectGalleryUrls(doc) {
+      const selectors = [
+        ".gallery-main .swiper-slide img, .gallery-main img",
+        "#container-swiper .swiper-slide img, #container-swiper img",
+        ".product-img .swiper-slide img, .product-img img"
+      ];
+
+      let imgs = [];
+      let usedSelector = "";
+
+      for (const sel of selectors) {
+        const found = doc.querySelectorAll(sel);
+        if (found && found.length) {
+          imgs = Array.from(found);
+          usedSelector = sel;
+          break;
+        }
+      }
+
+      if (!imgs.length) {
+        const fallbackSel = ".swiper-slide img";
+        imgs = Array.from(doc.querySelectorAll(fallbackSel));
+        usedSelector = fallbackSel + " (fallback)";
+      }
+
+      const rawUrls = imgs.map(getBestFromImg).filter(Boolean);
+      const urls = rawUrls.filter(isValid).filter(isProduct);
+
+      group("Coleta de URLs", () => {
+        log("Selector usado:", usedSelector);
+        log("Imgs encontradas:", imgs.length);
+        log("URLs brutas:", rawUrls.length, rawUrls.slice(0, 12));
+        log("URLs válidas (/produto/):", urls.length, urls.slice(0, 12));
+      });
+
+      return Array.from(new Set(urls));
+    }
+
+    function pickBestUrl(urls) {
+      if (!urls.length) return "";
+
+      const preferred = urls.find(u => /[\?&]ims=800x1200/i.test(u));
+      if (preferred) {
+        log("Escolhida por prioridade (ims=800x1200):", preferred);
+        return preferred;
+      }
+
+      let best = urls[0];
+      let bestArea = parseIms(best).area;
+
+      for (const u of urls) {
+        const area = parseIms(u).area;
+        if (area > bestArea) {
+          best = u;
+          bestArea = area;
+        }
+      }
+
+      log("Escolhida por maior ims/area:", best, "area:", bestArea);
+      return best;
+    }
+
+    function applyHero() {
+      const hero = document.getElementById("muv-hero-img");
+      if (!hero) {
+        warn("Não achei #muv-hero-img no DOM da descrição.");
+        return false;
+      }
+
+      const currentSrc = hero.getAttribute("src") || "";
+      log("Src atual do hero:", currentSrc);
+
+      const docs = safeDocs();
+      let urls = [];
+
+      for (const d of docs) {
+        const u = collectGalleryUrls(d);
+        if (u.length) {
+          urls = u;
+          log("Encontrou URLs em:", d === document ? "document (current)" : (d === window.parent?.document ? "parent.document" : "top.document"));
+          break;
+        }
+      }
+
+      if (!urls.length) {
+        warn("Nenhuma URL de imagem do produto foi encontrada ainda.");
+        return false;
+      }
+
+      const best = pickBestUrl(urls);
+      if (!best) {
+        warn("Não consegui selecionar uma melhor URL.");
+        return false;
+      }
+
+      const cleaned = cleanUrl(best);
+      log("URL escolhida (raw):", best);
+      log("URL aplicada (clean, sem ?):", cleaned);
+
+      if (cleaned && cleaned !== currentSrc) {
+        hero.src = cleaned;
+        log("✅ Hero atualizado com sucesso!");
+      } else {
+        log("Hero já estava com essa URL ou URL vazia. Nada a fazer.");
+      }
+
+      return true;
+    }
+
+    let tries = 0;
+
+    function loop() {
+      tries++;
+      log(`Tentativa ${tries}/${MAX_TRIES}...`);
+      if (applyHero()) return;
+      if (tries < MAX_TRIES) setTimeout(loop, TRY_DELAY);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        log("DOMContentLoaded ✅");
+        setTimeout(loop, 300);
+      });
+    } else {
+      log("DOM já carregado ✅");
+      setTimeout(loop, 300);
+    }
+
+    const obs = new MutationObserver(() => {
+      log("MutationObserver detectou mudanças...");
+      if (applyHero()) {
+        log("Observer: sucesso, desconectando.");
+        obs.disconnect();
+      }
+    });
+
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+
+    setTimeout(() => {
+      obs.disconnect();
+      log("Observer desconectado (timeout de segurança).");
+    }, 12000);
+  })();
+// ]]></script>
+</div>

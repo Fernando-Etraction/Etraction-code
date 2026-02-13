@@ -1,0 +1,836 @@
+
+<style>
+
+
+  .cd-secao-images {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .cd-container-images {
+    display: flex;
+    gap: 20px;
+  }
+
+  .cd-image-item img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Estilos para seção de variações */
+  .cd-secao-variacoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    margin-top: 30px;
+  }
+
+  .cd-secao-variacoes .cd-titulo {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .cd-container-variacoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .cd-variacao-item {
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cd-variacao-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .cd-variacao-imagem {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .cd-variacao-info {
+    padding: 15px;
+  }
+
+  .cd-variacao-nome {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .cd-variacao-btn {
+    display: inline-block;
+    background-color: #b58d61;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .cd-variacao-btn:hover {
+    background-color: #9a7654;
+  }
+
+  @media (max-width: 768px) {
+    .cd-container-variacoes {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .cd-variacao-imagem {
+      height: 200px;
+    }
+  }
+
+  /* Estilos para seção de categorias de produtos */
+  .cd-secao-categorias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    margin-top: 40px;
+  }
+
+  .cd-secao-categorias .cd-titulo {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #2c2c2c;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .cd-container-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1300px;
+    width: 100%;
+  }
+
+  .cd-categoria-card {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .cd-categoria-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .cd-categoria-imagem {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    position: relative;
+  }
+
+  .cd-categoria-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cd-categoria-card:hover .cd-categoria-overlay {
+    opacity: 1;
+  }
+
+  .cd-categoria-conteudo {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .cd-categoria-titulo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c2c2c;
+    margin-bottom: 10px;
+  }
+
+  .cd-categoria-descricao {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+  }
+
+  .cd-categoria-btn {
+    display: inline-block;
+    background-color: #b58d61;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .cd-categoria-btn:hover {
+    background-color: #9a7654;
+  }
+
+  /* Estilos para seção descritiva */
+  .cd-secao-descritiva {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #faf8f6;
+    margin-top: 40px;
+  }
+
+  .cd-secao-descritiva .cd-titulo {
+    font-size: 36px;
+    margin-bottom: 30px;
+    color: #2c2c2c;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .cd-container-descritiva {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .cd-descritiva-introducao {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .cd-descritiva-conteudo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .cd-descritiva-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .cd-descritiva-secao {
+    border-left: 4px solid #b58d61;
+    padding-left: 25px;
+  }
+
+  .cd-descritiva-secao .cd-descritiva-subtitulo {
+    font-size: 20px;
+    color: #2c2c2c;
+    font-weight: bold;
+    margin: 0 0 12px 0;
+  }
+
+  .cd-descritiva-secao p {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .cd-descritiva-destaque {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .cd-descritiva-destaque-titulo {
+    font-size: 22px;
+    color: #2c2c2c;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cd-descritiva-destaque-icone {
+    font-size: 28px;
+  }
+
+  .cd-descritiva-destaque-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cd-descritiva-destaque-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    color: #555;
+  }
+
+  .cd-descritiva-destaque-item:before {
+    content: "";
+    background-image: url('https://images.tcdn.com.br/img/editor/up/1357280/drawcheckmark.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .cd-secao-descritiva {
+      padding: 40px 20px;
+    }
+
+    .cd-secao-descritiva .cd-titulo {
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .cd-descritiva-conteudo {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .cd-descritiva-introducao {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+  }
+
+  /* Estilos para seção de características */
+  .cd-secao-caracteristicas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: white;
+    margin-top: 40px;
+  }
+
+  .cd-secao-caracteristicas .cd-titulo {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #2c2c2c;
+    font-weight: bold;
+  }
+
+  .cd-container-caracteristicas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .cd-caracteristica-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border-left: 4px solid #b58d61;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .cd-caracteristica-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(181, 141, 97, 0.15);
+  }
+
+  .cd-caracteristica-icone {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+
+  .cd-caracteristica-titulo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c2c2c;
+    margin-bottom: 10px;
+  }
+
+  .cd-caracteristica-descricao {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  /* Estilos para seção de galeria visual */
+  .cd-secao-galeria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px;
+    background-color: white;
+    margin-top: 40px;
+  }
+
+  .cd-secao-galeria .cd-titulo {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #2c2c2c;
+    font-weight: bold;
+  }
+
+  .cd-galeria-container {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    align-items: stretch;
+  }
+
+  .cd-galeria-principal {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .cd-galeria-imagem-wrapper {
+    position: relative;
+    width: 100%;
+    height: 450px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .cd-galeria-imagem-grande {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .cd-galeria-imagem-wrapper:hover .cd-galeria-imagem-grande {
+    transform: scale(1.02);
+  }
+
+  .cd-galeria-overlay-botao {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cd-galeria-imagem-wrapper:hover .cd-galeria-overlay-botao {
+    opacity: 1;
+  }
+
+  .cd-galeria-ver-produto {
+    background-color: #b58d61;
+    color: white;
+    padding: 14px 32px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+
+  .cd-galeria-ver-produto:hover {
+    background-color: #9a7654;
+  }
+
+  .cd-galeria-miniaturas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .cd-galeria-miniatura-wrapper {
+    position: relative;
+    height: 140px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .cd-galeria-miniatura-wrapper:hover {
+    border-color: #b58d61;
+    box-shadow: 0 4px 12px rgba(181, 141, 97, 0.2);
+  }
+
+  .cd-galeria-miniatura {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cd-galeria-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    padding: 30px;
+    border-radius: 10px;
+  }
+
+  .cd-galeria-info-titulo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c2c2c;
+    margin-bottom: 20px;
+  }
+
+  .cd-galeria-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .cd-galeria-info-item:last-child {
+    border-bottom: none;
+  }
+
+  .cd-galeria-info-icone {
+    font-size: 28px;
+    margin-right: 15px;
+    min-width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cd-galeria-info-icone svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cd-galeria-info-texto {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cd-galeria-info-label {
+    font-size: 12px;
+    color: #b58d61;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+
+  .cd-galeria-info-valor {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  @media (max-width: 1024px) {
+    .cd-galeria-container {
+      grid-template-columns: 1fr;
+    }
+
+    .cd-galeria-imagem-grande {
+      height: 350px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cd-secao-caracteristicas .cd-titulo,
+    .cd-secao-galeria .cd-titulo {
+      font-size: 24px;
+    }
+
+    .cd-galeria-imagem-grande {
+      height: 250px;
+    }
+
+    .cd-galeria-miniaturas {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cd-galeria-miniatura {
+      height: 80px;
+    }
+  }
+</style>
+
+  <!-- Seção de Galeria Visual -->
+  <section class="cd-secao-galeria">
+    <span class="cd-titulo">Conheça a Cama Estofada Lúmina em Detalhes</span>
+
+    <div class="cd-galeria-container">
+      <div class="cd-galeria-principal">
+        <div class="cd-galeria-imagem-wrapper">
+          <img
+            id="imagemPrincipal"
+            src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_29.png"
+            alt="Cama Estofada Lúmina"
+            class="cd-galeria-imagem-grande"
+          />
+          <div class="cd-galeria-overlay-botao">
+            <a
+              href="https://www.casadetalhestore.com.br/linha-premium/cama-estofada-lumina-design-moderno-e-luxuoso?variant_id=797"
+              class="cd-galeria-ver-produto"
+              id="botaoProduto"
+            >
+              Ver Produto
+            </a>
+          </div>
+        </div>
+
+        <div class="cd-galeria-miniaturas">
+          <div
+            class="cd-galeria-miniatura-wrapper"
+            onclick="trocarImagem(this, 'https://www.casadetalhestore.com.br/linha-premium/cama-estofada-lumina-design-moderno-e-luxuoso?variant_id=797')"
+            style="border-color:#b58d61;"
+          >
+            <img
+              src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_28.png"
+              alt="Cama Estofada Lúmina - Ocre"
+              class="cd-galeria-miniatura"
+            />
+          </div>
+        
+        <div class="cd-galeria-miniaturas">
+          <div
+            class="cd-galeria-miniatura-wrapper"
+            onclick="trocarImagem(this, 'https://www.casadetalhestore.com.br/linha-premium/cama-estofada-lumina-design-moderno-e-luxuoso?variant_id=789')"
+            style="border-color:#b58d61;"
+          >
+            <img
+              src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_29.png"
+              alt="Cama Estofada Lúmina - Ocre"
+              class="cd-galeria-miniatura"
+            />
+          </div>
+        
+        </div>
+      </div>
+
+      <div class="cd-galeria-info">
+        <span class="cd-galeria-info-titulo">Informações Rápidas</span>
+
+        <div class="cd-galeria-info-item">
+          <div class="cd-galeria-info-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="9" x2="6" y2="20"></line>
+              <line x1="18" y1="9" x2="18" y2="20"></line>
+              <line x1="9" y1="4" x2="15" y2="4"></line>
+              <path d="M6 9h12V5a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path>
+            </svg>
+          </div>
+          <div class="cd-galeria-info-texto">
+            <div class="cd-galeria-info-label">Dimensões</div>
+            <div class="cd-galeria-info-valor">Confira as medidas na página do produto</div>
+          </div>
+        </div>
+
+        <div class="cd-galeria-info-item">
+          <div class="cd-galeria-info-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="cd-galeria-info-texto">
+            <div class="cd-galeria-info-label">Capacidade</div>
+            <div class="cd-galeria-info-valor">Ideal para receber e acomodar com conforto</div>
+          </div>
+        </div>
+
+        <div class="cd-galeria-info-item">
+          <div class="cd-galeria-info-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 3h18v10H3z"></path>
+              <path d="M3 13h18v2H3z"></path>
+              <path d="M4 16h16v4H4z"></path>
+              <path d="M9 3v10"></path>
+              <path d="M15 3v10"></path>
+            </svg>
+          </div>
+          <div class="cd-galeria-info-texto">
+            <div class="cd-galeria-info-label">Estrutura</div>
+            <div class="cd-galeria-info-valor">Linha Alta com acabamento clean e moderno</div>
+          </div>
+        </div>
+
+        <div class="cd-galeria-info-item">
+          <div class="cd-galeria-info-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="1"></circle>
+              <path d="M12 1v6"></path>
+              <path d="M12 17v6"></path>
+              <path d="M4.22 4.22l4.24 4.24"></path>
+              <path d="M15.54 15.54l4.24 4.24"></path>
+              <path d="M1 12h6"></path>
+              <path d="M17 12h6"></path>
+              <path d="M4.22 19.78l4.24-4.24"></path>
+              <path d="M15.54 8.46l4.24-4.24"></path>
+            </svg>
+          </div>
+          <div class="cd-galeria-info-texto">
+            <div class="cd-galeria-info-label">Função</div>
+            <div class="cd-galeria-info-valor">Sofá-cama prático para o dia a dia</div>
+          </div>
+        </div>
+
+        <div class="cd-galeria-info-item">
+          <div class="cd-galeria-info-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 3h12a1 1 0 0 1 1 1v7H5V4a1 1 0 0 1 1-1z"></path>
+              <path d="M5 10h14v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7z"></path>
+              <line x1="9" y1="18" x2="9" y2="22"></line>
+              <line x1="15" y1="18" x2="15" y2="22"></line>
+              <line x1="7" y1="22" x2="17" y2="22"></line>
+            </svg>
+          </div>
+          <div class="cd-galeria-info-texto">
+            <div class="cd-galeria-info-label">Versatilidade</div>
+            <div class="cd-galeria-info-valor">Perfeito para sala, escritório ou quarto de hóspedes</div>
+          </div>
+        </div>
+
+        <div class="cd-galeria-info-item">
+          <div class="cd-galeria-info-icone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="cd-galeria-info-texto">
+            <div class="cd-galeria-info-label">Garantia</div>
+            <div class="cd-galeria-info-valor">Consulte as condições na página do produto</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Descritiva do Produto -->
+  <section class="cd-secao-descritiva">
+    <span class="cd-titulo">Cama Estofada Lúmina – Design Moderno e Luxuoso</span>
+
+    <div class="cd-container-descritiva">
+      <p class="cd-descritiva-introducao">
+        Uma cama estofada inspirada na arquitetura moderna que combina traços atemporais com diferentes estilos de decoração.
+        Com design sofisticado e conforto premium, é perfeita para quem valoriza qualidade e estética no quarto.
+      </p>
+
+      <div class="cd-descritiva-conteudo">
+        <div class="cd-descritiva-texto">
+          <div class="cd-descritiva-secao">
+            <span class="cd-descritiva-subtitulo">Design inspirado na arquitetura moderna</span>
+            <p>
+              Cabeceira e base em madeira maciça de eucalipto tratado e MDF, revestidas com espuma D-23 e manta acrílica.
+              Acabamento superior com sapatas plásticas discretas que evitam o contato direto do tecido com o chão.
+            </p>
+          </div>
+
+          <div class="cd-descritiva-secao">
+            <span class="cd-descritiva-subtitulo">Qualidade garantida e durabilidade</span>
+            <p>
+              Estrado removível de madeira maciça com fechamento em MDF, proporcionando maior durabilidade ao colchão.
+              Material de alta qualidade que garante resistência e longevidade para muitos anos de uso.
+            </p>
+          </div>
+
+          <div class="cd-descritiva-secao">
+            <span class="cd-descritiva-subtitulo">Estilo e funcionalidade em harmonia</span>
+            <p>
+              Design moderno com estofamento macio para noites de sono perfeitas. Disponível em cores versáteis que
+              harmonizam com qualquer decoração, transformando seu quarto em um espaço sofisticado e aconchegante.
+            </p>
+          </div>
+        </div>
+
+        <div class="cd-descritiva-destaque">
+          <span class="cd-descritiva-destaque-titulo">Destaques do modelo</span>
+          <ul class="cd-descritiva-destaque-lista">
+            <li class="cd-descritiva-destaque-item">Cama estofada com design moderno e luxuoso</li>
+            <li class="cd-descritiva-destaque-item">Madeira maciça de eucalipto com acabamento premium</li>
+            <li class="cd-descritiva-destaque-item">Espuma D-23 e manta acrílica para conforto superior</li>
+            <li class="cd-descritiva-destaque-item">Estrado removível de madeira maciça para durabilidade</li>
+            <li class="cd-descritiva-destaque-item">Sapatas plásticas discretas protegendo o tecido</li>
+            <li class="cd-descritiva-destaque-item">Cores versáteis para qualquer decoração</li>
+            <li class="cd-descritiva-destaque-item">Acompanha manual e kit de montagem</li>
+            <li class="cd-descritiva-destaque-item">Resistência e durabilidade garantidas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function trocarImagem(element, urlProduto) {
+      const imagemPrincipal = document.getElementById("imagemPrincipal");
+      const botaoProduto = document.getElementById("botaoProduto");
+
+      // Pega a imagem da miniatura
+      const img = element.querySelector(".cd-galeria-miniatura");
+      imagemPrincipal.src = img.src;
+
+      // Atualiza o link do botão
+      botaoProduto.href = urlProduto;
+
+      // Remove borda de todas as miniaturas
+      document.querySelectorAll(".cd-galeria-miniatura-wrapper").forEach((wrapper) => {
+        wrapper.style.borderColor = "transparent";
+      });
+
+      // Adiciona borda à miniatura clicada
+      element.style.borderColor = "#B58D61";
+    }
+  </script>
+

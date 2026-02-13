@@ -1,491 +1,567 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<style>
+    <!--
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legging Feminina Classic - Preta | Muv Fit</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+    .mer-container {
+        font-family: 'Poppins', sans-serif;
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 60px 40px;
+        background: white;
+        border-radius: 12px;
+        margin-bottom: 40px;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    .mer-container:first-child {
+        margin-top: 40px;
+    }
+
+    .descricao-produto img {
+        height: 20px;
+        width: 20px;
+    }
+
+    .mer-section {
+        font-family: 'Poppins', sans-serif;
+        margin-bottom: 60px;
+    }
+
+    .mer-titulo {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8em;
+        font-weight: 700;
+        margin-bottom: 50px;
+        text-align: center;
+        background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -0.5px;
+    }
+
+    /* ✅ HERO */
+    .mer-muv-hero-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 50px;
+        max-width: 1100px;
+    }
+
+    .mer-muv-hero-frame {
+        position: relative;
+        overflow: hidden;
+        border: #2c2c2c 1px solid;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, .18);
+        border-radius: 12px;
+        width: 100%;
+        background: #fff;
+    }
+
+    .mer-muv-hero-frame img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+    .mer-image-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 60px;
+    }
+
+    .mer-images {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    .mer-img-right,
+    .mer-img-left {
+        position: relative;
+        overflow: hidden;
+        border: #2c2c2c 1px solid;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .mer-images img {
+        width: fit-content;
+        height: 600px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .mer-img-right::after,
+    .mer-img-left::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.6) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .mer-img-right:hover,
+    .mer-img-left:hover {
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .mer-img-right:hover img,
+    .mer-img-left:hover img {
+        transform: scale(1.08);
+    }
+
+    .mer-img-right:hover::after,
+    .mer-img-left:hover::after {
+        opacity: 1;
+    }
+
+    .mer-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5em;
+        font-weight: 700;
+        margin-bottom: 15px;
+        background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-align: center;
+    }
+
+    .mer-subtitle {
+        text-align: center;
+        font-size: 1.1em;
+        color: #6a6a6a;
+        line-height: 1.8;
+        margin: 0 auto;
+        width: 100%;
+        padding: 12px;
+    }
+
+    .mer-hl-card {
+        margin-top: 50px;
+    }
+
+    .mer-hl-head {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8em;
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #2c2c2c;
+    }
+
+    .mer-hl-rows {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        list-style: none;
+        padding: 0;
+    }
+
+    .mer-hl-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 32px 24px;
+        background: linear-gradient(135deg, #fafafa 0%, #f5f2f0 100%);
+        border: 1px solid #e8e4e0;
+        border-radius: 12px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mer-hl-row::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .mer-hl-row:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+        background: linear-gradient(135deg, #f0ebe5 0%, #e8dfd5 100%);
+        border-color: #d4c9bf;
+    }
+
+    .mer-hl-row:hover::before {
+        left: 100%;
+    }
+
+    .mer-hl-ico {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2c2c2c;
+        background: rgba(44, 44, 44, 0.06);
+        border-radius: 50%;
+        transition: all 0.4s ease;
+    }
+
+    .mer-hl-row:hover .mer-hl-ico {
+        background: rgba(44, 44, 44, 0.12);
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .mer-hl-ico svg {
+        width: 28px;
+        height: 28px;
+        stroke-width: 2.5;
+    }
+
+    .mer-hl-name {
+        font-weight: 600;
+        font-size: 18px;
+        color: #2c2c2c;
+        letter-spacing: 0.3px;
+    }
+
+    .mer-hl-tag {
+        font-size: 0.75em;
+        background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+    .mer-hl-row:hover .mer-hl-tag {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .mer-container {
+            padding: 40px 24px;
+            border-radius: 8px;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #2c2c2c;
-            line-height: 1.6;
+        .mer-titulo {
+            font-size: 2em;
+            margin-bottom: 30px;
         }
 
-        .container {
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 60px 40px;
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 40px;
+        .mer-muv-hero-wrap {
+            margin-bottom: 30px;
         }
 
-        .container:first-child {
-            margin-top: 40px;
-        }
-
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .titulo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8em;
-            font-weight: 700;
-            margin-bottom: 50px;
-            text-align: center;
-            background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .image-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .images {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .img-right,
-        .img-left {
-            position: relative;
-            overflow: hidden;
-            border: #2c2c2c 1px solid;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .images img {
-            width: fit-content;
-            height: 600px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .img-right::after,
-        .img-left::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 60%, rgba(0, 0, 0, 0.6) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .img-right:hover,
-        .img-left:hover {
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-        }
-
-        .img-right:hover img,
-        .img-left:hover img {
-            transform: scale(1.08);
-        }
-
-        .img-right:hover::after,
-        .img-left:hover::after {
-            opacity: 1;
-        }
-
-        .description {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .description p {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #4a4a4a;
-            margin-bottom: 20px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
-        }
-
-        .description p:first-child {
-            font-size: 1.2em;
-            font-weight: 500;
-            color: #2c2c2c;
-        }
-
-        .title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center;
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 1.1em;
-            color: #6a6a6a;
-            /* margin-bottom: 50px; */
-            /* max-width: 700px; */
-            /* margin-left: auto; */
-            /* margin-right: auto; */
-            line-height: 1.8;
-            margin: 0 auto;
-            width: 100%;
-            padding: 12px;
-        }
-
-        .hl-card {
-            margin-top: 50px;
-        }
-
-        .hl-head {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8em;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #2c2c2c;
-        }
-
-        .hl-rows {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            list-style: none;
-            padding: 0;
-        }
-
-        .hl-row {
-            display: flex;
+        .mer-image-section {
             flex-direction: column;
             align-items: center;
-            gap: 16px;
-            padding: 32px 24px;
-            background: linear-gradient(135deg, #fafafa 0%, #f5f2f0 100%);
-            border: 1px solid #e8e4e0;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
+            gap: 30px;
         }
 
-        .hl-row::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .hl-row:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-            background: linear-gradient(135deg, #f0ebe5 0%, #e8dfd5 100%);
-            border-color: #d4c9bf;
-        }
-
-        .hl-row:hover::before {
-            left: 100%;
-        }
-
-        .hl-ico {
-            width: 56px;
-            height: 56px;
-            display: flex;
+        .mer-images {
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: #2c2c2c;
-            background: rgba(44, 44, 44, 0.06);
-            border-radius: 50%;
-            transition: all 0.4s ease;
+            gap: 30px;
         }
 
-        .hl-row:hover .hl-ico {
-            background: rgba(44, 44, 44, 0.12);
-            transform: scale(1.1) rotate(5deg);
+        .mer-images img {
+            max-width: 100%;
+            height: auto;
+            min-height: 400px;
         }
 
-        .hl-ico svg {
-            width: 28px;
-            height: 28px;
-            stroke-width: 2.5;
+        .mer-hl-rows {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
         }
 
-        .hl-name {
-            font-weight: 600;
-            font-size: 1.05em;
-            color: #2c2c2c;
-            letter-spacing: 0.3px;
+        .mer-hl-row {
+            padding: 24px 16px;
+            gap: 12px;
         }
 
-        .hl-tag {
-            font-size: 0.75em;
-            background: linear-gradient(135deg, #2c2c2c 0%, #5a5a5a 100%);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
+        .mer-title {
+            font-size: 1.8em;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mer-container {
+            padding: 30px 16px;
         }
 
-        .hl-row:hover .hl-tag {
-            transform: scale(1.05);
+        .mer-titulo {
+            font-size: 1.5em;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 40px 24px;
-                border-radius: 8px;
-            }
-
-            .titulo {
-                font-size: 2em;
-                margin-bottom: 30px;
-            }
-
-            .image-section {
-                gap: 24px;
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-
-            .images {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-
-            .images img {
-                max-width: 100%;
-                height: auto;
-                min-height: 400px;
-            }
-
-            .hl-rows {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            .hl-row {
-                padding: 24px 16px;
-                gap: 12px;
-            }
-
-            .title {
-                font-size: 1.8em;
-            }
-
-            .description p {
-                font-size: 1em;
-            }
+        .mer-hl-rows {
+            grid-template-columns: 1fr;
+            gap: 16px;
         }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 30px 16px;
-            }
-
-            .titulo {
-                font-size: 1.5em;
-                margin-bottom: 20px;
-            }
-
-            .hl-rows {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .hl-row {
-                padding: 20px 16px;
-            }
-
-            .hl-ico {
-                width: 48px;
-                height: 48px;
-            }
-
-            .hl-ico svg {
-                width: 24px;
-                height: 24px;
-            }
-
-            .title {
-                font-size: 1.4em;
-                line-height: 1.4;
-            }
-
-            .subtitle {
-                font-size: 0.95em;
-            }
-
-            .description p {
-                font-size: 0.95em;
-            }
+        .mer-hl-row {
+            padding: 20px 16px;
         }
-    </style>
-</head>
 
-<body>
-    <div class="container">
-        <section class="section images">
-            <span class="titulo">Legging Feminina Classic Preta — Cintura Alta com Tecnologia Blackout</span>
+        .mer-hl-ico {
+            width: 48px;
+            height: 48px;
+        }
 
-            <div class="image-section">
-                <div class="img-right">
-                    <img src="https://muvfit.cdn.magazord.com.br/img/2025/07/produto/3168/calca-legging-feminina-classic-preta-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta-2.jpg"
-                        alt="Imagem 1 da Legging Feminina Classic Preta">
-                </div>
+        .mer-hl-ico svg {
+            width: 24px;
+            height: 24px;
+        }
 
-                <div class="img-left">
-                    <img src="https://muvfit.cdn.magazord.com.br/img/2025/07/produto/3169/calca-legging-feminina-classic-preta-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta-3.jpg"
-                        alt="Imagem 2 da Legging Feminina Classic Preta">
-                </div>
+        .mer-title {
+            font-size: 1.4em;
+            line-height: 1.4;
+        }
 
-                <div class="img-right">
-                    <img src="https://muvfit.cdn.magazord.com.br/img/2025/07/produto/3170/calca-legging-feminina-classic-preta-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta-4.jpg"
-                        alt="Imagem 3 da Legging Feminina Classic Preta">
-                </div>
-            </div>
-        </section>
-
-        <section class="container">
-            <h1 class="title">Legging Feminina Classic Preta</h1>
-            <p class="subtitle">
-                A essencial perfeita para treinar e viver: conforto absoluto, sofisticação minimalista e performance.
-                Cintura alta com média compressão, toque ultra macio e zero transparência para você se mover com
-                confiança.
-            </p>
-
-            <div class="hl-card">
-                <div class="hl-head">Destaques</div>
-
-                <ul class="hl-rows">
-                    <li class="hl-row">
-                        <span class="hl-ico" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
-                                <circle cx="12" cy="12" r="2.5"></circle>
-                            </svg>
-                        </span>
-                        <span class="hl-name">Zero Transparência</span>
-                        <span class="hl-tag">BLACKOUT</span>
-                    </li>
-
-                    <li class="hl-row">
-                        <span class="hl-ico" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M7 4c2 3 8 3 10 0"></path>
-                                <path d="M8 20c1-4 1-12-1-16"></path>
-                                <path d="M16 20c-1-4-1-12 1-16"></path>
-                            </svg>
-                        </span>
-                        <span class="hl-name">Cintura Alta</span>
-                        <span class="hl-tag">AJUSTE SEGURO</span>
-                    </li>
-
-                    <li class="hl-row">
-                        <span class="hl-ico" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M7 8h10M7 12h10M7 16h10"></path>
-                            </svg>
-                        </span>
-                        <span class="hl-name">Média Compressão</span>
-                        <span class="hl-tag">CONFORTO</span>
-                    </li>
-
-                    <li class="hl-row">
-                        <span class="hl-ico" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path>
-                                <circle cx="12" cy="12" r="3.5"></circle>
-                            </svg>
-                        </span>
-                        <span class="hl-name">Proteção UV50+</span>
-                        <span class="hl-tag">OUTDOOR</span>
-                    </li>
-
-                    <li class="hl-row">
-                        <span class="hl-ico" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 2s6 7 6 12a6 6 0 1 1-12 0C6 9 12 2 12 2z"></path>
-                            </svg>
-                        </span>
-                        <span class="hl-name">Tecnologia Dry</span>
-                        <span class="hl-tag">SECAGEM RÁPIDA</span>
-                    </li>
-
-                    <li class="hl-row">
-                        <span class="hl-ico" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M7 8h10"></path>
-                                <path d="M6 12h12"></path>
-                                <path d="M7 16h10"></path>
-                            </svg>
-                        </span>
-                        <span class="hl-name">Tecido Dupla Frontura</span>
-                        <span class="hl-tag">PREMIUM</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- <section class="section description">
-      <p>
-        A Legging Feminina Classic Preta é a definição do equilíbrio entre conforto absoluto, sofisticação minimalista e
-        performance impecável — uma peça curinga que vai da academia ao dia a dia com a mesma elegância.
-      </p>
-
-      <p>
-        Com modelagem de cintura alta e média compressão, ela envolve o corpo com firmeza e suavidade, sem apertar ou
-        marcar. O tecido de toque ultra macio aliado à Tecnologia Blackout garante <strong>zero transparência</strong>
-        mesmo nos movimentos mais intensos.
-      </p>
-
-      <p>
-        Para treinos dentro ou fora de casa, a peça entrega ainda <strong>Tecnologia Dry</strong> (dispersa o suor e seca
-        rápido) e <strong>Proteção UV50+</strong>, ajudando a proteger sua pele durante atividades ao ar livre.
-      </p>
-
-      <p>
-        <strong>Cuidados com a peça:</strong> evite contato com velcro e superfícies ásperas para não desfiar o tecido.
-        Para maior durabilidade, prefira lavar à mão (ou modo suave) com sabão neutro, secar à sombra e não utilizar ferro
-        de passar. Podem ocorrer variações de cor conforme a tela do seu dispositivo.
-      </p>
-    </section> -->
+        .mer-subtitle {
+            font-size: 0.95em;
+        }
+    }
+    -->
+</style>
+<div class="mer-container"><!-- ✅ HERO
+  <div class="mer-muv-hero-wrap">
+    <div class="mer-muv-hero-frame">
+      <img id="muv-hero-img" src="" alt="Imagem principal do produto">
     </div>
-</body>
+  </div> -->
+    <section class="mer-section mer-images">
+        <div class="mer-image-section">
+            <div class="mer-img-right"><img alt="Imagem 1 do produto" data-muv-slot="1" /></div>
+            <div class="mer-img-left"><img alt="Imagem 2 do produto" data-muv-slot="2" /></div>
+            <div class="mer-img-right"><img alt="Imagem 3 do produto" data-muv-slot="3" /></div>
+        </div>
+    </section>
+    <section class="mer-container">
+        <div class="mer-hl-card">
+            <div class="mer-hl-head">Destaques</div>
+            <ul class="mer-hl-rows">
+                <li class="mer-hl-row"><span class="mer-hl-ico"> <img
+                            src="https://magazord-public.s3.amazonaws.com/merenguepijamas/img/2026/01/produto/2290/check-mark-1687.png"
+                            alt="check mark" /> </span> <span class="mer-hl-name">Conforto Absoluto no Corpo</span>
+                    <span class="mer-hl-tag">CONFORTO REAL</span></li>
+                <li class="mer-hl-row"><span class="mer-hl-ico"> <img
+                            src="https://magazord-public.s3.amazonaws.com/merenguepijamas/img/2026/01/produto/2290/check-mark-1687.png"
+                            alt="check mark" /> </span> <span class="mer-hl-name">Liberdade de Movimento</span> <span
+                        class="mer-hl-tag">MOBILIDADE</span></li>
+                <li class="mer-hl-row"><span class="mer-hl-ico"> <img
+                            src="https://magazord-public.s3.amazonaws.com/merenguepijamas/img/2026/01/produto/2290/check-mark-1687.png"
+                            alt="check mark" /> </span> <span class="mer-hl-name">Caimento que Valoriza</span> <span
+                        class="mer-hl-tag">AUTOESTIMA</span></li>
+                <li class="mer-hl-row"><span class="mer-hl-ico"> <img
+                            src="https://magazord-public.s3.amazonaws.com/merenguepijamas/img/2026/01/produto/2290/check-mark-1687.png"
+                            alt="check mark" /> </span> <span class="mer-hl-name">Vers&aacute;til: Casa, Rua e
+                        Viagem</span> <span class="mer-hl-tag">VERSATILIDADE</span></li>
+                <li class="mer-hl-row"><span class="mer-hl-ico"> <img
+                            src="https://magazord-public.s3.amazonaws.com/merenguepijamas/img/2026/01/produto/2290/check-mark-1687.png"
+                            alt="check mark" /> </span> <span class="mer-hl-name">Toque Premium &amp;
+                        Respir&aacute;vel</span> <span class="mer-hl-tag">TECIDO PREMIUM</span></li>
+                <li class="mer-hl-row"><span class="mer-hl-ico"> <img
+                            src="https://magazord-public.s3.amazonaws.com/merenguepijamas/img/2026/01/produto/2290/check-mark-1687.png"
+                            alt="check mark" /> </span> <span class="mer-hl-name">Praticidade no Dia a Dia</span> <span
+                        class="mer-hl-tag">F&Aacute;CIL DE CUIDAR</span></li>
+            </ul>
+        </div>
+    </section>
+</div>
+<!-- ✅ JS (Merengue): pega imagens da galeria e substitui as do bloco + atualiza o hero -->
+<p>
+    <script>// <![CDATA[
+        (function () {
+            const LOG_PREFIX = "[mer-hero]";
+            const MAX_TRIES = 40;
+            const TRY_DELAY = 350;
 
-</html>
+            function log(...args) { console.log(LOG_PREFIX, ...args); }
+            function warn(...args) { console.warn(LOG_PREFIX, ...args); }
+            function group(title, fn) {
+                if (console.groupCollapsed) {
+                    console.groupCollapsed(LOG_PREFIX, title);
+                    try { fn(); } finally { console.groupEnd(); }
+                } else { log(title); fn(); }
+            }
+
+            function getBestFromImg(img) {
+                if (!img) return "";
+                return (
+                    img.getAttribute("data-src-zoom") ||
+                    img.getAttribute("data-zoom") ||
+                    img.getAttribute("data-src") ||
+                    img.getAttribute("src") ||
+                    ""
+                );
+            }
+
+            function cleanUrl(url) { return (url || "").replace(/\?.*$/, ""); }
+
+            function isValid(url) {
+                if (!url) return false;
+                if (url.startsWith("data:image/")) return false;
+                if (url.includes("data:image/svg")) return false;
+                if (url.includes("data:image/gif")) return false;
+                if (url.includes("avaliacao_anexo")) return false;
+                return true;
+            }
+
+            function isProduct(url) {
+                return url.includes("/img/") && url.includes("/produto/");
+            }
+
+            function parseIms(url) {
+                const m = (url || "").match(/[\?&]ims=(\d+)x(\d+)/i);
+                if (!m) return { area: 0 };
+                const w = parseInt(m[1], 10) || 0;
+                const h = parseInt(m[2], 10) || 0;
+                return { area: w * h };
+            }
+
+            function collectGalleryUrls(doc) {
+                const selectors = [
+                    "#block-imagem .gallery-main .swiper-slide img",
+                    "#container-swiper .gallery-main .swiper-slide img",
+                    ".product-img.container-swiper .gallery-main .swiper-slide img",
+
+                    "#block-imagem .swiper-slide img",
+                    ".gallery-main .swiper-slide img",
+                    ".swiper-slide img"
+                ];
+
+                let imgs = [];
+                let usedSelector = "";
+
+                for (const sel of selectors) {
+                    const found = doc.querySelectorAll(sel);
+                    if (found && found.length) {
+                        imgs = Array.from(found);
+                        usedSelector = sel;
+                        break;
+                    }
+                }
+
+                const filtered = imgs.filter(img => {
+                    if (img.closest(".thumbs-ctn")) return false;
+                    if (img.closest(".thumbs-gallery")) return false;
+                    return true;
+                });
+
+                const rawUrls = filtered.map(getBestFromImg).filter(Boolean);
+                const urls = rawUrls
+                    .map(cleanUrl)
+                    .filter(isValid)
+                    .filter(isProduct);
+
+                group("Coleta Merengue", () => {
+                    log("Selector:", usedSelector);
+                    log("Imgs:", imgs.length, "| após filtro:", filtered.length);
+                    log("URLs válidas:", urls.length, urls.slice(0, 10));
+                });
+
+                return Array.from(new Set(urls));
+            }
+
+            function pickBestUrl(urls) {
+                if (!urls.length) return "";
+                let best = urls[0];
+                let bestArea = parseIms(best).area;
+
+                for (const u of urls) {
+                    const area = parseIms(u).area;
+                    if (area > bestArea) { best = u; bestArea = area; }
+                }
+                return best;
+            }
+
+            function replaceSectionImages(urls) {
+                const targets = Array.from(document.querySelectorAll(".mer-section.mer-images .mer-image-section img"));
+                if (!targets.length) return;
+
+                const fill = urls.slice(0, 3);
+                while (fill.length < targets.length && fill.length) fill.push(fill[fill.length - 1]);
+
+                group("Substituição do bloco", () => {
+                    log("Targets:", targets.length);
+                    log("Usando URLs:", fill);
+                });
+
+                targets.forEach((img, idx) => {
+                    const u = fill[idx] || fill[fill.length - 1] || "";
+                    if (!u) return;
+
+                    img.setAttribute("src", u);
+                    img.setAttribute("data-src", u);
+                    img.setAttribute("data-src-zoom", u);
+                    img.removeAttribute("srcset");
+                });
+            }
+
+            function applyHeroAndSection() {
+                const hero = document.getElementById("muv-hero-img");
+                if (!hero) { warn("Não achei #muv-hero-img (ok se o HERO estiver comentado)."); }
+
+                let urls = collectGalleryUrls(document);
+
+                if (!urls.length) {
+                    const og = document.querySelector('meta[property="og:image"], meta[name="og:image"]');
+                    const ogUrl = og ? cleanUrl(og.getAttribute("content") || "") : "";
+                    if (ogUrl && isValid(ogUrl)) {
+                        urls = [ogUrl];
+                        log("Fallback og:image:", ogUrl);
+                    } else {
+                        return false;
+                    }
+                }
+
+                const best = pickBestUrl(urls);
+                if (hero && best && hero.getAttribute("src") !== best) {
+                    hero.src = best;
+                    log("✅ Hero atualizado:", best);
+                }
+
+                replaceSectionImages(urls);
+                return true;
+            }
+
+            let tries = 0;
+            function loop() {
+                tries++;
+                if (applyHeroAndSection()) return;
+                if (tries < MAX_TRIES) setTimeout(loop, TRY_DELAY);
+            }
+
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", () => setTimeout(loop, 250));
+            } else {
+                setTimeout(loop, 250);
+            }
+
+            const obs = new MutationObserver(() => {
+                if (applyHeroAndSection()) obs.disconnect();
+            });
+            obs.observe(document.documentElement, { childList: true, subtree: true });
+
+            setTimeout(() => obs.disconnect(), 12000);
+        })();
+        // ]]></script>
+</p>

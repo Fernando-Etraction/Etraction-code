@@ -1,0 +1,1594 @@
+<link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    .page-wrapper {
+        max-width: 1240px;
+        margin: 40px auto 80px;
+        padding: 0 16px;
+        font-family: "Jost", sans-serif !important;
+    }
+
+
+    .page-wrapper h1,
+    .page-wrapper h2,
+    .page-wrapper h3,
+    .page-wrapper h4,
+    .page-wrapper h5,
+    .page-wrapper h6,
+    .page-wrapper p,
+    .page-wrapper span,
+    .page-wrapper a,
+    .page-wrapper li,
+    .page-wrapper strong,
+    .page-wrapper em,
+    .page-wrapper small,
+    .page-wrapper label,
+    .page-wrapper button,
+    .page-wrapper input,
+    .page-wrapper textarea,
+    .page-wrapper th,
+    .page-wrapper td {
+        font-family: "Jost", sans-serif !important;
+    }
+
+    /* HERO (imagem grande do topo) */
+    .hero-section {
+        margin-bottom: 40px;
+        position: relative;
+        /* novo */
+        overflow: hidden;
+        border-radius: 10px;
+        /* opcional, pra garantir */
+    }
+
+    .hero-main-image {
+        width: 100%;
+        border-radius: 20px;
+        display: block;
+    }
+
+    /* Bloco de texto sobre a imagem */
+    .hero-overlay {
+        position: absolute;
+        left: 40px;
+        bottom: 40px;
+        color: #fff;
+        z-index: 2;
+        max-width: 340px;
+    }
+
+    .hero-tag {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0 0 4px;
+    }
+
+    .hero-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .link-produtos-semelhantes {
+        text-decoration: none;
+        color: inherit;
+        display: inline-block;
+    }
+
+    .secao-produtos-semelhantes {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+    }
+
+    .title-produtos-semelhantes {
+        display: block;
+        font-size: 1.2em;
+        margin: 0px 0px 30px 0px;
+        width: 100%;
+        height: auto;
+        font-weight: bold;
+        unicode-bidi: isolate;
+        flex: auto;
+        text-align: center;
+    }
+
+    .produtos-semelhantes-lista {
+        display: flex;
+        margin: 0px auto;
+    }
+
+    .produto-semelhante-card {
+        margin: 0px 5px;
+        align-items: center;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 16px;
+        height: 250px;
+
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        background: -webkit-gradient(linear, left top, right bottom, from(#0034a360), to(#f5f5f5));
+        /* Garante que o fundo não 1fique transparente ao levantar */
+        color: #fff;
+    }
+
+    .produto-semelhante-card:hover {
+        transform: translateY(-7px);
+        /* Move o card levemente para cima/frente */
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        /* Cria uma sombra projetada */
+        border-color: #b0b0b0;
+        /* Opcional: destaca levemente a borda */
+        cursor: pointer;
+    }
+
+    .produto-semelhante-nome {
+        margin: 0px auto 10px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .produto-semelhante-imagem {
+        width: 100%;
+        max-width: 300px;
+        display: block;
+        border-radius: 16px;
+        margin: 35px auto;
+    }
+
+    /* Atualização da classe existente para permitir o empilhamento (Flexbox) */
+    .produto-semelhante-cor {
+        color: #fff;
+        text-align: center;
+        margin: 10px auto 0px;
+        font-weight: 500;
+        /* Aumentei um pouco o peso para combinar com o design */
+        font-size: 14px;
+        display: flex;
+        /* Novo: Flexbox para alinhar */
+        flex-direction: column;
+        /* Novo: Texto em cima, bolinha embaixo */
+        align-items: center;
+        /* Novo: Centraliza tudo */
+        gap: 6px;
+        /* Novo: Espaço entre o texto e a bolinha */
+    }
+
+    .color-dot {
+        display: block;
+        width: 48px;
+        /* Tamanho da bolinha */
+        height: 5px;
+    }
+
+    /* Classes para as cores específicas solicitadas */
+    .bg-cinza {
+        background-color: #adadad;
+    }
+
+    .bg-azul {
+        background-color: #a0b8e8;
+    }
+
+    .bg-preto {
+        background-color: #121214;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .hero-overlay {
+            left: 16px;
+            bottom: 20px;
+            max-width: 260px;
+        }
+
+        .hero-title {
+            font-size: 24px;
+        }
+
+        .hero-tag {
+            font-size: 14px;
+        }
+    }
+
+    /* Seções que só aparecem quando entram na tela */
+    .reveal-section {
+        opacity: 0;
+        transform: translateY(30px);
+        visibility: hidden;
+    }
+
+    .hero-main-image {
+        width: 100%;
+        border-radius: 20px;
+        display: block;
+    }
+
+    /* INTRO (texto + imagem) */
+    .intro-section {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 60px;
+    }
+
+    .intro-text h1 {
+        font-size: 40px;
+        margin-bottom: 16px;
+        color: #001440;
+        border-bottom: 5px solid #001440;
+        width: 33%;
+    }
+
+    .intro-text p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #444;
+    }
+
+    .intro-image-wrapper {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .intro-image {
+        width: 100%;
+        max-width: 680px;
+        display: block;
+        border-radius: 16px;
+        margin-bottom: 15px;
+    }
+
+    @media (max-width: 900px) {
+        .intro-section {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .intro-image-wrapper {
+            justify-content: center;
+        }
+
+        .intro-text h1 {
+            font-size: 32px;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            width: 70%;
+            margin: auto;
+        }
+    }
+
+    /* AUDIO SLIDER (fundo azul com imagem imersiva) */
+    .audio-slider-section {
+        margin-bottom: 40px;
+        height: fit-content;
+    }
+
+    .audio-hero {
+        background-color: #001440;
+        border-radius: 20px;
+        padding: 24px 24px 32px;
+    }
+
+    .audio-hero .swiper {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .audio-hero img {
+        width: 100%;
+        display: block;
+    }
+
+    .audio-hero .hero-prev,
+    .audio-hero .hero-next {
+        color: #fff;
+    }
+
+    .audio-hero .hero-pagination .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.6);
+    }
+
+    .audio-hero .hero-pagination .swiper-pagination-bullet-active {
+        background: #fff;
+    }
+
+    .audio-slide {
+        position: relative;
+    }
+
+    .audio-slide-image {
+        width: 100%;
+        display: block;
+    }
+
+    .audio-slide-text {
+        position: absolute;
+        left: 40px;
+        bottom: 40px;
+        max-width: 520px;
+        padding: 0px 24px;
+        border-radius: 16px;
+        background: transparent;
+        color: #ffffff;
+    }
+
+    .audio-slide-text h2 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+    .audio-slide-text p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .audio-slide-text {
+            left: 16px;
+            right: 16px;
+            bottom: 20px;
+            max-width: none;
+            padding: 14px 16px;
+        }
+
+        .audio-slide-text h2 {
+            font-size: 18px;
+        }
+
+        .audio-slide-text p {
+            font-size: 13px;
+        }
+    }
+
+    /* CONECTIVIDADE (3ª imagem) */
+    .connectivity-section {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 32px 32px 24px;
+        margin-bottom: 40px;
+        display: grid;
+        grid-template-columns: 1.1fr 1.8fr;
+        gap: 32px;
+        align-items: center;
+    }
+
+    .connectivity-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #111;
+    }
+
+    .connectivity-text p {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+    }
+
+    .connectivity-image-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    .connectivity-image {
+        width: 100%;
+        max-width: 800px;
+        display: block;
+        border-radius: 16px;
+    }
+
+    @media (max-width: 900px) {
+        .connectivity-section {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 24px 20px 20px;
+        }
+
+        .connectivity-image-wrapper {
+            justify-content: center;
+        }
+    }
+
+    /* FEATURES (ícones em swiper) */
+    .features-section {
+        background: #ffffff;
+        padding: 32px 0 40px;
+        margin-bottom: 40px;
+    }
+
+    .features-inner {
+        max-width: 1240px;
+        margin: 0 auto;
+        height: fit-content;
+    }
+
+    .featureSwiper {
+        padding: 10px 0;
+    }
+
+    .featureSwiper .swiper-slide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .feature-icon-circle {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        border: 2px solid #e0e0e0;
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    .feature-icon-svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .feature-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #151515;
+    }
+
+    .feature-subtitle {
+        font-size: 13px;
+        line-height: 1.4;
+        color: #555;
+        max-width: 210px;
+    }
+
+    .featureSwiper {
+        padding: 10px 40px;
+        /* espaço lateral para as setas */
+        position: relative;
+    }
+
+    .feature-prev,
+    .feature-next {
+        color: #000;
+        width: 32px;
+        height: 32px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .feature-prev::after,
+    .feature-next::after {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .feature-prev {
+        left: 0;
+    }
+
+    .feature-next {
+        right: 0;
+    }
+
+    @media (max-width: 768px) {
+        .featureSwiper {
+            padding: 10px 28px;
+        }
+    }
+
+    /* COMPARISON SECTION (banner + tabela) */
+    .comparison-section {
+        margin-bottom: 50px;
+    }
+
+    /* wrapper da imagem + textos por cima */
+    .comparison-banner-wrapper {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 24px;
+    }
+
+    .comparison-banner-image {
+        width: 100%;
+        display: block;
+    }
+
+    /* overlay com título e bullets */
+    .comparison-overlay {
+        position: absolute;
+        inset: 0;
+        padding: 16px 40px 32px;
+        pointer-events: none;
+        /* só visual */
+    }
+
+    .comparison-main-title {
+        text-align: center;
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+        margin: 4px 0 0;
+    }
+
+    /* grupos laterais */
+    .comparison-badges {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        pointer-events: auto;
+    }
+
+    .comparison-badges-left {
+        left: 100px;
+        top: 95px;
+    }
+
+    .comparison-badges-right {
+        right: 100px;
+        top: 115px;
+    }
+
+    .comparison-badge {
+        display: flex;
+        align-items: flex-start;
+        border-radius: 14px;
+        padding: 10px 14px;
+        color: #ffffff;
+    }
+
+    .comparison-icon {
+        flex-shrink: 0;
+        display: inline-flex;
+        margin-right: 10px;
+    }
+
+    .comparison-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .comparison-badge-text {
+        display: flex;
+        flex-direction: column;
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .comparison-badge-text strong {
+        font-weight: 700;
+    }
+
+    /* responsivo */
+    @media (max-width: 900px) {
+        .comparison-overlay {
+            padding: 14px 16px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .comparison-main-title {
+            font-size: 26px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+        }
+
+        .comparison-badges {
+            position: static;
+            gap: 10px;
+            margin-top: 145px;
+        }
+
+        .comparison-badges-right {
+            margin-top: 6px;
+        }
+
+        .comparison-badge {
+            padding: 8px 10px;
+        }
+
+        .comparison-badge-text {
+            font-size: 13px;
+        }
+    }
+
+    .comparison-card {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+    }
+
+    /* Produtos alinhados em cima de cada coluna */
+    .comparison-products {
+        display: grid;
+        grid-template-columns: 28% 1fr 1fr 1fr;
+        /* 1ª coluna rótulos + 3 produtos */
+        align-items: flex-end;
+        text-align: center;
+        padding: 24px 16px 14px;
+    }
+
+    .comparison-product {
+        position: relative;
+        max-width: 150px;
+        margin: 0 auto;
+    }
+
+    .comparison-product--empty {
+        visibility: hidden;
+        /* Apenas para reservar o espaço da 1ª coluna */
+    }
+
+    .comparison-product img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto 8px;
+    }
+
+    .product-badge {
+        position: absolute;
+        top: -10px;
+        right: 10px;
+        background: #000;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 4px 8px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        z-index: 99;
+    }
+
+    .comparison-product-title {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .comparison-product-subtitle {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        table-layout: fixed;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+        padding: 10px 16px;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .comparison-table th:first-child,
+    .comparison-table td:first-child {
+        text-align: left;
+        color: #666;
+        font-weight: 500;
+        width: 28%;
+    }
+
+    .comparison-group-row td {
+        background: #fafafa;
+        font-weight: 600;
+        color: #888;
+        text-transform: uppercase;
+        font-size: 11px;
+        padding-top: 12px;
+        padding-bottom: 8px;
+    }
+
+    .highlight-text {
+        color: #0a9b37;
+        font-weight: 700;
+    }
+
+    .price-row td {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        font-weight: 600;
+    }
+
+    .price-row td:last-child {
+        font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+        .comparison-products {
+            display: flex;
+            float: inline-end;
+            gap: 7px;
+        }
+
+        .comparison-product img {
+            max-width: 80px;
+        }
+
+        .comparison-product--empty {
+            display: none;
+        }
+
+        .comparison-table {
+            font-size: 12px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 8px 10px;
+        }
+    }
+
+    /* HOVER + BALANÇO SUAVE NO 3º COMPARISON-PRODUCT (MELHOR ESCOLHA) */
+    .comparison-product--best {
+        cursor: pointer;
+    }
+
+    .comparison-product--best img {
+        transition: transform 0.2s ease;
+    }
+
+    @keyframes speaker-wiggle {
+        0% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        25% {
+            transform: translateY(-2px) rotate(-1.5deg);
+        }
+
+        50% {
+            transform: translateY(1px) rotate(1.5deg);
+        }
+
+        75% {
+            transform: translateY(-1px) rotate(-0.75deg);
+        }
+
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+    }
+
+    .comparison-product--best:hover img {
+        animation: speaker-wiggle 0.5s ease-in-out;
+    }
+
+    /* SPECS SECTION */
+    .specs-section {
+        margin-bottom: 60px;
+    }
+
+    .specs-section h2 {
+        font-size: 22px;
+        margin-bottom: 12px;
+        font-weight: 700;
+    }
+
+    .specs-list {
+        margin-left: 0px;
+        padding: 0px 20px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #333;
+        max-width: 900px;
+        list-style: none;
+        grid-column: 1/-1;
+    }
+
+    .specs-list p {
+        margin: 2px 0;
+    }
+
+    .specs-highlight {
+        margin-top: 16px;
+        font-weight: 500;
+    }
+
+    /* REVIEWS SECTION */
+    .reviews-section {
+        margin-bottom: 40px;
+    }
+
+    .reviews-header {
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .reviews-header h2 {
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .reviews-header p {
+        margin: 4px 0 0;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .reviews-slider {
+        position: relative;
+        margin-top: 12px;
+    }
+
+    .reviewSwiper {
+        padding: 0 40px;
+    }
+
+    .review-card {
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #f0f0f0;
+        padding: 20px 24px 18px;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .review-stars {
+        color: #f6b400;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .review-author {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .review-flag {
+        font-size: 11px;
+        color: #777;
+        margin-bottom: 10px;
+    }
+
+    .review-title {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .review-text {
+        font-size: 13px;
+        line-height: 1.6;
+        color: #444;
+    }
+
+    .review-prev,
+    .review-next {
+        color: #000;
+        width: 32px;
+        height: 32px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .review-prev::after,
+    .review-next::after {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .review-prev {
+        left: 0;
+    }
+
+    .review-next {
+        right: 0;
+    }
+
+    @media (max-width: 768px) {
+        .audio-hero {
+            padding: 16px;
+        }
+
+        .reviewSwiper {
+            padding: 0 28px;
+        }
+
+        .review-card {
+            padding: 18px 18px 40px;
+            /* espaço pro botão Ver mais */
+            position: relative;
+        }
+
+        /* ALTURA MÁXIMA 283PX + "..." + VER MAIS */
+        .review-card.has-more.is-collapsed {
+            max-height: 283px !important;
+            overflow: hidden;
+        }
+
+        .review-card.has-more.is-collapsed::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0px;
+            height: 60px;
+            background: linear-gradient(to top, #ffffff, rgba(255, 255, 255, 0));
+            pointer-events: none;
+        }
+
+        .review-toggle-btn {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+            border: none;
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #001440;
+            color: #fff;
+            cursor: pointer;
+            z-index: 9;
+        }
+    }
+
+    /*Lista de Caracteristicas principais e Específicações Técnicas*/
+    .specs-section-reveal-section {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 0;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .specs-list-titulo {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        justify-self: stretch;
+        padding-right: 20px;
+        grid-column: 1/-1;
+        border-top: #888 solid 1px;
+        padding-top: 20px;
+    }
+
+    .specs-list-subtitulo {
+        font-size: 1rem;
+        color: #222;
+        margin: 0;
+    }
+
+    .specs-list li {
+        margin: 10px 0px;
+        padding: 0ox;
+    }
+
+    .svg-velocimetro {
+        width: 32px;
+        height: 32px;
+    }
+
+    .svg-bateria {
+        width: 32px;
+        height: 32px;
+    }
+
+    .svg-roda {
+        width: 32px;
+        height: 32px;
+    }
+
+    .svg-portatil {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* Configurações para telas mobile (geralmente abaixo de 768px) */
+    @media (max-width: 768px) {
+        .specs-section-reveal-section {
+            grid-template-columns: 1fr;
+            gap: 30px 0px;
+        }
+
+        .specs-list-titulo {
+            justify-self: start;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+            border-top: 0PX
+        }
+
+        .specs-list-subtitulo {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            /* Mantém o espaço para o próximo item */
+            border: 0px;
+        }
+
+        .specs-list {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #333;
+            list-style: none;
+            grid-column: 1;
+        }
+    }
+</style>
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOOG MMS-01</title>
+</head>
+
+<body>
+    <section class="page-wrapper">
+        <div class="hero-section">
+            <picture>
+                <source srcset="MOBILE" media="(max-width: 768px)" />
+                <source
+                    srcset="https://lh3.google.com/u/0/d/1bTtFU-vqPp85ptC6VYvcpk3nDgo8S00W=w1920-h945-iv1?auditContext=prefetch"
+                    media="(min-width: 769px)" />
+                <img class="hero-main-image" style="opacity: 1 !important"
+                    src="https://lh3.google.com/u/0/d/1bTtFU-vqPp85ptC6VYvcpk3nDgo8S00W=w1920-h945-iv1?auditContext=prefetch"
+                    alt="JOOG MMS-01 - Speaker Megasafe" />
+            </picture>
+
+            <div class="hero-overlay">
+                <p class="hero-tag">Speaker Bluetooth Magnético</p>
+                <h1 class="hero-title">JOOG MMS-01</h1>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <div class="intro-text">
+                <h1>JOOG MMS-01</h1>
+                <p>Som potente e portabilidade com tecnologia MagSafe.
+                    O JOOG MMS-01 é um speaker de 3W de potência com fixação magnética, certificação IPX6 à prova d'água
+                    e tecnologia TWS (True Wireless Stereo). Ideal para fixar no seu iPhone ou superfícies metálicas,
+                    garantindo música de qualidade onde você estiver.
+                </p>
+            </div>
+            <div class="intro-image-wrapper">
+                <picture>
+                    <source srcset="MOBILE" media="(max-width: 768px)" />
+                    <source
+                        srcset="https://lh3.google.com/u/0/d/1cHnJtxvMU-7bNUAPDhzo0vPIKs8bEwWk=w1920-h945-iv1?auditContext=prefetch"
+                        media="(min-width: 769px)" />
+                    <img class="intro-image"
+                        src="https://lh3.google.com/u/0/d/1cHnJtxvMU-7bNUAPDhzo0vPIKs8bEwWk=w1920-h945-iv1?auditContext=prefetch"
+                        alt="JOOG MMS-01 em uso" />
+                </picture>
+            </div>
+        </div>
+
+        <div class="audio-slider-section">
+            <div class="audio-hero reveal-section">
+                <div class="swiper heroSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="audio-slide">
+                                <picture>
+                                    <source srcset="MOBILE" media="(max-width: 768px)" />
+                                    <source
+                                        srcset="https://lh3.google.com/u/0/d/1dYoQrW0yvJk8EEEo23SzBSL_uc9F4UB_=w1920-h945-iv1?auditContext=prefetch"
+                                        media="(min-width: 769px)" />
+                                    <img class="audio-slide-image"
+                                        src="https://lh3.google.com/u/0/d/1dYoQrW0yvJk8EEEo23SzBSL_uc9F4UB_=w1920-h945-iv1?auditContext=prefetch"
+                                        alt="JOOG MMS-01 - Fixação Magnética" />
+                                </picture>
+                                <div class="audio-slide-text">
+                                    <h2>FIXAÇÃO MAGNÉTICA (MAGSAFE)</h2>
+                                    <p>Compatível com iPhones (série 12 ou superior) e superfícies metálicas. Fixe seu
+                                        speaker com segurança e aproveite o som sem ocupar as mãos ou espaço na mesa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="audio-slide">
+                                <picture>
+                                    <source srcset="MOBILE" media="(max-width: 768px)" />
+                                    <source
+                                        srcset="https://lh3.google.com/u/0/d/1rC5OvyWtPom3J2-zbscMrXLMmafYLel1=w1920-h945-iv1?auditContext=prefetch"
+                                        media="(min-width: 769px)" />
+                                    <img class="audio-slide-image"
+                                        src="https://lh3.google.com/u/0/d/1rC5OvyWtPom3J2-zbscMrXLMmafYLel1=w1920-h945-iv1?auditContext=prefetch"
+                                        alt="JOOG MMS-01 - Resistência IPX6" />
+                                </picture>
+                                <div class="audio-slide-text">
+                                    <h2>PROTEÇÃO IPX6</h2>
+                                    <p>Resistente a jatos potentes de água. Leve sua música para a beira da piscina,
+                                        para o banho ou aventuras ao ar livre sem se preocupar com respingos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="audio-slide">
+                                <picture>
+                                    <source srcset="MOBILE" media="(max-width: 768px)" />
+                                    <source
+                                        srcset="https://lh3.google.com/u/0/d/1ZD4eriZFi8vEC1tU-ryimok7gscBPOG5=w1920-h945-iv1?auditContext=prefetch"
+                                        media="(min-width: 769px)" />
+                                    <img class="audio-slide-image"
+                                        src="https://lh3.google.com/u/0/d/1ZD4eriZFi8vEC1tU-ryimok7gscBPOG5=w1920-h945-iv1?auditContext=prefetch"
+                                        alt="JOOG MMS-01 - Tecnologia TWS" />
+                                </picture>
+                                <div class="audio-slide-text">
+                                    <h2>TECNOLOGIA TWS</h2>
+                                    <p>True Wireless Stereo: Conecte dois speakers MMS-01 simultaneamente para criar um
+                                        sistema de som estéreo imersivo com o dobro de potência.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-pagination hero-pagination"></div>
+                    <div class="swiper-button-prev hero-prev"></div>
+                    <div class="swiper-button-next hero-next"></div>
+                </div>
+            </div>
+        </div>
+
+        <section class="connectivity-section reveal-section">
+            <div class="connectivity-text">
+                <h2 class="connectivity-title">Conectividade e Liberdade</h2>
+                <p>Equipado com Bluetooth de última geração para uma conexão estável e sem interrupções. Atenda chamadas
+                    com o viva-voz integrado e desfrute de horas de reprodução contínua graças à bateria de alta
+                    eficiência.</p>
+            </div>
+            <div class="connectivity-image-wrapper">
+                <picture>
+                    <source srcset="MOBILE" media="(max-width: 768px)" />
+                    <source
+                        srcset="https://lh3.google.com/u/0/d/1vkzhqPIWVF_Shgb83-Zuvzw7Dl_xDVda=w1920-h945-iv1?auditContext=prefetch"
+                        media="(min-width: 769px)" />
+                    <img class="connectivity-image"
+                        src="https://lh3.google.com/u/0/d/1vkzhqPIWVF_Shgb83-Zuvzw7Dl_xDVda=w1920-h945-iv1?auditContext=prefetch"
+                        alt="JOOG MMS-01 - Bluetooth e Bateria" />
+                </picture>
+            </div>
+        </section>
+
+        <div class="features-section reveal-section">
+            <h2 style="text-align: center">Feito para sua música</h2>
+            <div class="features-inner">
+                <div class="swiper featureSwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="feature-icon-circle">
+                                <svg id="Capa_1" enable-background="new 0 0 512 512" height="32" viewBox="0 0 512 512"
+                                    width="32" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path
+                                            d="m247.398 63.723-146.127 102.288h-86.271c-8.284 0-15 6.716-15 15v150c0 8.284 6.716 15 15 15h86.271l146.127 102.289c9.836 6.885 23.602-.094 23.602-12.289v-360c0-12.065-13.624-19.273-23.602-12.288zm-217.398 132.288h61v120h-61zm211 211.19-120-84v-134.38l120-84z" />
+                                        <path
+                                            d="m376 136.011c-8.284 0-15 6.716-15 15v210c0 8.284 6.716 15 15 15s15-6.716 15-15v-210c0-8.284-6.716-15-15-15z" />
+                                        <path
+                                            d="m316 211.011c-8.284 0-15 6.716-15 15v60c0 8.284 6.716 15 15 15s15-6.716 15-15v-60c0-8.284-6.716-15-15-15z" />
+                                        <path
+                                            d="m436 196.011c-8.284 0-15 6.716-15 15v90c0 8.284 6.716 15 15 15s15-6.716 15-15v-90c0-8.284-6.716-15-15-15z" />
+                                        <path
+                                            d="m497 166.011c-8.284 0-15 6.716-15 15v150c0 8.284 6.716 15 15 15s15-6.716 15-15v-150c0-8.284-6.716-15-15-15z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="feature-title">Potência Sonora</div>
+                            <div class="feature-subtitle">Driver de 3W para um som nítido, limpo e surpreendente para o
+                                tamanho.
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="feature-icon-circle">
+                                <svg width="32px" height="32px" id="Expand" enable-background="new 0 0 50 50"
+                                    viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                    <g>
+                                        <path
+                                            d="m38 4h-5v-1c0-1.65-1.35-3-3-3h-10c-1.65 0-3 1.35-3 3v1h-5c-1.65 0-3 1.35-3 3v40c0 1.65 1.35 3 3 3h26c1.65 0 3-1.35 3-3v-40c0-1.65-1.35-3-3-3zm1 43c0 .55-.45 1-1 1h-26c-.55 0-1-.45-1-1v-40c0-.55.45-1 1-1h6c.55 0 1-.45 1-1v-2c0-.55.45-1 1-1h10c.55 0 1 .45 1 1v2c0 .55.45 1 1 1h6c.55 0 1 .45 1 1z" />
+                                        <path
+                                            d="m36 8h-22c-.55 0-1 .45-1 1v36c0 .55.45 1 1 1h22c.55 0 1-.45 1-1v-36c0-.55-.45-1-1-1zm-1 18h-20v-7h20zm-20 2h20v7h-20zm0-18h20v7h-20zm20 34h-20v-7h20z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="feature-title">Autonomia</div>
+                            <div class="feature-subtitle">Bateria interna recarregável para horas de música sem parar.
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="feature-icon-circle">
+                                <svg width="32px" height="32px" id="Bluetooth" viewBox="0 0 512 512"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g fill="rgb(0,0,0)">
+                                        <path
+                                            d="m404.5 512h-297c-59.276 0-107.5-48.224-107.5-107.5v-297c0-59.276 48.224-107.5 107.5-107.5h297c59.276 0 107.5 48.224 107.5 107.5v297c0 59.276-48.224 107.5-107.5 107.5zm-297-497c-51.005 0-92.5 41.495-92.5 92.5v297c0 51.005 41.495 92.5 92.5 92.5h297c51.005 0 92.5-41.495 92.5-92.5v-297c0-51.005-41.495-92.5-92.5-92.5z" />
+                                        <path
+                                            d="m256 413.5c-57.709 0-104.659-46.95-104.659-104.659v-105.682c0-57.709 46.95-104.659 104.659-104.659s104.659 46.95 104.659 104.659v105.682c0 57.709-46.95 104.659-104.659 104.659zm0-300c-49.438 0-89.659 40.221-89.659 89.659v105.682c0 49.438 40.221 89.659 89.659 89.659s89.659-40.221 89.659-89.659v-105.682c0-49.438-40.221-89.659-89.659-89.659z" />
+                                        <path
+                                            d="m255.999 372.307c-.966 0-1.941-.187-2.869-.571-2.803-1.161-4.63-3.896-4.63-6.929v-90.7l-41.6 41.6c-2.929 2.929-7.678 2.929-10.606 0-2.929-2.929-2.929-7.678 0-10.606l49.1-49.1-49.1-49.1c-2.929-2.929-2.929-7.678 0-10.606 2.929-2.929 7.678-2.929 10.606 0l41.6 41.6v-90.7c0-3.034 1.827-5.768 4.63-6.929 2.802-1.159 6.029-.52 8.173 1.626l54.403 54.403c2.929 2.929 2.929 7.678 0 10.606l-49.1 49.1 49.1 49.1c2.929 2.929 2.929 7.678 0 10.606l-54.403 54.403c-1.435 1.435-3.353 2.197-5.305 2.197zm7.501-98.2v72.594l36.297-36.297zm0-108.807v72.594l36.297-36.297z" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="feature-title">Bluetooth 5.0</div>
+                            <div class="feature-subtitle">Conexão estável e rápida para sua playlist favorita.</div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-button-prev feature-prev"></div>
+                    <div class="swiper-button-next feature-next"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="secao-produtos-semelhantes">
+            <div class="title-produtos-semelhantes">DISPONÍVEL TAMBÉM EM OUTRAS CORES</div>
+            <div class="produtos-semelhantes-lista">
+
+                <a class="link-produtos-semelhantes"
+                    href="https://joog.com.br/produtos/speaker-magnetico-joog-megasafe-mms-01-3w-ipx6-tws-bluetooth-cinza-jg4216315">
+                    <div class="produto-semelhante-card">
+                        <div class="produto-semelhante-nome">Speaker Bluetooth Magnético JOOG MMS-01 </div>
+                        <img class="produto-semelhante-imagem"
+                            src="https://lh3.google.com/u/0/d/1PLlFNaziT52qw5u532gBnYsLKPHYxkD-=w1920-h945-iv1?auditContext=prefetch"
+                            alt="Produto Semelhante 1" />
+                        <div class="produto-semelhante-cor">
+                            CINZA
+                            <span class="color-dot bg-cinza"></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="link-produtos-semelhantes"
+                    href="https://joog.com.br/produtos/speaker-magnetico-joog-megasafe-mms-01-3w-ipx6-tws-bluetooth-preto-jg4216308">
+                    <div class="produto-semelhante-card">
+                        <div class="produto-semelhante-nome">Speaker Bluetooth Magnético JOOG MMS-01 </div>
+                        <img class="produto-semelhante-imagem"
+                            src="https://lh3.google.com/u/0/d/1-BN1zjEhGA6jQLzoOFpJBXNRVW6G4OQE=w1920-h945-iv1?auditContext=prefetch"
+                            alt="Produto Semelhante 2" />
+                        <div class="produto-semelhante-cor">
+                            PRETO
+                            <span class="color-dot bg-preto"></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="link-produtos-semelhantes"
+                    href="https://joog.com.br/produtos/speaker-magnetico-joog-megasafe-mms-01-3w-ipx6-tws-bluetooth-azul-jg4931683">
+                    <div class="produto-semelhante-card">
+                        <div class="produto-semelhante-nome">Speaker Bluetooth Magnético JOOG MMS-01</div>
+                        <img class="produto-semelhante-imagem"
+                            src="https://lh3.google.com/u/0/d/1bTtFU-vqPp85ptC6VYvcpk3nDgo8S00W=w1920-h945-iv1?auditContext=prefetch"
+                            alt="Produto Semelhante 3" />
+                        <div class="produto-semelhante-cor">
+                            AZUL
+                            <span class="color-dot bg-azul"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="specs-section-reveal-section">
+            <h2 class="specs-list-titulo">Características Principais:</h2>
+            <ul class="specs-list">
+                <li>Potência de Saída: 3W RMS</li>
+                <li>Fixação Magnética (Compatível com MagSafe e superfícies metálicas)</li>
+                <li>Tecnologia TWS (Conecte 2 unidades para estéreo)</li>
+                <li>Certificação IPX6 (Resistente à água)</li>
+                <li>Conectividade Bluetooth 5.0 (ou superior)</li>
+                <li>Microfone integrado para chamadas (Hands-free)</li>
+                <li>Iluminação LED indicativa</li>
+                <li>Design compacto e portátil</li>
+            </ul>
+            <h2 class="specs-list-titulo">Especificações Técnicas:</h2>
+            <ul class="specs-list">
+                <li>Marca: Joog</li>
+                <li>Modelo: Megasafe MMS-01 (JG4931683)</li>
+                <li>Cor: Azul</li>
+                <li>Material: ABS + Metal + Componentes magnéticos</li>
+                <li>Alcance do Bluetooth: Até 10 metros (sem barreiras)</li>
+
+                <h3 class="specs-list-subtitulo">Bateria:</h3>
+                <li>Tipo: Bateria interna recarregável de Íon-Lítio</li>
+                <li>Interface de carregamento: USB Tipo-C</li>
+                <li>Tempo de reprodução: Aprox. 4 a 6 horas (dependendo do volume)</li>
+                <li>Tempo de carregamento: Aprox. 1.5 a 2 horas</li>
+
+                <h4 class="specs-list-subtitulo">Dimensões e Peso:</h4>
+                <li>Peso do produto: Leve e portátil (Aprox. 200g)</li>
+                <li>Formato: Circular / Disco</li>
+            </ul>
+            <h5 class="specs-list-titulo">Conteúdo da Embalagem:</h5>
+            <ul class="specs-list">
+                <li>1x Speaker Joog Megasafe MMS-01</li>
+                <li>1x Cabo de carregamento USB-C</li>
+            </ul>
+        </div>
+
+    </section>
+</body>
+
+</html>
+
+
+<script src=" https://unpkg.com/swiper@9/swiper-bundle.min.js">
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+    // Swipers
+    const heroSwiper = new Swiper(".heroSwiper", {
+        slidesPerView: 1,
+        loop: true,
+        pagination: {
+            el: ".hero-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".hero-next",
+            prevEl: ".hero-prev",
+        },
+    });
+
+    const featureSwiper = new Swiper(".featureSwiper", {
+        loop: false,
+        slidesPerView: 1,
+        spaceBetween: 20,
+        navigation: {
+            nextEl: ".feature-next",
+            prevEl: ".feature-prev",
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+    });
+
+    const reviewSwiper = new Swiper(".reviewSwiper", {
+        slidesPerView: 1,
+        loop: true,
+        navigation: {
+            nextEl: ".review-next",
+            prevEl: ".review-prev",
+        },
+    });
+    // GSAP ANIMAÇÕES
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero principal ao carregar
+    gsap.from(".hero-main-image", {
+        opacity: 1,
+        y: 40,
+        duration: 1,
+        ease: "power2.out",
+    });
+
+    gsap.from(".hero-overlay", {
+        opacity: 1,
+        y: 20,
+        duration: 0.9,
+        ease: "power2.out",
+        delay: 0.2,
+    });
+
+    // Reveala todas as seções marcadas com .reveal-section
+    gsap.utils.toArray(".reveal-section").forEach((section) => {
+        gsap.to(section, {
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%", // quando 20% da tela encostar na seção
+                toggleActions: "play none none reverse",
+            },
+            opacity: 1,
+            y: 0,
+            visibility: "visible",
+            duration: 0.9,
+            ease: "power2.out",
+        });
+    });
+
+    // "VER MAIS" NOS CARDS DO SWIPER (MOBILE, ALTURA MÁX 283PX)
+    function initMobileReviewCards() {
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        const cards = document.querySelectorAll(".review-card");
+
+        cards.forEach((card) => {
+            const existingBtn = card.querySelector(".review-toggle-btn");
+            card.classList.remove("has-more", "is-collapsed");
+            card.style.maxHeight = "none";
+
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+
+            if (!isMobile) return;
+
+            // mede altura natural
+            const fullHeight = card.scrollHeight;
+
+            if (fullHeight > 283) {
+                card.classList.add("has-more", "is-collapsed");
+
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "review-toggle-btn";
+                btn.textContent = "Ver mais";
+
+                btn.addEventListener("click", function () {
+                    const collapsed = card.classList.toggle("is-collapsed");
+                    btn.textContent = collapsed ? "Ver mais" : "Ver menos";
+                });
+
+                card.appendChild(btn);
+            }
+        });
+    }
+
+    window.addEventListener("load", initMobileReviewCards);
+
+    let reviewResizeTimeout;
+    window.addEventListener("resize", function () {
+        clearTimeout(reviewResizeTimeout);
+        reviewResizeTimeout = setTimeout(initMobileReviewCards, 200);
+    });
+
+    // GSAP ANIMAÇÕES
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero principal ao carregar
+    gsap.from(".hero-main-image", {
+        opacity: 0,
+        y: 40,
+        duration: 1,
+        ease: "power2.out",
+    });
+
+    // Intro: texto e imagem
+    gsap.from(".intro-text", {
+        scrollTrigger: {
+            trigger: ".intro-section",
+            start: "top 80%",
+        },
+        opacity: 0,
+        x: -40,
+        duration: 0.9,
+        ease: "power2.out",
+    });
+
+    gsap.from(".intro-image", {
+        scrollTrigger: {
+            trigger: ".intro-section",
+            start: "top 80%",
+        },
+        opacity: 0,
+        x: 40,
+        duration: 0.9,
+        ease: "power2.out",
+        delay: 0.1,
+    });
+
+    // Slides de áudio (imagem + texto)
+    gsap.utils.toArray(".audio-slide").forEach((slide) => {
+        gsap.from(slide.querySelector(".audio-slide-image"), {
+            scrollTrigger: {
+                trigger: slide,
+                start: "top 80%",
+            },
+            opacity: 0,
+            scale: 0.97,
+            duration: 0.8,
+            ease: "power2.out",
+        });
+
+        gsap.from(slide.querySelector(".audio-slide-text"), {
+            scrollTrigger: {
+                trigger: slide,
+                start: "top 80%",
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: "power2.out",
+            delay: 0.05,
+        });
+    });
+
+    // Conectividade (texto + imagem)
+    gsap.from(".connectivity-text", {
+        scrollTrigger: {
+            trigger: ".connectivity-section",
+            start: "top 80%",
+        },
+        opacity: 0,
+        x: -40,
+        duration: 0.9,
+        ease: "power2.out",
+    });
+
+    gsap.from(".connectivity-image", {
+        scrollTrigger: {
+            trigger: ".connectivity-section",
+            start: "top 80%",
+        },
+        opacity: 0,
+        x: 40,
+        duration: 0.9,
+        ease: "power2.out",
+        delay: 0.1,
+    });
+
+    // Ícones de features
+    gsap.utils.toArray(".featureSwiper .swiper-slide").forEach((card, i) => {
+        gsap.from(card, {
+            scrollTrigger: {
+                trigger: ".features-section",
+                start: "top 85%",
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.7,
+            ease: "power2.out",
+            delay: i * 0.05,
+        });
+    });
+
+
+    // Especificações (título + texto)
+    gsap.from(".specs-section h2", {
+        scrollTrigger: {
+            trigger: ".specs-section",
+            start: "top 85%",
+        },
+        opacity: 0,
+        y: 20,
+        duration: 0.7,
+        ease: "power2.out",
+    });
+
+    gsap.from(".specs-list", {
+        scrollTrigger: {
+            trigger: ".specs-section",
+            start: "top 85%",
+        },
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: "power2.out",
+        delay: 0.1,
+    });
+</script>
+</body>
+
+</html>

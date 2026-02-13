@@ -1,0 +1,164 @@
+<script>(() => {
+  if (window.__HITZZ_FAST__) return;
+  window.__HITZZ_FAST__ = true;
+
+  // ===== SELETORES EXATOS =====
+  const SEL_PIX_SPAN =
+    '#corpo > div.conteiner > div.secao-principal.row-fluid.sem-coluna > div > div:nth-child(1) > div:nth-child(2) > div > div.acoes-produto.SKU-U25AUOFF > div:nth-child(2) > div > span';
+
+  const SEL_PIX_STRONG =
+    '#corpo > div.conteiner > div.secao-principal.row-fluid.sem-coluna > div > div:nth-child(1) > div:nth-child(2) > div > div.acoes-produto.SKU-U25AUOFF > div:nth-child(2) > div > span > strong';
+
+  const SEL_PRECO_STRONG =
+    '#corpo > div.conteiner > div.secao-principal.row-fluid.sem-coluna > div > div:nth-child(1) > div:nth-child(2) > div > div.acoes-produto.SKU-U25AUOFF > div:nth-child(2) > div > div > strong';
+
+  const SEL_PARCELA =
+    '#proxy-appmax-v1-cartao_1_398742672 > div > ul:nth-child(2) > li.parcela.p-8.sem-juros';
+
+  // ===== 1) STYLE IMEDIATO =====
+  const STYLE_ID = 'li-hitzz-style-fast';
+  const css = `
+    .pagina-produto .produto .acoes-produto .preco-produto{
+      font-size: 15px !important;
+      display: flex !important;
+      flex-direction: column-reverse !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+    }
+
+    .acoes-produto .preco-produto>div:not(.measure-modal){
+      display: flex !important;
+      align-items: center !important;
+      margin: 2px 0 !important;
+      gap: 2px !important;
+    }
+
+    ${SEL_PIX_SPAN}{
+      display: flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      font-size: 12px !important;
+      font-weight: 900 !important;
+      color: #666 !important;
+    }
+
+    ${SEL_PIX_STRONG}{
+      font-size: 24px !important;
+      color: rgb(28 139 58) !important;
+    }
+
+    #corpo > div.conteiner > div.secao-principal.row-fluid.sem-coluna > div > div:nth-child(1) > div:nth-child(2) > div > div.acoes-produto.SKU-U25AUOFF > div:nth-child(2) > div > div{
+      display: flex !important;
+      align-items: center !important;
+      margin: 2px 0 !important;
+      gap: 2px !important;
+    }
+
+    /* Parcelas: escondo só o span que eu crio, até preencher */
+    .info-parcelas.is-loading{ opacity: 0 !important; }
+
+    ${SEL_PRECO_STRONG} + .info-parcelas{
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      opacity: 0.9 !important;
+      display: inline-flex !important;
+      gap: 4px !important;
+      align-items: baseline !important;
+    }
+  `;
+
+  let styleEl = document.getElementById(STYLE_ID);
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = STYLE_ID;
+    document.head.appendChild(styleEl);
+  }
+  styleEl.textContent = css;
+
+  // ===== 2) FASE A: aplica IMEDIATO (não depende do Appmax) =====
+  const applyPixAndOuNow = () => {
+    const pixSpan = document.querySelector(SEL_PIX_SPAN);
+    const pixStrong = document.querySelector(SEL_PIX_STRONG);
+
+    if (pixSpan && pixStrong) {
+      // mantém só o strong
+      Array.from(pixSpan.childNodes).forEach((node) => {
+        if (node !== pixStrong) node.remove();
+      });
+
+      // evita duplicar
+      const jaTem = (pixSpan.textContent || '').toLowerCase().includes('5% off no pix');
+      if (!jaTem) pixSpan.appendChild(document.createTextNode(' 5% OFF no pix'));
+    }
+
+    const precoStrong = document.querySelector(SEL_PRECO_STRONG);
+    if (precoStrong) {
+      const prev = precoStrong.previousSibling;
+      const jaTemOu =
+        prev && prev.nodeType === Node.TEXT_NODE && prev.nodeValue.replace(/\s+/g, ' ').includes('ou ');
+      if (!jaTemOu) precoStrong.insertAdjacentText('beforebegin', 'ou ');
+    }
+  };
+
+  applyPixAndOuNow(); // já executa AGORA
+
+  // ===== 3) Cria o placeholder das parcelas AGORA (sem texto) =====
+  const ensureInfoPlaceholder = () => {
+    const precoStrong = document.querySelector(SEL_PRECO_STRONG);
+    if (!precoStrong) return null;
+
+    let info = precoStrong.nextElementSibling;
+    if (!info || !info.classList.contains('info-parcelas')) {
+      info = document.createElement('span');
+      info.className = 'info-parcelas is-loading';
+      precoStrong.insertAdjacentElement('afterend', info);
+    } else {
+      info.classList.add('is-loading');
+    }
+    return info;
+  };
+
+  ensureInfoPlaceholder(); // cria já (pra não piscar)
+
+  // ===== 4) FASE B: pegar parcelas o mais cedo possível (poll agressivo) =====
+  let tries = 0;
+  const maxTries = 400; // 400 * 25ms = 10s
+
+  const loop = setInterval(() => {
+    tries++;
+
+    // reaplica fase A (porque LI/Apps podem sobrescrever)
+    applyPixAndOuNow();
+
+    const elParcela = document.querySelector(SEL_PARCELA);
+    const textoParcelas = (elParcela?.innerText || '').replace(/\s+/g, ' ').trim();
+
+    const info = ensureInfoPlaceholder();
+
+    if (info && textoParcelas) {
+      // escreve "em até <strong>...</strong>"
+      info.innerHTML = '';
+      info.appendChild(document.createTextNode('em até '));
+      const b = document.createElement('strong');
+      b.textContent = textoParcelas;
+      info.appendChild(b);
+
+      info.classList.remove('is-loading');
+
+      clearInterval(loop);
+      window.__HITZZ_FAST__ = false;
+      return;
+    }
+
+    if (tries >= maxTries) {
+      clearInterval(loop);
+      window.__HITZZ_FAST__ = false;
+      // se não achou parcelas, pelo menos não deixa invisível
+      const info2 = document.querySelector('.info-parcelas');
+      if (info2) info2.classList.remove('is-loading');
+      console.warn('⛔ Não consegui pegar as parcelas a tempo (Appmax demorou/alterou seletor).');
+    }
+  }, 25); // bem rápido
+})();
+
+</script>

@@ -1,243 +1,349 @@
-<style>
-    <!--
-    /* RESET BÁSICO */
-    #pf-cat-swiper {
-        width: 100%;
-        padding-bottom: 10px;
-    }
-
-    .pf-catcarousel {
-        padding: 32px 0 24px;
-        width: 100%;
-        max-width: 1240px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .pf-catcarousel__title {
-        margin: 0 0 32px;
-        text-align: center;
-        font-size: 28px;
-        font-weight: 700;
-        color: #1a1a1a;
-        letter-spacing: -0.5px;
-    }
-
-    .pf-catcarousel__wrap {
-        position: relative;
-        padding: 0 10px;
-        /* Reduzi o padding lateral para ganhar espaço no mobile */
-    }
-
-    /* ===== Swiper ===== */
-    .pf-swiper {
-        padding: 12px 4px 24px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .pf-swiper .swiper-wrapper {
-        align-items: stretch;
-        display: flex;
-    }
-
-    .pf-swiper .swiper-slide {
-        height: auto;
-    }
-
-    /* Item */
-    .pf-catitem {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 14px;
-        text-decoration: none;
-        user-select: none;
-        transition: transform 0.3s ease;
-        padding-top: 10px;
-    }
-
-    .pf-catitem:hover {
-        transform: translateY(-6px);
-    }
-
-    .pf-catitem__circle {
-        width: 128px;
-        height: 128px;
-        border-radius: 50%;
-        border: 2px solid rgba(0, 0, 0, 0.06);
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        display: grid;
-        place-items: center;
-        overflow: hidden;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .pf-catitem:hover .pf-catitem__circle {
-        border-color: rgba(255, 0, 0, 0.3);
-        transform: scale(1.05);
-    }
-
-    .pf-catitem__circle img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-        pointer-events: none;
-    }
-
-    .pf-catitem__label {
-        font-size: 13px;
-        font-weight: 600;
-        color: #555;
-        text-align: center;
-        max-width: 140px;
-        line-height: 1.3;
-    }
-
-    .pf-catitem:hover .pf-catitem__label {
-        color: #ff0000;
-    }
-
-    /* ===== Setas (Desktop) ===== */
-    .pf-swiper-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        color: #ff0000;
-        cursor: pointer;
-        z-index: 20;
-        user-select: none;
-        outline: none;
-    }
-
-    .pf-swiper-prev {
-        left: 0px;
-    }
-
-    .pf-swiper-next {
-        right: 0px;
-    }
-
-    .pf-swiper-btn.swiper-button-disabled {
-        opacity: 0;
-        /* Some completamente quando não tem mais slide */
-        pointer-events: none;
-    }
-
-    /* ===== Responsividade ===== */
-    @media (max-width: 768px) {
-        .pf-catcarousel__title {
-            font-size: 22px;
-            margin-bottom: 20px;
-        }
-
-        .pf-catitem__circle {
-            width: 100px;
-            height: 100px;
-        }
-
-        /* Ajuste das setas para Mobile */
-        .pf-swiper-btn {
-            display: flex !important;
-            /* Força aparecer */
-            width: 32px;
-            /* Menor */
-            height: 32px;
-            /* Menor */
-            font-size: 18px;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Cola mais na borda no mobile */
-        .pf-swiper-prev {
-            left: -5px;
-        }
-
-        .pf-swiper-next {
-            right: -5px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .pf-catitem__circle {
-            width: 90px;
-            height: 90px;
-        }
-    }
-    -->
-</style>
-<section class="pf-catcarousel">
-    <h2 class="pf-catcarousel__title">Escolha uma categoria</h2>
-    <div class="pf-catcarousel__wrap">
-        <div id="pf-cat-swiper" class="swiper pf-swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <a class="pf-catitem" href="https://www.pontaodasfabricas.com.br/cama/lencol-avulso?caracteristica=composicao%3A100-poliester">
-                        <span class="pf-catitem__circle">
-                             <img src="https://pontaodasfabricas.cdn.magazord.com.br/img/2025/05/produto/12806/nude.png" alt="Solteiro" />
-                        </span> 
-                        <span class="pf-catitem__label">Poliéster</span> 
-                    </a>
-                </div>
-
-                <div class="swiper-slide">
-                    <a class="pf-catitem" href="https://www.pontaodasfabricas.com.br/cama/lencol-avulso?caracteristica=composicao%3A100-algodao">
-                        <span class="pf-catitem__circle">
-                             <img src="https://pontaodasfabricas.cdn.magazord.com.br/img/2024/09/produto/4944/salmao-1.png" alt="Solteiro" />
-                        </span> 
-                        <span class="pf-catitem__label">Algodão</span> 
-                    </a>
-                </div>
-
-            </div>
-            <button class="pf-swiper-btn pf-swiper-prev" type="button">&lsaquo;</button> <button
-                class="pf-swiper-btn pf-swiper-next" type="button">&rsaquo;</button>
-        </div>
-    </div>
-</section>
 <p>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>// <![CDATA[
-        document.addEventListener('DOMContentLoaded', function () {
-            new Swiper("#pf-cat-swiper", {
-                slidesPerView: 2,
-                spaceBetween: 15,
-                grabCursor: true,
-
-                navigation: {
-                    nextEl: ".pf-swiper-next",
-                    prevEl: ".pf-swiper-prev"
-                },
-
-                breakpoints: {
-                    480: {
-                        slidesPerView: 3,
-                        spaceBetween: 20
-                    },
-                    768: {
-                        slidesPerView: 4,
-                        spaceBetween: 30
-                    },
-                    1024: {
-                        slidesPerView: 4,
-                        spaceBetween: 20
-                    }
-                }
-            });
-        });
-        // ]]></script>
+<script type="application/ld+json">// <![CDATA[
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "A Estante Tree Alta Nozes é indicada para quais ambientes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Essa estante é perfeita para salas, quartos e home office, especialmente quando você quer organizar livros e objetos sem ocupar muito espaço no chão."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual é o material da estante?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ela é fabricada em madeira pinus com acabamento nozes, unindo durabilidade e estética aconchegante."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quantos livros a estante suporta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Tree Alta Nozes tem capacidade para aproximadamente 80 livros de capa fina, distribuídos em suas prateleiras."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O produto é enviado montado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, o produto é enviado montado e pronto para uso, facilitando sua experiência com a decoração."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como faço a limpeza e conservação da madeira?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Recomenda-se limpar com pano seco ou levemente umedecido, evitando produtos químicos ou abrasivos para preservar o acabamento."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "A cor nozes pode escurecer com o tempo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Como o acabamento é selado, a peça mantém sua cor por mais tempo, mas deve ser evitada a exposição direta e contínua ao sol para proteger a madeira."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual a diferença entre cera incolor e verniz incolor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O verniz cria, em cima da madeira, uma película protetora na superfície, tapando assim os poros da madeira. Criando uma camada lisa e acetinado a peça. O verniz é resistente a umidade e resquícios de água.\nJá a cera acaba impedindo a oxidação da madeira, dando um acabamento mais natural a peça. A cera não é resistente a água. A cera já é passado neste móvel, caso queira o verniz na madeira basta adicionar em \"personalize este produto\"."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como cuidar da madeira pinus?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A madeira pinus é linda e possui características únicas que só ela tem. E móveis feitos a partir dessa madeira deixa o ambiente moderno com um arzinho de rústico. Os cuidados são básicos e fáceis de manuseio, basta limpar com um pano úmido, sem utilizar de produtos abrasivos, como álcool, por exemplo.\nA nossa proposta é DIY, onde você mesmo monta o produto. Mas não se preocupe, a montagem é super prática e intuitiva, e o móvel é enviado semi montado, ou seja, é preciso de uma chave Philips para parafusar a madeira no ferro apenas, viu como é simples?\nAtenção! Por nossos produtos se tratarem de madeira maciça é comum ter nós e texturas diferentes, não é laqueada. Mas não prejudica de maneira nenhuma o uso. Para maiores dúvidas é só entrar em contato. Nosso produto não deve ser utilizado em áreas externas em contato direto com sol e água.\nNosso produto não deve ser utilizado em áreas externas em contato direto com sol e água."
+      }
+    }
+  ]
+}
+// ]]></script>
 </p>
+<style><!--
+.container-descricao-geral{
+                width: 1220px;
+                margin: auto;
+                padding: 10px;
+            }
+            .content-descricao-geral{
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+            .item-descricao{
+                display: flex;
+                align-items: center;
+                gap: 40px;
+            }
+            .imagem-primeiro{
+                order: 0;
+                justify-content: flex-start !important;
+            }
+            .imagem-segundo{
+              order: 2; 
+                justify-content: flex-end !important;
+            }
+            .item-imagem-descricao{
+                display: flex;
+                justify-content: center;
+                width: 500px;
+            }
+            .item-imagem-descricao img{
+                width: 500px;
+                height: 500px;
+                border-radius: 20px;
+            }
+            .item-texto-descricao{
+                width: 600px;
+            }
+            @media(max-width:768px){
+                .container-descricao-geral{
+                width: 100%;
+                
+            }
+            .item-imagem-descricao{
+                width: 100%;
+            }
+            .item-imagem-descricao img{
+                width: 100%;
+                height: auto;
+               
+            }
+            .item-texto-descricao{
+                width: 100%;
+            }
+            .item-descricao{
+               flex-direction: column;
+            }
+            .imagem-primeiro{
+                order: 0;
+                justify-content: center !important;
+            }
+            .imagem-segundo{
+              order: 0;
+                justify-content: center !important;
+            }
+            }
+          
+            /Inicio Tabela/
+            .container-tamanho{
+              width: 400px;
+              height: auto;
+             margin-top: 10px;
+                           
+              }    
+              .card-tamanho{
+              display: flex;
+              justify-content: space-between;
+              border-bottom: 1px solid #c4c4c4;
+              }
+              .card-div{
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              }
+              .card-tamanho img{
+              width: 15px;
+              height: 15px;
+              }
+              @media(max-width: 768px){
+              .container-tamanho{
+              width: 100%;
+              }  
+              }
+            /Fim Tabela/
+          
+            /Bloco Infos/
+              .container-infos{
+                  background-color: #f2f2f2;
+                  border-radius: 20px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  padding: 10px;
+                  margin-top: 40px;
+              }
+              .card-area{
+                  display: flex;
+                  justify-content: space-evenly;
+              }
+              .card-info{
+                  width: 400px;
+                  display: flex;
+                  padding: 10px;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+              }
+              .card-info img{
+                  width: 300px;
+                  height: 300px;
+                  border-radius: 20px;
+              }
+              .card-footer-info{
+                  display: flex;
+                  justify-content: space-evenly;
+                margin-top: 20px;
+              }
+              .card-footer{
+                  width: 400px;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  gap: 10px;
+              }
+              .card-footer img{
+                width: 100%;
+              }
+              @media(max-width:768px){
+                .card-area{
+                    flex-direction: column;
+                }
+                .card-footer-info{
+                  flex-direction: column;
+              }
+              .card-info{
+                text-align: center;
+                  width: 100%; 
+              }
+              .card-footer{
+                  width: 100%;
+              }
+              }
+            /Fim Bloco Infos/
+--></style>
+<div class="container-descricao-geral">
+<div class="content-descricao-geral">
+<div class="item-descricao">
+<div class="item-imagem-descricao imagem-segundo">
+<div class="img-descricao"><img src="https://magazord-public.s3.sa-east-1.amazonaws.com/artfactory/img/2025/04/produto/6347/11-estante-de-madeira-para-livros-tree-alta-nozes.jpeg" alt="11 estante de madeira para livros tree alta nozes" width="1000" height="1000" data-midia-id="6347" /></div>
+</div>
+<div class="item-texto-descricao">
+<p>A Estante de Madeira para Livros Tree Alta Nozes une organiza&ccedil;&atilde;o vertical com design criativo inspirado em &aacute;rvores, aproveitando ao m&aacute;ximo espa&ccedil;os estreitos sem ocupar muito &aacute;rea no ch&atilde;o. Produzida em madeira pinus com acabamento nozes, ela &eacute; ideal para organizar livros, objetos decorativos ou plantas em salas de estar, quartos ou escrit&oacute;rio, agregando um toque de personalidade ao ambiente.</p>
+<p><strong>Informa&ccedil;&otilde;es T&eacute;cnicas</strong></p>
+<p>Organize seus livros de forma pr&aacute;tica e estilosa com a Estante de Madeira Tree. Feita em madeira pinus, essa estante combina funcionalidade e design inovador, com um formato que lembra os galhos de uma &aacute;rvore. Uma solu&ccedil;&atilde;o perfeita para quem tem muitos livros e deseja aproveitar ao m&aacute;ximo espa&ccedil;os pequenos. Coloque seus livros de um jeito descolado e que n&atilde;o ocupe muito espa&ccedil;o, a tree tem capacidade de 80 livros em m&eacute;dia de capa fina.</p>
+<div class="container-tamanho">
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5135/height-8902134-2-2.png" alt="" />
+<p><strong>Altura total:</strong></p>
+</div>
+<div>
+<p>155 cm</p>
+</div>
+</div>
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5136/diagonal-8902154-2.png" alt="" />
+<p><strong>Profundidade total</strong>:</p>
+</div>
+<div>
+<p>17,5 cm&nbsp;</p>
+</div>
+</div>
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5134/width-8902140-1-1.png" alt="" />
+<p><strong>Largura total:</strong></p>
+</div>
+<div>
+<p>43 cm</p>
+</div>
+</div>
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5133/weight-scale.png" alt="" />
+<p><strong>Peso do m&oacute;vel:&nbsp;</strong></p>
+</div>
+<div>
+<p>9,2&nbsp;Kg</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="item-descricao">
+<div class="item-imagem-descricao imagem-primeiro">
+<div class="img-descricao"><img src="https://magazord-public.s3.sa-east-1.amazonaws.com/artfactory/img/2025/04/produto/6349/13-estante-de-madeira-para-livros-tree-alta-nozes.jpeg" alt="13 estante de madeira para livros tree alta nozes" width="1000" height="1000" data-midia-id="6349" /></div>
+</div>
+<div class="item-texto-descricao">
+<p><strong>Por que escolher a estante tree?</strong></p>
+<p>Compacta e vers&aacute;til, a Estante Tree &eacute; ideal para salas, quartos ou escrit&oacute;rios, trazendo um toque de criatividade &agrave; decora&ccedil;&atilde;o, al&eacute;m de ser altamente funcional.&nbsp;Transforme sua organiza&ccedil;&atilde;o com a Estante de Madeira Tree, uma pe&ccedil;a charmosa que combina estilo, funcionalidade e aproveitamento inteligente do espa&ccedil;o.</p>
+<div class="container-tamanho">
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5138/right-arrow-10137045.png" alt="" />
+<p>Feita em madeira de pinus maci&ccedil;a com acabamento em selador, ou verniz quando selecionado na op&ccedil;&atilde;o de&nbsp;<strong>PERSONALIZE ESTE PRODUTO.</strong></p>
+</div>
+</div>
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5138/right-arrow-10137045.png" alt="" />
+<p>Combina com diversos ambientes, do moderno ao r&uacute;stico</p>
+</div>
+</div>
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5138/right-arrow-10137045.png" alt="" />
+<p>Produto enviado montado.</p>
+</div>
+</div>
+<div class="card-tamanho">
+<div class="card-div"><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5138/right-arrow-10137045.png" alt="" />
+<p>Suporta 10kg cada prateleira.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container-infos">
+<div class="card-area">
+<div class="card-info">
+<div><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5131/design-sem-nome-72.png" alt="" /></div>
+<p style="font-size: 26px; color: #4a4a4a;">Embalagem e Transporte</p>
+<p style="height: 200px;">Todos os produtos s&atilde;o embalados em materiais de prote&ccedil;&atilde;o de alta qualidade para garantir que chegue em perfeito estado. A embalagem resistente protege contra impactos durante o transporte, oferecendo seguran&ccedil;a at&eacute; a entrega.</p>
+</div>
+<div class="card-info">
+<div><img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5139/logo-artfactory.png" alt="logo artfactory" width="300" height="300" data-midia-id="5139" /></div>
+<p style="font-size: 26px; color: #4a4a4a;">Mais de 6 anos no Mercado...</p>
+<p style="height: 200px;">Desde 2018, a ArtFactory &eacute; refer&ecirc;ncia em decora&ccedil;&atilde;o artesanal de qualidade. Cada pe&ccedil;a &eacute; feita manualmente por nossos artes&atilde;os, garantindo exclusividade e cuidado. Oferecemos atendimento humanizado, com uma equipe dedicada a resolver suas d&uacute;vidas. Na ArtFactory, combinamos design superior com um toque pessoal em cada detalhe.</p>
+</div>
+</div>
+<div class="card-footer-info">
+<div class="card-footer">
+<p style="color: #4a4a4a; font-size: 20px;">N&oacute;s da ArtFactory somos...&nbsp;</p>
+<div id="ra-verified-seal">
+<script id="ra-embed-verified-seal" src="https://s3.amazonaws.com/raichu-beta/ra-verified/bundle.js" type="text/javascript" data-id="Wl8yX2oydFVUYTdrNDZaczphcnRmYWN0b3J5LWRlc2lnbg==" data-target="ra-verified-seal" data-model="2"></script>
+</div>
+</div>
+<div class="card-footer">
+<p>Somente empresas s&eacute;rias e comprometidas com o cliente conseguem esse&nbsp;selo de empresa <strong>VERIFICADA</strong>.</p>
+<img src="https://artfactory.cdn.magazord.com.br/img/2024/08/banner/5132/nao-possui-pendencias-financeiras.png" alt="" /></div>
+</div>
+</div>
+</div>
+<div class="container-descricao-geral"></div>
+<p></p>
+<p><strong>A Estante Tree Alta Nozes &eacute; indicada para quais ambientes?</strong><br /> Essa estante &eacute; perfeita para salas, quartos e home office, especialmente quando voc&ecirc; quer organizar livros e objetos sem ocupar muito espa&ccedil;o no ch&atilde;o.</p>
+<p><strong>Qual &eacute; o material da estante?</strong><br /> Ela &eacute; fabricada em madeira pinus com acabamento nozes, unindo durabilidade e est&eacute;tica aconchegante.</p>
+<p><strong>Quantos livros a estante suporta?</strong><br /> A Tree Alta Nozes tem capacidade para aproximadamente 80 livros de capa fina, distribu&iacute;dos em suas prateleiras.</p>
+<p><strong>O produto &eacute; enviado montado?</strong><br /> Sim, o produto &eacute; enviado montado e pronto para uso, facilitando sua experi&ecirc;ncia com a decora&ccedil;&atilde;o.</p>
+<p><strong>Como fa&ccedil;o a limpeza e conserva&ccedil;&atilde;o da madeira?</strong><br /> Recomenda-se limpar com pano seco ou levemente umedecido, evitando produtos qu&iacute;micos ou abrasivos para preservar o acabamento.</p>
+<p><strong>A cor nozes pode escurecer com o tempo?</strong><br /> Como o acabamento &eacute; selado, a pe&ccedil;a mant&eacute;m sua cor por mais tempo, mas deve ser evitada a exposi&ccedil;&atilde;o direta e cont&iacute;nua ao sol para proteger a madeira.</p>
+<p><span style="font-size: 12pt;"><strong>Qual a diferen&ccedil;a entre cera incolor e verniz incolor?</strong></span><br />O verniz cria, em cima da madeira, uma pel&iacute;cula protetora na superf&iacute;cie, tapando assim os poros da madeira. Criando uma camada lisa e acetinado a pe&ccedil;a. O verniz &eacute; resistente a umidade e resqu&iacute;cios de &aacute;gua.</p>
+<p>J&aacute; a cera acaba impedindo a oxida&ccedil;&atilde;o da madeira, dando um acabamento mais natural a pe&ccedil;a. A cera n&atilde;o &eacute; resistente a &aacute;gua.&nbsp;A cera j&aacute; &eacute; passado neste m&oacute;vel, caso queira o verniz na madeira basta adicionar em "personalize&nbsp;este&nbsp;produto".</p>
+<p><span style="font-size: 12pt;"><strong>Como cuidar da madeira pinus?</strong></span><br />A madeira pinus &eacute; linda e possui caracter&iacute;sticas &uacute;nicas que s&oacute; ela tem. E m&oacute;veis feitos a partir dessa madeira deixa o ambiente moderno com um arzinho de r&uacute;stico. Os cuidados s&atilde;o b&aacute;sicos e f&aacute;ceis de manuseio, basta limpar com um pano &uacute;mido, sem utilizar de produtos abrasivos, como &aacute;lcool, por exemplo.</p>
+<p>A nossa proposta &eacute; DIY, onde voc&ecirc; mesmo monta o produto. Mas n&atilde;o se preocupe, a montagem &eacute; super pr&aacute;tica e intuitiva, e o m&oacute;vel &eacute; enviado semi montado, ou seja, &eacute; preciso de uma chave Philips para parafusar a madeira no ferro apenas, viu como &eacute; simples?</p>
+<p>Aten&ccedil;&atilde;o! Por nossos produtos se tratarem de madeira maci&ccedil;a &eacute; comum ter n&oacute;s e texturas diferentes, n&atilde;o &eacute; laqueada. Mas n&atilde;o prejudica de maneira nenhuma o uso. Para maiores d&uacute;vidas &eacute; s&oacute; entrar em contato. Nosso produto n&atilde;o deve ser utilizado em &aacute;reas externas em contato direto com sol e &aacute;gua.</p>
+<p>Nosso produto n&atilde;o deve ser utilizado em &aacute;reas externas em contato direto com sol e &aacute;gua.</p>
+<p>Cuidados com a pe&ccedil;a:&nbsp;Para limpeza pode ser usado um pano &uacute;mido a seco.</p>
+<p></p>
+<p><a href="https://drive.google.com/drive/folders/1PvT79g6TKlbPL8pMg8nbVwetAK4m3lS7?usp=drive_link"><img src="https://magazord-public.s3.sa-east-1.amazonaws.com/artfactory/img/2024/12/produto/6085/05-aparador-de-madeira-pinus-linea-com-vao-de-3-prateleiras-ample-com-2-gavetas-carvalho.jpeg" alt="05 aparador de madeira pinus linea com vao de 3 prateleiras ample com 2 gavetas carvalho" width="494" height="494" data-midia-id="6085" /></a></p>
+<p></p>
