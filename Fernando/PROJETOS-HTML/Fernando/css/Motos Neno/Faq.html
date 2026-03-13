@@ -1,0 +1,243 @@
+<script>
+(function () {
+  'use strict';
+
+  var FAQ_ID = 'neno-faq-section';
+  var STYLE_ID = 'neno-faq-styles';
+  var SCHEMA_ID = 'neno-faq-schema';
+  var TARGET_SELECTOR = '.descricao-produto'; // <-- alvo
+  var MAX_TRIES = 40; // 40 x 250ms = 10s
+
+  function log() {
+    try { console.log.apply(console, ['[NENO FAQ]'].concat([].slice.call(arguments))); } catch (e) {}
+  }
+
+  function injectOnce() {
+    // já inseriu?
+    if (document.getElementById(FAQ_ID)) return true;
+
+    var target = document.querySelector(TARGET_SELECTOR);
+    if (!target) return false;
+
+    // 1) JSON-LD
+    if (!document.getElementById(SCHEMA_ID)) {
+      var schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "É original Yamaha?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim, todos os nossos produtos marcados como original Yamaha são realmente peças genuínas da marca e serão enviados em suas devidas embalagens originais conforme recebemos da fábrica. Como concessionária, podemos garantir a procedência." }
+          },
+          {
+            "@type": "Question",
+            "name": "Tem garantia?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim, todos os produtos do site possuem pelo menos 3 meses de garantia de fábrica. Você pode conferir o tempo de garantia logo abaixo do botão Adicionar ao Carrinho." }
+          },
+          {
+            "@type": "Question",
+            "name": "Se eu não gostar ou me arrepender, posso devolver?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Caso precise fazer a devolução do produto dentro do prazo de 7 dias após o recebimento, é muito fácil. Você entra em contato conosco pelo Whatsapp, ligação ou e-mail e iremos gerar o código para devolução." }
+          },
+          {
+            "@type": "Question",
+            "name": "A peça é nova?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim, todos os produtos que vendemos são novos." }
+          },
+          {
+            "@type": "Question",
+            "name": "Vem com nota fiscal?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim, todos os nossos envios, sem exceção, são enviados com a nota fiscal da sua compra." }
+          },
+          {
+            "@type": "Question",
+            "name": "Tem em estoque?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim, todos os nossos produtos anunciados estão armazenados em nosso próprio estoque." }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual o prazo de envio?",
+            "acceptedAnswer": { "@type": "Answer", "text": "O seu pedido é despachado em um prazo de no máximo 24 horas úteis." }
+          }
+        ]
+      };
+
+      var schemaScript = document.createElement('script');
+      schemaScript.id = SCHEMA_ID;
+      schemaScript.type = 'application/ld+json';
+      schemaScript.textContent = JSON.stringify(schema);
+      document.head.appendChild(schemaScript);
+    }
+
+    // 2) CSS
+    if (!document.getElementById(STYLE_ID)) {
+      var style = document.createElement('style');
+      style.id = STYLE_ID;
+      style.textContent = `
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500&display=swap');
+
+#${FAQ_ID}.neno-faq-section{
+  --faq-primary:#c8102e; --faq-bg:#f7f7f7; --faq-bg-open:#fff;
+  --faq-border:#e2e2e2; --faq-text:#1a1a1a; --faq-muted:#555; --faq-radius:6px;
+  font-family:'Barlow',sans-serif; max-width:860px; margin:36px auto 0; padding:0 12px 40px; box-sizing:border-box;
+}
+#${FAQ_ID} .faq-heading{
+  display:flex; align-items:center; gap:10px;
+  font-family:'Barlow Condensed',sans-serif; font-size:1.55rem; font-weight:700;
+  color:var(--faq-text); text-transform:uppercase; letter-spacing:.5px;
+  margin:0 0 18px; padding-bottom:12px; border-bottom:3px solid var(--faq-primary);
+}
+#${FAQ_ID} .faq-heading::before{content:''; width:6px; height:28px; background:var(--faq-primary); border-radius:2px; flex-shrink:0;}
+#${FAQ_ID} .neno-faq-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
+#${FAQ_ID} .neno-faq-item{background:var(--faq-bg); border:1px solid var(--faq-border); border-radius:var(--faq-radius); overflow:hidden; transition:.2s;}
+#${FAQ_ID} .neno-faq-item.is-open{background:var(--faq-bg-open); border-color:var(--faq-primary); box-shadow:0 2px 12px rgba(200,16,46,.10);}
+#${FAQ_ID} .neno-faq-btn{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%;
+  background:none; border:none; cursor:pointer; padding:14px 16px; text-align:left;
+  font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; font-weight:600;
+  color:var(--faq-text); text-transform:uppercase; letter-spacing:.3px; line-height:1.3; transition:color .2s;
+}
+#${FAQ_ID} .neno-faq-btn:hover, #${FAQ_ID} .neno-faq-item.is-open .neno-faq-btn{color:var(--faq-primary);}
+#${FAQ_ID} .neno-faq-icon{
+  flex-shrink:0; width:22px; height:22px; border-radius:50%; border:2px solid currentColor;
+  display:flex; align-items:center; justify-content:center; font-size:1.1rem; line-height:1;
+  transition:transform .3s ease, background .2s, color .2s; color:var(--faq-primary);
+}
+#${FAQ_ID} .neno-faq-item.is-open .neno-faq-icon{background:var(--faq-primary); color:#fff; transform:rotate(45deg);}
+#${FAQ_ID} .neno-faq-answer{display:grid; grid-template-rows:0fr; transition:grid-template-rows .28s ease;}
+#${FAQ_ID} .neno-faq-item.is-open .neno-faq-answer{grid-template-rows:1fr;}
+#${FAQ_ID} .neno-faq-answer-inner{overflow:hidden;}
+#${FAQ_ID} .neno-faq-answer-text{
+  padding:0 16px 16px; font-size:.95rem; color:var(--faq-muted); line-height:1.65;
+  border-top:1px dashed var(--faq-border); padding-top:12px; margin-top:0;
+}
+#${FAQ_ID} .neno-faq-badge{
+  display:inline-flex; align-items:center; gap:5px; background:var(--faq-primary); color:#fff;
+  font-family:'Barlow Condensed',sans-serif; font-size:.75rem; font-weight:700; letter-spacing:1px;
+  text-transform:uppercase; padding:3px 10px; border-radius:20px; margin-bottom:10px;
+}
+@media (max-width:480px){
+  #${FAQ_ID} .faq-heading{font-size:1.25rem;}
+  #${FAQ_ID} .neno-faq-btn{font-size:.98rem; padding:12px 13px;}
+  #${FAQ_ID} .neno-faq-answer-text{font-size:.9rem;}
+}`;
+      document.head.appendChild(style);
+    }
+
+    // 3) HTML FAQ
+    var section = document.createElement('section');
+    section.id = FAQ_ID;
+    section.className = 'neno-faq-section';
+    section.setAttribute('aria-label', 'Perguntas Frequentes sobre o produto');
+    section.setAttribute('itemscope', '');
+    section.setAttribute('itemtype', 'https://schema.org/FAQPage');
+
+    section.innerHTML = `
+<span class="neno-faq-badge">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+  </svg>
+  Dúvidas Frequentes
+</span>
+
+<h2 class="faq-heading">Perguntas Frequentes</h2>
+
+<ul class="neno-faq-list" role="list">
+  ${makeItem(1,"É original Yamaha?","Sim, todos os nossos produtos marcados como original Yamaha são realmente peças genuínas da marca e serão enviados em suas devidas embalagens originais conforme recebemos da fábrica. Como concessionária, podemos garantir a procedência.")}
+  ${makeItem(2,"Tem garantia?","Sim, todos os produtos do site possuem pelo menos 3 meses de garantia de fábrica. Você pode conferir o tempo de garantia logo abaixo do botão Adicionar ao Carrinho.")}
+  ${makeItem(3,"Se eu não gostar ou me arrepender, posso devolver?","Caso precise fazer a devolução do produto dentro do prazo de 7 dias após o recebimento, é muito fácil. Você entra em contato conosco pelo Whatsapp, ligação ou e-mail e iremos gerar o código para devolução.")}
+  ${makeItem(4,"A peça é nova?","Sim, todos os produtos que vendemos são novos.")}
+  ${makeItem(5,"Vem com nota fiscal?","Sim, todos os nossos envios, sem exceção, são enviados com a nota fiscal da sua compra.")}
+  ${makeItem(6,"Tem em estoque?","Sim, todos os nossos produtos anunciados estão armazenados em nosso próprio estoque.")}
+  ${makeItem(7,"Qual o prazo de envio?","O seu pedido é despachado em um prazo de no máximo 24 horas úteis.")}
+</ul>`;
+
+    // INSERT AFTER
+    target.insertAdjacentElement('afterend', section);
+
+    // 4) Accordion
+    var items = section.querySelectorAll('.neno-faq-item');
+    items.forEach(function (item) {
+      var btn = item.querySelector('.neno-faq-btn');
+      btn.addEventListener('click', function () {
+        var isOpen = item.classList.contains('is-open');
+
+        items.forEach(function (other) {
+          if (other !== item && other.classList.contains('is-open')) {
+            other.classList.remove('is-open');
+            other.querySelector('.neno-faq-btn').setAttribute('aria-expanded', 'false');
+            other.querySelector('.neno-faq-icon').textContent = '+';
+          }
+        });
+
+        item.classList.toggle('is-open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        item.querySelector('.neno-faq-icon').textContent = isOpen ? '+' : '×';
+      });
+    });
+
+    log('Inserido após', TARGET_SELECTOR);
+    return true;
+  }
+
+  function makeItem(i, question, answer) {
+    return `
+<li class="neno-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <button class="neno-faq-btn" aria-expanded="false" aria-controls="faq-answer-${i}">
+    <span itemprop="name">${escapeHtml(question)}</span>
+    <span class="neno-faq-icon" aria-hidden="true">+</span>
+  </button>
+  <div class="neno-faq-answer" id="faq-answer-${i}" role="region" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <div class="neno-faq-answer-inner">
+      <p class="neno-faq-answer-text" itemprop="text">${escapeHtml(answer)}</p>
+    </div>
+  </div>
+</li>`;
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // ============
+  // Boot robusto
+  // ============
+  var tries = 0;
+
+  function tryInjectLoop() {
+    tries++;
+    if (injectOnce()) return;
+
+    if (tries < MAX_TRIES) {
+      if (tries === 1) log('Aguardando elemento alvo:', TARGET_SELECTOR);
+      setTimeout(tryInjectLoop, 250);
+      return;
+    }
+
+    // se não achou em 10s, observa mudanças no DOM
+    log('Não encontrei o alvo em tempo. Ativando MutationObserver…');
+
+    var obs = new MutationObserver(function () {
+      if (injectOnce()) {
+        obs.disconnect();
+        log('Inserido via observer.');
+      }
+    });
+
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInjectLoop);
+  } else {
+    tryInjectLoop();
+  }
+
+})();
+</script>

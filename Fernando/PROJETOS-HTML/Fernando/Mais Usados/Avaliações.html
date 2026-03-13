@@ -1,0 +1,54 @@
+<style> 
+    span.average-rating, .star-back {
+    --percent:90% !important;
+    }
+    .num-avaliacoes{
+        display:none ! important;
+    }
+</style>
+<script>
+  (function () {
+    var STORAGE_KEY = "avaliacoes_random";
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getOrCreateRatingNumber() {
+      var saved = localStorage.getItem(STORAGE_KEY);
+
+      if (saved !== null && saved !== "" && !isNaN(saved)) {
+        return parseInt(saved, 10);
+      }
+
+      var randomNumber = getRandomInt(1, 50);
+      localStorage.setItem(STORAGE_KEY, randomNumber);
+      return randomNumber;
+    }
+
+    function updateRatingText() {
+      var numero = getOrCreateRatingNumber();
+
+      // tenta pegar exatamente o link do número
+      var target = document.querySelector(".num-avaliacao .avaliacoes-link");
+
+      // fallback caso a estrutura mude
+      if (!target) {
+        var links = document.querySelectorAll(".avaliacoes .avaliacoes-link");
+        if (links.length > 1) {
+          target = links[1];
+        }
+      }
+
+      if (target) {
+        target.textContent = "(" + numero + ")";
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", updateRatingText);
+    } else {
+      updateRatingText();
+    }
+  })();
+</script>

@@ -1,0 +1,327 @@
+<section class="promo-tarja promo-diamulher" aria-label="Campanha Dia da Mulher">
+  <div class="promo-header">
+    <div class="promo-kicker">DIA DA MULHER</div>
+    <h2>GANHE 15% OFF NA LINHA WOMAN</h2>
+    <p>
+      Use o cupom <strong>WOMAN</strong> e ganhe <strong>lenço de brinde</strong>.
+      <span class="promo-small">Válido até <strong>08 de Março</strong>.</span>
+    </p>
+
+    <!-- Cupom copiável -->
+     <div class="container-promo-cupom">
+         <button
+           type="button"
+           class="promo-cupom"
+           id="promo-cupom-btn"
+           aria-label="Copiar cupom WOMAN"
+         >
+           <span class="promo-cupom__label">CUPOM</span>
+           <span class="promo-cupom__code" id="promo-cupom-code">WOMAN</span>
+         </button>
+           <span class="promo-cupom__hint" id="promo-cupom-hint">Clique para copiar</span>
+        
+     </div>
+  </div>
+
+  <div class="promo-timer">
+    <h3>OFERTA VÁLIDA POR:</h3>
+
+    <div id="countdown" class="countdown" aria-live="polite">
+      <span class="cd-item">
+        <span id="days" class="cd-num">00</span>
+        <span class="cd-lbl">DIAS</span>
+      </span>
+
+      <span class="cd-sep">:</span>
+
+      <span class="cd-item">
+        <span id="hours" class="cd-num">00</span>
+        <span class="cd-lbl">HRS</span>
+      </span>
+
+      <span class="cd-sep">:</span>
+
+      <span class="cd-item">
+        <span id="minutes" class="cd-num">00</span>
+        <span class="cd-lbl">MIN</span>
+      </span>
+
+      <span class="cd-sep">:</span>
+
+      <span class="cd-item">
+        <span id="seconds" class="cd-num">00</span>
+        <span class="cd-lbl">SEG</span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo-tarja {
+    font-family: "Poppins", Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .title-pesquisa { display: none; }
+
+  .promo-header {
+    background-color: #000;
+    padding: 24px 16px;
+  }
+
+  .promo-kicker{
+    color:#fff;
+    font-size: 1.8rem !important;
+    font-weight: 800;
+    margin: 0 0 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .promo-tarja h2 {
+    font-size: 1.4rem !important;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .promo-tarja p {
+    font-size: 1rem !important;
+    color: #f1f1f1;
+    margin: 4px auto 0;
+    max-width: 92%;
+    line-height: 1.4;
+  }
+
+  .promo-small{
+    display:block;
+    margin-top: 6px;
+    opacity: .95;
+  }
+
+  /* Cupom (botão) */
+  .promo-cupom{
+    margin: 14px auto 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px dashed rgba(255,255,255,.55);
+    border-radius: 10px;
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .promo-cupom:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+  .promo-cupom:active{ transform: translateY(0); }
+  .promo-cupom:focus-visible{
+    outline: 2px solid rgba(255,255,255,.65);
+    outline-offset: 2px;
+  }
+
+  .container-promo-cupom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .promo-cupom__label{
+    font-size: .8rem;
+    letter-spacing: .12em;
+    font-weight: 800;
+    opacity: .9;
+  }
+  .promo-cupom__code{
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: .14em;
+  }
+  .promo-cupom__hint{
+    font-size: 12px;
+    font-weight: 700;
+    opacity: .9;
+  }
+
+  /* Timer */
+  .promo-timer {
+    background: #fff;
+    color: #000;
+    border-radius: 0 0 4px 4px;
+    margin-top: 0px;
+    padding: 10px 12px 14px;
+  }
+
+  .promo-timer h3 {
+    font-size: 1.2rem !important;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .06em;
+  }
+
+  .countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  .cd-item{
+    display: grid;
+    gap: 2px;
+    min-width: 58px;
+  }
+
+  .cd-num{
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .cd-lbl{
+    font-size: .7rem;
+    font-weight: 800;
+    opacity: .75;
+    letter-spacing: .12em;
+  }
+
+  .cd-sep{
+    font-size: 1.4rem;
+    font-weight: 900;
+    opacity: .6;
+    transform: translateY(-6px);
+  }
+
+  .timer-sub {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #222;
+  }
+
+  /* === RESPONSIVO === */
+  @media (min-width: 480px) {
+    .promo-kicker{ font-size: 2.0rem !important; }
+    .promo-tarja h2{ font-size: 1.6rem !important; }
+    .countdown { gap: 12px; }
+    .cd-num{ font-size: 2.2rem; }
+    .cd-item{ min-width: 70px; }
+  }
+
+  @media (min-width: 768px) {
+    .promo-header { padding: 40px 20px; }
+    .promo-kicker{ font-size: 2.4rem !important; }
+    .promo-tarja h2{ font-size: 2.0rem !important; }
+    .promo-tarja p{ font-size: 1.05rem !important; max-width: 720px; }
+  }
+</style>
+
+<script>
+  // Countdown até 08/03 (23:59) no fuso do navegador
+  (function(){
+    const endDate = new Date(new Date().getFullYear(), 2, 8, 23, 59, 59).getTime(); // mês 2 = Março
+
+    const elDays = document.getElementById("days");
+    const elHours = document.getElementById("hours");
+    const elMinutes = document.getElementById("minutes");
+    const elSeconds = document.getElementById("seconds");
+    const elCountdown = document.getElementById("countdown");
+    const elSub = document.querySelector(".timer-sub");
+
+    function pad(n){ return String(n).padStart(2, "0"); }
+
+    function tick(){
+      const now = Date.now();
+      let diff = endDate - now;
+
+      if (diff <= 0){
+        elDays.textContent = "00";
+        elHours.textContent = "00";
+        elMinutes.textContent = "00";
+        elSeconds.textContent = "00";
+        if (elSub) elSub.textContent = "Promoção encerrada";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff -= minutes * (1000 * 60);
+
+      const seconds = Math.floor(diff / 1000);
+
+      elDays.textContent = pad(days);
+      elHours.textContent = pad(hours);
+      elMinutes.textContent = pad(minutes);
+      elSeconds.textContent = pad(seconds);
+
+      if (elCountdown) {
+        elCountdown.setAttribute(
+          "aria-label",
+          `Faltam ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos.`
+        );
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  // Copiar cupom ao clicar
+  (function(){
+    const btn = document.getElementById("promo-cupom-btn");
+    const codeEl = document.getElementById("promo-cupom-code");
+    const hintEl = document.getElementById("promo-cupom-hint");
+
+    if (!btn || !codeEl) return;
+
+    const code = (codeEl.textContent || "").trim();
+
+    async function copyText(text){
+      // tenta Clipboard API
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (e) {
+        // fallback com textarea
+        try {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly", "");
+          ta.style.position = "fixed";
+          ta.style.top = "-9999px";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          return ok;
+        } catch (err) {
+          return false;
+        }
+      }
+    }
+
+    btn.addEventListener("click", async () => {
+      const ok = await copyText(code);
+
+      if (hintEl) {
+        hintEl.textContent = ok ? "Copiado!" : "Não foi possível copiar";
+        setTimeout(() => (hintEl.textContent = "Clique para copiar"), 1600);
+      }
+    });
+  })();
+</script>

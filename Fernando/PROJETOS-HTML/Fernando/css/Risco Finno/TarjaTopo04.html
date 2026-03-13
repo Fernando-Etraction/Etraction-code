@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tarja Pesquisa</title>
+    <style>
+      /* ── Reset ── */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* ── Tarja Container ── */
+      .tarja-pesquisa {
+        width: 100%;
+        background: #111111;
+        color: #ffffff;
+        font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+        padding: 10px 16px;
+        text-align: center;
+        line-height: 1.45;
+        position: relative;
+        z-index: 999;
+        border-bottom: 1px solid #2a2a2a;
+      }
+
+      /* ── Layout interno ── */
+      .tarja-pesquisa__inner {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      /* ── Linha Principal (benefício forte) ── */
+      .tarja-pesquisa__headline {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #ffffff;
+      }
+
+      /* ── Linha Secundária (condição + escassez) ── */
+      .tarja-pesquisa__sub {
+        font-size: 11px;
+        font-weight: 400;
+        color: #999999;
+        margin-top: 3px;
+        letter-spacing: 0.4px;
+      }
+
+      .tarja-pesquisa__sub .sep {
+        margin: 0 6px;
+        color: #555;
+      }
+
+      /* ── Timer ── */
+      .tarja-pesquisa__timer {
+        font-size: 11px;
+        font-weight: 500;
+        color: #bbbbbb;
+        margin-top: 4px;
+        letter-spacing: 0.6px;
+      }
+
+      .tarja-pesquisa__timer-label {
+        font-weight: 400;
+        color: #777;
+      }
+
+      .tarja-pesquisa__timer-value {
+        font-variant-numeric: tabular-nums;
+        color: #e0e0e0;
+        font-weight: 600;
+      }
+
+      /* ── Botão fechar ── */
+      .tarja-pesquisa__close {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #555;
+        font-size: 16px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 4px 6px;
+        transition: color 0.2s ease;
+      }
+      .tarja-pesquisa__close:hover {
+        color: #fff;
+      }
+
+      /* ── Desktop ── */
+      @media (min-width: 768px) {
+        .tarja-pesquisa {
+          padding: 8px 48px;
+        }
+
+        .tarja-pesquisa__inner {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          flex-wrap: wrap;
+        }
+
+        .tarja-pesquisa__headline {
+          font-size: 13px;
+        }
+
+        .tarja-pesquisa__sub {
+          margin-top: 0;
+          font-size: 11px;
+        }
+
+        .tarja-pesquisa__timer {
+          margin-top: 0;
+          font-size: 11px;
+        }
+
+        /* Separadores verticais */
+        .tarja-pesquisa__sep {
+          width: 1px;
+          height: 14px;
+          background: #3a3a3a;
+          display: inline-block;
+          flex-shrink: 0;
+        }
+      }
+
+      /* ── Mobile ── */
+      @media (max-width: 767px) {
+        .tarja-pesquisa {
+          padding: 8px 32px 8px 12px;
+        }
+
+        .tarja-pesquisa__headline {
+          font-size: 12px;
+          letter-spacing: 1px;
+        }
+
+        .tarja-pesquisa__sub {
+          font-size: 10px;
+        }
+
+        .tarja-pesquisa__timer {
+          font-size: 10px;
+        }
+
+        .tarja-pesquisa__sep {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tarja-pesquisa" id="tarjaPesquisa">
+      <div class="tarja-pesquisa__inner">
+        <div class="tarja-pesquisa__headline">20% OFF em Jalecos Brancos</div>
+
+        <span class="tarja-pesquisa__sep"></span>
+
+        <div class="tarja-pesquisa__sub">
+          Só até 28/02 <span class="sep">&bull;</span> Oferta válida a partir de
+          18/02
+        </div>
+
+        <span class="tarja-pesquisa__sep"></span>
+
+        <div class="tarja-pesquisa__timer">
+          <span class="tarja-pesquisa__timer-label">Termina em:</span>
+          <span class="tarja-pesquisa__timer-value" id="timerDisplay"
+            >--d --h --m</span
+          >
+        </div>
+      </div>
+
+      <button class="tarja-pesquisa__close" id="tarjaClose" aria-label="Fechar">
+        &times;
+      </button>
+    </div>
+
+    <script>
+      (function () {
+        // ── Data-alvo: 28 de fevereiro de 2026, 23:59:59 (horário de Brasília, UTC-3) ──
+        const TARGET = new Date("2026-02-28T23:59:59-03:00").getTime();
+
+        const display = document.getElementById("timerDisplay");
+
+        function pad(n) {
+          return String(n).padStart(2, "0");
+        }
+
+        function tick() {
+          const now = Date.now();
+          const diff = TARGET - now;
+
+          if (diff <= 0) {
+            display.textContent = "Encerrado";
+            return;
+          }
+
+          const days = Math.floor(diff / 86400000);
+          const hours = Math.floor((diff % 86400000) / 3600000);
+          const mins = Math.floor((diff % 3600000) / 60000);
+          const secs = Math.floor((diff % 60000) / 1000);
+
+          display.textContent =
+            pad(days) +
+            "d " +
+            pad(hours) +
+            "h " +
+            pad(mins) +
+            "m " +
+            pad(secs) +
+            "s";
+        }
+
+        tick();
+        setInterval(tick, 1000);
+
+        // ── Fechar tarja ──
+        document
+          .getElementById("tarjaClose")
+          .addEventListener("click", function () {
+            const tarja = document.getElementById("tarjaPesquisa");
+            tarja.style.transition = "opacity 0.25s ease, max-height 0.3s ease";
+            tarja.style.opacity = "0";
+            tarja.style.maxHeight = "0";
+            tarja.style.overflow = "hidden";
+            tarja.style.padding = "0";
+            setTimeout(function () {
+              tarja.style.display = "none";
+            }, 300);
+          });
+      })();
+    </script>
+  </body>
+</html>

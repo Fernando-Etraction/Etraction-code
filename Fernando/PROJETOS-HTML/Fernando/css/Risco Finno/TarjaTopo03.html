@@ -1,0 +1,336 @@
+<section class="bx-promo">
+  <div class="bx-promo__header">
+    <div class="bx-promo__eyebrow">Semana Extraordin&aacute;ria</div>
+    <div class="bx-promo__title">SEMANA EXTRAORDIN&Aacute;RIA</div>
+    <div class="bx-promo__divider"></div>
+    <div class="bx-promo__subtitle">TRANSFORME SUA IMAGEM PROFISSIONAL COM AT&Eacute; <span class="bx-promo__accent">40%
+        OFF</span></div>
+    <div class="bx-promo__desc">V&aacute;lido at&eacute; <strong>15 de mar&ccedil;o</strong>. Aproveite as
+      condi&ccedil;&otilde;es especiais por tempo limitado.</div>
+  </div>
+  <div class="bx-promo__timer">
+    <div class="bx-timer__label">V&aacute;lido at&eacute; 15 de mar&ccedil;o</div>
+    <div id="bx-countdown" class="bx-countdown">
+      <div class="bx-time__block"><span id="bx-days" class="bx-time__value">00</span> <span
+          class="bx-time__unit">Dias</span></div>
+      <span class="bx-time__sep">:</span>
+      <div class="bx-time__block"><span id="bx-hours" class="bx-time__value">00</span> <span
+          class="bx-time__unit">Hrs</span></div>
+      <span class="bx-time__sep">:</span>
+      <div class="bx-time__block"><span id="bx-minutes" class="bx-time__value">00</span> <span
+          class="bx-time__unit">Min</span></div>
+      <span class="bx-time__sep">:</span>
+      <div class="bx-time__block"><span id="bx-seconds" class="bx-time__value">00</span> <span
+          class="bx-time__unit">Seg</span></div>
+    </div>
+  </div>
+</section>
+<style>
+  <!--
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+
+  .bx-promo {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    animation: bx-fadeUp 0.7s ease-out;
+  }
+
+  .bx-promo__header {
+    background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 40%, #111 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px 32px;
+    position: relative;
+  }
+
+  .bx-promo__header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(200, 175, 140, 0.3),
+        transparent);
+  }
+
+  .bx-promo__header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(200, 175, 140, 0.12),
+        transparent);
+  }
+
+  .bx-promo__eyebrow {
+    font-family: "Inter", sans-serif;
+    font-size: 0.65rem !important;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(212, 185, 144, 0.6);
+    margin-bottom: 14px !important;
+  }
+
+  .bx-promo__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2rem !important;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #f5f0ea;
+    line-height: 1.1;
+  }
+
+  .bx-promo__divider {
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4b990, transparent);
+    margin: 14px auto;
+  }
+
+  .bx-promo__subtitle {
+    font-family: "Inter", sans-serif;
+    font-size: 1.1rem !important;
+    font-weight: 300;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: rgba(245, 240, 234, 0.7);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    max-width: 860px;
+    line-height: 1.5;
+  }
+
+  .bx-promo__accent {
+    color: #d4b990;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .bx-promo__desc {
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem !important;
+    color: rgba(245, 240, 234, 0.55);
+    margin: 0 auto !important;
+    max-width: 500px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+  }
+
+  .bx-promo__timer {
+    /* background: #fafaf8; */
+    color: #1a1a1a;
+    padding: 7px 16px 0px;
+    min-height: 60px;
+  }
+
+  .bx-timer__label {
+    font-family: "Inter", sans-serif;
+    font-size: 0.65rem !important;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: #999;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .bx-countdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .bx-time__block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 54px;
+  }
+
+  .bx-time__value {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2.6rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #1a1a1a;
+    letter-spacing: 2px;
+  }
+
+  .bx-time__unit {
+    font-family: "Inter", sans-serif;
+    font-size: 0.55rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #bbb;
+    margin-top: 4px;
+  }
+
+  .bx-time__sep {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #ccc;
+    margin-top: -12px;
+  }
+
+  @keyframes bx-fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 479px) {
+    .bx-promo__header {
+      min-height: 220px;
+      padding: 28px 18px 26px;
+    }
+
+    .bx-promo__title {
+      font-size: 1.6rem !important;
+      letter-spacing: 4px;
+    }
+
+    .bx-promo__subtitle {
+      font-size: 0.92rem !important;
+      letter-spacing: 1px;
+    }
+
+    .bx-promo__desc {
+      font-size: 0.72rem !important;
+    }
+
+    .bx-time__value {
+      font-size: 2rem;
+    }
+
+    .bx-time__block {
+      min-width: 44px;
+    }
+
+    .bx-time__sep {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (min-width: 480px) {
+    .bx-promo__title {
+      font-size: 2.2rem !important;
+    }
+
+    .bx-promo__subtitle {
+      font-size: 1.2rem !important;
+    }
+
+    .bx-time__value {
+      font-size: 3rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .bx-promo__header {
+      min-height: 140px;
+      padding: 44px 24px 38px;
+    }
+
+    .bx-promo__title {
+      font-size: 2.8rem !important;
+      letter-spacing: 8px;
+    }
+
+    .bx-promo__subtitle {
+      font-size: 1.3rem !important;
+      letter-spacing: 3px;
+    }
+
+    .bx-promo__timer {
+      padding: 28px 20px 32px;
+    }
+
+    .bx-time__value {
+      font-size: 3.4rem;
+    }
+
+    .bx-time__block {
+      min-width: 70px;
+    }
+  }
+  -->
+</style>
+<script>// <![CDATA[
+  (function () {
+    const now = new Date();
+    const endDate = new Date(now.getFullYear(), 2, 15, 23, 59, 59).getTime(); // Março = 2
+
+    const elDays = document.getElementById("bx-days");
+    const elHours = document.getElementById("bx-hours");
+    const elMinutes = document.getElementById("bx-minutes");
+    const elSeconds = document.getElementById("bx-seconds");
+    const elCountdown = document.getElementById("bx-countdown");
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function tick() {
+      let diff = endDate - Date.now();
+
+      if (diff <= 0) {
+        elDays.textContent = "00";
+        elHours.textContent = "00";
+        elMinutes.textContent = "00";
+        elSeconds.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff -= minutes * (1000 * 60);
+
+      const seconds = Math.floor(diff / 1000);
+
+      elDays.textContent = pad(days);
+      elHours.textContent = pad(hours);
+      elMinutes.textContent = pad(minutes);
+      elSeconds.textContent = pad(seconds);
+
+      if (elCountdown) {
+        elCountdown.setAttribute(
+          "aria-label",
+          `Faltam ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos.`
+        );
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  })();
+// ]]></script>

@@ -1,0 +1,179 @@
+<section class="promo-tarja promo-consumidor25" aria-label="Campanha Desconto 25%">
+  <div class="promo-header">
+    <div class="promo-header-container">
+      <div class="promo-kicker">GANHE 25% DE DESCONTO</div>
+      <h2>APROVEITE AGORA</h2>
+
+      <p class="promo-sub">
+        Utilize o cupom <strong>CONSUMIDOR25</strong> e ganhe <strong>25% de desconto</strong>.
+        <span class="promo-validade">*Cupom não válido para a categoria <strong>Liquida</strong>.</span>
+      </p>
+
+      <!-- Cupom copiável -->
+       <div class="container-promo-cupom">
+
+           <button
+           type="button"
+           class="promo-cupom"
+           id="promo-cupom-btn"
+           aria-label="Copiar cupom CONSUMIDOR25"
+           >
+           <span class="promo-cupom__label">CUPOM</span>
+           <span class="promo-cupom__code" id="promo-cupom-code">CONSUMIDOR25</span>
+        </button>
+        <span class="promo-cupom__hint" id="promo-cupom-hint">Clique para copiar</span>
+    </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo-tarja{
+    font-family: "Poppins", Arial, sans-serif;
+    text-align:center;
+    color:#fff;
+    overflow:hidden;
+  }
+  .title-pesquisa{ display:none; }
+
+  .promo-header{
+    background:#000;
+    padding:24px 16px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+  }
+
+  .promo-header-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    max-width:860px;
+  }
+
+  .promo-kicker{
+    color:#fff;
+    font-size:1.8rem !important;
+    font-weight:900;
+    margin:0;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
+
+  .promo-tarja h2{
+    font-size:1.4rem !important;
+    font-weight:900;
+    margin:0;
+    color:#fff;
+    text-transform:uppercase;
+  }
+
+  .promo-sub{
+    font-size:1rem !important;
+    color:#f1f1f1;
+    margin:2px auto 0;
+    max-width:92%;
+    line-height:1.45;
+  }
+
+  .promo-validade{
+    display:block;
+    margin-top:8px;
+    opacity:.95;
+    font-size:.95rem;
+  }
+
+  /* Cupom copiável */
+  .promo-cupom{
+    margin:10px auto 0;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border:1px dashed rgba(255,255,255,.55);
+    border-radius:10px;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    cursor:pointer;
+    user-select:none;
+    transition:transform .15s ease, background .15s ease;
+  }
+
+  .container-promo-cupom{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .promo-cupom:hover{ transform:translateY(-1px); background:rgba(255,255,255,.10); }
+  .promo-cupom:active{ transform:translateY(0); }
+  .promo-cupom:focus-visible{ outline:2px solid rgba(255,255,255,.65); outline-offset:2px; }
+
+  .promo-cupom__label{
+    font-size:.8rem;
+    letter-spacing:.12em;
+    font-weight:900;
+    opacity:.9;
+  }
+  .promo-cupom__code{
+    font-size:1.1rem;
+    font-weight:900;
+    letter-spacing:.14em;
+  }
+  .promo-cupom__hint{
+    font-size:12px;
+    font-weight:800;
+    opacity:.9;
+  }
+
+  @media (min-width:480px){
+    .promo-kicker{ font-size:2rem !important; }
+    .promo-tarja h2{ font-size:1.6rem !important; }
+  }
+
+  @media (min-width:768px){
+    .promo-header{ padding:40px 20px; }
+    .promo-kicker{ font-size:2.4rem !important; }
+    .promo-tarja h2{ font-size:2rem !important; }
+    .promo-sub{ font-size:1.05rem !important; max-width:780px; }
+  }
+</style>
+
+<script>
+  // Copiar cupom ao clicar
+  (function(){
+    const btn = document.getElementById("promo-cupom-btn");
+    const codeEl = document.getElementById("promo-cupom-code");
+    const hintEl = document.getElementById("promo-cupom-hint");
+    if (!btn || !codeEl) return;
+
+    const code = (codeEl.textContent || "").trim();
+
+    async function copyText(text){
+      try { await navigator.clipboard.writeText(text); return true; }
+      catch(e){
+        try{
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.setAttribute("readonly","");
+          ta.style.position="fixed";
+          ta.style.top="-9999px";
+          ta.style.left="-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          const ok = document.execCommand("copy");
+          document.body.removeChild(ta);
+          return ok;
+        } catch(err){ return false; }
+      }
+    }
+
+    btn.addEventListener("click", async () => {
+      const ok = await copyText(code);
+      if (hintEl){
+        hintEl.textContent = ok ? "Copiado!" : "Não foi possível copiar";
+        setTimeout(() => hintEl.textContent = "Clique para copiar", 1600);
+      }
+    });
+  })();
+</script>

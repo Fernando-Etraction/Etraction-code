@@ -1,0 +1,172 @@
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        .content-cupom {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin:  auto;
+            max-width: 530px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .step {
+            height: 85px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            background: #D9D9D9; 
+            color: black;
+            padding: 18px 34px 18px 48px; 
+            text-transform: uppercase;
+            flex: 1;
+            clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+            position: relative;
+        }
+
+        .step:first-child {
+            clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 0% 50%, 0% 0%);
+            padding-left: 20px;    background: linear-gradient(135deg, #6F9B89 0%, #3A6453 45%, #1F3D32 100%);
+
+            color: white;
+        }
+         .step:nth-child(2){  background: linear-gradient(135deg, #5E8B78 0%, #2E5647 45%, #183228 100%);
+
+            color: white;
+         }
+
+        .step:last-child {
+            clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
+            /* background:#054774; */  background: linear-gradient(135deg, #4F7C69 0%, #2F5B4B 50%, #13281F 100%);
+
+            color: white;
+        }
+
+        .step + .step {
+            margin-left: -16px;
+        }
+
+        .step:nth-child(1){ z-index:3 }
+        .step:nth-child(2){ z-index:2 }
+        .step:nth-child(3){ z-index:1 }
+
+        .step span {
+            font-size: 10px;
+            display: block;
+            width: 120%;
+        }
+
+        .step p {
+            margin: 5px 0;
+            font-size: 19px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .step.active {
+            background: #D9D9D9;
+        }
+        .content-title{
+            color: #ffffff;
+        }
+        .content-title-last{
+            color: #fff;
+        }
+        .title-content{
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            margin: auto;
+            max-width: 530px;
+            margin: 0 auto;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        @media (max-width: 600px) {
+            .frete-progressivo{
+            margin-top: 0px !important;
+        }
+            .step {
+            height: 95px;
+            }
+            .title-content{
+                font-size: 12px;
+            }
+            .content-cupom {
+                font-size: 10px;
+            }
+            .step p{
+                font-size: 14px;
+                width: 83%;
+            }
+            .step:nth-child(2){
+            clip-path: polygon(89% -5%, 100% 50%, 88% 101%, 0% 100%, 9% 51%, 0% 0%);
+            color: white;
+         }
+         .step:first-child{
+            padding-left: 0;
+         }
+            .step {
+                width: 100%;
+                clip-path: none;
+                padding: 12px 0;
+            }
+            .step + .step {
+                margin-left: -6px;
+            }
+            .frete-progressivo{
+                max-width: 100%;
+    margin: 0 auto !important;
+            }
+            .step span{
+                font-size: 10px;
+                width: 80%;
+            }
+            .step:last-child {
+            clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
+            /* background:#054774; */
+            color: white;
+        }
+        }
+        .frete-progressivo{
+           float: left;
+        }
+        .minibanner{
+           float: left;
+        }
+    </style>
+
+
+<script>
+    $(document).ready(function() {
+    const html = `<div class="frete-progressivo">
+<h3 class="title-content">regras de frete</h3>
+    <div class="content-cupom">
+        <div class="step">
+            <span>Móveis com até</span>
+            <p class="content-title">50% OFF</p>
+            {# <span>no frete</span> #}
+        </div>
+
+        <div class="step">
+            <span> acima de R$1.500 Sul e SP*</span>
+            <p class="content-title">Frete Fixo R$79,97  </p>
+            {# <span>Sul e SP*</span> #}
+        </div>
+
+        <div class="step">
+            <span></span>
+            <p class="content-title-last"> Até R$ 150 em cupons</p>
+            {# <span></span> #}
+        </div>
+    </div>
+</div>`;
+    $(html).insertAfter('#container-swiper > div > div.relative.flex.items-center.justify-center.px-space-8.group.gallery-main.swiper-container.w-\[calc\(100\%-106px\)\] > div.swiper.swiper-initialized.swiper-horizontal.h-full.select-none.\!overflow-hidden.w-full.swiper-backface-hidden > div.swiper-wrapper > div.swiper-slide.\!flex.h-auto.items-center.\!justify-center.overflow-hidden.swiper-slide-active > span > img');
+    });
+
+</script>

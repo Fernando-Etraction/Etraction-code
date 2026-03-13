@@ -1,0 +1,268 @@
+<style>
+:root{
+  --cupom-text: var(--color-primary, var(--primary-color, #111111));
+  --cupom-muted: var(--color-text, var(--text-color, rgba(17,17,17,.72)));
+  --cupom-bg: var(--color-bg, var(--background, #ffffff));
+  --cupom-border: rgba(17,17,17,.14);
+  --cupom-soft: rgba(17,17,17,.04);
+  --cupom-radius: 12px;
+}
+
+.cupom-lateral{
+  width: 100%;
+  max-width: 420px;
+  margin: 14px 0;
+  padding: 14px 14px;
+  background: var(--cupom-bg);
+  border: 1px solid var(--cupom-border);
+  border-radius: var(--cupom-radius);
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+
+  box-shadow: none;
+}
+
+.cupom-lateral .texto{ min-width: 0; }
+
+.cupom-lateral .kicker{
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--cupom-muted);
+  margin: 0 0 6px 0;
+  line-height: 1.1;
+}
+
+.cupom-lateral .titulo{
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--cupom-text);
+  word-break: break-word;
+}
+
+.cupom-lateral .sub{
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.25;
+  color: var(--cupom-muted);
+}
+.cupom-lateral .sub strong{
+  color: var(--cupom-text);
+  font-weight: 800;
+}
+
+.cupom-lateral .codigo-area{
+  appearance: none;
+  background: transparent;
+  border: 1px dashed #AF7746;
+  border-radius: 10px;
+  padding: 10px 14px;
+  min-width: 120px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background .18s ease, border-color .18s ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.cupom-lateral .codigo-area:hover{
+  background: var(--cupom-soft);
+  border-color: #AF7746;
+}
+
+.cupom-lateral .codigo-area:focus-visible{
+  outline: 2px solid rgba(17,17,17,.35);
+  outline-offset: 2px;
+}
+
+.cupom-lateral .codigo{
+  display: block;
+  font-weight: 800;
+  letter-spacing: .10em;
+  font-size: 14px;
+  color: var(--cupom-text);
+}
+
+.cupom-lateral .copiado{
+  position: absolute;
+  top: 8px;
+  right: 10px;
+
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+
+  background: rgba(17,17,17,.06);
+  border: 1px solid rgba(17,17,17,.16);
+  color: var(--cupom-text);
+
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .16s ease, transform .16s ease;
+  pointer-events: none;
+}
+
+.cupom-lateral.is-copied .copiado{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 480px){
+  .cupom-lateral{
+    grid-template-columns: 1fr;
+    gap: 10px;
+    max-width: 100%;
+    margin: 12px 0;
+  }
+  .cupom-lateral .codigo-area{
+    width: 100%;
+    min-width: 0;
+  }
+}
+</style>
+
+<script>
+  $(function () {
+    var cupomCode = "FEMME5";
+    var CUPOM_PERCENT = 5;
+
+    $(`
+      <div id="cupom-container" class="cupom-lateral" role="note" aria-label="Cupom de desconto">
+        <div class="texto">
+          <div class="kicker">Você ganhou um cupom!</div>
+          <p class="titulo">5%OFF em sua compra.</p>
+          <div class="sub">Até <strong id="cupom-economia">R$ —</strong> nesse produto usando o cupom </div>
+        </div>
+
+        <button type="button" id="codigo-click" class="codigo-area" aria-label="Copiar cupom FEMME5">
+          <span class="codigo">${cupomCode}</span>
+          <span class="copiado" id="copiado-msg">✔ Copiado!</span>
+        </button>
+      </div>
+    `).insertBefore(".calculo-frete");
+
+    // =========================
+    // ✅ PREÇO / ECONOMIA (novo seletor)
+    // =========================
+    function getPixEl() {
+      return (
+        document.querySelector(".price.pix .price-big") ||
+        document.querySelector(".price.pix span.price-big") ||
+        document.querySelector(".price-big")
+      );
+    }
+
+    function parseBRL(text) {
+      var raw = (text || "").trim();
+      var n = Number(
+        raw.replace(/\s/g, "")
+           .replace("R$", "")
+           .replace(/\./g, "")
+           .replace(",", ".")
+      );
+      return isFinite(n) ? n : NaN;
+    }
+
+    function formatBRL(n) {
+      return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function calcEconomia() {
+      var el = getPixEl();
+      if (!el) return null;
+
+      var price = parseBRL(el.textContent || "");
+      if (!isFinite(price) || price <= 0) return null;
+
+      var economia = price * (CUPOM_PERCENT / 100);
+      return { price: price, economia: economia, economiaFmt: formatBRL(economia) };
+    }
+
+    var __t = null;
+    function updateEconomia() {
+      var out = document.getElementById("cupom-economia");
+      if (!out) return;
+
+      var r = calcEconomia();
+      var text = r ? r.economiaFmt : "R$ —";
+
+      if (out.textContent !== text) out.textContent = text;
+    }
+
+    function scheduleUpdate() {
+      clearTimeout(__t);
+      __t = setTimeout(updateEconomia, 120);
+    }
+
+    function initObserver() {
+      var root =
+        document.querySelector(".values-area") ||
+        document.querySelector(".price.pix") ||
+        document.querySelector(".values") ||
+        document.body;
+
+      try {
+        var obs = new MutationObserver(function(){ scheduleUpdate(); });
+        obs.observe(root, { childList: true, subtree: true, characterData: true });
+
+        scheduleUpdate();
+        setTimeout(function(){ obs.disconnect(); }, 30000);
+      } catch (e) {
+        scheduleUpdate();
+        setTimeout(scheduleUpdate, 600);
+        setTimeout(scheduleUpdate, 1400);
+      }
+    }
+
+    setTimeout(function(){
+      updateEconomia();
+      initObserver();
+    }, 150);
+
+    // =========================
+    // COPIAR CUPOM
+    // =========================
+    function setCopiedState() {
+      var $card = $("#cupom-container");
+      $card.addClass("is-copied");
+      clearTimeout(window.__cupomCopiedTimer);
+      window.__cupomCopiedTimer = setTimeout(function(){
+        $card.removeClass("is-copied");
+      }, 1400);
+    }
+
+    function fallbackCopy(text) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(text).select();
+      try {
+        document.execCommand("copy");
+        setCopiedState();
+      } catch (e) {
+        console.log("Falha ao copiar (fallback):", e);
+      }
+      $temp.remove();
+    }
+
+    $("#codigo-click").on("click", function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cupomCode).then(setCopiedState).catch(function(err){
+          console.log("Erro ao copiar (clipboard API):", err);
+          fallbackCopy(cupomCode);
+        });
+      } else {
+        fallbackCopy(cupomCode);
+      }
+    });
+  });
+</script>

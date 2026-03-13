@@ -1,0 +1,290 @@
+<style>
+/* =========================
+   HEADER BASE
+========================= */
+header#header-react-app {
+  position: relative !important;
+  width: 100%;
+}
+
+header#header-react-app::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px) !important;
+  z-index: -1;
+  transition: background 200ms;
+}
+
+ul#nav-root > li > a > span {
+  color: black !important;
+}
+
+@media (min-width: 1024px) {
+  ul#nav-root > li > a {
+    color: #000 !important;
+  }
+
+  .acoes-header * svg path {
+    fill: #000 !important;
+  }
+
+  .logo a img {
+    width: 80% !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .menu-button svg path,
+  #cart-preview-area > a svg path {
+    fill: #000;
+  }
+
+  .header-search-full,
+  .search-area,
+  .header-middle {
+    background: none;
+  }
+
+  input[type="search"] {
+    background: none;
+    color: #000;
+  }
+
+  input[type="search"]::placeholder {
+    color: #000;
+  }
+
+  .header-middle svg path {
+    fill: #fff;
+  }
+}
+
+.container-row.componente-id-7VryTuOLHv.container-row-type-1.e.espacamento > div > div {
+  justify-content: space-evenly;
+}
+
+.banners-categorias img {
+  width: 90px;
+  height: 90px;
+  transition: background-color 0.3s;
+}
+
+/* =========================
+   GARANTE QUE NADA CORTE O SUBMENU
+   sem mexer no info-menu
+========================= */
+#header-react-app .header-top,
+#header-react-app .container,
+#header-react-app #nav-root,
+#header-react-app #nav-root > li {
+  overflow: visible !important;
+}
+
+/* =========================
+   ITENS COM SUBMENU
+========================= */
+#nav-root > li.has-childs.menu-list-19,
+#nav-root > li.has-childs.menu-list-21,
+#nav-root > li.has-childs.menu-list-22 {
+  position: relative !important;
+}
+
+/* =========================
+   SUBMENUS BASE
+========================= */
+#nav-root > li.has-childs.menu-list-19 > .container-menu,
+#nav-root > li.has-childs.menu-list-21 > .container-menu,
+#nav-root > li.has-childs.menu-list-22 > .container-menu {
+  position: fixed !important;
+  top: 90px !important;
+  left: 0 !important;
+  right: auto !important;
+  width: 100vw !important;
+  min-width: 100vw !important;
+  max-width: 100vw !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+
+  transform: none !important;
+  translate: none !important;
+  transition: opacity .25s ease, visibility 0s linear .6s !important;
+  z-index: 9999 !important;
+
+  padding: 30px 40px !important;
+  background: white !important;
+}
+
+/* =========================
+   MOSTRA NO HOVER
+========================= */
+#nav-root > li.has-childs.menu-list-19:hover > .container-menu,
+#nav-root > li.has-childs.menu-list-21:hover > .container-menu,
+#nav-root > li.has-childs.menu-list-22:hover > .container-menu,
+#nav-root > li.has-childs.menu-list-19 > .container-menu:hover,
+#nav-root > li.has-childs.menu-list-21 > .container-menu:hover,
+#nav-root > li.has-childs.menu-list-22 > .container-menu:hover {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transition: opacity .25s ease, visibility 0s linear 0s !important;
+}
+
+/* =========================
+   UL INTERNO
+========================= */
+#nav-root > li.has-childs.menu-list-19 > .container-menu > ul,
+#nav-root > li.has-childs.menu-list-21 > .container-menu > ul,
+#nav-root > li.has-childs.menu-list-22 > .container-menu > ul {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+  max-width: 1700px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+
+/* =========================
+   ITENS
+========================= */
+#nav-root > li.has-childs.menu-list-19 > .container-menu > ul > li,
+#nav-root > li.has-childs.menu-list-21 > .container-menu > ul > li,
+#nav-root > li.has-childs.menu-list-22 > .container-menu > ul > li {
+  width: fit-content !important;
+  float: none !important;
+  margin: 0 !important;
+  list-style: none !important;
+  pointer-events: auto !important;
+}
+
+/* =========================
+   LINKS INTERNOS
+========================= */
+#nav-root > li.has-childs.menu-list-19 > .container-menu a,
+#nav-root > li.has-childs.menu-list-21 > .container-menu a,
+#nav-root > li.has-childs.menu-list-22 > .container-menu a {
+  display: inline-block !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+  text-decoration: none !important;
+}
+
+/* =========================
+   BRIDGE INVISÍVEL
+========================= */
+#nav-root > li.has-childs.menu-list-19::after,
+#nav-root > li.has-childs.menu-list-21::after,
+#nav-root > li.has-childs.menu-list-22::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: -20px !important;
+  right: -20px !important;
+  height: 30px !important;
+  background: transparent !important;
+  z-index: 9998 !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 500px) {
+  #header-react-app > div.relative.z-40.flex.w-full.flex-col.shadow-default > div > div.flex.fixed.z-\[20\].transition-transform.duration-500.top-0.menu-mobile-ctn.bg-primary-color.left-0.translate-x-\[0\].menu-open.left-open {
+    width: 100%;
+    height: calc(-51px + 100dvh);
+    overflow: hidden;
+    background: rgb(255, 255, 255);
+    transition-duration: .5s;
+    z-index: 999;
+  }
+
+  #header-react-app > div.relative.z-40.flex.w-full.flex-col.shadow-default > div > div.flex.fixed.z-\[20\].transition-transform.duration-500.top-0.menu-mobile-ctn.bg-primary-color.left-0.translate-x-\[0\].menu-open.left-open > div.z-\[10\].flex.h-screen.w-\[270px\].flex-col.overflow-hidden.bg-primary-color.shadow-overlay {
+    width: 100%;
+  }
+}
+
+/* =========================
+   BOTÃO FECHAR MENU
+========================= */
+.info-user {
+  position: relative !important;
+}
+
+#custom-mobile-close-btn {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 999999 !important;
+  width: 34px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #fff !important;
+  font-size: 28px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+</style>
+
+<script>
+(function () {
+  const HEADER_SELECTOR = "#header-react-app";
+  const SCROLL_CLASS = "submenu-scroll-lock";
+  let scrollTimer;
+
+  function injectStyle() {
+    if (document.getElementById("submenu-scroll-lock-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "submenu-scroll-lock-style";
+    style.textContent = `
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-19.has-childs > .container-menu,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-21.has-childs > .container-menu,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-22.has-childs > .container-menu{
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-19.has-childs::after,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-21.has-childs::after,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-22.has-childs::after{
+        pointer-events: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function lockMenus() {
+    const header = document.querySelector(HEADER_SELECTOR);
+    if (!header) return;
+    header.classList.add(SCROLL_CLASS);
+  }
+
+  function unlockMenus() {
+    const header = document.querySelector(HEADER_SELECTOR);
+    if (!header) return;
+    header.classList.remove(SCROLL_CLASS);
+  }
+
+  function onScroll() {
+    lockMenus();
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(unlockMenus, 180);
+  }
+
+  injectStyle();
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
+</script>

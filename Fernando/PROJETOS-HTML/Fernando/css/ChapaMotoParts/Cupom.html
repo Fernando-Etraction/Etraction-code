@@ -1,0 +1,335 @@
+<style><!--
+/* ================================
+   CUPOM FRETE (minimalista / cores do tema) + TIMER (dias)
+   ================================ */
+
+.toque-copiar{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: 8px 0;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toque-copiar span{
+  font-size: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+:root{
+  --cupom-text: var(--color-primary, var(--primary-color, #111111));
+  --cupom-muted: var(--color-text, var(--text-color, rgba(17,17,17,.72)));
+  --cupom-bg: var(--color-bg, var(--background, #ffffff));
+  --cupom-border: rgba(17,17,17,.14);
+  --cupom-soft: rgba(17,17,17,.04);
+  --cupom-radius: 12px;
+}
+
+.cupom-lateral{
+  width: 100%;
+  max-width: 420px;
+  margin: 14px auto;
+  padding: 16px;
+  background: var(--cupom-bg);
+  border: 1px solid var(--cupom-border);
+  border-radius: var(--cupom-radius);
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.cupom-lateral .texto{ 
+  min-width: 0; 
+  display: flex; 
+  gap: 8px;
+  flex-direction: column;
+}
+
+.cupom-lateral .kicker{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--cupom-muted);
+  margin: 0 0 8px 0;
+  line-height: 1.1;
+}
+
+.cupom-lateral .titulo{
+  margin: 0 0 8px 0;
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--cupom-text);
+  word-break: break-word;
+  font-weight: 600;
+}
+
+.cupom-lateral .titulo strong{
+  color: #F1A63B;
+  font-weight: 700;
+}
+
+.cupom-lateral .sub{
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--cupom-muted);
+}
+
+.cupom-lateral .content-cupom{
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== TIMER (dias/horas/min/seg) ===== */
+.cupom-lateral .timer{
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cupom-lateral .timer .timer-label{
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--cupom-muted);
+}
+
+.cupom-lateral .timer .timer-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(254, 199, 47, .12);
+  border: 1px solid rgba(254, 199, 47, .50);
+  color: var(--cupom-text);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+
+.cupom-lateral .timer .timer-pill b{ 
+  font-weight: 900;
+  color: #FEC72F;
+}
+
+.cupom-lateral.is-expired .timer .timer-pill{
+  background: rgba(17,17,17,.06);
+  border-color: rgba(17,17,17,.16);
+  opacity: .7;
+}
+
+.cupom-lateral .codigo-area{
+  appearance: none;
+  background: linear-gradient(135deg, #fec72f11 0%, #fec72f18 100%);
+  border: 2px dashed #FEC72F;
+  border-radius: 10px;
+  padding: 12px 16px;
+  min-width: 140px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s ease;
+  position: relative;
+  overflow: hidden;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cupom-lateral .codigo-area:hover{
+  background: linear-gradient(135deg, #fec72f18 0%, #fec72f25 100%);
+  border-color: #FDB400;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(254, 199, 47, .15);
+}
+
+.cupom-lateral .codigo-area:active{
+  transform: translateY(0);
+}
+
+.cupom-lateral .codigo-area:focus-visible{
+  outline: 2px solid #FEC72F;
+  outline-offset: 2px;
+}
+
+.cupom-lateral .codigo{
+  display: block;
+  font-weight: 800;
+  letter-spacing: .12em;
+  font-size: 15px;
+  color: var(--cupom-text);
+}
+
+.cupom-lateral .copiado{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(-6px);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: #4CAF50;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity .2s ease, transform .2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.cupom-lateral.is-copied .copiado{
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
+}
+
+/* expirado */
+.cupom-lateral.is-expired .codigo-area{
+  cursor: not-allowed;
+  opacity: .5;
+  filter: grayscale(.3);
+}
+
+.cupom-lateral.is-expired .codigo-area:hover{
+  transform: none;
+  box-shadow: none;
+}
+
+/* mobile */
+@media (max-width: 480px){
+  .cupom-lateral{
+    max-width: 100%;
+    margin: 12px 0;
+    padding: 14px;
+  }
+  
+  .cupom-lateral .titulo{
+    font-size: 16px;
+  }
+  
+  .cupom-lateral .codigo-area{
+    width: 100%;
+    min-width: 0;
+  }
+}
+--></style>
+
+<script>// <![CDATA[
+  $(function () {
+    var cupomCode = "FRETECHAPA";
+
+    // ======================
+    // TIMER: escolha a data final aqui
+    // ======================
+    var endDateISO = "2026-02-28T23:59:59-03:00";
+
+    
+    // ✅ Cupom de Frete - Posicionado acima do botão de adicionar ao carrinho
+    $(`<div id="cupom-container" class="cupom-lateral" role="note" aria-label="Cupom de frete com desconto">
+          <div class="kicker">SEU FRETE MAIS BARATO!</div>
+
+          <p class="titulo">Ganhe <strong>R$20 de desconto</strong> no seu frete</p>
+          
+          <div class="texto">
+            <div class="content-cupom">
+              <div class="sub">Válido para pedidos acima de R$200</div>
+              
+
+            </div>
+
+            <div class="toque-copiar" aria-live="polite">
+              <button type="button" id="codigo-click" class="codigo-area" aria-label="Copiar cupom FRETECHAPA">
+                <span class="codigo">FRETECHAPA</span>
+                <span class="copiado" id="copiado-msg">✔ Copiado!</span>
+              </button>
+              <span>Toque no código para copiar</span>
+            </div>
+          </div>
+      </div>
+    `).insertBefore(".area-buy-product");
+
+    // ===== TIMER (dias/horas/min/seg) =====
+    var endAt = Date.parse(endDateISO); // ms
+    if (isNaN(endAt)) {
+      console.warn("Data final inválida no timer. Verifique endDateISO:", endDateISO);
+      $("#cupom-timer").text("Data inválida");
+      return;
+    }
+
+    function pad2(n){ return String(n).padStart(2, "0"); }
+
+    function setExpiredUI(){
+      var $card = $("#cupom-container");
+      $card.addClass("is-expired");
+      $("#cupom-timer").html("<b>00</b>d 00:00:00");
+      $("#codigo-click").attr("aria-disabled","true").prop("disabled", true);
+      $card.find(".kicker").text("CUPOM ENCERRADO");
+    }
+
+    function tick(){
+      var now = Date.now();
+      var left = endAt - now;
+
+      if (left <= 0){
+        clearInterval(window.__cupomTimerInterval);
+        setExpiredUI();
+        return;
+      }
+
+      var totalSeconds = Math.floor(left / 1000);
+      var days  = Math.floor(totalSeconds / 86400);
+      var rem   = totalSeconds % 86400;
+      var hours = Math.floor(rem / 3600);
+      rem = rem % 3600;
+      var mins  = Math.floor(rem / 60);
+      var secs  = rem % 60;
+
+      $("#cupom-timer").html("<b>" + pad2(days) + "</b>d " + pad2(hours) + ":" + pad2(mins) + ":" + pad2(secs));
+    }
+
+    tick();
+    window.__cupomTimerInterval = setInterval(tick, 250);
+
+    // ===== COPIAR =====
+    function setCopiedState() {
+      var $card = $("#cupom-container");
+      $card.addClass("is-copied");
+      clearTimeout(window.__cupomCopiedTimer);
+      window.__cupomCopiedTimer = setTimeout(function(){
+        $card.removeClass("is-copied");
+      }, 1400);
+    }
+
+    function fallbackCopy(text) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val(text).select();
+      try {
+        document.execCommand("copy");
+        setCopiedState();
+      } catch (e) {
+        console.log("Falha ao copiar (fallback):", e);
+      }
+      $temp.remove();
+    }
+
+    $("#codigo-click").on("click", function () {
+      if ($("#cupom-container").hasClass("is-expired")) return;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(cupomCode).then(setCopiedState).catch(function(err){
+          console.log("Erro ao copiar (clipboard API):", err);
+          fallbackCopy(cupomCode);
+        });
+      } else {
+        fallbackCopy(cupomCode);
+      }
+    });
+  });
+// ]]></script>

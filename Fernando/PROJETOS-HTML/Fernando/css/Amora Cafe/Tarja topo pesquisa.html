@@ -1,0 +1,255 @@
+
+    <style>
+
+        /* Tarja Topo Principal */
+        .tarja-topo {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #ffffff;
+            padding: 32px 20px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #333333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+
+        /* Efeito de fundo sutil com linhas */
+        .tarja-topo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.015) 2px,
+                rgba(255, 255, 255, 0.015) 4px
+            );
+            pointer-events: none;
+        }
+
+        .tarja-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Seção Label Superior */
+        .tarja-left {
+            width: 100%;
+        }
+
+        .tarja-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #888888;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .tarja-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        /* Seção Center - Descritivo Principal */
+        .tarja-center {
+            width: 100%;
+            text-align: center;
+        }
+
+        .tarja-main-text {
+            font-size: 18px;
+            font-weight: 400;
+            color: #d0d0d0;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .tarja-highlight {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .tarja-subtext {
+            font-size: 12px;
+            color: #888888;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            line-height: 1.5;
+        }
+
+        /* Seção Right - Data limite */
+        .tarja-right {
+            display: none;
+        }
+
+        .tarja-validity {
+            font-size: 12px;
+            color: #b0b0b0;
+            margin-bottom: 6px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tarja-date {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* Separadores visuais */
+        .tarja-divider {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(180deg, transparent, #555555, transparent);
+            display: none;
+        }
+
+        /* Responsivo - Tablet */
+        @media (max-width: 1024px) {
+            .tarja-topo {
+                padding: 28px 16px;
+            }
+
+            .tarja-container {
+                gap: 12px;
+            }
+
+            .tarja-title {
+                font-size: 40px;
+                letter-spacing: 6px;
+            }
+
+            .tarja-label {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
+            .tarja-main-text {
+                font-size: 16px;
+            }
+
+            .tarja-highlight {
+                font-size: 18px;
+            }
+        }
+
+        /* Responsivo - Mobile Médio */
+        @media (max-width: 768px) {
+            .tarja-topo {
+                padding: 24px 14px;
+            }
+
+            .tarja-container {
+                gap: 10px;
+            }
+
+            .tarja-label {
+                font-size: 10px;
+                letter-spacing: 1.5px;
+                margin-bottom: 6px;
+            }
+
+            .tarja-title {
+                font-size: 32px;
+                letter-spacing: 4px;
+                margin-bottom: 12px;
+            }
+
+            .tarja-center {
+                text-align: center;
+            }
+
+            .tarja-main-text {
+                font-size: 14px;
+            }
+
+            .tarja-highlight {
+                font-size: 16px;
+            }
+
+            .tarja-subtext {
+                font-size: 11px;
+            }
+        }
+
+        /* Responsivo - Mobile Pequeno */
+        @media (max-width: 480px) {
+            .tarja-topo {
+                padding: 20px 12px;
+            }
+
+            .tarja-container {
+                gap: 8px;
+            }
+
+            .tarja-label {
+                font-size: 9px;
+                letter-spacing: 1px;
+                margin-bottom: 5px;
+            }
+
+            .tarja-title {
+                font-size: 24px;
+                letter-spacing: 3px;
+                margin-bottom: 10px;
+            }
+
+            .tarja-main-text {
+                font-size: 12px;
+            }
+
+            .tarja-highlight {
+                font-size: 14px;
+            }
+
+            .tarja-subtext {
+                font-size: 10px;
+            }
+        }
+    </style>
+
+<body>
+    <!-- Tarja Topo -->
+    <div class="tarja-topo">
+        <div class="tarja-container">
+            <!-- Seção Label e Título -->
+            <div class="tarja-left">
+                <span class="tarja-label">Edição Especial</span>
+                <p class="tarja-title">Edição Dia da Consumidora</p>
+            </div>
+
+            <!-- Seção Principal Centrada -->
+            <div class="tarja-center">
+                <div class="tarja-main-text">
+                    <span class="tarja-highlight">40% OFF</span> em Calças de Alfaiataria e T-shirts + Gift Especial
+                </div>
+                <span class="tarja-subtext">Não perca tempo! Estoque limitado. Compre agora e economize!</span>
+                <span class="tarja-subtext">Válido até 22 de Março</span>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
