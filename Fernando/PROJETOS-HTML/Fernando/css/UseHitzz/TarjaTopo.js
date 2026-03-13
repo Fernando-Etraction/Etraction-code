@@ -322,6 +322,11 @@
     update();
     setInterval(update, CONFIG.timerIntervalMs);
   }
+  function stopTimer() {
+    const el = document.getElementById(CONFIG.timerId);
+    if (!el || !el.dataset.running) return;
+    delete el.dataset.running;
+  }
 
   function bindScrollHide() {
     let ticking = false;
