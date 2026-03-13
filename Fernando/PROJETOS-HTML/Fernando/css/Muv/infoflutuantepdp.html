@@ -1,0 +1,245 @@
+<style>
+    /* Garante que o container da imagem permita elementos absolutos por cima */
+    .container-swiper .swiper-zoom-container {
+        position: relative;
+    }
+
+    /* Tooltip com efeito de vidro líquido */
+    .container-swiper .btn-tooltip {
+        position: absolute;
+        left: -20px;
+        top: 50%;
+        transform: translate(-100%, -50%) scale(0.8);
+        max-width: 250px;
+        min-width: 180px;
+        background: rgba(255, 255, 255, 0.6); /* Fundo branco semitransparente */
+        backdrop-filter: blur(20px); /* Efeito de desfoque */
+        -webkit-backdrop-filter: blur(20px); /* Para compatibilidade com o Safari */
+        color: #ffffff; /* Texto branco */
+        padding: 14px 20px;
+        border-radius: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        font-size: 13px;
+        line-height: 1.5;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 10;
+        pointer-events: none;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    /* Seta do tooltip */
+    .container-swiper .btn-tooltip::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 8px 0 8px 8px;
+        border-color: transparent transparent transparent rgba(255, 255, 255, 0.2); /* Ajuste da seta com o mesmo efeito */
+        filter: drop-shadow(2px 0 4px rgba(0, 0, 0, 0.1));
+    }
+
+    .container-swiper .btn-tooltip.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-100%, -50%) scale(1);
+    }
+
+    /* Grupo dos botões redondos à direita da imagem */
+    .container-swiper .gallery-info-icons {
+        position: absolute;
+        top: 20%;
+        right: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        z-index: 6;
+    }
+
+    .container-swiper .gallery-info-btn {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.5); /* Fundo branco semitransparente */
+        backdrop-filter: blur(10px); /* Efeito de desfoque */
+        -webkit-backdrop-filter: blur(10px); /* Para compatibilidade com o Safari */
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        overflow: visible;
+    }
+
+    /* Substitui o ícone SVG pela imagem */
+    .container-swiper .gallery-info-btn img {
+        width: 24px; /* Ajuste do tamanho da imagem */
+        height: 24px; /* Ajuste do tamanho da imagem */
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Sombra leve para contraste */
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        z-index: 1;
+    }
+
+    .container-swiper .gallery-info-btn:active {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ícone dentro do botão */
+    .container-swiper .gallery-info-btn img {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Texto do tooltip */
+    .container-swiper .btn-tooltip {
+        font-weight: 500;
+        color: #1a1a1a; /* Texto branco para contraste */
+    }
+
+    /* Animação de entrada dos botões */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container-swiper .gallery-info-btn {
+        animation: fadeInUp 0.9s ease backwards;
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+     /* Media query para dispositivos móveis */
+    @media (max-width: 767px) {
+        .container-swiper .gallery-info-btn {
+            width: 48px; /* Reduzindo o tamanho do botão */
+            height: 48px; /* Reduzindo o tamanho do botão */
+        }
+
+        .container-swiper .gallery-info-btn img {
+            width: 20px; /* Ajuste do ícone para telas menores */
+            height: 20px; /* Ajuste do ícone para telas menores */
+        }
+
+        .container-swiper .btn-tooltip {
+            max-width: 200px; /* Diminuindo o tamanho do tooltip */
+            font-size: 12px; /* Menor fonte para dispositivos móveis */
+            padding: 10px 14px; /* Menos padding */
+        }
+
+        .container-swiper .gallery-info-icons {
+            top:100px;
+            right: 10px; /* Ajustando a posição dos botões no mobile */
+            gap: 10px; /* Menor espaço entre os botões */
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Pega o container específico do produto único usando a classe 'container-swiper'
+        const zoomContainer = document.querySelector('#container-swiper ');
+
+        if (!zoomContainer) return;
+
+        // Garante que o container seja relative (caso o CSS ainda não tenha aplicado)
+        if (getComputedStyle(zoomContainer).position === 'static') {
+            zoomContainer.style.position = 'relative';
+        }
+
+        // Cria o grupo de botões (à direita do container da imagem)
+        const iconsWrapper = document.createElement('div');
+        iconsWrapper.className = 'gallery-info-icons';
+
+        // Criação de 3 botões com imagens e tooltips
+        iconsWrapper.innerHTML = `
+      <button type="button" class="gallery-info-btn" data-text="Tecnologia Blackout">
+        <img src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5109/hidden-5758686.png" alt="Ícone transparência">
+        <div class="btn-tooltip"></div>
+      </button>
+      <button type="button" class="gallery-info-btn" data-text="Proteção UV50+">
+        <img src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5108/suncare-17573875.png" alt="Icone proteção uv50+">
+        <div class="btn-tooltip"></div>
+      </button>
+      <button type="button" class="gallery-info-btn" data-text="Tecnologia Dry">
+        <img src="https://magazord-public.s3.amazonaws.com/muvfit/img/2025/12/banner/5107/weather-15960461.png" alt="Ícone Tecnologia Dry">
+        <div class="btn-tooltip"></div>
+      </button>
+    `;
+
+        // Injeta os elementos dentro do container da imagem
+        zoomContainer.appendChild(iconsWrapper);
+
+        // Variável para armazenar o timeout de auto-hide
+        let hideTimeout = null;
+
+        // Delegação de eventos: clique nos botões para mostrar tooltip
+        document.addEventListener('click', function (event) {
+            const btn = event.target.closest('.gallery-info-btn');
+            if (!btn) return;
+
+            // Pega o tooltip deste botão
+            const tooltip = btn.querySelector('.btn-tooltip');
+            const text = btn.getAttribute('data-text');
+
+            // Verifica se o tooltip está visível
+            if (tooltip.classList.contains('is-visible')) {
+                // Se estiver visível, fecha o tooltip
+                tooltip.classList.remove('is-visible');
+                tooltip.classList.add('is-hiding');
+                setTimeout(() => tooltip.classList.remove('is-hiding'), 400);
+            } else {
+                // Caso contrário, mostra o tooltip
+                // Esconde todos os outros tooltips primeiro
+                const allTooltips = zoomContainer.querySelectorAll('.btn-tooltip');
+                allTooltips.forEach(tip => {
+                    tip.classList.remove('is-visible');
+                    tip.classList.add('is-hiding');
+                    setTimeout(() => tip.classList.remove('is-hiding'), 400);
+                });
+
+                // Exibe o tooltip
+                if (text && tooltip) {
+                    tooltip.textContent = text;
+                    tooltip.classList.remove('is-hiding');
+                    tooltip.classList.add('is-visible');
+
+                    // Auto-hide após 5 segundos
+                    hideTimeout = setTimeout(() => {
+                        tooltip.classList.add('is-hiding');
+                        setTimeout(() => {
+                            tooltip.classList.remove('is-visible', 'is-hiding');
+                        }, 400);
+                    }, 5000);
+                }
+            }
+        });
+    });
+</script>
