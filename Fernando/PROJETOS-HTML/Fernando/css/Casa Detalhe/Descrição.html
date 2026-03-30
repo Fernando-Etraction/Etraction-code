@@ -1,836 +1,371 @@
+<style type="text/css">
+  body {
+    font-family: "Montserrat", sans-serif;
+  }
 
-<style>
-
-
-  .cd-secao-images {
+  .container-destaque {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
+  }
+
+  .destaque-descricao {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .destaque-descricao img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+
+  .content-card-descricao {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .card-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    padding: 25px;
+    text-align: center;
+    background: #fff;
+  }
+
+  .card-item img {
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  .card-txt {
+    font-size: 14px;
+    color: #222;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+
+  .container-descricao-geral {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
     padding: 20px;
   }
 
-  .cd-container-images {
+  .content-descricao-geral {
     display: flex;
+    flex-direction: column;
     gap: 20px;
   }
 
-  .cd-image-item img {
-    width: 300px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Estilos para seção de variações */
-  .cd-secao-variacoes {
+  .item-descricao {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
-    margin-top: 30px;
+    gap: 20px;
   }
 
-  .cd-secao-variacoes .cd-titulo {
-    font-size: 28px;
-    margin-bottom: 30px;
-    color: #333;
-    font-weight: bold;
+  .item-imagem-descricao img {
+    width: 400px;
+    max-width: 400px;
+    border-radius: 20px;
   }
 
-  .cd-container-variacoes {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    width: 100%;
-  }
-
-  .cd-variacao-item {
-    text-align: center;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .cd-variacao-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  .cd-variacao-imagem {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    cursor: pointer;
-  }
-
-  .cd-variacao-info {
-    padding: 15px;
-  }
-
-  .cd-variacao-nome {
+  .item-texto-descricao {
+    max-width: 500px;
     font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-  }
-
-  .cd-variacao-btn {
-    display: inline-block;
-    background-color: #b58d61;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-
-  .cd-variacao-btn:hover {
-    background-color: #9a7654;
-  }
-
-  @media (max-width: 768px) {
-    .cd-container-variacoes {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
-
-    .cd-variacao-imagem {
-      height: 200px;
-    }
-  }
-
-  /* Estilos para seção de categorias de produtos */
-  .cd-secao-categorias {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 20px;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-    margin-top: 40px;
-  }
-
-  .cd-secao-categorias .cd-titulo {
-    font-size: 32px;
-    margin-bottom: 40px;
-    color: #2c2c2c;
-    font-weight: bold;
+    color: #444;
+    margin-top: 10px;
     text-align: center;
   }
 
-  .cd-container-categorias {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1300px;
-    width: 100%;
-  }
-
-  .cd-categoria-card {
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .cd-categoria-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  }
-
-  .cd-categoria-imagem {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    position: relative;
-  }
-
-  .cd-categoria-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cd-categoria-card:hover .cd-categoria-overlay {
-    opacity: 1;
-  }
-
-  .cd-categoria-conteudo {
+  .caracteristicas-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
     padding: 20px;
-    text-align: center;
+    margin-top: 20px;
+    background: #f9f9f9;
   }
 
-  .cd-categoria-titulo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #2c2c2c;
-    margin-bottom: 10px;
-  }
-
-  .cd-categoria-descricao {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 15px;
-  }
-
-  .cd-categoria-btn {
-    display: inline-block;
-    background-color: #b58d61;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-
-  .cd-categoria-btn:hover {
-    background-color: #9a7654;
-  }
-
-  /* Estilos para seção descritiva */
-  .cd-secao-descritiva {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 60px 20px;
-    background-color: #faf8f6;
-    margin-top: 40px;
-  }
-
-  .cd-secao-descritiva .cd-titulo {
-    font-size: 36px;
-    margin-bottom: 30px;
-    color: #2c2c2c;
-    font-weight: bold;
-    text-align: center;
-  }
-
-  .cd-container-descritiva {
-    max-width: 1100px;
+  .caracteristicas-img {
     width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
   }
 
-  .cd-descritiva-introducao {
-    font-size: 18px;
-    color: #333;
-    line-height: 1.8;
-    margin-bottom: 40px;
-    text-align: center;
-    font-weight: 500;
-  }
-
-  .cd-descritiva-conteudo {
+  .caracteristicas-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
-  }
-
-  .cd-descritiva-texto {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-  }
-
-  .cd-descritiva-secao {
-    border-left: 4px solid #b58d61;
-    padding-left: 25px;
-  }
-
-  .cd-descritiva-secao .cd-descritiva-subtitulo {
-    font-size: 20px;
-    color: #2c2c2c;
-    font-weight: bold;
-    margin: 0 0 12px 0;
-  }
-
-  .cd-descritiva-secao p {
-    font-size: 15px;
-    color: #555;
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .cd-descritiva-destaque {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  }
-
-  .cd-descritiva-destaque-titulo {
-    font-size: 22px;
-    color: #2c2c2c;
-    font-weight: bold;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .cd-descritiva-destaque-icone {
-    font-size: 28px;
-  }
-
-  .cd-descritiva-destaque-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .cd-descritiva-destaque-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    color: #555;
-  }
-
-  .cd-descritiva-destaque-item:before {
-    content: "";
-    background-image: url('https://images.tcdn.com.br/img/editor/up/1357280/drawcheckmark.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 18px;
-    height: 18px;
-    display: inline-block;
-    margin-right: 8px;
-  }
-
-  @media (max-width: 768px) {
-    .cd-secao-descritiva {
-      padding: 40px 20px;
-    }
-
-    .cd-secao-descritiva .cd-titulo {
-      font-size: 28px;
-      margin-bottom: 25px;
-    }
-
-    .cd-descritiva-conteudo {
-      grid-template-columns: 1fr;
-      gap: 30px;
-    }
-
-    .cd-descritiva-introducao {
-      font-size: 16px;
-      margin-bottom: 30px;
-    }
-  }
-
-  /* Estilos para seção de características */
-  .cd-secao-caracteristicas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 20px;
-    background-color: white;
-    margin-top: 40px;
-  }
-
-  .cd-secao-caracteristicas .cd-titulo {
-    font-size: 32px;
-    margin-bottom: 40px;
-    color: #2c2c2c;
-    font-weight: bold;
-  }
-
-  .cd-container-caracteristicas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    width: 100%;
-  }
-
-  .cd-caracteristica-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 25px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    border-left: 4px solid #b58d61;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .cd-caracteristica-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 20px rgba(181, 141, 97, 0.15);
-  }
-
-  .cd-caracteristica-icone {
-    font-size: 40px;
-    margin-bottom: 15px;
-  }
-
-  .cd-caracteristica-titulo {
-    font-size: 18px;
-    font-weight: bold;
-    color: #2c2c2c;
-    margin-bottom: 10px;
-  }
-
-  .cd-caracteristica-descricao {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-  }
-
-  /* Estilos para seção de galeria visual */
-  .cd-secao-galeria {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 20px;
-    background-color: white;
-    margin-top: 40px;
-  }
-
-  .cd-secao-galeria .cd-titulo {
-    font-size: 32px;
-    margin-bottom: 40px;
-    color: #2c2c2c;
-    font-weight: bold;
-  }
-
-  .cd-galeria-container {
-    max-width: 1200px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 25px;
-    align-items: stretch;
-  }
-
-  .cd-galeria-principal {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .cd-galeria-imagem-wrapper {
-    position: relative;
-    width: 100%;
-    height: 450px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-
-  .cd-galeria-imagem-grande {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .cd-galeria-imagem-wrapper:hover .cd-galeria-imagem-grande {
-    transform: scale(1.02);
-  }
-
-  .cd-galeria-overlay-botao {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .cd-galeria-imagem-wrapper:hover .cd-galeria-overlay-botao {
-    opacity: 1;
-  }
-
-  .cd-galeria-ver-produto {
-    background-color: #b58d61;
-    color: white;
-    padding: 14px 32px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-
-  .cd-galeria-ver-produto:hover {
-    background-color: #9a7654;
-  }
-
-  .cd-galeria-miniaturas {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
 
-  .cd-galeria-miniatura-wrapper {
-    position: relative;
-    height: 140px;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 3px solid transparent;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  }
-
-  .cd-galeria-miniatura-wrapper:hover {
-    border-color: #b58d61;
-    box-shadow: 0 4px 12px rgba(181, 141, 97, 0.2);
-  }
-
-  .cd-galeria-miniatura {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .cd-galeria-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-    padding: 30px;
-    border-radius: 10px;
-  }
-
-  .cd-galeria-info-titulo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2c2c2c;
-    margin-bottom: 20px;
-  }
-
-  .cd-galeria-info-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .cd-galeria-info-item:last-child {
-    border-bottom: none;
-  }
-
-  .cd-galeria-info-icone {
-    font-size: 28px;
-    margin-right: 15px;
-    min-width: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cd-galeria-info-icone svg {
-    width: 32px;
-    height: 32px;
-  }
-
-  .cd-galeria-info-texto {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .cd-galeria-info-label {
-    font-size: 12px;
-    color: #b58d61;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 3px;
-  }
-
-  .cd-galeria-info-valor {
-    font-size: 15px;
-    color: #333;
+  .caracteristicas-grid div {
+    font-size: 16px;
     font-weight: 500;
   }
 
-  @media (max-width: 1024px) {
-    .cd-galeria-container {
-      grid-template-columns: 1fr;
-    }
-
-    .cd-galeria-imagem-grande {
-      height: 350px;
-    }
-  }
-
   @media (max-width: 768px) {
-    .cd-secao-caracteristicas .cd-titulo,
-    .cd-secao-galeria .cd-titulo {
-      font-size: 24px;
+    .content-card-descricao {
+      flex-direction: column;
+      align-items: center;
     }
 
-    .cd-galeria-imagem-grande {
-      height: 250px;
+    .card-item {
+      width: 90%;
     }
 
-    .cd-galeria-miniaturas {
-      grid-template-columns: repeat(3, 1fr);
+    .item-descricao {
+      flex-direction: column;
+      text-align: center;
     }
 
-    .cd-galeria-miniatura {
-      height: 80px;
+    .item-imagem-descricao,
+    .item-texto-descricao {
+      width: 100%;
+    }
+
+    .caracteristicas-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
+<div class="container-destaque">
+  <div class="destaque-descricao">
+    <img
+      alt=""
+      src="https://images.tcdn.com.br/img/editor/up/1357280/ferramentas.png"
+    />
+    Estrutura: MDF + Base Refor&ccedil;ada
+  </div>
 
-  <!-- Seção de Galeria Visual -->
-  <section class="cd-secao-galeria">
-    <span class="cd-titulo">Conheça a Cama Estofada Lúmina em Detalhes</span>
+  <div class="destaque-descricao">
+    <img
+      alt=""
+      src="https://images.tcdn.com.br/img/editor/up/1357280/qualidade.png"
+    />
+    Garantia: 90 Dias
+  </div>
 
-    <div class="cd-galeria-container">
-      <div class="cd-galeria-principal">
-        <div class="cd-galeria-imagem-wrapper">
-          <img
-            id="imagemPrincipal"
-            src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_29.png"
-            alt="Cama Estofada Lúmina"
-            class="cd-galeria-imagem-grande"
-          />
-          <div class="cd-galeria-overlay-botao">
-            <a
-              href="https://www.casadetalhestore.com.br/linha-premium/cama-estofada-lumina-design-moderno-e-luxuoso?variant_id=797"
-              class="cd-galeria-ver-produto"
-              id="botaoProduto"
-            >
-              Ver Produto
-            </a>
-          </div>
-        </div>
+  <div class="destaque-descricao">
+    <img
+      alt=""
+      src="https://images.tcdn.com.br/img/editor/up/1357280/madeira.png"
+    />
+    Acabamento: Laminado Premium
+  </div>
+</div>
 
-        <div class="cd-galeria-miniaturas">
-          <div
-            class="cd-galeria-miniatura-wrapper"
-            onclick="trocarImagem(this, 'https://www.casadetalhestore.com.br/linha-premium/cama-estofada-lumina-design-moderno-e-luxuoso?variant_id=797')"
-            style="border-color:#b58d61;"
-          >
-            <img
-              src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_28.png"
-              alt="Cama Estofada Lúmina - Ocre"
-              class="cd-galeria-miniatura"
-            />
-          </div>
-        
-        <div class="cd-galeria-miniaturas">
-          <div
-            class="cd-galeria-miniatura-wrapper"
-            onclick="trocarImagem(this, 'https://www.casadetalhestore.com.br/linha-premium/cama-estofada-lumina-design-moderno-e-luxuoso?variant_id=789')"
-            style="border-color:#b58d61;"
-          >
-            <img
-              src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_29.png"
-              alt="Cama Estofada Lúmina - Ocre"
-              class="cd-galeria-miniatura"
-            />
-          </div>
-        
-        </div>
+<div class="content-card-descricao">
+  <div class="card-item">
+    <img
+      alt=""
+      src="https://images.tcdn.com.br/img/img_prod/1357280/mesa_de_jantar_220m_orgnica_premium_alto_padro_lam_1_20260320162824_5d7ae7c0dc1a.jpg"
+    />
+    <div class="card-txt">
+      <strong>Design Org&acirc;nico Sofisticado</strong>
+    </div>
+
+    <div class="card-txt">
+      A mesa traz um formato org&acirc;nico contempor&acirc;neo que transforma
+      qualquer ambiente em um espa&ccedil;o elegante e moderno.
+    </div>
+  </div>
+
+  <div class="card-item">
+    <img
+      alt=""
+      src="https://images.tcdn.com.br/img/img_prod/1357280/mesa_de_jantar_220m_orgnica_premium_alto_padro_lam_1_20260320162604_a5c4f17f05d2.jpg"
+    />
+    <div class="card-txt"><strong>Estrutura Premium</strong></div>
+
+    <div class="card-txt">
+      Produzida com materiais de alta qualidade, garantindo resist&ecirc;ncia,
+      estabilidade e longa durabilidade no uso di&aacute;rio.
+    </div>
+  </div>
+
+  <div class="card-item">
+    <img
+      alt=""
+      src="https://images.tcdn.com.br/img/img_prod/1357280/mesa_de_jantar_220m_orgnica_premium_alto_padro_lam_2_20260320162604_06bf6fb45181.jpg"
+    />
+    <div class="card-txt"><strong>Conforto e Funcionalidade</strong></div>
+
+    <div class="card-txt">
+      Ideal para reunir fam&iacute;lia e amigos com conforto, unindo
+      espa&ccedil;o amplo e ergonomia para o dia a dia.
+    </div>
+  </div>
+</div>
+
+<div class="container-descricao-geral">
+  <div class="content-descricao-geral">
+    <div class="item-descricao">
+      <div class="item-imagem-descricao">
+        <img
+          alt=""
+          src="https://images.tcdn.com.br/img/img_prod/1357280/mesa_de_jantar_220m_orgnica_premium_alto_padro_lam_3_20260320162604_67d4e20faed1.jpg"
+        />
       </div>
 
-      <div class="cd-galeria-info">
-        <span class="cd-galeria-info-titulo">Informações Rápidas</span>
+      <div class="item-texto-descricao">
+        <strong>Ambientes Ideais:</strong>
 
-        <div class="cd-galeria-info-item">
-          <div class="cd-galeria-info-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="6" y1="9" x2="6" y2="20"></line>
-              <line x1="18" y1="9" x2="18" y2="20"></line>
-              <line x1="9" y1="4" x2="15" y2="4"></line>
-              <path d="M6 9h12V5a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"></path>
-            </svg>
-          </div>
-          <div class="cd-galeria-info-texto">
-            <div class="cd-galeria-info-label">Dimensões</div>
-            <div class="cd-galeria-info-valor">Confira as medidas na página do produto</div>
-          </div>
-        </div>
-
-        <div class="cd-galeria-info-item">
-          <div class="cd-galeria-info-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-              <circle cx="9" cy="7" r="4"></circle>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-          </div>
-          <div class="cd-galeria-info-texto">
-            <div class="cd-galeria-info-label">Capacidade</div>
-            <div class="cd-galeria-info-valor">Ideal para receber e acomodar com conforto</div>
-          </div>
-        </div>
-
-        <div class="cd-galeria-info-item">
-          <div class="cd-galeria-info-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 3h18v10H3z"></path>
-              <path d="M3 13h18v2H3z"></path>
-              <path d="M4 16h16v4H4z"></path>
-              <path d="M9 3v10"></path>
-              <path d="M15 3v10"></path>
-            </svg>
-          </div>
-          <div class="cd-galeria-info-texto">
-            <div class="cd-galeria-info-label">Estrutura</div>
-            <div class="cd-galeria-info-valor">Linha Alta com acabamento clean e moderno</div>
-          </div>
-        </div>
-
-        <div class="cd-galeria-info-item">
-          <div class="cd-galeria-info-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="1"></circle>
-              <path d="M12 1v6"></path>
-              <path d="M12 17v6"></path>
-              <path d="M4.22 4.22l4.24 4.24"></path>
-              <path d="M15.54 15.54l4.24 4.24"></path>
-              <path d="M1 12h6"></path>
-              <path d="M17 12h6"></path>
-              <path d="M4.22 19.78l4.24-4.24"></path>
-              <path d="M15.54 8.46l4.24-4.24"></path>
-            </svg>
-          </div>
-          <div class="cd-galeria-info-texto">
-            <div class="cd-galeria-info-label">Função</div>
-            <div class="cd-galeria-info-valor">Sofá-cama prático para o dia a dia</div>
-          </div>
-        </div>
-
-        <div class="cd-galeria-info-item">
-          <div class="cd-galeria-info-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 3h12a1 1 0 0 1 1 1v7H5V4a1 1 0 0 1 1-1z"></path>
-              <path d="M5 10h14v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7z"></path>
-              <line x1="9" y1="18" x2="9" y2="22"></line>
-              <line x1="15" y1="18" x2="15" y2="22"></line>
-              <line x1="7" y1="22" x2="17" y2="22"></line>
-            </svg>
-          </div>
-          <div class="cd-galeria-info-texto">
-            <div class="cd-galeria-info-label">Versatilidade</div>
-            <div class="cd-galeria-info-valor">Perfeito para sala, escritório ou quarto de hóspedes</div>
-          </div>
-        </div>
-
-        <div class="cd-galeria-info-item">
-          <div class="cd-galeria-info-icone">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#B58D61" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <div class="cd-galeria-info-texto">
-            <div class="cd-galeria-info-label">Garantia</div>
-            <div class="cd-galeria-info-valor">Consulte as condições na página do produto</div>
-          </div>
-        </div>
+        <ul>
+          <li style="margin-top: 10px; text-align: left">
+            Sala de jantar moderna
+          </li>
+          <li style="margin-top: 10px; text-align: left">
+            Ambientes sofisticados
+          </li>
+          <li style="margin-top: 10px; text-align: left">
+            Espa&ccedil;os integrados
+          </li>
+        </ul>
       </div>
     </div>
-  </section>
 
-  <!-- Seção Descritiva do Produto -->
-  <section class="cd-secao-descritiva">
-    <span class="cd-titulo">Cama Estofada Lúmina – Design Moderno e Luxuoso</span>
+    <div class="item-descricao">
+      <div class="item-texto-descricao">
+        <strong>Descri&ccedil;&atilde;o Completa:</strong>
 
-    <div class="cd-container-descritiva">
-      <p class="cd-descritiva-introducao">
-        Uma cama estofada inspirada na arquitetura moderna que combina traços atemporais com diferentes estilos de decoração.
-        Com design sofisticado e conforto premium, é perfeita para quem valoriza qualidade e estética no quarto.
-      </p>
+        <p>
+          A <strong>Mesa de Jantar Org&acirc;nica Premium 2,20m</strong> foi
+          desenvolvida para quem busca sofistica&ccedil;&atilde;o, exclusividade
+          e alto padr&atilde;o de acabamento.
+        </p>
 
-      <div class="cd-descritiva-conteudo">
-        <div class="cd-descritiva-texto">
-          <div class="cd-descritiva-secao">
-            <span class="cd-descritiva-subtitulo">Design inspirado na arquitetura moderna</span>
-            <p>
-              Cabeceira e base em madeira maciça de eucalipto tratado e MDF, revestidas com espuma D-23 e manta acrílica.
-              Acabamento superior com sapatas plásticas discretas que evitam o contato direto do tecido com o chão.
-            </p>
-          </div>
+        <p>
+          Seu design org&acirc;nico foge do convencional, trazendo personalidade
+          ao ambiente e criando uma composi&ccedil;&atilde;o visual elegante e
+          contempor&acirc;nea.
+        </p>
 
-          <div class="cd-descritiva-secao">
-            <span class="cd-descritiva-subtitulo">Qualidade garantida e durabilidade</span>
-            <p>
-              Estrado removível de madeira maciça com fechamento em MDF, proporcionando maior durabilidade ao colchão.
-              Material de alta qualidade que garante resistência e longevidade para muitos anos de uso.
-            </p>
-          </div>
+        <p>
+          Ideal para compor salas de jantar modernas, ela combina perfeitamente
+          com cadeiras estofadas, elevando o n&iacute;vel do seu espa&ccedil;o.
+        </p>
 
-          <div class="cd-descritiva-secao">
-            <span class="cd-descritiva-subtitulo">Estilo e funcionalidade em harmonia</span>
-            <p>
-              Design moderno com estofamento macio para noites de sono perfeitas. Disponível em cores versáteis que
-              harmonizam com qualquer decoração, transformando seu quarto em um espaço sofisticado e aconchegante.
-            </p>
-          </div>
-        </div>
+        <p>
+          <strong
+            >Obs: Pode haver varia&ccedil;&atilde;o de tonalidade conforme
+            ilumina&ccedil;&atilde;o e lote.
+          </strong>
+        </p>
+      </div>
 
-        <div class="cd-descritiva-destaque">
-          <span class="cd-descritiva-destaque-titulo">Destaques do modelo</span>
-          <ul class="cd-descritiva-destaque-lista">
-            <li class="cd-descritiva-destaque-item">Cama estofada com design moderno e luxuoso</li>
-            <li class="cd-descritiva-destaque-item">Madeira maciça de eucalipto com acabamento premium</li>
-            <li class="cd-descritiva-destaque-item">Espuma D-23 e manta acrílica para conforto superior</li>
-            <li class="cd-descritiva-destaque-item">Estrado removível de madeira maciça para durabilidade</li>
-            <li class="cd-descritiva-destaque-item">Sapatas plásticas discretas protegendo o tecido</li>
-            <li class="cd-descritiva-destaque-item">Cores versáteis para qualquer decoração</li>
-            <li class="cd-descritiva-destaque-item">Acompanha manual e kit de montagem</li>
-            <li class="cd-descritiva-destaque-item">Resistência e durabilidade garantidas</li>
-          </ul>
-        </div>
+      <div class="item-imagem-descricao">
+        <img
+          alt=""
+          height="300"
+          src="https://images.tcdn.com.br/img/editor/up/1357280/Design_sem_nome_42.png"
+          width="300"
+        />
       </div>
     </div>
-  </section>
 
-  <script>
-    function trocarImagem(element, urlProduto) {
-      const imagemPrincipal = document.getElementById("imagemPrincipal");
-      const botaoProduto = document.getElementById("botaoProduto");
+    <div class="caracteristicas-container">
+      <picture>
+        <source
+          media="(max-width:768px)"
+          srcset="
+            https://images.tcdn.com.br/img/editor/up/1357280/lumia_mob_dourado_agora.png
+          "
+        />
+      </picture>
 
-      // Pega a imagem da miniatura
-      const img = element.querySelector(".cd-galeria-miniatura");
-      imagemPrincipal.src = img.src;
+      <div class="caracteristicas-grid">
+        <div>
+          <strong>Modelo:</strong> Mesa de Jantar Org&acirc;nica Premium
+        </div>
 
-      // Atualiza o link do botão
-      botaoProduto.href = urlProduto;
+        <div>
+          <strong>Formato:</strong> Design org&acirc;nico contempor&acirc;neo
+        </div>
 
-      // Remove borda de todas as miniaturas
-      document.querySelectorAll(".cd-galeria-miniatura-wrapper").forEach((wrapper) => {
-        wrapper.style.borderColor = "transparent";
-      });
+        <div><strong>Dimens&otilde;es da Mesa:</strong></div>
 
-      // Adiciona borda à miniatura clicada
-      element.style.borderColor = "#B58D61";
-    }
-  </script>
+        <div><strong>Altura:</strong> 80 cm</div>
 
+        <div><strong>Tampo:</strong> 2,20 m x 1,05 m</div>
+
+        <div>
+          <strong>Material da Mesa:</strong> MDF de alta resist&ecirc;ncia
+        </div>
+
+        <div>
+          <strong>Acabamento:</strong> L&acirc;mina natural de madeira Cinamomo
+        </div>
+
+        <div><strong>Capacidade:</strong> Ideal para 6 a 8 lugares</div>
+
+        <div><strong>Indica&ccedil;&atilde;o:</strong> Sala de jantar</div>
+
+        <div><strong>Cadeiras Inclusas:</strong></div>
+
+        <div><strong>Altura:</strong> 87 cm</div>
+
+        <div><strong>Largura:</strong> 57 cm</div>
+
+        <div><strong>Profundidade:</strong> 61 cm</div>
+
+        <div><strong>P&eacute;s:</strong> Madeira maci&ccedil;a</div>
+
+        <div><strong>Revestimento:</strong> Tecido em linho</div>
+
+        <div><strong>Espuma:</strong> D23 (conforto e durabilidade)</div>
+
+        <div><strong>Montagem:</strong> Produto enviado desmontado</div>
+
+        <div><strong>Garantia:</strong> 90 dias</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p
+  class="card-item"
+  style="
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: none;
+    width: 100%;
+    max-width: 960px;
+  "
+>
+  <strong>Entregas:</strong> Devido &agrave;s pol&iacute;ticas das
+  transportadoras, as entregas s&atilde;o realizadas somente at&eacute; o
+  t&eacute;rreo do endere&ccedil;o informado. Os entregadores n&atilde;o
+  est&atilde;o autorizados a subir escadas ou utilizar elevadores, sendo assim,
+  o produto ser&aacute; entregue na recep&ccedil;&atilde;o, portaria ou
+  sagu&atilde;o do pr&eacute;dio.
+</p>
+
+<p
+  class="card-item"
+  style="
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: none;
+    width: 100%;
+    max-width: 960px;
+  "
+>
+  <strong>Trocas:</strong> A mercadoria dever&aacute; retornar nas mesmas
+  condi&ccedil;&otilde;es em que foi entregue, ou seja: lacres intactos do
+  fabricante e na <strong>embalagem original</strong> e com todos
+  acess&oacute;rios que acompanham o produto. &Eacute; importante ressaltar que
+  a caixa do produto tamb&eacute;m deve estar em perfeitas
+  condi&ccedil;&otilde;es, isto &eacute;, a embalagem n&atilde;o pode ter sido
+  danificada ou violada.
+</p>

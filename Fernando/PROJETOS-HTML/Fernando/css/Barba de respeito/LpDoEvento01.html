@@ -1,0 +1,1682 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evento BDR – Barba de Respeito</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+       RESET & CUSTOM PROPERTIES
+    ============================================================ */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --orange: #e8450a;
+        --orange-glow: rgba(220, 90, 33, 0.35);
+        --orange-dark: #c73a08;
+        --orange-light: #f0854e;
+        --black: #161616;
+        --black-deep: #0d0d0d;
+        --black-card: #1a1a1a;
+        --white: #f5f5f5;
+        --gray: #999999;
+        --gray-light: #cccccc;
+        --border: rgba(255, 255, 255, 0.06);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--black-deep);
+        color: var(--white);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* ============================================================
+       UTILITIES
+    ============================================================ */
+      .accent {
+        color: var(--orange);
+      }
+      .uppercase {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 var(--orange-glow);
+        }
+        50% {
+          box-shadow: 0 0 30px 10px var(--orange-glow);
+        }
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-60px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(60px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ============================================================
+       SECTION BASE
+    ============================================================ */
+      section,
+      .section {
+        padding: 120px 0;
+      }
+
+      /* ============================================================
+       SECTION HEADER
+    ============================================================ */
+      .section-header {
+        text-align: center;
+        margin-bottom: 72px;
+      }
+      .section-header h2,
+      .section-header__h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        line-height: 1;
+        margin-bottom: 16px;
+      }
+      .section-header p {
+        color: var(--gray);
+        max-width: 550px;
+        margin: 0 auto;
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      /* Shared tag style used across all sections */
+      .section-tag {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 16px;
+        position: relative;
+      }
+      .section-tag::before,
+      .section-tag::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 1px;
+        background: var(--orange);
+      }
+      .section-tag::before {
+        right: calc(100% + 16px);
+      }
+      .section-tag::after {
+        left: calc(100% + 16px);
+      }
+
+      /* ============================================================
+       BUTTONS
+    ============================================================ */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 16px 40px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+        color: var(--white);
+        box-shadow: 0 8px 30px var(--orange-glow);
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(220, 90, 33, 0.5);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--white);
+        border: 2px solid rgba(255, 255, 255, 0.15);
+      }
+      .btn-outline:hover {
+        border-color: var(--orange);
+        color: var(--orange);
+      }
+      .btn-dark {
+        background: var(--black);
+        color: var(--white);
+      }
+      .btn-dark:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(22, 22, 22, 0.5);
+      }
+
+      /* ============================================================
+       NAVBAR
+    ============================================================ */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 14px 0;
+        background: transparent;
+        transition:
+          background 0.4s,
+          padding 0.4s;
+      }
+      .navbar.scrolled {
+        background: rgba(13, 13, 13, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        padding: 10px 0;
+      }
+      .navbar .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .navbar__brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .navbar__brand svg {
+        height: 40px;
+        width: auto;
+        display: block;
+      }
+      .navbar__links {
+        display: flex;
+        gap: 32px;
+        align-items: center;
+      }
+      .navbar__links a {
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--gray);
+        transition: color 0.3s;
+      }
+      .navbar__links a:hover {
+        color: var(--white);
+      }
+      .navbar__cta {
+        background: var(--orange) !important;
+        color: var(--black) !important;
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-weight: 700 !important;
+        font-size: 0.8rem;
+        transition: all 0.3s !important;
+      }
+      .navbar__cta:hover {
+        background: var(--orange-light) !important;
+        transform: scale(1.05);
+      }
+      .navbar__mobile-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* ============================================================
+       HERO
+    ============================================================ */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 120px 0 80px;
+      }
+      .hero__bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .hero__bg::before {
+        content: "";
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          var(--orange-glow) 0%,
+          transparent 70%
+        );
+        top: -200px;
+        right: -200px;
+        animation: float 8s ease-in-out infinite;
+      }
+      .hero__bg::after {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(220, 90, 33, 0.12) 0%,
+          transparent 70%
+        );
+        bottom: -100px;
+        left: -150px;
+        animation: float 10s ease-in-out infinite reverse;
+      }
+      .hero__grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        z-index: 1;
+      }
+      .hero .container {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .hero__content {
+        animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .hero__badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(220, 90, 33, 0.12);
+        border: 1px solid rgba(220, 90, 33, 0.3);
+        color: var(--orange);
+        font-weight: 700;
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        padding: 8px 20px;
+        border-radius: 50px;
+        margin-bottom: 32px;
+      }
+      .hero__badge::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--orange);
+        animation: pulse 2s infinite;
+      }
+      .hero h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3.5rem, 7vw, 6.5rem);
+        line-height: 0.92;
+        letter-spacing: -1px;
+        margin-bottom: 24px;
+      }
+      .hero h1 .highlight {
+        background: linear-gradient(135deg, var(--orange), var(--orange-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .hero__subtitle {
+        font-size: 1.1rem;
+        color: var(--gray);
+        line-height: 1.7;
+        max-width: 480px;
+        margin-bottom: 40px;
+      }
+      .hero__actions {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      /* Hero stats mosaic */
+      .hero__visual {
+        animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .stat-card {
+        background: rgba(26, 26, 26, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 32px 24px;
+        text-align: center;
+        transition:
+          border-color 0.4s,
+          transform 0.4s,
+          box-shadow 0.4s;
+      }
+      .stat-card:hover {
+        border-color: rgba(220, 90, 33, 0.3);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+      .stat-card:nth-child(2) {
+        transform: translateY(30px);
+      }
+      .stat-card:nth-child(2):hover {
+        transform: translateY(26px);
+      }
+      .stat-card:nth-child(4) {
+        transform: translateY(30px);
+      }
+      .stat-card:nth-child(4):hover {
+        transform: translateY(26px);
+      }
+      .stat-card__number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3rem;
+        color: var(--orange);
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      .stat-card__label {
+        font-size: 0.75rem;
+        color: var(--gray);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+
+      /* ============================================================
+       SPEAKERS / PALESTRANTES
+    ============================================================ */
+      .palestrantes {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .speakers-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        align-items: center;
+      }
+
+      .speakers-grid > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .sp-card {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .speakers-grid > div:nth-child(1) .sp-card,
+      .speakers-grid > div:nth-child(3) .sp-card {
+        height: 300px;
+        width: 280px;
+      }
+
+      .speakers-grid > div:nth-child(2) .sp-card {
+        height: 480px;
+        width: 280px;
+      }
+
+      .sp-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        display: block;
+        filter: grayscale(40%) brightness(0.85);
+        transition:
+          filter 0.4s,
+          transform 0.5s;
+      }
+      .sp-card:hover img {
+        filter: grayscale(0%) brightness(1);
+        transform: scale(1.04);
+      }
+      .sp-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(22, 22, 22, 0.97) 0%,
+          rgba(22, 22, 22, 0.1) 60%,
+          transparent 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 36px 32px;
+        transition: background 0.3s;
+      }
+      .sp-card:hover .sp-overlay {
+        background: linear-gradient(
+          to top,
+          rgba(232, 69, 10, 0.92) 0%,
+          rgba(22, 22, 22, 0.05) 55%,
+          transparent 100%
+        );
+      }
+      .sp-tag {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 8px;
+        transition: color 0.3s;
+      }
+      .sp-card:hover .sp-tag {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .sp-name {
+        font-size: 1.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin-bottom: 10px;
+      }
+      .sp-desc {
+        font-size: 0.85rem;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.65);
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.4s ease,
+          color 0.3s;
+      }
+      .sp-card:hover .sp-desc {
+        max-height: 100px;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      /* ============================================================
+       EXPERIENCE / FEATURES
+    ============================================================ */
+      .features {
+        background: var(--black-deep);
+      }
+      .features__grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+      }
+      .feature-card {
+        background: var(--black-card);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 36px 28px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.4s,
+          border-color 0.4s,
+          box-shadow 0.4s;
+      }
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--orange),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .feature-card:hover::before {
+        opacity: 1;
+      }
+      .feature-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(220, 90, 33, 0.2);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      }
+      .feature-card__icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+        background: rgba(220, 90, 33, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.5rem;
+      }
+      .feature-card h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+      }
+      .feature-card p {
+        color: var(--gray);
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+
+      /* ============================================================
+       TIMELINE / PROGRAMAÇÃO
+    ============================================================ */
+      .timeline-section {
+        background: var(--black);
+      }
+
+      .tl-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .tl-sticky {
+        position: sticky;
+        top: 100px;
+      }
+      .tl-sticky h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.2rem, 5vw, 3.5rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+      }
+      .tl-sticky p {
+        font-size: 1rem;
+        line-height: 1.8;
+        opacity: 0.9;
+        margin-bottom: 48px;
+      }
+      .tl-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .tl-item {
+        display: flex;
+        gap: 0;
+        position: relative;
+        opacity: 0;
+        transform: translateX(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .tl-item.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .tl-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 24px;
+      }
+      .tl-circle {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        border: 3px solid var(--orange);
+        border-radius: 50%;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 900;
+        color: var(--orange);
+        transition:
+          background 0.3s,
+          color 0.3s,
+          transform 0.3s;
+        z-index: 1;
+      }
+      .tl-item:hover .tl-circle {
+        background: var(--orange);
+        color: var(--white);
+        transform: scale(1.1);
+      }
+      .tl-line {
+        width: 2px;
+        flex: 1;
+        background: linear-gradient(
+          to bottom,
+          var(--orange),
+          var(--orange-glow)
+        );
+        margin: 8px 0;
+      }
+      .tl-item:last-child .tl-line {
+        display: none;
+      }
+      .tl-body {
+        padding-bottom: 48px;
+        padding-top: 4px;
+        flex: 1;
+      }
+      .tl-time {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--orange);
+        margin-bottom: 8px;
+      }
+      .tl-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        letter-spacing: 0.5px;
+      }
+      .tl-sub {
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+      .tl-badge {
+        display: inline-block;
+        background: transparent;
+        border: 2px solid var(--orange);
+        color: var(--orange);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      .tl-item:hover .tl-badge {
+        background: var(--orange);
+        color: var(--white);
+      }
+
+      /* ============================================================
+       SPONSORS / PATROCINADORES
+    ============================================================ */
+      .patrocinadores {
+        background: var(--black-deep);
+      }
+
+      .sp-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 72px;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .sp-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .sp-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gray-light);
+        opacity: 0.5;
+      }
+      .sp-item img {
+        height: 52px;
+        width: auto;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        opacity: 0.55;
+        transition:
+          opacity 0.25s,
+          transform 0.25s;
+      }
+      .sp-item img:hover {
+        opacity: 1;
+        transform: scale(1.06);
+      }
+
+      /* ============================================================
+       CTA SECTION
+    ============================================================ */
+      .cta-section {
+        background: var(--orange);
+        padding: 120px 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .cta-section::before {
+        content: "BDR";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 28vw;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--white);
+        opacity: 0.1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        pointer-events: none;
+        line-height: 1;
+        letter-spacing: -0.04em;
+      }
+      .cta-section h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1;
+        letter-spacing: -0.03em;
+        margin-bottom: 24px;
+        position: relative;
+        color: var(--black);
+      }
+      .cta-section p {
+        font-size: 1.15rem;
+        color: var(--black);
+        opacity: 0.8;
+        margin-bottom: 48px;
+        position: relative;
+      }
+
+      /* ============================================================
+       FOOTER
+    ============================================================ */
+      footer {
+        background: var(--black-deep);
+        border-top: 1px solid var(--border);
+        padding: 48px 24px;
+      }
+      .footer__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .footer__brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .footer__brand svg {
+        height: 32px;
+        width: auto;
+      }
+      .footer__brand span {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 3px;
+        color: var(--orange);
+      }
+      .footer__copy {
+        color: var(--gray);
+        font-size: 0.78rem;
+      }
+      .footer__links {
+        display: flex;
+        gap: 24px;
+      }
+      .footer__links a {
+        color: var(--gray);
+        font-size: 0.78rem;
+        transition: color 0.3s;
+      }
+      .footer__links a:hover {
+        color: var(--orange);
+      }
+
+      /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+      @media (max-width: 1024px) {
+        .hero .container {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero__subtitle {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .hero__actions {
+          justify-content: center;
+        }
+        .hero__visual {
+          max-width: 450px;
+          margin: 40px auto 0;
+        }
+        .speakers-grid {
+          grid-template-columns: 1fr;
+        }
+        .sp-card img {
+          height: 360px;
+        }
+        .features__grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .tl-wrapper {
+          grid-template-columns: 1fr;
+          gap: 48px;
+        }
+        .tl-sticky {
+          position: static;
+        }
+        .cta-section {
+          padding: 80px 28px;
+        }
+        .sp-row {
+          gap: 40px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar__links {
+          display: none;
+        }
+        .navbar__mobile-toggle {
+          display: block;
+        }
+        .features__grid {
+          grid-template-columns: 1fr;
+          max-width: 360px;
+          margin: 0 auto;
+        }
+        .tl-wrapper {
+          gap: 32px;
+          padding: 0 16px;
+        }
+        .tl-left {
+          margin-right: 16px;
+        }
+        .tl-body {
+          padding-bottom: 32px;
+        }
+        .tl-circle {
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
+        }
+        .hero__visual {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+        .stat-card {
+          padding: 20px 16px;
+        }
+        .stat-card__number {
+          font-size: 2.2rem;
+        }
+
+        /* Mobile nav open state */
+        .navbar__links.open {
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          top: 60px;
+          left: 0;
+          right: 0;
+          background: rgba(13, 13, 13, 0.97);
+          backdrop-filter: blur(20px);
+          padding: 24px 32px 32px;
+          gap: 20px;
+          border-bottom: 1px solid var(--border);
+        }
+      }
+
+      @media (max-width: 480px) {
+        section,
+        .section {
+          padding: 80px 0;
+        }
+        .hero {
+          padding: 100px 0 60px;
+        }
+        .hero__visual {
+          grid-template-columns: 1fr;
+        }
+        .stat-card:nth-child(2),
+        .stat-card:nth-child(4) {
+          transform: none;
+        }
+        .stat-card:nth-child(2):hover,
+        .stat-card:nth-child(4):hover {
+          transform: translateY(-4px);
+        }
+        .tl-wrapper {
+          gap: 20px;
+        }
+        .tl-left {
+          margin-right: 12px;
+        }
+        .tl-circle {
+          width: 36px;
+          height: 36px;
+          font-size: 0.9rem;
+          border-width: 2px;
+        }
+        .tl-body {
+          padding-bottom: 24px;
+        }
+        .tl-title {
+          font-size: 1rem;
+        }
+        .tl-sub {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ================================================================
+       NAVBAR
+  ================================================================ -->
+    <nav class="navbar" id="navbar">
+      <div class="container">
+        <!-- Logo inline SVG -->
+        <a href="#inicio" class="navbar__brand">
+          <svg
+            viewBox="0 0 566.93 566.93"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="Barba de Respeito"
+          >
+            <defs>
+              <style>
+                .n1 {
+                  fill: #dadada;
+                }
+                .n2 {
+                  fill: #fff;
+                }
+                .n3 {
+                  fill: #dc4825;
+                }
+                .n4 {
+                  fill: #161616;
+                }
+              </style>
+            </defs>
+            <g>
+              <path
+                class="n4"
+                d="M186.19,381.62l3.7,7.55-8.31,1.19c-7.46,1.07-15.13,1.62-22.87,1.62-13.14,0-26.23-1.59-38.88-4.77h-.03l-.76-.18C48.94,369.06,0,306.08,0,233.88v-.82c.03-4.89.28-9.69.7-14.34.12-1.19.28-2.42.43-3.61l.31-2.39,1.86-1.53c28.31-23.38,64.22-36.25,101.09-36.25,25.04,0,48.91,5.62,71.04,16.69l2.23,1.13c.83.43,1.65.86,2.41,1.31,2.08,1.07,4.07,2.2,5.93,3.36l4.77,2.93-2.51,5.01-16.72,33.32,7.92,15.28.06.15.06.12.15.34.12.31.12.31.06.24c4.13,11.49-.34,19.53-3.94,25.07l11.04,19.29.12.27.09.15.21.46v.03c4.59,9.35,1.77,20.24-6.6,25.8.95,4.86.43,9.78-1.62,14l-1.53,3.15-1.68,3.45h-1.74c.61,6.48,1.99,12.62,4.1,18.31.89,2.39,2.02,4.71,3.55,7.7l.03.09.06.12c.15.31.28.61.43.89.15.31.34.64.46.89l3.18,6.48Z"
+              />
+              <g>
+                <g>
+                  <path
+                    class="n1"
+                    d="M177,305.57l-14.44-25.32c3.98-7.34,9.78-11.78,6.55-20.92l-10.61-20.56,16.74-33.55c.11-.51-.28-.63-.6-.86-1.85-1.32-6.2-3.02-8.47-4.01-.61-.26-1.21-.52-1.81-.77-1.22-.52-2.43-1-3.66-1.48-17.76-6.9-36.59-10.3-55.36-10.3-11.16,0-22.29,1.2-33.18,3.58-1.81.4-3.63.83-5.43,1.29-16.2,4.15-31.78,10.96-45.92,20.35-1.39.93-7.55,5-8.2,5.86-.32.45-.71,4.52-.76,5.46-.67,11.79.34,24.84,2.54,36.42,4.78,25.12,16.42,48.63,32.86,68.1l13.48-24.91c.28.18.58.33.87.45.31.13.62.24.94.33.8.21,1.64.3,2.47.24.49-.03.97-.11,1.44-.23h.01c.46-.12.92-.3,1.34-.52,1.26-.65,2.26-1.73,2.67-3.24.2-.76-.08-.44-.5-.58-1.47-.51-3.09-.45-4.76-1.11-10.25-4.07-14.61-22.9-4.61-29.52.24-.17.49-.31.73-.45.38-.21.75-.4,1.13-.55.14-.07.29-.12.43-.18.24-.09.48-.17.71-.23.17-.06.33-.1.5-.14.23-.06.46-.1.7-.14.27-.04.53-.08.8-.1.22-.02.43-.03.65-.04.19,0,.38,0,.55.01l.6.03c.18.02.35.03.52.07.35.04.71.11,1.06.2.09.02.18.04.28.08.12.03.24.07.38.11.33.1.67.22,1.02.36.29.11.55.23.83.37.1.06.22.11.33.17.21.11.41.22.61.35.7.4,1.37.87,2.01,1.4.3.24.58.48.86.75.14.13.28.26.41.4s.27.26.4.41c.27.28.52.56.77.85.19.22.38.45.55.68.52.67,1.01,1.39,1.44,2.12.19.32.38.65.54.98.18.33.33.67.49,1h8.21c-9.28,16.73-13.94,36.01-15.24,55.08-.34,5.02-.8,11.82-.41,16.75.07.84.11,1.86.69,2.53,3.92,2.84,7.97,5.49,12.15,7.92,1.67.98,3.36,1.92,5.07,2.82h.01c1.7.91,3.43,1.78,5.18,2.62,1.74.84,3.49,1.64,5.28,2.41,3.55,1.54,7.16,2.94,10.82,4.21,19.44,6.7,40.29,9.41,60.91,7.63-1.75-3.57-3.59-7.05-4.98-10.8-3.98-10.81-5.52-22.46-5.19-33.96h6.46c2.11-4.42.31-10.55-3.12-14.02l-4.11-3.11h9.58c.23,0,2.57-1.05,2.99-1.3,4-2.4,4.89-7.5,2.83-11.5ZM106.67,262.71c7.18-7.67,16.26-11.3,15.01-23.88-.2-1.98-1.23-3.78-1.32-5.7l32.55,8.26,10.54,20.46c1.7,4.03-1.34,7.35-3.22,10.6-1.03-1.22-1.9-3.12-3.72-3.12-.07-.88.84-1.2,1.21-2.12.77-1.95-.3-3.34-1.86-4.43-2.34-1.65-11.47-6.5-14.11-7.36-3.37-1.09-6.29-1.15-9.69-.13-2.19.66-9.91,4.16-11.79,5.39-.38.24-.71-.04-.5.87,2.31-.32,4.6.32,6.81.41,2.94.11,6.8-.47,10.06-.3.44.02.87.07,1.29.12.84.12,1.61.31,2.3.58,3.4,1.41,6.77,4.33,10.41,5.41.08.76-.76.24-1.17.2-3.93-.42-11.14-2.74-14.61-.02-.12.11-.24.21-.35.32-.58.55-1.01,1.28-1.28,2.2-.18.57-.08,1.97-.18,1.97h-34.01c-.5-.36,6.97-9.03,7.62-9.74ZM125.41,327.75c-17.73-9.4-28.76-29.55-28.7-49.46h36.35v24.72c0,2.02,3.62,5.75,5.47,6.62,1.25.58,4.47.86,4.65,1.01.15.12.82,3.13,1.68,3.58l2.28,2.2c-8.57.02-17.26,3.89-21.73,11.32ZM168.85,312.56c-.22.02-.48.04-.74.06-.25.02-.53.03-.82.06-.6.03-1.27.06-1.98.09-.44.01-.88.02-1.35.03-.46.01-.94.01-1.43.02-.94.01-1.9.01-2.84,0-.36,0-.73,0-1.08-.01-.35,0-.72-.01-1.06-.02-.35,0-.69-.01-1.02-.03-.33-.01-.64-.02-.95-.04-.92-.04-1.71-.11-2.34-.2-2.02-.26-3.09-1.21-4.1-2.89,1.75-1.41,3.28-2.58,4.18-4.75,2.37-5.78,2.71-13.91,4.78-19.96l13.58,23.64c.42,2.6-.19,3.77-2.82,4.01Z"
+                  />
+                  <path
+                    class="n2"
+                    d="M177,305.57l-14.44-25.32c3.98-7.34,9.78-11.78,6.55-20.92l-10.61-20.56,16.74-33.55c.11-.51-.28-.63-.6-.86-1.85-1.32-6.2-3.02-8.47-4.01-.61-.26-1.21-.52-1.81-.77-1.22-.52-2.43-1-3.66-1.48-17.76-6.9-36.59-10.3-55.36-10.3-11.16,0-22.29,1.2-33.18,3.58-1.81.4-3.63.83-5.43,1.29-16.2,4.15-31.78,10.96-45.92,20.35-1.39.93-7.55,5-8.2,5.86-.32.45-.71,4.52-.76,5.46-.67,11.79.34,24.84,2.54,36.42,4.78,25.12,16.42,48.63,32.86,68.1l13.48-24.91c.28.18.58.33.87.45.31.13.62.24.94.33.8.21,1.64.3,2.47.24.49-.03.97-.11,1.44-.23h.01c.46-.12.92-.3,1.34-.52,1.26-.65,2.26-1.73,2.67-3.24.2-.76-.08-.44-.5-.58-1.47-.51-3.09-.45-4.76-1.11-10.25-4.07-14.61-22.9-4.61-29.52.24-.17.49-.31.73-.45.38-.21.75-.4,1.13-.55.14-.07.29-.12.43-.18.24-.09.48-.17.71-.23.17-.06.33-.1.5-.14.23-.06.46-.1.7-.14.27-.04.53-.08.8-.1.22-.02.43-.03.65-.04.19,0,.38,0,.55.01l.6.03c.18.02.35.03.52.07.35.04.71.11,1.06.2.09.02.18.04.28.08.12.03.24.07.38.11.33.1.67.22,1.02.36.29.11.55.23.83.37.1.06.22.11.33.17.21.11.41.22.61.35.7.4,1.37.87,2.01,1.4.3.24.58.48.86.75.14.13.28.26.41.4s.27.26.4.41c.27.28.52.56.77.85.19.22.38.45.55.68.52.67,1.01,1.39,1.44,2.12.19.32.38.65.54.98.18.33.33.67.49,1h8.21c-9.28,16.73-13.94,36.01-15.24,55.08-.34,5.02-.8,11.82-.41,16.75.07.84.11,1.86.69,2.53,3.92,2.84,7.97,5.49,12.15,7.92,1.67.98,3.36,1.92,5.07,2.82h.01c1.7.91,3.43,1.78,5.18,2.62,1.74.84,3.49,1.64,5.28,2.41,3.55,1.54,7.16,2.94,10.82,4.21,19.44,6.7,40.29,9.41,60.91,7.63-1.75-3.57-3.59-7.05-4.98-10.8-3.98-10.81-5.52-22.46-5.19-33.96h6.46c2.11-4.42.31-10.55-3.12-14.02l-4.11-3.11h9.58c.23,0,2.57-1.05,2.99-1.3,4-2.4,4.89-7.5,2.83-11.5ZM106.67,262.71c7.18-7.67,16.26-11.3,15.01-23.88-.2-1.98-1.23-3.78-1.32-5.7l32.55,8.26,10.54,20.46c1.7,4.03-1.34,7.35-3.22,10.6-1.03-1.22-1.9-3.12-3.72-3.12-.07-.88.84-1.2,1.21-2.12.77-1.95-.3-3.34-1.86-4.43-2.34-1.65-11.47-6.5-14.11-7.36-3.37-1.09-6.29-1.15-9.69-.13-2.19.66-9.91,4.16-11.79,5.39-.38.24-.71-.04-.5.87,2.31-.32,4.6.32,6.81.41,2.94.11,6.8-.47,10.06-.3.44.02.87.07,1.29.12.84.12,1.61.31,2.3.58,3.4,1.41,6.77,4.33,10.41,5.41.08.76-.76.24-1.17.2-3.93-.42-11.14-2.74-14.61-.02-.12.11-.24.21-.35.32-.58.55-1.01,1.28-1.28,2.2-.18.57-.08,1.97-.18,1.97h-34.01c-.5-.36,6.97-9.03,7.62-9.74ZM125.41,327.75c-17.73-9.4-28.76-29.55-28.7-49.46h36.35v24.72c0,2.02,3.62,5.75,5.47,6.62,1.25.58,4.47.86,4.65,1.01.15.12.82,3.13,1.68,3.58l2.28,2.2c-8.57.02-17.26,3.89-21.73,11.32ZM168.85,312.56c-.22.02-.48.04-.74.06-.25.02-.53.03-.82.06-.6.03-1.27.06-1.98.09-.44.01-.88.02-1.35.03-.46.01-.94.01-1.43.02-.94.01-1.9.01-2.84,0-.36,0-.73,0-1.08-.01-.35,0-.72-.01-1.06-.02-.35,0-.69-.01-1.02-.03-.33-.01-.64-.02-.95-.04-.92-.04-1.71-.11-2.34-.2-2.02-.26-3.09-1.21-4.1-2.89,1.75-1.41,3.28-2.58,4.18-4.75,2.37-5.78,2.71-13.91,4.78-19.96l13.58,23.64c.42,2.6-.19,3.77-2.82,4.01Z"
+                  />
+                </g>
+                <path
+                  class="n4"
+                  d="M177,305.57l-14.44-25.32c3.98-7.34,9.78-11.78,6.55-20.92l-10.61-20.56,16.74-33.55c.11-.51-.28-.63-.6-.86-1.85-1.32-6.2-3.02-8.47-4.01-.61-.26-1.21-.52-1.81-.77-1.22-.52-2.43-1-3.66-1.48-17.76-6.9-36.59-10.3-55.36-10.3-11.16,0-22.29,1.2-33.18,3.58-1.81.4-3.63.83-5.43,1.29-16.2,4.15-31.78,10.96-45.92,20.35-1.39.93-7.55,5-8.2,5.86-.32.45-.71,4.52-.76,5.46-.67,11.79.34,24.84,2.54,36.42,4.78,25.12,16.42,48.63,32.86,68.1l13.48-24.91c.28.18.58.33.87.45.31.13.62.24.94.33.8.21,1.64.3,2.47.24.49-.03.97-.11,1.44-.23h.01c.46-.12.92-.3,1.34-.52,1.26-.65,2.26-1.73,2.67-3.24.2-.76-.08-.44-.5-.58-1.47-.51-3.09-.45-4.76-1.11-10.25-4.07-14.61-22.9-4.61-29.52.24-.17.49-.31.73-.45.38-.21.75-.4,1.13-.55.14-.07.29-.12.43-.18.24-.09.48-.17.71-.23.17-.06.33-.1.5-.14.23-.06.46-.1.7-.14.27-.04.53-.08.8-.1.22-.02.43-.03.65-.04.19,0,.38,0,.55.01l.6.03c.18.02.35.03.52.07.35.04.71.11,1.06.2.09.02.18.04.28.08.12.03.24.07.38.11.33.1.67.22,1.02.36.29.11.55.23.83.37.1.06.22.11.33.17.21.11.41.22.61.35.7.4,1.37.87,2.01,1.4.3.24.58.48.86.75.14.13.28.26.41.4s.27.26.4.41c.27.28.52.56.77.85.19.22.38.45.55.68.52.67,1.01,1.39,1.44,2.12.19.32.38.65.54.98.18.33.33.67.49,1h8.21c-9.28,16.73-13.94,36.01-15.24,55.08-.34,5.02-.8,11.82-.41,16.75.07.84.11,1.86.69,2.53,3.92,2.84,7.97,5.49,12.15,7.92,1.67.98,3.36,1.92,5.07,2.82h.01c1.7.91,3.43,1.78,5.18,2.62,1.74.84,3.49,1.64,5.28,2.41,3.55,1.54,7.16,2.94,10.82,4.21,19.44,6.7,40.29,9.41,60.91,7.63-1.75-3.57-3.59-7.05-4.98-10.8-3.98-10.81-5.52-22.46-5.19-33.96h6.46c2.11-4.42.31-10.55-3.12-14.02l-4.11-3.11h9.58c.23,0,2.57-1.05,2.99-1.3,4-2.4,4.89-7.5,2.83-11.5ZM106.67,262.71c7.18-7.67,16.26-11.3,15.01-23.88-.2-1.98-1.23-3.78-1.32-5.7l32.55,8.26,10.54,20.46c1.7,4.03-1.34,7.35-3.22,10.6-1.03-1.22-1.9-3.12-3.72-3.12-.07-.88.84-1.2,1.21-2.12.77-1.95-.3-3.34-1.86-4.43-2.34-1.65-11.47-6.5-14.11-7.36-3.37-1.09-6.29-1.15-9.69-.13-2.19.66-9.91,4.16-11.79,5.39-.38.24-.71-.04-.5.87,2.31-.32,4.6.32,6.81.41,2.94.11,6.8-.47,10.06-.3.44.02.87.07,1.29.12.84.12,1.61.31,2.3.58,3.4,1.41,6.77,4.33,10.41,5.41.08.76-.76.24-1.17.2-3.93-.42-11.14-2.74-14.61-.02-.12.11-.24.21-.35.32-.58.55-1.01,1.28-1.28,2.2-.18.57-.08,1.97-.18,1.97h-34.01c-.5-.36,6.97-9.03,7.62-9.74ZM125.41,327.75c-17.73-9.4-28.76-29.55-28.7-49.46h36.35v24.72c0,2.02,3.62,5.75,5.47,6.62,1.25.58,4.47.86,4.65,1.01.15.12.82,3.13,1.68,3.58l2.28,2.2c-8.57.02-17.26,3.89-21.73,11.32ZM168.85,312.56c-.22.02-.48.04-.74.06-.25.02-.53.03-.82.06-.6.03-1.27.06-1.98.09-.44.01-.88.02-1.35.03-.46.01-.94.01-1.43.02-.94.01-1.9.01-2.84,0-.36,0-.73,0-1.08-.01-.35,0-.72-.01-1.06-.02-.35,0-.69-.01-1.02-.03-.33-.01-.64-.02-.95-.04-.92-.04-1.71-.11-2.34-.2-2.02-.26-3.09-1.21-4.1-2.89,1.75-1.41,3.28-2.58,4.18-4.75,2.37-5.78,2.71-13.91,4.78-19.96l13.58,23.64c.42,2.6-.19,3.77-2.82,4.01Z"
+                />
+              </g>
+            </g>
+            <g>
+              <g>
+                <path
+                  class="n2"
+                  d="M322.61,262.22c-.63-3.49-2-6.73-3.94-9.54-2.08-3.03-4.83-5.56-8.04-7.38,2.73-2.47,4.89-5.55,6.29-9.03,1.12-2.81,1.75-5.89,1.75-9.11v-15.44c0-13.52-10.97-24.48-24.48-24.48h-79.34v129.77h83.66c8.37,0,15.74-4.18,20.16-10.59,2.73-3.95,4.33-8.73,4.33-13.89v-25.96c0-1.49-.13-2.94-.39-4.36ZM243.7,213.19h40.38c3.19,0,5.77,2.59,5.77,5.77v11.55c0,1.96-.98,3.69-2.47,4.73-.93.65-2.08,1.04-3.3,1.04h-40.38v-23.08ZM294.16,283.85c0,2.52-1.28,4.73-3.23,6.03-.35.22-.72.43-1.1.59-.87.39-1.86.6-2.88.6h-43.26v-28.85h43.26c1.03,0,2.01.21,2.88.6,2.26.99,3.91,3.1,4.25,5.63.05.33.07.65.07.99v14.41Z"
+                />
+                <path
+                  class="n2"
+                  d="M419.86,187.24h-83.66v129.78h84.92c12.54-.64,22.58-10.69,23.22-23.22v-82.07c0-13.52-10.96-24.48-24.48-24.48ZM415.51,283.85c0,3.98-3.22,7.21-7.21,7.21h-43.26v-77.87h43.26c3.98,0,7.21,3.23,7.21,7.21v63.44Z"
+                />
+                <g>
+                  <path
+                    class="n2"
+                    d="M566.9,244.74v-33.01c0-13.52-10.96-24.48-24.48-24.48h-83.66v129.78h28.84v-49.03h21.65l28.81,48.93.06.1h28.78v-.05l-28.84-48.98h4.35c13.12,0,23.83-10.3,24.48-23.25ZM538.06,234.83c0,.34-.02.66-.07.99-.48,3.51-3.49,6.22-7.14,6.22h-43.26v-28.84h43.26c3.63,0,6.63,2.68,7.13,6.16.05.34.08.69.08,1.05v14.42Z"
+                  />
+                </g>
+              </g>
+              <g>
+                <polygon
+                  class="n3"
+                  points="286.07 340.86 278.08 359.41 286.05 377.93 286.79 379.63 276.45 379.63 269.94 363.48 263.43 379.63 253.08 379.63 253.81 377.93 261.79 359.41 253.8 340.86 253.08 339.19 253.08 339.17 263.43 339.17 269.94 355.34 276.45 339.17 286.79 339.17 286.79 339.19 286.07 340.86"
+                />
+                <path
+                  class="n3"
+                  d="M225.5,347.31v7.16h21.71v8.14h-21.71v8.87h23.07v8.15h-33.71v-40.44h33.71v8.12h-23.07Z"
+                />
+                <path
+                  class="n3"
+                  d="M340.17,347.31v7.16h21.71v8.14h-21.71v8.87h23.07v8.15h-33.71v-40.44h33.71v8.12h-23.07Z"
+                />
+                <path
+                  class="n3"
+                  d="M429.24,347.31v7.16h21.71v8.14h-21.71v8.87h23.07v8.15h-33.71v-40.44h33.71v8.12h-23.07Z"
+                />
+                <path
+                  class="n3"
+                  d="M543.86,347.31v7.16h21.71v8.14h-21.71v8.87h23.07v8.15h-33.71v-40.44h33.71v8.12h-23.07Z"
+                />
+                <path
+                  class="n3"
+                  d="M393.84,339.17h-26.08v40.46h8.99v-15.29h4.01l9,15.29h11.71l-8.99-15.27v-.02s1.36,0,1.36,0c4.09,0,7.43-3.21,7.63-7.25v-10.29c0-4.22-3.42-7.63-7.63-7.63ZM392.48,354c0,.1,0,.21-.02.31-.15,1.09-1.09,1.94-2.23,1.94h-13.49v-8.99h13.49c1.13,0,2.07.83,2.22,1.92.02.11.02.22.02.33v4.5Z"
+                />
+                <path
+                  class="n3"
+                  d="M324.99,346.84c0-4.21-3.41-7.62-7.62-7.62h-26.05v40.41h8.98v-15.27h17.08c4.08,0,7.41-3.2,7.61-7.23v-.79s0-.04,0-.06h0v-8.98h-.01c0-.15.01-.3.01-.46ZM316.01,354.48c0,.99-.8,1.8-1.79,1.8h-13.92v-8.98h13.92c.99,0,1.79.8,1.79,1.8v5.39Z"
+                />
+                <rect
+                  class="n3"
+                  x="405.96"
+                  y="339.19"
+                  width="8.14"
+                  height="40.44"
+                />
+                <polygon
+                  class="n3"
+                  points="490.5 339.19 490.5 379.63 479.91 379.63 467.39 357.71 467.39 379.63 456.8 379.63 456.8 339.19 467.39 339.19 479.91 361.1 479.91 339.19 490.5 339.19"
+                />
+                <path
+                  class="n3"
+                  d="M519.79,355.37v-5.84c0-1.24-1-2.25-2.25-2.25h-11.24c-1.2,0-2.18.94-2.24,2.13v19.89c0,1.22.97,2.21,2.19,2.24h.11c.02,0,.04,0,.06,0h11.18c1.24,0,2.25-1.01,2.25-2.25v-5.84h8.99v8.94c-.2,3.91-3.33,7.04-7.24,7.24h-19.22c-4.03-.2-7.24-3.54-7.24-7.62,0-.16,0-.47,0-.47v-24.71c0-4.22,3.42-7.64,7.64-7.64h18.43c4.21,0,7.63,3.42,7.63,7.63v8.55h-8.99Z"
+                />
+              </g>
+            </g>
+          </svg>
+        </a>
+
+        <div class="navbar__links">
+          <a href="#palestrantes">Palestrantes</a>
+          <a href="#programacao">Programação</a>
+          <a href="#experiencia">Experiência</a>
+          <a href="#patrocinadores">Patrocinadores</a>
+          <a href="#inscricao" class="navbar__cta">Inscreva-se</a>
+        </div>
+        <button
+          class="navbar__mobile-toggle"
+          aria-label="Menu"
+          onclick="
+            document.querySelector('.navbar__links').classList.toggle('open')
+          "
+        >
+          ☰
+        </button>
+      </div>
+    </nav>
+
+    <!-- ================================================================
+       HERO
+  ================================================================ -->
+    <section class="hero" id="inicio">
+      <div class="hero__bg"></div>
+      <div class="hero__grid-overlay"></div>
+      <div class="container">
+        <div class="hero__content">
+          <div class="hero__badge">Evento Exclusivo para Barbeiros</div>
+          <h1>
+            PALESTRAS QUE<br />
+            <span class="highlight">TRANSFORMAM</span><br />
+            SEU NEGÓCIO
+          </h1>
+          <p class="hero__subtitle">
+            Um dia inteiro de imersão com conteúdo prático sobre crescimento,
+            mentalidade, negócios e visagismo — feito por quem vive a barbearia
+            todos os dias.
+          </p>
+          <div class="hero__actions">
+            <a href="#inscricao" class="btn btn-primary">GARANTIR MINHA VAGA</a>
+            <a href="#programacao" class="btn btn-outline">VER PROGRAMAÇÃO ↓</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="stat-card">
+            <div class="stat-card__number" data-target="4">4</div>
+            <div class="stat-card__label">Palestrantes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number">7h</div>
+            <div class="stat-card__label">De Conteúdo</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number">5</div>
+            <div class="stat-card__label">Palestras</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card__number">∞</div>
+            <div class="stat-card__label">Networking</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+       PALESTRANTES
+  ================================================================ -->
+    <section class="section palestrantes" id="palestrantes">
+      <div class="section-header">
+        <span class="section-tag">Quem vai palestrar</span>
+        <h2>Os Palestrantes</h2>
+        <p>
+          Profissionais que vivem o que ensinam. Cada um com uma missão
+          diferente dentro do evento.
+        </p>
+      </div>
+      <div class="speakers-grid">
+        <div class="sp-card">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/IMG_6954_JPG.jpg?v=1774875084"
+            alt="Isabela"
+            loading="lazy"
+          />
+          <div class="sp-overlay">
+            <p class="sp-tag">Palestra · 16:15</p>
+            <h3 class="sp-name">Isabela</h3>
+            <p class="sp-desc">
+              Uma visão poderosa e honesta sobre crescimento pessoal e
+              profissional dentro da área.
+            </p>
+          </div>
+        </div>
+        <div class="sp-card">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/DSC_0566.jpg?v=1774875086"
+            alt="Juarez Leite"
+            loading="lazy"
+          />
+          <div class="sp-overlay">
+            <p class="sp-tag">Encerramento · 20:00</p>
+            <h3 class="sp-name">Juarez Leite</h3>
+            <p class="sp-desc">
+              Referência em visagismo. Uma aula que vai mudar a forma como você
+              enxerga o seu trabalho.
+            </p>
+          </div>
+        </div>
+        <div class="sp-card">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/KAUA_jpg.jpg?v=1774875086"
+            alt="Kauã"
+            loading="lazy"
+          />
+          <div class="sp-overlay">
+            <p class="sp-tag">Palestra · 17:45</p>
+            <h3 class="sp-name">Kauã</h3>
+            <p class="sp-desc">
+              Mentalidade e negócios na prática — como ganhar mais dinheiro com
+              produtos e posicionamento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+       EXPERIÊNCIA / FEATURES
+  ================================================================ -->
+    <section class="features" id="experiencia">
+      <div class="container">
+        <div class="section-header animate-on-scroll">
+          <span class="section-tag">O que esperar</span>
+          <h2>Uma experiência <span class="accent">completa</span></h2>
+          <p>
+            Muito mais do que palestras. Um evento desenhado para elevar seu
+            nível profissional e pessoal.
+          </p>
+        </div>
+        <div class="features__grid">
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-card__icon">🎤</div>
+            <h3>Palestras</h3>
+            <p>
+              Conteúdo de alto nível sobre crescimento, negócios e visagismo com
+              profissionais referência.
+            </p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-card__icon">🤝</div>
+            <h3>Networking</h3>
+            <p>
+              Conecte-se com outros barbeiros, troque experiências e crie
+              parcerias que geram resultado.
+            </p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-card__icon">🎵</div>
+            <h3>Música ao Vivo</h3>
+            <p>
+              Intervalos com som ao vivo pra manter a energia alta e o clima de
+              celebração do início ao fim.
+            </p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-card__icon">💡</div>
+            <h3>Abordagem Prática</h3>
+            <p>
+              Cada palestra é pensada pra você sair aplicando no dia seguinte.
+              Zero teoria vazia.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+       PROGRAMAÇÃO / TIMELINE
+  ================================================================ -->
+    <section class="section timeline-section" id="programacao">
+      <div class="tl-wrapper">
+        <div class="tl-sticky">
+          <span class="section-tag">Programação completa</span>
+          <h2>Como vai ser<br />o dia</h2>
+          <p>
+            Das 15h às 22h, cada bloco foi pensado para maximizar seu
+            aprendizado e experiência.
+          </p>
+          <a href="#inscricao" class="btn btn-primary">Garantir vaga →</a>
+        </div>
+
+        <div class="tl-list">
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">1</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">15:00 – 16:00</p>
+              <h4 class="tl-title">Credenciamento & Abertura</h4>
+              <p class="tl-sub">
+                Credenciamento, música ambiente, networking, fotos e introdução
+                ao sistema. Apresentação da marca: história, posicionamento e
+                novidades.
+              </p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">2</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">16:15</p>
+              <span class="tl-badge">Palestra</span>
+              <h4 class="tl-title">Isabela – Crescimento</h4>
+              <p class="tl-sub">
+                Uma conversa direta e prática sobre crescer de forma consistente
+                e sustentável na área.
+              </p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">3</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">17:15</p>
+              <h4 class="tl-title">Intervalo</h4>
+              <p class="tl-sub">
+                Música ao vivo com Bruktus. Momento de relaxar e conectar.
+              </p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">4</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">17:45 – 18:30</p>
+              <span class="tl-badge">Palestra</span>
+              <h4 class="tl-title">Kauã – Mentalidade & Negócios</h4>
+              <p class="tl-sub">
+                Como transformar mentalidade em dinheiro. Abordagem prática
+                sobre ganhar mais com produtos.
+              </p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">5</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">18:30 – 19:00</p>
+              <h4 class="tl-title">Intervalo</h4>
+              <p class="tl-sub">
+                Música, networking e descontração entre os participantes.
+              </p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">6</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">19:00</p>
+              <span class="tl-badge">Bate-papo</span>
+              <h4 class="tl-title">Juliano</h4>
+              <p class="tl-sub">
+                Uma conversa aberta com troca real de experiências e insights do
+                mercado.
+              </p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-left">
+              <div class="tl-circle">7</div>
+              <div class="tl-line"></div>
+            </div>
+            <div class="tl-body">
+              <p class="tl-time">20:00 – 22:00</p>
+              <span class="tl-badge">Encerramento</span>
+              <h4 class="tl-title">Juarez Leite – Visagismo</h4>
+              <p class="tl-sub">
+                O grand finale. Técnica, identidade visual e como o visagismo
+                transforma carreiras e preços.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+       PATROCINADORES
+  ================================================================ -->
+    <section class="section patrocinadores" id="patrocinadores">
+      <div class="section-header">
+        <span class="section-tag">Realização & Apoio</span>
+        <h2>Quem torna isso possível</h2>
+      </div>
+      <div class="sp-row">
+        <div class="sp-item">
+          <span class="sp-label">Patrocinador</span>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/logo_b-way_BLANCO.png?v=1774875084"
+            alt="B-Way"
+            loading="lazy"
+          />
+        </div>
+        <div class="sp-item">
+          <span class="sp-label">Apoio</span>
+          <img
+            src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/D_NQ_NP_772166-MLA91418682359_092025-F.jpg?v=1774875084"
+            alt="Pichau"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+       CTA FINAL
+  ================================================================ -->
+    <section class="cta-section" id="inscricao">
+      <h2>Pronto para o<br />próximo nível?</h2>
+      <p>Vagas limitadas. O evento que vai mudar a forma como você trabalha.</p>
+      <a href="#" class="btn btn-dark">Quero participar →</a>
+    </section>
+
+    <!-- ================================================================
+       FOOTER
+  ================================================================ -->
+    <footer>
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg
+            viewBox="0 0 566.93 566.93"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-label="BDR"
+          >
+            <!-- Reuse only the left icon portion for footer (smaller) -->
+            <g>
+              <path
+                fill="#161616"
+                d="M186.19,381.62l3.7,7.55-8.31,1.19c-7.46,1.07-15.13,1.62-22.87,1.62-13.14,0-26.23-1.59-38.88-4.77h-.03l-.76-.18C48.94,369.06,0,306.08,0,233.88v-.82c.03-4.89.28-9.69.7-14.34.12-1.19.28-2.42.43-3.61l.31-2.39,1.86-1.53c28.31-23.38,64.22-36.25,101.09-36.25,25.04,0,48.91,5.62,71.04,16.69l2.23,1.13c.83.43,1.65.86,2.41,1.31,2.08,1.07,4.07,2.2,5.93,3.36l4.77,2.93-2.51,5.01-16.72,33.32,7.92,15.28.06.15.06.12.15.34.12.31.12.31.06.24c4.13,11.49-.34,19.53-3.94,25.07l11.04,19.29.12.27.09.15.21.46v.03c4.59,9.35,1.77,20.24-6.6,25.8.95,4.86.43,9.78-1.62,14l-1.53,3.15-1.68,3.45h-1.74c.61,6.48,1.99,12.62,4.1,18.31.89,2.39,2.02,4.71,3.55,7.7l.03.09.06.12c.15.31.28.61.43.89.15.31.34.64.46.89l3.18,6.48Z"
+              />
+              <path
+                fill="#fff"
+                d="M176.56,375.91c-1.43-2.85-2.76-5.55-3.8-8.35-3-8.13-4.62-17.03-4.86-26.55h4.42l1.5-3.14c2.27-4.72,1.73-10.06-.27-14.49.95-.3,2.13-.79,3.46-1.6,6.33-3.8,8.44-11.85,4.9-18.73l-.06-.1-.06-.11-12.86-22.54c.4-.62.8-1.22,1.19-1.82,3.37-5.09,7.56-11.41,4.17-20.99l-.12-.35-.17-.34-9.32-18.08,18.11-36.1c-1.86-1.11-3.74-2.18-5.65-3.21-1.03-.57-2.07-1.12-3.12-1.65-.04-.02-.08-.04-.12-.07-20.85-10.65-44.47-16.66-69.51-16.66-36.95,0-70.83,13.08-97.23,34.85-.14,1.17-.27,2.34-.38,3.5-.43,4.51-.66,9.08-.67,13.69-.01.26-.01.53-.01.79,0,70.82,48.63,130.34,114.46,147.21.04.01.1.02.14.03,12.14,3.1,24.87,4.75,37.99,4.75,7.47,0,14.81-.54,21.99-1.58l-3.19-6.47c-.31-.64-.63-1.28-.95-1.93Z"
+              />
+            </g>
+            <g>
+              <path
+                fill="#fff"
+                d="M322.61,262.22c-.63-3.49-2-6.73-3.94-9.54-2.08-3.03-4.83-5.56-8.04-7.38,2.73-2.47,4.89-5.55,6.29-9.03,1.12-2.81,1.75-5.89,1.75-9.11v-15.44c0-13.52-10.97-24.48-24.48-24.48h-79.34v129.77h83.66c8.37,0,15.74-4.18,20.16-10.59,2.73-3.95,4.33-8.73,4.33-13.89v-25.96c0-1.49-.13-2.94-.39-4.36ZM243.7,213.19h40.38c3.19,0,5.77,2.59,5.77,5.77v11.55c0,1.96-.98,3.69-2.47,4.73-.93.65-2.08,1.04-3.3,1.04h-40.38v-23.08ZM294.16,283.85c0,2.52-1.28,4.73-3.23,6.03-.35.22-.72.43-1.1.59-.87.39-1.86.6-2.88.6h-43.26v-28.85h43.26c1.03,0,2.01.21,2.88.6,2.26.99,3.91,3.1,4.25,5.63.05.33.07.65.07.99v14.41Z"
+              />
+              <path
+                fill="#fff"
+                d="M419.86,187.24h-83.66v129.78h84.92c12.54-.64,22.58-10.69,23.22-23.22v-82.07c0-13.52-10.96-24.48-24.48-24.48ZM415.51,283.85c0,3.98-3.22,7.21-7.21,7.21h-43.26v-77.87h43.26c3.98,0,7.21,3.23,7.21,7.21v63.44Z"
+              />
+              <path
+                fill="#fff"
+                d="M566.9,244.74v-33.01c0-13.52-10.96-24.48-24.48-24.48h-83.66v129.78h28.84v-49.03h21.65l28.81,48.93.06.1h28.78v-.05l-28.84-48.98h4.35c13.12,0,23.83-10.3,24.48-23.25ZM538.06,234.83c0,.34-.02.66-.07.99-.48,3.51-3.49,6.22-7.14,6.22h-43.26v-28.84h43.26c3.63,0,6.63,2.68,7.13,6.16.05.34.08.69.08,1.05v14.42Z"
+              />
+              <polygon
+                fill="#dc4825"
+                points="286.07 340.86 278.08 359.41 286.05 377.93 286.79 379.63 276.45 379.63 269.94 363.48 263.43 379.63 253.08 379.63 253.81 377.93 261.79 359.41 253.8 340.86 253.08 339.19 253.08 339.17 263.43 339.17 269.94 355.34 276.45 339.17 286.79 339.17 286.79 339.19 286.07 340.86"
+              />
+              <path
+                fill="#dc4825"
+                d="M225.5,347.31v7.16h21.71v8.14h-21.71v8.87h23.07v8.15h-33.71v-40.44h33.71v8.12h-23.07Z"
+              />
+              <path
+                fill="#dc4825"
+                d="M340.17,347.31v7.16h21.71v8.14h-21.71v8.87h23.07v8.15h-33.71v-40.44h33.71v8.12h-23.07Z"
+              />
+            </g>
+          </svg>
+          <span>BARBA DE RESPEITO</span>
+        </div>
+        <p class="footer__copy">
+          &copy; 2026 Barba de Respeito. Todos os direitos reservados.
+        </p>
+        <div class="footer__links">
+          <a href="#">Instagram</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================================================================
+       SCRIPTS
+  ================================================================ -->
+    <script>
+      /* ── Navbar scroll effect ── */
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      /* ── Generic scroll-triggered animations ── */
+      const scrollObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => entry.target.classList.add("visible"), i * 100);
+              scrollObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -50px 0px" },
+      );
+      document
+        .querySelectorAll(".animate-on-scroll")
+        .forEach((el) => scrollObserver.observe(el));
+
+      /* ── Timeline items animation ── */
+      const tlObserver = new IntersectionObserver(
+        (entries) => {
+          const all = [...document.querySelectorAll(".tl-item")];
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = all.indexOf(entry.target);
+              setTimeout(
+                () => entry.target.classList.add("visible"),
+                index * 100,
+              );
+              tlObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      );
+      document
+        .querySelectorAll(".tl-item")
+        .forEach((el) => tlObserver.observe(el));
+
+      /* ── Counter animation ── */
+      function animateCounters() {
+        document.querySelectorAll("[data-target]").forEach((counter) => {
+          const target = +counter.getAttribute("data-target");
+          let current = 0;
+          const increment = target / 40;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              counter.textContent = target;
+              clearInterval(timer);
+            } else {
+              counter.textContent = Math.ceil(current);
+            }
+          }, 40);
+        });
+      }
+      const heroObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          animateCounters();
+          heroObserver.disconnect();
+        }
+      });
+      heroObserver.observe(document.querySelector(".hero"));
+    </script>
+  </body>
+</html>

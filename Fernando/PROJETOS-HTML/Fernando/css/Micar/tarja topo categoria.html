@@ -1,0 +1,378 @@
+
+
+    <style>
+
+
+      .tarja {
+        width: 100%;
+        background: linear-gradient(135deg, #135b99 0%, #0f4c80 100%);
+        padding: 18px 16px;
+      }
+
+      .tarja-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 20px;
+      }
+
+      .tarja-content {
+        flex: 1;
+        color: #fff;
+      }
+
+      .tarja-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 5px 10px;
+        border-radius: 999px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .tarja-title {
+        font-size: 28px;
+        line-height: 1.05;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      .tarja-title span {
+        display: inline-block;
+        color: #f3c511;
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+
+      .tarja-list ul {
+        list-style: none;
+        display: grid;
+        gap: 6px;
+      }
+
+      .tarja-list li {
+        position: relative;
+        padding-left: 20px;
+        font-size: 14px;
+        line-height: 1.35;
+        color: #fff;
+      }
+
+      .tarja-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: 800;
+        color: #f3c511;
+        font-size: 14px;
+      }
+
+      .tarja-container-cupom {
+        width: 100%;
+        max-width: 300px;
+        flex-shrink: 0;
+      }
+
+      .tarja-cupom-content {
+        position: relative;
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px 14px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .tarja-cupom-content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #f3c511 0%, #ffd84d 100%);
+      }
+
+      .float-msg {
+        display: inline-block;
+        background: #f3c511;
+        color: #135b99;
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        margin-bottom: 8px;
+      }
+
+      .tarja-cupom-title {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        color: #135b99;
+        margin-bottom: 8px;
+      }
+
+      .tarja-cupom-code {
+        width: 100%;
+        border: 2px dashed #135b99;
+        border-radius: 12px;
+        background: #f8fbff;
+        color: #135b99;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        padding: 12px 10px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        margin-bottom: 8px;
+        user-select: none;
+      }
+
+      .tarja-cupom-code:hover {
+        transform: translateY(-1px);
+        background: #eef6ff;
+      }
+
+      .tarja-cupom-copy {
+        font-size: 11px;
+        font-weight: 600;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .tarja-cupom-info {
+        font-size: 12px;
+        line-height: 1.4;
+        color: #4d4d4d;
+      }
+
+      .tarja-cupom-feedback {
+        margin-top: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        color: #1e8e3e;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: all 0.25s ease;
+      }
+
+      .tarja-cupom-feedback.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .tarja-title {
+          font-size: 24px;
+        }
+
+        .tarja-list li {
+          font-size: 13px;
+        }
+
+        .tarja-container-cupom {
+          max-width: 270px;
+        }
+
+        .tarja-cupom-code {
+          font-size: 22px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .tarja {
+          padding: 14px 12px;
+        }
+
+        .tarja-container {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 12px;
+        }
+
+        .tarja-content {
+          text-align: center;
+        }
+
+        .tarja-badge {
+          margin-bottom: 8px;
+        }
+
+        .tarja-title {
+          font-size: 20px;
+          margin-bottom: 8px;
+        }
+
+        .tarja-list ul {
+          gap: 5px;
+        }
+
+        .tarja-list li {
+          text-align: left;
+          font-size: 12px;
+          line-height: 1.3;
+        }
+
+        .tarja-container-cupom {
+          max-width: 100%;
+        }
+
+        .tarja-cupom-content {
+          padding: 12px;
+          border-radius: 14px;
+        }
+
+        .tarja-cupom-title {
+          font-size: 11px;
+          margin-bottom: 6px;
+        }
+
+        .tarja-cupom-code {
+          font-size: 20px;
+          padding: 10px 8px;
+          margin-bottom: 6px;
+        }
+
+        .tarja-cupom-copy {
+          font-size: 10px;
+          margin-bottom: 6px;
+        }
+
+        .tarja-cupom-info {
+          font-size: 11px;
+          line-height: 1.35;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .tarja {
+          padding: 12px 10px;
+        }
+
+        .tarja-title {
+          font-size: 18px;
+        }
+
+        .tarja-list li {
+          font-size: 11px;
+          padding-left: 18px;
+        }
+
+        .tarja-list li::before {
+          font-size: 12px;
+        }
+
+        .tarja-cupom-code {
+          font-size: 18px;
+          letter-spacing: 1px;
+        }
+
+        .float-msg {
+          font-size: 9px;
+          padding: 4px 8px;
+        }
+      }
+    </style>
+
+    <section class="tarja">
+      <div class="tarja-container">
+        <div class="tarja-content">
+          <div class="tarja-badge">Oferta especial</div>
+
+          <h2 class="tarja-title">
+            SUA OBRA NÃO PODE PARAR <br />
+            <span>GANHE 5%</span> DE DESCONTO
+          </h2>
+
+          <div class="tarja-list">
+            <ul>
+              <li>Ganhe 5% de desconto comprando pelo site;</li>
+              <li>Selecione quantos produtos quiser;</li>
+              <li>Digite o cupom <strong>"MICAR"</strong> no carrinho;</li>
+              <li>Válido por tempo limitado;</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tarja-container-cupom">
+          <div class="tarja-cupom-content">
+            <div class="float-msg">Cupom especial</div>
+
+            <div class="tarja-cupom-title">CUPOM DE DESCONTO</div>
+
+            <div class="tarja-cupom-code" id="cupomCode" title="Clique para copiar">
+              MICAR
+            </div>
+
+            <div class="tarja-cupom-copy">Clique no cupom para copiá-lo</div>
+
+            <div class="tarja-cupom-info">
+              Aplique no carrinho antes de finalizar a compra.
+            </div>
+
+            <div class="tarja-cupom-feedback" id="cupomFeedback">
+              Cupom copiado com sucesso!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        var cupom = document.getElementById("cupomCode");
+        var feedback = document.getElementById("cupomFeedback");
+
+        if (!cupom || !feedback) return;
+
+        cupom.addEventListener("click", function () {
+          var texto = cupom.textContent.trim();
+
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(texto).then(function () {
+              mostrarFeedback();
+            });
+          } else {
+            var input = document.createElement("textarea");
+            input.value = texto;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            document.body.removeChild(input);
+            mostrarFeedback();
+          }
+        });
+
+        function mostrarFeedback() {
+          feedback.classList.add("show");
+
+          clearTimeout(window._cupomTimeout);
+          window._cupomTimeout = setTimeout(function () {
+            feedback.classList.remove("show");
+          }, 2000);
+        }
+      })();
+    </script>

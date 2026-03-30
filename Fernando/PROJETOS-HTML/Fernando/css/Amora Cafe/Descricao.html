@@ -1,310 +1,225 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vestido Feminino Midi - Preto</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+<style>
+    <!--
+    .caracteristicas-gerais {
+        display: none !important;
+    }
+
+    :root {
+        --amora-primary: #333333;
+        --amora-secondary: #666666;
+        --amora-accent: #AEC6CF;
+        --amora-brand-touch: #b35048;
+        --bg-light: #f9f9f9;
+        --spacing-unit: 24px;
+    }
+
+    .amora-pdp-container {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: var(--amora-primary);
+        line-height: 1.8;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        font-weight: 300;
+    }
+
+    .amora-pdp-container h2 {
+        font-size: 1.8rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: var(--spacing-unit);
+        text-align: center;
+        color: #111;
+        position: relative;
+    }
+
+    .amora-pdp-container h2::after {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 2px;
+        background-color: var(--amora-brand-touch);
+        margin: 15px auto 0;
+    }
+
+    .amora-pdp-container h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-top: calc(var(--spacing-unit) * 1.5);
+        margin-bottom: 15px;
+        color: #222;
+    }
+
+    .text-col h3:first-child {
+        margin-top: 0;
+    }
+
+    .amora-intro-text {
+        font-size: 1.1rem !important;
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto 50px;
+        color: var(--amora-secondary);
+    }
+
+    .amora-feature-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+        align-items: center;
+    }
+
+    @media (min-width:768px) {
+        .amora-feature-grid {
+            grid-template-columns: 1.2fr 0.8fr;
+        }
+    }
+
+    .amora-img-placeholder {
+        background-color: #eee;
+        width: 100%;
+        height: 0;
+        padding-bottom: 135%;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+    }
+
+    .amora-img-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .amora-detail-list {
+        padding: 0;
+        margin: 0;
+    }
+
+    .amora-detail-list li {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        position: relative;
+        font-size: 0.9rem !important;
+        list-style: none !important;
+    }
+
+    .amora-detail-list li::before {
+        content: '•';
+        color: var(--amora-brand-touch);
+        font-size: 1.5rem !important;
+        position: absolute;
+        left: 0;
+        top: -5px;
+    }
+
+    .amora-specs-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 30px;
+        font-size: 0.95rem !important;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .amora-spec-row {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 15px 10px;
+        align-items: center;
+    }
+
+    .amora-spec-key {
+        flex: 0 0 30%;
+        font-weight: 600;
+        color: #111;
+        min-width: 120px;
+    }
+
+    .amora-spec-value {
+        flex: 1;
+        color: var(--amora-secondary);
+        padding-left: 15px;
+    }
+
+    @media (max-width:480px) {
+        .amora-spec-key {
+            flex: 0 0 100%;
+            margin-bottom: 5px;
+            color: var(--amora-brand-touch);
         }
 
-        body {
-            font-family: 'Cormorant Garamond', 'Georgia', serif;
-            background-color: #fafafa;
-            color: #2a2a2a;
-            line-height: 1.8;
+        .amora-spec-value {
+            padding-left: 0;
         }
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        /* Seção Hero com Imagem Principal */
-        .hero-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            margin-bottom: 100px;
-            align-items: center;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: 700px;
-            object-fit: cover;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-in forwards;
-        }
-
-        .hero-content {
-            padding: 40px 0;
-        }
-
-        .product-title {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            color: #1a1a1a;
-            line-height: 1.2;
-        }
-
-        .product-subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 40px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-family: 'Arial', sans-serif;
-            font-weight: 300;
-        }
-
-        .divider {
-            width: 60px;
-            height: 1px;
-            background-color: #2a2a2a;
-            margin: 40px 0;
-        }
-
-        .description-text {
-            font-size: 1.15rem;
-            color: #4a4a4a;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        /* Seção de Detalhes */
-        .details-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
-        }
-
-        .detail-card {
-            background: white;
-            padding: 50px 40px;
-            border: 1px solid #e8e8e8;
-            transition: all 0.4s ease;
-        }
-
-        .detail-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-        }
-
-        .detail-title {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            color: #1a1a1a;
-            letter-spacing: 1px;
-            font-weight: 400;
-        }
-
-        .detail-content {
-            font-size: 1.05rem;
-            color: #5a5a5a;
-            line-height: 1.9;
-        }
-
-        /* Galeria de Imagens */
-        .gallery-section {
-            margin-top: 80px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .gallery-image {
-            width: 100%;
-            height: 600px;
-            object-fit: cover;
-            transition: transform 0.6s ease, opacity 0.6s ease;
-            cursor: pointer;
-            opacity: 0;
-        }
-
-        .gallery-image:hover {
-            transform: scale(1.02);
-        }
-
-        .gallery-image:nth-child(1) {
-            animation: fadeIn 1s ease-in 0.3s forwards;
-        }
-
-        .gallery-image:nth-child(2) {
-            animation: fadeIn 1s ease-in 0.5s forwards;
-        }
-
-        /* Características Premium */
-        .features-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .feature-item {
-            flex: 1;
-            min-width: 200px;
-            padding: 20px 0;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .feature-label {
-            font-size: 0.85rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            font-family: 'Arial', sans-serif;
-        }
-
-        .feature-value {
-            font-size: 1.1rem;
-            color: #2a2a2a;
-            font-weight: 300;
-        }
-
-        /* Animações */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsividade */
-        @media (max-width: 968px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .hero-image {
-                height: 500px;
-            }
-
-            .product-title {
-                font-size: 2.5rem;
-            }
-
-            .details-section {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .gallery-section {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-image {
-                height: 500px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .container {
-                padding: 40px 15px;
-            }
-
-            .product-title {
-                font-size: 2rem;
-            }
-
-            .hero-image {
-                height: 400px;
-            }
-
-            .gallery-image {
-                height: 400px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Seção Hero -->
-        <section class="hero-section">
-            <div>
-                <img src="https://amoracafe.cdn.magazord.com.br/img/2025/11/produto/3147/07-vestido-feminino-midi-preto.png" 
-                     alt="Vestido Feminino Midi Preto" 
-                     class="hero-image">
-            </div>
-            
-            <div class="hero-content">
-                <h1 class="product-title">Vestido Midi</h1>
-                <p class="product-subtitle">Elegância Atemporal</p>
-                
-                <div class="divider"></div>
-                
-                <p class="description-text">
-                    Uma peça que transcende tendências. Este vestido midi em preto absoluto é a definição de sofisticação 
-                    contemporânea, desenhado para mulheres que valorizam a elegância discreta e o caimento impecável.
-                </p>
-                
-                <p class="description-text">
-                    Confeccionado em Alfaiataria Crepe Viena, o tecido combina estrutura e movimento com 
-                    maestria, abraçando a silhueta com naturalidade enquanto mantém a postura refinada 
-                    característica das peças de alfaiataria.
-                </p>
-
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="feature-label">Composição</div>
-                        <div class="feature-value">94% Poliéster<br>6% Elastano</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-label">Comprimento</div>
-                        <div class="feature-value">Midi</div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-label">Cor</div>
-                        <div class="feature-value">Preto</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Seção de Detalhes -->
-        <section class="details-section">
-            <div class="detail-card">
-                <h2 class="detail-title">Design & Modelagem</h2>
-                <div class="divider"></div>
-                <p class="detail-content">
-                    O decote assimétrico com alças duplas cria um ponto focal sofisticado, enquanto os recortes 
-                    estratégicos moldam a silhueta com precisão. O detalhe vazado adiciona um elemento de 
-                    modernidade, equilibrando perfeitamente a estrutura clássica da peça.
-                </p>
-                <p class="detail-content" style="margin-top: 20px;">
-                    A fenda lateral direita confere movimento fluido e um toque de sensualidade discreta, 
-                    completando o design com leveza e elegância.
-                </p>
-            </div>
-
-            <div class="detail-card">
-                <h2 class="detail-title">Acabamento Premium</h2>
-                <div class="divider"></div>
-                <p class="detail-content">
-                    Cada detalhe foi pensado para proporcionar conforto e praticidade sem comprometer a estética. 
-                    O zíper lateral invisível garante um fechamento discreto e funcional, preservando as linhas 
-                    limpas do design.
-                </p>
-                <p class="detail-content" style="margin-top: 20px;">
-                    O tecido Crepe Viena oferece o equilíbrio perfeito: a estrutura necessária para um caimento 
-                    impecável e o conforto do elastano para liberdade de movimento ao longo do dia.
-                </p>
-            </div>
-        </section>
+    .amora-highlight-box {
+        background-color: var(--bg-light);
+        border-left: 4px solid var(--amora-accent);
+        padding: 20px;
+        margin: 30px 0;
+        font-style: italic;
+        color: #555;
+    }
+    -->
+</style>
+<div class="amora-pdp-container">
+    <h2>Cal&ccedil;a Feminina Reta Risca de Giz &ndash; Off-White</h2>
+    <p class="amora-intro-text">Cl&aacute;ssica e atual na medida certa: cal&ccedil;a reta <strong>off-white</strong>
+        com <strong>risca de giz</strong>, feita para compor looks alinhados com leveza. Perfeita para trabalho, eventos
+        e produ&ccedil;&otilde;es &ldquo;casual chic&rdquo;.</p>
+    <div class="amora-feature-grid">
+        <div class="text-col">
+            <h3>Risca de Giz: Sofistica&ccedil;&atilde;o que AlongA</h3>
+            <p>A risca de giz traz um toque de alfaiataria cl&aacute;ssica com efeito vertical que valoriza a silhueta.
+                No tom <strong>off-white</strong>, o visual fica mais leve e moderno &mdash; f&aacute;cil de combinar
+                com camisas, regatas, tric&ocirc;s e blazers.</p>
+            <div class="amora-highlight-box">&ldquo;Eleg&acirc;ncia sem esfor&ccedil;o: a risca de giz refina o look e
+                deixa a produ&ccedil;&atilde;o instantaneamente mais alinhada.&rdquo;</div>
+            <ul class="amora-detail-list">
+                <li><strong>Visual alongado:</strong> listras verticais que valorizam e trazem presen&ccedil;a.</li>
+                <li><strong>Vers&aacute;til:</strong> vai do escrit&oacute;rio ao evento com facilidade.</li>
+            </ul>
+            <h3>Modelagem Reta para o Dia a Dia</h3>
+            <p>A modelagem reta equilibra conforto e estrutura, criando um caimento elegante e f&aacute;cil de usar.
+                Combine com salto para uma proposta mais formal, ou com t&ecirc;nis/sand&aacute;lia para um look moderno
+                e leve.</p>
+            <ul class="amora-detail-list">
+                <li><strong>Caimento cl&aacute;ssico:</strong> reta e atemporal.</li>
+                <li><strong>Combina&ccedil;&otilde;es f&aacute;ceis:</strong> com tons neutros, terrosos e preto.</li>
+                <li><strong>Pe&ccedil;a-chave:</strong> base perfeita para montar looks r&aacute;pidos e elegantes.</li>
+            </ul>
+        </div>
+        <div class="img-col">
+            <div class="amora-img-placeholder"><img
+                    src="https://amoracafe.cdn.magazord.com.br/img/2026/02/produto/4566/02-calca-feminina-reta-linho-azul.png"
+                    alt="Cal&ccedil;a Feminina Reta Risca de Giz Off-White" /></div>
+        </div>
     </div>
-</body>
-</html>
+    <h3>Ficha T&eacute;cnica</h3>
+    <div class="amora-specs-container">
+        <div class="amora-spec-row">
+            <div class="amora-spec-key">Cor</div>
+            <div class="amora-spec-value">Off-White</div>
+        </div>
+        <div class="amora-spec-row">
+            <div class="amora-spec-key">Estampa</div>
+            <div class="amora-spec-value">Risca de giz</div>
+        </div>
+        <div class="amora-spec-row">
+            <div class="amora-spec-key">Modelagem</div>
+            <div class="amora-spec-value">Reta</div>
+        </div>
+        <div class="amora-spec-row">
+            <div class="amora-spec-key">Ocasi&otilde;es</div>
+            <div class="amora-spec-value">Trabalho, reuni&otilde;es, eventos, casual chic</div>
+        </div>
+    </div>
+</div>

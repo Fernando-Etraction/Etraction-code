@@ -1,0 +1,365 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+<style>
+  .mi-mobile-carousel-wrap {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 12px;
+    box-sizing: border-box;
+  }
+
+  .mi-mobile-title {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .mi-mobile-title h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px;
+    margin: 0;
+  }
+
+  .mi-mobile-title h2::after {
+    content: "";
+    width: 68px;
+    height: 2px;
+    background: #1b5f9e;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+
+  .mi-mobile-owl {
+    width: 100%;
+  }
+
+  .mi-mobile-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .mi-mobile-card {
+    width: 180px;
+    height: 180px;
+    text-decoration: none;
+    border-radius: 8px;
+    overflow: hidden;
+    display: block;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    margin: 0 auto;
+  }
+
+  .mi-mobile-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .mi-mobile-inner {
+    width: 100%;
+    height: 100%;
+    padding: 14px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .mi-theme-blue {
+    background: #135b99;
+    color: #fff;
+  }
+
+  .mi-theme-yellow {
+    background: #f3c511;
+    color: #135b99;
+  }
+
+  .mi-theme-white {
+    background: #ffffff;
+    color: #135b99;
+    border: 1px solid #eaeaea;
+  }
+
+  .mi-card-small {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .mi-card-medium {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .mi-card-big {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .mi-card-big-xl {
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+
+  .mi-card-note {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-top: 4px;
+  }
+
+  .mi-coupon-box {
+    margin-top: 10px;
+    background: #f3c511;
+    color: #135b99;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    min-width: 100px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .mi-coupon-box:hover {
+    background: #09253d;
+    color: #f3c511;
+  }
+
+  .mi-theme-yellow .mi-coupon-box {
+    background: #135b99;
+    color: #fff;
+  }
+
+  .mi-list-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .mi-list-line {
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+  }
+
+  .mi-list-line .mi-num {
+    font-size: 14px;
+    font-weight: 900;
+    min-width: 20px;
+  }
+
+  .mi-mobile-owl .owl-stage-outer {
+    overflow: visible;
+  }
+
+  .mi-mobile-owl .owl-item.active.center {
+    opacity: 1;
+  }
+
+  .mi-mobile-owl .owl-dots {
+    margin-top: 14px;
+    text-align: center;
+  }
+
+  .mi-mobile-owl .owl-dot span {
+    width: 8px;
+    height: 8px;
+    margin: 4px;
+    background: #cfcfcf;
+    display: block;
+    border-radius: 999px;
+  }
+
+  .mi-mobile-owl .owl-dot.active span {
+    background: #135b99;
+  }
+
+  @media (max-width: 767px) {
+    .mi-mobile-carousel-wrap {
+      display: block;
+    }
+  }
+</style>
+
+<section class="mi-mobile-carousel-wrap">
+  <div class="mi-mobile-title">
+    <h2>Seleção de Oportunidades</h2>
+  </div>
+
+  <div class="owl-carousel mi-mobile-owl">
+
+    <div class="mi-mobile-item">
+      <a class="mi-mobile-card" href="javascript:void(0)">
+        <div class="mi-mobile-inner mi-theme-blue">
+          <div class="mi-card-medium" style="text-transform:none;">Pegue seu</div>
+          <div class="mi-card-big" style="margin-top: 4px;">cupom</div>
+          <div class="mi-card-big" style="margin-top: 12px; font-size: 22px;">+5% OFF</div>
+          <div class="mi-coupon-box" data-coupon="MICAR">MICAR</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mi-mobile-item">
+      <a class="mi-mobile-card" href="https://www.micarconstrucao.com.br/ofertas" target="_blank" rel="noopener noreferrer">
+        <div class="mi-mobile-inner mi-theme-white">
+          <div class="mi-card-medium">Outlet</div>
+          <div class="mi-card-small" style="margin-top: 10px;">Até</div>
+          <div class="mi-card-big-xl">64%</div>
+          <div class="mi-card-big-xl">OFF</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mi-mobile-item">
+      <a class="mi-mobile-card" href="https://www.micarconstrucao.com.br/todos-os-departamentos" target="_blank" rel="noopener noreferrer">
+        <div class="mi-mobile-inner mi-theme-blue">
+          <div class="mi-card-big-xl">50%</div>
+          <div class="mi-card-big-xl">OFF</div>
+          <div class="mi-card-small" style="margin-top: 10px;">No frete</div>
+          <div class="mi-card-note">compras acima de R$499*</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mi-mobile-item">
+      <a class="mi-mobile-card" href="https://www.micarconstrucao.com.br/banheiro/vasos-sanitarios-e-acessorios/vasos-sanitarios" target="_blank" rel="noopener noreferrer">
+        <div class="mi-mobile-inner mi-theme-white">
+          <div class="mi-card-small" style="font-size: 10px;">Frete progressivo</div>
+          <div class="mi-card-medium">Para vasos</div>
+
+          <div class="mi-list-lines">
+            <div class="mi-list-line"><span class="mi-num">1</span> ganha 50% off</div>
+            <div class="mi-list-line"><span class="mi-num">2</span> ganha 75% off</div>
+            <div class="mi-list-line"><span class="mi-num">3+</span> frete grátis!</div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mi-mobile-item">
+      <a class="mi-mobile-card" href="https://www.micarconstrucao.com.br/jardim/trituradores" target="_blank" rel="noopener noreferrer">
+        <div class="mi-mobile-inner mi-theme-yellow">
+          <div class="mi-card-big-xl">15%</div>
+          <div class="mi-card-big-xl">OFF</div>
+          <div class="mi-card-small" style="margin-top: 10px;">Em pagamentos</div>
+          <div class="mi-card-medium">À vista*</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mi-mobile-item">
+      <a class="mi-mobile-card" href="https://www.micarconstrucao.com.br/ofertas" target="_blank" rel="noopener noreferrer">
+        <div class="mi-mobile-inner mi-theme-blue">
+          <div class="mi-card-small">Trituradores</div>
+          <div class="mi-card-medium">Com até</div>
+          <div class="mi-card-big-xl" style="margin-top: 8px;">27%</div>
+          <div class="mi-card-big-xl">OFF</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<script>
+  (function () {
+    function miInitMobileCarousel() {
+      if (window.innerWidth > 767) return;
+
+      var $owl = $('.mi-mobile-owl');
+
+      if (!$owl.length) return;
+      if ($owl.hasClass('owl-loaded')) return;
+
+      $owl.owlCarousel({
+        loop: true,
+        margin: 12,
+        nav: false,
+        dots: true,
+        center: true,
+        autoWidth: true,
+        items: 1,
+        stagePadding: 18,
+        smartSpeed: 500
+      });
+    }
+
+    function miBindCouponCopy() {
+      $(document).off('click.miCouponCopy').on('click.miCouponCopy', '.mi-coupon-box', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var box = this;
+        var couponCode = box.getAttribute('data-coupon');
+        var originalText = box.textContent;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(couponCode).then(function () {
+            box.textContent = 'Copiado!';
+            setTimeout(function () {
+              box.textContent = originalText;
+            }, 2000);
+          }).catch(function () {
+            box.textContent = 'Copiado!';
+            setTimeout(function () {
+              box.textContent = originalText;
+            }, 2000);
+          });
+        } else {
+          var tempInput = document.createElement('input');
+          tempInput.value = couponCode;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+
+          box.textContent = 'Copiado!';
+          setTimeout(function () {
+            box.textContent = originalText;
+          }, 2000);
+        }
+      });
+    }
+
+    $(document).ready(function () {
+      miInitMobileCarousel();
+      miBindCouponCopy();
+    });
+  })();
+</script>

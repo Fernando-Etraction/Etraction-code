@@ -1,0 +1,264 @@
+(function () {
+  'use strict';
+
+  var STYLE_ID = 'uoou-micar-promo-style';
+  var BANNER_ID = 'uoou-micar-promo-banner';
+  var COUNTDOWN_ID = 'uoou-micar-countdown';
+  var STORAGE_KEY = 'uoou_micar_banner_closed';
+
+  var CONFIG = {
+    link: 'https://www.micarconstrucao.com.br/',
+    endTime: new Date(Date.now() + 10 * 60 * 60 * 1000), // 10 horas após carregamento
+    textStrong: 'Ofertas especiais na Micar Construção',
+    textNormal: 'Aproveite condições imperdíveis em produtos para sua obra e reforma',
+    textTimer: 'Termina em:'
+  };
+
+  function log() {
+    console.log('[UOOU MICAR BANNER]', [].slice.call(arguments));
+  }
+
+  function injectStyle() {
+    if (document.getElementById(STYLE_ID)) {
+      log('Style já inserido');
+      return;
+    }
+
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
+      .uoou-promo-banner {
+        background: linear-gradient(90deg, #135b99 0%, #0f4a7d 100%);
+        color: #ffffff;
+        padding: 12px 56px 12px 18px;
+        width: 100%;
+        z-index: 9999;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        cursor: pointer;
+        border-bottom: 3px solid #f3c511;
+        font-family: Arial, sans-serif;
+      }
+
+      .uoou-promo-banner.uoou-fixed {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+      }
+
+      .uoou-promo-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 100%;
+        color: #ffffff;
+        line-height: 1.4;
+      }
+
+      .uoou-promo-text strong {
+        color: #f3c511;
+        font-weight: 800;
+      }
+
+      .uoou-timer {
+        margin-left: 6px;
+        font-weight: 700;
+        font-size: 1.05em;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #ffffff;
+      }
+
+      .uoou-timer span {
+        color: #f3c511;
+      }
+
+      .uoou-close-btn {
+        position: absolute;
+        top: 50%;
+        right: 14px;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 2;
+        padding: 0;
+      }
+
+      .uoou-close-btn:hover {
+        color: #f3c511;
+      }
+
+      @media (max-width: 768px) {
+        .uoou-promo-banner {
+          font-size: 13px;
+          padding: 12px 42px 12px 12px;
+        }
+
+        .uoou-promo-text {
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .uoou-timer {
+          margin-left: 0;
+          font-size: 0.98em;
+        }
+
+        .uoou-close-btn {
+          right: 10px;
+          font-size: 22px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .uoou-promo-banner {
+          font-size: 12px;
+          padding: 10px 38px 10px 10px;
+        }
+
+        .uoou-timer {
+          font-size: 0.92em;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+    log('Style inserido');
+  }
+
+  function buildBanner() {
+    var banner = document.createElement('a');
+    banner.href = CONFIG.link;
+    banner.target = '_blank';
+    banner.rel = 'noopener noreferrer';
+    banner.className = 'uoou-promo-banner';
+    banner.id = BANNER_ID;
+
+    banner.innerHTML = `
+      <button class="uoou-close-btn" type="button" aria-label="Fechar banner">×</button>
+      <div class="uoou-promo-text">
+        <strong>${CONFIG.textStrong}</strong>
+        <span>${CONFIG.textNormal} |</span>
+        <span>${CONFIG.textTimer}</span>
+        <div class="uoou-timer">
+          ⏳ <span id="${COUNTDOWN_ID}"></span>
+        </div>
+      </div>
+    `;
+
+    return banner;
+  }
+
+  function insertBanner() {
+    if (document.getElementById(BANNER_ID)) {
+      log('Banner já existe');
+      return;
+    }
+
+    if (localStorage.getItem(STORAGE_KEY) === 'true') {
+      log('Banner já foi fechado anteriormente');
+      return;
+    }
+
+    var banner = buildBanner();
+    document.body.insertAdjacentElement('afterbegin', banner);
+    log('Banner inserido');
+  }
+
+  function startCountdown() {
+    var countdown = document.getElementById(COUNTDOWN_ID);
+    if (!countdown) {
+      log('Countdown não encontrado');
+      return;
+    }
+
+    function updateCountdown() {
+      var now = new Date().getTime();
+      var end = CONFIG.endTime.getTime();
+      var diff = end - now;
+
+      if (diff <= 0) {
+        countdown.textContent = 'Promoção encerrada!';
+        clearInterval(interval);
+        return;
+      }
+
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      countdown.textContent = hours + 'h ' + minutes + 'm ' + seconds + 's';
+    }
+
+    updateCountdown();
+    var interval = setInterval(updateCountdown, 1000);
+  }
+
+  function bindClose() {
+    var banner = document.getElementById(BANNER_ID);
+    if (!banner) return;
+
+    var closeBtn = banner.querySelector('.uoou-close-btn');
+    if (!closeBtn) return;
+
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      banner.style.opacity = '0';
+      banner.style.pointerEvents = 'none';
+      banner.style.transition = 'opacity 0.3s ease';
+
+      setTimeout(function () {
+        if (banner.parentNode) {
+          banner.parentNode.removeChild(banner);
+        }
+      }, 300);
+
+      localStorage.setItem(STORAGE_KEY, 'true');
+      log('Banner fechado');
+    });
+  }
+
+  function bindScroll() {
+    var banner = document.getElementById(BANNER_ID);
+    if (!banner) return;
+
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 100) {
+        banner.classList.add('uoou-fixed');
+      } else {
+        banner.classList.remove('uoou-fixed');
+      }
+    });
+  }
+
+  function init() {
+    injectStyle();
+    insertBanner();
+    startCountdown();
+    bindClose();
+    bindScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

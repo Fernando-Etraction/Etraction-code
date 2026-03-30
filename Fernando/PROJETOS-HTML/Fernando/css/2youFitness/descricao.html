@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2you — Descrições de Produto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Syne:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #ffffff;
+      --off-black: #f7f6f3;
+      --surface: #f0ede8;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.16);
+      --white: #1a1a18;
+      --muted: rgba(26,26,24,0.55);
+      --dim: rgba(26,26,24,0.35);
+      --accent: #8a6a3a;
+      --accent-dim: rgba(138,106,58,0.1);
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+
+
+    /* ── HEADER ── */
+    header {
+      padding: 4rem 2rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .brand em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      padding: 3rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 1rem 1.75rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.25s, border-color 0.25s;
+    }
+
+    .tab-btn:hover { color: var(--white); }
+    .tab-btn.active { color: var(--white); border-bottom-color: var(--accent); }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .card {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .card.visible { display: flex; }
+
+    .card-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-compression {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.75rem;
+    }
+
+    .card-compression::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.6;
+    }
+
+    .card-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+
+    .card-description {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .feats-title {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 1rem;
+    }
+
+    .feats {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 2rem;
+    }
+
+    .feats li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .feat-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .card-meta {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .meta-item {}
+    .meta-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 4px;
+    }
+    .meta-value {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── COPY BUTTON ── */
+    .copy-btn {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: 1px solid var(--border-strong);
+      padding: 10px 16px;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      align-self: flex-start;
+    }
+    .copy-btn:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
+    .copy-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .copy-btn.copied { color: #7ec89b; border-color: #7ec89b; }
+
+    /* ── DIFERENCIAIS ── */
+    .diffs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .diff-card {
+      background: var(--off-black);
+      padding: 2rem;
+    }
+
+    .diff-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--accent);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .diff-title {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .diff-text {
+      font-size: 13px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    /* ── COMPOSIÇÃO BLOCO ── */
+    .comp-block {
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .comp-text { font-size: 13px; color: var(--muted); }
+    .comp-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .animate-1 { opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards; }
+    .animate-2 { opacity: 0; animation: fadeUp 0.8s ease 0.25s forwards; }
+    .animate-3 { opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .header-meta { text-align: left; }
+      .tab-btn { padding: 0.75rem 1rem; font-size: 11px; }
+      .card-meta { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">2<em>you</em></div>
+  <div class="header-meta">Descrições de produto<br>Versão para e-commerce</div>
+</header>
+
+<main>
+
+  <!-- ── TECIDOS ── -->
+  <div class="section-label animate-1">01 — Fichas de Tecido</div>
+
+  <div class="tabs animate-2" role="tablist">
+    <button class="tab-btn active" data-filter="all" role="tab">Todos</button>
+    <button class="tab-btn" data-filter="powerslim" role="tab">PowerSlim</button>
+    <button class="tab-btn" data-filter="blackout" role="tab">Blackout</button>
+    <button class="tab-btn" data-filter="softblack" role="tab">SoftBlack</button>
+  </div>
+
+  <div class="cards-grid animate-3">
+
+    <!-- POWERSLIM -->
+    <div class="card visible" data-fabric="powerslim">
+      <div class="card-eyebrow">Tecido 01</div>
+      <div class="card-name">PowerSlim</div>
+      <div class="card-compression">Alta compressão</div>
+      <p class="card-tagline">Modeladora, opaca e de alta performance — para quem quer resultado visual desde o primeiro uso.</p>
+      <p class="card-description">Feita com trama dupla e construção de alta densidade, a PowerSlim bloqueia a luz por completo e elimina a transparência. A compressão firme modela o corpo e sustenta durante o treino, sem apertar. Uma peça que trabalha com você.</p>
+      <div class="feats-title">Características</div>
+      <ul class="feats">
+        <li><span class="feat-dot"></span>Alta compressão — modela e sustenta ao longo do treino</li>
+        <li><span class="feat-dot"></span>Trama dupla fechada — zero transparência garantida</li>
+        <li><span class="feat-dot"></span>Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora</li>
+        <li><span class="feat-dot"></span>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
+        <li><span class="feat-dot"></span>Sensação suave e leve na pele</li>
+      </ul>
+      <div class="card-meta">
+        <div class="meta-item">
+          <div class="meta-label">Indicado para</div>
+          <div class="meta-value">Academia, funcional, corrida, crossfit</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Composição</div>
+          <div class="meta-value">85% Poliéster · 15% Elastano</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Costura</div>
+          <div class="meta-value">Dupla + 2 pesponto no entrepeito</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Cós</div>
+          <div class="meta-value">Alto, duplo e anatômico</div>
+        </div>
+      </div>
+      <button class="copy-btn" data-target="powerslim">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar texto
+      </button>
+    </div>
+
+    <!-- BLACKOUT -->
+    <div class="card visible" data-fabric="blackout">
+      <div class="card-eyebrow">Tecido 02</div>
+      <div class="card-name">Blackout</div>
+      <div class="card-compression">Média compressão</div>
+      <p class="card-tagline">Cobertura absoluta, movimento livre — opacidade máxima mesmo no momento mais intenso do treino.</p>
+      <p class="card-description">O avesso 100% preto da Blackout foi desenvolvido para garantir cobertura total em qualquer posição. Com stretch em 4 direções e retorno elástico imediato, ela acompanha cada movimento sem perder a opacidade. Para quem não abre mão de segurança e liberdade ao mesmo tempo.</p>
+      <div class="feats-title">Características</div>
+      <ul class="feats">
+        <li><span class="feat-dot"></span>Avesso 100% preto — zero transparência em qualquer ângulo</li>
+        <li><span class="feat-dot"></span>Stretch em 4 direções com alto retorno elástico</li>
+        <li><span class="feat-dot"></span>Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora</li>
+        <li><span class="feat-dot"></span>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
+        <li><span class="feat-dot"></span>Suporte sem restrição de movimento</li>
+      </ul>
+      <div class="card-meta">
+        <div class="meta-item">
+          <div class="meta-label">Indicado para</div>
+          <div class="meta-value">Academia, corrida, caminhada, yoga</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Composição</div>
+          <div class="meta-value">85% Poliéster · 15% Elastano</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Costura</div>
+          <div class="meta-value">Dupla + 2 pesponto no entrepeito</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Cós</div>
+          <div class="meta-value">Alto, duplo e anatômico</div>
+        </div>
+      </div>
+      <button class="copy-btn" data-target="blackout">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copiar texto
+      </button>
+    </div>
+
+    <!-- SOFTBLACK -->
+    <div class="card visible" data-fabric="softblack">
+      <div class="card-eyebrow">Tecido 03</div>
+      <div class="card-name">SoftBlack</div>
+      <div class="card-compression">Média compressão</div>
+      <p class="card-tagline">A segunda pele perfeita — toque de seda, opacidade de blindagem e leveza que você esquece que está usando.</p>
+      <p class="card-description">A SoftBlack usa avesso digitalizado com blindagem óptica e tom camuflado que reforça a opacidade sem adicionar peso. O toque interno é incrivelmente macio — diferente de tecidos que são bonitos por fora e ásperos por dentro. Conforto real, do início ao fim do treino.</p>
+      <div class="feats-title">Características</div>
+      <ul class="feats">
+        <li><span class="feat-dot"></span>Avesso digitalizado — blindagem óptica e toque de segunda pele</li>
+        <li><span class="feat-dot"></span>Tom camuflado interno que reforça opacidade sem pesar</li>
+        <li><span class="feat-dot"></span>Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora</li>
+        <li><span class="feat-dot"></span>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
+        <li><span class="feat-dot"></span>Suporte, desempenho e conforto</li>
+      </ul>
+      <div class="card-meta">
+        <div class="meta-item">
+          <div class="meta-label">Indicado para</div>
+          <div class="meta-value">Academia, corrida, caminhada, crossfit</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Composição</div>
+          <div class="meta-value">85% Poliéster · 15% Elastano</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Costura</div>
+          <div class="meta-value">Dupla + 2 pesponto no entrepeito</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Cós</div>
+          <div class="meta-value">Alto, duplo e anatômico</div>
+        </div>
+      </div>
+      <button class="copy-btn" data-target="softblack">
+        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2v1"/></svg>
+        Copiar texto
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ── DIFERENCIAIS ── -->
+  <div class="section-label" style="margin-top: 4rem;">02 — Diferenciais 2you</div>
+
+  <div class="diffs-grid">
+    <div class="diff-card">
+      <div class="diff-number">01</div>
+      <div class="diff-title">Tecido Hyper Fio Duplo</div>
+      <p class="diff-text">A trama fechada bloqueia a transparência de dentro para fora. O fio duplo garante o mesmo toque suave em ambos os lados — macio na pele, firme na aparência. Sem o "bom por fora, áspero por dentro" que outros tecidos têm.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-number">02</div>
+      <div class="diff-title">Costura Dupla + 2 Pesponto</div>
+      <p class="diff-text">Calças e shorts têm costura dupla no entrepeito, finalizadas com a máquina de 2 pesponto. Isso elimina qualquer possibilidade de abertura durante o treino e aumenta significativamente a durabilidade no uso diário.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-number">03</div>
+      <div class="diff-title">Cós Alto, Duplo e Anatômico</div>
+      <p class="diff-text">Com elástico na borda para não enrolar durante o movimento, a construção dupla oferece firmeza e modelagem sem pressionar. Alto o suficiente para cobrir e sustentar em qualquer exercício.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-number">04</div>
+      <div class="diff-title">Tops com Entrada para Bojo</div>
+      <p class="diff-text">Todos os tops têm entrada para bojo. Alguns modelos com forro interno, outros com tecido duplo — ambos oferecem sustentação real. Você usa com ou sem bojo, sem abrir mão do suporte.</p>
+    </div>
+  </div>
+
+  <!-- COMPOSIÇÃO -->
+  <div class="comp-block">
+    <div>
+      <div class="meta-label" style="margin-bottom: 6px;">Composição padrão — toda a linha</div>
+      <div class="comp-value">85% Poliéster · 15% Elastano</div>
+    </div>
+    <div class="comp-text" style="max-width: 360px; font-size: 12px; line-height: 1.7; color: var(--dim);">
+      Todos os tecidos 2you são compostos por esta base, com variações na construção da trama e do avesso que definem as propriedades de cada linha.
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // ── TAB FILTER ──
+  const tabs = document.querySelectorAll('.tab-btn');
+  const cards = document.querySelectorAll('.card');
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.fabric === filter) {
+          card.classList.add('visible');
+        } else {
+          card.classList.remove('visible');
+        }
+      });
+    });
+  });
+
+  // ── COPY TEXT ──
+  const copyTexts = {
+    powerslim: `POWERSLIM — Alta Compressão
+
+Modeladora, opaca e de alta performance — para quem quer resultado visual desde o primeiro uso.
+
+Feita com trama dupla e construção de alta densidade, a PowerSlim bloqueia a luz por completo e elimina a transparência. A compressão firme modela o corpo e sustenta durante o treino, sem apertar. Uma peça que trabalha com você.
+
+Características:
+• Alta compressão — modela e sustenta ao longo do treino
+• Trama dupla fechada — zero transparência garantida
+• Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
+• Proteção UV50+ e tecnologia Dry (evaporação rápida)
+• Sensação suave e leve na pele
+
+Indicado para: Academia, funcional, corrida, crossfit
+Composição: 85% Poliéster · 15% Elastano
+Costura: Dupla + 2 pesponto no entrepeito
+Cós: Alto, duplo e anatômico`,
+
+    blackout: `BLACKOUT — Média Compressão
+
+Cobertura absoluta, movimento livre — opacidade máxima mesmo no momento mais intenso do treino.
+
+O avesso 100% preto da Blackout foi desenvolvido para garantir cobertura total em qualquer posição. Com stretch em 4 direções e retorno elástico imediato, ela acompanha cada movimento sem perder a opacidade. Para quem não abre mão de segurança e liberdade ao mesmo tempo.
+
+Características:
+• Avesso 100% preto — zero transparência em qualquer ângulo
+• Stretch em 4 direções com alto retorno elástico
+• Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
+• Proteção UV50+ e tecnologia Dry (evaporação rápida)
+• Suporte sem restrição de movimento
+
+Indicado para: Academia, corrida, caminhada, yoga
+Composição: 85% Poliéster · 15% Elastano
+Costura: Dupla + 2 pesponto no entrepeito
+Cós: Alto, duplo e anatômico`,
+
+    softblack: `SOFTBLACK — Média Compressão
+
+A segunda pele perfeita — toque de seda, opacidade de blindagem e leveza que você esquece que está usando.
+
+A SoftBlack usa avesso digitalizado com blindagem óptica e tom camuflado que reforça a opacidade sem adicionar peso. O toque interno é incrivelmente macio — diferente de tecidos que são bonitos por fora e ásperos por dentro. Conforto real, do início ao fim do treino.
+
+Características:
+• Avesso digitalizado — blindagem óptica e toque de segunda pele
+• Tom camuflado interno que reforça opacidade sem pesar
+• Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
+• Proteção UV50+ e tecnologia Dry (evaporação rápida)
+• Suporte, desempenho e conforto
+
+Indicado para: Academia, corrida, caminhada, crossfit
+Composição: 85% Poliéster · 15% Elastano
+Costura: Dupla + 2 pesponto no entrepeito
+Cós: Alto, duplo e anatômico`
+  };
+
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = copyTexts[btn.dataset.target];
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5"><polyline points="20 6 9 17 4 12"/></svg> Copiado!`;
+        setTimeout(() => {
+          btn.classList.remove('copied');
+          btn.innerHTML = original;
+        }, 2000);
+      });
+    });
+  });
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.diff-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

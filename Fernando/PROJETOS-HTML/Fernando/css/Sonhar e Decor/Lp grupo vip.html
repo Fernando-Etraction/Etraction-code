@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonhare Decor | Móveis Profissionais para seu Negócio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =============================================
+           VARIÁVEIS GLOBAIS
+        ============================================= */
+        :root {
+            --primary: #34480B;
+            --primary-dark: #263508;
+            --secondary: #AC664E;
+            --secondary-dark: #8f5440;
+            --white: #FFFFFF;
+            --bg-light: #F9FAFB;
+            --bg-faint: #fafafa;
+            --text-dark: #1F2937;
+            --text-muted: #4B5563;
+            --border: #E5E7EB;
+            --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 30px 60px rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 30px;
+        }
+
+        /* =============================================
+           RESET & BASE
+        ============================================= */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* =============================================
+           ANIMAÇÕES DE REVELAÇÃO (SCROLL REVEAL)
+        ============================================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =============================================
+           UTILITÁRIOS DE LAYOUT
+        ============================================= */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* =============================================
+           COMPONENTES TIPOGRÁFICOS
+        ============================================= */
+        .tagline {
+            display: inline-block;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        /* =============================================
+           BOTÕES
+        ============================================= */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 36px;
+            border-radius: var(--radius-sm);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(52, 72, 11, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(172, 102, 78, 0.2);
+        }
+
+        .btn-white {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-white:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-4px);
+        }
+
+        /* =============================================
+           HEADER / NAVEGAÇÃO
+        ============================================= */
+        .site-header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .site-header.compact {
+            padding: 12px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo svg {
+            flex-shrink: 0;
+        }
+
+        .nav-cta {
+            padding: 12px 24px;
+            font-size: 12px;
+        }
+
+        /* =============================================
+           WHATSAPP FLUTUANTE
+        ============================================= */
+        .wa-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #25D366;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1001;
+            transition: var(--transition);
+        }
+
+        .wa-float:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .wa-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        /* =============================================
+           SEÇÃO 1: HERO
+        ============================================= */
+        .hero {
+            padding: 180px 0 120px;
+            background: radial-gradient(circle at top right, #f3f6f0, #ffffff);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 40%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800') center / cover no-repeat;
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 54px;
+            line-height: 1.1;
+            color: var(--primary);
+            margin-bottom: 24px;
+            font-weight: 800;
+        }
+
+        .hero-desc {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            border-radius: var(--radius-xl);
+            background: url('https://sonhare.cdn.magazord.com.br/img/2025/04/produto/136/pendente-ripado-tulipa-ex.jpg') center / cover no-repeat;
+            box-shadow: 25px 25px 0 var(--bg-light);
+            border: 1px solid var(--border);
+        }
+
+        /* =============================================
+           SEÇÃO 2: AMBIENTES
+        ============================================= */
+        .section-title {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 50px;
+        }
+
+        .env-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .env-card {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 450px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .env-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .env-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .env-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: var(--white);
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .env-card:hover .env-content {
+            transform: translateY(0);
+        }
+
+        .env-content h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        /* =============================================
+           SEÇÃO 3: BENEFÍCIOS
+        ============================================= */
+        .benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            padding: 48px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover {
+            border-color: var(--secondary);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .benefit-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            fill: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .benefit-card:hover .benefit-icon {
+            background: var(--secondary);
+            fill: var(--white);
+        }
+
+        .benefit-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .benefit-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .benefit-cta {
+            margin-top: 50px;
+        }
+
+        /* =============================================
+           SEÇÃO 4: SOBRE
+        ============================================= */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .about-text .section-title {
+            font-size: 36px;
+            margin-bottom: 24px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .about-text .about-sub {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* =============================================
+           SEÇÃO 5: CATEGORIAS
+        ============================================= */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .cat-item {
+            text-align: center;
+            padding: 30px;
+            background: var(--bg-light);
+            border-radius: var(--radius-md);
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .cat-item:hover {
+            background: var(--white);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cat-img {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--white);
+        }
+
+        .cat-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cat-item h5 {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        /* =============================================
+           SEÇÃO 6: DEPOIMENTOS
+        ============================================= */
+        .testi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testi-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border-bottom: 4px solid var(--secondary);
+        }
+
+        .testi-stars {
+            color: #FFD700;
+            font-size: 18px;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .testi-card blockquote {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .testi-card cite {
+            font-weight: 700;
+            font-style: normal;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        /* =============================================
+           SEÇÃO 8: CTA FINAL
+        ============================================= */
+        .cta-final-wrapper {
+            padding: 0 24px;
+            margin-bottom: 80px;
+        }
+
+        .cta-final {
+            background: var(--primary);
+            color: var(--white);
+            padding: 120px 24px;
+            text-align: center;
+            border-radius: var(--radius-2xl);
+        }
+
+        .cta-final h2 {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 24px;
+        }
+
+        .cta-final p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-final .btn {
+            font-size: 16px;
+            padding: 25px 50px;
+        }
+
+        /* =============================================
+           FOOTER
+        ============================================= */
+        .site-footer {
+            padding: 60px 0;
+            background: #111111;
+            color: #666666;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .site-footer p+p {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        /* =============================================
+           RESPONSIVIDADE
+        ============================================= */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-image {
+                display: none;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 70px 0;
+            }
+
+            .cta-final h2 {
+                font-size: 32px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .about-grid {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-cta {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==========================================
+         WHATSAPP FLUTUANTE
+    =========================================== -->
+    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20móveis%20para%20meu%20estabelecimento."
+        class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Contato via WhatsApp">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+    </a>
+    <header class="site-header" id="mainHeader">
+        <div class="container nav-content">
+            <a href="#" class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 4.84L16.07 12H15v6H9v-6H7.93L12 7.84z"/>
+                </svg>
+                SONHARE DECOR
+            </a>
+            <a
+                href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20móveis%20para%20meu%20estabelecimento."
+                class="btn btn-primary nav-cta"
+            >
+                Falar com Consultor
+            </a>
+        </div>
+    </header>
+
+
+    <!-- ==========================================
+         SEÇÃO 1: HERO
+    =========================================== -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="reveal">
+                <span class="tagline">ESPECIALISTAS EM MÓVEIS DURÁVEIS</span>
+                <h1>Transforme seu Negócio com Móveis Inteligentes</h1>
+                <p class="hero-desc">
+                    Móveis em MDF e Madeira com alta durabilidade e design funcional.
+                    Eleve o padrão do seu estabelecimento com quem entende.
+                </p>
+                <div class="hero-actions">
+                    <a href=""
+                        class="btn btn-secondary">
+                        Solicitar Orçamento no WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image reveal" style="transition-delay: 0.2s;" role="img"
+                aria-label="Sala decorada com móveis Sonhare Decor"></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO 2: AMBIENTES
+    =========================================== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center reveal">
+                <span class="tagline">Onde Atuamos</span>
+                <h2 class="section-title">Ambientes Planejados para o Sucesso</h2>
+            </div>
+            <div class="env-grid">
+                <div class="env-card reveal">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=600"
+                        alt="Interior de café com ambiente aconchegante" loading="lazy">
+                    <div class="env-content">
+                        <h3>Gastronomia</h3>
+                        <p>Cafés, bares e lanchonetes funcionais.</p>
+                    </div>
+                </div>
+                <div class="env-card reveal" style="transition-delay: 0.1s;">
+                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=600"
+                        alt="Escritório corporativo moderno" loading="lazy">
+                    <div class="env-content">
+                        <h3>Corporativo</h3>
+                        <p>Escritórios e salas de reunião modernas.</p>
+                    </div>
+                </div>
+                <div class="env-card reveal" style="transition-delay: 0.2s;">
+                    <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=600"
+                        alt="Clínica de saúde e bem-estar" loading="lazy">
+                    <div class="env-content">
+                        <h3>Saúde &amp; Bem-estar</h3>
+                        <p>Clínicas e estúdios organizados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO 3: BENEFÍCIOS
+    =========================================== -->
+    <section class="section-padding" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="benefit-grid">
+                <!-- Card 1 -->
+                <div class="benefit-card reveal">
+                    <div class="benefit-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                    </div>
+                    <h4>Foco na Experiência</h4>
+                    <p>Móveis que proporcionam conforto aos seus clientes e agilidade para sua equipe.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="benefit-card reveal" style="transition-delay: 0.1s;">
+                    <div class="benefit-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24">
+                            <path
+                                d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z" />
+                        </svg>
+                    </div>
+                    <h4>Robustez Garantida</h4>
+                    <p>Utilizamos MDF de alta densidade e ferragens reforçadas para uso comercial intenso.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="benefit-card reveal" style="transition-delay: 0.2s;">
+                    <div class="benefit-icon" aria-hidden="true">
+                        <svg width="28" height="28" viewBox="0 0 24 24">
+                            <path
+                                d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
+                        </svg>
+                    </div>
+                    <h4>Investimento Inteligente</h4>
+                    <p>Inove seu ambiente e atraia mais clientes.</p>
+                </div>
+            </div>
+            <div class="text-center benefit-cta reveal">
+                <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20móveis%20para%20meu%20estabelecimento."
+                    class="btn btn-secondary">
+                    Garantir Orçamento Exclusivo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO 4: SOBRE
+    =========================================== -->
+    <section class="section-padding">
+        <div class="container reveal">
+            <div class="about-grid">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
+                        alt="Equipe da Sonhare Decor em produção" class="about-image" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <span class="tagline">Nossa Essência</span>
+                    <h2 class="section-title">Mais que Móveis, Soluções para Negócios</h2>
+                    <p>
+                        Cada<strong>peça</strong> é escolhida pensando na rotina de quem precisa vender mais e atender
+                        melhor.
+                    </p>
+                    <p class="about-sub">
+                        Seu espaço mais bonito, eficiente e preparado para crescer.
+                    </p>
+                    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20móveis%20para%20meu%20estabelecimento."
+                        class="btn btn-primary">
+                        Falar com Nossa Equipe Técnica
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO 5: CATEGORIAS
+    =========================================== -->
+    <section class="section-padding" style="background: var(--bg-faint);">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2 class="section-title">O que fornecemos para você</h2>
+            </div>
+            <div class="category-grid">
+                <div class="cat-item reveal">
+                    <div class="cat-img">
+                        <img src="https://sonhare.cdn.magazord.com.br/img/2025/04/produto/192/01-cadeira-dobravel-de-madeira-com-estofado.jpeg"
+                            alt="Cadeiras e assentos" loading="lazy">
+                    </div>
+                    <h5>Cadeiras &amp; Assentos</h5>
+                </div>
+                <div class="cat-item reveal" style="transition-delay: 0.1s;">
+                    <div class="cat-img">
+                        <img src="https://sonhare.cdn.magazord.com.br/img/2025/04/produto/389/mesa-redonda-castanhobranco-2.jpg"
+                            alt="Mesas e estações de trabalho" loading="lazy">
+                    </div>
+                    <h5>Mesas &amp; Estações</h5>
+                </div>
+                <div class="cat-item reveal" style="transition-delay: 0.2s;">
+                    <div class="cat-img">
+                        <img src="https://sonhare.cdn.magazord.com.br/img/2025/04/produto/156/pendente-ripado-tela-ex.jpg"
+                            alt="Iluminação e climatização" loading="lazy">
+                    </div>
+                    <h5>Iluminação &amp; Clima</h5>
+                </div>
+                <div class="cat-item reveal" style="transition-delay: 0.3s;">
+                    <div class="cat-img">
+                        <img src="https://sonhare.cdn.magazord.com.br/img/2025/10/produto/1924/bl3312-escritorio.jpg"
+                            alt="Organizadores e acessórios" loading="lazy">
+                    </div>
+                    <h5>Organizadores</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO 6: DEPOIMENTOS
+    =========================================== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center reveal">
+                <h2 class="section-title">Parcerias de Confiança</h2>
+            </div>
+
+            <div class="testi-grid">
+                <div class="testi-card reveal">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Precisava de cadeiras resistentes para meu restaurante e a Sonhare superou as expectativas.
+                        Design limpo e estrutura muito forte."
+                    </blockquote>
+                    <cite>— Ricardo, Proprietário de Bistrô</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.1s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Montei meu consultório inteiro com eles. O custo-benefício é imbatível comparado a lojas
+                        de shopping."
+                    </blockquote>
+                    <cite>— Dra. Fabiana, Clínica Médica</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.2s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Escolhi um conjunto de mesa e cadeiras para a varanda gourmet e ficou lindo.
+                        O acabamento é excelente e trouxe muito mais charme para o ambiente."
+                    </blockquote>
+                    <cite>— Marcos, Arquiteto</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.3s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Comprei móveis para o home office e me surpreendi com a qualidade.
+                        Tudo chegou bem embalado e o visual deixou meu espaço muito mais profissional."
+                    </blockquote>
+                    <cite>— Juliana, Analista de Marketing</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.4s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Estava procurando móveis bonitos para área externa sem gastar demais.
+                        Na Sonhare encontrei exatamente isso: peças práticas, elegantes e com ótimo preço."
+                    </blockquote>
+                    <cite>— André, Empresário</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.5s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "O atendimento foi ótimo e me ajudou a escolher peças que combinassem entre si.
+                        Meu apartamento ficou mais aconchegante e funcional."
+                    </blockquote>
+                    <cite>— Patrícia, Designer de Interiores</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.6s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Precisava de entrega rápida para finalizar um ambiente antes de receber visitas.
+                        Foi uma compra tranquila e os móveis chegaram dentro do esperado."
+                    </blockquote>
+                    <cite>— Felipe, Engenheiro Civil</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.7s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Gostei muito da variedade da loja. Consegui encontrar peças com visual moderno,
+                        boa qualidade e um preço muito mais acessível do que imaginava."
+                    </blockquote>
+                    <cite>— Camila, Empresária</cite>
+                </div>
+
+                <div class="testi-card reveal" style="transition-delay: 0.8s;">
+                    <div class="testi-stars" aria-label="5 estrelas">★★★★★</div>
+                    <blockquote>
+                        "Comprei as cadeiras para renovar minha sala de jantar e o resultado ficou acima do que eu
+                        esperava.
+                        Além de bonitas, são confortáveis e passam muita qualidade no ambiente."
+                    </blockquote>
+                    <cite>— Renata, Empresária</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SEÇÃO 8: CTA FINAL
+    =========================================== -->
+    <div class="cta-final-wrapper reveal">
+        <div class="cta-final">
+            <h2>Pronto para Profissionalizar seu Espaço?</h2>
+            <p>Receba agora um catálogo personalizado e um orçamento sem compromisso.</p>
+            <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento%20para%20móveis%20para%20meu%20estabelecimento."
+                class="btn btn-white">
+                Falar com Consultor via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Sonhare Decor. Qualidade Moveleira para Negócios Reais.</p>
+            <p>Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+    <script>
+        /* --- Efeito de Scroll no Header --- */
+        const mainHeader = document.getElementById('mainHeader');
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 100) {
+                mainHeader.classList.add('compact');
+            } else {
+                mainHeader.classList.remove('compact');
+            }
+        });
+
+        /* --- Animações de Revelação (Scroll Reveal) --- */
+        const revealElements = document.querySelectorAll('.reveal');
+
+        function revealOnScroll() {
+            revealElements.forEach(function (el) {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 50) {
+                    el.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+
+</body>
+
+</html>

@@ -1,607 +1,554 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Conjunto Classic Camurça — Muv Fit</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-
-    <style>
-      /* Reset */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        color: #0a0a0a;
-        background: #ffffff;
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-weight: 300;
-        letter-spacing: -0.011em;
-        width: 1440px;
-        margin: 0 auto;
-      }
-
-      strong {
-        font-weight: 500;
-        color: #0a0a0a;
-      }
-
-      /* Typography */
-      .heading-xl {
-        font-size: clamp(2rem, 3.5vw, 3rem);
-        font-weight: 300;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-        text-transform: uppercase;
-        margin-bottom: 24px;
-      }
-
-      .heading-lg {
-        font-size: clamp(1.5rem, 2.2vw, 2rem);
-        font-weight: 300;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-        text-transform: uppercase;
-        margin-bottom: 24px;
-      }
-
-      .heading-md {
-        font-size: clamp(0.875rem, 1vw, 1rem);
-        font-weight: 400;
-        letter-spacing: 0.1em;
-        line-height: 1.3;
-        text-transform: uppercase;
-        margin-bottom: 16px;
-      }
-
-      .body-text {
-        font-size: clamp(0.9375rem, 1.05vw, 1.0625rem);
-        line-height: 1.75;
-        color: #525252;
-        margin-bottom: 24px;
-        font-weight: 300;
-      }
-
-      .label {
-        font-size: 0.75rem;
-        font-weight: 400;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #a3a3a3;
-      }
-
-      /* Layout */
-      .container {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 0 24px;
-      }
-
-      .section {
-        padding: 96px 0;
-        border-bottom: 1px solid #e8e8e8;
-      }
-
-      .section:last-child {
-        border-bottom: none;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1.4fr 0.6fr;
-        gap: 64px;
-        align-items: start;
-      }
-
-      .grid-even {
-        display: grid;
-        grid-template-columns: 1fr 0.9fr;
-        gap: 48px;
-        align-items: center;
-      }
-
-      /* Cards */
-      .card {
-        background: #ffffff;
-        border: 1px solid #e8e8e8;
-        padding: 40px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .card-hover:hover {
-        border-color: #0a0a0a;
-      }
-
-      /* Quick Info */
-      .info-grid {
-        display: grid;
-        gap: 1px;
-        background: #e8e8e8;
-        border: 1px solid #e8e8e8;
-      }
-
-      .info-item {
-        background: #ffffff;
-        padding: 16px 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 24px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .info-item:hover {
-        background: #fafafa;
-      }
-
-      .info-label {
-        font-size: 0.9375rem;
-        font-weight: 400;
-        color: #0a0a0a;
-        letter-spacing: -0.01em;
-      }
-
-      .info-value {
-        font-size: 0.75rem;
-        font-weight: 400;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #a3a3a3;
-      }
-
-      /* Image */
-      .image-container {
-        position: relative;
-        overflow: hidden;
-        background: #f5f5f5;
-        aspect-ratio: 3/4;
-        min-height: 350px;
-      }
-
-      .image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .image-container:hover img {
-        transform: scale(1.02);
-      }
-
-      /* Accordion */
-      .accordion {
-        display: grid;
-        gap: 1px;
-        background: #e8e8e8;
-        border: 1px solid #e8e8e8;
-      }
-
-      .accordion-item {
-        background: #ffffff;
-      }
-
-      .accordion-header {
-        width: 100%;
-        padding: 24px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        text-align: left;
-        font-family: inherit;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-      }
-
-      .accordion-header:hover {
-        background: #fafafa;
-      }
-
-      .accordion-icon {
-        width: 20px;
-        height: 20px;
-        flex-shrink: 0;
-        opacity: 0.6;
-      }
-
-      .accordion-title {
-        flex: 1;
-        font-size: 0.9375rem;
-        font-weight: 400;
-        letter-spacing: -0.01em;
-        color: #0a0a0a;
-      }
-
-      .accordion-chevron {
-        width: 16px;
-        height: 16px;
-        transition: transform 0.3s ease;
-        opacity: 0.4;
-      }
-
-      .accordion-item.active .accordion-chevron {
-        transform: rotate(180deg);
-      }
-
-      .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .accordion-item.active .accordion-content {
-        max-height: 500px;
-      }
-
-      .accordion-body {
-        padding: 0 24px 24px 24px;
-        padding-left: 52px;
-        color: #525252;
-        font-size: 0.9375rem;
-        line-height: 1.7;
-        font-weight: 300;
-      }
-
-      /* Divider */
-      .divider {
-        height: 1px;
-        background: #e8e8e8;
-        margin: 40px 0;
-      }
-
-      /* Feature Block */
-      .feature-content {
-        max-width: 540px;
-      }
-
-      .feature-label {
-        display: inline-block;
-        padding: 8px 16px;
-        background: #0a0a0a;
-        color: #ffffff;
-        font-size: 0.6875rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        margin-bottom: 24px;
-        font-weight: 400;
-      }
-
-      /* Highlight Badge */
-      .highlight-badge {
-        display: inline-block;
-        padding: 16px 24px;
-        background: #0a0a0a;
-        color: #ffffff;
-        margin-bottom: 32px;
-        border-left: 4px solid #ffffff;
-      }
-
-      .highlight-badge-title {
-        display: block;
-        font-size: 0.75rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 8px;
-      }
-
-      .highlight-badge-content {
-        display: block;
-        font-size: 1.25rem;
-        font-weight: 400;
-        letter-spacing: -0.01em;
-        color: #ffffff;
-      }
-
-      /* Hero specifics */
-      .hero-label {
-        margin-bottom: 16px;
-      }
-
-      /* Blackout Section (sem inline) */
-      .section-blackout {
-        background: #0a0a0a;
-        color: #ffffff;
-        border: none;
-      }
-
-      .section-blackout .grid-even {
-        gap: 64px;
-      }
-
-      .section-blackout .feature-label {
-        background: #ffffff;
-        color: #0a0a0a;
-      }
-
-      .section-blackout .heading-lg {
-        color: #ffffff;
-        font-size: clamp(2rem, 2.8vw, 2.5rem);
-        margin-bottom: 40px;
-      }
-
-      .section-blackout .body-text {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 1.0625rem;
-      }
-
-      .section-blackout .body-text:last-child {
-        margin-bottom: 0;
-      }
-
-      .section-blackout strong {
-        color: #ffffff;
-      }
-
-      .section-blackout .image-container {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      /* Care Instructions */
-      .care-section h3 {
-        margin-top: 40px;
-      }
-
-      .care-section h3:first-of-type {
-        margin-top: 0;
-      }
-
-      /* Responsive */
-      @media (max-width: 1024px) {
-        .grid-2,
-        .grid-even {
-          grid-template-columns: 1fr;
-          gap: 40px;
-        }
-
-        .section {
-          padding: 64px 0;
-        }
-
-        .section-blackout .grid-even {
-          gap: 64px;
-        }
-      }
-
-      @media (max-width: 640px) {
-        .card {
-          padding: 24px;
-        }
-
-        .accordion-body {
-          padding-left: 24px;
-        }
-
-        .section {
-          padding: 48px 0;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Hero Section -->
-    <section class="section">
-      <div class="container">
-        <div class="grid-2">
-          <div>
-            <p class="label hero-label">Coleção Classic</p>
-            <h1 class="heading-xl">Conjunto Feminino Camurça</h1>
-            
-            <div class="highlight-badge">
-              <span class="highlight-badge-title">Destaque Premium</span>
-              <span class="highlight-badge-content">Tecnologia Blackout — Zero Transparência</span>
-            </div>
-
-            <p class="body-text">
-              O <strong>Conjunto Classic Camurça</strong> representa a síntese perfeita entre design
-              minimalista e engenharia têxtil avançada. Desenvolvido para mulheres que não aceitam
-              concessões, este conjunto combina <strong>performance técnica excepcional</strong> com
-              <strong>elegância atemporal</strong>.
-            </p>
-            <p class="body-text">
-              A modelagem anatômica de precisão realça a silhueta natural através de uma
-              <strong>cintura alta estruturada</strong> e <strong>top nadador ergonômico</strong>,
-              proporcionando suporte sem restrição de movimento. Cada detalhe foi meticulosamente
-              considerado para entregar confiança absoluta durante o treino.
-            </p>
-            <p class="body-text">
-              Confeccionado em tecido de compressão média com acabamento premium, incorpora
-              tecnologias de última geração: <strong>Dry Technology</strong> para gestão avançada de
-              umidade, <strong>Proteção UV50+</strong> de espectro completo, e a revolucionária
-              <strong>Tecnologia Blackout</strong> que garante opacidade total em qualquer movimento.
-              Composição: <strong>86% Poliéster / 14% Elastano</strong>.
-            </p>
-          </div>
-
-          <div>
-            <h2 class="heading-md">Especificações</h2>
-            <div class="info-grid">
-              <div class="info-item">
-                <span class="info-label">Tecnologia Blackout</span>
-                <span class="info-value">Zero Transparência</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Cintura Alta</span>
-                <span class="info-value">Compressão Média</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Dry Technology</span>
-                <span class="info-value">Secagem Rápida</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Proteção UV50+</span>
-                <span class="info-value">Outdoor</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Top Nadador</span>
-                <span class="info-value">Entrada para Bojo</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Composição</span>
-                <span class="info-value">86% PES / 14% EA</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features & Benefits Section -->
-    <section class="section">
-      <div class="container">
-        <div class="grid-even">
-          <div class="image-container">
-            <img
-              src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg"
-              alt="Tecnologia Blackout e Design Anatômico Premium"
-              loading="lazy"
-            />
-          </div>
-
-          <div>
-            <h2 class="heading-lg">Tecnologias & Design</h2>
-
-            <div class="accordion">
-              <div class="accordion-item active">
-                <button class="accordion-header" aria-expanded="true">
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 3l7 3v5c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-3z" />
-                  </svg>
-                  <span class="accordion-title">Blackout: Zero Transparência</span>
-                  <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    A combinação de <strong>Dupla Frontura + Forro Interno Preto</strong> garante cobertura total. Agache, corra e alongue com 100% de confiança, sem transparência ou esbranquiçamento. Nossa arquitetura têxtil proprietária assegura opacidade absoluta em cada movimento.
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <button class="accordion-header" aria-expanded="false">
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 3c.5 1.7 1.8 3 3 3s2.5-1.3 3-3l4 2.5-2 3V21H7V8.5l-2-3L9 3z" />
-                  </svg>
-                  <span class="accordion-title">Design Anatômico Precisão</span>
-                  <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    A <strong>cintura alta estruturada</strong> oferece sustentação perfeita com o <strong>top nadador ergonômico</strong> garantindo liberdade total de movimento. O corte anatômico acompanha naturalmente suas curvas, valorizando a forma com elegância discreta e caimento impecável.
-                  </div>
-                </div>
-              </div>
-
-              <div class="accordion-item">
-                <button class="accordion-header" aria-expanded="false">
-                  <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 3c3 4 6 6.8 6 10.5A6 6 0 1 1 6 13.5C6 9.8 9 7 12 3z" />
-                  </svg>
-                  <span class="accordion-title">Performance Técnica Avançada</span>
-                  <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
-                <div class="accordion-content">
-                  <div class="accordion-body">
-                    <strong>Dry Technology</strong> dispersa umidade instantaneamente mantendo você seca e focada. <strong>Proteção UV50+</strong> em espectro completo para atividades outdoor. Top com entrada para personalização de acessório. Composição: <strong>86% Poliéster / 14% Elastano</strong> em compressão média premium.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    <!-- Care Section -->
-    <section class="section">
-      <div class="container">
-        <div class="card care-section">
-          <h2 class="heading-lg">Guia de Preservação</h2>
-
-          <h3 class="heading-md">Recomendações de Uso</h3>
-          <p class="body-text">
-            A qualidade premium do poliéster requer atenção especial. Evite contato com fixadores ásperos, velcro e
-            superfícies texturizadas que possam comprometer a integridade da fibra. Estas precauções garantem
-            longevidade excepcional, preservando elasticidade e acabamento impecável.
-          </p>
-
-          <div class="divider"></div>
-
-          <h3 class="heading-md">Protocolo de Lavagem</h3>
-          <p class="body-text">
-            Recomendamos lavagem manual com sabão neutro premium, executada com movimentos suaves. Seque à sombra em
-            local arejado, evitando exposição solar direta. Nunca utilize ferro de passar ou produtos químicos
-            agressivos. A preservação da elasticidade e vivacidade das cores é essencial para a durabilidade da peça.
-          </p>
-
-          <div class="divider"></div>
-
-          <h3 class="heading-md">Variações de Tonalidade</h3>
-          <p class="body-text">
-            Pequenas variações nas tonalidades podem ocorrer conforme calibração do seu dispositivo. Isso é
-            completamente normal e não representa falha de qualidade. Cada peça é única.
-          </p>
-
-          <div class="divider"></div>
-
-          <h3 class="heading-md">Política de Devolução</h3>
-          <p class="body-text" style="margin-bottom: 0;">
-            Você dispõe de 7 dias após o recebimento para solicitar devolução. Entre em contato com nosso atendimento
-            especializado — trataremos seu pedido com rapidez e a excelência que você merece.
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conjunto Classic Camurça — Muv Fit</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: #6b6b6b;
+      --light: #f4f3f1;
+      --border: #e2e0dc;
+      --accent: #c8a96e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      background: var(--light);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 0, 0, 1);
+    }
+
+    .hero-image:hover img { transform: scale(1.04); }
+
+    .hero-image-tag {
+      position: absolute;
+      top: 32px;
+      left: 32px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 8px 14px;
+      font-weight: 400;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 72px;
+    }
+
+    .collection-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+      color: var(--black);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gray);
+    }
+
+    /* ─── BLACKOUT HIGHLIGHT ─── */
+    .blackout-banner {
+      border: 1px solid var(--black);
+      padding: 28px 32px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .blackout-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, #1a1a1a 0%, var(--black) 60%);
+    }
+
+    .blackout-inner { position: relative; z-index: 1; }
+
+    .blackout-tag {
+      font-size: 0.5625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .blackout-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.625rem;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .blackout-desc {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .blackout-desc strong { color: rgba(255,255,255,0.85); font-weight: 400; }
+
+    /* ─── SPECS ─── */
+    .specs-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .spec-cell {
+      background: var(--white);
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: background 0.2s;
+    }
+
+    .spec-cell:hover { background: var(--light); }
+
+    .spec-name {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--black);
+      letter-spacing: -0.01em;
+    }
+
+    .spec-val {
+      font-size: 0.625rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .hero-body {
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--gray);
+      font-weight: 300;
+    }
+
+    /* ─── FEATURES STRIP ─── */
+    .features-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .feature-pill {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .feature-pill:last-child { border-right: none; }
+    .feature-pill:hover { background: var(--light); }
+
+    .feature-pill-icon {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .feature-pill-name {
+      font-size: 0.8125rem;
+      font-weight: 400;
+      color: var(--black);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .feature-pill-sub {
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* ─── BLACKOUT DEEP DIVE ─── */
+    .blackout-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .blackout-left {
+      background: var(--black);
+      padding: 96px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .blackout-section-tag {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 400;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .blackout-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.5vw, 3.5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .blackout-section-title em {
+      font-style: italic;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .blackout-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .blackout-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    .blackout-point::before {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 20px;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .blackout-point strong {
+      color: var(--white);
+      font-weight: 400;
+    }
+
+    .blackout-right {
+      background: var(--light);
+      position: relative;
+      overflow: hidden;
+      min-height: 560px;
+    }
+
+    .blackout-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.25, 0, 0, 1);
+    }
+
+    .blackout-right:hover img { transform: scale(1.03); }
+
+    /* ─── CARE ─── */
+    .care-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .care-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 72px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .care-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 2.5vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      position: sticky;
+      top: 40px;
+    }
+
+    .care-items { display: flex; flex-direction: column; gap: 0; }
+
+    .care-item {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 32px;
+    }
+
+    .care-item:first-child { border-top: 1px solid var(--border); }
+
+    .care-item-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 400;
+      padding-top: 2px;
+    }
+
+    .care-item-text {
+      font-size: 0.9375rem;
+      color: var(--gray);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content > * {
+      animation: fadeUp 0.7s cubic-bezier(0.25, 0, 0, 1) both;
+    }
+
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero-content > *:nth-child(6) { animation-delay: 0.6s; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-image { aspect-ratio: 4/3; min-height: 420px; }
+      .hero-content { padding: 56px 40px; }
+      .blackout-section { grid-template-columns: 1fr; }
+      .blackout-left { padding: 64px 40px; }
+      .blackout-right { min-height: 360px; }
+      .features-strip { grid-template-columns: 1fr 1fr; }
+      .feature-pill:nth-child(2) { border-right: none; }
+      .care-container { grid-template-columns: 1fr; gap: 40px; padding: 0 40px; }
+      .care-heading { position: static; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-content { padding: 40px 24px; }
+      .blackout-left { padding: 48px 24px; }
+      .features-strip { grid-template-columns: 1fr 1fr; }
+      .feature-pill { padding: 24px 20px; }
+      .care-container { padding: 0 24px; }
+      .care-item { grid-template-columns: 1fr; gap: 8px; }
+      .specs-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-image">
+      <img
+        src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg"
+        alt="Conjunto Classic Camurça Muv Fit"
+      />
+      <span class="hero-image-tag">Coleção Classic</span>
+    </div>
+
+    <div class="hero-content">
+      <p class="collection-label">Muv Fit — Feminino</p>
+
+      <h1 class="hero-title">Conjunto<br><em>Classic Camurça</em></h1>
+
+      <div class="blackout-banner">
+        <div class="blackout-inner">
+          <span class="blackout-tag">Tecnologia Exclusiva</span>
+          <p class="blackout-title">Blackout — Zero Transparência</p>
+          <p class="blackout-desc">
+            <strong>Dupla Frontura + Forro Interno Preto.</strong> Agache, corra e alongue com confiança total — em qualquer movimento.
           </p>
         </div>
       </div>
-    </section>
 
-    <script>
-      // Accordion functionality
-      document.querySelectorAll(".accordion-header").forEach((button) => {
-        button.addEventListener("click", () => {
-          const item = button.closest(".accordion-item");
-          const isActive = item.classList.contains("active");
+      <div class="specs-row">
+        <div class="spec-cell">
+          <span class="spec-name">Cintura Alta</span>
+          <span class="spec-val">Compressão Média</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-name">Dry Technology</span>
+          <span class="spec-val">Secagem Rápida</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-name">Proteção UV50+</span>
+          <span class="spec-val">Outdoor</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-name">Composição</span>
+          <span class="spec-val">86% PES / 14% EA</span>
+        </div>
+      </div>
 
-          // Close all items in the same accordion
-          const accordion = item.closest(".accordion");
-          accordion.querySelectorAll(".accordion-item").forEach((otherItem) => {
-            otherItem.classList.remove("active");
-            otherItem
-              .querySelector(".accordion-header")
-              .setAttribute("aria-expanded", "false");
-          });
+      <p class="hero-body">
+        Design minimalista e engenharia têxtil avançada em um conjunto que combina performance e elegância atemporal. Top nadador ergonômico com entrada para bojo.
+      </p>
+    </div>
+  </section>
 
-          // Toggle current item
-          if (!isActive) {
-            item.classList.add("active");
-            button.setAttribute("aria-expanded", "true");
-          }
-        });
-      });
-    </script>
-  </body>
+  <!-- FEATURES STRIP -->
+  <div class="features-strip">
+    <div class="feature-pill">
+      <svg class="feature-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 3l7 3v5c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-3z" />
+      </svg>
+      <p class="feature-pill-name">Tecnologia Blackout</p>
+      <span class="feature-pill-sub">Zero transparência</span>
+    </div>
+    <div class="feature-pill">
+      <svg class="feature-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 3c3 4 6 6.8 6 10.5A6 6 0 1 1 6 13.5C6 9.8 9 7 12 3z" />
+      </svg>
+      <p class="feature-pill-name">Dry Technology</p>
+      <span class="feature-pill-sub">Secagem rápida</span>
+    </div>
+    <div class="feature-pill">
+      <svg class="feature-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="5"/><path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+      </svg>
+      <p class="feature-pill-name">UV50+</p>
+      <span class="feature-pill-sub">Proteção outdoor</span>
+    </div>
+    <div class="feature-pill">
+      <svg class="feature-pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M9 3c.5 1.7 1.8 3 3 3s2.5-1.3 3-3l4 2.5-2 3V21H7V8.5l-2-3L9 3z"/>
+      </svg>
+      <p class="feature-pill-name">Corte Anatômico</p>
+      <span class="feature-pill-sub">Cintura alta estruturada</span>
+    </div>
+  </div>
+
+  <!-- BLACKOUT DEEP DIVE -->
+  <section class="blackout-section">
+    <div class="blackout-left">
+      <span class="blackout-section-tag">Por que Blackout?</span>
+      <h2 class="blackout-section-title">Confiança total<br><em>em cada movimento</em></h2>
+      <ul class="blackout-points">
+        <li class="blackout-point">
+          <strong>Dupla Frontura</strong> — camada dupla de tecido na região frontal para cobertura garantida.
+        </li>
+        <li class="blackout-point">
+          <strong>Forro Interno Preto</strong> — elimina o esbranquiçamento mesmo no agachamento profundo.
+        </li>
+        <li class="blackout-point">
+          <strong>Sem Transparência</strong> — testado em movimentos extremos: corrida, yoga e crossfit.
+        </li>
+      </ul>
+    </div>
+    <div class="blackout-right">
+      <img
+        src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg"
+        alt="Detalhe Tecnologia Blackout"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <!-- CARE -->
+  <section class="care-section">
+    <div class="care-container">
+      <h2 class="care-heading">Cuidados<br>& Política</h2>
+      <div class="care-items">
+        <div class="care-item">
+          <span class="care-item-label">Lavagem</span>
+          <p class="care-item-text">Lavagem manual com sabão neutro. Seque à sombra em local arejado. Evite ferro e alvejante.</p>
+        </div>
+        <div class="care-item">
+          <span class="care-item-label">Conservação</span>
+          <p class="care-item-text">Evite contato com velcro e superfícies ásperas que possam comprometer a fibra.</p>
+        </div>
+        <div class="care-item">
+          <span class="care-item-label">Tonalidade</span>
+          <p class="care-item-text">Pequenas variações de cor são normais conforme calibração do dispositivo.</p>
+        </div>
+        <div class="care-item">
+          <span class="care-item-label">Devolução</span>
+          <p class="care-item-text">7 dias após o recebimento para solicitar troca ou devolução.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
 </html>

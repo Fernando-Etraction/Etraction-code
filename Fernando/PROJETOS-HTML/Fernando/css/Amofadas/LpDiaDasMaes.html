@@ -1,0 +1,1756 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amofadas — Dia das Mães</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+   TOKENS
+   ============================================================ */
+      :root {
+        --cream: #faf6f0;
+        --warm-white: #fdf9f4;
+        --blush: #e8c4b0;
+        --terracotta: #c4714a;
+        --terracotta-dark: #a85a36;
+        --amber: #d4944a;
+        --ink: #2c2118;
+        --ink-soft: #000000;
+        --muted: #000000;
+
+        --pad-x: 80px;
+        --pad-y: 110px;
+      }
+
+      /* ============================================================
+   RESET & BASE
+   ============================================================ */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Montserrat", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+      }
+
+      /* grain overlay */
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9000;
+        opacity: 0.5;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      /* ============================================================
+   STICKY BAR — mobile only
+   ============================================================ */
+      .sticky-bar {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--terracotta);
+        text-align: center;
+        padding: 14px 16px;
+        z-index: 8000;
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.18);
+      }
+      .sticky-bar a {
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      /* ============================================================
+   BUTTONS
+   ============================================================ */
+      .btn {
+        display: inline-block;
+        background: var(--terracotta);
+        color: #fff;
+        padding: 16px 32px;
+        border-radius: 60px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border: none;
+        transition:
+          background 0.3s,
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .btn:hover {
+        background: var(--terracotta-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 36px rgba(196, 113, 74, 0.35);
+      }
+      .btn-outline {
+        background: transparent;
+        border: 1.5px solid var(--terracotta);
+        color: var(--terracotta);
+      }
+      .btn-outline:hover {
+        background: var(--terracotta);
+        color: #fff;
+      }
+      .btn-white {
+        background: #fff;
+        color: var(--terracotta);
+      }
+      .btn-white:hover {
+        background: var(--cream);
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+      }
+
+      .cta-wrap {
+        text-align: center;
+        margin-top: 36px;
+      }
+
+      /* ============================================================
+   SHARED HELPERS
+   ============================================================ */
+      .section-label {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--terracotta);
+        margin-bottom: 16px;
+      }
+      .deco-line {
+        width: 50px;
+        height: 1px;
+        background: var(--terracotta);
+        margin-bottom: 28px;
+      }
+
+      /* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.75s ease,
+          transform 0.75s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      /* ============================================================
+   ANIMATIONS
+   ============================================================ */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes heroIn {
+        from {
+          opacity: 0;
+          transform: scale(1.04);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ============================================================
+   1. HERO
+   ============================================================ */
+      .hero {
+        min-height: 100svh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--pad-y) 56px var(--pad-y) var(--pad-x);
+        z-index: 2;
+      }
+      .hero-eyebrow {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--terracotta);
+        margin-bottom: 28px;
+        opacity: 0;
+        animation: fadeUp 0.8s ease 0.2s forwards;
+      }
+      .hero h1 {
+        font-size: clamp(30px, 4vw, 62px);
+        font-weight: 300;
+        line-height: 1.18;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease 0.4s forwards;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--terracotta);
+      }
+      .hero-sub {
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--ink-soft);
+        max-width: 360px;
+        margin-bottom: 40px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease 0.6s forwards;
+      }
+      .hero-cta {
+        opacity: 0;
+        animation: fadeUp 0.9s ease 0.8s forwards;
+      }
+      .hero-right {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-right::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, var(--cream) 0%, transparent 28%);
+        z-index: 1;
+      }
+      .hero-img-main {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 25%;
+        opacity: 0;
+        animation: heroIn 1.2s ease 0.3s forwards;
+      }
+      .hero-badge {
+        position: absolute;
+        bottom: 48px;
+        left: -20px;
+        background: var(--warm-white);
+        border: 1px solid rgba(196, 113, 74, 0.2);
+        border-radius: 18px;
+        padding: 18px 24px;
+        z-index: 3;
+        box-shadow: 0 16px 50px rgba(44, 33, 24, 0.1);
+        max-width: 220px;
+        opacity: 0;
+        animation: fadeUp 0.9s ease 1.1s forwards;
+      }
+      .hero-badge .badge-icon {
+        font-size: 24px;
+        margin-bottom: 6px;
+        display: block;
+      }
+      .hero-badge .badge-text {
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--ink-soft);
+        font-weight: 400;
+      }
+
+      /* ============================================================
+   2. IDENTIFICAÇÃO
+   ============================================================ */
+      .section-identificacao {
+        background: var(--warm-white);
+        padding: var(--pad-y) var(--pad-x);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 72px;
+        align-items: center;
+      }
+      .identificacao-text h2 {
+        font-size: clamp(24px, 3.5vw, 50px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 28px;
+      }
+      .identificacao-text p {
+        font-size: 16px;
+        line-height: 1.9;
+        color: var(--ink-soft);
+      }
+      .identificacao-text p strong {
+        font-weight: 600;
+        font-style: italic;
+        color: var(--ink);
+      }
+
+      .btn-align-left {
+
+        display: flex;
+        align-items: flex-start;
+        width: fit-content;
+      }
+      .drawer-visual {
+        position: relative;
+        height: 400px;
+      }
+      .drawer-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 24px 64px rgba(44, 33, 24, 0.12);
+      }
+      .drawer-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(
+          to top,
+          rgba(44, 33, 24, 0.65) 0%,
+          transparent 100%
+        );
+        border-radius: 0 0 20px 20px;
+        padding: 28px 22px 18px;
+        color: #fff;
+      }
+      .drawer-overlay span {
+        font-size: 15px;
+        font-style: italic;
+        font-weight: 300;
+      }
+
+      /* ============================================================
+   3. VIRADA
+   ============================================================ */
+      .section-virada {
+        background: var(--ink);
+        padding: var(--pad-y) var(--pad-x);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .section-virada::before {
+        content: "";
+        position: absolute;
+        width: 560px;
+        height: 560px;
+        background: radial-gradient(
+          circle,
+          rgba(196, 113, 74, 0.14) 0%,
+          transparent 70%
+        );
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .section-virada h2 {
+        font-size: clamp(24px, 4vw, 60px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: var(--warm-white);
+        margin-bottom: 20px;
+        position: relative;
+      }
+      .section-virada h2 em {
+        font-style: italic;
+        color: var(--blush);
+      }
+      .section-virada > p {
+        font-size: 16px;
+        line-height: 1.8;
+        color: rgb(255, 255, 255);
+        max-width: 480px;
+        margin: 0 auto 48px;
+        position: relative;
+      }
+      .transform-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        max-width: 660px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .transform-item {
+        flex: 1;
+        text-align: center;
+      }
+      .transform-img {
+          width: 100%;
+          min-height: 280px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 16px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+      }
+      .transform-label {
+        margin-top: 12px;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgb(255, 255, 255);
+      }
+      .transform-arrow {
+        font-size: 40px;
+        color: var(--terracotta);
+        flex-shrink: 0;
+        line-height: 1;
+      }
+
+      /* ============================================================
+   4. PRODUTO
+   ============================================================ */
+      .section-produto {
+        padding: var(--pad-y) var(--pad-x);
+        background: var(--cream);
+      }
+      .produto-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 72px;
+        align-items: center;
+      }
+      .produto-text h2 {
+        font-size: clamp(24px, 3.5vw, 50px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 24px;
+      }
+      .produto-text p {
+        font-size: 15px;
+        line-height: 1.9;
+        color: var(--ink-soft);
+        margin-bottom: 12px;
+      }
+      .produto-text p strong {
+        font-weight: 600;
+        font-style: italic;
+        color: var(--terracotta);
+      }
+      .produto-imgs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .produto-imgs .img-main {
+        grid-column: span 2;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 18px;
+      }
+      .produto-imgs .img-small {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 14px;
+      }
+
+      /* ============================================================
+   5. COMO FUNCIONA
+   ============================================================ */
+      .section-como {
+        background: var(--warm-white);
+        padding: var(--pad-y) var(--pad-x);
+      }
+      .section-como h2 {
+        font-size: clamp(24px, 3.5vw, 50px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        text-align: center;
+        margin-bottom: 64px;
+      }
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .steps::before {
+        content: "";
+        position: absolute;
+        top: 35px;
+        left: 12%;
+        right: 12%;
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--blush),
+          var(--blush),
+          transparent
+        );
+      }
+      .step {
+        text-align: center;
+        position: relative;
+      }
+      .step-num {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: var(--terracotta);
+        color: #fff;
+        font-size: 24px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 8px 28px rgba(196, 113, 74, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+      .step h3 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--ink);
+      }
+      .step p {
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      /* ============================================================
+   6. ONDE USAR
+   ============================================================ */
+      .section-onde {
+        padding: var(--pad-y) var(--pad-x);
+        background: var(--cream);
+      }
+      .onde-header {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 64px;
+      }
+      .onde-header h2 {
+        font-size: clamp(22px, 3.5vw, 48px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 16px;
+      }
+      .onde-header p {
+        font-size: 15px;
+        color: var(--ink-soft);
+        line-height: 1.7;
+      }
+      .onde-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        max-width: 860px;
+        margin: 0 auto;
+      }
+      .onde-card {
+        background: var(--warm-white);
+        border: 1px solid rgba(196, 113, 74, 0.12);
+        border-radius: 18px;
+        padding: 30px;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s,
+          border-color 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .onde-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(196, 113, 74, 0.03) 0%,
+          transparent 60%
+        );
+      }
+      .onde-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 50px rgba(44, 33, 24, 0.08);
+        border-color: rgba(196, 113, 74, 0.28);
+      }
+      .onde-icon {
+        font-size: 32px;
+        margin-bottom: 14px;
+        display: block;
+      }
+      .onde-card h3 {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+      .onde-card p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .onde-closing {
+        text-align: center;
+        margin-top: 52px;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 300;
+        color: var(--ink-soft);
+        line-height: 1.7;
+      }
+
+      /* ============================================================
+   7. COMPOSIÇÃO
+   ============================================================ */
+      .section-composicao {
+        background: var(--ink);
+        padding: var(--pad-y) var(--pad-x);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 72px;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .section-composicao::before {
+        content: "";
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        background: radial-gradient(
+          circle,
+          rgba(196, 113, 74, 0.07) 0%,
+          transparent 70%
+        );
+        bottom: -200px;
+        right: -200px;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .composicao-text {
+        color: var(--warm-white);
+      }
+      .composicao-text h2 {
+        font-size: clamp(22px, 3.5vw, 48px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 32px;
+      }
+      .kit-items {
+        list-style: none;
+        margin-bottom: 36px;
+      }
+      .kit-items li {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(253, 249, 244, 0.08);
+        font-size: 14px;
+        font-weight: 300;
+        color: rgba(253, 249, 244, 0.8);
+      }
+      .kit-items li:last-child {
+        border-bottom: none;
+      }
+      .kit-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(196, 113, 74, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        flex-shrink: 0;
+      }
+      .composicao-text > p {
+        font-style: italic;
+        font-size: 18px;
+        font-weight: 300;
+        color: var(--blush);
+        margin-bottom: 36px;
+        line-height: 1.6;
+      }
+      .composicao-imgs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        height: 460px;
+      }
+      .composicao-imgs img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 16px;
+      }
+
+      /* ============================================================
+   8. URGÊNCIA
+   ============================================================ */
+      .section-urgencia {
+        padding: var(--pad-y) var(--pad-x);
+        background: linear-gradient(135deg, #fff3ec 0%, #faf6f0 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .section-urgencia::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 360px;
+        height: 360px;
+        background: radial-gradient(
+          circle,
+          rgba(196, 113, 74, 0.07) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .urgencia-inner {
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+      }
+      .urgencia-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(196, 113, 74, 0.1);
+        border: 1px solid rgba(196, 113, 74, 0.28);
+        border-radius: 60px;
+        padding: 9px 22px;
+        margin-bottom: 28px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--terracotta);
+      }
+      .urgencia-inner h2 {
+        font-size: clamp(20px, 3.5vw, 46px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 20px;
+      }
+      .urgencia-inner > p {
+        font-size: 15px;
+        line-height: 1.85;
+        color: var(--ink-soft);
+        margin-bottom: 40px;
+      }
+      .urgencia-inner > p strong {
+        font-weight: 600;
+        font-style: italic;
+        color: var(--terracotta);
+      }
+      .countdown {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 40px;
+        flex-wrap: nowrap;
+      }
+      .cd-block {
+        text-align: center;
+        background: #fff;
+        border: 1px solid rgba(196, 113, 74, 0.14);
+        border-radius: 14px;
+        padding: 16px 20px;
+        min-width: 80px;
+        box-shadow: 0 6px 24px rgba(44, 33, 24, 0.06);
+        flex-shrink: 0;
+      }
+      .cd-num {
+        font-size: 44px;
+        font-weight: 200;
+        color: var(--terracotta);
+        line-height: 1;
+        display: block;
+      }
+      .cd-label {
+        font-size: 9px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 6px;
+        display: block;
+        font-weight: 500;
+      }
+      .cd-sep {
+        font-size: 40px;
+        font-weight: 200;
+        color: var(--blush);
+        line-height: 1;
+        margin-bottom: 14px;
+        flex-shrink: 0;
+      }
+
+      /* ============================================================
+   9. EMOCIONAL FINAL
+   ============================================================ */
+      .section-emocional {
+        padding: var(--pad-y) var(--pad-x);
+        text-align: center;
+        background: var(--warm-white);
+        position: relative;
+        overflow: hidden;
+      }
+      .section-emocional::before {
+        content: "♡";
+        position: absolute;
+        font-size: 360px;
+        color: rgba(196, 113, 74, 0.123);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        line-height: 1;
+        pointer-events: none;
+      }
+      .emocional-inner {
+        max-width: 620px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .big-text {
+        font-size: clamp(15px, 2.2vw, 26px);
+        font-weight: 300;
+        line-height: 0.85;
+        color: var(--ink);
+        margin-bottom: 40px;
+      }
+      .big-text em {
+        font-style: italic;
+        color: var(--terracotta);
+        font-weight: 400;
+      }
+      .closing-line {
+        display: block;
+        font-size: clamp(17px, 2.5vw, 32px);
+        font-style: italic;
+        font-weight: 300;
+        color: var(--ink-soft);
+        line-height: 0.95;
+      }
+
+      /* ============================================================
+   10. FINAL CTA
+   ============================================================ */
+      .section-final-cta {
+        background: var(--terracotta);
+        padding: var(--pad-y) var(--pad-x);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .section-final-cta::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.06) 0%,
+          transparent 55%
+        );
+        pointer-events: none;
+      }
+      .section-final-cta h2 {
+        font-size: clamp(22px, 4vw, 56px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        color: #fff;
+        margin-bottom: 18px;
+        position: relative;
+      }
+      .section-final-cta p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      /* ============================================================
+   11. PROVA SOCIAL
+   ============================================================ */
+      .section-prova {
+        padding: var(--pad-y) var(--pad-x);
+        background: var(--cream);
+      }
+      .prova-header {
+        text-align: center;
+        margin-bottom: 52px;
+      }
+      .prova-header h2 {
+        font-size: clamp(22px, 3vw, 44px);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+      }
+      .reviews {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1060px;
+        margin: 0 auto;
+      }
+      .review-card {
+        background: var(--warm-white);
+        border-radius: 18px;
+        padding: 28px;
+        border: 1px solid rgba(196, 113, 74, 0.1);
+        position: relative;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .review-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 50px rgba(44, 33, 24, 0.08);
+      }
+      .review-card::before {
+        content: '"';
+        font-size: 72px;
+        font-weight: 700;
+        color: rgba(196, 113, 74, 0.13);
+        line-height: 1;
+        position: absolute;
+        top: 14px;
+        left: 22px;
+      }
+      .review-stars {
+        color: var(--amber);
+        margin-bottom: 10px;
+        font-size: 13px;
+      }
+      .review-text {
+        font-size: 14px;
+        font-style: italic;
+        font-weight: 300;
+        line-height: 1.7;
+        color: var(--ink-soft);
+        margin-bottom: 16px;
+        padding-top: 16px;
+      }
+      .review-author {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+      }
+
+      /* ============================================================
+   FOOTER
+   ============================================================ */
+      .footer {
+        background: var(--ink);
+        color: rgba(253, 249, 244, 0.45);
+        text-align: center;
+        padding: 28px;
+        font-size: 12px;
+        font-weight: 300;
+      }
+
+      /* ============================================================
+   RESPONSIVE — TABLET  ≤ 1024px
+   ============================================================ */
+      @media (max-width: 1024px) {
+        :root {
+          --pad-x: 40px;
+          --pad-y: 80px;
+        }
+
+        .hero-left {
+          padding: var(--pad-y) 36px var(--pad-y) var(--pad-x);
+        }
+
+        .section-identificacao {
+          gap: 40px;
+        }
+        .drawer-visual {
+          height: 340px;
+        }
+
+        .steps {
+          grid-template-columns: 1fr 1fr;
+          gap: 28px;
+        }
+        .steps::before {
+          display: none;
+        }
+
+        .composicao-imgs {
+          height: 380px;
+        }
+
+        .reviews {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* ============================================================
+   RESPONSIVE — MOBILE  ≤ 768px
+   ============================================================ */
+      @media (max-width: 768px) {
+        .composicao-imgs img{
+            height: 190px;
+        }
+        :root {
+          --pad-x: 20px;
+          --pad-y: 56px;
+        }
+
+        /* sticky bar + body padding */
+        .sticky-bar {
+          display: flex;
+        }
+        body {
+          padding-bottom: 56px;
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .hero-right {
+          order: 1;
+          height: 55vw;
+          min-height: 200px;
+        }
+
+        .hero-img-main{
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .hero-right::before {
+          display: none;
+        }
+        .hero-badge {
+          display: none;
+        }
+        .hero-left {
+          order: 2;
+          padding: 36px var(--pad-x) 48px;
+        }
+        .hero h1 {
+          font-size: 26px;
+          line-height: 1.25;
+        }
+        .hero-sub {
+          font-size: 14px;
+          max-width: 100%;
+        }
+        .hero-eyebrow {
+          font-size: 9px;
+          margin-bottom: 18px;
+        }
+        .deco-line {
+          margin-bottom: 18px;
+        }
+        .btn {
+          font-size: 11px;
+          padding: 14px 22px;
+        }
+
+        /* ---- IDENTIFICAÇÃO ---- */
+        .section-identificacao {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .drawer-visual {
+          height: 240px;
+        }
+        .identificacao-text h2 {
+          font-size: 22px;
+        }
+        .identificacao-text p {
+          font-size: 14px;
+          line-height: 0.95;
+        }
+
+        /* ---- VIRADA ---- */
+        .section-virada h2 {
+          font-size: 22px;
+        }
+        .section-virada > p {
+          font-size: 14px;
+          margin-bottom: 36px;
+        }
+        .transform-visual {
+          flex-direction: column;
+          gap: 14px;
+          max-width: 240px;
+        }
+        .transform-arrow {
+          transform: rotate(90deg);
+          font-size: 28px;
+        }
+        .transform-img {
+          aspect-ratio: 4/3;
+        }
+
+        /* ---- PRODUTO ---- */
+        .produto-grid {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .produto-text h2 {
+          font-size: 22px;
+        }
+        .produto-text p {
+          font-size: 14px;
+        }
+        .produto-imgs .img-main {
+          height: 200px;
+        }
+        .produto-imgs .img-small {
+          height: 120px;
+        }
+        /* centre the left-aligned CTA on mobile */
+        .produto-text .cta-wrap {
+          text-align: center !important;
+        }
+
+        /* ---- COMO FUNCIONA ---- */
+        .section-como h2 {
+          font-size: 22px;
+          margin-bottom: 36px;
+        }
+        .steps {
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+        }
+        .steps::before {
+          display: none;
+        }
+        .step-num {
+          width: 54px;
+          height: 54px;
+          font-size: 20px;
+          margin-bottom: 12px;
+        }
+        .step h3 {
+          font-size: 12px;
+        }
+        .step p {
+          font-size: 11px;
+        }
+
+        /* ---- ONDE USAR ---- */
+        .onde-header {
+          margin-bottom: 32px;
+        }
+        .onde-header h2 {
+          font-size: 20px;
+        }
+        .onde-header p {
+          font-size: 14px;
+        }
+        .onde-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .onde-card {
+          padding: 20px;
+        }
+        .onde-icon {
+          font-size: 28px;
+          margin-bottom: 10px;
+        }
+        .onde-card h3 {
+          font-size: 15px;
+        }
+        .onde-card p {
+          font-size: 12px;
+        }
+        .onde-closing {
+          font-size: 14px;
+          margin-top: 32px;
+        }
+
+        /* ---- COMPOSIÇÃO ---- */
+        .section-composicao {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .composicao-text h2 {
+          font-size: 22px;
+        }
+        .composicao-text > p {
+          font-size: 15px;
+        }
+        .kit-items li {
+          font-size: 13px;
+        }
+        .composicao-imgs {
+          /* side-by-side landscape on mobile */
+          grid-template-columns: 1fr 1fr;
+          height: 180px;
+        }
+
+        /* ---- URGÊNCIA ---- */
+        .urgencia-inner h2 {
+          font-size: 20px;
+        }
+        .urgencia-inner > p {
+          font-size: 14px;
+        }
+        .countdown {
+          gap: 6px;
+        }
+        .cd-block {
+          min-width: 62px;
+          padding: 12px 10px;
+        }
+        .cd-num {
+          font-size: 30px;
+        }
+        .cd-sep {
+          font-size: 26px;
+          margin-bottom: 10px;
+        }
+
+        /* ---- EMOCIONAL ---- */
+        .section-emocional::before {
+          font-size: 200px;
+        }
+        .big-text {
+          font-size: 14px;
+        }
+        .closing-line {
+          font-size: 16px;
+        }
+
+        /* ---- FINAL CTA ---- */
+        .section-final-cta h2 {
+          font-size: 20px;
+        }
+        .section-final-cta p {
+          font-size: 14px;
+        }
+
+        /* ---- PROVA SOCIAL ---- */
+        .prova-header h2 {
+          font-size: 20px;
+        }
+        .reviews {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .review-card {
+          padding: 20px;
+        }
+        .review-text {
+          font-size: 13px;
+        }
+      }
+
+      /* ============================================================
+   RESPONSIVE — SMALL MOBILE  ≤ 390px
+   ============================================================ */
+      @media (max-width: 390px) {
+        .hero h1 {
+          font-size: 22px;
+        }
+        .hero-right {
+          height: 64vw;
+        }
+        .steps {
+          grid-template-columns: 1fr;
+        }
+        .step-num {
+          width: 48px;
+          height: 48px;
+          font-size: 18px;
+        }
+        .cd-block {
+          min-width: 54px;
+          padding: 10px 8px;
+        }
+        .cd-num {
+          font-size: 26px;
+        }
+        .cd-sep {
+          font-size: 20px;
+        }
+        .composicao-imgs {
+          height: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- STICKY BAR -->
+    <div class="sticky-bar">
+      <a href="#cta-final">💛 TRANSFORMAR MEU DESENHO AGORA</a>
+    </div>
+
+    <!-- ===== 1. HERO ===== -->
+    <section class="hero">
+      <div class="hero-left">
+        <span class="hero-eyebrow">✦ Dia das Mães — Presente Único</span>
+        <div class="deco-line"></div>
+        <h1>
+          A infância passa.<br />
+          Mas o que ela <em>desenha</em><br />
+          na nossa vida… fica.
+        </h1>
+        <p class="hero-sub">
+          Transforme o desenho do seu filho em uma almofada e leve essa memória
+          para dentro da sua casa.
+        </p>
+        <div class="hero-cta">
+          <a href="#cta-final" class="btn">Personalizar minha almofada</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <img
+          class="hero-img-main"
+          src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8921/r6gw0172.jpg"
+          alt="Almofada personalizada com desenho infantil"
+        />
+      </div>
+    </section>
+
+    <!-- ===== 2. IDENTIFICAÇÃO ===== -->
+    <section class="section-identificacao">
+      <div class="identificacao-text reveal">
+        <span class="section-label">A história que você conhece</span>
+        <h2>Você também guarda esses desenhos?</h2>
+        <p>
+          Eles chegam cheios de significado.<br /><br />
+          Com nome, coração, "te amo", família de palitinho…<br /><br />
+          Você guarda. Mas com o tempo…<br /><br />
+          <strong>eles vão ficando esquecidos em uma gaveta.</strong>
+        </p>
+        <div class="cta-wrap">
+          <a href="#cta-final" class="btn btn-outline btn-align-left"
+            >Personalizar minha almofada</a
+          >
+        </div>
+      </div>
+      <div class="drawer-visual reveal reveal-delay-2">
+        <img
+          class="drawer-img"
+          src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8942/design-sem-nome-36.png"
+          alt="Almofada com desenho infantil"
+        />
+        <div class="drawer-overlay">
+          <span>De rabisco… a objeto de amor.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. VIRADA ===== -->
+    <section class="section-virada">
+      <h2 class="reveal">E se não precisasse <em>ser assim?</em></h2>
+      <p class="reveal reveal-delay-1">
+        E se aquele desenho pudesse sair da gaveta… e virar parte da sua casa?
+      </p>
+      <div class="transform-visual reveal reveal-delay-2">
+        <div class="transform-item">
+          <img
+            class="transform-img"
+            src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/9091/design-sem-nome-43.png"
+            alt="Desenho da criança"
+          />
+          <p class="transform-label">O desenho do seu filho</p>
+        </div>
+        <div class="transform-arrow">→</div>
+        <div class="transform-item">
+          <img
+            class="transform-img"
+            src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8918/r6gw0289.jpg"
+            alt="Almofada personalizada"
+          />
+          <p class="transform-label">A sua almofada única</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. PRODUTO ===== -->
+    <section class="section-produto">
+      <div class="produto-grid">
+        <div class="produto-text reveal">
+          <span class="section-label">O produto</span>
+          <h2>Agora, ele vira uma almofada.</h2>
+          <p>Você envia o desenho do seu filho…</p>
+          <p>e a gente transforma em uma peça única.</p>
+          <p>Com textura, cuidado e acabamento impecável.</p>
+          <p>Mas o mais importante:</p>
+          <p><strong>com significado.</strong></p>
+          <div class="cta-wrap" style="text-align: left">
+            <a href="#cta-final" class="btn">Personalizar minha almofada</a>
+          </div>
+        </div>
+        <div class="produto-imgs reveal reveal-delay-2">
+          <img
+            class="img-main"
+            src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8946/design-sem-nome-41.png"
+            alt="Mãe segurando almofada personalizada"
+          />
+          <img
+            class="img-small"
+            src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8943/design-sem-nome-37.png"
+            alt="Detalhe da estampa"
+          />
+          <img
+            class="img-small"
+            src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8920/r6gw0352.jpg"
+            alt="Close no tecido"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. COMO FUNCIONA ===== -->
+    <section class="section-como">
+      <h2 class="reveal">Como funciona</h2>
+      <div class="steps">
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">1</div>
+          <h3>Escolha o desenho</h3>
+          <p>Vale rabisco, pintura, qualquer traço feito com amor.</p>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">2</div>
+          <h3>Envie a foto</h3>
+          <p>Processo simples e rápido. Envie a via Whatsapp.</p>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">3</div>
+          <h3>Nós produzimos</h3>
+          <p>Adaptamos o desenho e fabricamos sua peça única.</p>
+        </div>
+        <div class="step reveal reveal-delay-4">
+          <div class="step-num">4</div>
+          <h3>Você recebe</h3>
+          <p>A memória chega na sua casa, pronta para ficar.</p>
+        </div>
+      </div>
+      <div class="cta-wrap reveal">
+        <a href="#cta-final" class="btn">Personalizar minha almofada</a>
+      </div>
+    </section>
+
+    <!-- ===== 6. ONDE USAR ===== -->
+    <section class="section-onde">
+      <div class="onde-header reveal">
+        <span class="section-label">Essa não é uma almofada para guardar.</span>
+        <p>É uma almofada para fazer parte do seu dia a dia.</p>
+      </div>
+      <div class="onde-grid">
+        <div class="onde-card reveal reveal-delay-1">
+          <span class="onde-icon">🛋️</span>
+          <h3>Sala</h3>
+          <p>
+            O lugar onde a família se encontra. Torna o ambiente ainda mais
+            especial e cheio de significado.
+          </p>
+        </div>
+        <div class="onde-card reveal reveal-delay-2">
+          <span class="onde-icon">🛏️</span>
+          <h3>Quarto</h3>
+          <p>
+            Seu ou das crianças. Mais aconchego e significado no começo e fim de
+            cada dia.
+          </p>
+        </div>
+        <div class="onde-card reveal reveal-delay-3">
+          <span class="onde-icon">📖</span>
+          <h3>Cantinho de leitura</h3>
+          <p>
+            Um espaço de pausa com memória afetiva. Cada página virada ao lado
+            desse traço único.
+          </p>
+        </div>
+        <div class="onde-card reveal reveal-delay-4">
+          <span class="onde-icon">🌿</span>
+          <h3>Poltrona / canto especial</h3>
+          <p>
+            Um detalhe que transforma o ambiente inteiro e carrega uma história
+            real.
+          </p>
+        </div>
+      </div>
+      <p class="onde-closing reveal">
+        Não importa onde você coloque. 💛<br />
+        Vai sempre carregar um pedaço da sua história.
+      </p>
+      <div class="cta-wrap reveal">
+        <a href="#cta-final" class="btn">Personalizar minha almofada</a>
+      </div>
+    </section>
+
+    <!-- ===== 7. COMPOSIÇÃO / UPSELL ===== -->
+    <section class="section-composicao">
+      <div class="composicao-text reveal">
+        <span class="section-label" style="color: var(--blush)"
+          >Um presente completo</span
+        >
+        <h2>Mais do que uma almofada.</h2>
+        <ul class="kit-items">
+          <li>
+            <div class="kit-icon">🎨</div>
+            1 almofada personalizada com o desenho do seu filho
+          </li>
+          <li>
+            <div class="kit-icon">🤍</div>
+            1 almofada lisa neutra para compor a decoração
+          </li>
+          <li>
+            <div class="kit-icon">🌙</div>
+            1 manta para completar o aconchego
+          </li>
+        </ul>
+        <p>Uma experiência completa de afeto e memória.</p>
+        <a
+          href="#cta-final"
+          class="btn btn-outline"
+          style="border-color: var(--blush); color: var(--blush)"
+        >
+          👉 Quero o kit completo
+        </a>
+      </div>
+      <div class="composicao-imgs reveal reveal-delay-2">
+        <img
+          src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8918/r6gw0289.jpg"
+          alt="Kit presente Amofadas"
+        />
+        <img
+          src="https://magazord-public.s3.amazonaws.com/amofadas/img/2026/03/produto/8921/r6gw0172.jpg"
+          alt="Almofada na decoração"
+        />
+      </div>
+    </section>
+
+    <!-- ===== 8. URGÊNCIA ===== -->
+    <section class="section-urgencia">
+      <div class="urgencia-inner">
+        <div class="urgencia-badge reveal">⚠️ Atenção ao prazo</div>
+        <h2 class="reveal">Garanta o seu antes que o tempo acabe.</h2>
+        <p class="reveal reveal-delay-1">
+          Por ser um produto personalizado, precisamos de tempo de produção.<br />
+          Para Sul e Sudeste, garanta seu pedido até
+          <strong>24 de abril</strong> para receber antes do Dia das Mães.
+        </p>
+        <div class="countdown reveal reveal-delay-2" id="countdown">
+          <div class="cd-block">
+            <span class="cd-num" id="cd-days">00</span
+            ><span class="cd-label">Dias</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block">
+            <span class="cd-num" id="cd-hours">00</span
+            ><span class="cd-label">Horas</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block">
+            <span class="cd-num" id="cd-minutes">00</span
+            ><span class="cd-label">Min</span>
+          </div>
+          <span class="cd-sep">:</span>
+          <div class="cd-block">
+            <span class="cd-num" id="cd-seconds">00</span
+            ><span class="cd-label">Seg</span>
+          </div>
+        </div>
+        <div class="cta-wrap reveal">
+          <a href="#cta-final" class="btn">Personalizar minha almofada</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. EMOCIONAL FINAL ===== -->
+    <section class="section-emocional">
+      <div class="emocional-inner">
+        <p class="big-text reveal">
+          Você não está comprando uma almofada.<br /><br />
+          Está guardando <em>uma fase.</em><br />
+          Um traço.<br />
+          Um momento <em>que não volta.</em>
+        </p>
+        <span class="closing-line reveal reveal-delay-1">
+          A infância passa.<br />
+          Mas o que ela desenha na nossa vida… fica.
+        </span>
+      </div>
+    </section>
+
+    <!-- ===== 10. FINAL CTA ===== -->
+    <section class="section-final-cta" id="cta-final">
+      <h2 class="reveal">Transforme esse traço em memória.</h2>
+      <p class="reveal reveal-delay-1">
+        Clique abaixo e garanta a sua almofada personalizada.
+      </p>
+      <div class="reveal reveal-delay-2">
+        <a
+          href=" https://www.amofadas.com/capa-almofada-personalizada-com-desenho-infantil-45x45?zord=true"
+          class="btn btn-white"
+          >✦ Personalizar minha almofada</a
+        >
+      </div>
+    </section>
+
+    <!-- ===== 11. PROVA SOCIAL ===== -->
+    <section class="section-prova">
+      <div class="prova-header reveal">
+        <span class="section-label">O que as mães estão dizendo</span>
+        <h2>Momentos que ficam.</h2>
+      </div>
+      <div class="reviews">
+                <div class="review-card reveal reveal-delay-1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            Foi o presente mais especial que já dei. Ela ficou emocionada ao ver
+            o desenho do neto transformado assim.
+          </p>
+          <span class="review-author">— Juliana M., Porto Alegre</span>
+        </div>
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            Minha mãe chorou quando viu. Disse que foi o presente mais especial
+            que já recebeu na vida.
+          </p>
+          <span class="review-author">— Fernanda R., São Paulo</span>
+        </div>
+        <div class="review-card reveal reveal-delay-3">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            O desenho virou parte da nossa sala. Todo mundo que visita pergunta
+            de onde veio. Amei demais.
+          </p>
+          <span class="review-author">— Camila T., Curitiba</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2026 Amofadas — Almofadas personalizadas com amor ♡</p>
+    </footer>
+
+    <script>
+      // SCROLL REVEAL
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // COUNTDOWN — April 24 2026 23:59:59 BRT
+      function tick() {
+        const diff = new Date("2026-04-24T23:59:59-03:00") - new Date();
+        if (diff <= 0) {
+          document.getElementById("countdown").innerHTML =
+            '<p style="color:var(--terracotta);font-size:15px;font-style:italic;font-weight:300;">O prazo para esta região encerrou.</p>';
+          return;
+        }
+        const pad = (n) => String(n).padStart(2, "0");
+        document.getElementById("cd-days").textContent = pad(
+          Math.floor(diff / 864e5),
+        );
+        document.getElementById("cd-hours").textContent = pad(
+          Math.floor((diff % 864e5) / 36e5),
+        );
+        document.getElementById("cd-minutes").textContent = pad(
+          Math.floor((diff % 36e5) / 6e4),
+        );
+        document.getElementById("cd-seconds").textContent = pad(
+          Math.floor((diff % 6e4) / 1e3),
+        );
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      // SMOOTH SCROLL
+      document.querySelectorAll('a[href="#cta-final"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          document
+            .getElementById("cta-final")
+            .scrollIntoView({ behavior: "smooth" });
+        });
+      });
+    </script>
+  </body>
+</html>

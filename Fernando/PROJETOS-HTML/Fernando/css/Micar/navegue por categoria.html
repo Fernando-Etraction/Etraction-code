@@ -1,0 +1,434 @@
+<div class="uoou-cat-nav-component">
+    <style>
+        .uoou-cat-nav-component {
+            margin: 40px 0;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-header {
+            margin-bottom: 24px;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-title {
+            margin: 0;
+            font-size: 32px;
+            line-height: 1.1;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #1f1f1f;
+            position: relative;
+            display: inline-block;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-title:after {
+            content: "";
+            display: block;
+            width: 48px;
+            height: 4px;
+            background: #0F5389;
+            margin-top: 10px;
+            border-radius: 999px;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-wrapper {
+            position: relative;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-carousel {
+            padding: 0 56px 34px;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-height: 86px;
+            padding: 14px 18px;
+            border: 1px solid #e7e7e7;
+            border-radius: 16px;
+            background: #ffffff;
+            text-decoration: none !important;
+            transition: all .25s ease;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-item:hover {
+            background: #daebfa;
+            border-color: #0F5389;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-icon {
+            width: 56px;
+            min-width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: #f3f6fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .25s ease;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-icon img {
+            max-width: 28px;
+            max-height: 28px;
+            width: auto;
+            height: auto;
+            display: block;
+            transition: filter .25s ease;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-item:hover .uoou-cat-nav-icon {
+            background: #0F5389;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-item:hover .uoou-cat-nav-icon img {
+            filter: brightness(0) invert(1);
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-text {
+            font-size: 19px;
+            line-height: 1.25;
+            font-weight: 600;
+            color: #333333;
+            transition: color .25s ease;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-item:hover .uoou-cat-nav-text {
+            color: #0F5389;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid #dddddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3;
+            transition: all .25s ease;
+            padding: 0;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-arrow:hover {
+            background: #0F5389;
+            border-color: #0F5389;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-arrow svg {
+            width: 18px;
+            height: 18px;
+            stroke: #1f1f1f;
+            transition: stroke .25s ease;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-arrow:hover svg {
+            stroke: #ffffff;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-prev {
+            left: 0;
+        }
+
+        .uoou-cat-nav-component .uoou-cat-nav-next {
+            right: 0;
+        }
+
+        .uoou-cat-nav-component .owl-dots {
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        .uoou-cat-nav-component .owl-dot {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
+
+        .uoou-cat-nav-component .owl-dot span {
+            width: 8px;
+            height: 8px;
+            margin: 0;
+            border-radius: 50%;
+            background: #cfcfcf;
+            display: block;
+            transition: all .25s ease;
+        }
+
+        .uoou-cat-nav-component .owl-dot.active span {
+            background: #6b6b6b;
+            transform: scale(1.15);
+        }
+
+        @media (max-width: 1199px) {
+            .uoou-cat-nav-component .uoou-cat-nav-title {
+                font-size: 28px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-text {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .uoou-cat-nav-component .uoou-cat-nav-carousel {
+                padding: 0 44px 30px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-title {
+                font-size: 24px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-item {
+                min-height: 78px;
+                padding: 12px 14px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-icon {
+                width: 50px;
+                min-width: 50px;
+                height: 50px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-text {
+                font-size: 16px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-arrow {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .uoou-cat-nav-component {
+                margin: 30px 0;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-carousel {
+                padding: 0 0 28px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-header {
+                margin-bottom: 18px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-title {
+                font-size: 20px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-title:after {
+                width: 42px;
+                height: 3px;
+                margin-top: 8px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-item {
+                min-height: 72px;
+                border-radius: 14px;
+                gap: 14px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-icon {
+                width: 46px;
+                min-width: 46px;
+                height: 46px;
+                border-radius: 12px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-icon img {
+                max-width: 24px;
+                max-height: 24px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-text {
+                font-size: 15px;
+            }
+
+            .uoou-cat-nav-component .uoou-cat-nav-arrow {
+                display: none !important;
+            }
+        }
+    </style>
+
+        <div class="uoou-cat-nav-wrapper">
+            <button class="uoou-cat-nav-arrow uoou-cat-nav-prev" type="button" aria-label="Categoria anterior">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+
+            <div class="uoou-cat-nav-carousel owl-carousel">
+                <div class="uoou-cat-nav-column">
+                    <a class="uoou-cat-nav-item" href="/banheiro/vasos-sanitarios-e-acessorios/vasos-sanitarios">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/vasos-sanitarios.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/vasos-sanitarios.svg" alt="Vasos Sanitários">
+                        </span>
+                        <span class="uoou-cat-nav-text">Vasos Sanitários</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/cozinha/cubas">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cubas.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cubas.svg" alt="Cubas">
+                        </span>
+                        <span class="uoou-cat-nav-text">Cubas</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/banheiro/chuveiros">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/chuveiros.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/chuveiros.svg" alt="Chuveiros">
+                        </span>
+                        <span class="uoou-cat-nav-text">Chuveiros</span>
+                    </a>
+                </div>
+
+                <div class="uoou-cat-nav-column">
+                    <a class="uoou-cat-nav-item" href="/eletrica/resistencias">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/resistencias.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/resistencias.svg" alt="Resistências">
+                        </span>
+                        <span class="uoou-cat-nav-text">Resistências</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/ferramentas/serras-e-discos-de-corte">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/serras.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/serras.svg" alt="Serras">
+                        </span>
+                        <span class="uoou-cat-nav-text">Serras</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/jardim/trituradores">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/trituradores.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/trituradores.svg" alt="Trituradores">
+                        </span>
+                        <span class="uoou-cat-nav-text">Trituradores</span>
+                    </a>
+                </div>
+
+                <div class="uoou-cat-nav-column">
+                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/hidraulica">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/hidraulica.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/hidraulica.svg" alt="Hidráulica">
+                        </span>
+                        <span class="uoou-cat-nav-text">Hidráulica</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/eletrica/lampadas">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lampadas.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lampadas.svg" alt="Lâmpadas">
+                        </span>
+                        <span class="uoou-cat-nav-text">Lâmpadas</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/jardim/cortadores-de-grama-e-rocadeiras">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cortador-de-grama.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cortador-de-grama.svg" alt="Cortador de Grama">
+                        </span>
+                        <span class="uoou-cat-nav-text">Cortador de Grama</span>
+                    </a>
+                </div>
+
+                <div class="uoou-cat-nav-column">
+                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/produtos-para-piscina">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/produtos-para-piscina.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/produtos-para-piscina.svg" alt="Produtos para Piscina">
+                        </span>
+                        <span class="uoou-cat-nav-text">Produtos para Piscina</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/ferramentas/parafusadeiras-e-furadeiras">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/parafusadeira.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/parafusadeira.svg" alt="Parafusadeiras e Furadeiras">
+                        </span>
+                        <span class="uoou-cat-nav-text">Parafusadeiras e Furadeiras</span>
+                    </a>
+
+                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/utilidade-domestica/lava-jato">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lava-jato.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lava-jato.svg" alt="Lava Jato">
+                        </span>
+                        <span class="uoou-cat-nav-text">Lava Jato</span>
+                    </a>
+                </div>
+
+                <div class="uoou-cat-nav-column">
+                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/construcao">
+                        <span class="uoou-cat-nav-icon">
+                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/construcao.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/construcao.svg" alt="Construção">
+                        </span>
+                        <span class="uoou-cat-nav-text">Construção</span>
+                    </a>
+                </div>
+            </div>
+
+            <button class="uoou-cat-nav-arrow uoou-cat-nav-next" type="button" aria-label="Próxima categoria">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var $carousel = $('.uoou-cat-nav-component .uoou-cat-nav-carousel');
+
+            if (!$carousel.length || !$carousel.owlCarousel) {
+                return;
+            }
+
+            if ($carousel.hasClass('owl-loaded')) {
+                $carousel.trigger('destroy.owl.carousel');
+                $carousel.removeClass('owl-loaded');
+                $carousel.find('.owl-stage-outer').children().unwrap();
+            }
+
+            $carousel.owlCarousel({
+                items: 4,
+                margin: 16,
+                nav: false,
+                dots: true,
+                loop: false,
+                rewind: true,
+                mouseDrag: true,
+                touchDrag: true,
+                pullDrag: true,
+                smartSpeed: 500,
+                responsive: {
+                    0: {
+                        items: 1,
+                        stagePadding: 0
+                    },
+                    576: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    },
+                    1200: {
+                        items: 4
+                    }
+                }
+            });
+
+            $('.uoou-cat-nav-component .uoou-cat-nav-prev').off('click.uoouCatNav').on('click.uoouCatNav', function () {
+                $carousel.trigger('prev.owl.carousel');
+            });
+
+            $('.uoou-cat-nav-component .uoou-cat-nav-next').off('click.uoouCatNav').on('click.uoouCatNav', function () {
+                $carousel.trigger('next.owl.carousel');
+            });
+        })();
+    </script>
+</div>
