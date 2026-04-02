@@ -10,8 +10,7 @@
     endTime: "2026-04-05T23:59:59-03:00",
     badge: "04 & 05 de Abril · Páscoa da Hitzz",
     ctaLink: "https://www.usehitzz.com.br/48-horas",  // TODO: substituir pela URL da landing page quando o cliente enviar
-    hideOnScrollAfter: 10,
-    timerIntervalMs: 1000
+    hideOnScrollAfter: 10
   };
 
   const CSS = `
@@ -146,20 +145,16 @@
   white-space:nowrap;
 }
 .cp-topo-timer-label{
-  font-size:9px;
+  font-size:8px;
   letter-spacing:2px;
-  color:#ccc;
+  color:#999;
   text-transform:uppercase;
 }
 .cp-topo-timer-value{
-  font-size:15px;
-  font-weight:800;
+  font-size:14px;
+  font-weight:700;
   font-variant-numeric:tabular-nums;
   color:#fff;
-  background:rgba(255,255,255,.1);
-  padding:3px 10px;
-  border-radius:4px;
-  letter-spacing:.5px;
 }
 .cp-topo-close{
   position:absolute;
@@ -220,7 +215,7 @@
   .cp-topo-highlight{font-size:14px}
   .cp-topo-text{font-size:11px}
   .cp-topo-price{font-size:14px}
-  .cp-topo-timer-value{font-size:12px;padding:2px 8px}
+  .cp-topo-timer-value{font-size:12px}
 }
 `;
 
@@ -238,16 +233,16 @@
   <div class="cp-topo-inner">
 
     <div class="cp-topo-copy">
-      <span class="cp-topo-highlight">PÁSCOA HITZZ</span>
-      <span class="cp-topo-sep">|</span>
-      <span class="cp-topo-text">48 produtos por até</span>
-      <span class="cp-topo-price">R$148</span>
+      <span class="cp-topo-highlight">48 Horas</span>
       <span class="cp-topo-sep">·</span>
-      <span class="cp-topo-text">Só 48h!</span>
+      <span class="cp-topo-highlight">48 Produtos</span>
+      <span class="cp-topo-sep">·</span>
+      <span class="cp-topo-text">por até</span>
+      <span class="cp-topo-price">R$148</span>
     </div>
 
     <a href="${CONFIG.ctaLink}" class="cp-topo-cta">
-      Aproveitar
+      Clique aqui
       <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
     </a>
 
