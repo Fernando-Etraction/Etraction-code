@@ -1,49 +1,42 @@
-<div class="uoou-cat-nav-component">
+<div class="mcr-cat-nav">
     <style>
-        .uoou-cat-nav-component {
-            margin: 40px 0;
+        .mcr-cat-nav {
+            width: 1370px;
+            max-width: 100%;
+            margin: 40px auto;
+            box-sizing: border-box;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-header {
-            margin-bottom: 24px;
+        .mcr-cat-nav *,
+        .mcr-cat-nav *::before,
+        .mcr-cat-nav *::after {
+            box-sizing: border-box;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-title {
-            margin: 0;
-            font-size: 32px;
-            line-height: 1.1;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #1f1f1f;
+        .mcr-cat-nav .mcr-wrap {
             position: relative;
-            display: inline-block;
+            padding: 0 56px;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-title:after {
-            content: "";
-            display: block;
-            width: 48px;
-            height: 4px;
-            background: #0F5389;
-            margin-top: 10px;
-            border-radius: 999px;
+        .mcr-cat-nav .mcr-track {
+            overflow: hidden;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-wrapper {
-            position: relative;
+        .mcr-cat-nav .mcr-slider {
+            display: flex;
+            gap: 16px;
+            transition: transform 0.4s ease;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-carousel {
-            padding: 0 56px 34px;
-        }
-
-        .uoou-cat-nav-component .uoou-cat-nav-column {
+        .mcr-cat-nav .mcr-col {
+            min-width: calc((100% - 48px) / 4);
+            flex: 0 0 calc((100% - 48px) / 4);
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-item {
+        .mcr-cat-nav .mcr-item {
             display: flex;
             align-items: center;
             gap: 16px;
@@ -56,13 +49,13 @@
             transition: all .25s ease;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-item:hover {
+        .mcr-cat-nav .mcr-item:hover {
             background: #daebfa;
             border-color: #0F5389;
             box-shadow: 0 8px 20px rgba(0, 0, 0, .05);
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-icon {
+        .mcr-cat-nav .mcr-icon {
             width: 56px;
             min-width: 56px;
             height: 56px;
@@ -74,7 +67,7 @@
             transition: all .25s ease;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-icon img {
+        .mcr-cat-nav .mcr-icon img {
             max-width: 28px;
             max-height: 28px;
             width: auto;
@@ -83,15 +76,15 @@
             transition: filter .25s ease;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-item:hover .uoou-cat-nav-icon {
+        .mcr-cat-nav .mcr-item:hover .mcr-icon {
             background: #0F5389;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-item:hover .uoou-cat-nav-icon img {
+        .mcr-cat-nav .mcr-item:hover .mcr-icon img {
             filter: brightness(0) invert(1);
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-text {
+        .mcr-cat-nav .mcr-label {
             font-size: 19px;
             line-height: 1.25;
             font-weight: 600;
@@ -99,11 +92,11 @@
             transition: color .25s ease;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-item:hover .uoou-cat-nav-text {
+        .mcr-cat-nav .mcr-item:hover .mcr-label {
             color: #0F5389;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-arrow {
+        .mcr-cat-nav .mcr-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -121,314 +114,362 @@
             padding: 0;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-arrow:hover {
+        .mcr-cat-nav .mcr-arrow:hover {
             background: #0F5389;
             border-color: #0F5389;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-arrow svg {
+        .mcr-cat-nav .mcr-arrow svg {
             width: 18px;
             height: 18px;
             stroke: #1f1f1f;
             transition: stroke .25s ease;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-arrow:hover svg {
+        .mcr-cat-nav .mcr-arrow:hover svg {
             stroke: #ffffff;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-prev {
+        .mcr-cat-nav .mcr-prev {
             left: 0;
         }
 
-        .uoou-cat-nav-component .uoou-cat-nav-next {
+        .mcr-cat-nav .mcr-next {
             right: 0;
         }
 
-        .uoou-cat-nav-component .owl-dots {
+        .mcr-cat-nav .mcr-dots {
             margin-top: 18px;
             text-align: center;
         }
 
-        .uoou-cat-nav-component .owl-dot {
+        .mcr-cat-nav .mcr-dot {
             display: inline-block;
             vertical-align: middle;
             margin: 0 4px;
-        }
-
-        .uoou-cat-nav-component .owl-dot span {
             width: 8px;
             height: 8px;
-            margin: 0;
             border-radius: 50%;
             background: #cfcfcf;
-            display: block;
+            border: none;
+            padding: 0;
+            cursor: pointer;
             transition: all .25s ease;
         }
 
-        .uoou-cat-nav-component .owl-dot.active span {
+        .mcr-cat-nav .mcr-dot.mcr-active {
             background: #6b6b6b;
             transform: scale(1.15);
         }
 
         @media (max-width: 1199px) {
-            .uoou-cat-nav-component .uoou-cat-nav-title {
-                font-size: 28px;
+            .mcr-cat-nav .mcr-label {
+                font-size: 17px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-text {
-                font-size: 17px;
+            .mcr-cat-nav .mcr-col {
+                min-width: calc((100% - 32px) / 3);
+                flex: 0 0 calc((100% - 32px) / 3);
             }
         }
 
         @media (max-width: 991px) {
-            .uoou-cat-nav-component .uoou-cat-nav-carousel {
-                padding: 0 44px 30px;
+            .mcr-cat-nav .mcr-wrap {
+                padding: 0 44px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-title {
-                font-size: 24px;
-            }
-
-            .uoou-cat-nav-component .uoou-cat-nav-item {
+            .mcr-cat-nav .mcr-item {
                 min-height: 78px;
                 padding: 12px 14px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-icon {
+            .mcr-cat-nav .mcr-icon {
                 width: 50px;
                 min-width: 50px;
                 height: 50px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-text {
+            .mcr-cat-nav .mcr-label {
                 font-size: 16px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-arrow {
+            .mcr-cat-nav .mcr-arrow {
                 width: 40px;
                 height: 40px;
+            }
+
+            .mcr-cat-nav .mcr-col {
+                min-width: calc((100% - 16px) / 2);
+                flex: 0 0 calc((100% - 16px) / 2);
             }
         }
 
         @media (max-width: 767px) {
-            .uoou-cat-nav-component {
-                margin: 30px 0;
+            .mcr-cat-nav {
+                margin: 30px auto;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-carousel {
-                padding: 0 0 28px;
+            .mcr-cat-nav .mcr-wrap {
+                padding: 0 44px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-header {
-                margin-bottom: 18px;
+            .mcr-cat-nav .mcr-slider {
+                gap: 8px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-title {
-                font-size: 20px;
-            }
-
-            .uoou-cat-nav-component .uoou-cat-nav-title:after {
-                width: 42px;
-                height: 3px;
-                margin-top: 8px;
-            }
-
-            .uoou-cat-nav-component .uoou-cat-nav-item {
-                min-height: 72px;
-                border-radius: 14px;
-                gap: 14px;
-            }
-
-            .uoou-cat-nav-component .uoou-cat-nav-icon {
-                width: 46px;
-                min-width: 46px;
-                height: 46px;
+            .mcr-cat-nav .mcr-item {
+                text-align: center;
+                min-height: auto;
                 border-radius: 12px;
+                gap: 6px;
+                padding: 16px 10px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-icon img {
-                max-width: 24px;
-                max-height: 24px;
+            .mcr-cat-nav .mcr-icon {
+                width: 40px;
+                min-width: 40px;
+                height: 40px;
+                border-radius: 10px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-text {
-                font-size: 15px;
+            .mcr-cat-nav .mcr-icon img {
+                max-width: 20px;
+                max-height: 20px;
             }
 
-            .uoou-cat-nav-component .uoou-cat-nav-arrow {
-                display: none !important;
+            .mcr-cat-nav .mcr-label {
+                font-size: 11px;
+                line-height: 1.2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                word-break: break-word;
+            }
+
+            .mcr-cat-nav .mcr-arrow {
+                width: 30px;
+                height: 30px;
+            }
+
+            .mcr-cat-nav .mcr-arrow svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            .mcr-cat-nav .mcr-col {
+                min-width: calc((100% - 1px) / 1);
+                flex: 0 0 calc((100% - 16px) / 3);
+                gap: 8px;
             }
         }
     </style>
 
-        <div class="uoou-cat-nav-wrapper">
-            <button class="uoou-cat-nav-arrow uoou-cat-nav-prev" type="button" aria-label="Categoria anterior">
-                <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </button>
+    <div class="mcr-wrap">
+        <button class="mcr-arrow mcr-prev" type="button" aria-label="Categoria anterior">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
 
-            <div class="uoou-cat-nav-carousel owl-carousel">
-                <div class="uoou-cat-nav-column">
-                    <a class="uoou-cat-nav-item" href="/banheiro/vasos-sanitarios-e-acessorios/vasos-sanitarios">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/vasos-sanitarios.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/vasos-sanitarios.svg" alt="Vasos Sanitários">
+        <div class="mcr-track">
+            <div class="mcr-slider">
+                <div class="mcr-col">
+                    <a class="mcr-item" href="/banheiro/vasos-sanitarios-e-acessorios/vasos-sanitarios">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/vasos-sanitarios.svg" alt="Vasos Sanitários">
                         </span>
-                        <span class="uoou-cat-nav-text">Vasos Sanitários</span>
+                        <span class="mcr-label">Vasos Sanitários</span>
                     </a>
-
-                    <a class="uoou-cat-nav-item" href="/cozinha/cubas">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cubas.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cubas.svg" alt="Cubas">
+                    <a class="mcr-item" href="/cozinha/cubas">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cubas.svg" alt="Cubas">
                         </span>
-                        <span class="uoou-cat-nav-text">Cubas</span>
+                        <span class="mcr-label">Cubas</span>
                     </a>
-
-                    <a class="uoou-cat-nav-item" href="/banheiro/chuveiros">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/chuveiros.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/chuveiros.svg" alt="Chuveiros">
+                    <a class="mcr-item" href="/banheiro/chuveiros">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/chuveiros.svg" alt="Chuveiros">
                         </span>
-                        <span class="uoou-cat-nav-text">Chuveiros</span>
-                    </a>
-                </div>
-
-                <div class="uoou-cat-nav-column">
-                    <a class="uoou-cat-nav-item" href="/eletrica/resistencias">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/resistencias.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/resistencias.svg" alt="Resistências">
-                        </span>
-                        <span class="uoou-cat-nav-text">Resistências</span>
-                    </a>
-
-                    <a class="uoou-cat-nav-item" href="/ferramentas/serras-e-discos-de-corte">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/serras.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/serras.svg" alt="Serras">
-                        </span>
-                        <span class="uoou-cat-nav-text">Serras</span>
-                    </a>
-
-                    <a class="uoou-cat-nav-item" href="/jardim/trituradores">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/trituradores.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/trituradores.svg" alt="Trituradores">
-                        </span>
-                        <span class="uoou-cat-nav-text">Trituradores</span>
+                        <span class="mcr-label">Chuveiros</span>
                     </a>
                 </div>
 
-                <div class="uoou-cat-nav-column">
-                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/hidraulica">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/hidraulica.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/hidraulica.svg" alt="Hidráulica">
+                <div class="mcr-col">
+                    <a class="mcr-item" href="/eletrica/resistencias">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/resistencias.svg" alt="Resistências">
                         </span>
-                        <span class="uoou-cat-nav-text">Hidráulica</span>
+                        <span class="mcr-label">Resistências</span>
                     </a>
-
-                    <a class="uoou-cat-nav-item" href="/eletrica/lampadas">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lampadas.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lampadas.svg" alt="Lâmpadas">
+                    <a class="mcr-item" href="/ferramentas/serras-e-discos-de-corte">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/serras.svg" alt="Serras">
                         </span>
-                        <span class="uoou-cat-nav-text">Lâmpadas</span>
+                        <span class="mcr-label">Serras</span>
                     </a>
-
-                    <a class="uoou-cat-nav-item" href="/jardim/cortadores-de-grama-e-rocadeiras">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cortador-de-grama.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cortador-de-grama.svg" alt="Cortador de Grama">
+                    <a class="mcr-item" href="/jardim/trituradores">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/trituradores.svg" alt="Trituradores">
                         </span>
-                        <span class="uoou-cat-nav-text">Cortador de Grama</span>
+                        <span class="mcr-label">Trituradores</span>
                     </a>
                 </div>
 
-                <div class="uoou-cat-nav-column">
-                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/produtos-para-piscina">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/produtos-para-piscina.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/produtos-para-piscina.svg" alt="Produtos para Piscina">
+                <div class="mcr-col">
+                    <a class="mcr-item" href="/todos-os-departamentos/hidraulica">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/hidraulica.svg" alt="Hidráulica">
                         </span>
-                        <span class="uoou-cat-nav-text">Produtos para Piscina</span>
+                        <span class="mcr-label">Hidráulica</span>
                     </a>
-
-                    <a class="uoou-cat-nav-item" href="/ferramentas/parafusadeiras-e-furadeiras">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/parafusadeira.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/parafusadeira.svg" alt="Parafusadeiras e Furadeiras">
+                    <a class="mcr-item" href="/jardim/cortadores-de-grama-e-rocadeiras">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cortador-de-grama.svg" alt="Cortador de Grama">
                         </span>
-                        <span class="uoou-cat-nav-text">Parafusadeiras e Furadeiras</span>
+                        <span class="mcr-label">Cortador de Grama</span>
                     </a>
-
-                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/utilidade-domestica/lava-jato">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lava-jato.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lava-jato.svg" alt="Lava Jato">
+                    <a class="mcr-item" href="/todos-os-departamentos/construcao">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/construcao.svg" alt="Construção">
                         </span>
-                        <span class="uoou-cat-nav-text">Lava Jato</span>
+                        <span class="mcr-label">Construção</span>
                     </a>
                 </div>
 
-                <div class="uoou-cat-nav-column">
-                    <a class="uoou-cat-nav-item" href="/todos-os-departamentos/construcao">
-                        <span class="uoou-cat-nav-icon">
-                            <img class="lazyload" data-src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/construcao.svg" src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/construcao.svg" alt="Construção">
+                <div class="mcr-col">
+                    <a class="mcr-item" href="/todos-os-departamentos/produtos-para-piscina">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/produtos-para-piscina.svg" alt="Produtos para Piscina">
                         </span>
-                        <span class="uoou-cat-nav-text">Construção</span>
+                        <span class="mcr-label">Produtos para Piscina</span>
+                    </a>
+                    <a class="mcr-item" href="/ferramentas/parafusadeiras-e-furadeiras">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/parafusadeira.svg" alt="Parafusadeiras e Furadeiras">
+                        </span>
+                        <span class="mcr-label">Parafusadeiras e Furadeiras</span>
+                    </a>
+                    <a class="mcr-item" href="/todos-os-departamentos/utilidade-domestica/lava-jato">
+                        <span class="mcr-icon">
+                            <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lava-jato.svg" alt="Lava Jato">
+                        </span>
+                        <span class="mcr-label">Lava Jato</span>
                     </a>
                 </div>
             </div>
-
-            <button class="uoou-cat-nav-arrow uoou-cat-nav-next" type="button" aria-label="Próxima categoria">
-                <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M9 18L15 12L9 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-            </button>
         </div>
+
+        <button class="mcr-arrow mcr-next" type="button" aria-label="Próxima categoria">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9 18L15 12L9 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </button>
+
+        <div class="mcr-dots"></div>
     </div>
 
     <script>
-        (function () {
-            var $carousel = $('.uoou-cat-nav-component .uoou-cat-nav-carousel');
+        document.addEventListener('DOMContentLoaded', function () {
+            var root = document.querySelector('.mcr-cat-nav');
+            if (!root) return;
 
-            if (!$carousel.length || !$carousel.owlCarousel) {
-                return;
+            var slider = root.querySelector('.mcr-slider');
+            var track = root.querySelector('.mcr-track');
+            var prevBtn = root.querySelector('.mcr-prev');
+            var nextBtn = root.querySelector('.mcr-next');
+            var dotsWrap = root.querySelector('.mcr-dots');
+            var cols = root.querySelectorAll('.mcr-col');
+            var cur = 0;
+
+            function getVis() {
+                var w = window.innerWidth;
+                if (w >= 1200) return 4;
+                if (w >= 992) return 3;
+                return 3;
             }
 
-            if ($carousel.hasClass('owl-loaded')) {
-                $carousel.trigger('destroy.owl.carousel');
-                $carousel.removeClass('owl-loaded');
-                $carousel.find('.owl-stage-outer').children().unwrap();
+            function maxIdx() {
+                return Math.max(0, cols.length - getVis());
             }
 
-            $carousel.owlCarousel({
-                items: 4,
-                margin: 16,
-                nav: false,
-                dots: true,
-                loop: false,
-                rewind: true,
-                mouseDrag: true,
-                touchDrag: true,
-                pullDrag: true,
-                smartSpeed: 500,
-                responsive: {
-                    0: {
-                        items: 1,
-                        stagePadding: 0
-                    },
-                    576: {
-                        items: 2
-                    },
-                    992: {
-                        items: 3
-                    },
-                    1200: {
-                        items: 4
+            function makeDots() {
+                dotsWrap.innerHTML = '';
+                var t = maxIdx() + 1;
+                if (t <= 1) return;
+                for (var i = 0; i < t; i++) {
+                    var d = document.createElement('button');
+                    d.type = 'button';
+                    d.className = 'mcr-dot' + (i === cur ? ' mcr-active' : '');
+                    d.setAttribute('aria-label', 'Página ' + (i + 1));
+                    d.setAttribute('data-i', i);
+                    d.addEventListener('click', function () {
+                        goTo(parseInt(this.getAttribute('data-i')));
+                    });
+                    dotsWrap.appendChild(d);
+                }
+            }
+
+            function updDots() {
+                var ds = dotsWrap.querySelectorAll('.mcr-dot');
+                for (var i = 0; i < ds.length; i++) {
+                    if (i === cur) {
+                        ds[i].classList.add('mcr-active');
+                    } else {
+                        ds[i].classList.remove('mcr-active');
                     }
                 }
+            }
+
+            function goTo(idx) {
+                var mx = maxIdx();
+                if (idx < 0) idx = mx;
+                if (idx > mx) idx = 0;
+                cur = idx;
+                var gap = window.innerWidth <= 767 ? 8 : 16;
+                var cw = cols[0].offsetWidth + gap;
+                slider.style.transform = 'translateX(-' + (cur * cw) + 'px)';
+                updDots();
+            }
+
+            prevBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                goTo(cur - 1);
             });
 
-            $('.uoou-cat-nav-component .uoou-cat-nav-prev').off('click.uoouCatNav').on('click.uoouCatNav', function () {
-                $carousel.trigger('prev.owl.carousel');
+            nextBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                goTo(cur + 1);
             });
 
-            $('.uoou-cat-nav-component .uoou-cat-nav-next').off('click.uoouCatNav').on('click.uoouCatNav', function () {
-                $carousel.trigger('next.owl.carousel');
+            var sx = 0, drag = false;
+            track.addEventListener('touchstart', function (e) {
+                sx = e.touches[0].clientX;
+                drag = true;
+            }, { passive: true });
+            track.addEventListener('touchend', function (e) {
+                if (!drag) return;
+                drag = false;
+                var diff = e.changedTouches[0].clientX - sx;
+                if (Math.abs(diff) > 40) goTo(cur + (diff < 0 ? 1 : -1));
+            }, { passive: true });
+
+            cur = 0;
+            slider.style.transform = 'translateX(0)';
+            makeDots();
+
+            var rt;
+            window.addEventListener('resize', function () {
+                clearTimeout(rt);
+                rt = setTimeout(function () {
+                    if (cur > maxIdx()) cur = maxIdx();
+                    goTo(cur);
+                    makeDots();
+                }, 150);
             });
-        })();
+        });
     </script>
 </div>

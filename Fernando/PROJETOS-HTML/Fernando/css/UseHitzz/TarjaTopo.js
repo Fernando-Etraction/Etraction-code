@@ -7,15 +7,29 @@
     styleId: "cpTarjaTopoStyle",
     timerId: "cpTarjaTopoTimer",
     mobileBreakpoint: 900,
-    endTime: "2026-03-15T23:59:59-03:00",
-    badge: "15 de Março · Dia do Consumidor",
-    hideOnScrollAfter: 10
+    endTime: "2026-04-05T23:59:59-03:00",
+    badge: "04 & 05 de Abril · Páscoa da Hitzz",
+    ctaLink: "https://www.usehitzz.com.br/48-horas",  // TODO: substituir pela URL da landing page quando o cliente enviar
+    hideOnScrollAfter: 10,
+    timerIntervalMs: 1000
   };
 
   const CSS = `
+
+  .box-header-wrapper{
+  display:none;
+}
+
+@media (max-width: 767px) {
+    div#cabecalho {
+        padding-top: 58px;
+    }
+}
+
+
 #${CONFIG.id}{
   width:100%;
-  background:#0a0a0a;
+  background:#000;
   color:#fff;
   position:relative;
   z-index:9999;
@@ -30,7 +44,7 @@
   position:absolute;
   left:0;right:0;bottom:0;
   height:2px;
-  background:linear-gradient(90deg,transparent,#8B2E4D,#C2516F,#8B2E4D,transparent);
+  background:linear-gradient(90deg,transparent,#fff,#ccc,#fff,transparent);
 }
 #${CONFIG.id}.cp-topo-hidden{
   transform:translateY(-100%);
@@ -43,7 +57,7 @@
   align-items:center;
   justify-content:center;
   padding:10px 16px;
-  gap:18px;
+  gap:20px;
 }
 .cp-topo-badge{
   display:flex;
@@ -56,64 +70,73 @@
   width:6px;
   height:6px;
   border-radius:50%;
-  background:#8B2E4D;
-  box-shadow:0 0 8px rgba(139,46,77,.75);
+  background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.6);
 }
 .cp-topo-badge-text{
   font-size:9px;
   font-weight:700;
   letter-spacing:2px;
   text-transform:uppercase;
-  color:#9a9a9a;
+  color:#999;
 }
-.cp-topo-grid{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  flex:1;
-  min-width:0;
-}
-.cp-topo-item{
+.cp-topo-copy{
   display:flex;
   align-items:center;
   gap:6px;
   white-space:nowrap;
 }
-.cp-topo-pct{
-  font-size:28px;
-  font-weight:900;
+.cp-topo-egg{
+  font-size:22px;
   line-height:1;
 }
-.cp-topo-pct sup{
-  font-size:10px;
-  color:#C2516F;
-}
-.cp-topo-meta{
-  display:flex;
-  flex-direction:column;
-  line-height:1.05;
-}
-.cp-topo-off{
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:1px;
-  color:#C2516F;
-}
-.cp-topo-qty{
-  font-size:10px;
-  color:#7c7c7c;
-  text-transform:uppercase;
-}
-.cp-topo-bonus{
-  background:#8B2E4D;
+.cp-topo-highlight{
+  font-size:18px;
   color:#fff;
-  padding:6px 10px;
-  border-radius:4px;
-  font-size:9px;
-  font-weight:700;
-  line-height:1.2;
+  line-height:1;
+}
+.cp-topo-sep{
+  font-size:18px;
+  color:#666;
+  margin:0 2px;
+}
+.cp-topo-text{
+  font-size:18px;
+  color:#fff;
+  line-height:1;
+}
+.cp-topo-price{
+  font-size:22px;
+  font-weight:900;
+  color:#fff;
+  line-height:1;
+}
+.cp-topo-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#000;
+  color:#fff;
+  padding:7px 18px;
+  font-size:12px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  text-decoration:none;
   white-space:nowrap;
+  flex-shrink:0;
+  transition:background .2s ease, transform .15s ease;
+  cursor:pointer;
+  border:1px solid #fff;
+}
+.cp-topo-cta:hover{
+  background:#333;
+  transform:scale(1.04);
+}
+.cp-topo-cta svg{
+  width:14px;
+  height:14px;
+  fill:currentColor;
 }
 .cp-topo-timer{
   display:flex;
@@ -123,15 +146,38 @@
   white-space:nowrap;
 }
 .cp-topo-timer-label{
-  font-size:8px;
+  font-size:9px;
   letter-spacing:2px;
-  color:#7c7c7c;
+  color:#ccc;
   text-transform:uppercase;
 }
 .cp-topo-timer-value{
-  font-size:14px;
-  font-weight:700;
+  font-size:15px;
+  font-weight:800;
   font-variant-numeric:tabular-nums;
+  color:#fff;
+  background:rgba(255,255,255,.1);
+  padding:3px 10px;
+  border-radius:4px;
+  letter-spacing:.5px;
+}
+.cp-topo-close{
+  position:absolute;
+  top:50%;
+  right:12px;
+  transform:translateY(-50%);
+  background:none;
+  border:none;
+  color:#999;
+  font-size:18px;
+  cursor:pointer;
+  padding:4px 6px;
+  line-height:1;
+  transition:color .2s ease;
+  z-index:1;
+}
+.cp-topo-close:hover{
+  color:#fff;
 }
 @media (max-width:900px){
   #${CONFIG.id}{
@@ -144,33 +190,37 @@
   .cp-topo-badge{display:none}
   .cp-topo-inner{
     padding:8px 10px;
-    gap:10px;
+    gap:8px;
     flex-wrap:wrap;
-  }
-  .cp-topo-grid{
-    width:100%;
-    gap:10px;
     justify-content:center;
   }
-  .cp-topo-pct{font-size:18px}
-  .cp-topo-off{font-size:8px}
-  .cp-topo-qty{font-size:8px}
-  .cp-topo-bonus{
-    font-size:8px;
-    padding:5px 8px;
+  .cp-topo-copy{
+    width:100%;
+    justify-content:center;
+    gap:4px;
+    flex-wrap:wrap;
+  }
+  .cp-topo-egg{font-size:16px}
+  .cp-topo-highlight{font-size:16px}
+  .cp-topo-text{font-size:12px}
+  .cp-topo-price{font-size:16px}
+  .cp-topo-sep{font-size:14px}
+  .cp-topo-cta{
+    font-size:10px;
+    padding:5px 14px;
   }
   .cp-topo-timer{
     width:100%;
     justify-content:center;
-    border-top:1px solid rgba(255,255,255,.08);
+    border-top:1px solid rgba(255,255,255,.1);
     padding-top:6px;
   }
 }
 @media (max-width:480px){
-  .cp-topo-grid{gap:8px}
-  .cp-topo-item{gap:4px}
-  .cp-topo-pct{font-size:16px}
-  .cp-topo-timer-value{font-size:12px}
+  .cp-topo-highlight{font-size:14px}
+  .cp-topo-text{font-size:11px}
+  .cp-topo-price{font-size:14px}
+  .cp-topo-timer-value{font-size:12px;padding:2px 8px}
 }
 `;
 
@@ -186,43 +236,27 @@
     return `
 <div id="${CONFIG.id}">
   <div class="cp-topo-inner">
-    <div class="cp-topo-badge">
-      <span class="cp-topo-dot"></span>
-      <span class="cp-topo-badge-text">${CONFIG.badge}</span>
+
+    <div class="cp-topo-copy">
+      <span class="cp-topo-highlight">PÁSCOA HITZZ</span>
+      <span class="cp-topo-sep">|</span>
+      <span class="cp-topo-text">48 produtos por até</span>
+      <span class="cp-topo-price">R$148</span>
+      <span class="cp-topo-sep">·</span>
+      <span class="cp-topo-text">Só 48h!</span>
     </div>
 
-    <div class="cp-topo-grid">
-      <div class="cp-topo-item">
-        <div class="cp-topo-pct">10<sup>%</sup></div>
-        <div class="cp-topo-meta">
-          <span class="cp-topo-off">OFF</span>
-          <span class="cp-topo-qty">1 PEÇA</span>
-        </div>
-      </div>
-
-      <div class="cp-topo-item">
-        <div class="cp-topo-pct">15<sup>%</sup></div>
-        <div class="cp-topo-meta">
-          <span class="cp-topo-off">OFF</span>
-          <span class="cp-topo-qty">2 PEÇAS</span>
-        </div>
-      </div>
-
-      <div class="cp-topo-item">
-        <div class="cp-topo-pct">20<sup>%</sup></div>
-        <div class="cp-topo-meta">
-          <span class="cp-topo-off">OFF</span>
-          <span class="cp-topo-qty">3 PEÇAS</span>
-        </div>
-      </div>
-
-      <div class="cp-topo-bonus">🎁 4+ PEÇAS<br>20% + MEIA</div>
-    </div>
+    <a href="${CONFIG.ctaLink}" class="cp-topo-cta">
+      Aproveitar
+      <svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+    </a>
 
     <div class="cp-topo-timer">
       <span class="cp-topo-timer-label">TERMINA EM</span>
       <span class="cp-topo-timer-value" id="${CONFIG.timerId}">00d 00:00:00</span>
     </div>
+
+    <button class="cp-topo-close" aria-label="Fechar" title="Fechar">&times;</button>
   </div>
 </div>`;
   }
@@ -328,22 +362,45 @@
     delete el.dataset.running;
   }
 
+  let closedByUser = false;
+
   function bindScrollHide() {
+    let lastScrollY = window.scrollY || window.pageYOffset || 0;
     let ticking = false;
 
     function onScroll() {
-      if (ticking) return;
+      if (ticking || closedByUser) return;
       ticking = true;
 
       requestAnimationFrame(() => {
-        const y = window.scrollY || window.pageYOffset || 0;
-        setHidden(y > CONFIG.hideOnScrollAfter);
+        const currentY = window.scrollY || window.pageYOffset || 0;
+
+        if (currentY <= CONFIG.hideOnScrollAfter) {
+          setHidden(false);
+        } else if (currentY > lastScrollY) {
+          setHidden(true);
+        } else {
+          setHidden(false);
+        }
+
+        lastScrollY = currentY;
         ticking = false;
       });
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+  }
+
+  function bindClose() {
+    const tarja = getTarja();
+    if (!tarja) return;
+    const btn = tarja.querySelector(".cp-topo-close");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      closedByUser = true;
+      setHidden(true);
+    });
   }
 
   function mount() {
@@ -358,6 +415,7 @@
   function start() {
     mount();
     bindScrollHide();
+    bindClose();
 
     window.addEventListener("load", applyOffsets);
     window.addEventListener("resize", applyOffsets);

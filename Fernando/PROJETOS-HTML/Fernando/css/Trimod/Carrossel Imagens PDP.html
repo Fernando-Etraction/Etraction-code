@@ -50,8 +50,8 @@
     text-overflow: ellipsis;
   }
 
-  /* Modal */
-  .modal-bg {
+  /* Modal Stories */
+  .stories-modal-bg {
     display: none;
     position: fixed;
     inset: 0;
@@ -61,11 +61,11 @@
     justify-content: center;
   }
 
-  .modal-bg.open {
+  .stories-modal-bg.open {
     display: flex;
   }
 
-  .story-modal {
+  .stories-modal {
     position: relative;
     width: 400px;
     max-width: 96vw;
@@ -76,20 +76,20 @@
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
   }
 
-  .modal-img {
+  .stories-modal-img {
     width: 100%;
     height: 100% !important;
     object-fit: cover;
     display: block;
     transition: opacity 0.25s;
   }
-    .modal-img img {
+    .stories-modal-img img {
     width: 100%;
     height: 100% !important;
     }
 
-  /* Progress bars */
-  .bars {
+  /* Progress bars Stories */
+  .stories-bars {
     position: absolute;
     top: 12px;
     left: 12px;
@@ -99,7 +99,7 @@
     z-index: 10;
   }
 
-  .bar-wrap {
+  .stories-bar-wrap {
     flex: 1;
     height: 3px;
     background: rgba(255, 255, 255, 0.28);
@@ -107,24 +107,24 @@
     overflow: hidden;
   }
 
-  .bar-fill {
+  .stories-bar-fill {
     height: 100%;
     background: #fff;
     width: 0%;
     border-radius: 2px;
   }
 
-  .bar-fill.done {
+  .stories-bar-fill.done {
     width: 100%;
     transition: none;
   }
 
-  .bar-fill.active {
+  .stories-bar-fill.active {
     transition: width linear;
   }
 
-  /* Header info */
-  .modal-header {
+  /* Header info Stories */
+  .stories-modal-header {
     position: absolute;
     top: 26px;
     left: 14px;
@@ -136,7 +136,7 @@
     border-bottom: none;
   }
 
-  .modal-avatar {
+  .stories-modal-avatar {
     width: 34px !important;
     height: 34px !important;
     border-radius: 50%;
@@ -144,13 +144,13 @@
     border: 2px solid #fff;
     flex-shrink: 0;
   }
-    .modal-avatar img {
+    .stories-modal-avatar img {
     width: 34px !important;
     height: 34px !important;
     }
 
 
-  .modal-name {
+  .stories-modal-name {
     font-family: "Barlow", sans-serif;
     font-size: 13px;
     font-weight: 600;
@@ -158,14 +158,14 @@
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
   }
 
-  .modal-time {
+  .stories-modal-time {
     font-family: "Barlow", sans-serif;
     font-size: 11px;
     color: rgba(255, 255, 255, 0.6);
   }
 
-  /* Close */
-  .modal-close {
+  /* Close Stories */
+  .stories-modal-close {
     position: absolute;
     top: 28px;
     right: 14px;
@@ -176,7 +176,7 @@
     padding: 4px;
   }
 
-  .modal-close svg {
+  .stories-modal-close svg {
     width: 22px;
     height: 22px;
     stroke: #fff;
@@ -186,9 +186,9 @@
     filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
   }
 
-  /* Tap zones */
-  .tap-prev,
-  .tap-next {
+  /* Tap zones Stories */
+  .stories-tap-prev,
+  .stories-tap-next {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -197,16 +197,16 @@
     cursor: pointer;
   }
 
-  .tap-prev {
+  .stories-tap-prev {
     left: 0;
   }
 
-  .tap-next {
+  .stories-tap-next {
     right: 0;
   }
 
-  /* Caption */
-  .modal-caption {
+  /* Caption Stories */
+  .stories-modal-caption {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -220,7 +220,7 @@
     z-index: 10;
   }
 
-  .modal-caption small {
+  .stories-modal-caption small {
     display: block;
     font-family: "Barlow", sans-serif;
     font-size: 11px;
@@ -281,14 +281,14 @@
       line-height: 1.2;
     }
 
-    .story-modal {
+    .stories-modal {
       width: 100%;
       max-width: 100vw;
       height: 100vh;
       border-radius: 0;
     }
     
-  .modal-avatar {
+  .stories-modal-avatar {
     width: 34px !important;
     height: 34px !important;
     border-radius: 50%;
@@ -297,7 +297,7 @@
     flex-shrink: 0;
   }
 
-    .modal-caption {
+    .stories-modal-caption {
       font-size: 20px;
     }
   }
@@ -310,33 +310,33 @@
 
 <div class="stories-wrap" id="stories-wrap"></div>
 
-<div class="modal-bg" id="modal-bg">
-  <div class="story-modal" id="story-modal">
-    <div class="bars" id="bars"></div>
+<div class="stories-modal-bg" id="stories-modal-bg">
+  <div class="stories-modal" id="stories-modal">
+    <div class="stories-bars" id="stories-bars"></div>
 
-    <div class="modal-header">
-      <img  style="height: 34px !important;" class="modal-avatar" id="modal-avatar" src="" alt="" />
+    <div class="stories-modal-header">
+      <img  style="height: 34px !important;" class="stories-modal-avatar" id="stories-modal-avatar" src="" alt="" />
       <div>
-        <div class="modal-name">trimodmeias</div>
-        <div class="modal-time" id="modal-time">agora</div>
+        <div class="stories-modal-name">trimodmeias</div>
+        <div class="stories-modal-time" id="stories-modal-time">agora</div>
       </div>
     </div>
 
-    <button class="modal-close" id="modal-close">
+    <button class="stories-modal-close" id="stories-modal-close">
       <svg viewBox="0 0 24 24">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
 
-    <div class="tap-prev" id="tap-prev"></div>
-    <div class="tap-next" id="tap-next"></div>
+    <div class="stories-tap-prev" id="stories-tap-prev"></div>
+    <div class="stories-tap-next" id="stories-tap-next"></div>
 
-    <img class="modal-img" style="height: 100% !important;" id="modal-img" src="" alt="" />
+    <img class="stories-modal-img" style="height: 100% !important;" id="stories-modal-img" src="" alt="" />
 
-    <div class="modal-caption">
-      <small id="cap-tag"></small>
-      <span id="cap-text"></span>
+    <div class="stories-modal-caption">
+      <small id="stories-cap-tag"></small>
+      <span id="stories-cap-text"></span>
     </div>
   </div>
 </div>
