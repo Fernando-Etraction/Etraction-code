@@ -1,0 +1,630 @@
+<style>
+  <!--
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  .svn-wrap{font-family:'Montserrat',sans-serif;color:#111;background:#fff;overflow:hidden}
+
+  /* ── ANIMAÇÕES ── */
+  @keyframes svnFadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes svnFadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes svnSlideLeft{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes svnSlideRight{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes svnScaleIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  @keyframes svnLineGrow{from{width:0}to{width:60px}}
+  @keyframes svnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  @keyframes svnCountUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes svnFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+  .svn-reveal{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .svn-reveal.svn-visible{opacity:1;transform:translateY(0)}
+  .svn-reveal-left{opacity:0;transform:translateX(-60px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .svn-reveal-left.svn-visible{opacity:1;transform:translateX(0)}
+  .svn-reveal-right{opacity:0;transform:translateX(60px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .svn-reveal-right.svn-visible{opacity:1;transform:translateX(0)}
+  .svn-reveal-scale{opacity:0;transform:scale(.85);transition:opacity .7s ease,transform .7s ease}
+  .svn-reveal-scale.svn-visible{opacity:1;transform:scale(1)}
+
+  /* ── HERO FULLSCREEN ── */
+  .svn-hero{position:relative;min-height:520px;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden}
+  .svn-hero-bg{position:absolute;inset:0;background:url('https://savancini.cdn.magazord.com.br/img/2025/08/produto/13902/macaquinho-ciclismo-feminino-manga-longa-star-preto-savancini-st460-1.jpg') center/cover no-repeat;opacity:.25;filter:grayscale(100%)}
+  .svn-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.85) 100%)}
+  .svn-hero-inner{position:relative;z-index:2;text-align:center;padding:60px 30px;max-width:900px;animation:svnFadeUp 1.2s cubic-bezier(.22,1,.36,1) both}
+  .svn-hero-badge{display:inline-block;border:1px solid rgba(255,255,255,.3);color:#fff;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;padding:8px 22px;border-radius:50px;margin-bottom:30px;animation:svnFadeIn 1.5s .3s both}
+  .svn-hero h1{color:#fff;font-size:52px;font-weight:800;letter-spacing:5px;text-transform:uppercase;line-height:1.15;margin-bottom:24px}
+  .svn-hero h1 span{display:block;font-weight:200;font-size:22px;letter-spacing:8px;margin-top:10px;opacity:.7}
+  .svn-hero-line{width:60px;height:2px;background:#fff;margin:0 auto 28px;animation:svnLineGrow 1s .6s both}
+  .svn-hero p{color:rgba(255,255,255,.75);font-size:15px;font-weight:300;line-height:2;max-width:620px;margin:0 auto}
+  .svn-hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:2;animation:svnFloat 2s ease-in-out infinite}
+  .svn-hero-scroll svg{width:24px;height:24px;stroke:#fff;stroke-width:2;fill:none;opacity:.5}
+
+  /* ── NÚMEROS / STATS ── */
+  .svn-stats{background:#000;padding:50px 30px;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+  .svn-stat{flex:1;min-width:180px;max-width:280px;text-align:center;padding:25px 20px;position:relative}
+  .svn-stat:not(:last-child)::after{content:'';position:absolute;right:0;top:25%;height:50%;width:1px;background:rgba(255,255,255,.15)}
+  .svn-stat-num{font-size:42px;font-weight:800;color:#fff;line-height:1;margin-bottom:8px}
+  .svn-stat-label{font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+
+  /* ── SEÇÃO BASE ── */
+  .svn-section{padding:80px 40px;max-width:1200px;margin:0 auto}
+  .svn-section-full{padding:80px 40px}
+  .svn-section-dark{background:#0a0a0a;color:#fff}
+  .svn-section-light{background:#f7f7f7}
+  .svn-section-white{background:#fff}
+  .svn-section-head{text-align:center;margin-bottom:55px}
+  .svn-section-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:14px}
+  .svn-section-dark .svn-section-tag{color:rgba(255,255,255,.4)}
+  .svn-section-head h2{font-size:34px;font-weight:800;text-transform:uppercase;letter-spacing:3px;line-height:1.2}
+  .svn-section-dark .svn-section-head h2{color:#fff}
+  .svn-section-head-line{width:50px;height:2px;background:#000;margin:20px auto 0}
+  .svn-section-dark .svn-section-head-line{background:#fff}
+
+  /* ── ORIGEM – Imagem + Texto Lado a Lado ── */
+  .svn-split{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:550px}
+  .svn-split-img{position:relative;overflow:hidden}
+  .svn-split-img img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%);transition:filter .6s ease,transform .6s ease}
+  .svn-split-img:hover img{filter:grayscale(0%);transform:scale(1.03)}
+  .svn-split-content{display:flex;flex-direction:column;justify-content:center;padding:60px 55px;background:#fff}
+  .svn-split-tag{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#999;margin-bottom:14px}
+  .svn-split-content h2{font-size:30px;font-weight:800;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;color:#000}
+  .svn-split-line{width:45px;height:2px;background:#000;margin-bottom:28px}
+  .svn-split-content p{font-size:14px;line-height:2;color:#555;margin-bottom:16px}
+  .svn-split-content p:last-of-type{margin-bottom:0}
+
+  /* ── PILARES – Cards com hover ── */
+  .svn-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:25px;max-width:1200px;margin:0 auto}
+  .svn-pillar{background:#fff;border:1px solid #eee;border-radius:16px;padding:45px 30px;text-align:center;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.22,1,.36,1)}
+  .svn-pillar::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#000;transform:scaleX(0);transition:transform .4s ease}
+  .svn-pillar:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.08)}
+  .svn-pillar:hover::before{transform:scaleX(1)}
+  .svn-section-dark .svn-pillar{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+  .svn-section-dark .svn-pillar::before{background:#fff}
+  .svn-section-dark .svn-pillar:hover{box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .svn-pillar-icon{width:65px;height:65px;margin:0 auto 22px;background:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .4s ease}
+  .svn-section-dark .svn-pillar-icon{background:#fff}
+  .svn-pillar:hover .svn-pillar-icon{transform:scale(1.1)}
+  .svn-pillar-icon svg{width:26px;height:26px;fill:#fff}
+  .svn-section-dark .svn-pillar-icon svg{fill:#000}
+  .svn-pillar h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;color:#000}
+  .svn-section-dark .svn-pillar h3{color:#fff}
+  .svn-pillar p{font-size:13px;line-height:1.9;color:#777}
+  .svn-section-dark .svn-pillar p{color:rgba(255,255,255,.5)}
+
+  /* ── CONFORTO & INOVAÇÃO – Split invertido ── */
+  .svn-split-reverse .svn-split-img{order:2}
+  .svn-split-reverse .svn-split-content{order:1;background:#f7f7f7}
+
+  /* ── SEGURANÇA – Banner com parallax ── */
+  .svn-banner{position:relative;background:#000;padding:90px 40px;text-align:center;overflow:hidden}
+  .svn-banner-bg{position:absolute;inset:0;background:url('https://savancini.cdn.magazord.com.br/img/2025/09/produto/14075/banner-caracteristicas-e-qualidade-savancini-mercado-livre-1500x2000-com-infos.jpg') center/cover no-repeat;opacity:.15;filter:grayscale(100%)}
+  .svn-banner-inner{position:relative;z-index:2;max-width:750px;margin:0 auto}
+  .svn-banner-inner h2{font-size:30px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px}
+  .svn-banner-line{width:50px;height:2px;background:#fff;margin:0 auto 28px}
+  .svn-banner-inner p{font-size:14px;line-height:2;color:rgba(255,255,255,.65);max-width:600px;margin:0 auto}
+
+  /* ── TIMELINE HORIZONTAL ── */
+  .svn-timeline{display:flex;justify-content:center;gap:0;max-width:1100px;margin:0 auto;position:relative}
+  .svn-timeline::before{content:'';position:absolute;top:38px;left:10%;right:10%;height:2px;background:#e0e0e0}
+  .svn-tl-item{flex:1;max-width:250px;text-align:center;position:relative;padding-top:65px}
+  .svn-tl-dot{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:22px;height:22px;background:#000;border-radius:50%;border:4px solid #fff;box-shadow:0 0 0 2px #000;z-index:2;transition:transform .3s ease}
+  .svn-tl-item:hover .svn-tl-dot{transform:translateX(-50%) scale(1.3)}
+  .svn-tl-year{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#000;margin-bottom:10px}
+  .svn-tl-item p{font-size:13px;line-height:1.8;color:#777;padding:0 10px}
+
+  /* ── PRODUTOS – Grid com imagens de fundo ── */
+  .svn-prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;max-width:1000px;margin:0 auto}
+  .svn-prod-card{position:relative;height:200px;border-radius:12px;overflow:hidden;display:flex;align-items:flex-end;text-decoration:none;transition:transform .4s ease}
+  .svn-prod-card:hover{transform:translateY(-5px)}
+  .svn-prod-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.85) 100%);z-index:1;transition:background .3s ease}
+  .svn-prod-card:hover::before{background:linear-gradient(180deg,transparent 20%,rgba(0,0,0,.9) 100%)}
+  .svn-prod-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .svn-prod-card:hover img{transform:scale(1.08)}
+  .svn-prod-card span{position:relative;z-index:2;display:block;padding:20px;color:#fff;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+
+  /* ── FAQ ── */
+  .svn-faq{max-width:800px;margin:0 auto}
+  .svn-faq-item{border-bottom:1px solid #eee;overflow:hidden}
+  .svn-faq-item summary{font-size:14px;font-weight:600;cursor:pointer;color:#000;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:22px 0;transition:color .3s ease}
+  .svn-faq-item summary:hover{color:#555}
+  .svn-faq-item summary::after{content:'+';font-size:24px;font-weight:300;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid #ddd;transition:all .3s ease;flex-shrink:0}
+  .svn-faq-item[open] summary::after{content:'−';background:#000;color:#fff;border-color:#000}
+  .svn-faq-item p{font-size:13px;line-height:1.9;color:#666;padding:0 0 22px;padding-right:45px}
+
+  /* ── CTA FINAL ── */
+  .svn-cta{background:#000;text-align:center;padding:90px 40px;position:relative;overflow:hidden}
+  .svn-cta::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,.03) 0%,transparent 70%);pointer-events:none}
+  .svn-cta-inner{position:relative;z-index:2}
+  .svn-cta h2{font-size:36px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:4px;margin-bottom:18px;line-height:1.2}
+  .svn-cta p{font-size:14px;font-weight:300;line-height:2;color:rgba(255,255,255,.6);max-width:550px;margin:0 auto 35px}
+  .svn-cta-btn{display:inline-block;text-decoration:none;background:#fff;color:#000;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:16px 50px;border-radius:0;position:relative;overflow:hidden;transition:color .3s ease}
+  .svn-cta-btn::before{content:'';position:absolute;inset:0;background:#000;transform:translateX(-100%);transition:transform .4s cubic-bezier(.22,1,.36,1);z-index:0}
+  .svn-cta-btn:hover{color:#fff}
+  .svn-cta-btn:hover::before{transform:translateX(0)}
+  .svn-cta-btn span{position:relative;z-index:1}
+  .svn-cta-btn:hover{border:1px solid #fff}
+
+  /* ── CONTATO RODAPÉ ── */
+  .svn-contact{display:flex;justify-content:center;gap:50px;flex-wrap:wrap;padding:30px 40px;background:#111;border-top:1px solid rgba(255,255,255,.06)}
+  .svn-contact-item{display:flex;align-items:center;gap:12px;text-decoration:none;color:rgba(255,255,255,.5);font-size:12px;font-weight:500;letter-spacing:1px;transition:color .3s ease}
+  .svn-contact-item:hover{color:#fff}
+  .svn-contact-item svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
+
+  /* ── RESPONSIVO TABLET ── */
+  @media(max-width:1024px){
+    .svn-hero h1{font-size:38px;letter-spacing:3px}
+    .svn-hero h1 span{font-size:18px}
+    .svn-split{grid-template-columns:1fr;min-height:auto}
+    .svn-split-img{height:400px}
+    .svn-split-reverse .svn-split-img{order:0}
+    .svn-split-reverse .svn-split-content{order:0}
+    .svn-pillars{grid-template-columns:repeat(2,1fr)}
+    .svn-timeline{flex-wrap:wrap;gap:30px}
+    .svn-timeline::before{display:none}
+    .svn-tl-item{flex:none;width:48%;padding-top:0}
+    .svn-tl-dot{display:none}
+    .svn-prod-grid{grid-template-columns:repeat(2,1fr)}
+    .svn-stat-num{font-size:34px}
+  }
+
+  /* ── RESPONSIVO MOBILE ── */
+  @media(max-width:600px){
+    .svn-hero{min-height:420px}
+    .svn-hero-inner{padding:40px 20px}
+    .svn-hero h1{font-size:26px;letter-spacing:2px}
+    .svn-hero h1 span{font-size:14px;letter-spacing:3px}
+    .svn-hero p{font-size:13px}
+    .svn-stats{flex-direction:column;padding:35px 20px;gap:0}
+    .svn-stat{padding:18px 15px}
+    .svn-stat:not(:last-child)::after{width:60%;height:1px;right:auto;left:20%;top:auto;bottom:0}
+    .svn-stat-num{font-size:30px}
+    .svn-section{padding:50px 20px}
+    .svn-section-full{padding:50px 20px}
+    .svn-section-head h2{font-size:24px;letter-spacing:2px}
+    .svn-split-content{padding:40px 24px}
+    .svn-split-content h2{font-size:24px;letter-spacing:2px}
+    .svn-split-img{height:320px}
+    .svn-pillars{grid-template-columns:1fr;gap:18px}
+    .svn-pillar{padding:35px 24px}
+    .svn-timeline{flex-direction:column;align-items:center}
+    .svn-tl-item{width:100%;max-width:100%}
+    .svn-prod-grid{grid-template-columns:1fr;gap:12px}
+    .svn-prod-card{height:170px}
+    .svn-banner{padding:60px 20px}
+    .svn-banner-inner h2{font-size:22px}
+    .svn-cta{padding:60px 20px}
+    .svn-cta h2{font-size:24px;letter-spacing:2px}
+    .svn-cta p{font-size:13px}
+    .svn-contact{flex-direction:column;align-items:center;gap:20px;padding:25px 20px}
+  }
+  -->
+</style>
+
+<div class="svn-wrap">
+  <!-- ═══ HERO ═══ -->
+  <div class="svn-hero">
+    <div class="svn-hero-bg"></div>
+    <div class="svn-hero-overlay"></div>
+    <div class="svn-hero-inner">
+      <div class="svn-hero-badge">Desde 2018</div>
+      <h1>Savancini<span>Criada por ciclistas, para ciclistas</span></h1>
+      <div class="svn-hero-line"></div>
+      <p>
+        Nascemos da paixão pelo ciclismo e do desejo de criar produtos que
+        transformem cada pedalada em uma experiência inesquecível. Qualidade,
+        conforto e inovação definem quem somos.
+      </p>
+    </div>
+    <div class="svn-hero-scroll">
+      <svg viewBox="0 0 24 24">
+        <polyline points="7 13 12 18 17 13" />
+        <line x1="12" y1="18" x2="12" y2="6" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- ═══ STATS ═══ -->
+  <div class="svn-stats">
+    <div class="svn-stat svn-reveal">
+      <div class="svn-stat-num" data-target="2018">2018</div>
+      <div class="svn-stat-label">Ano de Fundação</div>
+    </div>
+    <div class="svn-stat svn-reveal">
+      <div class="svn-stat-num">500+</div>
+      <div class="svn-stat-label">Produtos</div>
+    </div>
+    <div class="svn-stat svn-reveal">
+      <div class="svn-stat-num">50k+</div>
+      <div class="svn-stat-label">Clientes Atendidos</div>
+    </div>
+    <div class="svn-stat svn-reveal">
+      <div class="svn-stat-num">★ 5.0</div>
+      <div class="svn-stat-label">Avaliação dos Clientes</div>
+    </div>
+  </div>
+
+  <!-- ═══ ORIGEM ═══ -->
+  <div class="svn-split">
+    <div class="svn-split-img svn-reveal-left">
+      <img
+        src="https://savancini.cdn.magazord.com.br/img/2022/05/produto/3352/bretelle-para-ciclismo-masculino-preto-savancini-010.jpg"
+        alt="A Origem da Savancini"
+        loading="lazy"
+      />
+    </div>
+    <div class="svn-split-content svn-reveal-right">
+      <span class="svn-split-tag">Nossa História</span>
+      <h2>A Origem</h2>
+      <div class="svn-split-line"></div>
+      <p>
+        A história da Savancini começa com dois irmãos que se uniram em
+        torno de um objetivo comum: criar produtos que tornassem a experiência
+        do ciclismo ainda mais prazerosa.
+      </p>
+      <p>
+        A qualidade do vestuário pode transformar uma simples pedalada em uma
+        aventura inesquecível. Com esse pensamento, fundamos a Savancini — onde
+        cada detalhe é cuidadosamente pensado para proporcionar o melhor aos
+        nossos clientes.
+      </p>
+      <p>
+        Desde o início, desenvolvemos uma linha de produtos que atende não só às
+        necessidades práticas dos ciclistas, mas que também oferece estilo e
+        funcionalidade.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══ PILARES ═══ -->
+  <div class="svn-section-full svn-section-light">
+    <div class="svn-section-head svn-reveal">
+      <span class="svn-section-tag">O que nos move</span>
+      <h2>Nossos Pilares</h2>
+      <div class="svn-section-head-line"></div>
+    </div>
+
+    <div class="svn-pillars">
+      <div class="svn-pillar svn-reveal-scale" style="transition-delay: 0.1s">
+        <div class="svn-pillar-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"
+            />
+          </svg>
+        </div>
+        <h3>Qualidade</h3>
+        <p>
+          Testes rigorosos em cada modelo antes de ser colocado à venda.
+          Qualidade, conforto, caimento, durabilidade e segurança garantidos.
+        </p>
+      </div>
+
+      <div class="svn-pillar svn-reveal-scale" style="transition-delay: 0.2s">
+        <div class="svn-pillar-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+        <h3>Conforto</h3>
+        <p>
+          Tecnologia e materiais inovadores para leveza, elasticidade e
+          respirabilidade. Máximo conforto em qualquer percurso.
+        </p>
+      </div>
+
+      <div class="svn-pillar svn-reveal-scale" style="transition-delay: 0.3s">
+        <div class="svn-pillar-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"
+            />
+          </svg>
+        </div>
+        <h3>Segurança</h3>
+        <p>
+          Materiais de alta visibilidade, costuras reforçadas e proteção UV50+
+          para pedalar com confiança em qualquer condição.
+        </p>
+      </div>
+
+      <div class="svn-pillar svn-reveal-scale" style="transition-delay: 0.4s">
+        <div class="svn-pillar-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"
+            />
+          </svg>
+        </div>
+        <h3>Inovação</h3>
+        <p>
+          Nanotecnologia Easy Care, forro GEL, refletivos de segurança e tecidos
+          de última geração em cada peça.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CONFORTO & INOVAÇÃO (Split invertido) ═══ -->
+  <div class="svn-split svn-split-reverse">
+    <div class="svn-split-content svn-reveal-left">
+      <span class="svn-split-tag">Tecnologia Têxtil</span>
+      <h2>Conforto &amp; Inovação</h2>
+      <div class="svn-split-line"></div>
+      <p>
+        O conforto é a principal preocupação de qualquer ciclista, seja em um
+        passeio casual ou em uma competição intensa. Investimos em tecnologia e
+        materiais inovadores para cada pedalada.
+      </p>
+      <p>
+        Nossos tecidos proporcionam leveza, elasticidade e respirabilidade. A
+        ergonomia é fator essencial em nossos designs — cada peça se ajusta
+        perfeitamente ao corpo, evitando qualquer desconforto.
+      </p>
+    </div>
+    <div class="svn-split-img svn-reveal-right">
+      <img
+        src="https://savancini.cdn.magazord.com.br/img/2023/03/produto/9430/macaquinho-ciclismo-feminino-impulse-black-tame-savancini-5471.jpg"
+        alt="Conforto e Inovação Savancini"
+        loading="lazy"
+      />
+    </div>
+  </div>
+
+  <!-- ═══ BANNER SEGURANÇA ═══ -->
+  <div class="svn-banner svn-reveal">
+    <div class="svn-banner-bg"></div>
+    <div class="svn-banner-inner">
+      <h2>Segurança em Primeiro Lugar</h2>
+      <div class="svn-banner-line"></div>
+      <p>
+        A segurança no ciclismo vai além do uso de equipamentos de proteção —
+        envolve a escolha do vestuário adequado. Criamos produtos com os mais
+        altos padrões para que você pedale com confiança, de dia ou de noite.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══ TRAJETÓRIA ═══ -->
+  <div class="svn-section svn-section-white">
+    <div class="svn-section-head svn-reveal">
+      <span class="svn-section-tag">Linha do Tempo</span>
+      <h2>Nossa Trajetória</h2>
+      <div class="svn-section-head-line"></div>
+    </div>
+
+    <div class="svn-timeline">
+      <div class="svn-tl-item svn-reveal" style="transition-delay: 0.1s">
+        <div class="svn-tl-dot"></div>
+        <div class="svn-tl-year">2018 — Fundação</div>
+        <p>
+          Um grupo de amigos apaixonados por ciclismo cria a Savancini em
+          Gaspar/SC com foco em qualidade e conforto.
+        </p>
+      </div>
+      <div class="svn-tl-item svn-reveal" style="transition-delay: 0.2s">
+        <div class="svn-tl-dot"></div>
+        <div class="svn-tl-year">Expansão</div>
+        <p>
+          Linha completa de macaquinhos, camisas, bretelles, bermudas e
+          acessórios para feminino e masculino.
+        </p>
+      </div>
+      <div class="svn-tl-item svn-reveal" style="transition-delay: 0.3s">
+        <div class="svn-tl-dot"></div>
+        <div class="svn-tl-year">Tecnologia</div>
+        <p>
+          Incorporação de proteção UV50+, tecidos Easy Care com nanotecnologia,
+          refletivos e forro GEL.
+        </p>
+      </div>
+      <div class="svn-tl-item svn-reveal" style="transition-delay: 0.4s">
+        <div class="svn-tl-dot"></div>
+        <div class="svn-tl-year">Hoje</div>
+        <p>
+          Referência nacional em roupas de ciclismo com comunidade fiel e
+          avaliações 5 estrelas em todo o Brasil.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PRODUTOS ═══ -->
+  <div class="svn-section-full svn-section-light">
+    <div class="svn-section-head svn-reveal">
+      <span class="svn-section-tag">Explore</span>
+      <h2>Nossa Linha</h2>
+      <div class="svn-section-head-line"></div>
+    </div>
+
+    <div class="svn-prod-grid">
+      <a
+        href="https://www.savancini.com.br/feminino"
+        class="svn-prod-card svn-reveal-scale"
+        target="_blank"
+        rel="noopener"
+        style="transition-delay: 0.05s"
+      >
+        <img
+          src="https://savancini.cdn.magazord.com.br/img/2025/08/produto/13902/macaquinho-ciclismo-feminino-manga-longa-star-preto-savancini-st460-1.jpg"
+          alt="Feminino"
+          loading="lazy"
+        />
+        <span>Feminino</span>
+      </a>
+      <a
+        href="https://www.savancini.com.br/masculino"
+        class="svn-prod-card svn-reveal-scale"
+        target="_blank"
+        rel="noopener"
+        style="transition-delay: 0.1s"
+      >
+        <img
+          src="https://savancini.cdn.magazord.com.br/img/2022/05/produto/3352/bretelle-para-ciclismo-masculino-preto-savancini-010.jpg"
+          alt="Masculino"
+          loading="lazy"
+        />
+        <span>Masculino</span>
+      </a>
+      <a
+        href="https://www.savancini.com.br/acessorios-para-ciclismo"
+        class="svn-prod-card svn-reveal-scale"
+        target="_blank"
+        rel="noopener"
+        style="transition-delay: 0.15s"
+      >
+        <img
+          src="https://savancini.cdn.magazord.com.br/img/2022/05/produto/3786/bermuda-para-ciclismo-feminina-preta-com-bolso-savancini-fun-1305-2.jpg"
+          alt="Acessórios"
+          loading="lazy"
+        />
+        <span>Acessórios</span>
+      </a>
+
+
+
+    </div>
+  </div>
+
+  <!-- ═══ FAQ ═══ -->
+  <div class="svn-section svn-section-white">
+    <div class="svn-section-head svn-reveal">
+      <span class="svn-section-tag">Dúvidas</span>
+      <h2>Perguntas Frequentes</h2>
+      <div class="svn-section-head-line"></div>
+    </div>
+
+    <div class="svn-faq">
+      <details class="svn-faq-item svn-reveal" style="transition-delay: 0.05s">
+        <summary>
+          Os produtos da Savancini são adequados para todos os níveis de
+          ciclistas?
+        </summary>
+        <p>
+          Sim! Nossa coleção é projetada para atender ciclistas de todos os
+          níveis, desde iniciantes até profissionais. Nossos produtos oferecem
+          conforto e qualidade para qualquer tipo de pedalada.
+        </p>
+      </details>
+
+      <details class="svn-faq-item svn-reveal" style="transition-delay: 0.1s">
+        <summary>Os produtos Savancini têm garantia de qualidade?</summary>
+        <p>
+          Sim! Todos os nossos produtos passam por rigorosos testes de qualidade
+          antes de serem colocados à venda. Se você tiver algum problema com um
+          produto, entre em contato conosco para assistência.
+        </p>
+      </details>
+
+      <details class="svn-faq-item svn-reveal" style="transition-delay: 0.15s">
+        <summary>
+          A Savancini oferece opções sustentáveis em seus produtos?
+        </summary>
+        <p>
+          Estamos comprometidos em adotar práticas sustentáveis sempre que
+          possível. Trabalhamos para selecionar materiais que tenham um menor
+          impacto ambiental e buscamos continuamente maneiras de melhorar nossas
+          práticas de produção.
+        </p>
+      </details>
+
+      <details class="svn-faq-item svn-reveal" style="transition-delay: 0.2s">
+        <summary>Como sei qual tamanho devo escolher?</summary>
+        <p>
+          Recomendamos que você consulte nossa tabela de tamanhos disponível no
+          site. Se ainda estiver em dúvida, nossa equipe está pronta para ajudar
+          pelo WhatsApp (47) 9630-9294.
+        </p>
+      </details>
+
+      <details class="svn-faq-item svn-reveal" style="transition-delay: 0.25s">
+        <summary>Qual o prazo de entrega?</summary>
+        <p>
+          O prazo de entrega varia conforme a sua região. Após o envio, você
+          receberá o código de rastreamento por e-mail. Nossas entregas são
+          reconhecidas pela agilidade — muitos clientes recebem antes do prazo
+          estimado!
+        </p>
+      </details>
+    </div>
+  </div>
+
+  <!-- ═══ CTA FINAL ═══ -->
+  <div class="svn-cta">
+    <div class="svn-cta-inner svn-reveal">
+      <h2>Vista-se Para<br />a Próxima Aventura</h2>
+      <p>
+        Explore nossa coleção e descubra como nossos produtos podem transformar
+        sua experiência sobre duas rodas.
+      </p>
+      <a
+        href="https://www.savancini.com.br/"
+        class="svn-cta-btn"
+        target="_blank"
+        rel="noopener"
+        ><span>Explorar Coleção</span></a
+      >
+    </div>
+  </div>
+
+  <!-- ═══ CONTATO ═══ -->
+  <div class="svn-contact">
+    <a href="tel:+554796309294" class="svn-contact-item">
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+        />
+      </svg>
+      (47) 9630-9294
+    </a>
+    <a
+      href="https://api.whatsapp.com/send?phone=554796309294"
+      class="svn-contact-item"
+      target="_blank"
+      rel="noopener"
+    >
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+        />
+        <path
+          d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.215l-.304-.182-2.871.853.853-2.871-.182-.304A8 8 0 1112 20z"
+        />
+      </svg>
+      WhatsApp
+    </a>
+    <a href="mailto:savancini.comercial@gmail.com" class="svn-contact-item">
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+        />
+      </svg>
+      savancini.comercial@gmail.com
+    </a>
+  </div>
+</div>
+
+<!-- ═══ SCRIPT ANIMAÇÕES SCROLL ═══ -->
+<script>
+  (function () {
+    var els = document.querySelectorAll(
+      ".svn-reveal,.svn-reveal-left,.svn-reveal-right,.svn-reveal-scale",
+    );
+    if (!els.length) return;
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add("svn-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+    );
+    els.forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+</script>

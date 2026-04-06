@@ -233,6 +233,7 @@
   <div class="cp-topo-inner">
 
     <div class="cp-topo-copy">
+      <span class="cp-topo-egg">🐇</span>
       <span class="cp-topo-highlight">48 Horas</span>
       <span class="cp-topo-sep">·</span>
       <span class="cp-topo-highlight">48 Produtos</span>

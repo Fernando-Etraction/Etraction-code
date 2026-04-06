@@ -1,646 +1,828 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>2you — Descrições de Produto</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Syne:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<!--
+  ╔══════════════════════════════════════════════════╗
+  ║       2YOU FITNESS — DESCRIÇÃO DE PRODUTO        ║
+  ║            100% ESTÁTICA · SEM JS                ║
+  ╚══════════════════════════════════════════════════╝
+-->
 
-    :root {
-      --black: #ffffff;
-      --off-black: #f7f6f3;
-      --surface: #f0ede8;
-      --border: rgba(0,0,0,0.08);
-      --border-strong: rgba(0,0,0,0.16);
-      --white: #1a1a18;
-      --muted: rgba(26,26,24,0.55);
-      --dim: rgba(26,26,24,0.35);
-      --accent: #8a6a3a;
-      --accent-dim: rgba(138,106,58,0.1);
+<style>
+  /* ── RESET ── */
+  .ty-desc *,
+  .ty-desc *::before,
+  .ty-desc *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ty-desc {
+    --bg: #faf9f7;
+    --surface: #ffffff;
+    --surface-alt: #f3f1ed;
+    --border: rgba(0, 0, 0, 0.07);
+    --text: #1a1a18;
+    --text-mid: rgba(26, 26, 24, 0.65);
+    --text-dim: rgba(26, 26, 24, 0.38);
+    --gold: #9b7d4a;
+    --gold-light: rgba(155, 125, 74, 0.08);
+
+    font-family: "Montserrat", sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--bg);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── HEADER ── */
+  .ty-header {
+    text-align: center;
+    padding: 44px 0 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ty-logo {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .ty-title {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .ty-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .ty-subtitle {
+    font-size: 12.5px;
+    color: var(--text-mid);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── BARRA DE TECNOLOGIAS ── */
+  .ty-tech-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  .ty-tech-item {
+    text-align: center;
+    padding: 28px 16px;
+    border-right: 1px solid var(--border);
+  }
+
+  .ty-tech-item:last-child {
+    border-right: none;
+  }
+
+  .ty-tech-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: var(--gold-light);
+  }
+
+  .ty-tech-icon svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ty-tech-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .ty-tech-detail {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* ── SEÇÃO LABEL ── */
+  .ty-section-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  /* ── TECIDOS — LAYOUT ALTERNADO ── */
+  .ty-fabric {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .ty-fabric:nth-child(even) .ty-fabric-visual {
+    order: 2;
+  }
+
+  .ty-fabric-visual {
+    background: var(--surface-alt);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0;
+    min-height: 420px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ty-fabric-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .ty-fabric-overlay {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 20px 24px;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.15) 70%,
+      transparent 100%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ty-fabric-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 5px 14px;
+    margin-bottom: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+  }
+
+  .ty-fabric-big-name {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 200;
+    letter-spacing: -0.02em;
+    color: #fff;
+    opacity: 0.25;
+    line-height: 1;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ty-compression-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .ty-compression-track {
+    width: 80px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .ty-compression-fill {
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 2px;
+  }
+
+  .ty-compression-fill[data-level="alta"] {
+    width: 100%;
+  }
+  .ty-compression-fill[data-level="media"] {
+    width: 60%;
+  }
+
+  .ty-compression-text {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .ty-fabric-content {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ty-fabric-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .ty-fabric-name {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .ty-fabric-tagline {
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text-mid);
+    margin-bottom: 16px;
+    max-width: 380px;
+  }
+
+  .ty-fabric-desc {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--text-mid);
+    margin-bottom: 20px;
+    max-width: 400px;
+  }
+
+  .ty-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+
+  .ty-features li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 11.5px;
+    color: var(--text-mid);
+    line-height: 1.55;
+  }
+
+  .ty-features li::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+
+  .ty-fabric-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  .ty-meta-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 3px;
+  }
+
+  .ty-meta-value {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.45;
+  }
+
+  /* ── DIFERENCIAIS ── */
+  .ty-diffs {
+    margin: 56px 0;
+  }
+
+  .ty-diffs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+
+  .ty-diff {
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    background: var(--surface);
+    position: relative;
+  }
+
+  .ty-diff:last-child {
+    border-right: none;
+  }
+
+  .ty-diff-num {
+    font-family: "Montserrat", sans-serif;
+    font-size: 2rem;
+    font-weight: 200;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .ty-diff-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .ty-diff-text {
+    font-size: 11.5px;
+    line-height: 1.75;
+    color: var(--text-mid);
+  }
+
+  /* ── COMPOSIÇÃO GERAL ── */
+  .ty-comp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    border: 1px solid var(--border);
+    background: var(--surface-alt);
+    padding: 32px 36px;
+    margin-bottom: 56px;
+  }
+
+  .ty-comp-value {
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .ty-comp-note {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 380px;
+    text-align: right;
+  }
+
+  /* ── FOOTER ── */
+  .ty-footer {
+    text-align: center;
+    padding: 40px 0 56px;
+    border-top: 1px solid var(--border);
+  }
+
+  .ty-footer-brand {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .ty-footer-brand em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .ty-footer-text {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── RESPONSIVO ── */
+  @media (max-width: 900px) {
+    .ty-fabric {
+      grid-template-columns: 1fr;
     }
-
-    html { font-size: 16px; scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Syne', sans-serif;
-      font-weight: 400;
-      line-height: 1.6;
-      min-height: 100vh;
+    .ty-fabric:nth-child(even) .ty-fabric-visual {
+      order: 0;
     }
-
-
-
-    /* ── HEADER ── */
-    header {
-      padding: 4rem 2rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+    .ty-fabric-visual {
+      min-height: 300px;
+    }
+    .ty-diffs-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .ty-diff:nth-child(2) {
+      border-right: none;
+    }
+    .ty-diff:nth-child(1),
+    .ty-diff:nth-child(2) {
       border-bottom: 1px solid var(--border);
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards;
     }
-
-    .brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      color: var(--white);
+    .ty-tech-bar {
+      grid-template-columns: repeat(2, 1fr);
     }
-
-    .brand em {
-      font-style: italic;
-      color: var(--accent);
+    .ty-tech-item:nth-child(2) {
+      border-right: none;
     }
-
-    .header-meta {
-      text-align: right;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-
-    /* ── MAIN ── */
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem 6rem;
-    }
-
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--dim);
-      padding: 3rem 0 1.5rem;
+    .ty-tech-item:nth-child(1),
+    .ty-tech-item:nth-child(2) {
       border-bottom: 1px solid var(--border);
-      margin-bottom: 2rem;
     }
+  }
 
-    /* ── TABS ── */
-    .tabs {
-      display: flex;
-      gap: 0;
+  @media (max-width: 600px) {
+    .ty-desc {
+      padding: 0 16px;
+    }
+    .ty-fabric-content {
+      padding: 28px 20px;
+    }
+    .ty-fabric-visual {
+      min-height: 260px;
+    }
+    .ty-fabric-meta {
+      grid-template-columns: 1fr;
+    }
+    .ty-diffs-grid {
+      grid-template-columns: 1fr;
+    }
+    .ty-diff {
+      border-right: none;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s ease 0.2s forwards;
     }
-
-    .tab-btn {
-      background: none;
-      border: none;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      padding: 1rem 1.75rem;
-      font-family: 'Syne', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 0.25s, border-color 0.25s;
+    .ty-diff:last-child {
+      border-bottom: none;
     }
-
-    .tab-btn:hover { color: var(--white); }
-    .tab-btn.active { color: var(--white); border-bottom-color: var(--accent); }
-
-    /* ── CARDS GRID ── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+    .ty-tech-bar {
+      grid-template-columns: 1fr;
     }
-
-    .card {
-      background: var(--black);
-      padding: 2.5rem 2rem;
-      display: none;
+    .ty-tech-item {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .ty-tech-item:last-child {
+      border-bottom: none;
+    }
+    .ty-comp {
       flex-direction: column;
-      gap: 0;
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards;
+      text-align: center;
     }
-
-    .card.visible { display: flex; }
-
-    .card-eyebrow {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 0.75rem;
+    .ty-comp-note {
+      text-align: center;
     }
+  }
+</style>
 
-    .card-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 300;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-
-    .card-compression {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.75rem;
-    }
-
-    .card-compression::before {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.6;
-    }
-
-    .card-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.25rem;
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.5;
-      color: var(--white);
-      margin-bottom: 1.25rem;
-    }
-
-    .card-description {
-      font-size: 14px;
-      line-height: 1.75;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .feats-title {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 1rem;
-    }
-
-    .feats {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 2rem;
-    }
-
-    .feats li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .feat-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--accent);
-      margin-top: 6px;
-      flex-shrink: 0;
-      opacity: 0.7;
-    }
-
-    .card-meta {
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .meta-item {}
-    .meta-label {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 4px;
-    }
-    .meta-value {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    /* ── COPY BUTTON ── */
-    .copy-btn {
-      margin-top: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: none;
-      border: 1px solid var(--border-strong);
-      padding: 10px 16px;
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      align-self: flex-start;
-    }
-    .copy-btn:hover { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
-    .copy-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 1.5; }
-    .copy-btn.copied { color: #7ec89b; border-color: #7ec89b; }
-
-    /* ── DIFERENCIAIS ── */
-    .diffs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .diff-card {
-      background: var(--off-black);
-      padding: 2rem;
-    }
-
-    .diff-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
-      font-weight: 300;
-      color: var(--accent);
-      opacity: 0.3;
-      line-height: 1;
-      margin-bottom: 0.75rem;
-    }
-
-    .diff-title {
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-      text-transform: uppercase;
-    }
-
-    .diff-text {
-      font-size: 13px;
-      line-height: 1.75;
-      color: var(--muted);
-    }
-
-    /* ── COMPOSIÇÃO BLOCO ── */
-    .comp-block {
-      margin-top: 3rem;
-      border: 1px solid var(--border);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .comp-text { font-size: 13px; color: var(--muted); }
-    .comp-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      font-weight: 300;
-      color: var(--white);
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    .animate-1 { opacity: 0; animation: fadeUp 0.8s ease 0.1s forwards; }
-    .animate-2 { opacity: 0; animation: fadeUp 0.8s ease 0.25s forwards; }
-    .animate-3 { opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .header-meta { text-align: left; }
-      .tab-btn { padding: 0.75rem 1rem; font-size: 11px; }
-      .card-meta { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="brand">2<em>you</em></div>
-  <div class="header-meta">Descrições de produto<br>Versão para e-commerce</div>
-</header>
-
-<main>
-
-  <!-- ── TECIDOS ── -->
-  <div class="section-label animate-1">01 — Fichas de Tecido</div>
-
-  <div class="tabs animate-2" role="tablist">
-    <button class="tab-btn active" data-filter="all" role="tab">Todos</button>
-    <button class="tab-btn" data-filter="powerslim" role="tab">PowerSlim</button>
-    <button class="tab-btn" data-filter="blackout" role="tab">Blackout</button>
-    <button class="tab-btn" data-filter="softblack" role="tab">SoftBlack</button>
+<div class="ty-desc">
+  <!-- HEADER -->
+  <div class="ty-header">
+    <div class="ty-logo">2You Fitness</div>
+    <h2 class="ty-title">Tecnologia que <em>veste</em> o seu treino</h2>
+    <p class="ty-subtitle">
+      Cada tecido 2you foi desenvolvido para oferecer compressão, opacidade e
+      conforto reais — sem abrir mão da performance.
+    </p>
   </div>
 
-  <div class="cards-grid animate-3">
-
-    <!-- POWERSLIM -->
-    <div class="card visible" data-fabric="powerslim">
-      <div class="card-eyebrow">Tecido 01</div>
-      <div class="card-name">PowerSlim</div>
-      <div class="card-compression">Alta compressão</div>
-      <p class="card-tagline">Modeladora, opaca e de alta performance — para quem quer resultado visual desde o primeiro uso.</p>
-      <p class="card-description">Feita com trama dupla e construção de alta densidade, a PowerSlim bloqueia a luz por completo e elimina a transparência. A compressão firme modela o corpo e sustenta durante o treino, sem apertar. Uma peça que trabalha com você.</p>
-      <div class="feats-title">Características</div>
-      <ul class="feats">
-        <li><span class="feat-dot"></span>Alta compressão — modela e sustenta ao longo do treino</li>
-        <li><span class="feat-dot"></span>Trama dupla fechada — zero transparência garantida</li>
-        <li><span class="feat-dot"></span>Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora</li>
-        <li><span class="feat-dot"></span>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
-        <li><span class="feat-dot"></span>Sensação suave e leve na pele</li>
-      </ul>
-      <div class="card-meta">
-        <div class="meta-item">
-          <div class="meta-label">Indicado para</div>
-          <div class="meta-value">Academia, funcional, corrida, crossfit</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Composição</div>
-          <div class="meta-value">85% Poliéster · 15% Elastano</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Costura</div>
-          <div class="meta-value">Dupla + 2 pesponto no entrepeito</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Cós</div>
-          <div class="meta-value">Alto, duplo e anatômico</div>
-        </div>
+  <!-- BARRA TECNOLOGIAS -->
+  <div class="ty-tech-bar">
+    <div class="ty-tech-item">
+      <div class="ty-tech-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+          />
+        </svg>
       </div>
-      <button class="copy-btn" data-target="powerslim">
-        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Copiar texto
-      </button>
+      <div class="ty-tech-label">UV50+</div>
+      <div class="ty-tech-detail">Proteção solar máxima</div>
     </div>
-
-    <!-- BLACKOUT -->
-    <div class="card visible" data-fabric="blackout">
-      <div class="card-eyebrow">Tecido 02</div>
-      <div class="card-name">Blackout</div>
-      <div class="card-compression">Média compressão</div>
-      <p class="card-tagline">Cobertura absoluta, movimento livre — opacidade máxima mesmo no momento mais intenso do treino.</p>
-      <p class="card-description">O avesso 100% preto da Blackout foi desenvolvido para garantir cobertura total em qualquer posição. Com stretch em 4 direções e retorno elástico imediato, ela acompanha cada movimento sem perder a opacidade. Para quem não abre mão de segurança e liberdade ao mesmo tempo.</p>
-      <div class="feats-title">Características</div>
-      <ul class="feats">
-        <li><span class="feat-dot"></span>Avesso 100% preto — zero transparência em qualquer ângulo</li>
-        <li><span class="feat-dot"></span>Stretch em 4 direções com alto retorno elástico</li>
-        <li><span class="feat-dot"></span>Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora</li>
-        <li><span class="feat-dot"></span>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
-        <li><span class="feat-dot"></span>Suporte sem restrição de movimento</li>
-      </ul>
-      <div class="card-meta">
-        <div class="meta-item">
-          <div class="meta-label">Indicado para</div>
-          <div class="meta-value">Academia, corrida, caminhada, yoga</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Composição</div>
-          <div class="meta-value">85% Poliéster · 15% Elastano</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Costura</div>
-          <div class="meta-value">Dupla + 2 pesponto no entrepeito</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Cós</div>
-          <div class="meta-value">Alto, duplo e anatômico</div>
-        </div>
+    <div class="ty-tech-item">
+      <div class="ty-tech-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+        </svg>
       </div>
-      <button class="copy-btn" data-target="blackout">
-        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-        Copiar texto
-      </button>
+      <div class="ty-tech-label">Dry Tech</div>
+      <div class="ty-tech-detail">Evaporação rápida do suor</div>
     </div>
-
-    <!-- SOFTBLACK -->
-    <div class="card visible" data-fabric="softblack">
-      <div class="card-eyebrow">Tecido 03</div>
-      <div class="card-name">SoftBlack</div>
-      <div class="card-compression">Média compressão</div>
-      <p class="card-tagline">A segunda pele perfeita — toque de seda, opacidade de blindagem e leveza que você esquece que está usando.</p>
-      <p class="card-description">A SoftBlack usa avesso digitalizado com blindagem óptica e tom camuflado que reforça a opacidade sem adicionar peso. O toque interno é incrivelmente macio — diferente de tecidos que são bonitos por fora e ásperos por dentro. Conforto real, do início ao fim do treino.</p>
-      <div class="feats-title">Características</div>
-      <ul class="feats">
-        <li><span class="feat-dot"></span>Avesso digitalizado — blindagem óptica e toque de segunda pele</li>
-        <li><span class="feat-dot"></span>Tom camuflado interno que reforça opacidade sem pesar</li>
-        <li><span class="feat-dot"></span>Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora</li>
-        <li><span class="feat-dot"></span>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
-        <li><span class="feat-dot"></span>Suporte, desempenho e conforto</li>
-      </ul>
-      <div class="card-meta">
-        <div class="meta-item">
-          <div class="meta-label">Indicado para</div>
-          <div class="meta-value">Academia, corrida, caminhada, crossfit</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Composição</div>
-          <div class="meta-value">85% Poliéster · 15% Elastano</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Costura</div>
-          <div class="meta-value">Dupla + 2 pesponto no entrepeito</div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Cós</div>
-          <div class="meta-value">Alto, duplo e anatômico</div>
-        </div>
+    <div class="ty-tech-item">
+      <div class="ty-tech-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M20.38 3.46L16 2 12 3.46 8 2 3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"
+          />
+        </svg>
       </div>
-      <button class="copy-btn" data-target="softblack">
-        <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2v1"/></svg>
-        Copiar texto
-      </button>
+      <div class="ty-tech-label">Hyper Fio Duplo</div>
+      <div class="ty-tech-detail">Macio por dentro e por fora</div>
     </div>
-
+    <div class="ty-tech-item">
+      <div class="ty-tech-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      </div>
+      <div class="ty-tech-label">Zero Transparência</div>
+      <div class="ty-tech-detail">Trama densa e opaca</div>
+    </div>
   </div>
 
-  <!-- ── DIFERENCIAIS ── -->
-  <div class="section-label" style="margin-top: 4rem;">02 — Diferenciais 2you</div>
+  <!-- SEÇÃO: FICHAS DE TECIDO -->
+  <div class="ty-section-label">01 — Linhas de Tecido</div>
 
-  <div class="diffs-grid">
-    <div class="diff-card">
-      <div class="diff-number">01</div>
-      <div class="diff-title">Tecido Hyper Fio Duplo</div>
-      <p class="diff-text">A trama fechada bloqueia a transparência de dentro para fora. O fio duplo garante o mesmo toque suave em ambos os lados — macio na pele, firme na aparência. Sem o "bom por fora, áspero por dentro" que outros tecidos têm.</p>
+  <!-- POWERSLIM -->
+  <div class="ty-fabric">
+    <div class="ty-fabric-visual">
+      <img
+        class="ty-fabric-img"
+        src="https://2youfitness.cdn.magazord.com.br/img/2026/03/produto/577/3-you8115-5-6.jpg?ims=475x650"
+        alt="Calça PowerSlim 2You Fitness"
+      />
+      <div class="ty-fabric-big-name">PowerSlim</div>
+      <div class="ty-fabric-overlay">
+        <div class="ty-fabric-badge">Alta Compressão</div>
+        <div class="ty-compression-bar">
+          <div class="ty-compression-track">
+            <div class="ty-compression-fill" data-level="alta"></div>
+          </div>
+          <span class="ty-compression-text">Compressão máxima</span>
+        </div>
+      </div>
     </div>
-    <div class="diff-card">
-      <div class="diff-number">02</div>
-      <div class="diff-title">Costura Dupla + 2 Pesponto</div>
-      <p class="diff-text">Calças e shorts têm costura dupla no entrepeito, finalizadas com a máquina de 2 pesponto. Isso elimina qualquer possibilidade de abertura durante o treino e aumenta significativamente a durabilidade no uso diário.</p>
+    <div class="ty-fabric-content">
+      <div class="ty-fabric-eyebrow">Tecido 01</div>
+      <h3 class="ty-fabric-name">PowerSlim</h3>
+      <p class="ty-fabric-tagline">
+        Modeladora, opaca e de alta performance — para quem quer resultado
+        visual desde o primeiro uso.
+      </p>
+      <p class="ty-fabric-desc">
+        Feita com trama dupla e construção de alta densidade, a PowerSlim
+        bloqueia a luz por completo e elimina a transparência. A compressão
+        firme modela o corpo e sustenta durante o treino, sem apertar.
+      </p>
+      <ul class="ty-features">
+        <li>Alta compressão — modela e sustenta ao longo do treino</li>
+        <li>Trama dupla fechada — zero transparência garantida</li>
+        <li>
+          Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
+        </li>
+        <li>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
+        <li>Sensação suave e leve na pele</li>
+      </ul>
+      <div class="ty-fabric-meta">
+        <div>
+          <div class="ty-meta-label">Indicado para</div>
+          <div class="ty-meta-value">
+            Academia, funcional, corrida, crossfit
+          </div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Composição</div>
+          <div class="ty-meta-value">85% Poliéster · 15% Elastano</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Costura</div>
+          <div class="ty-meta-value">Dupla + 2 pesponto no entrepeito</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Cós</div>
+          <div class="ty-meta-value">Alto, duplo e anatômico</div>
+        </div>
+      </div>
     </div>
-    <div class="diff-card">
-      <div class="diff-number">03</div>
-      <div class="diff-title">Cós Alto, Duplo e Anatômico</div>
-      <p class="diff-text">Com elástico na borda para não enrolar durante o movimento, a construção dupla oferece firmeza e modelagem sem pressionar. Alto o suficiente para cobrir e sustentar em qualquer exercício.</p>
+  </div>
+
+  <!-- BLACKOUT -->
+  <div class="ty-fabric">
+    <div class="ty-fabric-visual">
+      <img
+        class="ty-fabric-img"
+        src="https://2youfitness.cdn.magazord.com.br/img/2026/03/produto/667/3-you7671.jpg?ims=475x650"
+        alt="Macaquinho Blackout 2You Fitness"
+      />
+      <div class="ty-fabric-big-name">Blackout</div>
+      <div class="ty-fabric-overlay">
+        <div class="ty-fabric-badge">Média Compressão</div>
+        <div class="ty-compression-bar">
+          <div class="ty-compression-track">
+            <div class="ty-compression-fill" data-level="media"></div>
+          </div>
+          <span class="ty-compression-text">Compressão equilibrada</span>
+        </div>
+      </div>
     </div>
-    <div class="diff-card">
-      <div class="diff-number">04</div>
-      <div class="diff-title">Tops com Entrada para Bojo</div>
-      <p class="diff-text">Todos os tops têm entrada para bojo. Alguns modelos com forro interno, outros com tecido duplo — ambos oferecem sustentação real. Você usa com ou sem bojo, sem abrir mão do suporte.</p>
+    <div class="ty-fabric-content">
+      <div class="ty-fabric-eyebrow">Tecido 02</div>
+      <h3 class="ty-fabric-name">Blackout</h3>
+      <p class="ty-fabric-tagline">
+        Cobertura absoluta, movimento livre — opacidade máxima mesmo no momento
+        mais intenso do treino.
+      </p>
+      <p class="ty-fabric-desc">
+        O avesso 100% preto da Blackout foi desenvolvido para garantir cobertura
+        total em qualquer posição. Com stretch em 4 direções e retorno elástico
+        imediato, ela acompanha cada movimento sem perder a opacidade.
+      </p>
+      <ul class="ty-features">
+        <li>Avesso 100% preto — zero transparência em qualquer ângulo</li>
+        <li>Stretch em 4 direções com alto retorno elástico</li>
+        <li>
+          Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
+        </li>
+        <li>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
+        <li>Suporte sem restrição de movimento</li>
+      </ul>
+      <div class="ty-fabric-meta">
+        <div>
+          <div class="ty-meta-label">Indicado para</div>
+          <div class="ty-meta-value">Academia, corrida, caminhada, yoga</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Composição</div>
+          <div class="ty-meta-value">85% Poliéster · 15% Elastano</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Costura</div>
+          <div class="ty-meta-value">Dupla + 2 pesponto no entrepeito</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Cós</div>
+          <div class="ty-meta-value">Alto, duplo e anatômico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOFTBLACK -->
+  <div class="ty-fabric">
+    <div class="ty-fabric-visual">
+      <img
+        class="ty-fabric-img"
+        src="https://2youfitness.cdn.magazord.com.br/img/2026/03/produto/997/3-you7869-1.jpg?ims=475x650"
+        alt="Top SoftBlack 2You Fitness"
+      />
+      <div class="ty-fabric-big-name">SoftBlack</div>
+      <div class="ty-fabric-overlay">
+        <div class="ty-fabric-badge">Média Compressão</div>
+        <div class="ty-compression-bar">
+          <div class="ty-compression-track">
+            <div class="ty-compression-fill" data-level="media"></div>
+          </div>
+          <span class="ty-compression-text">Compressão suave</span>
+        </div>
+      </div>
+    </div>
+    <div class="ty-fabric-content">
+      <div class="ty-fabric-eyebrow">Tecido 03</div>
+      <h3 class="ty-fabric-name">SoftBlack</h3>
+      <p class="ty-fabric-tagline">
+        A segunda pele perfeita — toque de seda, opacidade de blindagem e leveza
+        que você esquece que está usando.
+      </p>
+      <p class="ty-fabric-desc">
+        A SoftBlack usa avesso digitalizado com blindagem óptica e tom camuflado
+        que reforça a opacidade sem adicionar peso. O toque interno é
+        incrivelmente macio — conforto real, do início ao fim do treino.
+      </p>
+      <ul class="ty-features">
+        <li>Avesso digitalizado — blindagem óptica e toque de segunda pele</li>
+        <li>Tom camuflado interno que reforça opacidade sem pesar</li>
+        <li>
+          Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
+        </li>
+        <li>Proteção UV50+ e tecnologia Dry (evaporação rápida)</li>
+        <li>Suporte, desempenho e conforto</li>
+      </ul>
+      <div class="ty-fabric-meta">
+        <div>
+          <div class="ty-meta-label">Indicado para</div>
+          <div class="ty-meta-value">
+            Academia, corrida, caminhada, crossfit
+          </div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Composição</div>
+          <div class="ty-meta-value">85% Poliéster · 15% Elastano</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Costura</div>
+          <div class="ty-meta-value">Dupla + 2 pesponto no entrepeito</div>
+        </div>
+        <div>
+          <div class="ty-meta-label">Cós</div>
+          <div class="ty-meta-value">Alto, duplo e anatômico</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEÇÃO: DIFERENCIAIS -->
+  <div class="ty-diffs">
+    <div class="ty-section-label">02 — Diferenciais 2you</div>
+    <div class="ty-diffs-grid">
+      <div class="ty-diff">
+        <div class="ty-diff-num">01</div>
+        <div class="ty-diff-title">Tecido Hyper Fio Duplo</div>
+        <p class="ty-diff-text">
+          A trama fechada bloqueia a transparência de dentro para fora. O fio
+          duplo garante o mesmo toque suave em ambos os lados — macio na pele,
+          firme na aparência.
+        </p>
+      </div>
+      <div class="ty-diff">
+        <div class="ty-diff-num">02</div>
+        <div class="ty-diff-title">Costura Dupla + 2 Pesponto</div>
+        <p class="ty-diff-text">
+          Calças e shorts com costura dupla no entrepeito, finalizadas com
+          máquina de 2 pesponto. Elimina abertura durante o treino e aumenta a
+          durabilidade.
+        </p>
+      </div>
+      <div class="ty-diff">
+        <div class="ty-diff-num">03</div>
+        <div class="ty-diff-title">Cós Alto, Duplo e Anatômico</div>
+        <p class="ty-diff-text">
+          Com elástico na borda para não enrolar durante o movimento. Construção
+          dupla com firmeza e modelagem sem pressionar.
+        </p>
+      </div>
+      <div class="ty-diff">
+        <div class="ty-diff-num">04</div>
+        <div class="ty-diff-title">Tops com Entrada para Bojo</div>
+        <p class="ty-diff-text">
+          Todos os tops têm entrada para bojo. Alguns com forro interno, outros
+          com tecido duplo — ambos oferecem sustentação real.
+        </p>
+      </div>
     </div>
   </div>
 
   <!-- COMPOSIÇÃO -->
-  <div class="comp-block">
+  <div class="ty-comp">
     <div>
-      <div class="meta-label" style="margin-bottom: 6px;">Composição padrão — toda a linha</div>
-      <div class="comp-value">85% Poliéster · 15% Elastano</div>
+      <div class="ty-meta-label" style="margin-bottom: 6px">
+        Composição padrão — toda a linha
+      </div>
+      <div class="ty-comp-value">85% Poliéster · 15% Elastano</div>
     </div>
-    <div class="comp-text" style="max-width: 360px; font-size: 12px; line-height: 1.7; color: var(--dim);">
-      Todos os tecidos 2you são compostos por esta base, com variações na construção da trama e do avesso que definem as propriedades de cada linha.
-    </div>
+    <p class="ty-comp-note">
+      Todos os tecidos 2you são compostos por esta base, com variações na
+      construção da trama e do avesso que definem as propriedades de cada linha.
+    </p>
   </div>
-
-</main>
-
-<script>
-  // ── TAB FILTER ──
-  const tabs = document.querySelectorAll('.tab-btn');
-  const cards = document.querySelectorAll('.card');
-
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-      cards.forEach(card => {
-        if (filter === 'all' || card.dataset.fabric === filter) {
-          card.classList.add('visible');
-        } else {
-          card.classList.remove('visible');
-        }
-      });
-    });
-  });
-
-  // ── COPY TEXT ──
-  const copyTexts = {
-    powerslim: `POWERSLIM — Alta Compressão
-
-Modeladora, opaca e de alta performance — para quem quer resultado visual desde o primeiro uso.
-
-Feita com trama dupla e construção de alta densidade, a PowerSlim bloqueia a luz por completo e elimina a transparência. A compressão firme modela o corpo e sustenta durante o treino, sem apertar. Uma peça que trabalha com você.
-
-Características:
-• Alta compressão — modela e sustenta ao longo do treino
-• Trama dupla fechada — zero transparência garantida
-• Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
-• Proteção UV50+ e tecnologia Dry (evaporação rápida)
-• Sensação suave e leve na pele
-
-Indicado para: Academia, funcional, corrida, crossfit
-Composição: 85% Poliéster · 15% Elastano
-Costura: Dupla + 2 pesponto no entrepeito
-Cós: Alto, duplo e anatômico`,
-
-    blackout: `BLACKOUT — Média Compressão
-
-Cobertura absoluta, movimento livre — opacidade máxima mesmo no momento mais intenso do treino.
-
-O avesso 100% preto da Blackout foi desenvolvido para garantir cobertura total em qualquer posição. Com stretch em 4 direções e retorno elástico imediato, ela acompanha cada movimento sem perder a opacidade. Para quem não abre mão de segurança e liberdade ao mesmo tempo.
-
-Características:
-• Avesso 100% preto — zero transparência em qualquer ângulo
-• Stretch em 4 direções com alto retorno elástico
-• Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
-• Proteção UV50+ e tecnologia Dry (evaporação rápida)
-• Suporte sem restrição de movimento
-
-Indicado para: Academia, corrida, caminhada, yoga
-Composição: 85% Poliéster · 15% Elastano
-Costura: Dupla + 2 pesponto no entrepeito
-Cós: Alto, duplo e anatômico`,
-
-    softblack: `SOFTBLACK — Média Compressão
-
-A segunda pele perfeita — toque de seda, opacidade de blindagem e leveza que você esquece que está usando.
-
-A SoftBlack usa avesso digitalizado com blindagem óptica e tom camuflado que reforça a opacidade sem adicionar peso. O toque interno é incrivelmente macio — diferente de tecidos que são bonitos por fora e ásperos por dentro. Conforto real, do início ao fim do treino.
-
-Características:
-• Avesso digitalizado — blindagem óptica e toque de segunda pele
-• Tom camuflado interno que reforça opacidade sem pesar
-• Tecnologia Hyper Fio Duplo: macio por dentro, resistente por fora
-• Proteção UV50+ e tecnologia Dry (evaporação rápida)
-• Suporte, desempenho e conforto
-
-Indicado para: Academia, corrida, caminhada, crossfit
-Composição: 85% Poliéster · 15% Elastano
-Costura: Dupla + 2 pesponto no entrepeito
-Cós: Alto, duplo e anatômico`
-  };
-
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const text = copyTexts[btn.dataset.target];
-      if (!text) return;
-      navigator.clipboard.writeText(text).then(() => {
-        const original = btn.innerHTML;
-        btn.classList.add('copied');
-        btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5"><polyline points="20 6 9 17 4 12"/></svg> Copiado!`;
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.innerHTML = original;
-        }, 2000);
-      });
-    });
-  });
-
-  // ── SCROLL REVEAL ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.diff-card').forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+</div>

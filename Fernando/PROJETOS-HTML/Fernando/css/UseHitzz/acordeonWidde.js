@@ -6,7 +6,7 @@
   console.log("📂 Acordeon Widde - Vídeo Pré-venda");
 
   const CONFIG = {
-    targetSelector: ".parcelas-produto",
+    targetSelector: ".info-principal-produto",
     fallbackTargets: [
       "#corpo .acoes-produto div.comprar",
       "#corpo .span12.produto",
@@ -14,8 +14,10 @@
     ],
     insertPosition: "afterend",
 
-    retries: 40,
-    retryDelay: 500,
+    preVendaSelector: "#corpo > div.conteiner > div.secao-principal.row-fluid.sem-coluna > div > div:nth-child(1) > div:nth-child(2) > div > div.info-principal-produto > strong",
+
+    retries: 2,
+    retryDelay: 800,
 
     accordeonLabel: "+ Vídeo Pré-venda"
   };
@@ -111,6 +113,12 @@
     console.log("[ACORDEON WIDDE] CSS injetado");
   }
 
+  function isPreVenda() {
+    const el = document.querySelector(CONFIG.preVendaSelector);
+    if (!el) return false;
+    return /pr[eé][- ]?venda/i.test(el.textContent);
+  }
+
   function findTarget() {
     let el = document.querySelector(CONFIG.targetSelector);
     console.log("[ACORDEON WIDDE] testando target principal:", CONFIG.targetSelector, !!el);
@@ -131,6 +139,11 @@
     if (existing) {
       console.log("[ACORDEON WIDDE] bloco já existe");
       return existing;
+    }
+
+    if (!isPreVenda()) {
+      console.log("[ACORDEON WIDDE] aviso de pré-venda não encontrado, acordeon não será exibido");
+      return null;
     }
 
     addStyleOnce();
@@ -157,16 +170,29 @@
     return el;
   }
 
+  let pokeInterval = null;
+
+  function stopAll() {
+    try { observer.disconnect(); } catch (e) {}
+    if (pokeInterval) { clearInterval(pokeInterval); pokeInterval = null; }
+    console.log("[ACORDEON WIDDE] observer e retries parados");
+  }
+
   function mount() {
     console.log("[ACORDEON WIDDE] mount()");
-    ensureInjected();
-    window[GLOBAL_KEY].mounted = true;
+    const el = ensureInjected();
+    if (el) {
+      window[GLOBAL_KEY].mounted = true;
+      stopAll();
+    }
   }
 
   const observer = new MutationObserver(() => mount());
 
   function start() {
     mount();
+
+    if (window[GLOBAL_KEY].mounted) return;
 
     observer.observe(document.documentElement, {
       childList: true,
@@ -175,13 +201,13 @@
     console.log("[ACORDEON WIDDE] MutationObserver iniciado");
 
     let tries = 0;
-    const poke = setInterval(() => {
+    pokeInterval = setInterval(() => {
       tries++;
       console.log("[ACORDEON WIDDE] retry:", tries);
       mount();
 
       if (tries > CONFIG.retries) {
-        clearInterval(poke);
+        stopAll();
         console.log("[ACORDEON WIDDE] retries finalizados");
       }
     }, CONFIG.retryDelay);

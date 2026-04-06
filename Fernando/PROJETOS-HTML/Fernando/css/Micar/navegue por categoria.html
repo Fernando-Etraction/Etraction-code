@@ -204,42 +204,83 @@
             }
         }
 
+        /* ---- MOBILE CAROUSEL ---- */
+        .mcr-cat-nav .mcr-mob {
+            display: none;
+        }
+
         @media (max-width: 767px) {
             .mcr-cat-nav {
                 margin: 30px auto;
             }
 
             .mcr-cat-nav .mcr-wrap {
-                padding: 0 44px;
+                display: none;
             }
 
-            .mcr-cat-nav .mcr-slider {
+            .mcr-cat-nav .mcr-mob {
+                display: block;
+                position: relative;
+                padding: 0 38px;
+            }
+
+            .mcr-cat-nav .mcr-mob-track {
+                overflow: hidden;
+            }
+
+            .mcr-cat-nav .mcr-mob-slider {
+                display: flex;
                 gap: 8px;
+                transition: transform 0.4s ease;
             }
 
-            .mcr-cat-nav .mcr-item {
+            .mcr-cat-nav .mcr-mob-page {
+                min-width: 100%;
+                flex: 0 0 100%;
+                display: flex;
+                gap: 8px;
+                flex-direction: column;
+            }
+
+            .mcr-cat-nav .mcr-mob .mcr-item {
+                flex: 1 1 0;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
                 text-align: center;
+                gap: 8px;
                 min-height: auto;
+                padding: 14px 24px;
+                border: 1px solid #e7e7e7;
                 border-radius: 12px;
-                gap: 6px;
-                padding: 16px 10px;
+                background: #ffffff;
+                text-decoration: none !important;
             }
 
-            .mcr-cat-nav .mcr-icon {
-                width: 40px;
-                min-width: 40px;
-                height: 40px;
-                border-radius: 10px;
+            .mcr-cat-nav .mcr-mob .mcr-icon {
+                width: 44px;
+                min-width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                background: #f3f6fc;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
-            .mcr-cat-nav .mcr-icon img {
-                max-width: 20px;
-                max-height: 20px;
+            .mcr-cat-nav .mcr-mob .mcr-icon img {
+                max-width: 22px;
+                max-height: 22px;
+                width: auto;
+                height: auto;
+                display: block;
             }
 
-            .mcr-cat-nav .mcr-label {
+            .mcr-cat-nav .mcr-mob .mcr-label {
                 font-size: 11px;
                 line-height: 1.2;
+                font-weight: 600;
+                color: #333333;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: -webkit-box;
@@ -248,20 +289,60 @@
                 word-break: break-word;
             }
 
-            .mcr-cat-nav .mcr-arrow {
+            .mcr-cat-nav .mcr-mob .mcr-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
                 width: 30px;
                 height: 30px;
+                border-radius: 50%;
+                background: #ffffff;
+                border: 1px solid #dddddd;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 3;
+                padding: 0;
             }
 
-            .mcr-cat-nav .mcr-arrow svg {
+            .mcr-cat-nav .mcr-mob .mcr-arrow svg {
                 width: 12px;
                 height: 12px;
+                stroke: #1f1f1f;
             }
 
-            .mcr-cat-nav .mcr-col {
-                min-width: calc((100% - 1px) / 1);
-                flex: 0 0 calc((100% - 16px) / 3);
-                gap: 8px;
+            .mcr-cat-nav .mcr-mob .mcr-prev { left: 0; }
+            .mcr-cat-nav .mcr-mob .mcr-next { right: 0; }
+
+            .mcr-cat-nav .mcr-mob-dots {
+                margin-top: 14px;
+                text-align: center;
+            }
+
+            .mcr-cat-nav .mcr-mob-dots .mcr-dot {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 4px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #cfcfcf;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+                transition: all .25s ease;
+            }
+
+            .mcr-cat-nav .mcr-mob-dots .mcr-dot.mcr-active {
+                background: #6b6b6b;
+                transform: scale(1.15);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mcr-cat-nav .mcr-mob {
+                display: none !important;
             }
         }
     </style>
@@ -370,15 +451,91 @@
         <div class="mcr-dots"></div>
     </div>
 
+    <!-- Mobile carousel -->
+    <div class="mcr-mob">
+        <button class="mcr-arrow mcr-prev" type="button" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 18L9 12L15 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+        <div class="mcr-mob-track">
+            <div class="mcr-mob-slider">
+                <!-- Page 1 -->
+                <div class="mcr-mob-page">
+                    <a class="mcr-item" href="/banheiro/vasos-sanitarios-e-acessorios/vasos-sanitarios">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/vasos-sanitarios.svg" alt="Vasos Sanitários"></span>
+                        <span class="mcr-label">Vasos Sanitários</span>
+                    </a>
+                    <a class="mcr-item" href="/cozinha/cubas">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cubas.svg" alt="Cubas"></span>
+                        <span class="mcr-label">Cubas</span>
+                    </a>
+                    <a class="mcr-item" href="/banheiro/chuveiros">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/chuveiros.svg" alt="Chuveiros"></span>
+                        <span class="mcr-label">Chuveiros</span>
+                    </a>
+                </div>
+                <!-- Page 2 -->
+                <div class="mcr-mob-page">
+                    <a class="mcr-item" href="/eletrica/resistencias">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/resistencias.svg" alt="Resistências"></span>
+                        <span class="mcr-label">Resistências</span>
+                    </a>
+                    <a class="mcr-item" href="/ferramentas/serras-e-discos-de-corte">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/serras.svg" alt="Serras"></span>
+                        <span class="mcr-label">Serras</span>
+                    </a>
+                    <a class="mcr-item" href="/jardim/trituradores">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/trituradores.svg" alt="Trituradores"></span>
+                        <span class="mcr-label">Trituradores</span>
+                    </a>
+                </div>
+                <!-- Page 3 -->
+                <div class="mcr-mob-page">
+                    <a class="mcr-item" href="/todos-os-departamentos/hidraulica">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/hidraulica.svg" alt="Hidráulica"></span>
+                        <span class="mcr-label">Hidráulica</span>
+                    </a>
+                    <a class="mcr-item" href="/jardim/cortadores-de-grama-e-rocadeiras">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/cortador-de-grama.svg" alt="Cortador de Grama"></span>
+                        <span class="mcr-label">Cortador de Grama</span>
+                    </a>
+                    <a class="mcr-item" href="/todos-os-departamentos/construcao">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/construcao.svg" alt="Construção"></span>
+                        <span class="mcr-label">Construção</span>
+                    </a>
+                </div>
+                <!-- Page 4 -->
+                <div class="mcr-mob-page">
+                    <a class="mcr-item" href="/todos-os-departamentos/produtos-para-piscina">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/produtos-para-piscina.svg" alt="Produtos para Piscina"></span>
+                        <span class="mcr-label">Produtos para Piscina</span>
+                    </a>
+                    <a class="mcr-item" href="/ferramentas/parafusadeiras-e-furadeiras">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/parafusadeira.svg" alt="Parafusadeiras e Furadeiras"></span>
+                        <span class="mcr-label">Parafusadeiras e Furadeiras</span>
+                    </a>
+                    <a class="mcr-item" href="/todos-os-departamentos/utilidade-domestica/lava-jato">
+                        <span class="mcr-icon"><img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/lava-jato.svg" alt="Lava Jato"></span>
+                        <span class="mcr-label">Lava Jato</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="mcr-arrow mcr-next" type="button" aria-label="Próxima">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 18L15 12L9 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </button>
+        <div class="mcr-mob-dots"></div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var root = document.querySelector('.mcr-cat-nav');
             if (!root) return;
 
+            /* ---- DESKTOP CAROUSEL ---- */
             var slider = root.querySelector('.mcr-slider');
             var track = root.querySelector('.mcr-track');
-            var prevBtn = root.querySelector('.mcr-prev');
-            var nextBtn = root.querySelector('.mcr-next');
+            var prevBtn = root.querySelector('.mcr-wrap .mcr-prev');
+            var nextBtn = root.querySelector('.mcr-wrap .mcr-next');
             var dotsWrap = root.querySelector('.mcr-dots');
             var cols = root.querySelectorAll('.mcr-col');
             var cur = 0;
@@ -414,11 +571,8 @@
             function updDots() {
                 var ds = dotsWrap.querySelectorAll('.mcr-dot');
                 for (var i = 0; i < ds.length; i++) {
-                    if (i === cur) {
-                        ds[i].classList.add('mcr-active');
-                    } else {
-                        ds[i].classList.remove('mcr-active');
-                    }
+                    if (i === cur) ds[i].classList.add('mcr-active');
+                    else ds[i].classList.remove('mcr-active');
                 }
             }
 
@@ -427,40 +581,82 @@
                 if (idx < 0) idx = mx;
                 if (idx > mx) idx = 0;
                 cur = idx;
-                var gap = window.innerWidth <= 767 ? 8 : 16;
+                var gap = 16;
                 var cw = cols[0].offsetWidth + gap;
                 slider.style.transform = 'translateX(-' + (cur * cw) + 'px)';
                 updDots();
             }
 
-            prevBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                goTo(cur - 1);
-            });
-
-            nextBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                goTo(cur + 1);
-            });
+            prevBtn.addEventListener('click', function (e) { e.preventDefault(); goTo(cur - 1); });
+            nextBtn.addEventListener('click', function (e) { e.preventDefault(); goTo(cur + 1); });
 
             var sx = 0, drag = false;
-            track.addEventListener('touchstart', function (e) {
-                sx = e.touches[0].clientX;
-                drag = true;
-            }, { passive: true });
+            track.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; drag = true; }, { passive: true });
             track.addEventListener('touchend', function (e) {
-                if (!drag) return;
-                drag = false;
+                if (!drag) return; drag = false;
                 var diff = e.changedTouches[0].clientX - sx;
                 if (Math.abs(diff) > 40) goTo(cur + (diff < 0 ? 1 : -1));
             }, { passive: true });
 
-            cur = 0;
             slider.style.transform = 'translateX(0)';
             makeDots();
 
+            /* ---- MOBILE CAROUSEL ---- */
+            var mob = root.querySelector('.mcr-mob');
+            var mobSlider = mob.querySelector('.mcr-mob-slider');
+            var mobTrack = mob.querySelector('.mcr-mob-track');
+            var mobPrev = mob.querySelector('.mcr-prev');
+            var mobNext = mob.querySelector('.mcr-next');
+            var mobDotsWrap = mob.querySelector('.mcr-mob-dots');
+            var mobPages = mob.querySelectorAll('.mcr-mob-page');
+            var mCur = 0;
+            var mTotal = mobPages.length;
+
+            function mMakeDots() {
+                mobDotsWrap.innerHTML = '';
+                if (mTotal <= 1) return;
+                for (var i = 0; i < mTotal; i++) {
+                    var d = document.createElement('button');
+                    d.type = 'button';
+                    d.className = 'mcr-dot' + (i === mCur ? ' mcr-active' : '');
+                    d.setAttribute('data-i', i);
+                    d.addEventListener('click', function () { mGoTo(parseInt(this.getAttribute('data-i'))); });
+                    mobDotsWrap.appendChild(d);
+                }
+            }
+
+            function mUpdDots() {
+                var ds = mobDotsWrap.querySelectorAll('.mcr-dot');
+                for (var i = 0; i < ds.length; i++) {
+                    if (i === mCur) ds[i].classList.add('mcr-active');
+                    else ds[i].classList.remove('mcr-active');
+                }
+            }
+
+            function mGoTo(idx) {
+                if (idx < 0) idx = mTotal - 1;
+                if (idx >= mTotal) idx = 0;
+                mCur = idx;
+                var pw = mobPages[0].offsetWidth + 8;
+                mobSlider.style.transform = 'translateX(-' + (mCur * pw) + 'px)';
+                mUpdDots();
+            }
+
+            mobPrev.addEventListener('click', function (e) { e.preventDefault(); mGoTo(mCur - 1); });
+            mobNext.addEventListener('click', function (e) { e.preventDefault(); mGoTo(mCur + 1); });
+
+            var msx = 0, mdrag = false;
+            mobTrack.addEventListener('touchstart', function (e) { msx = e.touches[0].clientX; mdrag = true; }, { passive: true });
+            mobTrack.addEventListener('touchend', function (e) {
+                if (!mdrag) return; mdrag = false;
+                var diff = e.changedTouches[0].clientX - msx;
+                if (Math.abs(diff) > 40) mGoTo(mCur + (diff < 0 ? 1 : -1));
+            }, { passive: true });
+
+            mobSlider.style.transform = 'translateX(0)';
+            mMakeDots();
+
+            /* ---- RESIZE ---- */
             var rt;
             window.addEventListener('resize', function () {
                 clearTimeout(rt);
@@ -468,6 +664,7 @@
                     if (cur > maxIdx()) cur = maxIdx();
                     goTo(cur);
                     makeDots();
+                    mGoTo(mCur);
                 }, 150);
             });
         });

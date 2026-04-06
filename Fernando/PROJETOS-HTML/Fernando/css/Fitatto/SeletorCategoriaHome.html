@@ -1,0 +1,88 @@
+<style>
+  .seletor-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 23px 0;
+    padding: 0 16px;
+  }
+
+  .seletor-lista {
+    list-style: none;
+    display: flex;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    position: relative;
+  }
+
+  .seletor-masculino,
+  .seletor-feminino {
+    padding: 8px 28px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    text-align: center;
+    position: relative;
+    user-select: none;
+    border-bottom: 1.5px solid transparent;
+  }
+
+  .seletor-masculino.ativo,
+  .seletor-feminino.ativo {
+    color: #1a1a1a;
+    font-weight: 500;
+    border-bottom: 1.5px solid #1a1a1a;
+  }
+
+  .seletor-masculino:not(.ativo):hover,
+  .seletor-feminino:not(.ativo):hover {
+    color: #555;
+  }
+</style>
+
+<div class="seletor-container">
+  <ul class="seletor-lista">
+    <li class="seletor-masculino ativo" onclick="seletorCategoria('masculino')">
+      Masculino
+    </li>
+    <li class="seletor-feminino" onclick="seletorCategoria('feminino')">
+      Feminino
+    </li>
+  </ul>
+</div>
+
+<script>
+  function seletorCategoria(tipo) {
+    var vitrineMasculino = document.getElementById("component-id-162454");
+    var vitrineFeminino = document.getElementById("component-id-162455");
+    var btnMasc = document.querySelector(".seletor-masculino");
+    var btnFem = document.querySelector(".seletor-feminino");
+
+    if (tipo === "masculino") {
+      if (vitrineMasculino) vitrineMasculino.style.display = "block";
+      if (vitrineFeminino) vitrineFeminino.style.display = "none";
+      btnMasc.classList.add("ativo");
+      btnFem.classList.remove("ativo");
+    } else {
+      if (vitrineMasculino) vitrineMasculino.style.display = "none";
+      if (vitrineFeminino) vitrineFeminino.style.display = "block";
+      btnFem.classList.add("ativo");
+      btnMasc.classList.remove("ativo");
+    }
+  }
+
+  // Aguarda os elementos carregarem para setar estado inicial
+  var inicialCheck = setInterval(function () {
+    var vitrineMasculino = document.getElementById("component-id-162454");
+    var vitrineFeminino = document.getElementById("component-id-162455");
+    if (vitrineMasculino && vitrineFeminino) {
+      vitrineMasculino.style.display = "block";
+      vitrineFeminino.style.display = "none";
+      clearInterval(inicialCheck);
+    }
+  }, 300);
+</script>
