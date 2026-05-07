@@ -1,0 +1,556 @@
+<!-- Widget de Cupom Savancini - Primeira Compra -->
+<script>
+(function () {
+  'use strict';
+
+  // ============================================
+  // CONFIGURAÇÕES
+  // ============================================
+  const CONFIG = {
+    targetSelector: '.area-buy-product',
+    couponCode: 'PRIMEIRACOMPRA',
+    discount: 'Especial',
+    brand: 'Savancini',
+    timerDuration: 48 * 60 * 60 * 1000, // 48 horas em ms
+    widgetId: 'cupomOfferWidget',
+    styleId: 'cupomOfferStyle',
+    messageDisplayTime: 1200,
+  };
+
+  // ============================================
+  // INJEÇÃO DE ESTILOS
+  // ============================================
+  function injectStyles() {
+    if (document.getElementById(CONFIG.styleId)) {
+      return;
+    }
+
+    const css = `
+:root {
+  --cupom-primary: #174a7c;
+  --cupom-primary-dark: #0f3556;
+  --cupom-accent: #1a5a96;
+  --cupom-light-bg: #f8fafb;
+  --cupom-light-blue: #eff4fb;
+  --cupom-border: #a8c5e0;
+  --cupom-text: #1a1a1a;
+  --cupom-muted: #666666;
+  --cupom-divider: #d4dce6;
+  --cupom-copied: #222222;
+}
+
+.cupom-offer {
+  width: 100%;
+  margin: 12px 0;
+  border: 1px dashed var(--cupom-border);
+  border-radius: 12px;
+  background: var(--cupom-light-bg);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(23, 74, 124, 0.08);
+  transition: all 0.3s ease;
+}
+
+.cupom-offer:hover {
+  box-shadow: 0 4px 12px rgba(23, 74, 124, 0.15);
+  border-color: var(--cupom-accent);
+}
+
+/* Seção Superior */
+.cupom-offer__top {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  align-items: center;
+  min-height: 72px;
+  gap: 0;
+}
+
+.cupom-offer__left {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Badge */
+.cupom-offer__badge {
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: var(--cupom-light-blue);
+  color: var(--cupom-primary);
+  font-weight: 700;
+  width: fit-content;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+/* Título */
+.cupom-offer__title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cupom-text);
+}
+
+.cupom-offer__title strong {
+  color: var(--cupom-primary);
+  font-weight: 700;
+}
+
+.cupom-offer__brand {
+  font-size: 11px;
+  color: var(--cupom-muted);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Subtítulo */
+.cupom-offer__subtitle {
+  font-size: 12px;
+  color: var(--cupom-muted);
+  font-weight: 500;
+}
+
+/* Seção Direita */
+.cupom-offer__right {
+  padding: 12px;
+  border-left: 1px dashed var(--cupom-divider);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+}
+
+/* Label do Cupom */
+.cupom-offer__label {
+  font-size: 10px;
+  color: #666;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Código do Cupom */
+.cupom-offer__code {
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cupom-primary);
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+/* Botão Copiar */
+.cupom-offer__button {
+  height: 28px;
+  font-size: 10px;
+  background: linear-gradient(135deg, var(--cupom-primary) 0%, var(--cupom-accent) 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(23, 74, 124, 0.25);
+}
+
+.cupom-offer__button:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--cupom-primary-dark) 0%, var(--cupom-primary) 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(23, 74, 124, 0.35);
+}
+
+.cupom-offer__button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.cupom-offer__button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.cupom-offer__button-icon {
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.cupom-offer__button.is-copied {
+  background: linear-gradient(135deg, var(--cupom-copied) 0%, #404040 100%);
+  box-shadow: 0 2px 8px rgba(34, 34, 34, 0.3);
+}
+
+/* Seção Inferior - Timer */
+.cupom-offer__bottom {
+  padding: 8px 12px;
+  background: linear-gradient(135deg, var(--cupom-primary) 0%, var(--cupom-accent) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cupom-offer__timer-wrap {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cupom-offer__timer-text {
+  font-size: 12px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.cupom-offer__timer {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+}
+
+.cupom-offer__timer.expired {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .cupom-offer__top {
+    grid-template-columns: 1fr 110px;
+  }
+
+  .cupom-offer__left {
+    padding: 10px 12px;
+    gap: 1px;
+  }
+
+  .cupom-offer__title {
+    font-size: 11px;
+  }
+
+  .cupom-offer__brand {
+    font-size: 11px;
+  }
+
+  .cupom-offer__subtitle {
+    font-size: 11px;
+  }
+
+  .cupom-offer__right {
+    padding: 10px;
+  }
+
+  .cupom-offer__code {
+    font-size: 16px;
+  }
+
+  .cupom-offer__button {
+    height: 26px;
+    font-size: 9px;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cupom-offer {
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+
+  .cupom-offer__top {
+  }
+
+  .cupom-offer__left {
+    padding: 10px 12px;
+    border-bottom: 1px dashed var(--cupom-border);
+  }
+
+  .cupom-offer__right {
+    border-left: none;
+    padding: 5px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .cupom-offer__title {
+    font-size: 13px;
+  }
+
+  .cupom-offer__brand {
+    font-size: 13px;
+  }
+
+  .cupom-offer__code {
+    font-size: 11px;
+  }
+
+  .cupom-offer__button {
+    width: 100%;
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .cupom-offer__timer-wrap {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cupom-offer__timer-text {
+    font-size: 11px;
+  }
+
+}
+    `.trim();
+
+    const style = document.createElement('style');
+    style.id = CONFIG.styleId;
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  // ============================================
+  // CRIAÇÃO DO WIDGET
+  // ============================================
+  function createWidget() {
+    const html = `
+<div class="cupom-offer" id="${CONFIG.widgetId}" role="region" aria-label="Cupom de desconto primeira compra ${CONFIG.brand}">
+  <div class="cupom-offer__top">
+    <div class="cupom-offer__left">
+      <div class="cupom-offer__badge">Cupom Exclusivo</div>
+      <div class="cupom-offer__title">Primeira Compra <strong>${CONFIG.brand}</strong></div>
+      <div class="cupom-offer__brand">Primeira vez aqui? Garanta 10% OFF</div>
+      <div class="cupom-offer__subtitle">Aplique no checkout</div>
+    </div>
+    <div class="cupom-offer__right">
+      <div class="cupom-offer__label">Cupom</div>
+      <div class="cupom-offer__code" id="cupomCode" aria-label="Código: ${CONFIG.couponCode}">${CONFIG.couponCode}</div>
+      <button 
+        class="cupom-offer__button" 
+        id="copyBtn" 
+        type="button"
+        aria-label="Copiar cupom ${CONFIG.couponCode}"
+      >
+        <span class="cupom-offer__button-icon">⧉</span>
+        <span>Copiar</span>
+      </button>
+    </div>
+  </div>
+
+</div>
+    `.trim();
+
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+    return wrapper.firstElementChild;
+  }
+
+  // ============================================
+  // FUNCIONALIDADE DO TIMER
+  // ============================================
+  function setupTimer() {
+    const countDownDate = new Date().getTime() + CONFIG.timerDuration;
+    const timerElement = document.getElementById('timerDisplay');
+
+    function padZero(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      if (distance <= 0) {
+        timerElement.textContent = 'Encerrado';
+        timerElement.classList.add('expired');
+        timerElement.setAttribute('aria-label', 'Cupom encerrado');
+        return;
+      }
+
+      const totalHours = Math.floor(distance / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const timerText = `${padZero(totalHours)}:${padZero(minutes)}:${padZero(seconds)}`;
+      timerElement.textContent = timerText;
+      timerElement.setAttribute('aria-label', `Tempo restante: ${totalHours} horas, ${minutes} minutos, ${seconds} segundos`);
+    }
+
+    // Atualiza imediatamente e depois a cada segundo
+    updateTimer();
+    return setInterval(updateTimer, 1000);
+  }
+
+  // ============================================
+  // FUNCIONALIDADE DE CÓPIA
+  // ============================================
+  function setupCopyButton() {
+    const btn = document.getElementById('copyBtn');
+    const codeEl = document.getElementById('cupomCode');
+
+    if (!btn || !codeEl) {
+      console.warn('[Cupom Savancini] Elementos não encontrados');
+      return;
+    }
+
+    /**
+     * Copia texto para o clipboard
+     */
+    async function copyToClipboard(text) {
+      // Método 1: Clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch (err) {
+          console.warn('[Cupom Savancini] Clipboard API falhou:', err);
+        }
+      }
+
+      // Método 2: Fallback - execCommand
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.setAttribute('aria-hidden', 'true');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '0';
+        textarea.style.opacity = '0';
+
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        const success = document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        return success;
+      } catch (err) {
+        console.error('[Cupom Savancini] Erro ao copiar:', err);
+        return false;
+      }
+    }
+
+    /**
+     * Mostra estado de copiado temporariamente
+     */
+    function showCopiedState() {
+      const originalHTML = btn.innerHTML;
+
+      btn.classList.add('is-copied');
+      btn.querySelector('span:last-child').textContent = 'Copiado';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.classList.remove('is-copied');
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+      }, CONFIG.messageDisplayTime);
+    }
+
+    /**
+     * Handler para clique no botão
+     */
+    async function handleCopyClick() {
+      const code = (codeEl?.textContent || '').trim();
+
+      if (!code) {
+        console.error('[Cupom Savancini] Código inválido');
+        return;
+      }
+
+      const success = await copyToClipboard(code);
+
+      if (success) {
+        showCopiedState();
+      } else {
+        console.error('[Cupom Savancini] Falha ao copiar');
+      }
+    }
+
+    // Event listeners
+    btn.addEventListener('click', handleCopyClick);
+
+    // Suporte a teclado
+    btn.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleCopyClick();
+      }
+    });
+  }
+
+  // ============================================
+  // INJEÇÃO DO WIDGET
+  // ============================================
+  function insertWidget() {
+    const target = document.querySelector(CONFIG.targetSelector);
+
+    if (!target) {
+      return false;
+    }
+
+    // Evita duplicação
+    if (document.getElementById(CONFIG.widgetId)) {
+      return true;
+    }
+
+    injectStyles();
+    const widget = createWidget();
+    target.parentNode.insertBefore(widget, target);
+
+    setupCopyButton();
+    setupTimer();
+
+    console.log('[Cupom Savancini] Widget injetado com sucesso');
+    return true;
+  }
+
+  // ============================================
+  // INICIALIZAÇÃO
+  // ============================================
+  function init() {
+    // Tenta inserir imediatamente
+    if (insertWidget()) {
+      return;
+    }
+
+    // Observa mudanças no DOM para carregamento AJAX
+    const observer = new MutationObserver(() => {
+      if (insertWidget()) {
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    });
+
+    // Timeout de segurança
+    setTimeout(() => {
+      observer.disconnect();
+    }, 30000);
+  }
+
+  // Inicia quando o DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

@@ -1,0 +1,180 @@
+<style>
+/* Widget Cupom Patricinha Pet */
+.cupom-patricinha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 12px 16px;
+  border: 1px dashed #f598c02a;
+  border-radius: 8px;
+  background-color: rgba(245, 152, 192, 0.15); /* Cor #F598C0 com 15% de opacidade */
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.cupom-patricinha:hover {
+  box-shadow: 0 4px 12px rgba(245, 152, 192, 0.2);
+}
+
+.cupom-patricinha-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cupom-patricinha-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+.cupom-patricinha-title strong {
+  color: #d66b98; /* Tom levemente mais escuro para contraste no texto */
+}
+
+.cupom-patricinha-desc {
+  font-size: 12px;
+  color: #666;
+}
+
+.cupom-patricinha-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  border-left: 1px dashed #F598C0;
+  padding-left: 16px;
+}
+
+.cupom-patricinha-code {
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: bold;
+  color: #d66b98;
+  letter-spacing: 1px;
+}
+
+.cupom-patricinha-btn {
+  background-color: #F598C0;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cupom-patricinha-btn:hover {
+  background-color: #e07da5;
+}
+
+.cupom-patricinha-btn.is-copied {
+  background-color: #4CAF50;
+}
+
+@media (max-width: 480px) {
+  .cupom-patricinha {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cupom-patricinha-action {
+    border-left: none;
+    border-top: 1px dashed #F598C0;
+    padding-left: 0;
+    padding-top: 12px;
+    width: 100%;
+  }
+  .cupom-patricinha-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  const CONFIG = {
+    selector: '.tail-prod-ver-grupo-comprar',
+    code: 'PRIMEIRACOMPRA',
+    widgetId: 'widgetCupomPatricinha'
+  };
+
+  function insertWidget() {
+    const target = document.querySelector(CONFIG.selector);
+    
+    // Se o elemento alvo não existe ou o widget já foi inserido, encerra
+    if (!target || document.getElementById(CONFIG.widgetId)) return !!document.getElementById(CONFIG.widgetId);
+
+    // HTML otimizado em string
+    const html = `
+      <div id="${CONFIG.widgetId}" class="cupom-patricinha">
+        <div class="cupom-patricinha-info">
+          <span class="cupom-patricinha-title"><strong>5% OFF</strong> na 1ª Compra 🐾</span>
+          <span class="cupom-patricinha-desc">Bem-vindo(a) à Patricinha Pet! Aplique no checkout.</span>
+        </div>
+        <div class="cupom-patricinha-action">
+          <span class="cupom-patricinha-code">${CONFIG.code}</span>
+          <button id="btnCopyCupom" class="cupom-patricinha-btn" type="button">
+            <span>Copiar</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Inserção no DOM da forma mais otimizada (sem recriar a árvore do DOM inteiro)
+    target.insertAdjacentHTML('beforebegin', html);
+
+    // Lógica de cópia
+    const btn = document.getElementById('btnCopyCupom');
+    btn.addEventListener('click', function () {
+      const copyCode = () => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span>Copiado!</span>';
+        btn.classList.add('is-copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('is-copied');
+        }, 2000);
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(CONFIG.code).then(copyCode);
+      } else {
+        // Fallback simples
+        const textArea = document.createElement("textarea");
+        textArea.value = CONFIG.code;
+        Object.assign(textArea.style, { position: 'fixed', top: '-9999px' });
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        copyCode();
+      }
+    });
+
+    return true;
+  }
+
+  // Tenta inserir; se o seletor demorar a renderizar, usa MutationObserver
+  if (!insertWidget()) {
+    const observer = new MutationObserver((mutations, obs) => {
+      if (insertWidget()) obs.disconnect();
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // Desconecta o observer após 15s para poupar memória caso o seletor não exista na página
+    setTimeout(() => observer.disconnect(), 15000);
+  }
+})();
+</script>

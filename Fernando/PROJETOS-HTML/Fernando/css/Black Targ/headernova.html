@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Moderno 1240px - Black Targ</title>
+<style>
+
+
+
+
+
+  /* Fonte elegante e moderna */
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 200vh; /* Apenas para testar o scroll */
+  }
+
+  /* Classe universal para travar o conteúdo em 1240px e centralizar */
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 20px; /* Respiro lateral para telas menores que 1240px */
+  }
+
+  /* Header Fixo */
+  .modern-header {
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #1a1a1a;
+    z-index: 100;
+    width: 100%;
+  }
+
+  /* Faixa de Topo - Fundo 100% */
+  .top-bar-bg {
+    background-color: #0a0a0a;
+  }
+
+  /* Conteúdo da Faixa de Topo travado em 1240px */
+  .top-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 24px;
+    padding: 8px 20px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .top-bar a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .top-bar a:hover {
+    color: #ffffff;
+  }
+
+  /* Container Principal travado em 1240px */
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px; /* Padding ajustado pois o container já lida com as laterais */
+  }
+
+  /* Busca Elegante */
+  .search-box {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 4px;
+    width: 250px;
+    transition: border-color 0.3s ease;
+  }
+
+  .search-box:focus-within {
+    border-bottom-color: #fff;
+  }
+
+  .search-box svg {
+    width: 16px;
+    height: 16px;
+    fill: #888;
+  }
+
+  .search-box input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    outline: none;
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  .search-box input::placeholder {
+    color: #666;
+  }
+
+  /* Logo */
+  .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Ícones de Ação */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 250px; /* Mesmo width da busca para manter a logo 100% no centro */
+    justify-content: flex-end;
+  }
+
+  .action-icon {
+    position: relative;
+    cursor: pointer;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .action-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.3s ease;
+  }
+
+  .action-icon:hover svg {
+    stroke: #e60000;
+  }
+
+  .cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background-color: #e60000;
+    color: #ffffff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  /* Menu de Categorias travado em 1240px */
+  .nav-menu {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding-bottom: 20px;
+  }
+
+  .nav-link {
+    color: #aaaaaa;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: #ffffff;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #e60000;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+
+<header class="modern-header">
+  
+  <div class="top-bar-bg">
+    <div class="container top-bar">
+      <a href="#">Rastrear Pedido</a>
+      <a href="#">Fale Conosco</a>
+    </div>
+  </div>
+
+  <div class="container main-header">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      <input type="text" placeholder="Faça uma pesquisa...">
+    </div>
+
+    <a href="#" class="logo">BLACKTARG</a>
+
+    <div class="actions">
+      <a href="#" class="action-icon" title="Entrar / Cadastrar">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      
+      <a href="#" class="action-icon" title="Meu Carrinho">
+        <svg viewBox="0 0 24 24"><path d="M9 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"/><path d="M20 20a1 1 0 1 0 0 2 1 1 0 1 0 0-2z"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge">2</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="container nav-menu">
+    <a href="#" class="nav-link">Corta Vento</a>
+    <a href="#" class="nav-link active">Calça</a>
+    <a href="#" class="nav-link">Parte de Cima</a>
+    <a href="#" class="nav-link">Parte de Baixo</a>
+    <a href="#" class="nav-link">Feminino</a>
+    <a href="#" class="nav-link">Outros</a>
+  </nav>
+
+</header>
+
+</body>
+</html>

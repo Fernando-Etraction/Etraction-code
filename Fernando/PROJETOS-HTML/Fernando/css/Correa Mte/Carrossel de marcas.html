@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrossel de Categorias</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #f5f5f5;
+        font-family: "Segoe UI", sans-serif;
+        padding: 40px 0;
+      }
+
+      .cc-section {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 16px;
+        background-color: transparent;
+        font-family: "Segoe UI", sans-serif;
+        box-sizing: border-box;
+      }
+
+      .cc-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 24px;
+      }
+
+      .cc-container {
+        width: 100%;
+        padding: 10px 0 30px;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .cc-swiper {
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+
+      .cc-swiper .swiper-wrapper {
+        align-items: stretch;
+      }
+
+      .cc-swiper .swiper-slide {
+        height: 100%;
+        min-height: 160px;
+        display: flex;
+        align-items: stretch;
+      }
+
+      .cc-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        padding: 14px 10px 12px;
+        border: 1px solid #e6e6e2;
+        width: 100%;
+        min-height: 140px;
+        max-height: 170px;
+        height: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        transition:
+          box-shadow 0.2s,
+          border-color 0.2s,
+          transform 0.15s;
+        text-decoration: none;
+        box-sizing: border-box;
+      }
+
+      .cc-item:hover {
+        box-shadow: 0 4px 14px rgba(200, 16, 46, 0.1);
+        border-color: #c8102e;
+        transform: translateY(-2px);
+      }
+
+      .cc-logo {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      .cc-logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.2s;
+      }
+
+      .cc-item:hover .cc-logo img {
+        transform: scale(1.05);
+      }
+
+      .cc-item-label {
+        font-size: 13px;
+        color: #333;
+        font-weight: 600;
+        margin-top: 8px;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      .cc-button-prev,
+      .cc-button-next {
+        color: #c8102e;
+        background: #fff;
+        border: 1px solid #e6e6e2;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        font-size: 20px;
+        font-weight: 800;
+        transition: all 0.2s;
+      }
+
+      .cc-button-prev:hover,
+      .cc-button-next:hover {
+        background-color: #fff0f2;
+        border-color: #c8102e;
+      }
+
+      .cc-button-prev:active,
+      .cc-button-next:active {
+        box-shadow: 0 2px 8px rgba(200, 16, 46, 0.2);
+      }
+
+      .cc-button-prev {
+        left: 0;
+      }
+
+      .cc-button-next {
+        right: 0;
+      }
+
+      .cc-pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+        gap: 4px;
+      }
+
+      .cc-pagination .swiper-pagination-bullet {
+        width: 8px;
+        height: 8px;
+        background-color: #c8102e;
+        opacity: 0.3;
+        transition: opacity 0.2s;
+        margin: 0 !important;
+      }
+
+      .cc-pagination .swiper-pagination-bullet-active {
+        opacity: 1;
+      }
+
+      .swiper-pagination-bullet::after {
+        display: none;
+      }
+
+      @media (max-width: 1240px) {
+        .cc-section {
+          padding: 0 16px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .cc-swiper {
+          padding: 0 16px 36px;
+        }
+
+        .cc-button-prev,
+        .cc-button-next {
+          width: 32px;
+          height: 32px;
+          font-size: 18px;
+        }
+
+        .cc-title {
+          font-size: 20px;
+        }
+      }
+
+      @media (max-width: 479px) {
+        .cc-item {
+          min-height: 90px;
+          max-height: 120px;
+          padding: 12px 8px 10px;
+        }
+
+        .cc-swiper .swiper-slide {
+          min-height: 100px;
+        }
+
+        .cc-item-label {
+          font-size: 12px;
+        }
+
+        .cc-title {
+          font-size: 18px;
+          margin-bottom: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="cc-section">
+      <div class="title-ctn">
+        <h2 class="bg-title">
+          <span> Navegue por Categoria </span>
+        </h2>
+      </div>
+
+      <div class="cc-container">
+        <div class="swiper cc-swiper" data-carousel="categories">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14787/1.png"
+                    alt="Marca 1"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14788/2.png"
+                    alt="Marca 2"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14789/3.png"
+                    alt="Marca 3"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14790/4.png"
+                    alt="Marca 4"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14791/5.png"
+                    alt="Marca 5"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14792/6.png"
+                    alt="Marca 6"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14793/7.png"
+                    alt="Marca 7"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14794/8.png"
+                    alt="Marca 8"
+                  />
+                </div>
+              </a>
+            </div>
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14795/9.png"
+                    alt="Marca 9"
+                  />
+                </div>
+              </a>
+            </div>
+
+            <div class="swiper-slide">
+              <a href="#" class="cc-item">
+                <div class="cc-logo">
+                  <img
+                    src="https://correamateriais.cdn.magazord.com.br/img/2026/04/produto/14797/11.png"
+                    alt="Marca 11"
+                  />
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <button class="cc-button-prev" aria-label="Anterior">‹</button>
+          <button class="cc-button-next" aria-label="Próximo">›</button>
+        </div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      (function () {
+        function initCategoryCarousel() {
+          const carousel = document.querySelector(".cc-swiper");
+          if (!carousel || carousel.dataset.swiperInitialized === "true")
+            return;
+
+          carousel.dataset.swiperInitialized = "true";
+
+          new Swiper(carousel, {
+            slidesPerView: 7,
+            spaceBetween: 12,
+            loop: false,
+            rewind: true,
+            speed: 600,
+            watchOverflow: true,
+            observer: true,
+            observeParents: true,
+            navigation: {
+              nextEl: ".cc-button-next",
+              prevEl: ".cc-button-prev",
+            },
+            pagination: {
+              el: ".cc-pagination",
+              clickable: true,
+              dynamicBullets: true,
+            },
+            breakpoints: {
+              0: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              480: {
+                slidesPerView: 2,
+                spaceBetween: 10,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 12,
+              },
+              1240: {
+                slidesPerView: 6,
+                spaceBetween: 12,
+              },
+              1440: {
+                slidesPerView: 7,
+                spaceBetween: 12,
+              },
+            },
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initCategoryCarousel);
+        } else {
+          initCategoryCarousel();
+        }
+      })();
+    </script>
+  </body>
+</html>

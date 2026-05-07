@@ -1,0 +1,468 @@
+<style>
+/* Carrossel de Avaliações - Patricinha Pet */
+.pp-avaliacoes-wrap {
+  margin: 24px 0;
+  font-family: inherit;
+}
+
+.pp-avaliacoes {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #fff 0%, #fff7fb 100%);
+  border: 1px solid rgba(245, 152, 192, 0.22);
+  border-radius: 16px;
+  padding: 22px 18px 54px;
+}
+
+.pp-avaliacoes-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.pp-avaliacoes-kicker {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #d66b98;
+}
+
+.pp-avaliacoes-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.15;
+  font-weight: 800;
+  color: #333;
+}
+
+.pp-avaliacoes-subtitle {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+}
+
+.pp-avaliacoes-viewport {
+  overflow: hidden;
+}
+
+.pp-avaliacoes-track {
+  display: flex;
+  transition: transform 0.45s ease;
+  will-change: transform;
+}
+
+.pp-avaliacao-card {
+  min-width: calc(33.333% - 10px);
+  margin-right: 15px;
+  background: #fff;
+  border: 1px solid rgba(245, 152, 192, 0.18);
+  border-radius: 14px;
+  padding: 18px;
+  box-sizing: border-box;
+  box-shadow: 0 8px 24px rgba(214, 107, 152, 0.08);
+}
+
+.pp-avaliacao-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pp-avaliacao-avatar {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 50%;
+  background: #F598C0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pp-avaliacao-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pp-avaliacao-nome {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+.pp-avaliacao-local {
+  font-size: 12px;
+  color: #777;
+}
+
+.pp-avaliacao-stars {
+  margin-bottom: 10px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #f2b01e;
+}
+
+.pp-avaliacao-texto {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.pp-avaliacoes-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #d66b98;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+  cursor: pointer;
+  z-index: 2;
+  transition: 0.2s ease;
+}
+
+.pp-avaliacoes-arrow:hover {
+  background: #F598C0;
+  color: #fff;
+}
+
+.pp-avaliacoes-arrow.prev {
+  left: 10px;
+}
+
+.pp-avaliacoes-arrow.next {
+  right: 10px;
+}
+
+.pp-avaliacoes-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pp-avaliacoes-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(245, 152, 192, 0.35);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pp-avaliacoes-dot.active {
+  width: 24px;
+  border-radius: 999px;
+  background: #F598C0;
+}
+
+@media (max-width: 991px) {
+  .pp-avaliacao-card {
+    min-width: calc(50% - 8px);
+  }
+
+  .pp-avaliacoes-title {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pp-avaliacoes {
+    padding: 20px 14px 54px;
+  }
+
+  .pp-avaliacao-card {
+    min-width: 100%;
+    margin-right: 0;
+  }
+
+  .pp-avaliacoes-arrow {
+    display: none;
+  }
+
+  .pp-avaliacoes-title {
+    font-size: 18px;
+  }
+
+  .pp-avaliacoes-subtitle {
+    font-size: 13px;
+  }
+}
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  const CONFIG = {
+    widgetId: 'ppCarouselAvaliacoes',
+    selectors: [
+      '.tail-prod-ver-tamanho-colunas',
+      '.pagina-home .secao-vitrine',
+      '.conteudo-principal',
+      'main'
+    ],
+    insertPosition: 'afterend',
+    autoplay: true,
+    autoplayDelay: 4500,
+    pauseOnHover: true,
+    reviews: [
+      {
+        nome: 'Mariana S.',
+        local: 'São Paulo - SP',
+        estrelas: 5,
+        texto: 'A qualidade é impecável e o acabamento é muito bonito. Minha cachorrinha ficou linda e o produto chegou super bem embalado.'
+      },
+      {
+        nome: 'Juliana R.',
+        local: 'Curitiba - PR',
+        estrelas: 5,
+        texto: 'Comprei pela primeira vez e me surpreendi. Além de lindo, ficou confortável no pet e a personalização deixou tudo ainda mais especial.'
+      },
+      {
+        nome: 'Camila F.',
+        local: 'Belo Horizonte - MG',
+        estrelas: 5,
+        texto: 'Atendimento excelente e produtos muito bem feitos. Dá para ver carinho em cada detalhe da marca.'
+      },
+      {
+        nome: 'Patrícia L.',
+        local: 'Campinas - SP',
+        estrelas: 5,
+        texto: 'Achei o site fácil de navegar e os produtos são ainda mais bonitos ao vivo. Já quero comprar outras estampas.'
+      },
+      {
+        nome: 'Renata M.',
+        local: 'Florianópolis - SC',
+        estrelas: 5,
+        texto: 'Entrega rápida, ótimo acabamento e caimento perfeito. Virou uma das minhas lojas favoritas para comprar acessórios pro meu pet.'
+      },
+      {
+        nome: 'Aline T.',
+        local: 'Rio de Janeiro - RJ',
+        estrelas: 5,
+        texto: 'Tudo muito delicado e com aparência premium. A experiência foi muito boa do início ao fim.'
+      }
+    ]
+  };
+
+  function getSlidesPerView() {
+    if (window.innerWidth <= 640) return 1;
+    if (window.innerWidth <= 991) return 2;
+    return 3;
+  }
+
+  function getInitials(name) {
+    return name
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(part => part.charAt(0).toUpperCase())
+      .join('');
+  }
+
+  function getStars(count) {
+    return '★'.repeat(count) + '☆'.repeat(5 - count);
+  }
+
+  function findTarget() {
+    for (const selector of CONFIG.selectors) {
+      const el = document.querySelector(selector);
+      if (el) return el;
+    }
+    return null;
+  }
+
+  function buildHTML() {
+    const cards = CONFIG.reviews.map(item => `
+      <div class="pp-avaliacao-card">
+        <div class="pp-avaliacao-top">
+          <div class="pp-avaliacao-avatar">${getInitials(item.nome)}</div>
+          <div class="pp-avaliacao-meta">
+            <span class="pp-avaliacao-nome">${item.nome}</span>
+            <span class="pp-avaliacao-local">${item.local}</span>
+          </div>
+        </div>
+        <div class="pp-avaliacao-stars" aria-label="${item.estrelas} de 5 estrelas">${getStars(item.estrelas)}</div>
+        <div class="pp-avaliacao-texto">${item.texto}</div>
+      </div>
+    `).join('');
+
+    return `
+      <section id="${CONFIG.widgetId}" class="pp-avaliacoes-wrap">
+        <div class="pp-avaliacoes">
+          <div class="pp-avaliacoes-header">
+            <span class="pp-avaliacoes-kicker">Quem compra, aprova</span>
+            <h2 class="pp-avaliacoes-title">Avaliações de clientes</h2>
+            <p class="pp-avaliacoes-subtitle">Veja o que estão dizendo sobre a experiência com a Patricinha Pet.</p>
+          </div>
+
+          <button class="pp-avaliacoes-arrow prev" type="button" aria-label="Avaliação anterior">‹</button>
+          <button class="pp-avaliacoes-arrow next" type="button" aria-label="Próxima avaliação">›</button>
+
+          <div class="pp-avaliacoes-viewport">
+            <div class="pp-avaliacoes-track">
+              ${cards}
+            </div>
+          </div>
+
+          <div class="pp-avaliacoes-dots"></div>
+        </div>
+      </section>
+    `;
+  }
+
+  function insertWidget() {
+    const target = findTarget();
+    if (!target || document.getElementById(CONFIG.widgetId)) {
+      return !!document.getElementById(CONFIG.widgetId);
+    }
+
+    target.insertAdjacentHTML(CONFIG.insertPosition, buildHTML());
+    initCarousel();
+    return true;
+  }
+
+  function initCarousel() {
+    const root = document.getElementById(CONFIG.widgetId);
+    if (!root) return;
+
+    const track = root.querySelector('.pp-avaliacoes-track');
+    const cards = Array.from(root.querySelectorAll('.pp-avaliacao-card'));
+    const prevBtn = root.querySelector('.pp-avaliacoes-arrow.prev');
+    const nextBtn = root.querySelector('.pp-avaliacoes-arrow.next');
+    const dotsWrap = root.querySelector('.pp-avaliacoes-dots');
+
+    let currentIndex = 0;
+    let slidesPerView = getSlidesPerView();
+    let maxIndex = Math.max(0, cards.length - slidesPerView);
+    let autoplayRef = null;
+
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      slidesPerView = getSlidesPerView();
+      maxIndex = Math.max(0, cards.length - slidesPerView);
+
+      for (let i = 0; i <= maxIndex; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'pp-avaliacoes-dot' + (i === currentIndex ? ' active' : '');
+        dot.type = 'button';
+        dot.setAttribute('aria-label', 'Ir para avaliação ' + (i + 1));
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          update();
+          restartAutoplay();
+        });
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function update() {
+      slidesPerView = getSlidesPerView();
+      maxIndex = Math.max(0, cards.length - slidesPerView);
+
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+      const gap = window.innerWidth <= 640 ? 0 : 15;
+      const cardWidth = cards[0].offsetWidth + gap;
+      const offset = currentIndex * cardWidth;
+
+      track.style.transform = 'translateX(-' + offset + 'px)';
+
+      const dots = dotsWrap.querySelectorAll('.pp-avaliacoes-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+
+      prevBtn.style.display = maxIndex <= 0 ? 'none' : '';
+      nextBtn.style.display = maxIndex <= 0 ? 'none' : '';
+      dotsWrap.style.display = maxIndex <= 0 ? 'none' : 'flex';
+    }
+
+    function next() {
+      currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+      update();
+    }
+
+    function prev() {
+      currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+      update();
+    }
+
+    function startAutoplay() {
+      if (!CONFIG.autoplay || maxIndex <= 0) return;
+      stopAutoplay();
+      autoplayRef = setInterval(next, CONFIG.autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      if (autoplayRef) {
+        clearInterval(autoplayRef);
+        autoplayRef = null;
+      }
+    }
+
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    prevBtn.addEventListener('click', function () {
+      prev();
+      restartAutoplay();
+    });
+
+    nextBtn.addEventListener('click', function () {
+      next();
+      restartAutoplay();
+    });
+
+    if (CONFIG.pauseOnHover) {
+      root.addEventListener('mouseenter', stopAutoplay);
+      root.addEventListener('mouseleave', startAutoplay);
+    }
+
+    window.addEventListener('resize', function () {
+      const oldMaxIndex = maxIndex;
+      slidesPerView = getSlidesPerView();
+      maxIndex = Math.max(0, cards.length - slidesPerView);
+
+      if (oldMaxIndex !== maxIndex) {
+        buildDots();
+      }
+
+      update();
+    });
+
+    buildDots();
+    update();
+    startAutoplay();
+  }
+
+  if (!insertWidget()) {
+    const observer = new MutationObserver((mutations, obs) => {
+      if (insertWidget()) obs.disconnect();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    setTimeout(() => observer.disconnect(), 15000);
+  }
+})();
+</script>

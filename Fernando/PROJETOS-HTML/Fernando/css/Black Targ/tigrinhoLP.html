@@ -1,0 +1,698 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap");
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bt-black: #0a0a0a;
+    --bt-dark: #111111;
+    --bt-surface: #1a1a1a;
+    --bt-border: #2a2a2a;
+    --bt-accent: #e03030;
+    --bt-accent-dark: #b72020;
+    --bt-text: #ffffff;
+    --bt-muted: #b8b8b8;
+    --bt-radius: 12px;
+    --bt-radius-lg: 24px;
+    --bt-shadow: 0 32px 80px rgba(0, 0, 0, 0.65);
+    --bt-font-head: "Bebas Neue", sans-serif;
+    --bt-font-body: "DM Sans", sans-serif;
+  }
+
+  body {
+    background: var(--bt-black);
+  }
+
+  .etraction-recompra-lp {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at top center, rgba(224, 48, 48, 0.24), transparent 34%),
+      linear-gradient(180deg, #0a0a0a 0%, #111111 48%, #050505 100%);
+    color: var(--bt-text);
+    font-family: var(--bt-font-body);
+    padding: 32px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .etraction-recompra-lp__container {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+    gap: 32px;
+    align-items: center;
+  }
+
+  .etraction-recompra-lp__content {
+    padding: 24px 0;
+  }
+
+  .etraction-recompra-lp__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #ededed;
+    margin-bottom: 18px;
+  }
+
+  .etraction-recompra-lp__eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bt-accent);
+    animation: etractionPulse 2s infinite;
+  }
+
+  .etraction-recompra-lp__title {
+    font-family: var(--bt-font-head);
+    font-size: clamp(48px, 8vw, 92px);
+    line-height: 0.92;
+    letter-spacing: 1px;
+    max-width: 740px;
+    margin-bottom: 18px;
+  }
+
+  .etraction-recompra-lp__title em {
+    color: var(--bt-accent);
+    font-style: normal;
+  }
+
+  .etraction-recompra-lp__text {
+    max-width: 560px;
+    color: var(--bt-muted);
+    font-size: 17px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .etraction-recompra-lp__benefits {
+    display: grid;
+    gap: 12px;
+    max-width: 560px;
+    margin-bottom: 26px;
+  }
+
+  .etraction-recompra-lp__benefit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e8e8e8;
+    font-size: 14px;
+  }
+
+  .etraction-recompra-lp__benefit-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(224, 48, 48, 0.16);
+    color: var(--bt-accent);
+    flex: 0 0 auto;
+  }
+
+  .etraction-recompra-lp__trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: #999;
+    font-size: 12px;
+  }
+
+  .etraction-recompra-lp__trust span {
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 999px;
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .etraction-bt-card {
+    background: rgba(17, 17, 17, 0.94);
+    border: 1px solid var(--bt-border);
+    border-radius: var(--bt-radius-lg);
+    box-shadow: var(--bt-shadow);
+    overflow: hidden;
+  }
+
+  .etraction-bt-card__header {
+    padding: 28px 28px 0;
+    text-align: center;
+  }
+
+  .etraction-bt-timer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+
+  .etraction-bt-timer-count {
+    font-family: var(--bt-font-head);
+    font-size: 20px;
+    color: var(--bt-accent);
+    letter-spacing: 2px;
+  }
+
+  .etraction-bt-social-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 15px;
+  }
+
+  .etraction-bt-social-proof__dot {
+    width: 8px;
+    height: 8px;
+    background: var(--bt-accent);
+    border-radius: 50%;
+    animation: etractionPulse 2s infinite;
+  }
+
+  .etraction-bt-card__headline {
+    font-family: var(--bt-font-head);
+    font-size: 38px;
+    letter-spacing: 1px;
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+
+  .etraction-bt-card__headline em {
+    color: var(--bt-accent);
+    font-style: normal;
+  }
+
+  .etraction-bt-card__subheadline {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .etraction-bt-card__body {
+    padding: 0 24px 28px;
+  }
+
+  .etraction-bt-coupons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .etraction-bt-coupon-card {
+    position: relative;
+    border-radius: var(--bt-radius);
+    aspect-ratio: 3/4;
+    border: 1.5px solid #252525;
+    cursor: pointer;
+    background: #141414;
+    transition:
+      transform 0.2s,
+      border-color 0.2s,
+      opacity 0.2s,
+      filter 0.2s;
+    overflow: hidden;
+  }
+
+  .etraction-bt-coupon-card:hover:not(.etraction-is-disabled) {
+    transform: translateY(-4px);
+    border-color: var(--bt-accent);
+  }
+
+  .etraction-bt-coupon-card.etraction-is-revealed .etraction-bt-coupon-card__back {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .etraction-bt-coupon-card.etraction-is-disabled {
+    opacity: 0.3;
+    filter: grayscale(1);
+    cursor: default;
+  }
+
+  .etraction-bt-coupon-card__back,
+  .etraction-bt-coupon-card__front {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .etraction-bt-coupon-card__back {
+    background: linear-gradient(160deg, #1c1c1c, #111111);
+    z-index: 2;
+    transition: opacity 0.4s;
+  }
+
+  .etraction-bt-coupon-card__front {
+    background: #1a1a1a;
+    border: 1.5px solid var(--bt-accent);
+    z-index: 1;
+  }
+
+  .etraction-bt-coupon-card__prize-value {
+    font-family: var(--bt-font-head);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .etraction-bt-coupon-reveal-zone {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    animation: etractionSlideUp 0.4s ease forwards;
+  }
+
+  .etraction-bt-coupon-reveal-zone.etraction-is-visible {
+    display: flex;
+  }
+
+  .etraction-bt-coupon-display {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a;
+    border: 1.5px solid var(--bt-accent);
+    border-radius: 10px;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .etraction-bt-coupon-display__code {
+    flex: 1;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bt-accent);
+    letter-spacing: 2px;
+    overflow-wrap: anywhere;
+  }
+
+  .etraction-bt-copy-btn,
+  .etraction-bt-cta-btn {
+    background: var(--bt-accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+  }
+
+  .etraction-bt-copy-btn:hover,
+  .etraction-bt-cta-btn:hover {
+    background: var(--bt-accent-dark);
+  }
+
+  .etraction-bt-copy-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .etraction-bt-copy-btn.etraction-is-copied {
+    background: #27ae60;
+  }
+
+  .etraction-bt-cta-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .etraction-bt-secondary-note {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  @keyframes etractionSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes etractionPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(224, 48, 48, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(224, 48, 48, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(224, 48, 48, 0);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .etraction-recompra-lp {
+      align-items: flex-start;
+      padding: 24px 14px;
+    }
+
+    .etraction-recompra-lp__container {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .etraction-recompra-lp__content {
+      text-align: center;
+      padding: 8px 0 0;
+    }
+
+    .etraction-recompra-lp__text,
+    .etraction-recompra-lp__benefits {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .etraction-recompra-lp__trust {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .etraction-recompra-lp__title {
+      font-size: 54px;
+    }
+
+    .etraction-bt-card__header {
+      padding: 24px 18px 0;
+    }
+
+    .etraction-bt-card__body {
+      padding: 0 18px 24px;
+    }
+
+    .etraction-bt-coupons-grid {
+      gap: 8px;
+    }
+
+    .etraction-bt-coupon-display {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+  }
+</style>
+
+<section class="etraction-recompra-lp" id="etraction-recompra-lp">
+  <div class="etraction-recompra-lp__container">
+    <div class="etraction-recompra-lp__content">
+      <div class="etraction-recompra-lp__eyebrow">
+        <span class="etraction-recompra-lp__eyebrow-dot"></span>
+        Oferta exclusiva para recompra
+      </div>
+
+      <h1 class="etraction-recompra-lp__title">
+        Volte agora e desbloqueie seu <em>benefício exclusivo</em>.
+      </h1>
+
+      <p class="etraction-recompra-lp__text">
+        Preparamos uma condição especial para você comprar novamente com desconto. Escolha uma das cartas, libere seu cupom e finalize sua compra antes que o tempo acabe.
+      </p>
+
+      <div class="etraction-recompra-lp__benefits">
+        <div class="etraction-recompra-lp__benefit">
+          <span class="etraction-recompra-lp__benefit-icon">✓</span>
+          Cupom exclusivo liberado direto nesta página.
+        </div>
+        <div class="etraction-recompra-lp__benefit">
+          <span class="etraction-recompra-lp__benefit-icon">✓</span>
+          Aplicação automática ao avançar para o checkout, quando a plataforma permitir.
+        </div>
+        <div class="etraction-recompra-lp__benefit">
+          <span class="etraction-recompra-lp__benefit-icon">✓</span>
+          Oferta com tempo limitado para incentivar a recompra imediata.
+        </div>
+      </div>
+
+      <div class="etraction-recompra-lp__trust">
+        <span>Compra segura</span>
+        <span>Condição por tempo limitado</span>
+        <span>Benefício exclusivo</span>
+      </div>
+    </div>
+
+    <div class="etraction-bt-card">
+      <div class="etraction-bt-card__header">
+        <div class="etraction-bt-timer-bar">
+          <span>🔥 Oferta expira em</span>
+          <span class="etraction-bt-timer-count" id="js-bt-timer">05:00</span>
+        </div>
+
+        <div class="etraction-bt-social-proof">
+          <span class="etraction-bt-social-proof__dot"></span>
+          <span><span id="js-social-num">29</span> pessoas finalizando agora</span>
+        </div>
+
+        <h2 class="etraction-bt-card__headline">
+          Escolha uma carta<br /><em>e libere</em><br />seu cupom.
+        </h2>
+
+        <p class="etraction-bt-card__subheadline">
+          Toque em uma das opções abaixo para revelar o benefício de recompra.
+        </p>
+      </div>
+
+      <div class="etraction-bt-card__body">
+        <div class="etraction-bt-coupons-grid">
+          <div class="etraction-bt-coupon-card" data-coupon="NOVO-CUPOM-AQUI" data-label="5% OFF" data-emoji="🎯">
+            <div class="etraction-bt-coupon-card__back">
+              <span>🎁</span><small>Oferta #1</small>
+            </div>
+            <div class="etraction-bt-coupon-card__front">
+              <span style="font-size: 24px">🎯</span>
+              <span class="etraction-bt-coupon-card__prize-value">5% OFF</span>
+            </div>
+          </div>
+
+          <div class="etraction-bt-coupon-card" data-coupon="NOVO-CUPOM-AQUI" data-label="5% OFF" data-emoji="⭐">
+            <div class="etraction-bt-coupon-card__back">
+              <span>🎁</span><small>Oferta #2</small>
+            </div>
+            <div class="etraction-bt-coupon-card__front">
+              <span style="font-size: 24px">⭐</span>
+              <span class="etraction-bt-coupon-card__prize-value">5% OFF</span>
+            </div>
+          </div>
+
+          <div class="etraction-bt-coupon-card" data-coupon="NOVO-CUPOM-AQUI" data-label="5% OFF" data-emoji="💎">
+            <div class="etraction-bt-coupon-card__back">
+              <span>🎁</span><small>Oferta #3</small>
+            </div>
+            <div class="etraction-bt-coupon-card__front">
+              <span style="font-size: 24px">💎</span>
+              <span class="etraction-bt-coupon-card__prize-value">5% OFF</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="etraction-bt-coupon-reveal-zone" id="js-reveal-zone">
+          <p style="text-align: center; font-size: 13px">
+            🎉 <strong>Excelente escolha!</strong> Cupom liberado:
+          </p>
+          <div class="etraction-bt-coupon-display">
+            <span class="etraction-bt-coupon-display__code" id="js-coupon-code-display">NOVO-CUPOM-AQUI</span>
+            <button class="etraction-bt-copy-btn" id="js-copy-btn" type="button">Copiar</button>
+          </div>
+        </div>
+
+        <button class="etraction-bt-cta-btn" id="js-bt-cta" type="button">
+          FINALIZAR MINHA RECOMPRA →
+        </button>
+
+        <span class="etraction-bt-secondary-note">
+          O cupom será salvo nesta sessão para tentativa de aplicação no checkout.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function BT_RecompraLandingPage() {
+    const CONFIG = {
+      coupon: "NOVO-CUPOM-AQUI",
+      timerSeconds: 300,
+      storageKey: "bt_recompra_coupon_v1",
+      checkoutUrl: "https://www.blacktarg.com.br/checkout/onepage"
+    };
+
+    const state = {
+      revealed: false,
+      timeLeft: CONFIG.timerSeconds,
+      countdown: null
+    };
+
+    const el = {
+      timer: document.getElementById("js-bt-timer"),
+      copyBtn: document.getElementById("js-copy-btn"),
+      revealZone: document.getElementById("js-reveal-zone"),
+      cards: document.querySelectorAll(".etraction-bt-coupon-card"),
+      cta: document.getElementById("js-bt-cta"),
+      couponCodeDisplay: document.getElementById("js-coupon-code-display"),
+      socialNum: document.getElementById("js-social-num")
+    };
+
+    function formatTime(totalSeconds) {
+      const min = Math.floor(totalSeconds / 60);
+      const sec = totalSeconds % 60;
+      return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+    }
+
+    function startTimer() {
+      if (!el.timer) return;
+      el.timer.textContent = formatTime(state.timeLeft);
+
+      state.countdown = setInterval(() => {
+        state.timeLeft = Math.max(0, state.timeLeft - 1);
+        el.timer.textContent = formatTime(state.timeLeft);
+
+        if (state.timeLeft <= 0) {
+          clearInterval(state.countdown);
+        }
+      }, 1000);
+    }
+
+    function updateSocialProof() {
+      if (!el.socialNum) return;
+      setInterval(() => {
+        const randomNumber = Math.floor(Math.random() * 12) + 21;
+        el.socialNum.textContent = String(randomNumber);
+      }, 4500);
+    }
+
+    function saveCoupon(couponCode) {
+      localStorage.setItem(CONFIG.storageKey, couponCode);
+    }
+
+    function autoApplyIfInCart(couponCode) {
+      const discountInput = document.getElementById("cupom-desconto");
+      if (!discountInput) return;
+
+      discountInput.value = couponCode;
+      discountInput.dispatchEvent(new Event("input", { bubbles: true }));
+      discountInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+      const applyButton = document.querySelector(".aplicar-desconto");
+
+      if (applyButton) {
+        applyButton.click();
+        return;
+      }
+
+      if (
+        typeof Zord !== "undefined" &&
+        Zord.checkout &&
+        typeof Zord.checkout.addCupomDesconto === "function"
+      ) {
+        Zord.checkout.addCupomDesconto();
+      }
+    }
+
+    function revealCoupon(selectedCard) {
+      if (state.revealed) return;
+
+      const selectedCoupon = selectedCard.getAttribute("data-coupon") || CONFIG.coupon;
+      state.revealed = true;
+
+      selectedCard.classList.add("etraction-is-revealed");
+      el.cards.forEach((card) => {
+        if (card !== selectedCard) card.classList.add("etraction-is-disabled");
+      });
+
+      if (el.couponCodeDisplay) {
+        el.couponCodeDisplay.textContent = selectedCoupon;
+      }
+
+      if (el.revealZone) {
+        el.revealZone.classList.add("etraction-is-visible");
+      }
+
+      saveCoupon(selectedCoupon);
+      autoApplyIfInCart(selectedCoupon);
+    }
+
+    function copyCoupon() {
+      const couponCode = localStorage.getItem(CONFIG.storageKey) || CONFIG.coupon;
+
+      navigator.clipboard.writeText(couponCode).then(() => {
+        el.copyBtn.textContent = "✓ COPIADO";
+        el.copyBtn.classList.add("etraction-is-copied");
+        saveCoupon(couponCode);
+
+        setTimeout(() => {
+          el.copyBtn.textContent = "Copiar";
+          el.copyBtn.classList.remove("etraction-is-copied");
+        }, 2000);
+      });
+    }
+
+    function goToCheckout() {
+      const couponCode = localStorage.getItem(CONFIG.storageKey) || CONFIG.coupon;
+      saveCoupon(couponCode);
+      window.location.href = CONFIG.checkoutUrl;
+    }
+
+    function hydrateSavedCoupon() {
+      const savedCoupon = localStorage.getItem(CONFIG.storageKey);
+      if (!savedCoupon || !el.couponCodeDisplay) return;
+
+      el.couponCodeDisplay.textContent = savedCoupon;
+      autoApplyIfInCart(savedCoupon);
+    }
+
+    el.cards.forEach((card) => {
+      card.addEventListener("click", () => revealCoupon(card));
+    });
+
+    if (el.copyBtn) {
+      el.copyBtn.addEventListener("click", copyCoupon);
+    }
+
+    if (el.cta) {
+      el.cta.addEventListener("click", goToCheckout);
+    }
+
+    startTimer();
+    updateSocialProof();
+    hydrateSavedCoupon();
+  })();
+</script>

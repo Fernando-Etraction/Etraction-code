@@ -1,0 +1,135 @@
+<style type="text/css">
+  <!--
+  /* --- AJUSTES GERAIS --- */
+  .descricao-desconto p.obs {
+  	color: #000 !important;
+  	margin-bottom: 16px !important;
+  }
+
+  h1.title-pesquisa {
+      display: none;
+  }
+
+  .descricao-pesquisa {
+    margin-top: 0;
+  }
+
+  .content-diorelle {
+      padding: 30px 55px;
+      background: #EAEAEA;
+      color: #000;
+      display: table;
+      width: 100%;
+  }
+
+  .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+  }
+
+  /* --- BLOCO ESQUERDO --- */
+  .descricao-desconto {
+      width: 50%;
+      float: left;
+  }
+
+  .descricao-desconto div {
+      display: block;
+      font-size: 35px;
+      text-transform: uppercase;
+      font-weight: bold;
+  }
+
+  /* --- BLOCO DIREITO --- */
+  .aplicar-desconto {
+      width: 50%;
+      float: left;
+      text-align: center;
+  }
+
+  .aplicar-desconto .title-desconto {
+      font-size: 15px;
+      text-transform: uppercase;
+  }
+
+  /* --- AREA DO CUPOM --- */
+  .area-desconto {
+      background: #fff;
+      padding: 15px;
+      margin-top: 10px;
+  }
+
+  /* CUPOM CLICÁVEL */
+  .area-desconto .cupom {
+      width: 100%;
+      height: 60px;
+      font-size: 35px;
+      font-weight: bold;
+      text-align: center;
+      border: 1px solid #000;
+      cursor: pointer;
+      background: #fff;
+  }
+
+  /* TEXTO DE APOIO */
+  .area-desconto .something {
+      display: block;
+      font-size: 12px;
+      margin-top: 10px;
+  }
+
+  /* --- RESPONSIVO --- */
+  @media (max-width: 800px) {
+      .content-diorelle {
+          padding: 10px;
+          text-align: center;
+      }
+
+      .descricao-desconto,
+      .aplicar-desconto {
+          width: 100%;
+      }
+
+      .descricao-desconto div {
+          font-size: 25px;
+      }
+
+      .area-desconto .cupom {
+          font-size: 28px;
+          height: 55px;
+      }
+  }
+  -->
+</style>
+<div class="content-diorelle clearfix">
+  <div class="descricao-desconto">
+    <div>oferta exclusiva</div>
+    <div><span style="font-size: 14pt">2 conjuntos por R$ 299</span></div>
+    <p class="obs">
+      Aplique o cupom <strong>2POR299</strong> no carrinho de compras para
+      garantir o desconto!
+    </p>
+    <p class="obs">Exclusivo para itens dessa p&aacute;gina</p>
+  </div>
+  <div class="aplicar-desconto">
+    <span class="title-desconto">Use o cupom na p&aacute;gina de checkout</span>
+    <div class="area-desconto">
+      <input class="cupom" readonly="readonly" type="text" value="2POR299" />
+      <div id="msg-cupom" class="something">Clique para copiar o cupom</div>
+    </div>
+  </div>
+</div>
+  <script>
+    //função para copiar cupom
+    document.querySelector(".cupom").addEventListener("click", function () {
+      const cupom = this.value;
+      navigator.clipboard.writeText(cupom).then(function () {
+        const msg = document.getElementById("msg-cupom");
+        msg.textContent = "Cupom copiado!";
+        setTimeout(() => {
+          msg.textContent = "Clique para copiar o cupom";
+        }, 2000);
+      });
+    });
+  </script>

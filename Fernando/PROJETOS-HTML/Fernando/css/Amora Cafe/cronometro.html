@@ -1,0 +1,155 @@
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  .amora-cronometro {
+    background: #ffffff;
+    border: 1px solid #e0e0de;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    text-align: center;
+    max-width: 520px;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .amora-cronometro__eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #888;
+    margin: 0 0 0.5rem;
+    font-weight: 400;
+  }
+
+  .amora-cronometro__titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #111;
+    margin: 0 0 0.25rem;
+    line-height: 1.3;
+  }
+
+  .amora-cronometro__subtitulo {
+    font-size: 13px;
+    color: #888;
+    font-weight: 300;
+    margin: 0 0 1.25rem;
+  }
+
+  .amora-cronometro__divisor {
+    width: 32px;
+    height: 1px;
+    background: #ddd;
+    margin: 0 auto 1.25rem;
+  }
+
+  .amora-cronometro__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .amora-cronometro__bloco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .amora-cronometro__valor {
+    background: #f8f8f6;
+    border: 1px solid #e8e8e6;
+    border-radius: 8px;
+    width: 100%;
+    padding: 0.7rem 0.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: #111;
+    line-height: 1;
+    box-sizing: border-box;
+  }
+
+  .amora-cronometro__label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #aaa;
+    font-weight: 400;
+  }
+
+  .amora-cronometro__expirado {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: #888;
+    padding: 0.75rem 0;
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 400px) {
+    .amora-cronometro__valor { font-size: 20px; }
+    .amora-cronometro { padding: 1.25rem 1rem; }
+  }
+</style>
+
+<section class="amora-cronometro">
+  <p class="amora-cronometro__eyebrow">Oferta exclusiva</p>
+  <h2 class="amora-cronometro__titulo">O tempo está acabando</h2>
+  <p class="amora-cronometro__subtitulo">Use seu cupom antes que a promoção encerre</p>
+  <div class="amora-cronometro__divisor"></div>
+  <div class="amora-cronometro__grid" id="amora-cronometro-grid">
+    <div class="amora-cronometro__bloco">
+      <div class="amora-cronometro__valor" id="amora-cron-dias">--</div>
+      <span class="amora-cronometro__label">Dias</span>
+    </div>
+    <div class="amora-cronometro__bloco">
+      <div class="amora-cronometro__valor" id="amora-cron-horas">--</div>
+      <span class="amora-cronometro__label">Horas</span>
+    </div>
+    <div class="amora-cronometro__bloco">
+      <div class="amora-cronometro__valor" id="amora-cron-minutos">--</div>
+      <span class="amora-cronometro__label">Minutos</span>
+    </div>
+    <div class="amora-cronometro__bloco">
+      <div class="amora-cronometro__valor" id="amora-cron-segundos">--</div>
+      <span class="amora-cronometro__label">Segundos</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const els = {
+      dias:     document.getElementById('amora-cron-dias'),
+      horas:    document.getElementById('amora-cron-horas'),
+      minutos:  document.getElementById('amora-cron-minutos'),
+      segundos: document.getElementById('amora-cron-segundos'),
+      grid:     document.getElementById('amora-cronometro-grid'),
+    };
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function atualizar() {
+      const agora  = new Date();
+      const fimMes = new Date(agora.getFullYear(), agora.getMonth() + 1, 0, 23, 59, 59);
+      const diff   = fimMes - agora;
+
+      if (diff <= 0) {
+        clearInterval(intervalo);
+        els.grid.innerHTML = '<p class="amora-cronometro__expirado">Oferta expirada</p>';
+        return;
+      }
+
+      els.dias.textContent     = pad(Math.floor(diff / 864e5));
+      els.horas.textContent    = pad(Math.floor((diff % 864e5) / 36e5));
+      els.minutos.textContent  = pad(Math.floor((diff % 36e5) / 6e4));
+      els.segundos.textContent = pad(Math.floor((diff % 6e4) / 1e3));
+    }
+
+    atualizar();
+    const intervalo = setInterval(atualizar, 1000);
+  })();
+</script>

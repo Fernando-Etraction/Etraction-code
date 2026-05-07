@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrossel de Categorias - Black Targ</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    /* Reset básico para a página */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f4f4f4; /* Fundo neutro */
+    }
+
+    /* Container Principal */
+    .category-carousel-section {
+      width: 100%;
+      max-width: 1920px;
+      margin: 0 auto;
+      padding: 60px 20px; /* Espaçamento interno */
+      box-sizing: border-box;
+      background-color: #ffffff; 
+      overflow: hidden;
+    }
+
+    /* Título da Seção (Opcional, mas recomendado para e-commerce) */
+    .section-title {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      color: #111;
+      letter-spacing: 2px;
+    }
+
+    /* Estilo dos Cards */
+    .category-card {
+      display: block;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4; /* Proporção ideal para moda (mais vertical) */
+      border-radius: 6px; /* Bordas levemente arredondadas */
+      overflow: hidden;
+      text-decoration: none;
+      background-color: #eee;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transição mais sofisticada */
+    }
+
+    /* Efeito de zoom suave ao passar o mouse */
+    .category-card:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Camada escura sobre a imagem para destacar o texto */
+    .category-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 25px 20px;
+      box-sizing: border-box;
+      transition: padding 0.3s ease;
+    }
+
+    /* Tipografia das Categorias */
+    .category-overlay h3 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin: 0;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* Levanta levemente o texto no hover */
+    .category-card:hover .category-overlay {
+      padding-bottom: 35px; 
+    }
+
+    /* Botões de navegação customizados */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: #ffffff !important;
+      background: rgba(0,0,0,0.6);
+      width: 40px !important;
+      height: 60px !important;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+    
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+      background: rgba(0,0,0,0.9);
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 1.2rem !important;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="category-carousel-section">
+    <h2 class="section-title">Compre por Categoria</h2>
+    
+    <div class="swiper myCategorySwiper">
+      <div class="swiper-wrapper">
+        
+        <div class="swiper-slide">
+          <a href="/calcas" class="category-card">
+            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=600&auto=format&fit=crop" alt="Calça">
+            <div class="category-overlay">
+              <h3>Calça</h3>
+            </div>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a href="/corta-vento" class="category-card">
+            <img src="https://blacktarg.cdn.magazord.com.br/img/2026/04/produto/9358/sem-titulo-1-0003-matiz-saturacao-1.png" alt="Corta Vento">
+            <div class="category-overlay">
+              <h3>Corta Vento</h3>
+            </div>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a href="/camisetas" class="category-card">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=600&auto=format&fit=crop" alt="Camisetas">
+            <div class="category-overlay">
+              <h3>Camisetas</h3>
+            </div>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a href="/jaquetas" class="category-card">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=600&auto=format&fit=crop" alt="Jaquetas e Casacos">
+            <div class="category-overlay">
+              <h3>Jaquetas e Casacos</h3>
+            </div>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a href="/shorts" class="category-card">
+            <img src="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?q=80&w=600&auto=format&fit=crop" alt="Shorts e Bermudas">
+            <div class="category-overlay">
+              <h3>Shorts e Bermudas</h3>
+            </div>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a href="/feminino" class="category-card">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop" alt="Feminino">
+            <div class="category-overlay">
+              <h3>Feminino</h3>
+            </div>
+          </a>
+        </div>
+
+      </div>
+      
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var swiper = new Swiper(".myCategorySwiper", {
+        slidesPerView: 1.5, /* No celular, mostra 1 inteiro e metade do próximo */
+        spaceBetween: 15,
+        loop: true, /* Carrossel infinito */
+        grabCursor: true, /* Muda o cursor para a "mãozinha" indicando arraste */
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          /* Quando a tela for >= 480px */
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          /* Quando a tela for >= 768px (Tablets) */
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+          },
+          /* Quando a tela for >= 1024px (Desktops pequenos) */
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 25,
+          },
+          /* Quando a tela for >= 1280px (Desktops grandes - Visual Full) */
+          1280: {
+            slidesPerView: 5,
+            spaceBetween: 30,
+          },
+        },
+      });
+    });
+  </script>
+
+</body>
+</html>

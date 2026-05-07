@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Como Usar — Blend Capilar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #e8450a;
+      --orange-glow: rgba(220, 90, 33, 0.35);
+      --orange-dark: #c73a08;
+      --orange-light: #f0854e;
+      --black: #161616;
+      --black-deep: #0d0d0d;
+      --black-card: #1a1a1a;
+      --white: #f5f5f5;
+      --gray: #999999;
+      --gray-light: #cccccc;
+      --border: rgba(255, 255, 255, 0.06);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black-deep);
+      color: var(--white);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Syne', sans-serif;
+      line-height: 1.15;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ── UTILITIES ───────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 5vw, 3rem);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange-light);
+      border: 1px solid rgba(232,69,10,0.35);
+      background: rgba(232,69,10,0.08);
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 1.25rem;
+    }
+
+    .tag::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* ── BUTTONS ─────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: white;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover::after { opacity: 0.07; }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 0 4px 24px var(--orange-glow);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-dark);
+      box-shadow: 0 6px 32px rgba(232,69,10,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.2);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--orange);
+      color: var(--orange-light);
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+      font-size: 0.9rem;
+      padding: 16px 36px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 28px rgba(37,211,102,0.3);
+    }
+
+    .btn-whatsapp:hover {
+      background: #1ebe5d;
+      box-shadow: 0 6px 36px rgba(37,211,102,0.45);
+    }
+
+    .btn-whatsapp svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    /* ── DIVIDER ─────────────────────────────────── */
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      border-radius: 2px;
+      margin: 1.25rem 0 1.75rem;
+    }
+
+    /* ── HERO SECTION ────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--black-deep);
+      padding-block: 6rem 4rem;
+    }
+
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232,69,10,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at center top, black 40%, transparent 80%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 8vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title span {
+      color: var(--orange);
+      position: relative;
+    }
+
+    .hero-title span::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-light));
+      border-radius: 2px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--gray);
+      max-width: 520px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero-scroll svg { width: 18px; height: 18px; }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── PRODUCT ANCHOR BANNER ───────────────────── */
+    .product-banner {
+      padding-block: 4.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-banner::before {
+      content: '';
+      position: absolute;
+      left: -80px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: var(--orange-glow);
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    .product-banner-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-number {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(255,255,255,0.03);
+      position: absolute;
+      right: 0;
+      top: -1.5rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .product-banner h2 {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-banner p.lead {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--gray);
+      max-width: 500px;
+      font-weight: 300;
+    }
+
+    /* ── INFO + VIDEO SECTION ────────────────────── */
+    .info-video {
+      padding-block: 1rem 4rem;
+    }
+
+    .info-video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .info-video-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        gap: 3rem;
+      }
+    }
+
+    /* ── INFO CARDS ──────────────────────────────── */
+    .info-cards { display: flex; flex-direction: column; gap: 12px; }
+
+    .info-card {
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: border-color var(--transition), transform var(--transition);
+      cursor: default;
+    }
+
+    .info-card:hover {
+      border-color: rgba(232,69,10,0.3);
+      transform: translateX(4px);
+    }
+
+    .info-card-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: rgba(232,69,10,0.12);
+      border: 1px solid rgba(232,69,10,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-card-icon svg { width: 18px; height: 18px; color: var(--orange-light); }
+
+    .info-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--white);
+    }
+
+    .info-card-text {
+      font-size: 0.87rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* ── VIDEO WRAPPER ───────────────────────────── */
+    .video-col { display: flex; flex-direction: column; gap: 1rem; }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      aspect-ratio: 9/16;
+    }
+
+    @media (min-width: 768px) {
+      .video-wrapper { aspect-ratio: 16/10; }
+    }
+
+    .video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      background: var(--black-card);
+      cursor: pointer;
+    }
+
+    .video-play-btn {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 0 0 12px var(--orange-glow);
+    }
+
+    .video-play-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 18px var(--orange-glow);
+    }
+
+    .video-play-btn svg { width: 26px; height: 26px; color: #fff; margin-left: 4px; }
+
+    .video-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* ── FAQ SECTION ─────────────────────────────── */
+    .faq-section {
+      padding-block: 4rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-header {
+      margin-bottom: 2rem;
+    }
+
+    .faq-header h3 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .faq-header p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 1.25rem 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: color var(--transition);
+    }
+
+    .faq-question:hover { color: var(--orange-light); }
+
+    .faq-question.active { color: var(--orange-light); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    }
+
+    .faq-question.active .faq-icon {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: rotate(45deg);
+    }
+
+    .faq-icon svg { width: 12px; height: 12px; }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.75;
+    }
+
+    /* ── CTA WHATSAPP ────────────────────────────── */
+    .cta-block {
+      margin-top: 3rem;
+      background: var(--black-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: clamp(1.75rem, 4vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-block::before {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: rgba(37,211,102,0.06);
+      filter: blur(40px);
+    }
+
+    @media (min-width: 600px) {
+      .cta-block {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .cta-text h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .cta-text p {
+      font-size: 0.87rem;
+      color: var(--gray);
+      font-weight: 300;
+      max-width: 360px;
+    }
+
+    /* ── SECTION SEPARATOR ───────────────────────── */
+    .section-sep {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--orange-glow), transparent);
+      margin-block: 0;
+    }
+
+    /* ── STICKY NAV ──────────────────────────────── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding-block: 0.85rem;
+    }
+
+    .sticky-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .sticky-brand {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .sticky-brand span { color: var(--orange); }
+
+    .sticky-links {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sticky-link {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 6px 14px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .sticky-link:hover, .sticky-link.active {
+      color: var(--orange-light);
+      border-color: rgba(232,69,10,0.4);
+      background: rgba(232,69,10,0.07);
+    }
+
+    /* ── PRODUCT SECTION WRAPPER ─────────────────── */
+    .product-section {
+      padding-block: 0;
+    }
+
+    /* ── SCROLL REVEAL ───────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer {
+      padding-block: 3rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* ── RESPONSIVE TWEAKS ───────────────────────── */
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 300px; }
+      .video-wrapper { aspect-ratio: 9/16; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── STICKY NAV ──────────────────────────────── -->
+  <nav class="sticky-nav" aria-label="Navegação dos produtos">
+    <div class="container sticky-nav-inner">
+      <span class="sticky-brand">Blend <span>Capilar</span></span>
+      <div class="sticky-links">
+        <a href="#tonico" class="sticky-link" data-anchor="tonico">Tônico</a>
+        <a href="#shampoo" class="sticky-link" data-anchor="shampoo">Shampoo</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════
+       SEÇÃO 1 — HERO
+  ══════════════════════════════════════════════════ -->
+  <section id="hero" aria-label="Introdução">
+    <div class="hero-noise" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="container hero-inner">
+      <p class="hero-eyebrow reveal">Guia de Uso Completo</p>
+      <h1 class="hero-title reveal reveal-delay-1">
+        Como usar o<br /><span>Blend Capilar</span>
+      </h1>
+      <p class="hero-subtitle reveal reveal-delay-2">
+        Aprenda a aplicar corretamente cada produto e potencialize os resultados da sua rotina capilar.
+      </p>
+      <div class="hero-btns reveal reveal-delay-3">
+        <a href="#tonico" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"/></svg>
+          Como usar o Tônico
+        </a>
+        <a href="#shampoo" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width:16px;height:16px"><path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"/></svg>
+          Como usar o Shampoo
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/></svg>
+      Scroll
+    </div>
+  </section>
+
+  <div class="section-sep" aria-hidden="true"></div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SEÇÃO TÔNICO — ÂNCORA #tonico
+  ══════════════════════════════════════════════════ -->
+  <section id="tonico" class="product-section" aria-label="Tônico Capilar">
+
+    <!-- Banner do produto -->
+    <div class="product-banner">
+      <div class="container product-banner-inner">
+        <span aria-hidden="true" class="product-number">01</span>
+        <span class="tag reveal">Produto 01</span>
+        <h2 class="reveal reveal-delay-1">Tônico<br />Capilar</h2>
+        <div class="divider reveal reveal-delay-1" aria-hidden="true"></div>
+        <p class="lead reveal reveal-delay-2">
+          Ative o crescimento, nutra o couro cabeludo e fortaleça os fios desde a raiz com a aplicação correta do tônico.
+        </p>
+      </div>
+    </div>
+
+    <!-- Info + Vídeo -->
+    <div class="info-video">
+      <div class="container">
+        <div class="info-video-grid">
+
+          <!-- Coluna esquerda: cards informativos -->
+          <div class="info-cards">
+            <div class="info-card reveal reveal-delay-1">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Quando aplicar?</p>
+                <p class="info-card-text">Aplique preferencialmente à noite, no couro cabeludo limpo e seco. A noite é o período em que a regeneração celular é mais ativa.</p>
+              </div>
+            </div>
+
+            <div class="info-card reveal reveal-delay-2">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.468 5.99 5.99 0 00-1.925 3.547 5.975 5.975 0 01-2.133-1A3.75 3.75 0 0012 18z"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Como aplicar?</p>
+                <p class="info-card-text">Divida o cabelo em mechas e aplique o tônico diretamente no couro cabeludo com o dosador. Massageie com as pontas dos dedos por 2 a 3 minutos.</p>
+              </div>
+            </div>
+
+            <div class="info-card reveal reveal-delay-3">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Não enxágue</p>
+                <p class="info-card-text">O tônico é leave-in — não precisa enxaguar. Deixe agir durante a noite para absorção máxima dos ativos.</p>
+              </div>
+            </div>
+
+            <div class="info-card reveal reveal-delay-4">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Frequência de uso</p>
+                <p class="info-card-text">Use diariamente ou pelo menos 5 vezes por semana para resultados consistentes. Os primeiros resultados aparecem entre 30 e 60 dias.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna direita: vídeo -->
+          <div class="video-col reveal reveal-delay-2">
+            <div class="video-wrapper" id="video-tonico">
+              <div class="video-placeholder" id="placeholder-tonico" onclick="loadVideo('tonico', 'INSIRA_ID_DO_VIDEO_AQUI')">
+                <div class="video-play-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v14l11-7-11-7z"/></svg>
+                </div>
+                <p class="video-label">Ver tutorial do tônico</p>
+              </div>
+            </div>
+            <p style="font-size:0.8rem; color: var(--gray); text-align:center; font-style:italic;">Assista ao passo a passo completo da aplicação</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ + CTA Tônico -->
+    <div class="faq-section">
+      <div class="container">
+        <div class="faq-header reveal">
+          <h3>Dúvidas sobre o Tônico</h3>
+          <p>As perguntas mais frequentes respondidas para você</p>
+        </div>
+
+        <div class="faq-list reveal reveal-delay-1" id="faq-tonico">
+          <div class="faq-item">
+            <button class="faq-question" data-faq="tonico-1" aria-expanded="false">
+              Posso aplicar o tônico com o cabelo molhado?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-tonico-1">
+              <div class="faq-answer-inner">Recomendamos aplicar no couro cabeludo limpo e seco ou levemente úmido. Evite aplicar com o cabelo encharcado, pois isso dilui os ativos e reduz a eficácia do produto.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="tonico-2" aria-expanded="false">
+              O tônico pode ser usado junto com outros produtos?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-tonico-2">
+              <div class="faq-answer-inner">Sim! O tônico foi formulado para ser compatível com o restante da linha Blend Capilar. Aplique-o antes de qualquer finalizador ou óleo capilar, sempre direto no couro cabeludo.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="tonico-3" aria-expanded="false">
+              Quanto tempo leva para ver resultados?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-tonico-3">
+              <div class="faq-answer-inner">Os primeiros sinais de melhora, como redução da queda e mais brilho, podem ser notados em 3 a 4 semanas. Para resultados de crescimento visível, mantenha o uso por pelo menos 60 a 90 dias de forma contínua.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="tonico-4" aria-expanded="false">
+              Tenho couro cabeludo oleoso. Posso usar?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-tonico-4">
+              <div class="faq-answer-inner">Sim. Nesse caso, prefira aplicar à noite e lavar o cabelo pela manhã. A fórmula é leve e não comedogênica, desenvolvida para todos os tipos de couro cabeludo.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="tonico-5" aria-expanded="false">
+              Qual a quantidade ideal por aplicação?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-tonico-5">
+              <div class="faq-answer-inner">Utilize de 8 a 12 jatos (pressões do dosador) por aplicação, distribuídos pelo couro cabeludo, focando nas áreas com maior queda ou rarefação. Não é necessário usar grandes quantidades.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA WhatsApp Tônico -->
+        <div class="cta-block reveal reveal-delay-2">
+          <div class="cta-text">
+            <h4>Ainda com dúvidas sobre o Tônico?</h4>
+            <p>Nossa equipe está pronta para te orientar sobre o uso correto e potencializar seus resultados.</p>
+          </div>
+          <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21+Tenho+uma+d%C3%BAvida+sobre+o+T%C3%B4nico+Capilar+Blend." target="_blank" rel="noopener" class="btn btn-whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.65 4.78 1.79 6.78L2 30l7.42-1.74A13.91 13.91 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm7.6 19.4c-.32.9-1.87 1.72-2.57 1.8-.66.08-1.47.11-2.38-.15a22.07 22.07 0 01-2.15-.8C13.1 21 10.9 18.2 10.7 17.93c-.18-.27-1.5-2-1.5-3.8s.95-2.7 1.29-3.07c.34-.36.74-.45 1-.45.24 0 .5 0 .71.01.23.01.54-.09.84.64.32.75 1.08 2.61 1.17 2.8.09.18.15.4.03.64-.12.24-.18.38-.35.59-.18.2-.37.45-.53.6-.17.18-.35.37-.15.72.2.35.88 1.45 1.9 2.34 1.3 1.16 2.4 1.52 2.73 1.69.34.17.54.14.74-.08.2-.23.86-1 1.09-1.34.22-.35.44-.29.74-.17.3.12 1.88.89 2.2 1.05.3.16.52.24.6.38.07.13.07.76-.25 1.66z"/></svg>
+            Falar no WhatsApp
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-sep" aria-hidden="true"></div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SEÇÃO SHAMPOO — ÂNCORA #shampoo
+  ══════════════════════════════════════════════════ -->
+  <section id="shampoo" class="product-section" aria-label="Shampoo Capilar">
+
+    <!-- Banner do produto -->
+    <div class="product-banner">
+      <div class="container product-banner-inner">
+        <span aria-hidden="true" class="product-number">02</span>
+        <span class="tag reveal">Produto 02</span>
+        <h2 class="reveal reveal-delay-1">Shampoo<br />Capilar</h2>
+        <div class="divider reveal reveal-delay-1" aria-hidden="true"></div>
+        <p class="lead reveal reveal-delay-2">
+          Limpe profundamente, remova resíduos e prepare o couro cabeludo para absorver ao máximo os ativos do tônico.
+        </p>
+      </div>
+    </div>
+
+    <!-- Info + Vídeo -->
+    <div class="info-video">
+      <div class="container">
+        <div class="info-video-grid">
+
+          <!-- Coluna esquerda: cards informativos -->
+          <div class="info-cards">
+            <div class="info-card reveal reveal-delay-1">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Quando usar?</p>
+                <p class="info-card-text">Use o shampoo na lavagem regular do cabelo, de 2 a 3 vezes por semana. Evite lavar todos os dias para não remover os óleos naturais do couro cabeludo.</p>
+              </div>
+            </div>
+
+            <div class="info-card reveal reveal-delay-2">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .03 2.7-1.41 2.7H4.21c-1.44 0-2.41-1.7-1.41-2.7L4.2 15.3"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Como aplicar?</p>
+                <p class="info-card-text">Molhe bem o cabelo, aplique uma quantidade do shampoo no couro cabeludo e massageie com as pontas dos dedos por 2 a 3 minutos antes de enxaguar.</p>
+              </div>
+            </div>
+
+            <div class="info-card reveal reveal-delay-3">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Dupla lavagem</p>
+                <p class="info-card-text">Para melhores resultados, realize duas aplicações consecutivas: a primeira para remover impurezas e a segunda para nutrir e tratar o couro cabeludo.</p>
+              </div>
+            </div>
+
+            <div class="info-card reveal reveal-delay-4">
+              <div class="info-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.375.375 0 01.375.375v1.875c0 .207-.168.375-.375.375H6.75a.375.375 0 01-.375-.375V18.75c0-.207.168-.375.375-.375z"/></svg>
+              </div>
+              <div>
+                <p class="info-card-title">Potencialize com o Tônico</p>
+                <p class="info-card-text">Após lavar e secar o cabelo, aplique o tônico para um protocolo completo. O shampoo prepara o couro cabeludo para absorver melhor os ativos do tônico.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna direita: vídeo -->
+          <div class="video-col reveal reveal-delay-2">
+            <div class="video-wrapper" id="video-shampoo">
+              <div class="video-placeholder" id="placeholder-shampoo" onclick="loadVideo('shampoo', 'INSIRA_ID_DO_VIDEO_AQUI')">
+                <div class="video-play-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v14l11-7-11-7z"/></svg>
+                </div>
+                <p class="video-label">Ver tutorial do shampoo</p>
+              </div>
+            </div>
+            <p style="font-size:0.8rem; color: var(--gray); text-align:center; font-style:italic;">Assista ao passo a passo completo da aplicação</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ + CTA Shampoo -->
+    <div class="faq-section">
+      <div class="container">
+        <div class="faq-header reveal">
+          <h3>Dúvidas sobre o Shampoo</h3>
+          <p>As perguntas mais frequentes respondidas para você</p>
+        </div>
+
+        <div class="faq-list reveal reveal-delay-1" id="faq-shampoo">
+          <div class="faq-item">
+            <button class="faq-question" data-faq="shampoo-1" aria-expanded="false">
+              Posso usar o shampoo todos os dias?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-shampoo-1">
+              <div class="faq-answer-inner">O uso diário não é recomendado, pois pode remover os óleos naturais do couro cabeludo e ressecar os fios. O ideal é de 2 a 3 vezes por semana, ou conforme a necessidade do seu tipo de cabelo.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="shampoo-2" aria-expanded="false">
+              O shampoo é indicado para cabelos quimicamente tratados?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-shampoo-2">
+              <div class="faq-answer-inner">Sim. A fórmula suave é compatível com cabelos tingidos, com progressiva ou com outros tratamentos químicos. Não contém sulfatos agressivos que removem a coloração ou danificam o tratamento.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="shampoo-3" aria-expanded="false">
+              Preciso usar condicionador após o shampoo?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-shampoo-3">
+              <div class="faq-answer-inner">O shampoo possui ativos que hidratam e suavizam os fios durante a lavagem. Porém, se os seus fios forem muito secos ou com pontas duplas, o uso de condicionador nos comprimentos pode complementar o cuidado.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="shampoo-4" aria-expanded="false">
+              Qual a quantidade ideal de shampoo por lavagem?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-shampoo-4">
+              <div class="faq-answer-inner">Use uma quantidade equivalente a uma moeda de R$1 por aplicação. Para cabelos mais longos ou muito volumosos, ajuste a quantidade. Lembre-se de que mais espuma não significa mais limpeza.</div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" data-faq="shampoo-5" aria-expanded="false">
+              O shampoo ajuda no controle da oleosidade?
+              <span class="faq-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></span>
+            </button>
+            <div class="faq-answer" id="faq-shampoo-5">
+              <div class="faq-answer-inner">Sim. Os ativos reguladores de sebo na fórmula ajudam a equilibrar a produção de oleosidade do couro cabeludo ao longo do tempo, deixando os cabelos com aparência limpa por mais tempo entre as lavagens.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA WhatsApp Shampoo -->
+        <div class="cta-block reveal reveal-delay-2">
+          <div class="cta-text">
+            <h4>Ainda com dúvidas sobre o Shampoo?</h4>
+            <p>Nossa equipe está pronta para te orientar e garantir o melhor aproveitamento do produto.</p>
+          </div>
+          <a href="https://wa.me/5500000000000?text=Ol%C3%A1%21+Tenho+uma+d%C3%BAvida+sobre+o+Shampoo+Capilar+Blend." target="_blank" rel="noopener" class="btn btn-whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.65 4.78 1.79 6.78L2 30l7.42-1.74A13.91 13.91 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm7.6 19.4c-.32.9-1.87 1.72-2.57 1.8-.66.08-1.47.11-2.38-.15a22.07 22.07 0 01-2.15-.8C13.1 21 10.9 18.2 10.7 17.93c-.18-.27-1.5-2-1.5-3.8s.95-2.7 1.29-3.07c.34-.36.74-.45 1-.45.24 0 .5 0 .71.01.23.01.54-.09.84.64.32.75 1.08 2.61 1.17 2.8.09.18.15.4.03.64-.12.24-.18.38-.35.59-.18.2-.37.45-.53.6-.17.18-.35.37-.15.72.2.35.88 1.45 1.9 2.34 1.3 1.16 2.4 1.52 2.73 1.69.34.17.54.14.74-.08.2-.23.86-1 1.09-1.34.22-.35.44-.29.74-.17.3.12 1.88.89 2.2 1.05.3.16.52.24.6.38.07.13.07.76-.25 1.66z"/></svg>
+            Falar no WhatsApp
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p>Blend Capilar &mdash; Guia de uso completo</p>
+    </div>
+  </footer>
+
+
+  <script>
+    /* ── FAQ ACCORDION ───────────────────────────── */
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var faqId = this.getAttribute('data-faq');
+        var answer = document.getElementById('faq-' + faqId);
+        var isOpen = this.classList.contains('active');
+
+        // Fecha todos dentro do mesmo grupo
+        var container = this.closest('.faq-list');
+        container.querySelectorAll('.faq-question').forEach(function(q) {
+          q.classList.remove('active');
+          q.setAttribute('aria-expanded', 'false');
+          var id = q.getAttribute('data-faq');
+          var a = document.getElementById('faq-' + id);
+          if (a) a.style.maxHeight = null;
+        });
+
+        // Abre o clicado se estava fechado
+        if (!isOpen) {
+          this.classList.add('active');
+          this.setAttribute('aria-expanded', 'true');
+          if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    /* ── LOAD VIDEO (lazy) ───────────────────────── */
+    function loadVideo(product, videoId) {
+      var placeholder = document.getElementById('placeholder-' + product);
+      if (!placeholder || !videoId || videoId === 'INSIRA_ID_DO_VIDEO_AQUI') {
+        alert('Insira o ID do vídeo do YouTube no código HTML para este produto.');
+        return;
+      }
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+      var wrapper = document.getElementById('video-' + product);
+      wrapper.innerHTML = '';
+      wrapper.appendChild(iframe);
+    }
+
+    /* ── SCROLL REVEAL ───────────────────────────── */
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    /* ── STICKY NAV: ACTIVE STATE ────────────────── */
+    var sections = ['tonico', 'shampoo'];
+    var sectionEls = sections.map(function(id) { return document.getElementById(id); });
+
+    var navObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        var id = entry.target.id;
+        var link = document.querySelector('.sticky-link[data-anchor="' + id + '"]');
+        if (!link) return;
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.sticky-link').forEach(function(l) { l.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sectionEls.forEach(function(el) { if (el) navObs.observe(el); });
+
+    /* ── HERO: reveal on load ────────────────────── */
+    window.addEventListener('DOMContentLoaded', function() {
+      var heroItems = document.querySelectorAll('#hero .reveal');
+      heroItems.forEach(function(el, i) {
+        setTimeout(function() { el.classList.add('visible'); }, 150 + i * 130);
+      });
+    });
+  </script>
+</body>
+</html>

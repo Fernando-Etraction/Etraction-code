@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Conjunto Classic Poliamida — Muv Fit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 300;
+        color: #111;
+        background: #fff;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ─── CONTAINER ─── */
+      .wrap {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 56px 32px 100px;
+      }
+
+      /* ─── DIVISOR ─── */
+      .divider {
+        border: none;
+        border-top: 1px solid #e8e8e8;
+        margin: 40px 0;
+      }
+
+      /* ─── HERO SPLIT ─── */
+      .hero-split {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .hero-split-img {
+        width: 100%;
+        height: 100%;
+        min-height: 360px;
+        object-fit: cover;
+        display: block;
+        background: #f2f2f2;
+      }
+
+      .hero-split-text {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        border: 1px solid #e8e8e8;
+        border-left: none;
+      }
+
+      .hero-split-eyebrow {
+        font-size: 0.5rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #aaa;
+        font-weight: 400;
+        margin-bottom: 12px;
+        margin-top: 20px;
+      }
+
+      .hero-split-title {
+        font-size: 1.25rem;
+        font-weight: 400;
+        line-height: 1.3;
+        color: #111;
+        margin-bottom: 16px;
+      }
+
+      .hero-split-lead {
+        font-size: 0.875rem;
+        line-height: 1.8;
+        color: #666;
+        font-weight: 300;
+      }
+
+      /* ─── BADGES com ícone ─── */
+      .badge-row {
+        display: flex;
+        gap: 0;
+        border: 1px solid #e8e8e8;
+        overflow: hidden;
+      }
+
+      .badge-item {
+        flex: 1;
+        padding: 20px 14px;
+        border-right: 1px solid #e8e8e8;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .badge-item:last-child {
+        border-right: none;
+      }
+
+      .badge-icon {
+        width: 20px;
+        height: 20px;
+        color: #ccc;
+        flex-shrink: 0;
+      }
+
+      .badge-name {
+        font-size: 0.6875rem;
+        font-weight: 500;
+        color: #111;
+        line-height: 1.3;
+      }
+
+      .badge-detail {
+        font-size: 0.5rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #bbb;
+        font-weight: 400;
+      }
+
+      /* ─── BLOCO BLACKOUT ─── */
+      .blackout {
+        background: #0a0a0a;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .blackout-text {
+        padding: 48px 44px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .blackout-eyebrow {
+        font-size: 0.5rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.35);
+        font-weight: 500;
+        display: block;
+        margin-bottom: 14px;
+      }
+
+      .blackout-title {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: #fff;
+        line-height: 1.35;
+        margin-bottom: 18px;
+      }
+
+      .blackout-desc {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.75;
+        font-weight: 300;
+      }
+
+      .blackout-desc strong {
+        color: rgba(255, 255, 255, 0.85);
+        font-weight: 400;
+      }
+
+      .blackout-media {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        min-height: 280px;
+        background: #1a1a1a;
+      }
+
+      /* ─── SEÇÃO INFO — cards 3 colunas ─── */
+      .info-section {
+        margin-bottom: 0;
+      }
+
+      .section-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #bbb;
+        font-weight: 500;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      .info-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        background: #e8e8e8;
+        border: 1px solid #e8e8e8;
+      }
+
+      .info-card {
+        background: #fff;
+        padding: 28px 24px;
+      }
+
+      .info-card-label {
+        font-size: 0.5625rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #bbb;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .info-card-text {
+        font-size: 0.875rem;
+        line-height: 1.75;
+        color: #333;
+        font-weight: 300;
+      }
+
+      .info-card-text strong {
+        color: #111;
+        font-weight: 500;
+      }
+
+      /* ─── CUIDADOS — lista compacta ─── */
+      .care-section {
+        margin-top: 40px;
+      }
+
+      .care-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: #e8e8e8;
+        border: 1px solid #e8e8e8;
+      }
+
+      .care-item {
+        background: #f7f7f7;
+        padding: 20px 22px;
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+      }
+
+      .care-item-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #999;
+        font-weight: 500;
+        min-width: 72px;
+        padding-top: 2px;
+        flex-shrink: 0;
+      }
+
+      .care-item-text {
+        font-size: 0.8125rem;
+        line-height: 1.65;
+        color: #555;
+        font-weight: 300;
+      }
+
+      .care-item-text strong {
+        color: #111;
+        font-weight: 500;
+      }
+
+      /* ─── RODAPÉ ─── */
+      .footer-strip {
+        margin-top: 40px;
+        padding: 20px 24px;
+        background: #f7f7f7;
+        border: 1px solid #e8e8e8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .footer-specs {
+        font-size: 0.6875rem;
+        color: #111;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+      }
+
+      .footer-note {
+        font-size: 0.6875rem;
+        color: #999;
+        font-weight: 300;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 680px) {
+        .hero-split {
+          grid-template-columns: 1fr;
+        }
+        .hero-split-text {
+          border-left: 1px solid #e8e8e8;
+          border-top: none;
+        }
+        .blackout {
+          grid-template-columns: 1fr;
+        }
+        .blackout-media {
+          min-height: 220px;
+          aspect-ratio: 16/7;
+        }
+        .info-cards {
+          grid-template-columns: 1fr;
+        }
+        .care-list {
+          grid-template-columns: 1fr;
+        }
+        .badge-row {
+          flex-wrap: wrap;
+        }
+        .badge-item {
+          flex: 1 1 calc(50% - 1px);
+        }
+        .footer-strip {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .footer-note {
+          text-align: left;
+          white-space: normal;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .wrap {
+          padding: 36px 18px 80px;
+        }
+        .blackout-text {
+          padding: 36px 28px;
+        }
+        .hero-split-text {
+          padding: 32px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- HERO SPLIT: imagem + texto lado a lado -->
+      <div class="hero-split">
+        <img
+          class="hero-split-img"
+          src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg"
+          alt="Conjunto Classic Poliamida Muv Fit"
+        />
+        <div class="hero-split-text">
+          <p class="hero-split-eyebrow">Muv Fit — Coleção Classic</p>
+          <h1 class="hero-split-title">
+            Conjunto Feminino Legging + Top Nadador Classic
+          </h1>
+          <p class="hero-split-lead">
+            Feito em poliamida — tecido mais macio e mais leve que o poliéster,
+            com caimento que se mantém lavagem após lavagem.
+          </p>
+        </div>
+        <!-- SOBRE O PRODUTO — 3 cards -->
+        <div class="info-section">
+          <!-- <span class="section-label">Sobre o produto</span> -->
+          <div class="info-cards">
+            <div class="info-card">
+              <span class="info-card-label">Composição</span>
+              <p class="info-card-text">
+                84% Poliamida e 16% Elastano. Não bolicha, não perde a forma e
+                seca mais rápido que o poliéster.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <span class="info-card-label">Top Nadador</span>
+              <p class="info-card-text">
+                Sustentação média-alta com entrada para bojo removível. Costura
+                flat que não marca na pele.
+              </p>
+            </div>
+
+            <div class="info-card">
+              <span class="info-card-label">Performance</span>
+              <p class="info-card-text">
+                Secagem rápida para maior conforto durante o treino. Proteção
+                UV50+ para atividades ao ar livre.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- DESTAQUES com ícones -->
+      <div class="badge-row">
+        <div class="badge-item">
+          <svg
+            class="badge-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3l7 3v5c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-3z" />
+          </svg>
+          <span class="badge-name">Zero Transparência</span>
+          <span class="badge-detail">Blackout</span>
+        </div>
+
+        <div class="badge-item">
+          <svg
+            class="badge-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 2C8 7 6 10 6 13a6 6 0 0 0 12 0c0-3-2-6-6-11z" />
+            <line x1="12" y1="13" x2="12" y2="18" />
+          </svg>
+          <span class="badge-name">Cintura Alta</span>
+          <span class="badge-detail">Modeladora</span>
+        </div>
+
+        <div class="badge-item">
+          <svg
+            class="badge-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M8 12h8M12 8v8" />
+          </svg>
+          <span class="badge-name">Média Compressão</span>
+          <span class="badge-detail">Conforto</span>
+        </div>
+
+        <div class="badge-item">
+          <svg
+            class="badge-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            />
+          </svg>
+          <span class="badge-name">UV50+</span>
+          <span class="badge-detail">Outdoor</span>
+        </div>
+
+        <div class="badge-item">
+          <svg
+            class="badge-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3c3 4 6 6.8 6 10.5A6 6 0 1 1 6 13.5C6 9.8 9 7 12 3z" />
+          </svg>
+          <span class="badge-name">Secagem Rápida</span>
+          <span class="badge-detail">Poliamida</span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- BLACKOUT — split escuro -->
+      <div class="blackout">
+        <div class="blackout-text">
+          <span class="blackout-eyebrow">Tecnologia Exclusiva</span>
+          <p class="blackout-title">Blackout:<br />Zero Transparência</p>
+          <p class="blackout-desc">
+            <strong>Dupla camada frontal + forro interno preto.</strong>
+            Funciona no agachamento, na corrida e no alongamento — sem
+            transparência, sem esbranquiçamento.
+          </p>
+        </div>
+        <img
+          class="blackout-media"
+          src="https://muvfit.cdn.magazord.com.br/img/2026/01/produto/5116/design-sem-nome-2.gif"
+          alt="Tecnologia Blackout em movimento"
+          loading="lazy"
+        />
+      </div>
+
+      <hr class="divider" />
+
+      <!-- CUIDADOS — 2 colunas compactas -->
+      <div class="care-section">
+        <span class="section-label">Cuidados de uso</span>
+        <div class="care-list">
+          <div class="care-item">
+            <span class="care-item-label">Lavagem</span>
+            <p class="care-item-text">
+              Máquina, ciclo delicado, até 30°C.
+              <strong>Sem amaciante</strong> — prejudica o elastano. Seque à
+              sombra.
+            </p>
+          </div>
+
+          <div class="care-item">
+            <span class="care-item-label">Conservação</span>
+            <p class="care-item-text">
+              Evite contato com velcro e superfícies ásperas para não puxar
+              fios.
+            </p>
+          </div>
+
+          <div class="care-item">
+            <span class="care-item-label">Tonalidade</span>
+            <p class="care-item-text">
+              A cor pode variar conforme a tela. Consulte as fotos em diferentes
+              ângulos.
+            </p>
+          </div>
+
+          <div class="care-item">
+            <span class="care-item-label">Troca</span>
+            <p class="care-item-text">
+              Até 7 dias após o recebimento para trocar ou devolver.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RODAPÉ -->
+      <div class="footer-strip">
+        <span class="footer-specs"
+          >Poliamida · Blackout · UV50+ · 84% PA / 16% EA</span
+        >
+        <p class="footer-note">· Troca em até 7 dias</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+<script>
+(function () {
+  const COUPON_CODE = "PRIMEIRACOMPRA";
+  const DISCOUNT_PERCENT = 10;
+  const STORAGE_KEY = "produtoCupomPrimeiraCompraSelecionado";
+
+  const PRICE_SELECTOR = ".full-price .price-big";
+  const INSERT_AFTER_SELECTOR = ".mais-formas-pagamento";
+
+  function parsePrice(priceText) {
+    if (!priceText) return 0;
+
+    return parseFloat(
+      priceText
+        .replace(/\s/g, "")
+        .replace("R$", "")
+        .replace(/\./g, "")
+        .replace(",", ".")
+        .trim()
+    ) || 0;
+  }
+
+  function formatBRL(value) {
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+  }
+
+  function showFeedbackMessage(wrapper, message, type) {
+    const feedback = wrapper.querySelector(".etc-cupom-produto-feedback");
+    if (!feedback) return;
+
+    feedback.textContent = message;
+    feedback.className = "etc-cupom-produto-feedback etc-cupom-produto-feedback-" + type;
+    feedback.style.display = "block";
+
+    clearTimeout(feedback._hideTimer);
+    feedback._hideTimer = setTimeout(function () {
+      feedback.style.display = "none";
+    }, 2500);
+  }
+
+  function createCouponBox(priceValue) {
+    const discountValue = priceValue * (DISCOUNT_PERCENT / 100);
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "etc-cupom-produto-box";
+    wrapper.innerHTML = `
+      <div class="etc-cupom-produto-header">
+        <span class="etc-cupom-produto-badge">Cupom</span>
+        <label class="etc-cupom-produto-check">
+          <input type="checkbox" id="etc-aplicar-cupom-mae10">
+          <span>Aplicar 10% Off?</span>
+        </label>
+      </div>
+      <div class="etc-cupom-produto-economia">
+        Você economiza ${formatBRL(discountValue)}.
+      </div>
+      <div class="etc-cupom-produto-feedback" style="display:none;"></div>
+    `;
+
+    const checkbox = wrapper.querySelector("#etc-aplicar-cupom-mae10");
+    checkbox.checked = localStorage.getItem(STORAGE_KEY) === "true";
+
+    checkbox.addEventListener("change", function () {
+      const isChecked = this.checked;
+
+      localStorage.setItem(STORAGE_KEY, isChecked ? "true" : "false");
+      localStorage.setItem("produtoCupomMae10Codigo", isChecked ? COUPON_CODE : "");
+
+      if (isChecked) {
+        showFeedbackMessage(wrapper, "Cupom aplicado no carrinho.", "success");
+      } else {
+        showFeedbackMessage(wrapper, "Cupom removido.", "remove");
+      }
+    });
+
+    return wrapper;
+  }
+
+  function insertStyles() {
+    if (document.getElementById("etc-cupom-produto-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "etc-cupom-produto-style";
+    style.innerHTML = `
+      .etc-cupom-produto-box {
+        margin-top: 12px;
+        padding: 14px 16px;
+        border: 1px solid #e4e4e4;
+        border-radius: 10px;
+        font-family: Arial, sans-serif;
+      }
+
+      .etc-cupom-produto-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .etc-cupom-produto-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 82px;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 8px;
+        background: #eaf2ff;
+        color: #3b82f6;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .etc-cupom-produto-check {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #2f2f2f;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0;
+      }
+
+      .etc-cupom-produto-check input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        margin: 0;
+      }
+
+      .etc-cupom-produto-economia {
+        margin-top: 8px;
+        color: #6f6f6f;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+
+      .etc-cupom-produto-feedback {
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .etc-cupom-produto-feedback-success {
+        background: #ecfdf3;
+        color: #067647;
+        border: 1px solid #abefc6;
+      }
+
+      .etc-cupom-produto-feedback-remove {
+        background: #fef3f2;
+        color: #b42318;
+        border: 1px solid #fecdca;
+      }
+
+      @media (max-width: 768px) {
+        .etc-cupom-produto-box {
+          padding: 12px 14px;
+        }
+
+        .etc-cupom-produto-header {
+          gap: 10px;
+        }
+
+        .etc-cupom-produto-badge {
+          min-width: 74px;
+          height: 34px;
+          font-size: 14px;
+        }
+
+        .etc-cupom-produto-check {
+          font-size: 15px;
+        }
+
+        .etc-cupom-produto-economia {
+          font-size: 14px;
+        }
+
+        .etc-cupom-produto-feedback {
+          font-size: 13px;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function initCouponBox() {
+    if (document.querySelector(".etc-cupom-produto-box")) return;
+
+    const priceElement = document.querySelector(PRICE_SELECTOR);
+    const insertTarget = document.querySelector(INSERT_AFTER_SELECTOR);
+
+    if (!priceElement || !insertTarget) return;
+
+    const priceValue = parsePrice(priceElement.textContent);
+    if (!priceValue) return;
+
+    insertStyles();
+
+    const couponBox = createCouponBox(priceValue);
+    insertTarget.insertAdjacentElement("afterend", couponBox);
+  }
+
+  function waitForElement() {
+    let attempts = 0;
+    const maxAttempts = 60;
+
+    const interval = setInterval(function () {
+      attempts++;
+      initCouponBox();
+
+      if (document.querySelector(".etc-cupom-produto-box") || attempts >= maxAttempts) {
+        clearInterval(interval);
+      }
+    }, 500);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", waitForElement);
+  } else {
+    waitForElement();
+  }
+})();
+</script>
