@@ -1,0 +1,172 @@
+<style>
+  .conteiner-box-economize {
+    width: 100%;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-top: 3px solid #6e9f62;
+    border-bottom: 3px solid #6e9f62;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+
+  .box-economize {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+  }
+
+  .box-economize p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  .box-economize span {
+    color: #6e9f62;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .box-economize span:first-child {
+    background-color: #fff3e0;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-right: 5px;
+  }
+
+  .box-economize span:nth-child(3) {
+    background-color: #e8f5e9;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin: 0 5px;
+  }
+
+  .preco-de {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .preco-de span {
+    text-decoration: line-through;
+    color: #999;
+  }
+
+  .precoPix {
+    color: #2196f3;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .box-economize p {
+      font-size: 16px;
+    }
+
+    .box-economize span {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    const html = `<section class="conteiner-box-economize">
+            <div class="box-economize">
+                <p>
+                    <span>Oferta</span> do dia 
+                    <span>Economize:</span> 
+                    <span id="desconto-percentual">Calculando...</span>
+                </p>
+            </div>
+        </section>`;
+
+    if (!$(".conteiner-box-economize").length) {
+      $(html).insertAfter(".values-area");
+    }
+
+    atualizarEconomize();
+
+    setTimeout(atualizarEconomize, 500);
+    setTimeout(atualizarEconomize, 1000);
+    setTimeout(atualizarEconomize, 2000);
+  });
+
+  function extrairPreco(texto) {
+    if (!texto) return 0;
+
+    const textoLimpo = texto
+      .toString()
+      .replace(/\u00a0/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    const match = textoLimpo.match(/(\d{1,3}(?:\.\d{3})*,\d{2}|\d+,\d{2})/);
+
+    if (!match) return 0;
+
+    return parseFloat(match[1].replace(/\./g, "").replace(",", ".")) || 0;
+  }
+
+  function formatarMoeda(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
+
+  function atualizarEconomize() {
+    const precoDeElement = document.querySelector(".preco-de span");
+
+    const precoPixElement =
+      document.querySelector(".values-area .price-big") ||
+      document.querySelector(".price.pix .price-big") ||
+      document.querySelector(".precoPix") ||
+      document.querySelector(".price-big");
+
+    const economiaElement = document.querySelector("#desconto-percentual");
+    const boxEconomize = document.querySelector(".conteiner-box-economize");
+
+    if (!precoDeElement || !precoPixElement || !economiaElement) {
+      console.log("Economize - Elementos não encontrados:", {
+        precoDeElement,
+        precoPixElement,
+        economiaElement,
+      });
+      return;
+    }
+
+    const precoDe = extrairPreco(precoDeElement.textContent);
+    const precoPix = extrairPreco(precoPixElement.textContent);
+
+    console.log("Economize - Preço DE texto:", precoDeElement.textContent);
+    console.log("Economize - Preço PIX texto:", precoPixElement.textContent);
+    console.log("Economize - Preço DE convertido:", precoDe);
+    console.log("Economize - Preço PIX convertido:", precoPix);
+
+    if (!precoDe || !precoPix || precoDe <= precoPix) {
+      economiaElement.textContent = "R$ 0,00";
+
+      if (boxEconomize) {
+        boxEconomize.style.display = "none";
+      }
+
+      return;
+    }
+
+    const economia = precoDe - precoPix;
+
+    economiaElement.textContent = formatarMoeda(economia);
+
+    if (boxEconomize) {
+      boxEconomize.style.display = "block";
+    }
+
+    console.log("Economize - Economia calculada:", formatarMoeda(economia));
+  }
+
+  document.addEventListener("DOMContentLoaded", atualizarEconomize);
+</script>

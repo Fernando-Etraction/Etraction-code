@@ -1,0 +1,1893 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <!-- Define a codificação correta para acentos em português. -->
+  <meta charset="UTF-8" />
+
+  <!-- Garante responsividade em celulares e tablets. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título exibido na aba do navegador. -->
+  <title>Casa Brasil | Kits de Capas em Veludo</title>
+
+  <!-- Descrição básica para SEO. -->
+  <meta name="description"
+    content="Landing page responsiva para coleção Casa Brasil, com kits de capas em veludo, composições prontas e CTA fixo mobile." />
+
+  <!-- Pré-conexão com o Google Fonts para carregar as fontes com melhor performance. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Fontes usadas no layout: Inter para textos e Playfair Display para títulos elegantes. -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    .styles-header-28ebR a,
+    h2 {
+      display: block !Important;
+    }
+
+    .styles-header-3MKAP a,
+    h2 {
+      display: block !Important;
+    }
+
+    .styles-header-281-X a,
+    h2 {
+      display: block !Important;
+    }
+
+    /* =========================================================
+         VARIÁVEIS GLOBAIS
+         Centralizam cores, fontes, sombras, raios e largura máxima.
+         ========================================================= */
+    :root {
+      --fernando-cro-color-bg: #f7f3eb;
+      --fernando-cro-color-surface: #ffffff;
+      --fernando-cro-color-surface-soft: #fbfaf6;
+      --fernando-cro-color-text: #171717;
+      --fernando-cro-color-muted: #67635b;
+      --fernando-cro-color-border: #ded8ca;
+      --fernando-cro-color-primary: #17342d;
+      --fernando-cro-color-primary-hover: #10251f;
+      --fernando-cro-color-gold: #d4b06a;
+      --fernando-cro-color-gold-dark: #bd9651;
+      --fernando-cro-color-gold-soft: #f1dfb9;
+      --fernando-cro-color-blue: #173f7a;
+      --fernando-cro-color-blue-soft: #dbe8ff;
+      --fernando-cro-color-cup-green: #0f6b3f;
+      --fernando-cro-color-cup-yellow: #f5c842;
+      --fernando-cro-color-white-soft: #f7f3eb;
+      --fernando-cro-shadow-card: 0 18px 40px rgba(20, 20, 20, 0.1);
+      --fernando-cro-shadow-soft: 0 10px 24px rgba(20, 20, 20, 0.07);
+      --fernando-cro-radius-lg: 24px;
+      --fernando-cro-radius-md: 16px;
+      --fernando-cro-radius-pill: 999px;
+      --fernando-cro-container: 1180px;
+      --fernando-cro-font-main: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --fernando-cro-font-title: "Playfair Display", Georgia, serif;
+    }
+
+    /* Remove inconsistências de box model entre elementos. */
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Rolagem suave para links de âncora. */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Estilo base do corpo da página. */
+    body {
+      margin: 0;
+      font-family: var(--fernando-cro-font-main);
+      color: var(--fernando-cro-color-text);
+      background:
+        radial-gradient(circle at 8% 14%, rgba(245, 200, 66, 0.16), transparent 24%),
+        radial-gradient(circle at 92% 6%, rgba(23, 63, 122, 0.12), transparent 24%),
+        linear-gradient(180deg, #fbf8ef 0%, var(--fernando-cro-color-bg) 46%, #fff 100%);
+      line-height: 1.45;
+      padding-bottom: 0;
+    }
+
+    /* Bloqueia o scroll do fundo quando o menu mobile estiver aberto. */
+    body.fernando-cro-is-menu-open {
+      overflow: hidden;
+    }
+
+    /* Imagens responsivas por padrão. */
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* Links sem sublinhado padrão. */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Inputs e botões herdam a fonte principal. */
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* Botões sempre com cursor de clique. */
+    button {
+      cursor: pointer;
+    }
+
+    /* Classe utilitária para limitar a largura do conteúdo. */
+    .fernando-cro-container {
+      width: min(var(--fernando-cro-container), calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    /* Espaçamento padrão das seções. */
+    .fernando-cro-section {
+      padding: 56px 0;
+    }
+
+    /* Espaçamento menor para seções mais compactas. */
+    .fernando-cro-section--compact {
+      padding: 36px 0;
+    }
+
+    /* Título padrão das seções internas. */
+    .fernando-cro-section-title {
+      margin: 0 0 22px;
+      font-family: var(--fernando-cro-font-title);
+      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+      line-height: 1.05;
+      text-align: center;
+      letter-spacing: -0.04em;
+    }
+
+    /* Subtítulo padrão das seções. */
+    .fernando-cro-section-subtitle {
+      max-width: 660px;
+      margin: -8px auto 28px;
+      color: var(--fernando-cro-color-muted);
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    /* Marcador pequeno usado antes de títulos de blocos. */
+    .fernando-cro-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: var(--fernando-cro-color-primary);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Linha decorativa do eyebrow. */
+    .fernando-cro-eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      border-radius: var(--fernando-cro-radius-pill);
+      background: var(--fernando-cro-color-gold);
+    }
+
+    /* Botão principal padrão da landing. */
+    .fernando-cro-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 13px 22px;
+      border: 1px solid transparent;
+      border-radius: var(--fernando-cro-radius-pill);
+      background: var(--fernando-cro-color-primary);
+      color: #fff;
+      font-weight: 800;
+      line-height: 1;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* Estado hover do botão principal. */
+    .fernando-cro-btn:hover {
+      transform: translateY(-1px);
+      background: var(--fernando-cro-color-primary-hover);
+      box-shadow: 0 12px 20px rgba(23, 52, 45, 0.22);
+    }
+
+    /* Botão claro usado sobre fundos escuros. */
+    .fernando-cro-btn--light {
+      color: var(--fernando-cro-color-primary);
+      background: #fff;
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Hover do botão claro. */
+    .fernando-cro-btn--light:hover {
+      color: #fff;
+      background: var(--fernando-cro-color-primary-hover);
+    }
+
+    /* =========================================================
+         HERO PREMIUM
+         Hero no estilo da referência: full screen, imagem de fundo,
+         overlay escuro, navegação sobreposta e estatísticas.
+         ========================================================= */
+
+    /* Wrapper principal da hero. */
+    .fernando-cro-hero-premium {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      color: #fff;
+      background: #0f1715;
+    }
+
+    /* Camada da imagem de fundo. */
+    .fernando-cro-hero-premium__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    /* Imagem cobre toda a hero sem distorcer. */
+    .fernando-cro-hero-premium__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Overlay escuro em gradiente para garantir leitura da copy. */
+    .fernando-cro-hero-premium__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        radial-gradient(circle at 72% 22%, rgba(245, 200, 66, 0.28), transparent 22%),
+        radial-gradient(circle at 78% 74%, rgba(23, 63, 122, 0.28), transparent 24%),
+        linear-gradient(90deg, rgba(6, 20, 13, 0.93) 0%, rgba(12, 47, 30, 0.82) 37%, rgba(23, 63, 122, 0.32) 68%, rgba(245, 200, 66, 0.08) 100%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.38) 100%);
+    }
+
+    /* Elementos decorativos temáticos da hero. */
+    .fernando-cro-hero-premium__ornament {
+      position: absolute;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.92;
+    }
+
+    .fernando-cro-hero-premium__ornament--diamond {
+      right: 7%;
+      top: 21%;
+      width: min(18vw, 180px);
+      aspect-ratio: 1;
+      transform: rotate(45deg);
+      border: 1px solid rgba(245, 200, 66, 0.38);
+      background: rgba(245, 200, 66, 0.08);
+      box-shadow: 0 0 70px rgba(245, 200, 66, 0.18);
+    }
+
+    .fernando-cro-hero-premium__ornament--circle {
+      right: 15%;
+      bottom: 18%;
+      width: min(14vw, 130px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(23, 63, 122, 0.14);
+      box-shadow: 0 0 70px rgba(23, 63, 122, 0.22);
+    }
+
+    .fernando-cro-hero-premium__ornament--stripe {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 7px;
+      background: linear-gradient(90deg, var(--fernando-cro-color-cup-green), var(--fernando-cro-color-cup-yellow), var(--fernando-cro-color-blue));
+    }
+
+    /* Área central de conteúdo da hero. */
+    .fernando-cro-hero-premium__content-wrap {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      min-height: 100vh;
+      padding: 88px 0 64px;
+    }
+
+    /* Bloco textual da hero. */
+    .fernando-cro-hero-premium__content {
+      max-width: 790px;
+    }
+
+    /* Badge acima do título. */
+    .fernando-cro-hero-premium__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(245, 200, 66, 0.32);
+      border-radius: var(--fernando-cro-radius-pill);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(245, 200, 66, 0.12));
+      backdrop-filter: blur(10px);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* Ponto decorativo do badge. */
+    .fernando-cro-hero-premium__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--fernando-cro-color-gold);
+      box-shadow: 0 0 0 6px rgba(212, 176, 106, 0.14);
+    }
+
+    /* Título principal da hero. */
+    .fernando-cro-hero-premium__title {
+      margin: 26px 0 20px;
+      font-family: var(--fernando-cro-font-title);
+      font-size: clamp(2.8rem, 6vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      color: var(--fernando-cro-color-white-soft);
+    }
+
+    /* Palavra destacada no título. */
+    .fernando-cro-hero-premium__highlight {
+      color: var(--fernando-cro-color-gold);
+      font-style: italic;
+    }
+
+    /* Texto de apoio da hero. */
+    .fernando-cro-hero-premium__text {
+      max-width: 680px;
+      margin: 0 0 34px;
+      font-size: clamp(1rem, 1.6vw, 1.28rem);
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    /* Agrupamento dos botões da hero. */
+    .fernando-cro-hero-premium__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 42px;
+    }
+
+    /* Base dos botões da hero. */
+    .fernando-cro-hero-premium__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 0 30px;
+      border-radius: var(--fernando-cro-radius-pill);
+      font-weight: 900;
+      font-size: 1rem;
+      transition: all 0.22s ease;
+    }
+
+    /* Botão principal dourado. */
+    .fernando-cro-hero-premium__btn--primary {
+      background: linear-gradient(135deg, var(--fernando-cro-color-gold), var(--fernando-cro-color-gold-dark));
+      color: #18201d;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    }
+
+    /* Hover do botão principal. */
+    .fernando-cro-hero-premium__btn--primary:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Botão secundário translúcido. */
+    .fernando-cro-hero-premium__btn--secondary {
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Hover do botão secundário. */
+    .fernando-cro-hero-premium__btn--secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Área dos diferenciais da hero. */
+    .fernando-cro-hero-premium__stats-area {
+      max-width: 900px;
+    }
+
+    /* Viewport do carrossel da hero. No desktop mantém todos os cards visíveis. */
+    .fernando-cro-hero-premium__stats-viewport {
+      overflow: visible;
+    }
+
+    /* Cards de diferenciais na parte inferior da hero. */
+    .fernando-cro-hero-premium__stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      max-width: 900px;
+    }
+
+    /* Card individual de diferencial, voltando para o modelo mais forte da referência. */
+    .fernando-cro-hero-premium__stat {
+      position: relative;
+      overflow: hidden;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: linear-gradient(145deg, rgba(0, 0, 0, 0.26), rgba(23, 107, 63, 0.18));
+      backdrop-filter: blur(8px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+    }
+
+    /* Faixa temática no topo de cada diferencial. */
+    .fernando-cro-hero-premium__stat::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--fernando-cro-color-cup-green), var(--fernando-cro-color-cup-yellow), var(--fernando-cro-color-blue));
+    }
+
+    /* Texto maior do card de diferencial. */
+    .fernando-cro-hero-premium__stat strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--fernando-cro-font-title);
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--fernando-cro-color-white-soft);
+    }
+
+    /* Texto menor do card de diferencial. */
+    .fernando-cro-hero-premium__stat span {
+      display: block;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+    }
+
+    /* Controles específicos do carrossel da hero. No desktop ficam ocultos. */
+    .fernando-cro-hero-premium__stats-area .fernando-cro-carousel-controls {
+      margin-top: 16px;
+    }
+
+    .fernando-cro-hero-premium__stats-area .fernando-cro-carousel-btn {
+      border-color: rgba(255, 255, 255, 0.24);
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      backdrop-filter: blur(10px);
+    }
+
+    .fernando-cro-hero-premium__stats-area .fernando-cro-carousel-dot {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .fernando-cro-hero-premium__stats-area .fernando-cro-carousel-dot.fernando-cro-is-active {
+      background: var(--fernando-cro-color-gold);
+    }
+
+    /* Texto lateral inferior, inspirado na referência. */
+    .fernando-cro-hero-premium__scroll {
+      position: absolute;
+      right: 0;
+      bottom: 18px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.74rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    /* Linha decorativa antes do texto de scroll. */
+    .fernando-cro-hero-premium__scroll::before {
+      content: "";
+      display: inline-block;
+      width: 62px;
+      height: 1px;
+      margin-right: 14px;
+      vertical-align: middle;
+      background: var(--fernando-cro-color-gold);
+    }
+
+    /* =========================================================
+         BLOCO CONCEITO
+         ========================================================= */
+
+    /* Seção de storytelling da coleção. */
+    .fernando-cro-concept {
+      border-top: 1px solid var(--fernando-cro-color-border);
+      border-bottom: 1px solid var(--fernando-cro-color-border);
+      background: var(--fernando-cro-color-surface-soft);
+    }
+
+    /* Grid interno do bloco conceito. */
+    .fernando-cro-concept__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    /* Moldura da imagem do bloco conceito. */
+    .fernando-cro-concept__image {
+      overflow: hidden;
+      border-radius: var(--fernando-cro-radius-lg);
+      border: 1px solid var(--fernando-cro-color-border);
+      background: #e9e4d8;
+    }
+
+    /* Imagem do bloco conceito. */
+    .fernando-cro-concept__image img {
+      width: 100%;
+      aspect-ratio: 1.35 / 1;
+      object-fit: cover;
+    }
+
+    /* Título do bloco conceito. */
+    .fernando-cro-concept h2 {
+      margin: 0 0 18px;
+      font-family: var(--fernando-cro-font-title);
+      font-size: clamp(1.9rem, 4vw, 3.3rem);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+    }
+
+    /* Texto do bloco conceito. */
+    .fernando-cro-concept p {
+      margin: 0 0 24px;
+      color: var(--fernando-cro-color-muted);
+      font-size: 1.04rem;
+    }
+
+    /* =========================================================
+         ESCOLHA DE KITS
+         ========================================================= */
+
+    /* Grid de comparação dos kits. */
+    .fernando-cro-kit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    /* Card de kit. */
+    .fernando-cro-kit-card {
+      position: relative;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      border: 1px solid var(--fernando-cro-color-border);
+      border-radius: var(--fernando-cro-radius-md);
+      background: var(--fernando-cro-color-surface);
+      box-shadow: var(--fernando-cro-shadow-soft);
+    }
+
+    /* Card de kit destacado. */
+    .fernando-cro-kit-card--featured {
+      border-color: var(--fernando-cro-color-primary);
+      box-shadow: 0 18px 40px rgba(23, 52, 45, 0.14);
+      transform: translateY(-10px);
+    }
+
+    /* Selo do kit mais escolhido. */
+    .fernando-cro-kit-card__label {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 7px 13px;
+      border-radius: var(--fernando-cro-radius-pill);
+      background: var(--fernando-cro-color-gold);
+      color: #211d14;
+      font-size: 0.76rem;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    /* Ícone do card de kit. */
+    .fernando-cro-kit-card__icon {
+      display: inline-grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: var(--fernando-cro-color-gold-soft);
+      color: var(--fernando-cro-color-primary);
+    }
+
+    /* Título do card de kit. */
+    .fernando-cro-kit-card h3 {
+      margin: 0;
+      font-size: 1.32rem;
+      letter-spacing: -0.03em;
+    }
+
+    /* Descrição do kit. */
+    .fernando-cro-kit-card p {
+      margin: 7px 0 18px;
+      color: var(--fernando-cro-color-muted);
+    }
+
+    /* Lista de benefícios do kit. */
+    .fernando-cro-kit-card ul {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+      color: #34322f;
+      font-size: 0.95rem;
+    }
+
+    /* Item da lista do kit. */
+    .fernando-cro-kit-card li {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    /* Check visual antes de cada benefício. */
+    .fernando-cro-kit-card li::before {
+      content: "✓";
+      color: var(--fernando-cro-color-primary);
+      font-weight: 950;
+    }
+
+    /* Rodapé do card de kit. */
+    .fernando-cro-kit-card__footer {
+      margin-top: auto;
+    }
+
+    /* Texto pequeno antes do preço. */
+    .fernando-cro-kit-card__from {
+      display: block;
+      color: var(--fernando-cro-color-muted);
+      font-size: 0.78rem;
+    }
+
+    /* Preço do kit. */
+    .fernando-cro-kit-card__price {
+      display: block;
+      margin: 2px 0 14px;
+      color: var(--fernando-cro-color-primary);
+      font-size: 1.2rem;
+      font-weight: 950;
+    }
+
+    /* Botões dentro dos cards de kit ocupam toda a largura. */
+    .fernando-cro-kit-card .fernando-cro-btn {
+      width: 100%;
+      min-height: 42px;
+      padding: 11px 14px;
+      font-size: 0.9rem;
+    }
+
+    .fernando-cro-kit-container-card__price p {
+      display: flex;
+      align-items: baseline;
+      justify-content: left;
+      gap: 6px;
+    }
+
+    /* =========================================================
+         BENEFÍCIOS
+         ========================================================= */
+
+    /* Faixa de benefícios. */
+    .fernando-cro-benefits {
+      border-top: 1px solid var(--fernando-cro-color-border);
+      border-bottom: 1px solid var(--fernando-cro-color-border);
+      background:
+        linear-gradient(90deg, rgba(15, 107, 63, 0.05), rgba(245, 200, 66, 0.09), rgba(23, 63, 122, 0.05)),
+        #fff;
+    }
+
+    /* Área da seção de benefícios. */
+    .fernando-cro-benefits__area {
+      position: relative;
+    }
+
+    /* Viewport do carrossel: no desktop não corta conteúdo; no mobile vira janela de rolagem. */
+    .fernando-cro-benefits__viewport {
+      overflow: visible;
+    }
+
+    /* Grid dos benefícios no desktop. */
+    .fernando-cro-benefits__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      text-align: center;
+    }
+
+    /* Item individual de benefício. */
+    .fernando-cro-benefit {
+      padding: 18px 12px;
+    }
+
+    /* Ícone do benefício. */
+    .fernando-cro-benefit__icon {
+      display: inline-grid;
+      place-items: center;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 11px;
+      border: 1px solid rgba(23, 52, 45, 0.14);
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--fernando-cro-color-gold-soft), #fff);
+      color: var(--fernando-cro-color-primary);
+      box-shadow: 0 10px 24px rgba(23, 52, 45, 0.08);
+    }
+
+    /* Título do benefício. */
+    .fernando-cro-benefit h3 {
+      margin: 0 0 5px;
+      font-size: 0.96rem;
+    }
+
+    /* Texto do benefício. */
+    .fernando-cro-benefit p {
+      margin: 0;
+      color: var(--fernando-cro-color-muted);
+      font-size: 0.86rem;
+    }
+
+    /* Controles do carrossel ficam ocultos no desktop. */
+    .fernando-cro-carousel-controls {
+      display: none;
+    }
+
+    .fernando-cro-carousel-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--fernando-cro-color-border);
+      border-radius: var(--fernando-cro-radius-pill);
+      background: #fff;
+      color: var(--fernando-cro-color-primary);
+      font-weight: 900;
+      box-shadow: var(--fernando-cro-shadow-soft);
+    }
+
+    .fernando-cro-carousel-dots {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .fernando-cro-carousel-dot {
+      width: 7px;
+      height: 7px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(23, 52, 45, 0.25);
+      padding: 0;
+    }
+
+    .fernando-cro-carousel-dot.fernando-cro-is-active {
+      width: 22px;
+      border-radius: 99px;
+      background: var(--fernando-cro-color-primary);
+    }
+
+    /* =========================================================
+         PROVA SOCIAL
+         ========================================================= */
+
+    /* Seção de depoimentos. */
+    .fernando-cro-social-proof {
+      background: var(--fernando-cro-color-surface-soft);
+      border-top: 1px solid var(--fernando-cro-color-border);
+      border-bottom: 1px solid var(--fernando-cro-color-border);
+    }
+
+    /* Área da seção de depoimentos. */
+    .fernando-cro-reviews__area {
+      position: relative;
+    }
+
+    /* Viewport do carrossel de depoimentos. */
+    .fernando-cro-reviews__viewport {
+      overflow: visible;
+    }
+
+    /* Grid dos depoimentos no desktop. */
+    .fernando-cro-review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Card individual de depoimento. */
+    .fernando-cro-review-card {
+      padding: 18px;
+      border: 1px solid var(--fernando-cro-color-border);
+      border-radius: var(--fernando-cro-radius-md);
+      background: var(--fernando-cro-color-surface);
+      box-shadow: var(--fernando-cro-shadow-soft);
+    }
+
+    /* Remove aspas decorativas automáticas para voltar ao layout mais limpo. */
+    .fernando-cro-review-card::before {
+      content: none;
+    }
+
+    /* Estrelas do depoimento. */
+    .fernando-cro-stars {
+      color: #b98b16;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      font-weight: 950;
+    }
+
+    /* Texto do depoimento. */
+    .fernando-cro-review-card p {
+      margin: 11px 0 16px;
+      color: #35322d;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    /* Linha com avatar e nome. */
+    .fernando-cro-review-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--fernando-cro-color-muted);
+      font-size: 0.86rem;
+      font-weight: 750;
+    }
+
+    /* Avatar textual. */
+    .fernando-cro-avatar {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: var(--fernando-cro-radius-pill);
+      background: var(--fernando-cro-color-gold-soft);
+      color: var(--fernando-cro-color-primary);
+      font-weight: 950;
+    }
+
+    /* =========================================================
+         URGÊNCIA
+         ========================================================= */
+
+    /* Faixa de urgência. */
+    .fernando-cro-urgency {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.24);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+      background:
+        linear-gradient(135deg, var(--fernando-cro-color-primary), #0f6b3f 58%, #173f7a 100%);
+      color: #fff;
+    }
+
+    /* Iluminação decorativa no fundo. */
+    .fernando-cro-urgency::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(212, 176, 106, 0.25), transparent 30%),
+        radial-gradient(circle at 85% 65%, rgba(255, 255, 255, 0.12), transparent 26%);
+      pointer-events: none;
+    }
+
+    /* Layout interno da faixa de urgência. */
+    .fernando-cro-urgency__inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 22px;
+      padding: 28px 0;
+    }
+
+    /* Ícone da faixa de urgência. */
+    .fernando-cro-urgency__icon {
+      display: inline-grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--fernando-cro-color-gold);
+    }
+
+    /* Título da urgência. */
+    .fernando-cro-urgency h2 {
+      margin: 0 0 4px;
+      font-family: var(--fernando-cro-font-title);
+      font-size: clamp(1.45rem, 3vw, 2.4rem);
+      letter-spacing: -0.04em;
+    }
+
+    /* Texto da urgência. */
+    .fernando-cro-urgency p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    /* =========================================================
+         CTA FINAL
+         ========================================================= */
+
+    /* Seção final de fechamento. */
+    .fernando-cro-final-cta {
+      padding: 72px 0 92px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--fernando-cro-color-bg), #fff), var(--fernando-cro-color-bg);
+    }
+
+    /* Título final. */
+    .fernando-cro-final-cta h2 {
+      max-width: 780px;
+      margin: 0 auto 12px;
+      font-family: var(--fernando-cro-font-title);
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.07em;
+    }
+
+    /* Texto final. */
+    .fernando-cro-final-cta p {
+      margin: 0 auto 26px;
+      max-width: 620px;
+      color: var(--fernando-cro-color-muted);
+      font-size: 1.08rem;
+    }
+
+    /* =========================================================
+         CTA FIXO MOBILE
+         ========================================================= */
+
+    /* Barra fixa no rodapé apenas no mobile. */
+    .fernando-cro-mobile-sticky-cta {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 70;
+      display: none;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--fernando-cro-color-border);
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 -14px 28px rgba(20, 20, 20, 0.1);
+      backdrop-filter: blur(14px);
+    }
+
+    /* Layout interno da barra fixa. */
+    .fernando-cro-mobile-sticky-cta__inner {
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+
+    /* Imagem da barra fixa. */
+    .fernando-cro-mobile-sticky-cta img {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #ebe6da;
+    }
+
+    /* Título da barra fixa. */
+    .fernando-cro-mobile-sticky-cta strong {
+      display: block;
+      line-height: 1.1;
+      font-size: 0.91rem;
+    }
+
+    /* Texto menor da barra fixa. */
+    .fernando-cro-mobile-sticky-cta span {
+      color: var(--fernando-cro-color-muted);
+      font-size: 0.78rem;
+    }
+
+    /* Botão da barra fixa. */
+    .fernando-cro-mobile-sticky-cta .fernando-cro-btn {
+      min-height: 42px;
+      padding: 11px 16px;
+      font-size: 0.86rem;
+    }
+
+    /* =========================================================
+         TOAST DEMONSTRATIVO
+         ========================================================= */
+
+    /* Mensagem visual ao clicar em comprar. */
+    .fernando-cro-toast {
+      position: fixed;
+      right: 18px;
+      bottom: 24px;
+      z-index: 90;
+      display: grid;
+      gap: 3px;
+      width: min(360px, calc(100vw - 36px));
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 18px;
+      background: var(--fernando-cro-color-primary);
+      color: #fff;
+      box-shadow: var(--fernando-cro-shadow-card);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    /* Estado visível do toast. */
+    .fernando-cro-toast.fernando-cro-is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Título do toast. */
+    .fernando-cro-toast strong {
+      font-size: 0.96rem;
+    }
+
+    /* Texto do toast. */
+    .fernando-cro-toast span {
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 0.86rem;
+    }
+
+    /* =========================================================
+         RESPONSIVO TABLET
+         ========================================================= */
+    @media (max-width: 1080px) {
+
+      /* Reduz espaçamento dos links do menu. */
+      .fernando-cro-hero-premium__nav {
+        gap: 22px;
+      }
+
+      /* Transforma cards da hero em duas colunas. */
+      .fernando-cro-hero-premium__stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      /* Benefícios em três colunas. */
+      .fernando-cro-benefits__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .fernando-cro-review-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .fernando-cro-review-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+
+
+    /* =========================================================
+         RESPONSIVO MOBILE
+         ========================================================= */
+    @media (max-width: 780px) {
+
+      /* Reserva espaço inferior para o CTA fixo. */
+      body {
+        padding-bottom: 86px;
+      }
+
+      /* Container mais estreito no mobile. */
+      .fernando-cro-container {
+        width: min(100% - 24px, var(--fernando-cro-container));
+      }
+
+      /* Reduz espaçamento vertical das seções. */
+      .fernando-cro-section {
+        padding: 42px 0;
+      }
+
+      /* Hero não precisa ficar travada em 100vh no mobile. */
+      .fernando-cro-hero-premium {
+        min-height: auto;
+      }
+
+      /* Ajusta a área de conteúdo da hero no mobile sem header. */
+      .fernando-cro-hero-premium__content-wrap {
+        padding: 72px 0 50px;
+      }
+
+      /* Badge com texto menor no mobile. */
+      .fernando-cro-hero-premium__badge {
+        min-height: 42px;
+        padding: 0 14px;
+        font-size: 0.68rem;
+        line-height: 1.35;
+        letter-spacing: 0.08em;
+      }
+
+      /* Título mobile. */
+      .fernando-cro-hero-premium__title {
+        margin: 22px 0 16px;
+        font-size: clamp(2.35rem, 11vw, 3.7rem);
+      }
+
+      /* Texto mobile. */
+      .fernando-cro-hero-premium__text {
+        font-size: 1rem;
+        margin-bottom: 26px;
+      }
+
+      /* Botões empilhados no mobile. */
+      .fernando-cro-hero-premium__actions {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 28px;
+      }
+
+      /* Botões ocupam toda a largura no mobile. */
+      .fernando-cro-hero-premium__btn {
+        width: 100%;
+        min-height: 54px;
+      }
+
+      /* Diferenciais da hero viram carrossel no mobile. */
+      .fernando-cro-hero-premium__stats-viewport {
+        overflow: hidden;
+      }
+
+      .fernando-cro-hero-premium__stats {
+        display: flex;
+        gap: 14px;
+        transition: transform 0.28s ease;
+        will-change: transform;
+      }
+
+      .fernando-cro-hero-premium__stat {
+        flex: 0 0 100%;
+        width: 100%;
+      }
+
+      .fernando-cro-hero-premium__stats-area .fernando-cro-carousel-controls {
+        display: flex;
+      }
+
+      /* Remove texto lateral inferior no mobile. */
+      .fernando-cro-hero-premium__scroll {
+        display: none;
+      }
+
+      /* Benefícios viram carrossel real no mobile. */
+      .fernando-cro-benefits__viewport,
+      .fernando-cro-reviews__viewport {
+        overflow: hidden;
+      }
+
+      .fernando-cro-benefits__grid {
+        display: flex;
+        gap: 14px;
+        text-align: center;
+        transition: transform 0.28s ease;
+        will-change: transform;
+      }
+
+      .fernando-cro-benefit {
+        flex: 0 0 100%;
+        padding: 18px 16px;
+        border: 1px solid var(--fernando-cro-color-border);
+        border-radius: var(--fernando-cro-radius-md);
+        background: var(--fernando-cro-color-surface);
+        box-shadow: var(--fernando-cro-shadow-soft);
+      }
+
+      .fernando-cro-review-grid {
+        display: flex;
+        gap: 14px;
+        transition: transform 0.28s ease;
+        will-change: transform;
+      }
+
+      .fernando-cro-review-card {
+        flex: 0 0 100%;
+      }
+
+      .fernando-cro-carousel-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 18px;
+      }
+
+      /* Grid de kits em uma coluna. */
+      .fernando-cro-kit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Bloco conceito em uma coluna. */
+      .fernando-cro-concept__grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Remove deslocamento do card destacado no mobile. */
+      .fernando-cro-kit-card--featured {
+        transform: none;
+      }
+
+      .fernando-cro-benefit {
+        padding: 14px 8px;
+      }
+
+      /* Urgência em coluna no mobile. */
+      .fernando-cro-urgency__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      /* Centraliza ícone da urgência. */
+      .fernando-cro-urgency__icon {
+        margin-inline: auto;
+      }
+
+      /* Botão da urgência ocupa a largura. */
+      .fernando-cro-urgency .fernando-cro-btn {
+        width: 100%;
+      }
+
+      /* Reduz respiro final por causa do CTA fixo. */
+      .fernando-cro-final-cta {
+        padding-bottom: 42px;
+      }
+
+      /* Exibe a barra fixa no mobile. */
+      .fernando-cro-mobile-sticky-cta {
+        display: block;
+      }
+
+      /* Toast sobe acima da barra fixa. */
+      .fernando-cro-toast {
+        right: 12px;
+        bottom: 102px;
+        width: calc(100vw - 24px);
+      }
+    }
+
+    /* =========================================================
+         RESPONSIVO MOBILE PEQUENO
+         ========================================================= */
+    @media (max-width: 460px) {
+
+      /* Benefícios em uma coluna nos menores aparelhos. */
+      .fernando-cro-benefits__grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* CTA fixo mais compacto. */
+      .fernando-cro-mobile-sticky-cta__inner {
+        grid-template-columns: 44px 1fr auto;
+        gap: 9px;
+      }
+
+      /* Imagem menor no CTA fixo. */
+      .fernando-cro-mobile-sticky-cta img {
+        width: 44px;
+        height: 44px;
+      }
+
+      /* Botão menor no CTA fixo. */
+      .fernando-cro-mobile-sticky-cta .fernando-cro-btn {
+        padding: 10px 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- =========================================================
+       HERO PRINCIPAL
+       Mantém a copy atual, mas aplica o estilo premium da referência.
+       ========================================================= -->
+  <section class="fernando-cro-hero-premium" id="topo" aria-labelledby="heroTitle">
+    <!-- Imagem de fundo da hero. Troque a URL pela imagem oficial da coleção. -->
+    <div class="fernando-cro-hero-premium__bg">
+      <img
+          src="https://amofadas.cdn.magazord.com.br/img/2026/05/produto/9458/img-1453.jpg"
+          alt="Sala elegante decorada com sofá e almofadas"
+          loading="eager"
+        />
+    </div>
+
+    <!-- Overlay usado para melhorar contraste e leitura do texto. -->
+    <div class="fernando-cro-hero-premium__overlay" aria-hidden="true"></div>
+
+    <!-- Elementos decorativos inspirados nas cores do Brasil. -->
+    <div class="fernando-cro-hero-premium__ornament fernando-cro-hero-premium__ornament--diamond" aria-hidden="true">
+    </div>
+    <div class="fernando-cro-hero-premium__ornament fernando-cro-hero-premium__ornament--circle" aria-hidden="true">
+    </div>
+    <div class="fernando-cro-hero-premium__ornament fernando-cro-hero-premium__ornament--stripe" aria-hidden="true">
+    </div>
+
+    <!-- Conteúdo central da hero. -->
+    <div class="fernando-cro-hero-premium__content-wrap">
+      <div class="fernando-cro-container">
+        <div class="fernando-cro-hero-premium__content">
+          <!-- Badge de posicionamento. -->
+          <div class="fernando-cro-hero-premium__badge">
+            <span
+                class="fernando-cro-hero-premium__dot"
+                aria-hidden="true"
+              ></span>
+            Especial Copa · Casa Brasil · Edição limitada
+          </div>
+
+          <!-- Título principal com destaque visual em uma palavra. -->
+          <h1 class="fernando-cro-hero-premium__title" id="heroTitle">
+            A energia da
+            <span class="fernando-cro-hero-premium__highlight">Copa</span>
+            começa dentro da sua casa
+          </h1>
+
+          <!-- Texto de apoio mantendo a copy atual. -->
+          <p class="fernando-cro-hero-premium__text">
+            Kits de capas em veludo para levar as cores do Brasil para cada
+            detalhe.
+          </p>
+
+          <!-- CTAs da hero. -->
+          <div class="fernando-cro-hero-premium__actions">
+            <a href="#kits" class="fernando-cro-hero-premium__btn fernando-cro-hero-premium__btn--primary">Ver kits Casa
+              Brasil</a>
+          </div>
+
+          <!-- Diferenciais em cards, inspirados nos números da referência. -->
+          <div class="fernando-cro-hero-premium__stats-area">
+            <div class="fernando-cro-hero-premium__stats-viewport" data-fernando-cro-carousel-viewport="heroStats">
+              <div class="fernando-cro-hero-premium__stats" aria-label="Diferenciais da coleção"
+                data-fernando-cro-carousel-track="heroStats">
+                <div class="fernando-cro-hero-premium__stat">
+                  <strong>Veludo</strong>
+                  <span>toque premium</span>
+                </div>
+
+                <div class="fernando-cro-hero-premium__stat">
+                  <strong>Brasil</strong>
+                  <span>verde, amarelo e azul</span>
+                </div>
+
+                <div class="fernando-cro-hero-premium__stat">
+                  <strong>Kits</strong>
+                  <span>combinações prontas</span>
+                </div>
+
+                <div class="fernando-cro-hero-premium__stat">
+                  <strong>Jogo</strong>
+                  <span>sala pronta em minutos</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="fernando-cro-carousel-controls" aria-label="Controles do carrossel de diferenciais">
+              <button
+                  class="fernando-cro-carousel-btn"
+                  type="button"
+                  data-fernando-cro-carousel-prev="heroStats"
+                  aria-label="Diferencial anterior"
+                >
+                  ‹
+                </button>
+              <div class="fernando-cro-carousel-dots" data-fernando-cro-carousel-dots="heroStats"></div>
+              <button
+                  class="fernando-cro-carousel-btn"
+                  type="button"
+                  data-fernando-cro-carousel-next="heroStats"
+                  aria-label="Próximo diferencial"
+                >
+                  ›
+                </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Texto decorativo inferior da hero. -->
+        <div class="fernando-cro-hero-premium__scroll">
+          role para descobrir
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       BLOCO CONCEITO
+       ========================================================= -->
+  <section class="fernando-cro-section fernando-cro-concept" aria-labelledby="conceptTitle">
+    <div class="fernando-cro-container fernando-cro-concept__grid">
+      <!-- Imagem contextual do conceito. -->
+      <figure class="fernando-cro-concept__image">
+        <img
+            src="https://amofadas.cdn.magazord.com.br/img/2026/05/produto/9459/img-1466.jpg"
+            alt="Ambiente de sala decorado com sofá e almofadas"
+            loading="lazy"
+          />
+      </figure>
+
+      <!-- Texto de storytelling. -->
+      <div>
+        <span class="fernando-cro-eyebrow">Clima de jogo em casa</span>
+        <h2 id="conceptTitle">Sua sala pronta para torcer</h2>
+        <p>
+          Tem casa que vibra, que reúne e que transforma cada jogo em memória.
+          A Coleção Casa Brasil foi criada para deixar a sala em clima de
+          Copa, com cores que representam, texturas que acolhem e combinações
+          prontas para receber todo mundo.
+        </p>
+        <a class="fernando-cro-btn" href="#kits">Ver todos os kits</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       ESCOLHA DE KIT
+       ========================================================= -->
+  <section class="fernando-cro-section" id="kits" aria-labelledby="kitsTitle">
+    <div class="fernando-cro-container">
+      <h2 class="fernando-cro-section-title" id="kitsTitle">
+        Escolha o kit ideal para a sua casa
+      </h2>
+      <p class="fernando-cro-section-subtitle">
+        Escolha o formato ideal para deixar sua sala pronta para os jogos, com
+        combinações pensadas para criar impacto visual sem complicação.
+      </p>
+
+      <div class="fernando-cro-kit-grid">
+        <!-- Card de kit básico. -->
+        <article class="fernando-cro-kit-card">
+          <div class="fernando-cro-kit-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 9.5C4 6 6 4 9.5 4h5C18 4 20 6 20 9.5v5C20 18 18 20 14.5 20h-5C6 20 4 18 4 14.5v-5Z" />
+              <path d="M8 4c.7 1.3.7 2.7 0 4M16 4c-.7 1.3-.7 2.7 0 4M8 20c.7-1.3.7-2.7 0-4M16 20c-.7-1.3-.7-2.7 0-4" />
+            </svg>
+          </div>
+          <h3>Kit 4 capas</h3>
+          <p>Mais praticidade para renovar.</p>
+          <ul>
+            <li>2 capas de almofada</li>
+            <li>Cores combinando</li>
+            <li>Renovação rápida</li>
+          </ul>
+          <div class="fernando-cro-kit-card__footer">
+            <span class="fernando-cro-kit-card__from">A partir de</span>
+            <div class="fernando-cro-kit-container-card__price">
+              <p>
+                6x de
+                <span class="fernando-cro-kit-card__price"> R$ 54,98</span>
+                sem juros
+              </p>
+            </div>
+            <a href="https://www.amofadas.com/kit-4-capas-almofadas-veludo-brasil-camisa-10-copa" target="_blank">
+              <button
+                  class="fernando-cro-btn"
+                  type="button"
+                >
+                  Escolher kit
+                </button>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card de kit destacado. -->
+        <article class="fernando-cro-kit-card fernando-cro-kit-card--featured">
+          <span class="fernando-cro-kit-card__label">Mais escolhido</span>
+          <div class="fernando-cro-kit-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 9.5C4 6 6 4 9.5 4h5C18 4 20 6 20 9.5v5C20 18 18 20 14.5 20h-5C6 20 4 18 4 14.5v-5Z" />
+              <path d="M8 4c.7 1.3.7 2.7 0 4M16 4c-.7 1.3-.7 2.7 0 4M8 20c.7-1.3.7-2.7 0-4M16 20c-.7-1.3-.7-2.7 0-4" />
+            </svg>
+          </div>
+          <h3>Kit 3 capas</h3>
+          <p>Equilíbrio entre estilo e harmonia.</p>
+          <ul>
+            <li>3 capas de almofada</li>
+            <li>Combinações exclusivas</li>
+            <li>Melhor custo-benefício</li>
+          </ul>
+          <div class="fernando-cro-kit-card__footer">
+            <span class="fernando-cro-kit-card__from">A partir de</span>
+            <div class="fernando-cro-kit-container-card__price">
+              <p>
+                6x de
+                <span class="fernando-cro-kit-card__price"> R$ 38,32</span>
+                sem juros
+              </p>
+            </div>
+            <a href="https://www.amofadas.com/kit-3-capas-almofadas-veludo-bandeira-do-brasil-azul-e-mostarda"
+              target="_blank">
+              <button
+                  class="fernando-cro-btn"
+                  type="button"
+                >
+                  Escolher kit
+                </button>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card de composição completa. -->
+        <article class="fernando-cro-kit-card">
+          <div class="fernando-cro-kit-card__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M4 9.5C4 6 6 4 9.5 4h5C18 4 20 6 20 9.5v5C20 18 18 20 14.5 20h-5C6 20 4 18 4 14.5v-5Z" />
+              <path d="M8 4c.7 1.3.7 2.7 0 4M16 4c-.7 1.3-.7 2.7 0 4M8 20c.7-1.3.7-2.7 0-4M16 20c-.7-1.3-.7-2.7 0-4" />
+            </svg>
+          </div>
+          <h3>Composição Unitaria</h3>
+          <p>Ambiente completo e coordenado.</p>
+          <ul>
+            <li>Capas + almofadas</li>
+            <li>Cores e texturas harmoniosas</li>
+            <li>Pronto para transformar</li>
+          </ul>
+          <div class="fernando-cro-kit-card__footer">
+            <span class="fernando-cro-kit-card__from">A partir de</span>
+            <div class="fernando-cro-kit-container-card__price">
+              <p>
+                3x de
+                <span class="fernando-cro-kit-card__price"> R$ 29,97 </span>
+                sem juros
+              </p>
+            </div>
+            <a href="https://www.amofadas.com/colecao-casa-brasil" target="_blank">
+              <button
+                  class="fernando-cro-btn"
+                  type="button"
+                >
+                  Escolher kit
+                </button>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       BENEFÍCIOS
+       ========================================================= -->
+  <section class="fernando-cro-section--compact fernando-cro-benefits" id="beneficios"
+    aria-label="Benefícios da coleção">
+    <div class="fernando-cro-container fernando-cro-benefits__area">
+      <div class="fernando-cro-benefits__viewport" data-fernando-cro-carousel-viewport="benefits">
+        <div class="fernando-cro-benefits__grid" data-fernando-cro-carousel-track="benefits">
+          <!-- Benefício 1. -->
+          <article class="fernando-cro-benefit">
+            <div class="fernando-cro-benefit__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M4 9.5C4 6 6 4 9.5 4h5C18 4 20 6 20 9.5v5C20 18 18 20 14.5 20h-5C6 20 4 18 4 14.5v-5Z" />
+              </svg>
+            </div>
+            <h3>Veludo premium</h3>
+            <p>Toque macio e acabamento sofisticado.</p>
+          </article>
+
+          <!-- Benefício 2. -->
+          <article class="fernando-cro-benefit">
+            <div class="fernando-cro-benefit__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M21 8 12 3 3 8l9 5 9-5Z" />
+                <path d="m3 12 9 5 9-5" />
+                <path d="m3 16 9 5 9-5" />
+              </svg>
+            </div>
+            <h3>Kits prontos</h3>
+            <p>Escolhas práticas, combinadas por especialistas.</p>
+          </article>
+
+          <!-- Benefício 3. -->
+          <article class="fernando-cro-benefit">
+            <div class="fernando-cro-benefit__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="8" cy="8" r="4" />
+                <circle cx="16" cy="16" r="4" />
+                <path d="M13.2 6.8 10.8 9.2M10.8 14.8l2.4 2.4" />
+              </svg>
+            </div>
+            <h3>Composição harmônica</h3>
+            <p>Cores que conversam e valorizam seu ambiente.</p>
+          </article>
+
+          <!-- Benefício 4. -->
+          <article class="fernando-cro-benefit">
+            <div class="fernando-cro-benefit__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+            </div>
+            <h3>Renovação rápida</h3>
+            <p>Transforme sua sala em minutos.</p>
+          </article>
+
+          <!-- Benefício 5. -->
+          <article class="fernando-cro-benefit">
+            <div class="fernando-cro-benefit__icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path
+                  d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8Z" />
+              </svg>
+            </div>
+            <h3>Toque sofisticado</h3>
+            <p>Mais conforto e estilo para momentos especiais.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="fernando-cro-carousel-controls" aria-label="Controles do carrossel de benefícios">
+        <button
+            class="fernando-cro-carousel-btn"
+            type="button"
+            data-fernando-cro-carousel-prev="benefits"
+            aria-label="Benefício anterior"
+          >
+            ‹
+          </button>
+        <div class="fernando-cro-carousel-dots" data-fernando-cro-carousel-dots="benefits"></div>
+        <button
+            class="fernando-cro-carousel-btn"
+            type="button"
+            data-fernando-cro-carousel-next="benefits"
+            aria-label="Próximo benefício"
+          >
+            ›
+          </button>
+      </div>
+    </div>
+  </section>
+<!-- =========================================================
+       PROVA SOCIAL
+       ========================================================= -->
+
+
+  <!-- =========================================================
+       URGÊNCIA
+       ========================================================= -->
+
+
+  <!-- =========================================================
+       CTA FINAL
+       ========================================================= -->
+
+
+  <!-- =========================================================
+       CTA FIXO MOBILE
+       Aparece apenas em telas pequenas.
+       ========================================================= -->
+  <div class="fernando-cro-mobile-sticky-cta" aria-label="Chamada fixa para mobile">
+    <div class="fernando-cro-mobile-sticky-cta__inner">
+      <img
+          src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=160&q=80"
+          alt="Kit Casa Brasil"
+          loading="lazy"
+        />
+      <div>
+        <strong>Coleção Casa Brasil</strong>
+        <span>A partir de R$ 119,90</span>
+      </div>
+      <a class="fernando-cro-btn" href="#kits">Ver kits</a>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TOAST DEMONSTRATIVO
+       Aparece ao clicar nos botões de compra.
+       ========================================================= -->
+  <div class="fernando-cro-toast" role="status" aria-live="polite" data-fernando-cro-toast>
+    <strong data-fernando-cro-toast-title>Produto adicionado</strong>
+    <span data-fernando-cro-toast-text
+        >Você pode seguir navegando ou ir para o carrinho.</span>
+  </div>
+
+  <script>
+  (function () {
+    function initCasaBrasilLanding() {
+      const fernandoCroToast = document.querySelector("[data-fernando-cro-toast]");
+      const fernandoCroToastTitle = document.querySelector("[data-fernando-cro-toast-title]");
+      const fernandoCroToastText = document.querySelector("[data-fernando-cro-toast-text]");
+
+      function fernandoCroShowToast(title, text) {
+        if (!fernandoCroToast || !fernandoCroToastTitle || !fernandoCroToastText) return;
+
+        fernandoCroToastTitle.textContent = title;
+        fernandoCroToastText.textContent = text;
+        fernandoCroToast.classList.add("fernando-cro-is-visible");
+
+        clearTimeout(fernandoCroShowToast.timeoutId);
+
+        fernandoCroShowToast.timeoutId = setTimeout(function () {
+          fernandoCroToast.classList.remove("fernando-cro-is-visible");
+        }, 2800);
+      }
+
+      function fernandoCroCreateCarousel(name) {
+        const viewport = document.querySelector(`[data-fernando-cro-carousel-viewport="${name}"]`);
+        const track = document.querySelector(`[data-fernando-cro-carousel-track="${name}"]`);
+        const prev = document.querySelector(`[data-fernando-cro-carousel-prev="${name}"]`);
+        const next = document.querySelector(`[data-fernando-cro-carousel-next="${name}"]`);
+        const dots = document.querySelector(`[data-fernando-cro-carousel-dots="${name}"]`);
+
+        if (!viewport || !track || !prev || !next || !dots) return;
+
+        const items = Array.from(track.children);
+
+        if (!items.length) return;
+
+        const state = {
+          index: 0,
+          startX: 0,
+          currentX: 0,
+          isDragging: false,
+        };
+
+        function isMobileCarousel() {
+          return window.matchMedia("(max-width: 780px)").matches;
+        }
+
+        function getGap() {
+          const styles = window.getComputedStyle(track);
+          const rawGap = styles.columnGap || styles.gap || "0";
+          const parsedGap = parseFloat(rawGap);
+
+          return Number.isFinite(parsedGap) ? parsedGap : 0;
+        }
+
+        function getStep() {
+          const itemWidth = items[0].getBoundingClientRect().width;
+          return itemWidth + getGap();
+        }
+
+        function renderDots() {
+          dots.innerHTML = items
+            .map(function (_, index) {
+              return `
+                <button
+                  class="fernando-cro-carousel-dot ${index === state.index ? "fernando-cro-is-active" : ""}"
+                  type="button"
+                  aria-label="Ir para o slide ${index + 1}"
+                  data-fernando-cro-carousel-dot="${name}"
+                  data-index="${index}"
+                ></button>
+              `;
+            })
+            .join("");
+        }
+
+        function goTo(index) {
+          if (!isMobileCarousel()) {
+            state.index = 0;
+            track.style.transform = "";
+            renderDots();
+            return;
+          }
+
+          const maxIndex = Math.max(items.length - 1, 0);
+          state.index = Math.min(Math.max(index, 0), maxIndex);
+          track.style.transform = `translateX(-${state.index * getStep()}px)`;
+          renderDots();
+        }
+
+        prev.addEventListener("click", function () {
+          goTo(state.index - 1);
+        });
+
+        next.addEventListener("click", function () {
+          goTo(state.index + 1);
+        });
+
+        dots.addEventListener("click", function (event) {
+          const dot = event.target.closest(`[data-fernando-cro-carousel-dot="${name}"]`);
+
+          if (!dot) return;
+
+          goTo(Number(dot.dataset.index));
+        });
+
+        viewport.addEventListener(
+          "touchstart",
+          function (event) {
+            if (!isMobileCarousel()) return;
+
+            state.startX = event.touches[0].clientX;
+            state.currentX = state.startX;
+            state.isDragging = true;
+          },
+          { passive: true },
+        );
+
+        viewport.addEventListener(
+          "touchmove",
+          function (event) {
+            if (!state.isDragging || !isMobileCarousel()) return;
+
+            state.currentX = event.touches[0].clientX;
+          },
+          { passive: true },
+        );
+
+        viewport.addEventListener("touchend", function () {
+          if (!state.isDragging || !isMobileCarousel()) return;
+
+          const diff = state.startX - state.currentX;
+
+          if (Math.abs(diff) > 45) {
+            goTo(diff > 0 ? state.index + 1 : state.index - 1);
+          }
+
+          state.isDragging = false;
+        });
+
+        window.addEventListener("resize", function () {
+          goTo(state.index);
+        });
+
+        renderDots();
+      }
+
+      function fernandoCroBindEvents() {
+        document.addEventListener("click", function (event) {
+          const addButton = event.target.closest("[data-fernando-cro-add-cart]");
+
+          if (!addButton) return;
+
+          const productName = addButton.getAttribute("data-fernando-cro-add-cart");
+
+          fernandoCroShowToast(
+            "Item selecionado",
+            `${productName} foi adicionado ao carrinho demonstrativo.`,
+          );
+        });
+      }
+
+      fernandoCroBindEvents();
+      fernandoCroCreateCarousel("heroStats");
+      fernandoCroCreateCarousel("benefits");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initCasaBrasilLanding);
+    } else {
+      initCasaBrasilLanding();
+    }
+  })();
+</script>
+</body>
+
+</html>

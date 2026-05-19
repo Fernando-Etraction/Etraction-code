@@ -1,0 +1,1361 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kit 2 por 199 - Produto atual + leggings</title>
+</head>
+<body>
+<div class="conteudo-adicional-135">
+  <style>
+    .etraction-kit-199,
+    .etraction-kit-199 * {
+      box-sizing: border-box;
+    }
+
+    .etraction-kit-199 {
+      width: 100%;
+      margin: 14px 0 0;
+      font-family: Inter, "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #202020;
+    }
+
+    .etraction-kit-199 [hidden] {
+      display: none !important;
+    }
+
+    .etraction-kit-199__cta {
+      width: 100%;
+      min-height: 56px;
+      border: 0;
+      border-radius: 12px;
+      background: #101010;
+      color: #fff;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 950;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: -.01em;
+    }
+
+    .etraction-kit-199__cta::before {
+      content: "🛒";
+      font-size: 17px;
+    }
+
+    .etraction-kit-199__cta::after {
+      content: "⌄";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1;
+      transition: transform .2s ease;
+    }
+
+    .etraction-kit-199.etraction-kit-199--open .etraction-kit-199__cta::after {
+      transform: rotate(180deg);
+    }
+
+    .etraction-kit-199__modal {
+      display: block;
+      margin-top: 10px;
+      border: 1px solid #e2e2e2;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .08);
+      overflow: hidden;
+    }
+
+    .etraction-kit-199__top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #ececec;
+      background: #f8f8f8;
+    }
+
+    .etraction-kit-199__title {
+      margin: 0;
+      color: #202020;
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.25;
+    }
+
+    .etraction-kit-199__badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #e9f9ef;
+      color: #009a5f;
+      font-size: 11px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .etraction-kit-199__tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 12px;
+      background: #f8f8f8;
+      border-bottom: 1px solid #ececec;
+    }
+
+    .etraction-kit-199-tab {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      align-items: center;
+      gap: 9px;
+      min-height: 58px;
+      padding: 7px;
+      border: 1px solid #e0e0e0;
+      border-radius: 11px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .etraction-kit-199-tab[aria-pressed="true"] {
+      border: 2px solid #101010;
+      padding: 6px;
+    }
+
+    .etraction-kit-199-tab__thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 9px;
+      background: #eee;
+      object-fit: cover;
+    }
+
+    .etraction-kit-199-tab__name,
+    .etraction-kit-199-tab__size {
+      display: block;
+      line-height: 1.2;
+    }
+
+    .etraction-kit-199-tab__name {
+      color: #202020;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .etraction-kit-199-tab__size {
+      margin-top: 2px;
+      color: #777;
+      font-size: 10px;
+      font-weight: 750;
+    }
+
+    .etraction-kit-199__body {
+      padding: 12px;
+    }
+
+    .etraction-kit-card {
+      border: 1px solid #e2e2e2;
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .etraction-kit-card__header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .etraction-kit-card__title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-size: 13px;
+      font-weight: 950;
+      line-height: 1.2;
+    }
+
+    .etraction-kit-card__index {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #101010;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 950;
+      flex: 0 0 24px;
+    }
+
+    .etraction-kit-card__status {
+      color: #777;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .etraction-kit-alert {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border: 1px solid #f3ce70;
+      border-radius: 8px;
+      background: #fff9e9;
+      color: #a35a00;
+      font-size: 12px;
+      font-weight: 750;
+      line-height: 1.35;
+    }
+
+    .etraction-kit-alert.etraction-kit-alert--ready {
+      border-color: #b7ebc6;
+      background: #effaf3;
+      color: #087a45;
+    }
+
+    .etraction-kit-config {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .etraction-kit-preview {
+      margin: 0;
+    }
+
+    .etraction-kit-preview__image {
+      display: block;
+      width: 128px;
+      height: 146px;
+      border-radius: 10px;
+      background: #f3f3f3;
+      object-fit: cover;
+    }
+
+    .etraction-kit-preview__caption {
+      display: block;
+      margin-top: 7px;
+      color: #333;
+      font-size: 11px;
+      font-weight: 750;
+      text-align: center;
+      line-height: 1.25;
+    }
+
+    .etraction-kit-controls {
+      display: grid;
+      gap: 13px;
+      align-content: start;
+    }
+
+    .etraction-kit-field__label {
+      display: block;
+      margin-bottom: 7px;
+      color: #777;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .etraction-kit-field__label small {
+      color: #d8a242;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .etraction-kit-swatches,
+    .etraction-kit-size-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .etraction-kit-swatch {
+      width: auto;
+      min-height: 34px;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      background: #fff;
+      padding: 2px 10px 2px 3px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      position: relative;
+    }
+
+    .etraction-kit-swatch::before {
+      content: "";
+      display: block;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+      border-radius: 999px;
+      background: var(--swatch);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .16);
+    }
+
+    .etraction-kit-swatch[aria-pressed="true"] {
+      border-color: #101010;
+      box-shadow: 0 0 0 1px #101010;
+    }
+
+    .etraction-kit-swatch__label {
+      color: #202020;
+      font-size: 11px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .etraction-kit-size {
+      min-width: 44px;
+      height: 38px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      color: #202020;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .etraction-kit-size[aria-pressed="true"],
+    .etraction-kit-size--selected {
+      border-color: #101010;
+      background: #101010;
+      color: #fff;
+    }
+
+    .etraction-kit-size--empty {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 8px;
+      background: #fff9e9;
+      color: #a35a00;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .etraction-kit-current-note {
+      margin: 0;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .etraction-kit-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .etraction-kit-next,
+    .etraction-kit-secondary {
+      min-height: 36px;
+      border-radius: 8px;
+      padding: 0 14px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .etraction-kit-next {
+      border: 0;
+      background: #101010;
+      color: #fff;
+    }
+
+    .etraction-kit-next:disabled {
+      background: #e3e3e3;
+      color: #9d9d9d;
+      cursor: not-allowed;
+    }
+
+    .etraction-kit-secondary {
+      border: 1px solid #101010;
+      background: #fff;
+      color: #101010;
+    }
+
+    .etraction-kit-summary {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 0 12px 12px;
+    }
+
+    .etraction-kit-summary__shipping {
+      color: #008a5b;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .etraction-kit-summary__price {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .etraction-kit-summary__prices {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .etraction-kit-summary__old {
+      color: #888;
+      font-size: 12px;
+      font-weight: 750;
+      text-decoration: line-through;
+    }
+
+    .etraction-kit-summary__new {
+      color: #202020;
+      font-size: 26px;
+      font-weight: 950;
+      letter-spacing: -.04em;
+      line-height: 1;
+    }
+
+    .etraction-kit-summary__installments {
+      color: #777;
+      font-size: 11px;
+      font-weight: 750;
+      text-align: right;
+    }
+
+    .etraction-kit-add {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 12px;
+      background: #009a5f;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .etraction-kit-add:disabled {
+      background: #dedede;
+      color: #9f9f9f;
+      cursor: not-allowed;
+    }
+
+    .etraction-kit-feedback {
+      min-height: 16px;
+      color: #a35a00;
+      font-size: 11px;
+      font-weight: 750;
+      text-align: center;
+    }
+
+    body:has(.etraction-kit-199.etraction-kit-199--open) .area-derivacoes.etraction-kit-hide-native {
+      display: none !important;
+    }
+
+    @media (max-width: 560px) {
+      .etraction-kit-199__top,
+      .etraction-kit-summary__price {
+        grid-template-columns: 1fr;
+      }
+
+      .etraction-kit-199__tabs {
+        gap: 8px;
+      }
+
+      .etraction-kit-199-tab {
+        grid-template-columns: 38px 1fr;
+        min-height: 54px;
+      }
+
+      .etraction-kit-199-tab__thumb {
+        width: 38px;
+        height: 38px;
+      }
+
+      .etraction-kit-config {
+        grid-template-columns: 104px 1fr;
+        gap: 12px;
+      }
+
+      .etraction-kit-preview__image {
+        width: 104px;
+        height: 126px;
+      }
+
+      .etraction-kit-summary__installments {
+        text-align: left;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var PROMO_PRICE = 199;
+      var SIZES = ["P", "M", "G"];
+      var TOP10_SKUS = [
+        "1FC8KL186",
+        "1FC7KL149",
+        "K01ELTI",
+        "KL01PT",
+        "1FC8KL189",
+        "KL01CPTB",
+        "KL01MR",
+        "KL01CMRB",
+        "1FC7KL153",
+        "1FC8KL185"
+      ];
+      var CATALOG_URL = "https://www.armfitness.com.br/feminino/conjuntos?ordem=vendas";
+      var adding = false;
+
+      var state = {
+        activeStep: 1,
+        current: {
+          sku: "",
+          name: "",
+          image: "",
+          price: 119,
+          topSize: "",
+          bottomSize: "",
+          bottomLabel: "Legging"
+        },
+        second: {
+          sku: "",
+          name: "",
+          image: "",
+          price: 119,
+          color: "",
+          colorHex: "#111111",
+          bottom: "Legging",
+          topSize: "",
+          bottomSize: ""
+        }
+      };
+
+      function sizeRow(name, stockText) {
+        return SIZES.map(function (size, index) {
+          return {
+            ordem: index + 1,
+            deri_nome: name,
+            derivacao: size,
+            estoque: String(stockText || "PMG").indexOf(size) >= 0
+          };
+        });
+      }
+
+      function derivacoes(topStock, bottomStock) {
+        return [sizeRow("Top", topStock), sizeRow("Legging", bottomStock)];
+      }
+
+      var KIT_PRODUCTS = [
+        { sku: "1FC8KL186", name: "Conjunto Fitness Legging PowerSlim + Top Alça Digital Avelã", image: "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/5149/arm30033940.jpg?ims=425x635", price: 119, color: "Avelã", colorHex: "#A67C52", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "1FC7KL149", name: "Conjunto Fitness Legging PowerSlim + Top Alça Digital Açaí", image: "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3834/20250910-arm-0577.jpg?ims=425x635", price: 119, color: "Açaí", colorHex: "#4C1D95", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "K01ELTI", name: "Conjunto Feminino Fitness Legging + Top Básico Elite", image: "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4147/arm181215499.jpg?ims=425x635", price: 119, color: "Elite", colorHex: "#222222", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "KL01PT", name: "Conjunto dark", image: "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4258/arm181215027.jpg?ims=425x635", price: 119, color: "Preto", colorHex: "#111111", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "1FC8KL189", name: "Conjunto Fitness Legging PowerSlim + Top Alça Digital Cereja", image: "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4907/conjunto-cereja-armfitness-1-2.jpg?ims=425x635", price: 119, color: "Cereja", colorHex: "#9F1239", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "KL01CPTB", name: "Conjunto compact com bolso preto", image: "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4245/arm181214801.jpg?ims=425x635", price: 119, color: "Preto", colorHex: "#111111", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "KL01MR", name: "Conjunto marinho", image: "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4295/arm181215415.jpg?ims=425x635", price: 119, color: "Marinho", colorHex: "#0B1F3A", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") },
+        { sku: "KL01CMRB", name: "Conjunto compact com bolso marinho", image: "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4299/arm181215521.jpg?ims=425x635", price: 119, color: "Marinho", colorHex: "#0B1F3A", bottom: "Legging", derivacoesItem: derivacoes("PMG", "G") },
+        { sku: "1FC7KL153", name: "Conjunto Fitness Legging PowerSlim + Top Alça Digital Matcha", image: "https://armfitness.cdn.magazord.com.br/img/2025/10/produto/3916/20250910-arm-0306.jpg?ims=425x635", price: 119, color: "Matcha", colorHex: "#84A98C", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PM") },
+        { sku: "1FC8KL185", name: "Conjunto Fitness Legging PowerSlim + Top Alça Digital Mirtilo", image: "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4939/arm30033739.jpg?ims=425x635", price: 119, color: "Mirtilo", colorHex: "#3730A3", bottom: "Legging", derivacoesItem: derivacoes("PMG", "PMG") }
+      ];
+
+      function money(value) {
+        return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value || 0);
+      }
+
+      function text(el) {
+        return el ? String(el.textContent || "").trim() : "";
+      }
+
+      function normalizeText(value) {
+        return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      }
+
+      function cleanSize(value) {
+        var size = String(value || "").replace(/\s+/g, " ").trim().toUpperCase();
+        return SIZES.indexOf(size) >= 0 ? size : "";
+      }
+
+      function escapeHtml(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function parseBalancedArray(source, startIndex) {
+        var depth = 0;
+        var inString = false;
+        var quote = "";
+        var escape = false;
+
+        for (var i = startIndex; i < source.length; i += 1) {
+          var char = source[i];
+          if (escape) {
+            escape = false;
+            continue;
+          }
+          if (inString && char === "\\") {
+            escape = true;
+            continue;
+          }
+          if (char === "\"" || char === "'") {
+            if (!inString) {
+              inString = true;
+              quote = char;
+              continue;
+            }
+            if (quote === char) {
+              inString = false;
+              quote = "";
+              continue;
+            }
+          }
+          if (inString) continue;
+          if (char === "[") depth += 1;
+          if (char === "]") {
+            depth -= 1;
+            if (depth === 0) return source.slice(startIndex, i + 1);
+          }
+        }
+
+        return null;
+      }
+
+      function mergeCatalogItem(item) {
+        var product = KIT_PRODUCTS.find(function (entry) {
+          return entry.sku === String(item && item.codigo || "");
+        });
+
+        if (!product) return;
+
+        product.name = item.nome || product.name;
+        product.image = item.midia_url || product.image;
+        product.price = Number(item.valor || product.price || 119);
+        product.derivacoesItem = Array.isArray(item.derivacoesItem) ? item.derivacoesItem : product.derivacoesItem;
+        product.outOfStock = item.qtde_estoque === false;
+      }
+
+      function loadCatalogStock() {
+        return fetch(CATALOG_URL, { credentials: "include" })
+          .then(function (response) {
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            return response.text();
+          })
+          .then(function (html) {
+            var vitrineMatch = /(?:const|let|var)\s+dataVitrine\s*=/.exec(html);
+            var searchStart = vitrineMatch ? vitrineMatch.index : 0;
+            var itensIndex = html.indexOf("itens", searchStart);
+            var arrayStart = html.indexOf("[", itensIndex);
+            var arrayText = parseBalancedArray(html, arrayStart);
+            if (!arrayText) throw new Error("Itens da vitrine nao encontrados.");
+            JSON.parse(arrayText.replace(/,\s*([\]}])/g, "$1")).forEach(mergeCatalogItem);
+          })
+          .catch(function (error) {
+            console.warn("Nao foi possivel carregar a vitrine. Usando estoque inicial.", error);
+          });
+      }
+
+      function getCurrentSku() {
+        var hiddenCode = document.querySelector("#prod-codigo");
+        var hiddenValue = hiddenCode && hiddenCode.value ? String(hiddenCode.value).trim() : "";
+        if (hiddenValue) return hiddenValue.split("-")[0];
+
+        var codigo = document.querySelector(".codigo-prod");
+        var raw = text(codigo);
+        var refMatchFromCode = raw.match(/ref:\s*([A-Z0-9]+)/i);
+        if (refMatchFromCode) return refMatchFromCode[1].trim();
+
+        var directMatch = raw.match(/\b[A-Z0-9]{5,}\b/i);
+        if (directMatch) return directMatch[0].trim();
+
+        var refText = text(document.body);
+        var refMatch = refText.match(/ref:\s*([A-Z0-9]+)/i);
+        return refMatch ? refMatch[1].trim() : "";
+      }
+
+      function getCurrentName() {
+        return text(document.querySelector("h1")) || "Produto atual";
+      }
+
+      function getCurrentImage() {
+        var selectors = [
+          ".main-product-image img",
+          ".produto-imagem-principal img",
+          ".product-gallery__main img",
+          ".container-swiper .swiper-slide-active img",
+          ".product-images .swiper-slide-active img",
+          ".swiper-slide-active img",
+          ".image-gallery img"
+        ];
+
+        for (var i = 0; i < selectors.length; i += 1) {
+          var img = document.querySelector(selectors[i]);
+          var src = img && (img.currentSrc || img.getAttribute("src") || img.getAttribute("data-src"));
+          if (src) return src;
+        }
+
+        var images = Array.prototype.slice.call(document.querySelectorAll("img[src*='magazord'], img[data-src*='magazord'], img[src*='cdn']"));
+        var best = images.filter(function (img) {
+          var rect = img.getBoundingClientRect();
+          return rect.width >= 180 && rect.height >= 180 && img.offsetParent !== null;
+        }).sort(function (a, b) {
+          var ar = a.getBoundingClientRect();
+          var br = b.getBoundingClientRect();
+          return (br.width * br.height) - (ar.width * ar.height);
+        })[0];
+
+        return best ? (best.currentSrc || best.getAttribute("src") || best.getAttribute("data-src")) : "";
+      }
+
+      function parseBrazilianMoney(raw) {
+        var match = String(raw || "").match(/R\$\s*[\d.]+,\d{2}/);
+        if (!match) return 0;
+        return Number(match[0].replace(/[^\d,]/g, "").replace(/\./g, "").replace(",", ".")) || 0;
+      }
+
+      function getCurrentPriceNumber() {
+        var candidates = [".preco-produto", ".price", ".valor", ".produto-preco", ".product-price", "[class*='price']", "[class*='preco']"];
+        for (var i = 0; i < candidates.length; i += 1) {
+          var value = parseBrazilianMoney(text(document.querySelector(candidates[i])));
+          if (value) return value;
+        }
+        return parseBrazilianMoney(text(document.body)) || 119;
+      }
+
+      function nativeVariationAreas() {
+        return Array.prototype.slice.call(document.querySelectorAll(".area-derivacoes .variacao-area, .variacao-area"));
+      }
+
+      function areaLabel(area) {
+        var label = area && area.querySelector("label, h2, h3, strong, .title, .font-bold, .nome-variacao, .variacao-nome, .variacao-titulo");
+        return text(label || area).replace(":", "").trim();
+      }
+
+      function findNativeVariationArea(kind) {
+        var areas = nativeVariationAreas();
+        if (!areas.length) return null;
+
+        var topArea = areas.find(function (area) {
+          return /top/i.test(areaLabel(area));
+        }) || null;
+
+        if (kind === "top") return topArea || areas[0] || null;
+
+        return areas.find(function (area) {
+          if (area === topArea) return false;
+          return /(short|shorts|legging|cal[cç]a|tamanho)/i.test(areaLabel(area));
+        }) || areas.find(function (area) {
+          return area !== topArea;
+        }) || null;
+      }
+
+      function isElementSelected(el) {
+        var marker = normalizeText([
+          el && el.className,
+          el && el.getAttribute("aria-pressed"),
+          el && el.getAttribute("aria-selected"),
+          el && el.getAttribute("data-selecionado"),
+          el && el.getAttribute("data-selected")
+        ].filter(Boolean).join(" "));
+
+        return marker.indexOf("true") >= 0 || marker.indexOf("selected") >= 0 || marker.indexOf("active") >= 0 || marker.indexOf("selecion") >= 0;
+      }
+
+      function isNativeInStock(el) {
+        var marker = normalizeText([
+          el && el.className,
+          el && el.getAttribute("aria-disabled"),
+          el && el.getAttribute("disabled"),
+          el && el.getAttribute("data-estoque"),
+          el && el.getAttribute("data-disponivel"),
+          el && el.getAttribute("title")
+        ].filter(Boolean).join(" "));
+
+        return !(
+          el && el.disabled ||
+          marker.indexOf("false") >= 0 ||
+          marker.indexOf("disabled") >= 0 ||
+          marker.indexOf("indispon") >= 0 ||
+          marker.indexOf("sem-estoque") >= 0 ||
+          marker.indexOf("esgot") >= 0 ||
+          marker.indexOf("out-of-stock") >= 0
+        );
+      }
+
+      function readNativeSize(el) {
+        return cleanSize(
+          (el && el.getAttribute("data-derivacao-item-name")) ||
+          (el && el.getAttribute("data-derivacao")) ||
+          text(el)
+        );
+      }
+
+      function getNativeSizeOptions(kind) {
+        var area = findNativeVariationArea(kind);
+        if (!area) return [];
+
+        var label = areaLabel(area) || (kind === "top" ? "Top" : "Legging");
+        var seen = {};
+        var options = Array.prototype.slice.call(area.querySelectorAll("[data-derivacao-item-id], [data-derivacao-item-name], li, button"));
+
+        return options.reduce(function (acc, el) {
+          var size = readNativeSize(el);
+          if (!size || seen[size] || !isNativeInStock(el)) return acc;
+          seen[size] = true;
+          acc.push({ size: size, el: el, selected: isElementSelected(el), label: label });
+          return acc;
+        }, []);
+      }
+
+      function getNativeAvailableSizes(kind) {
+        return getNativeSizeOptions(kind).map(function (item) {
+          return item.size;
+        });
+      }
+
+      function getSelectedNativeSizes() {
+        var top = getNativeSizeOptions("top").find(function (item) { return item.selected; });
+        var bottom = getNativeSizeOptions("bottom").find(function (item) { return item.selected; });
+        var bottomArea = findNativeVariationArea("bottom");
+
+        return {
+          top: top ? top.size : "",
+          bottom: bottom ? bottom.size : "",
+          bottomLabel: bottomArea ? areaLabel(bottomArea) : "Legging"
+        };
+      }
+
+      function clickNativeSize(kind, size) {
+        var option = getNativeSizeOptions(kind).find(function (item) {
+          return item.size === cleanSize(size);
+        });
+        if (option && option.el) option.el.click();
+      }
+
+      function syncCurrentProduct() {
+        var sizes = getSelectedNativeSizes();
+        var sku = getCurrentSku();
+
+        if (state.current.sku && sku && state.current.sku !== sku) {
+          state.current.topSize = "";
+          state.current.bottomSize = "";
+        }
+
+        state.current.sku = sku || state.current.sku;
+        state.current.name = getCurrentName();
+        state.current.image = getCurrentImage();
+        state.current.price = getCurrentPriceNumber();
+        state.current.bottomLabel = sizes.bottomLabel || "Legging";
+
+        var availableTop = getNativeAvailableSizes("top");
+        var availableBottom = getNativeAvailableSizes("bottom");
+
+        if (sizes.top && availableTop.indexOf(sizes.top) >= 0) state.current.topSize = sizes.top;
+        if (sizes.bottom && availableBottom.indexOf(sizes.bottom) >= 0) state.current.bottomSize = sizes.bottom;
+        if (state.current.topSize && availableTop.length && availableTop.indexOf(state.current.topSize) < 0) state.current.topSize = "";
+        if (state.current.bottomSize && availableBottom.length && availableBottom.indexOf(state.current.bottomSize) < 0) state.current.bottomSize = "";
+      }
+
+      function productBySku(sku) {
+        return KIT_PRODUCTS.find(function (product) {
+          return product.sku === sku;
+        }) || null;
+      }
+
+      function getSecondProduct() {
+        return productBySku(state.second.sku);
+      }
+
+      function secondProductOptions() {
+        return TOP10_SKUS.map(productBySku).filter(function (product) {
+          return product && product.sku !== state.current.sku && !product.outOfStock && getProductSizes(product, "top").length && getProductSizes(product, "bottom").length;
+        });
+      }
+
+      function getProductSizes(product, kind) {
+        if (!product || !product.derivacoesItem) return [];
+        var row = product.derivacoesItem[kind === "top" ? 0 : 1] || [];
+        return row.filter(function (item) {
+          return item && item.estoque === true;
+        }).map(function (item) {
+          return cleanSize(item.derivacao);
+        }).filter(function (size, index, arr) {
+          return size && arr.indexOf(size) === index;
+        });
+      }
+
+      function getSecondSizeOptions(kind) {
+        return getProductSizes(getSecondProduct(), kind);
+      }
+
+      function isCurrentReady() {
+        syncCurrentProduct();
+        return Boolean(state.current.sku && state.current.topSize && state.current.bottomSize);
+      }
+
+      function isSecondReady() {
+        return Boolean(
+          state.second.sku &&
+          getSecondSizeOptions("top").indexOf(state.second.topSize) >= 0 &&
+          getSecondSizeOptions("bottom").indexOf(state.second.bottomSize) >= 0
+        );
+      }
+
+      function allReady() {
+        return isCurrentReady() && isSecondReady();
+      }
+
+      function nativeToastError(message) {
+        if (window.Zord && typeof window.Zord.msgToastError === "function") {
+          window.Zord.msgToastError(message);
+          return;
+        }
+        alert(message);
+      }
+
+      function showSuccessToast() {
+        if (window.Zord && typeof window.Zord.showToast === "function") {
+          window.Zord.showToast({
+            title: "Kit adicionado ao seu carrinho!",
+            html: "O que você deseja fazer a seguir?",
+            icon: "success",
+            showCancelButton: true,
+            showCloseButton: true,
+            showConfirmButton: true,
+            confirmButtonText: "Finalizar compra",
+            cancelButtonText: "Continuar comprando",
+            confirmButtonColor: "#28a745",
+            reverseButtons: true
+          }, function (result) {
+            if (result && result.isConfirmed) window.location.href = "/checkout/cart";
+          });
+          return;
+        }
+
+        if (window.Zord && typeof window.Zord.msgToastSuccess === "function") {
+          window.Zord.msgToastSuccess("Kit adicionado ao carrinho!");
+        }
+      }
+
+      function selectSecondProduct(sku) {
+        var product = productBySku(sku);
+        if (!product) return;
+        state.second.sku = product.sku;
+        state.second.name = product.name;
+        state.second.image = product.image;
+        state.second.price = product.price;
+        state.second.color = product.color;
+        state.second.colorHex = product.colorHex;
+        state.second.bottom = product.bottom;
+        state.second.topSize = "";
+        state.second.bottomSize = "";
+        render();
+      }
+
+      function setActiveStep(step) {
+        state.activeStep = step;
+        render();
+      }
+
+      function originalTotal() {
+        syncCurrentProduct();
+        return (state.current.price || 119) + (state.second.price || 119);
+      }
+
+      function renderTabs() {
+        var root = document.querySelector(".etraction-kit-199");
+        if (!root) return;
+        var tabs = root.querySelector("[data-etraction-tabs]");
+        if (!tabs) return;
+        syncCurrentProduct();
+
+        var currentReady = isCurrentReady();
+        var secondReady = isSecondReady();
+
+        tabs.innerHTML =
+          '<button type="button" class="etraction-kit-199-tab" data-step="1" aria-pressed="' + (state.activeStep === 1) + '">' +
+            '<img class="etraction-kit-199-tab__thumb" src="' + escapeHtml(state.current.image || "") + '" alt="">' +
+            '<span><span class="etraction-kit-199-tab__name">Produto atual</span>' +
+            '<span class="etraction-kit-199-tab__size">' + (currentReady ? "Top " + state.current.topSize + " · " + state.current.bottomSize : "Selecione os tamanhos") + '</span></span>' +
+          '</button>' +
+          '<button type="button" class="etraction-kit-199-tab" data-step="2" aria-pressed="' + (state.activeStep === 2) + '">' +
+            '<img class="etraction-kit-199-tab__thumb" src="' + escapeHtml(state.second.image || "") + '" alt="">' +
+            '<span><span class="etraction-kit-199-tab__name">2º kit com desconto</span>' +
+            '<span class="etraction-kit-199-tab__size">' + (secondReady ? state.second.color + " · Top " + state.second.topSize + " · " + state.second.bottomSize : "Escolha cor e tamanhos") + '</span></span>' +
+          '</button>';
+
+        tabs.querySelectorAll("[data-step]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            setActiveStep(Number(button.getAttribute("data-step")));
+          });
+        });
+      }
+
+      function renderCurrentSizeButtons(target, selected, kind) {
+        if (!target) return;
+        var options = getNativeSizeOptions(kind);
+        if (!options.length) {
+          target.innerHTML = '<span class="etraction-kit-size--empty">Sem estoque disponível</span>';
+          return;
+        }
+
+        target.innerHTML = options.map(function (option) {
+          return '<button type="button" class="etraction-kit-size" data-current-kind="' + kind + '" data-size="' + option.size + '" aria-pressed="' + (selected === option.size) + '">' + option.size + '</button>';
+        }).join("");
+
+        target.querySelectorAll("[data-size]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            var size = button.getAttribute("data-size");
+            clickNativeSize(kind, size);
+            if (kind === "top") state.current.topSize = size;
+            else state.current.bottomSize = size;
+            setTimeout(render, 100);
+          });
+        });
+      }
+
+      function renderStepOne(container) {
+        syncCurrentProduct();
+        var ready = isCurrentReady();
+
+        container.innerHTML =
+          '<section class="etraction-kit-card">' +
+            '<header class="etraction-kit-card__header">' +
+              '<h3 class="etraction-kit-card__title"><span class="etraction-kit-card__index">1</span><span>Produto atual da página</span></h3>' +
+              '<span class="etraction-kit-card__status">' + (ready ? "1/2 pronto" : "aguardando tamanhos") + '</span>' +
+            '</header>' +
+            '<p class="etraction-kit-alert ' + (ready ? "etraction-kit-alert--ready" : "") + '">' +
+              (ready ? "Produto atual pronto: Top " + state.current.topSize + " + " + state.current.bottomLabel + " " + state.current.bottomSize + "." : "Escolha os tamanhos deste produto aqui ou no seletor original da página.") +
+            '</p>' +
+            '<div class="etraction-kit-config">' +
+              '<figure class="etraction-kit-preview">' +
+                '<img class="etraction-kit-preview__image" src="' + escapeHtml(state.current.image || "") + '" alt="">' +
+                '<figcaption class="etraction-kit-preview__caption">ref: ' + escapeHtml(state.current.sku || "") + '</figcaption>' +
+              '</figure>' +
+              '<div class="etraction-kit-controls">' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Produto selecionado</span><p class="etraction-kit-current-note"><strong>' + escapeHtml(state.current.name || "Produto atual") + '</strong><br>Os tamanhos deste item são lidos do seletor nativo da página.</p></div>' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Tamanho do Top <small>— somente disponíveis</small></span><div class="etraction-kit-size-row" data-current-top-sizes></div></div>' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Tamanho do ' + escapeHtml(state.current.bottomLabel || "Legging") + ' <small>— somente disponíveis</small></span><div class="etraction-kit-size-row" data-current-bottom-sizes></div></div>' +
+                '<div class="etraction-kit-actions"><button type="button" class="etraction-kit-next" data-go-second ' + (!ready ? "disabled" : "") + '>Selecionar 2º kit com desconto →</button></div>' +
+              '</div>' +
+            '</div>' +
+          '</section>';
+
+        renderCurrentSizeButtons(container.querySelector("[data-current-top-sizes]"), state.current.topSize, "top");
+        renderCurrentSizeButtons(container.querySelector("[data-current-bottom-sizes]"), state.current.bottomSize, "bottom");
+
+        var goSecond = container.querySelector("[data-go-second]");
+        if (goSecond) {
+          goSecond.addEventListener("click", function () {
+            if (!isCurrentReady()) {
+              nativeToastError("Selecione os tamanhos do produto atual primeiro.");
+              return;
+            }
+            setActiveStep(2);
+          });
+        }
+      }
+
+      function renderSecondSizeButtons(target, selected, kind) {
+        if (!target) return;
+        var options = getSecondSizeOptions(kind);
+        if (!options.length) {
+          target.innerHTML = '<span class="etraction-kit-size--empty">Sem estoque disponível</span>';
+          return;
+        }
+
+        target.innerHTML = options.map(function (size) {
+          return '<button type="button" class="etraction-kit-size" data-handler="' + kind + '" data-size="' + size + '" aria-pressed="' + (selected === size) + '">' + size + '</button>';
+        }).join("");
+
+        target.querySelectorAll("[data-size]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            if (!state.second.sku) {
+              nativeToastError("Selecione primeiro uma cor/produto para o segundo kit.");
+              return;
+            }
+            var size = button.getAttribute("data-size");
+            if (kind === "top") state.second.topSize = size;
+            else state.second.bottomSize = size;
+            render();
+          });
+        });
+      }
+
+      function renderStepTwo(container) {
+        var ready = isSecondReady();
+
+        container.innerHTML =
+          '<section class="etraction-kit-card">' +
+            '<header class="etraction-kit-card__header">' +
+              '<h3 class="etraction-kit-card__title"><span class="etraction-kit-card__index">2</span><span>Escolha outra legging com desconto</span></h3>' +
+              '<span class="etraction-kit-card__status">' + (ready ? "2/2 pronto" : "escolha cor e tamanhos") + '</span>' +
+            '</header>' +
+            '<p class="etraction-kit-alert ' + (ready ? "etraction-kit-alert--ready" : "") + '">' +
+              (ready ? "2º kit pronto: " + state.second.color + " · Top " + state.second.topSize + " + Legging " + state.second.bottomSize + "." : "Selecione uma das 10 leggings mais vendidas e escolha somente tamanhos com estoque.") +
+            '</p>' +
+            '<div class="etraction-kit-config">' +
+              '<figure class="etraction-kit-preview">' +
+                '<img class="etraction-kit-preview__image" src="' + escapeHtml(state.second.image || (secondProductOptions()[0] && secondProductOptions()[0].image) || "") + '" alt="">' +
+                '<figcaption class="etraction-kit-preview__caption">' + escapeHtml(state.second.color || "Escolha uma cor") + '</figcaption>' +
+              '</figure>' +
+              '<div class="etraction-kit-controls">' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Cor / produto <small>— top 10 leggings</small></span><div class="etraction-kit-swatches" data-swatches></div></div>' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Produto escolhido</span><p class="etraction-kit-current-note"><strong>' + escapeHtml(state.second.name || "Nenhum produto selecionado") + '</strong><br>ref: ' + escapeHtml(state.second.sku || "—") + '</p></div>' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Tamanho do Top</span><div class="etraction-kit-size-row" data-top-sizes></div></div>' +
+                '<div class="etraction-kit-field"><span class="etraction-kit-field__label">Tamanho da Legging</span><div class="etraction-kit-size-row" data-bottom-sizes></div></div>' +
+                '<div class="etraction-kit-actions"><button type="button" class="etraction-kit-secondary" data-go-first>← Voltar ao produto atual</button><button type="button" class="etraction-kit-next" data-complete-second ' + (!ready ? "disabled" : "") + '>Concluir seleção</button></div>' +
+              '</div>' +
+            '</div>' +
+          '</section>';
+
+        var swatches = container.querySelector("[data-swatches]");
+        swatches.innerHTML = secondProductOptions().map(function (product) {
+          return '<button type="button" class="etraction-kit-swatch" style="--swatch:' + escapeHtml(product.colorHex) + '" aria-pressed="' + (product.sku === state.second.sku) + '" title="' + escapeHtml(product.color + " · " + product.name) + '" data-product-sku="' + escapeHtml(product.sku) + '"><span class="etraction-kit-swatch__label">' + escapeHtml(product.color) + '</span></button>';
+        }).join("");
+
+        swatches.querySelectorAll("[data-product-sku]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            selectSecondProduct(button.getAttribute("data-product-sku"));
+          });
+        });
+
+        renderSecondSizeButtons(container.querySelector("[data-top-sizes]"), state.second.topSize, "top");
+        renderSecondSizeButtons(container.querySelector("[data-bottom-sizes]"), state.second.bottomSize, "bottom");
+
+        container.querySelector("[data-go-first]").addEventListener("click", function () {
+          setActiveStep(1);
+        });
+
+        var complete = container.querySelector("[data-complete-second]");
+        if (complete) {
+          complete.addEventListener("click", function () {
+            if (!isSecondReady()) {
+              nativeToastError("Selecione produto, tamanho do Top e tamanho da Legging para o segundo kit.");
+              return;
+            }
+            render();
+          });
+        }
+      }
+
+      function renderSummary(root) {
+        var summary = root.querySelector("[data-etraction-summary]");
+        if (!summary) return;
+
+        var old = originalTotal();
+        summary.innerHTML =
+          '<div class="etraction-kit-summary__shipping">🚚 Frete grátis para todo o Brasil</div>' +
+          '<div class="etraction-kit-summary__price">' +
+            '<div class="etraction-kit-summary__prices">' +
+              (old ? '<span class="etraction-kit-summary__old">' + money(old) + '</span>' : '') +
+              '<span class="etraction-kit-summary__new">' + money(PROMO_PRICE) + '</span>' +
+            '</div>' +
+            '<div class="etraction-kit-summary__installments">10x de R$ 19,90 sem juros</div>' +
+          '</div>' +
+          '<button type="button" class="etraction-kit-add" data-add-kit ' + (!allReady() ? "disabled" : "") + '>Adicionar kit 2 por 199</button>' +
+          '<div class="etraction-kit-feedback" data-feedback></div>';
+
+        summary.querySelector("[data-add-kit]").addEventListener("click", addKitToCart);
+      }
+
+      function render() {
+        var root = document.querySelector(".etraction-kit-199");
+        if (!root) return;
+        syncCurrentProduct();
+        renderTabs();
+        var body = root.querySelector("[data-etraction-body]");
+        if (state.activeStep === 1) renderStepOne(body);
+        else renderStepTwo(body);
+        renderSummary(root);
+      }
+
+      function currentCartCode() {
+        var codeInput = document.querySelector("#prod-codigo");
+        if (codeInput && codeInput.value) return codeInput.value;
+        return state.current.sku + "-" + state.current.topSize + "-" + state.current.bottomSize;
+      }
+
+      function currentDeposit() {
+        var depositInput = document.querySelector("#prod-deposito");
+        return depositInput && depositInput.value ? depositInput.value : 1;
+      }
+
+      function addKitToCart() {
+        if (adding) return;
+        syncCurrentProduct();
+
+        if (!isCurrentReady()) {
+          nativeToastError("Selecione os tamanhos do produto atual.");
+          setActiveStep(1);
+          return;
+        }
+
+        if (!isSecondReady()) {
+          nativeToastError("Selecione a segunda legging, o tamanho do Top e o tamanho da Legging.");
+          setActiveStep(2);
+          return;
+        }
+
+        if (!window.Zord || !window.Zord.checkout || typeof window.Zord.checkout.addCarts !== "function") {
+          nativeToastError("API do carrinho indisponível. Recarregue a página.");
+          return;
+        }
+
+        var produtos = [
+          { codigo: currentCartCode(), quantidade: 1, deposito: currentDeposit() },
+          { codigo: state.second.sku + "-" + state.second.topSize + "-" + state.second.bottomSize, quantidade: 1, deposito: currentDeposit() }
+        ];
+
+        adding = true;
+        var addButton = document.querySelector("[data-add-kit]");
+        if (addButton) {
+          addButton.disabled = true;
+          addButton.textContent = "Adicionando...";
+        }
+
+        window.Zord.checkout.addCarts(produtos, function (resposta) {
+          adding = false;
+          try {
+            if (typeof window.Zord.checkout.atualizaContadorCarrinho === "function") {
+              window.Zord.checkout.atualizaContadorCarrinho();
+            }
+          } catch (error) {}
+          showSuccessToast();
+          render();
+          return resposta;
+        }, { source: "Kit 2 por 199", codigoOrigem: "" });
+      }
+
+      function ensureDefaultSecondProduct() {
+        if (state.second.sku && secondProductOptions().some(function (product) { return product.sku === state.second.sku; })) return;
+        var firstAvailable = secondProductOptions()[0];
+        if (firstAvailable) {
+          state.second.sku = firstAvailable.sku;
+          state.second.name = firstAvailable.name;
+          state.second.image = firstAvailable.image;
+          state.second.price = firstAvailable.price;
+          state.second.color = firstAvailable.color;
+          state.second.colorHex = firstAvailable.colorHex;
+          state.second.bottom = firstAvailable.bottom;
+          state.second.topSize = "";
+          state.second.bottomSize = "";
+        }
+      }
+
+      function buildKitBox() {
+        if (document.querySelector(".etraction-kit-199")) return;
+        var areaComprar = document.querySelector(".area-comprar, .buy-area, .produto-compra, .product-buy-area");
+        if (!areaComprar) return;
+
+        var nativeDerivations = document.querySelector(".area-derivacoes");
+        if (nativeDerivations) nativeDerivations.classList.add("etraction-kit-hide-native");
+
+        syncCurrentProduct();
+        ensureDefaultSecondProduct();
+
+        var wrapper = document.createElement("div");
+        wrapper.className = "etraction-kit-199 etraction-kit-199--open";
+        wrapper.innerHTML =
+          '<button type="button" class="etraction-kit-199__cta" data-toggle-kit aria-expanded="true"><span>2 conjuntos por 199</span></button>' +
+          '<div class="etraction-kit-199__modal" data-kit-modal>' +
+            '<div class="etraction-kit-199__top"><h2 class="etraction-kit-199__title">Monte seu kit com o produto atual</h2><span class="etraction-kit-199__badge">2 por R$ 199</span></div>' +
+            '<div class="etraction-kit-199__tabs" data-etraction-tabs></div>' +
+            '<div class="etraction-kit-199__body" data-etraction-body></div>' +
+            '<footer class="etraction-kit-summary" data-etraction-summary></footer>' +
+          '</div>';
+
+        areaComprar.insertAdjacentElement("beforebegin", wrapper);
+
+        var toggle = wrapper.querySelector("[data-toggle-kit]");
+        var modal = wrapper.querySelector("[data-kit-modal]");
+        toggle.addEventListener("click", function () {
+          var isOpen = wrapper.classList.toggle("etraction-kit-199--open");
+          modal.style.display = isOpen ? "block" : "none";
+          toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+
+        render();
+
+        document.addEventListener("click", function () {
+          setTimeout(render, 100);
+        });
+        document.addEventListener("change", function () {
+          setTimeout(render, 100);
+        });
+
+        if (window.MutationObserver) {
+          var observer = new MutationObserver(function () {
+            setTimeout(render, 80);
+          });
+          observer.observe(document.querySelector(".area-derivacoes") || document.body, {
+            subtree: true,
+            attributes: true,
+            childList: true,
+            attributeFilter: ["class", "aria-pressed", "aria-selected", "data-selected", "data-selecionado", "data-estoque"]
+          });
+        }
+      }
+
+      function init() {
+        var attempts = 0;
+        var timer = setInterval(function () {
+          attempts += 1;
+          if (document.querySelector(".area-comprar, .buy-area, .produto-compra, .product-buy-area") && (getCurrentSku() || attempts > 8)) {
+            clearInterval(timer);
+            loadCatalogStock().then(function () {
+              ensureDefaultSecondProduct();
+              buildKitBox();
+              render();
+            });
+          }
+          if (attempts >= 100) clearInterval(timer);
+        }, 150);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+
+      window.etractionKit199 = {
+        state: state,
+        products: KIT_PRODUCTS,
+        render: render,
+        reloadStock: loadCatalogStock
+      };
+    })();
+  </script>
+</div>
+</body>
+</html>

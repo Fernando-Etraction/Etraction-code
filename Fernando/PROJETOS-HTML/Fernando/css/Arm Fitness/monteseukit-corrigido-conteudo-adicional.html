@@ -1,0 +1,3286 @@
+<div class="conteudo-adicional-135">
+  <!-- Componente Monte seu Kit - Conteúdo adicional 135 - versão corrigida -->
+  <style>
+
+      :root {
+        --kit-green: #2D8B3D;
+        --kit-red: #E53935;
+        --kit-black: #111111;
+        --kit-gray: #6B7280;
+        --kit-border: #E5E7EB;
+        --kit-soft-green: #F0FDF4;
+        --kit-soft-green-border: #BBF7D0;
+        --kit-white: #FFFFFF;
+        --kit-shadow: 0 10px 28px rgba(17, 17, 17, .08);
+        --kit-radius: 12px;
+        --kit-font: Inter, "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      .conteudo-adicional-135,
+      .conteudo-adicional-135 * {
+        box-sizing: border-box;
+      }
+
+      .conteudo-adicional-135 {
+        color: var(--kit-black);
+        font-family: var(--kit-font);
+      }
+
+      .conteudo-adicional-135 [hidden] {
+        display: none !important;
+      }
+
+      .etraction-kit-builder {
+        width: min(100%, 1080px);
+        margin: 24px auto;
+        padding: 16px;
+        background: var(--kit-white);
+        border: 1px solid var(--kit-border);
+        border-radius: 18px;
+        box-shadow: var(--kit-shadow);
+      }
+
+      .etraction-flash-offer {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        background: var(--kit-black);
+        color: #fff;
+        padding: 14px 14px 11px;
+      }
+
+      .etraction-flash-offer__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .etraction-flash-badge,
+      .etraction-discount-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+        border-radius: 999px;
+        background: var(--kit-red);
+        color: #fff;
+        font-size: 11px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: .04em;
+        padding: 8px 10px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .etraction-countdown {
+        min-width: 92px;
+        border: 1px solid rgba(255, 255, 255, .22);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, .06);
+        padding: 7px 10px;
+        font-variant-numeric: tabular-nums;
+        text-align: center;
+        font-weight: 800;
+        letter-spacing: .04em;
+      }
+
+      .etraction-flash-offer__price-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .etraction-flash-price {
+        font-size: clamp(30px, 7vw, 48px);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: .95;
+      }
+
+      .etraction-flash-original {
+        color: #A3A3A3;
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: line-through;
+        margin-bottom: 4px;
+      }
+
+      .etraction-flash-installments {
+        margin-top: 8px;
+        color: rgba(255, 255, 255, .78);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .etraction-flash-progress {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 4px;
+        background: rgba(255, 255, 255, .12);
+      }
+
+      .etraction-flash-progress::before {
+        content: "";
+        display: block;
+        width: 68%;
+        height: 100%;
+        background: var(--kit-red);
+        animation: scarcityPulse 1.4s ease-in-out infinite alternate;
+      }
+
+      .etraction-kit-options {
+        display: flex;
+        gap: 10px;
+        margin: 16px 0 14px;
+        overflow-x: auto;
+        padding: 2px 2px 6px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .etraction-kit-option {
+        position: relative;
+        min-width: 168px;
+        flex: 1 0 168px;
+        border: 1px solid var(--kit-border);
+        border-radius: var(--kit-radius);
+        background: #fff;
+        padding: 16px 12px 12px;
+        cursor: pointer;
+        text-align: left;
+        transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+        scroll-snap-align: start;
+      }
+
+      .etraction-kit-option:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(17, 17, 17, .07);
+      }
+
+      .etraction-kit-option[aria-pressed="true"] {
+        border: 2px solid var(--kit-black);
+        padding: 15px 11px 11px;
+      }
+
+      .etraction-kit-option__popular {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 999px;
+        background: var(--kit-black);
+        color: #fff;
+        padding: 5px 9px;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: .04em;
+        white-space: nowrap;
+      }
+
+      .etraction-kit-option__name {
+        display: block;
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 7px;
+      }
+
+      .etraction-kit-option__price {
+        display: block;
+        font-size: 20px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+      }
+
+      .etraction-kit-option__badge {
+        display: inline-flex;
+        margin-top: 8px;
+        border-radius: 999px;
+        background: #FEE2E2;
+        color: #B91C1C;
+        padding: 5px 8px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .etraction-type-selector {
+        display: grid;
+        gap: 10px;
+        margin: 0 0 14px;
+        border: 1px solid #F1F5F9;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #FFFFFF 0%, #F9FAFB 100%);
+        padding: 12px;
+      }
+
+      .etraction-type-selector__title {
+        display: grid;
+        gap: 3px;
+      }
+
+      .etraction-type-selector__eyebrow {
+        width: fit-content;
+        border-radius: 999px;
+        background: #F3F4F6;
+        color: var(--kit-gray);
+        padding: 4px 8px;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+      }
+
+      .etraction-type-selector__title strong {
+        color: var(--kit-black);
+        font-size: 15px;
+        font-weight: 950;
+      }
+
+      .etraction-type-selector__title small {
+        color: var(--kit-gray);
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.35;
+      }
+
+      .etraction-type-options {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .etraction-type-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 10px;
+        align-items: center;
+        min-height: 66px;
+        border: 1px solid var(--kit-border);
+        border-radius: 14px;
+        background: #fff;
+        padding: 10px;
+        cursor: pointer;
+        text-align: left;
+        transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease, background .16s ease;
+      }
+
+      .etraction-type-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(17, 17, 17, .06);
+      }
+
+      .etraction-type-card[aria-pressed="true"] {
+        border: 2px solid var(--kit-black);
+        background: #FFFFFF;
+        box-shadow: 0 10px 22px rgba(17, 17, 17, .08);
+        padding: 9px;
+      }
+
+      .etraction-type-card__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: #F3F4F6;
+        font-size: 22px;
+      }
+
+      .etraction-type-card[aria-pressed="true"] .etraction-type-card__icon {
+        background: #111;
+        color: #fff;
+      }
+
+      .etraction-type-card__body {
+        display: grid;
+        gap: 2px;
+        min-width: 0;
+      }
+
+      .etraction-type-card__name {
+        color: var(--kit-black);
+        font-size: 13px;
+        font-weight: 950;
+      }
+
+      .etraction-type-card__desc {
+        color: var(--kit-gray);
+        font-size: 11px;
+        font-weight: 600;
+        line-height: 1.25;
+      }
+
+      .etraction-type-card__count {
+        border-radius: 999px;
+        background: #ECFDF5;
+        color: #166534;
+        padding: 5px 8px;
+        font-size: 11px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .etraction-chips-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin: 10px 0 14px;
+      }
+
+      .etraction-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .etraction-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 100%;
+        border: 1px solid var(--kit-border);
+        border-radius: 999px;
+        background: #fff;
+        padding: 6px 9px 6px 6px;
+        cursor: pointer;
+        transition: border-color .18s ease, box-shadow .18s ease;
+      }
+
+      .etraction-chip[aria-pressed="true"] {
+        border: 2px solid var(--kit-black);
+        padding: 5px 8px 5px 5px;
+      }
+
+      .etraction-chip__img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #F3F4F6;
+        border: 1px solid rgba(17, 17, 17, .08);
+        flex: 0 0 auto;
+      }
+
+      .etraction-chip__img--empty {
+        display: inline-block;
+      }
+
+      .etraction-chip__body {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        line-height: 1.08;
+      }
+
+      .etraction-chip__color {
+        max-width: 132px;
+        overflow: hidden;
+        color: var(--kit-black);
+        font-size: 12px;
+        font-weight: 800;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .etraction-chip__size {
+        color: var(--kit-gray);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .etraction-chip__check {
+        color: #16A34A;
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .etraction-kit-saving {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 6px;
+        color: #16803A;
+        font-size: 14px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .etraction-config-card {
+        border: 1px solid var(--kit-soft-green-border);
+        border-radius: 16px;
+        background: var(--kit-soft-green);
+        padding: 14px;
+        box-shadow: 0 6px 16px rgba(45, 139, 61, .06);
+      }
+
+      .etraction-config-card__header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .etraction-config-title {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-width: 0;
+        font-weight: 900;
+      }
+
+      .etraction-config-index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--kit-black);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .etraction-ready-badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        background: #DCFCE7;
+        color: #166534;
+        padding: 5px 8px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .etraction-selected-counter {
+        color: var(--kit-gray);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .etraction-config-message {
+        margin: 0 0 14px;
+        color: #166534;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .etraction-config-body {
+        display: grid;
+        gap: 14px;
+      }
+
+      .etraction-preview {
+        overflow: hidden;
+        border: 1px solid var(--kit-soft-green-border);
+        border-radius: 14px;
+        background: #fff;
+      }
+
+      .etraction-preview__image {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        background:
+          radial-gradient(circle at 28% 20%, rgba(45, 139, 61, .10), transparent 28%),
+          linear-gradient(135deg, #F8FAFC, #ECFDF5);
+      }
+
+      .etraction-preview__label {
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        padding: 10px 8px;
+        border-top: 1px solid #F3F4F6;
+        color: var(--kit-gray);
+        font-size: 12px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .etraction-config-controls {
+        display: grid;
+        align-content: start;
+        gap: 16px;
+      }
+
+      .etraction-control-block__label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--kit-black);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .etraction-swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+        gap: 8px;
+        max-height: 320px;
+        overflow: auto;
+        padding: 2px 2px 2px 0;
+      }
+
+      .etraction-swatch {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        width: 100%;
+        min-height: 54px;
+        border: 1px solid var(--kit-border);
+        border-radius: 12px;
+        background: #fff;
+        cursor: pointer;
+        padding: 8px;
+        text-align: left;
+        transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+      }
+
+      .etraction-swatch:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 7px 16px rgba(17, 17, 17, .06);
+      }
+
+      .etraction-swatch::before {
+        content: "";
+        width: 24px;
+        height: 24px;
+        flex: 0 0 24px;
+        border-radius: 999px;
+        background: var(--swatch);
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .14), 0 0 0 3px #F9FAFB;
+      }
+
+      .etraction-swatch[aria-pressed="true"] {
+        border: 2px solid var(--kit-black);
+        padding: 7px;
+      }
+
+      .etraction-swatch[aria-pressed="true"]::after {
+        content: "✓";
+        position: absolute;
+        top: 6px;
+        right: 7px;
+        color: #166534;
+        font-size: 13px;
+        font-weight: 950;
+      }
+
+      .etraction-swatch__text {
+        display: grid;
+        gap: 1px;
+        min-width: 0;
+        padding-right: 12px;
+      }
+
+      .etraction-swatch__color {
+        overflow: hidden;
+        color: var(--kit-black);
+        font-size: 12px;
+        font-weight: 950;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .etraction-swatch__model {
+        overflow: hidden;
+        color: var(--kit-gray);
+        font-size: 10px;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .etraction-selected-product-info {
+        min-height: 34px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, .72);
+        padding: 9px 10px;
+        color: var(--kit-gray);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .etraction-selected-product-info strong {
+        color: var(--kit-black);
+      }
+
+      .etraction-sizes {
+        display: grid;
+        gap: 12px;
+      }
+
+      .etraction-size-group {
+        border: 1px solid rgba(209, 213, 219, .72);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, .7);
+        padding: 10px;
+      }
+
+      .etraction-size-group__title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin: 0 0 8px;
+        color: var(--kit-black);
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .etraction-size-group__hint {
+        color: var(--kit-gray);
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+      }
+
+      .etraction-size-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .etraction-size-btn {
+        min-width: 48px;
+        height: 40px;
+        border: 1px solid #D1D5DB;
+        border-radius: 10px;
+        background: #fff;
+        color: var(--kit-black);
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 900;
+        transition: background .15s ease, color .15s ease, border-color .15s ease;
+      }
+
+      .etraction-size-btn[aria-pressed="true"] {
+        border-color: var(--kit-black);
+        background: var(--kit-black);
+        color: #fff;
+      }
+
+      .etraction-size-btn:disabled,
+      .etraction-size-btn.etraction-is-out-stock {
+        cursor: not-allowed;
+        opacity: .42;
+        text-decoration: line-through;
+        background: #F3F4F6;
+        color: #6B7280;
+      }
+
+      .etraction-stock-hint {
+        min-height: 20px;
+        color: var(--kit-gray);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .etraction-stock-hint strong {
+        color: var(--kit-green);
+      }
+
+      .etraction-next-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 48px;
+        border: 0;
+        border-radius: 12px;
+        background: var(--kit-black);
+        color: #fff;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .etraction-next-btn:disabled {
+        cursor: not-allowed;
+        opacity: .45;
+      }
+
+      .etraction-next-btn.etraction-is-ready {
+        animation: subtlePulse 1.1s ease-in-out infinite;
+      }
+
+      .etraction-footer-summary {
+        display: grid;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .etraction-shipping-line {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #16803A;
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .etraction-price-footer {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+        align-items: end;
+        border-top: 1px solid var(--kit-border);
+        padding-top: 12px;
+      }
+
+      .etraction-price-footer__main {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .etraction-price-footer__original {
+        color: var(--kit-gray);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: line-through;
+      }
+
+      .etraction-price-footer__final {
+        color: var(--kit-black);
+        font-size: clamp(30px, 6vw, 42px);
+        font-weight: 950;
+        letter-spacing: -0.05em;
+        line-height: 1;
+      }
+
+      .etraction-price-footer__installments {
+        color: var(--kit-gray);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .etraction-add-cart-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 56px;
+        border: 0;
+        border-radius: 12px;
+        background: var(--kit-green);
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 950;
+        letter-spacing: -.01em;
+        box-shadow: 0 12px 24px rgba(45, 139, 61, .22);
+        transition: filter .16s ease, transform .16s ease, opacity .16s ease;
+      }
+
+      .etraction-add-cart-btn:not(:disabled):hover {
+        filter: brightness(.96);
+        transform: translateY(-1px);
+      }
+
+      .etraction-add-cart-btn:disabled {
+        cursor: not-allowed;
+        opacity: .45;
+        box-shadow: none;
+      }
+
+      .etraction-feedback {
+        min-height: 20px;
+        color: #166534;
+        font-size: 13px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .etraction-sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      @keyframes scarcityPulse {
+        from {
+          opacity: .75;
+          width: 58%;
+        }
+
+        to {
+          opacity: 1;
+          width: 78%;
+        }
+      }
+
+      @keyframes subtlePulse {
+
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(17, 17, 17, .18);
+        }
+
+        50% {
+          box-shadow: 0 0 0 8px rgba(17, 17, 17, .08);
+        }
+      }
+
+      @media (min-width: 720px) {
+        .etraction-kit-builder {
+          padding: 20px;
+        }
+
+        .etraction-type-selector {
+          grid-template-columns: 230px 1fr;
+          align-items: center;
+        }
+
+        .etraction-type-options {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .etraction-chips-row {
+          grid-template-columns: 1fr auto;
+          align-items: center;
+        }
+
+        .etraction-config-body {
+          grid-template-columns: minmax(190px, 260px) 1fr;
+        }
+
+        .etraction-swatches {
+          grid-template-columns: repeat(2, minmax(150px, 1fr));
+          max-height: 236px;
+        }
+
+        .etraction-price-footer {
+          grid-template-columns: 1fr auto;
+        }
+
+        .etraction-price-footer__installments {
+          text-align: right;
+        }
+      }
+
+      @media (min-width: 980px) {
+        .etraction-kit-options {
+          overflow: visible;
+        }
+
+        .etraction-kit-option {
+          min-width: 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+          animation-duration: .01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+        }
+      }
+  </style>
+    <main class="etraction-kit-builder" data-kit-builder>
+      <section class="etraction-flash-offer" aria-label="Oferta relâmpago do kit">
+        <div class="etraction-flash-offer__top">
+          <span class="etraction-flash-badge" aria-label="Oferta relâmpago">⚡ OFERTA RELÂMPAGO</span>
+          <span class="etraction-countdown" data-countdown aria-live="polite">00:00:00</span>
+        </div>
+
+        <div class="etraction-flash-offer__price-row">
+          <span class="etraction-discount-badge" data-discount-badge>3 POR 289</span>
+          <span class="etraction-flash-price" data-flash-price>R$ 0,00</span>
+          <span class="etraction-flash-original" data-flash-original>R$ 0,00</span>
+        </div>
+
+        <div class="etraction-flash-installments" data-flash-installments>10x de R$ 0,00 sem juros</div>
+        <div class="etraction-flash-progress" aria-hidden="true"></div>
+      </section>
+
+      <section class="etraction-kit-options" data-kit-options aria-label="Escolha a quantidade de peças do kit"></section>
+
+      <section class="etraction-type-selector" data-type-selector aria-label="Separar conjuntos por modelo"></section>
+
+      <section class="etraction-chips-row" aria-label="Resumo das peças configuradas">
+        <div class="etraction-chips" data-chips></div>
+        <div class="etraction-kit-saving" data-kit-saving>★ Economia: R$ 0,00</div>
+      </section>
+
+      <section class="etraction-config-card" aria-label="Configurador da peça atual">
+        <header class="etraction-config-card__header">
+          <div class="etraction-config-title">
+            <span class="etraction-config-index" data-current-number>1</span>
+            <span data-current-title>Conjunto 1 de 3</span>
+            <span class="etraction-ready-badge" data-ready-badge hidden>✓ Pronto</span>
+          </div>
+          <span class="etraction-selected-counter" data-selected-counter>0/3 selecionadas</span>
+        </header>
+
+        <p class="etraction-config-message" data-config-message>Configure o próximo conjunto</p>
+
+        <div class="etraction-config-body">
+          <figure class="etraction-preview">
+            <img class="etraction-preview__image" data-preview-image alt="" hidden />
+            <figcaption class="etraction-preview__label" data-preview-label>Cor · Tamanho</figcaption>
+          </figure>
+
+          <div class="etraction-config-controls">
+            <div class="etraction-control-block">
+              <label class="etraction-control-block__label" id="color-label">Cor / produto</label>
+              <div class="etraction-swatches" data-swatches role="group" aria-labelledby="color-label"></div>
+              <div class="etraction-selected-product-info" data-selected-product-info>
+                Selecione uma cor para visualizar o produto.
+              </div>
+            </div>
+
+            <div class="etraction-control-block">
+              <span class="etraction-control-block__label" id="size-label">Tamanhos do conjunto</span>
+              <div class="etraction-sizes" data-sizes role="group" aria-labelledby="size-label"></div>
+              <div class="etraction-stock-hint" data-stock-hint aria-live="polite">Selecione produto, tamanho do top e tamanho da parte de baixo.</div>
+            </div>
+
+            <button type="button" class="etraction-next-btn" data-next-btn aria-label="Avançar para a próxima peça">
+              Próximo Conjunto →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="etraction-footer-summary">
+        <div class="etraction-shipping-line">🚚 Frete grátis para todo o Brasil</div>
+
+        <div class="etraction-price-footer">
+          <div class="etraction-price-footer__main">
+            <span class="etraction-price-footer__original" data-footer-original>R$ 0,00</span>
+            <span class="etraction-price-footer__final" data-footer-final>R$ 0,00</span>
+          </div>
+          <div class="etraction-price-footer__installments" data-footer-installments>10x de R$ 0,00 sem juros</div>
+        </div>
+
+        <button type="button" class="etraction-add-cart-btn" data-add-cart disabled aria-label="Adicionar kit ao carrinho">
+          🛒 Adicionar ao Carrinho
+        </button>
+        <div class="etraction-feedback" data-feedback role="status" aria-live="polite"></div>
+      </footer>
+    </main>
+  <script>
+(function () {
+      "use strict";
+
+      /**
+     * Monte seu Kit — Bundle Builder progressivo
+     * Stack: HTML + CSS + JavaScript puro.
+     * Dados extraídos da planilha de relacionamento de produtos Arm Fitness.
+     *
+     * Integração real:
+     * - Substitua o conteúdo da função addToCart(payload) pelo endpoint/API da loja.
+     * - O payload já traz sku, produto, cor, tamanho, preço e URL de cada peça.
+     */
+
+    const PRODUCTS = [
+  {
+    "sku": "1FC8KS186",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Avelã",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Avelã",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 5.0,
+    "reviews": 105,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-powerslim-top-alca-digital-avela",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/5158/arm30033993.jpg?ims=425x635",
+    "colorHex": "#A67C52",
+    "shortName": "Short PowerSlim + Top Alça Digital Avelã"
+  },
+  {
+    "sku": "KS07PT",
+    "name": "Conjunto short basico preto",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Preto",
+    "family": "Básicos / lisos",
+    "model": "Básico",
+    "rating": 4.92,
+    "reviews": 3973,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-shorts-top-darkness",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4251/arm181214976.jpg?ims=425x635",
+    "colorHex": "#111111",
+    "shortName": "short basico preto"
+  },
+  {
+    "sku": "1FC7KS149",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Açaí",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Açaí",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 804,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-blackout-top-alca-digital-acai",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3841/20250910-arm-0639.jpg?ims=425x635",
+    "colorHex": "#4C1D95",
+    "shortName": "Short PowerSlim + Top Alça Digital Açaí"
+  },
+  {
+    "sku": "KS01ELTI",
+    "name": "Conjunto feminino fitness short + top elite",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Elite",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.93,
+    "reviews": 2363,
+    "category": "Feminino,Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-short-top-elite",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4134/arm181214229.jpg?ims=425x635",
+    "colorHex": "#222222",
+    "shortName": "short + top elite"
+  },
+  {
+    "sku": "KS07CMRB",
+    "name": "Conjunto compact short com bolso marinho",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Marinho",
+    "family": "Compact com bolso",
+    "model": "Com bolso",
+    "rating": 4.92,
+    "reviews": 3074,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-compact-short-com-bolso-marinho-new-collection",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4309/arm181214261-2.jpg?ims=425x635",
+    "colorHex": "#0B1F3A",
+    "shortName": "compact short com bolso marinho"
+  },
+  {
+    "sku": "1FC8KS188",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Marinho",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Marinho",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.92,
+    "reviews": 2557,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-powerslim-top-alca-digital-marinho",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4968/arm30033974.jpg?ims=425x635",
+    "colorHex": "#0B1F3A",
+    "shortName": "Short PowerSlim + Top Alça Digital Marinho"
+  },
+  {
+    "sku": "1FC8KL185",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Mirtilo",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Mirtilo",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.96,
+    "reviews": 67,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-powerslim-top-alca-digital-mirtilo",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4939/arm30033739.jpg?ims=425x635",
+    "colorHex": "#3730A3",
+    "shortName": "Legging PowerSlim + Top Alça Digital Mirtilo"
+  },
+  {
+    "sku": "1FC8KL186",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Avelã",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Avelã",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 5.0,
+    "reviews": 139,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-powerslim-top-alca-digital-avela",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/5149/arm30033940.jpg?ims=425x635",
+    "colorHex": "#A67C52",
+    "shortName": "Legging PowerSlim + Top Alça Digital Avelã"
+  },
+  {
+    "sku": "K01ELTI",
+    "name": "Conjunto Feminino Fitness Legging + Top Básico Elite",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Elite",
+    "family": "Básicos / lisos",
+    "model": "Básico",
+    "rating": 4.93,
+    "reviews": 4080,
+    "category": "Feminino,Conjuntos,Coleção Lisas,Calça + Top Lisas",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-legging-top-basico-elite",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4147/arm181215499.jpg?ims=425x635",
+    "colorHex": "#222222",
+    "shortName": "Legging + Top Básico Elite"
+  },
+  {
+    "sku": "1FC8KS185",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Mirtilo",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Mirtilo",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.98,
+    "reviews": 54,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-powerslim-top-alca-digital-mirtilo",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4947/arm30033779.jpg?ims=425x635",
+    "colorHex": "#3730A3",
+    "shortName": "Short PowerSlim + Top Alça Digital Mirtilo"
+  },
+  {
+    "sku": "KL01PT",
+    "name": "Conjunto dark",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Preto",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.93,
+    "reviews": 4477,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-dark",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4258/arm181215027.jpg?ims=425x635",
+    "colorHex": "#111111",
+    "shortName": "dark"
+  },
+  {
+    "sku": "1FC03KL107",
+    "name": "Conjunto Legging PowerSlim +Top Alça Digital Urbana",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Urbana",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.94,
+    "reviews": 640,
+    "category": "Coleções,Colors",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-legging-blackout-top-alca-digital-urbana",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4279/arm181214489.jpg?ims=425x635",
+    "colorHex": "#64748B",
+    "shortName": "Legging PowerSlim +Top Alça Digital Urbana"
+  },
+  {
+    "sku": "1FC8KS189",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Cereja",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Cereja",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 5.0,
+    "reviews": 48,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-powerslim-top-alca-digital-cereja",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4916/conjunto-cereja-armfitness-1-9.jpg?ims=425x635",
+    "colorHex": "#9F1239",
+    "shortName": "Short PowerSlim + Top Alça Digital Cereja"
+  },
+  {
+    "sku": "1FC8KS187",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Elixir",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Elixir",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 5.0,
+    "reviews": 38,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-powerslim-top-alca-digital-elixir",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4902/conjunto-fitness-azul-elixir-armfitness-9.jpg?ims=425x635",
+    "colorHex": "#0E7490",
+    "shortName": "Short PowerSlim + Top Alça Digital Elixir"
+  },
+  {
+    "sku": "1FC8KL189",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Cereja",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Cereja",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 5.0,
+    "reviews": 65,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-powerslim-top-alca-digital-cereja",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4907/conjunto-cereja-armfitness-1-2.jpg?ims=425x635",
+    "colorHex": "#9F1239",
+    "shortName": "Legging PowerSlim + Top Alça Digital Cereja"
+  },
+  {
+    "sku": "K00MIT",
+    "name": "Conjunto feminino fitness mint verde",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Mint Verde",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.83,
+    "reviews": 1468,
+    "category": "Feminino,Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-mint-verde",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4208/arm181214413.jpg?ims=425x635",
+    "colorHex": "#B7E4C7",
+    "shortName": "mint verde"
+  },
+  {
+    "sku": "1FC03KS106",
+    "name": "Conjunto Short PowerSlim +Top Alça Digital Graphite",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Graphite",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 647,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-short-blackout-top-alca-digital-graphite",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4961/arm30033913.jpg?ims=425x635",
+    "colorHex": "#4B5563",
+    "shortName": "Short PowerSlim +Top Alça Digital Graphite"
+  },
+  {
+    "sku": "KS07CPTB",
+    "name": "Conjunto compact short com bolso preto",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Preto",
+    "family": "Compact com bolso",
+    "model": "Com bolso",
+    "rating": 4.93,
+    "reviews": 3838,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-compact-short-com-bolso-preto-new-collection",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4291/arm181214724.jpg?ims=425x635",
+    "colorHex": "#111111",
+    "shortName": "compact short com bolso preto"
+  },
+  {
+    "sku": "1FC03KS108",
+    "name": "Conjunto Short SoftBlack +Top Alça Digital Essence",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Essence",
+    "family": "SoftBlack + Alça Digital",
+    "model": "SoftBlack",
+    "rating": 4.94,
+    "reviews": 431,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-short-blackout-top-alca-digital-essence",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4154/arm181214845.jpg?ims=425x635",
+    "colorHex": "#6B7280",
+    "shortName": "Short SoftBlack +Top Alça Digital Essence"
+  },
+  {
+    "sku": "1FC03KS107",
+    "name": "Conjunto Short PowerSlim +Top Alça Digital Urbana",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Urbana",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 504,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-short-blackout-top-alca-digital-urbana",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4285/arm181214519.jpg?ims=425x635",
+    "colorHex": "#64748B",
+    "shortName": "Short PowerSlim +Top Alça Digital Urbana"
+  },
+  {
+    "sku": "1FC03KL106",
+    "name": "Conjunto Legging PowerSlim +Top Alça Digital Graphite",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Graphite",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.94,
+    "reviews": 804,
+    "category": "Coleções,Colors",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-legging-blackout-top-alca-digital-graphite",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4952/arm30033874.jpg?ims=425x635",
+    "colorHex": "#4B5563",
+    "shortName": "Legging PowerSlim +Top Alça Digital Graphite"
+  },
+  {
+    "sku": "1FC7KS154",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Goiaba",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Goiaba",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 245,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-blackout-top-alca-digital-goiaba",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3863/20250910-arm-0048.jpg?ims=425x635",
+    "colorHex": "#FB7185",
+    "shortName": "Short PowerSlim + Top Alça Digital Goiaba"
+  },
+  {
+    "sku": "1FC7KS153",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Matcha",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Matcha",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.93,
+    "reviews": 413,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-blackout-top-alca-digital-matcha",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3879/20250910-arm-0403.jpg?ims=425x635",
+    "colorHex": "#84A98C",
+    "shortName": "Short PowerSlim + Top Alça Digital Matcha"
+  },
+  {
+    "sku": "K01TERR",
+    "name": "Conjunto Feminino Fitness Legging + Top Básico Terracota",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Terracota",
+    "family": "Básicos / lisos",
+    "model": "Básico",
+    "rating": 4.92,
+    "reviews": 2572,
+    "category": "Feminino,Conjuntos,Coleção Lisas,Calça + Top Lisas",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-legging-top-basico-terracota",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4269/arm181214191.jpg?ims=425x635",
+    "colorHex": "#B45309",
+    "shortName": "Legging + Top Básico Terracota"
+  },
+  {
+    "sku": "KL01MR",
+    "name": "Conjunto marinho",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Marinho",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.92,
+    "reviews": 3333,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-marinho",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4295/arm181215415.jpg?ims=425x635",
+    "colorHex": "#0B1F3A",
+    "shortName": "marinho"
+  },
+  {
+    "sku": "KS01TERR",
+    "name": "Conjunto feminino fitness short + top terracota",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Terracota",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.93,
+    "reviews": 1484,
+    "category": "Feminino,Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-short-top-terracota",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4270/arm181214191-2.jpg?ims=425x635",
+    "colorHex": "#B45309",
+    "shortName": "short + top terracota"
+  },
+  {
+    "sku": "KSHTMIT",
+    "name": "Conjunto feminino fitness short + top mint verde",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Mint Verde",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.86,
+    "reviews": 1160,
+    "category": "Feminino,Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-short-top-mint-verde",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4201/arm181214339.jpg?ims=425x635",
+    "colorHex": "#B7E4C7",
+    "shortName": "short + top mint verde"
+  },
+  {
+    "sku": "1FC7KL149",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Açaí",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Açaí",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 919,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-blackout-top-alca-digital-acai",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3834/20250910-arm-0577.jpg?ims=425x635",
+    "colorHex": "#4C1D95",
+    "shortName": "Legging PowerSlim + Top Alça Digital Açaí"
+  },
+  {
+    "sku": "1FC7KS150",
+    "name": "Conjunto Fitness Short SoftBlack + Top Alça Digital Aveia",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Aveia",
+    "family": "SoftBlack + Alça Digital",
+    "model": "SoftBlack",
+    "rating": 4.91,
+    "reviews": 270,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-blackout-top-alca-digital-aveia",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3850/20250910-arm-0279.jpg?ims=425x635",
+    "colorHex": "#D6C6AF",
+    "shortName": "Short SoftBlack + Top Alça Digital Aveia"
+  },
+  {
+    "sku": "1FC03KL108",
+    "name": "Conjunto Legging SoftBlack +Top Alça Digital Essence",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Essence",
+    "family": "SoftBlack + Alça Digital",
+    "model": "SoftBlack",
+    "rating": 4.93,
+    "reviews": 512,
+    "category": "Coleções,Colors",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-legging-blackout-top-alca-digital-essence",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4162/arm181214951.jpg?ims=425x635",
+    "colorHex": "#6B7280",
+    "shortName": "Legging SoftBlack +Top Alça Digital Essence"
+  },
+  {
+    "sku": "1FC8KL187",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Elixir",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Elixir",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 5.0,
+    "reviews": 48,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-powerslim-top-alca-digital-elixir",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/04/produto/4889/conjunto-fitness-azul-elixir-armfitness-3.jpg?ims=425x635",
+    "colorHex": "#0E7490",
+    "shortName": "Legging PowerSlim + Top Alça Digital Elixir"
+  },
+  {
+    "sku": "1FC7KS151",
+    "name": "Conjunto Fitness Short PowerSlim + Top Alça Digital Pitaya",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Pitaya",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.96,
+    "reviews": 156,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-blackout-top-alca-digital-pitaya",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3895/20250910-arm-0540.jpg?ims=425x635",
+    "colorHex": "#D9468F",
+    "shortName": "Short PowerSlim + Top Alça Digital Pitaya"
+  },
+  {
+    "sku": "1FC7KL151",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Pitaya",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Pitaya",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 185,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-blackout-top-alca-digital-pitaya",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3888/20250910-arm-0515.jpg?ims=425x635",
+    "colorHex": "#D9468F",
+    "shortName": "Legging PowerSlim + Top Alça Digital Pitaya"
+  },
+  {
+    "sku": "1FC7KL153",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Matcha",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Matcha",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.94,
+    "reviews": 453,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-blackout-top-alca-digital-matcha",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/10/produto/3916/20250910-arm-0306.jpg?ims=425x635",
+    "colorHex": "#84A98C",
+    "shortName": "Legging PowerSlim + Top Alça Digital Matcha"
+  },
+  {
+    "sku": "KL01CPTB",
+    "name": "Conjunto compact com bolso preto",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Preto",
+    "family": "Compact com bolso",
+    "model": "Com bolso",
+    "rating": 4.93,
+    "reviews": 4890,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-compact-com-bolso-preto-new-collection",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4245/arm181214801.jpg?ims=425x635",
+    "colorHex": "#111111",
+    "shortName": "compact com bolso preto"
+  },
+  {
+    "sku": "1FC7KL154",
+    "name": "Conjunto Fitness Legging PowerSlim + Top Alça Digital Goiaba",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Goiaba",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.95,
+    "reviews": 283,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-blackout-top-alca-digital-goiaba",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3856/20250910-arm-0023.jpg?ims=425x635",
+    "colorHex": "#FB7185",
+    "shortName": "Legging PowerSlim + Top Alça Digital Goiaba"
+  },
+  {
+    "sku": "KL01CMRB",
+    "name": "Conjunto compact com bolso marinho",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Marinho",
+    "family": "Compact com bolso",
+    "model": "Com bolso",
+    "rating": 4.92,
+    "reviews": 4047,
+    "category": "Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-compact-com-bolso-marinho-new-collection",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4299/arm181215521.jpg?ims=425x635",
+    "colorHex": "#0B1F3A",
+    "shortName": "compact com bolso marinho"
+  },
+  {
+    "sku": "1FC04KS113",
+    "name": "Conjunto Short Blackout +Top Decote U Amarelo Mel",
+    "price": 129.0,
+    "bottom": "Short",
+    "color": "Amarelo Mel",
+    "family": "Decote U",
+    "model": "PowerSlim",
+    "rating": 4.93,
+    "reviews": 73,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-short-blackout-top-decote-u-amarelo-mel",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/10/produto/3975/conjunto-amarelo-mel-short.jpg?ims=425x635",
+    "colorHex": "#831843",
+    "shortName": "Short Blackout +Top Decote U Amarelo Mel"
+  },
+  {
+    "sku": "1FC03KS110",
+    "name": "Conjunto Short Blackout +Top Alça Digital Active",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Active",
+    "family": "PowerSlim + Alça Digital",
+    "model": "PowerSlim",
+    "rating": 4.94,
+    "reviews": 387,
+    "category": "Coleções,Colors",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-short-blackout-top-alca-digital-active",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/10/produto/3964/conjunto-active-short.jpg?ims=425x635",
+    "colorHex": "#713F12",
+    "shortName": "Short Blackout +Top Alça Digital Active"
+  },
+  {
+    "sku": "1FC01KL100",
+    "name": "Conjunto Roxo Legging Bolso PowerSlim +Top Decote U Mirtilo",
+    "price": 139.0,
+    "bottom": "Legging",
+    "color": "Mirtilo",
+    "family": "PowerSlim bolso + Decote U",
+    "model": "Com bolso",
+    "rating": 4.93,
+    "reviews": 702,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-roxo-legging-bolso-blackout-top-decote-u-mirtilo",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4219/arm181215155.jpg?ims=425x635",
+    "colorHex": "#3730A3",
+    "shortName": "Roxo Legging Bolso PowerSlim +Top Decote U Mirtilo"
+  },
+  {
+    "sku": "1FC7KS152",
+    "name": "Conjunto Fitness Short SoftBlack + Top Alça Digital Castanha",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Castanha",
+    "family": "SoftBlack + Alça Digital",
+    "model": "SoftBlack",
+    "rating": 4.91,
+    "reviews": 45,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-short-blackout-top-alca-digital-castanha",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3908/20250910-arm-0461.jpg?ims=425x635",
+    "colorHex": "#831843",
+    "shortName": "Short SoftBlack + Top Alça Digital Castanha"
+  },
+  {
+    "sku": "1FC01KS100",
+    "name": "Conjunto Roxo Short Bolso PowerSlim +Top Decote U Mirtilo",
+    "price": 129.0,
+    "bottom": "Short",
+    "color": "Mirtilo",
+    "family": "PowerSlim bolso + Decote U",
+    "model": "Com bolso",
+    "rating": 4.93,
+    "reviews": 546,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Shorts",
+    "url": "https://www.armfitness.com.br/conjunto-roxo-short-bolso-blackout-top-decote-u-mirtilo",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4213/arm181215088.jpg?ims=425x635",
+    "colorHex": "#3730A3",
+    "shortName": "Roxo Short Bolso PowerSlim +Top Decote U Mirtilo"
+  },
+  {
+    "sku": "1FC7KL150",
+    "name": "Conjunto Fitness Legging SoftBlack + Top Alça Digital Aveia",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Aveia",
+    "family": "SoftBlack + Alça Digital",
+    "model": "SoftBlack",
+    "rating": 4.91,
+    "reviews": 326,
+    "category": "Mulher,Conjuntos",
+    "variations": "Top + Legging",
+    "url": "https://www.armfitness.com.br/conjunto-fitness-legging-blackout-top-alca-digital-aveia",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2025/09/produto/3842/20250910-arm-0191.jpg?ims=425x635",
+    "colorHex": "#D6C6AF",
+    "shortName": "Legging SoftBlack + Top Alça Digital Aveia"
+  },
+  {
+    "sku": "K00DCV",
+    "name": "Conjunto feminino fitness discovery",
+    "price": 119.0,
+    "bottom": "Legging",
+    "color": "Discovery",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.92,
+    "reviews": 2851,
+    "category": "Feminino,Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-discovery",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4128/arm181214873.jpg?ims=425x635",
+    "colorHex": "#8B5CF6",
+    "shortName": "discovery"
+  },
+  {
+    "sku": "KSHTDCV",
+    "name": "Conjunto feminino fitness short + top discovery",
+    "price": 109.0,
+    "bottom": "Short",
+    "color": "Discovery",
+    "family": "Básicos / lisos",
+    "model": "Liso",
+    "rating": 4.92,
+    "reviews": 2051,
+    "category": "Feminino,Conjuntos",
+    "variations": "Tamanho Top + Tamanho",
+    "url": "https://www.armfitness.com.br/conjunto-feminino-fitness-short-top-discovery",
+    "image": "https://armfitness.cdn.magazord.com.br/img/2026/01/produto/4125/arm181214774.jpg?ims=425x635",
+    "colorHex": "#8B5CF6",
+    "shortName": "short + top discovery"
+  }
+];
+
+    const RELATED_BY_SKU = {
+  "1FC8KS186": [
+    "1FC8KL186",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "KS07PT": [
+    "KL01PT",
+    "KS01ELTI",
+    "KSHTDCV",
+    "KS01TERR",
+    "K01ELTI",
+    "KL01MR"
+  ],
+  "1FC7KS149": [
+    "1FC7KL149",
+    "1FC8KS188",
+    "1FC03KS106",
+    "1FC03KS107",
+    "1FC03KL106",
+    "1FC03KL107"
+  ],
+  "KS01ELTI": [
+    "K01ELTI",
+    "KS07PT",
+    "KSHTDCV",
+    "KS01TERR",
+    "KL01PT",
+    "KL01MR"
+  ],
+  "KS07CMRB": [
+    "KL01CMRB",
+    "KS07CPTB",
+    "KL01CPTB",
+    "KL01MR",
+    "KS07PT",
+    "1FC8KS188"
+  ],
+  "1FC8KS188": [
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC03KS107",
+    "1FC7KL149",
+    "1FC03KL106",
+    "KL01CMRB"
+  ],
+  "1FC8KL185": [
+    "1FC8KS185",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "1FC8KL186": [
+    "1FC8KS186",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "K01ELTI": [
+    "KS01ELTI",
+    "KL01PT",
+    "KL01MR",
+    "K00DCV",
+    "KS07PT",
+    "KSHTDCV"
+  ],
+  "1FC8KS185": [
+    "1FC8KL185",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "KL01PT": [
+    "KS07PT",
+    "K01ELTI",
+    "KL01MR",
+    "K00DCV",
+    "KS01ELTI",
+    "KSHTDCV"
+  ],
+  "1FC03KL107": [
+    "1FC03KS107",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC7KL153",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "1FC8KS189": [
+    "1FC8KL189",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "1FC8KS187": [
+    "1FC8KL187",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "1FC8KL189": [
+    "1FC8KS189",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "K00MIT": [
+    "KSHTMIT",
+    "KL01PT",
+    "K01ELTI",
+    "KL01MR",
+    "KS07PT",
+    "KS01ELTI"
+  ],
+  "1FC03KS106": [
+    "1FC03KL106",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS107",
+    "1FC7KL149",
+    "1FC03KL107"
+  ],
+  "KS07CPTB": [
+    "KL01CPTB",
+    "KS07CMRB",
+    "KL01CMRB",
+    "KL01PT",
+    "KS07PT",
+    "1FC8KS188"
+  ],
+  "1FC03KS108": [
+    "1FC03KL108",
+    "1FC7KS150",
+    "1FC7KS152",
+    "1FC7KL150",
+    "KS07PT",
+    "KS07CPTB"
+  ],
+  "1FC03KS107": [
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "1FC03KL106": [
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL107",
+    "1FC7KL153",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "1FC7KS154": [
+    "1FC7KL154",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "1FC7KS153": [
+    "1FC7KL153",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "K01TERR": [
+    "KS01TERR",
+    "KL01PT",
+    "K01ELTI",
+    "KL01MR",
+    "KS07PT",
+    "KS01ELTI"
+  ],
+  "KL01MR": [
+    "KL01PT",
+    "K01ELTI",
+    "K00DCV",
+    "KS07PT",
+    "KS01ELTI",
+    "KL01CMRB"
+  ],
+  "KS01TERR": [
+    "K01TERR",
+    "KS07PT",
+    "KS01ELTI",
+    "KSHTDCV",
+    "KL01PT",
+    "K01ELTI"
+  ],
+  "KSHTMIT": [
+    "K00MIT",
+    "KS07PT",
+    "KS01ELTI",
+    "KSHTDCV",
+    "KL01PT",
+    "K01ELTI"
+  ],
+  "1FC7KL149": [
+    "1FC7KS149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC7KL153",
+    "1FC8KS188",
+    "1FC03KS106"
+  ],
+  "1FC7KS150": [
+    "1FC7KL150",
+    "1FC03KS108",
+    "1FC7KS152",
+    "1FC03KL108",
+    "KS07PT",
+    "KS07CPTB"
+  ],
+  "1FC03KL108": [
+    "1FC03KS108",
+    "1FC7KL150",
+    "1FC7KS150",
+    "1FC7KS152",
+    "KL01CPTB",
+    "KL01PT"
+  ],
+  "1FC8KL187": [
+    "1FC8KS187",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "1FC7KS151": [
+    "1FC7KL151",
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106"
+  ],
+  "1FC7KL151": [
+    "1FC7KS151",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "1FC7KL153": [
+    "1FC7KS153",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "KL01CPTB": [
+    "KS07CPTB",
+    "KL01CMRB",
+    "KS07CMRB",
+    "KL01PT",
+    "K01ELTI",
+    "KL01MR"
+  ],
+  "1FC7KL154": [
+    "1FC7KS154",
+    "1FC7KL149",
+    "1FC03KL106",
+    "1FC03KL107",
+    "1FC8KS188",
+    "1FC7KS149"
+  ],
+  "KL01CMRB": [
+    "KS07CMRB",
+    "KL01CPTB",
+    "KS07CPTB",
+    "KL01MR",
+    "KL01PT",
+    "K01ELTI"
+  ],
+  "1FC04KS113": [
+    "1FC01KS100",
+    "KL01CPTB",
+    "KL01PT",
+    "K01ELTI",
+    "KL01CMRB",
+    "KS07PT"
+  ],
+  "1FC03KS110": [
+    "1FC8KS188",
+    "1FC7KS149",
+    "1FC03KS106",
+    "1FC7KL149",
+    "1FC03KL106",
+    "KS07PT"
+  ],
+  "1FC01KL100": [
+    "1FC01KS100",
+    "1FC8KL185",
+    "KL01CPTB",
+    "KL01PT",
+    "K01ELTI",
+    "KL01CMRB"
+  ],
+  "1FC7KS152": [
+    "1FC03KS108",
+    "1FC7KS150",
+    "1FC03KL108",
+    "1FC7KL150",
+    "KS07PT",
+    "KS07CPTB"
+  ],
+  "1FC01KS100": [
+    "1FC01KL100",
+    "1FC8KL185",
+    "1FC04KS113",
+    "KL01CPTB",
+    "KL01PT",
+    "K01ELTI"
+  ],
+  "1FC7KL150": [
+    "1FC7KS150",
+    "1FC03KL108",
+    "1FC03KS108",
+    "1FC7KS152",
+    "KL01CPTB",
+    "KL01PT"
+  ],
+  "K00DCV": [
+    "KSHTDCV",
+    "KL01PT",
+    "K01ELTI",
+    "KL01MR",
+    "KS07PT",
+    "KS01ELTI"
+  ],
+  "KSHTDCV": [
+    "K00DCV",
+    "KS07PT",
+    "KS01ELTI",
+    "KS01TERR",
+    "KL01PT",
+    "K01ELTI"
+  ]
+};
+
+    const SIZES = ["P", "M", "G", "GG", "XGG"];
+
+    /**
+     * Estoque real por produto Magazord.
+     * Não usa IDs fixos: busca a página de cada produto, extrai o JSON inline
+     * e valida a combinação Top + Shorts/Legging pelo proder_id real.
+     */
+    const ProductStock = (() => {
+      const productCache = new Map();
+      const TTL_MS = 5 * 60 * 1000;
+      const stamps = new Map();
+
+      function parseBalancedObject(source, startIndex) {
+        let depth = 0;
+        let inString = false;
+        let escape = false;
+
+        for (let i = startIndex; i < source.length; i += 1) {
+          const char = source[i];
+
+          if (escape) {
+            escape = false;
+            continue;
+          }
+
+          if (char === "\\") {
+            escape = true;
+            continue;
+          }
+
+          if (char === '"') {
+            inString = !inString;
+            continue;
+          }
+
+          if (inString) continue;
+
+          if (char === "{") depth += 1;
+          if (char === "}") {
+            depth -= 1;
+            if (depth === 0) return source.slice(startIndex, i + 1);
+          }
+        }
+
+        return null;
+      }
+
+      function extractProductJson(html) {
+        const marker = /produto\s*:\s*\{/g;
+        let match;
+
+        while ((match = marker.exec(html))) {
+          const objectStart = html.indexOf("{", match.index);
+          const objectText = parseBalancedObject(html, objectStart);
+          if (!objectText) continue;
+
+          try {
+            const parsed = JSON.parse(objectText);
+            if (parsed && Array.isArray(parsed.derivacoes_produto)) return parsed;
+          } catch (error) {
+            // Mantém a busca: a página pode conter outros objetos chamados produto.
+          }
+        }
+
+        return null;
+      }
+
+      function absoluteUrl(url) {
+        try {
+          return new URL(url, window.location.origin).href;
+        } catch (error) {
+          return String(url || "");
+        }
+      }
+
+      async function loadProduct(url) {
+        const finalUrl = absoluteUrl(url);
+        const now = Date.now();
+
+        if (productCache.has(finalUrl) && now - (stamps.get(finalUrl) || 0) < TTL_MS) {
+          return productCache.get(finalUrl);
+        }
+
+        const promise = fetch(finalUrl, { credentials: "include" })
+          .then((response) => {
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return response.text();
+          })
+          .then((html) => {
+            const product = extractProductJson(html);
+            if (!product) throw new Error("JSON de produto não encontrado na página.");
+            return product;
+          });
+
+        productCache.set(finalUrl, promise);
+        stamps.set(finalUrl, now);
+        return promise;
+      }
+
+      function normSize(size) {
+        return String(size || "").trim().toUpperCase();
+      }
+
+      function isTop(variationName) {
+        return /top/i.test(String(variationName || ""));
+      }
+
+      function isBottom(variationName) {
+        return /(short|legging|cal[cç]a|tamanho)/i.test(String(variationName || "")) && !isTop(variationName);
+      }
+
+      function partIsAvailable(part) {
+        return part?.estoque !== false;
+      }
+
+      function fail(motivo) {
+        return {
+          emEstoque: false,
+          carregado: true,
+          motivo,
+          proderId: null,
+          top: { iteder_id: null, tamanho: null, estoque: false },
+          bottom: { iteder_id: null, tamanho: null, estoque: false, tipo: null }
+        };
+      }
+
+      function comboFromGroup(group) {
+        const derivacoes = Array.isArray(group?.derivacoes) ? group.derivacoes : [];
+        const top = derivacoes.find((item) => isTop(item.deri_nome));
+        const bottom = derivacoes.find((item) => isBottom(item.deri_nome));
+        if (!top || !bottom) return null;
+
+        const topOk = partIsAvailable(top);
+        const bottomOk = partIsAvailable(bottom);
+        const emEstoque = topOk && bottomOk;
+
+        return {
+          emEstoque,
+          motivo: emEstoque
+            ? "disponivel"
+            : !topOk && !bottomOk ? "top-e-bottom-esgotados"
+            : !topOk ? "top-esgotado"
+            : "bottom-esgotado",
+          proderId: group.proder_id || null,
+          proderIdGrupo: group.proder_id_grupo || null,
+          topSize: normSize(top.derivacao),
+          bottomSize: normSize(bottom.derivacao),
+          bottomTipo: bottom.deri_nome || "Parte de baixo",
+          top: {
+            iteder_id: top.iteder_id || null,
+            tamanho: normSize(top.derivacao),
+            estoque: topOk
+          },
+          bottom: {
+            iteder_id: bottom.iteder_id || null,
+            tamanho: normSize(bottom.derivacao),
+            estoque: bottomOk,
+            tipo: bottom.deri_nome || null
+          }
+        };
+      }
+
+      async function combinations(url) {
+        const product = await loadProduct(url);
+        const groups = Array.isArray(product?.derivacoes_produto) ? product.derivacoes_produto : [];
+        return groups.map(comboFromGroup).filter(Boolean);
+      }
+
+      async function check({ url, topSize, bottomSize }) {
+        const tSize = normSize(topSize);
+        const bSize = normSize(bottomSize || topSize);
+        if (!url || !tSize || !bSize) return fail("parametros-invalidos");
+
+        const combos = await combinations(url);
+        const combo = combos.find((item) => item.topSize === tSize && item.bottomSize === bSize);
+        return combo || fail("combinacao-inexistente");
+      }
+
+      function clearCache() {
+        productCache.clear();
+        stamps.clear();
+      }
+
+      return { check, combinations, clearCache, normSize };
+    })();
+
+    const BASE_UNIT_PRICE = 119.00;
+
+    const KIT_OPTIONS = [
+      { qty: 1, name: "1 Conjunto", fixedPrice: null, badge: "Preço individual" },
+      { qty: 2, name: "2 POR 199", fixedPrice: 199.00, badge: "Leve 2 conjuntos" },
+      { qty: 3, name: "3 POR 289", fixedPrice: 289.00, badge: "Maior economia", popular: true }
+    ];
+
+    const TYPE_OPTIONS = [
+      {
+        value: "Short",
+        name: "Kits com Shorts",
+        icon: "▣",
+        shortLabel: "shorts",
+        description: "Mais leve para treino, calor e uso diário."
+      },
+      {
+        value: "Legging",
+        name: "Kits com Leggings",
+        icon: "▥",
+        shortLabel: "leggings",
+        description: "Cobertura total, compressão e visual alongado."
+      }
+    ];
+
+    const STORAGE_KEY = "armfitness:monte-seu-kit:kits-199-289:v2";
+    const TIMER_KEY = "armfitness:monte-seu-kit:timer:v1";
+    const OFFER_DURATION_MS = 5 * 60 * 60 * 1000 + 47 * 60 * 1000 + 13 * 1000;
+
+    const root = document.querySelector(".conteudo-adicional-135 [data-kit-builder]") || document.querySelector("[data-kit-builder]");
+    if (!root) {
+      throw new Error("Monte seu Kit: elemento [data-kit-builder] não encontrado.");
+    }
+
+    const $ = (selector) => root.querySelector(selector);
+
+    const els = {
+      countdown: $("[data-countdown]"),
+      discountBadge: $("[data-discount-badge]"),
+      flashPrice: $("[data-flash-price]"),
+      flashOriginal: $("[data-flash-original]"),
+      flashInstallments: $("[data-flash-installments]"),
+      kitOptions: $("[data-kit-options]"),
+      typeSelector: $("[data-type-selector]"),
+      chips: $("[data-chips]"),
+      kitSaving: $("[data-kit-saving]"),
+      currentNumber: $("[data-current-number]"),
+      currentTitle: $("[data-current-title]"),
+      readyBadge: $("[data-ready-badge]"),
+      selectedCounter: $("[data-selected-counter]"),
+      configMessage: $("[data-config-message]"),
+      previewImage: $("[data-preview-image]"),
+      previewLabel: $("[data-preview-label]"),
+      swatches: $("[data-swatches]"),
+      selectedProductInfo: $("[data-selected-product-info]"),
+      sizes: $("[data-sizes]"),
+      stockHint: $("[data-stock-hint]"),
+      nextBtn: $("[data-next-btn]"),
+      footerOriginal: $("[data-footer-original]"),
+      footerFinal: $("[data-footer-final]"),
+      footerInstallments: $("[data-footer-installments]"),
+      addCart: $("[data-add-cart]"),
+      feedback: $("[data-feedback]")
+    };
+
+    let state = loadState();
+
+    function currency(value) {
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      }).format(value || 0);
+    }
+
+    function validBottomFilter(value) {
+      return TYPE_OPTIONS.some((option) => option.value === value) ? value : "Short";
+    }
+
+    function typeMeta(value) {
+      return TYPE_OPTIONS.find((option) => option.value === validBottomFilter(value)) || TYPE_OPTIONS[0];
+    }
+
+    function productsByType(value) {
+      const bottom = validBottomFilter(value);
+      return PRODUCTS.filter((product) => product.bottom === bottom);
+    }
+
+    function minPriceByType(value) {
+      const prices = productsByType(value).map((product) => product.price || BASE_UNIT_PRICE);
+      return prices.length ? Math.min(...prices) : BASE_UNIT_PRICE;
+    }
+
+    function createEmptyItem(index) {
+      return {
+        id: `kit-item-${index + 1}`,
+        productSku: "",
+        topSize: "",
+        bottomSize: "",
+        completo: false
+      };
+    }
+
+    function normalizeItems(items, qty) {
+      const next = Array.from({ length: qty }, (_, index) => {
+        const existing = items?.[index];
+        if (!existing) return createEmptyItem(index);
+
+        const migratedSize = existing.tamanho || "";
+
+        return {
+          id: existing.id || `kit-item-${index + 1}`,
+          productSku: existing.productSku || "",
+          topSize: existing.topSize || migratedSize,
+          bottomSize: existing.bottomSize || migratedSize,
+          completo: false
+        };
+      });
+
+      return next;
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved && [1, 2, 3].includes(saved.kitQty)) {
+          const activeIndex = Math.min(saved.activeIndex || 0, saved.kitQty - 1);
+          const items = normalizeItems(saved.items || [], saved.kitQty);
+          const activeProduct = productBySku(items[activeIndex]?.productSku);
+
+          return {
+            kitQty: saved.kitQty,
+            activeIndex,
+            bottomFilter: validBottomFilter(saved.bottomFilter || activeProduct?.bottom),
+            items
+          };
+        }
+      } catch (error) {
+        console.warn("Não foi possível carregar o estado salvo do kit.", error);
+      }
+
+      return {
+        kitQty: 3,
+        activeIndex: 0,
+        bottomFilter: "Short",
+        items: normalizeItems([], 3)
+      };
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function productBySku(sku) {
+      return PRODUCTS.find((product) => product.sku === sku);
+    }
+
+    const stockState = new Map();
+
+    function stockKey(product) {
+      return product?.url || product?.sku || "";
+    }
+
+    function productLabel(product) {
+      if (!product) return "parte de baixo";
+      return product.bottom === "Legging" ? "Legging" : "Shorts";
+    }
+
+    function ensureProductStock(product) {
+      if (!product?.url) return;
+      const key = stockKey(product);
+      const current = stockState.get(key);
+      if (current?.status === "loading" || current?.status === "ready") return;
+
+      stockState.set(key, { status: "loading", combos: [], error: null });
+
+      ProductStock.combinations(product.url)
+        .then((combos) => {
+          stockState.set(key, { status: "ready", combos, error: null });
+          syncAllCompleteness();
+          saveState();
+          render();
+        })
+        .catch((error) => {
+          stockState.set(key, { status: "error", combos: [], error });
+          syncAllCompleteness();
+          saveState();
+          render();
+        });
+    }
+
+    function getStockRecord(product) {
+      if (!product?.url) return { status: "missing", combos: [], error: null };
+      ensureProductStock(product);
+      return stockState.get(stockKey(product)) || { status: "loading", combos: [], error: null };
+    }
+
+    function selectionStockStatus(product, topSize, bottomSize) {
+      if (!product) {
+        return { emEstoque: false, carregado: false, loading: false, motivo: "produto-nao-selecionado", proderId: null };
+      }
+
+      if (!topSize || !bottomSize) {
+        ensureProductStock(product);
+        return { emEstoque: false, carregado: false, loading: false, motivo: "tamanhos-pendentes", proderId: null };
+      }
+
+      const record = getStockRecord(product);
+
+      if (record.status === "loading") {
+        return { emEstoque: false, carregado: false, loading: true, motivo: "verificando", proderId: null };
+      }
+
+      if (record.status === "error") {
+        return { emEstoque: false, carregado: true, loading: false, motivo: "erro-consulta-produto", erro: record.error?.message || String(record.error), proderId: null };
+      }
+
+      const top = ProductStock.normSize(topSize);
+      const bottom = ProductStock.normSize(bottomSize);
+      const combo = record.combos.find((item) => item.topSize === top && item.bottomSize === bottom);
+
+      return combo || {
+        emEstoque: false,
+        carregado: true,
+        loading: false,
+        motivo: "combinacao-inexistente",
+        proderId: null,
+        top: { iteder_id: null, tamanho: top, estoque: false },
+        bottom: { iteder_id: null, tamanho: bottom, estoque: false, tipo: productLabel(product) }
+      };
+    }
+
+    function isTopSizeAvailable(product, topSize, selectedBottomSize = "") {
+      if (!product) return false;
+      const record = getStockRecord(product);
+      if (record.status === "loading") return true;
+      if (record.status !== "ready") return false;
+
+      const top = ProductStock.normSize(topSize);
+      const bottom = ProductStock.normSize(selectedBottomSize);
+
+      return record.combos.some((combo) => {
+        if (combo.topSize !== top || !combo.emEstoque) return false;
+        return !bottom || combo.bottomSize === bottom;
+      });
+    }
+
+    function isBottomSizeAvailable(product, bottomSize, selectedTopSize = "") {
+      if (!product) return false;
+      const record = getStockRecord(product);
+      if (record.status === "loading") return true;
+      if (record.status !== "ready") return false;
+
+      const bottom = ProductStock.normSize(bottomSize);
+      const top = ProductStock.normSize(selectedTopSize);
+
+      return record.combos.some((combo) => {
+        if (combo.bottomSize !== bottom || !combo.emEstoque) return false;
+        return !top || combo.topSize === top;
+      });
+    }
+
+    function stockHintText(product, topSize, bottomSize) {
+      if (!product) return "Selecione uma cor/produto para consultar o estoque real da combinação.";
+
+      const record = getStockRecord(product);
+      if (record.status === "loading") return "Verificando estoque real na página do produto...";
+      if (record.status === "error") return `Não foi possível consultar o estoque deste produto. Erro: ${record.error?.message || "consulta falhou"}.`;
+
+      if (!topSize || !bottomSize) {
+        return `Escolha o tamanho do Top e do ${productLabel(product)}. A validação será feita pela combinação real da Magazord.`;
+      }
+
+      const stock = selectionStockStatus(product, topSize, bottomSize);
+
+      if (stock.loading) return "Verificando combinação Top + parte de baixo...";
+
+      if (stock.emEstoque) {
+        return `<strong>Disponível</strong> · SKU combinação ${stock.proderId || "—"} · Top ${stock.top?.iteder_id || "—"} + ${stock.bottom?.tipo || productLabel(product)} ${stock.bottom?.iteder_id || "—"}`;
+      }
+
+      return `Indisponível (${stock.motivo}). Tente outro tamanho de Top ou ${productLabel(product)}.`;
+    }
+
+    function itemStatus(item) {
+      const product = productBySku(item.productSku);
+
+      if (!item?.productSku || !product) {
+        return {
+          complete: false,
+          loading: false,
+          motivo: "produto-pendente",
+          product,
+          stock: null
+        };
+      }
+
+      if (!item.topSize && !item.bottomSize) {
+        ensureProductStock(product);
+        return {
+          complete: false,
+          loading: false,
+          motivo: "tamanhos-pendentes",
+          product,
+          stock: null
+        };
+      }
+
+      if (!item.topSize) {
+        ensureProductStock(product);
+        return {
+          complete: false,
+          loading: false,
+          motivo: "top-pendente",
+          product,
+          stock: null
+        };
+      }
+
+      if (!item.bottomSize) {
+        ensureProductStock(product);
+        return {
+          complete: false,
+          loading: false,
+          motivo: "bottom-pendente",
+          product,
+          stock: null
+        };
+      }
+
+      const stock = selectionStockStatus(product, item.topSize, item.bottomSize);
+
+      return {
+        complete: Boolean(stock.emEstoque),
+        loading: Boolean(stock.loading),
+        motivo: stock.motivo || (stock.emEstoque ? "disponivel" : "indisponivel"),
+        product,
+        stock
+      };
+    }
+
+    function itemComplete(item) {
+      return itemStatus(item).complete;
+    }
+
+    function syncItemCompleteness(item) {
+      const next = itemComplete(item);
+      const changed = item.completo !== next;
+      item.completo = next;
+      return changed;
+    }
+
+    function syncAllCompleteness() {
+      return state.items.reduce((changed, item) => syncItemCompleteness(item) || changed, false);
+    }
+
+    function selectedCount() {
+      return state.items.filter((item) => item.completo).length;
+    }
+
+    function allComplete() {
+      return state.items.length > 0 && state.items.every((item) => item.completo);
+    }
+
+    function configMessageFor(status, allDone) {
+      const item = state.items[state.activeIndex];
+      const product = status.product;
+      const activeType = typeMeta(state.bottomFilter);
+      const bottomLabel = product ? productLabel(product) : activeType.shortLabel;
+
+      if (allDone) return "✓ Kit completo! Adicione ao carrinho";
+      if (!product) return `Escolha um conjunto com ${activeType.shortLabel} para configurar esta peça.`;
+      if (status.motivo === "tamanhos-pendentes") return `Configure este conjunto: escolha o tamanho do Top e do ${bottomLabel}.`;
+      if (status.motivo === "top-pendente") return "Escolha o tamanho do Top deste conjunto.";
+      if (status.motivo === "bottom-pendente") return `Escolha o tamanho do ${bottomLabel} deste conjunto.`;
+      if (status.loading) return "Verificando estoque da combinação Top + parte de baixo...";
+      if (!status.complete) return `Esta combinação está indisponível (${status.motivo}). Escolha outro tamanho de Top ou ${bottomLabel}.`;
+
+      const nextPendingIndex = state.items.findIndex((slot, index) => index !== state.activeIndex && !slot.completo);
+      if (nextPendingIndex >= 0) return `Conjunto pronto. Avance para configurar o próximo conjunto.`;
+      return "Conjunto pronto. Revise os itens restantes ou adicione ao carrinho.";
+    }
+
+    function getSlotPrice(item) {
+      const product = productBySku(item.productSku);
+      return product?.price || BASE_UNIT_PRICE;
+    }
+
+    function activeKit() {
+      return KIT_OPTIONS.find((kit) => kit.qty === state.kitQty) || KIT_OPTIONS[2];
+    }
+
+    function priceSummary() {
+      const kit = activeKit();
+      const original = state.items.reduce((sum, item) => sum + getSlotPrice(item), 0);
+      const final = kit.fixedPrice || original;
+      const discountValue = Math.max(original - final, 0);
+      const discountPercent = original > 0 ? Math.round((discountValue / original) * 100) : 0;
+
+      return {
+        original,
+        final,
+        discountValue,
+        discountPercent,
+        installments: final / 10,
+        offerLabel: kit.fixedPrice ? kit.name : "OFERTA"
+      };
+    }
+
+    function kitOptionPrice(kit) {
+      return kit.fixedPrice || BASE_UNIT_PRICE;
+    }
+
+    function getRecommendationAnchorSku() {
+      const previous = state.items[state.activeIndex - 1]?.productSku;
+      const first = state.items[0]?.productSku;
+      const active = state.items[state.activeIndex]?.productSku;
+      return previous || first || active || "";
+    }
+
+    function getOrderedProducts() {
+      const anchor = getRecommendationAnchorSku();
+      const related = RELATED_BY_SKU[anchor] || [];
+      const relatedSet = new Set(related);
+      const currentTypeProducts = productsByType(state.bottomFilter);
+
+      const relatedProducts = related
+        .map(productBySku)
+        .filter(Boolean)
+        .filter((product) => product.bottom === validBottomFilter(state.bottomFilter));
+
+      const remaining = currentTypeProducts
+        .filter((product) => !relatedSet.has(product.sku))
+        .sort((a, b) => {
+          const scoreA = (a.rating || 0) * 1000 + (a.reviews || 0);
+          const scoreB = (b.rating || 0) * 1000 + (b.reviews || 0);
+          return scoreB - scoreA;
+        });
+
+      return [...relatedProducts, ...remaining];
+    }
+
+    function setKitQty(qty) {
+      state.kitQty = qty;
+      state.items = normalizeItems(state.items, qty);
+      state.activeIndex = Math.min(state.activeIndex, qty - 1);
+      saveState();
+      render();
+    }
+
+    function setActiveIndex(index) {
+      state.activeIndex = Math.max(0, Math.min(index, state.kitQty - 1));
+      const activeProduct = productBySku(state.items[state.activeIndex]?.productSku);
+      if (activeProduct) state.bottomFilter = activeProduct.bottom;
+      els.feedback.textContent = "";
+      saveState();
+      render();
+    }
+
+    function setBottomFilter(bottom) {
+      const nextType = validBottomFilter(bottom);
+      const item = state.items[state.activeIndex];
+      const currentProduct = productBySku(item.productSku);
+
+      state.bottomFilter = nextType;
+
+      if (currentProduct && currentProduct.bottom !== nextType) {
+        item.productSku = "";
+        item.topSize = "";
+        item.bottomSize = "";
+        syncAllCompleteness();
+        els.feedback.textContent = `Tipo alterado. Escolha agora um conjunto com ${typeMeta(nextType).shortLabel} para esta posição.`;
+      }
+
+      saveState();
+      render();
+    }
+
+    function selectProduct(sku) {
+      const item = state.items[state.activeIndex];
+      const product = productBySku(sku);
+      item.productSku = sku;
+      if (product) {
+        state.bottomFilter = product.bottom;
+        ensureProductStock(product);
+      }
+
+      syncAllCompleteness();
+      els.feedback.textContent = product
+        ? `Agora escolha o tamanho do Top e do ${productLabel(product)} para validar a combinação.`
+        : "";
+      saveState();
+      render();
+    }
+
+    function selectTopSize(size) {
+      const item = state.items[state.activeIndex];
+      const product = productBySku(item.productSku);
+
+      if (!product) {
+        els.feedback.textContent = "Escolha primeiro o produto/cor do conjunto.";
+        return;
+      }
+
+      if (!isTopSizeAvailable(product, size, item.bottomSize)) {
+        els.feedback.textContent = `Top tamanho ${size} indisponível nesta combinação.`;
+        return;
+      }
+
+      item.topSize = size;
+      syncAllCompleteness();
+      els.feedback.textContent = item.bottomSize
+        ? configMessageFor(itemStatus(item), allComplete())
+        : `Top ${size} selecionado. Agora escolha o tamanho do ${productLabel(product)}.`;
+      saveState();
+      render();
+    }
+
+    function selectBottomSize(size) {
+      const item = state.items[state.activeIndex];
+      const product = productBySku(item.productSku);
+
+      if (!product) {
+        els.feedback.textContent = "Escolha primeiro o produto/cor do conjunto.";
+        return;
+      }
+
+      if (!isBottomSizeAvailable(product, size, item.topSize)) {
+        els.feedback.textContent = `${productLabel(product)} tamanho ${size} indisponível nesta combinação.`;
+        return;
+      }
+
+      item.bottomSize = size;
+      syncAllCompleteness();
+      els.feedback.textContent = itemComplete(item) ? "Combinação disponível para este conjunto." : configMessageFor(itemStatus(item), allComplete());
+      saveState();
+      render();
+    }
+
+    function goNext() {
+      const isLast = state.activeIndex === state.items.length - 1;
+      const currentItem = state.items[state.activeIndex];
+
+      syncAllCompleteness();
+      if (!currentItem.completo) return;
+
+      if (isLast) {
+        state.activeIndex = state.items.findIndex((item) => !item.completo);
+        if (state.activeIndex === -1) state.activeIndex = state.items.length - 1;
+      } else {
+        state.activeIndex += 1;
+      }
+
+      els.feedback.textContent = "";
+      saveState();
+      render();
+    }
+
+    function payload() {
+      const summary = priceSummary();
+
+      return {
+        kit: {
+          quantidade: state.kitQty,
+          oferta: activeKit().fixedPrice ? activeKit().name : "Preço individual",
+          precoPromocionalFixo: activeKit().fixedPrice,
+          precoOriginal: summary.original,
+          precoFinal: summary.final,
+          economia: summary.discountValue
+        },
+        itens: state.items.map((item, index) => {
+          const product = productBySku(item.productSku);
+          const stock = product ? selectionStockStatus(product, item.topSize, item.bottomSize) : null;
+          return {
+            ordem: index + 1,
+            sku: product?.sku,
+            produto: product?.name,
+            tipo: product?.bottom,
+            cor: product?.color,
+            tamanhoTop: item.topSize,
+            tamanhoParteBaixo: item.bottomSize,
+            completo: Boolean(item.completo),
+            proderId: stock?.proderId || null,
+            derivacoes: product ? {
+              top: stock?.top?.iteder_id || "",
+              bottom: stock?.bottom?.iteder_id || ""
+            } : { top: "", bottom: "" },
+            estoque: stock,
+            precoUnitario: product?.price,
+            url: product?.url,
+            imagem: product?.image
+          };
+        })
+      };
+    }
+
+    async function validateKitBeforeCart() {
+      const results = [];
+
+      for (const item of state.items) {
+        const product = productBySku(item.productSku);
+
+        if (!product || !item.topSize || !item.bottomSize) {
+          item.completo = false;
+          results.push({ item, product, stock: null, ok: false, motivo: "configuracao-incompleta" });
+          continue;
+        }
+
+        try {
+          const combos = await ProductStock.combinations(product.url);
+          stockState.set(stockKey(product), { status: "ready", combos, error: null });
+          const stock = selectionStockStatus(product, item.topSize, item.bottomSize);
+          item.completo = Boolean(stock.emEstoque);
+          results.push({ item, product, stock, ok: item.completo, motivo: stock.motivo });
+        } catch (error) {
+          stockState.set(stockKey(product), { status: "error", combos: [], error });
+          item.completo = false;
+          results.push({ item, product, stock: null, ok: false, motivo: error?.message || "erro-consulta-produto" });
+        }
+      }
+
+      saveState();
+      return results;
+    }
+
+    async function addToCart() {
+      els.addCart.disabled = true;
+      els.feedback.textContent = "Validando estoque real dos conjuntos...";
+
+      const validation = await validateKitBeforeCart();
+      const invalidIndex = validation.findIndex((entry) => !entry.ok);
+
+      if (invalidIndex >= 0) {
+        state.activeIndex = invalidIndex;
+        saveState();
+        render();
+        const invalid = validation[invalidIndex];
+        els.feedback.textContent = `Revise o Conjunto ${invalidIndex + 1}: ${invalid.motivo}.`;
+        return;
+      }
+
+      const detail = payload();
+
+      /**
+       * Integração recomendada:
+       * use detail.itens[].proderId como SKU exato da combinação Top + Shorts/Legging.
+       * Se a loja tiver uma função global, defina window.etractionKitAddToCart(detail).
+       * Caso contrário, escute o evento monteSeuKit:addToCart e conecte ao carrinho da Magazord.
+       */
+      if (typeof window.etractionKitAddToCart === "function") {
+        await window.etractionKitAddToCart(detail);
+      } else {
+        document.dispatchEvent(new CustomEvent("monteSeuKit:addToCart", { detail }));
+      }
+
+      console.log("Payload do kit:", detail);
+      els.feedback.textContent = "Kit validado. Payload enviado para integração do carrinho com os proderIds corretos.";
+      render();
+    }
+
+    function renderTypeSelector() {
+      const activeType = validBottomFilter(state.bottomFilter);
+
+      els.typeSelector.innerHTML = `
+        <div class="etraction-type-selector__title">
+          <span class="etraction-type-selector__eyebrow">Organize sua escolha</span>
+          <strong>Separe por modelo</strong>
+          <small>Escolha Shorts ou Leggings para mostrar apenas as cores daquele grupo.</small>
+        </div>
+        <div class="etraction-type-options">
+          ${TYPE_OPTIONS.map((option) => {
+            const count = productsByType(option.value).length;
+            return `
+              <button
+                type="button"
+                class="etraction-type-card"
+                aria-pressed="${activeType === option.value}"
+                aria-label="Mostrar ${option.name}"
+                data-bottom-filter="${option.value}"
+              >
+                <span class="etraction-type-card__icon" aria-hidden="true">${option.icon}</span>
+                <span class="etraction-type-card__body">
+                  <span class="etraction-type-card__name">${option.name}</span>
+                  <span class="etraction-type-card__desc">${option.description} A partir de ${currency(minPriceByType(option.value))}.</span>
+                </span>
+                <span class="etraction-type-card__count">${count} opções</span>
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+
+      els.typeSelector.querySelectorAll("[data-bottom-filter]").forEach((button) => {
+        button.addEventListener("click", () => setBottomFilter(button.dataset.bottomFilter));
+      });
+    }
+
+    function renderKitOptions() {
+      els.kitOptions.innerHTML = KIT_OPTIONS.map((kit) => `
+        <button
+          type="button"
+          class="etraction-kit-option"
+          aria-pressed="${state.kitQty === kit.qty}"
+          aria-label="Selecionar ${kit.name}"
+          data-kit-qty="${kit.qty}"
+        >
+          ${kit.popular ? '<span class="etraction-kit-option__popular">MAIS POPULAR</span>' : ''}
+          <span class="etraction-kit-option__name">${kit.name}</span>
+          <span class="etraction-kit-option__price">${currency(kitOptionPrice(kit))}</span>
+          ${kit.badge ? `<span class="etraction-kit-option__badge">${kit.badge}</span>` : ''}
+        </button>
+      `).join("");
+
+      els.kitOptions.querySelectorAll("[data-kit-qty]").forEach((button) => {
+        button.addEventListener("click", () => setKitQty(Number(button.dataset.kitQty)));
+      });
+    }
+
+    function renderChips() {
+      els.chips.innerHTML = state.items.map((item, index) => {
+        const product = productBySku(item.productSku);
+        const complete = item.completo;
+        const img = product?.image || "";
+        const color = product?.color || `Peça ${index + 1}`;
+        const typeLabel = product?.bottom ? `${product.bottom} · ` : "";
+        const size = item.topSize && item.bottomSize
+          ? `Top ${item.topSize} · ${typeLabel}${item.bottomSize}`
+          : `${typeLabel}Tamanhos pendentes`;
+
+        return `
+          <button
+            type="button"
+            class="etraction-chip"
+            aria-pressed="${index === state.activeIndex}"
+            aria-label="Editar peça ${index + 1}"
+            data-chip-index="${index}"
+          >
+            ${img
+              ? `<img class="etraction-chip__img" src="${img}" alt="" loading="lazy" onerror="this.style.visibility='hidden'" />`
+              : `<span class="etraction-chip__img etraction-chip__img--empty" aria-hidden="true"></span>`
+            }
+            <span class="etraction-chip__body">
+              <span class="etraction-chip__color">${color}</span>
+              <span class="etraction-chip__size">${size}</span>
+            </span>
+            <span class="etraction-chip__check" aria-hidden="true">${complete ? "✓" : ""}</span>
+          </button>
+        `;
+      }).join("");
+
+      els.chips.querySelectorAll("[data-chip-index]").forEach((button) => {
+        button.addEventListener("click", () => setActiveIndex(Number(button.dataset.chipIndex)));
+      });
+    }
+
+    function renderCurrentConfigurator() {
+      const item = state.items[state.activeIndex];
+      const product = productBySku(item.productSku);
+      const status = itemStatus(item);
+      item.completo = status.complete;
+      const complete = status.complete;
+      const count = selectedCount();
+      const allDone = allComplete();
+
+      els.currentNumber.textContent = String(state.activeIndex + 1);
+      els.currentTitle.textContent = `Conjunto ${state.activeIndex + 1} de ${state.kitQty}`;
+      els.readyBadge.hidden = !complete;
+      els.selectedCounter.textContent = `${count}/${state.kitQty} selecionadas`;
+      const activeType = typeMeta(state.bottomFilter);
+      els.configMessage.textContent = configMessageFor(status, allDone);
+
+      if (product?.image) {
+        els.previewImage.hidden = false;
+        els.previewImage.src = product.image;
+        els.previewImage.alt = `Preview de ${product.name}`;
+      } else {
+        els.previewImage.hidden = true;
+        els.previewImage.removeAttribute("src");
+        els.previewImage.alt = "";
+      }
+      els.previewLabel.textContent = product
+        ? `${product.bottom} · ${product.color} · ${item.topSize && item.bottomSize ? `Top ${item.topSize} / ${product.bottom} ${item.bottomSize}` : "Tamanhos"}`
+        : `${activeType.name} · Cor · Tamanhos`;
+
+      els.selectedProductInfo.innerHTML = product
+        ? `<strong>${product.bottom} · ${product.color}</strong> · ${product.shortName || product.name}<br><span>SKU ${product.sku} · ${currency(product.price)} · ${product.family}</span>`
+        : `Mostrando ${activeType.name}. Selecione uma cor/produto para esta posição.`;
+
+      const orderedProducts = getOrderedProducts();
+
+      els.swatches.innerHTML = orderedProducts.map((option) => `
+        <button
+          type="button"
+          class="etraction-swatch"
+          style="--swatch: ${option.colorHex}"
+          aria-pressed="${option.sku === item.productSku}"
+          aria-label="Selecionar ${option.bottom} na cor ${option.color}: ${option.name}"
+          title="${option.bottom} · ${option.color} · ${option.name}"
+          data-product-sku="${option.sku}"
+        >
+          <span class="etraction-swatch__text">
+            <span class="etraction-swatch__color">${option.color}</span>
+            <span class="etraction-swatch__model">${option.bottom} · ${option.family}</span>
+          </span>
+        </button>
+      `).join("");
+
+      els.swatches.querySelectorAll("[data-product-sku]").forEach((button) => {
+        button.addEventListener("click", () => selectProduct(button.dataset.productSku));
+      });
+
+      if (product) ensureProductStock(product);
+
+      function renderSizeButtons(kind) {
+        const isTop = kind === "top";
+        const selected = isTop ? item.topSize : item.bottomSize;
+        const otherSelected = isTop ? item.bottomSize : item.topSize;
+        const label = isTop ? "Top" : productLabel(product);
+
+        return SIZES.map((size) => {
+          const available = product
+            ? isTop
+              ? isTopSizeAvailable(product, size, otherSelected)
+              : isBottomSizeAvailable(product, size, otherSelected)
+            : false;
+          const disabled = !product || !available;
+          const ariaLabel = !product
+            ? `Selecione primeiro uma cor/produto para habilitar tamanho ${size}`
+            : available
+              ? `Selecionar ${label} tamanho ${size}`
+              : `${label} tamanho ${size} indisponível`;
+
+          return `
+            <button
+              type="button"
+              class="etraction-size-btn ${disabled ? "etraction-is-out-stock" : ""}"
+              aria-pressed="${size === selected}"
+              aria-label="${ariaLabel}"
+              data-${isTop ? "top" : "bottom"}-size="${size}"
+              ${disabled ? "disabled" : ""}
+            >${size}</button>
+          `;
+        }).join("");
+      }
+
+      els.sizes.innerHTML = `
+        <div class="etraction-size-group">
+          <div class="etraction-size-group__title">
+            <span>Tamanho do Top</span>
+            <span class="etraction-size-group__hint">variação 1</span>
+          </div>
+          <div class="etraction-size-options">${renderSizeButtons("top")}</div>
+        </div>
+        <div class="etraction-size-group">
+          <div class="etraction-size-group__title">
+            <span>Tamanho do ${product ? productLabel(product) : typeMeta(state.bottomFilter).shortLabel}</span>
+            <span class="etraction-size-group__hint">variação 2</span>
+          </div>
+          <div class="etraction-size-options">${renderSizeButtons("bottom")}</div>
+        </div>
+      `;
+
+      els.stockHint.innerHTML = stockHintText(product, item.topSize, item.bottomSize);
+
+      els.sizes.querySelectorAll("[data-top-size]").forEach((button) => {
+        button.addEventListener("click", () => selectTopSize(button.dataset.topSize));
+      });
+
+      els.sizes.querySelectorAll("[data-bottom-size]").forEach((button) => {
+        button.addEventListener("click", () => selectBottomSize(button.dataset.bottomSize));
+      });
+
+      const isLast = state.activeIndex === state.items.length - 1;
+      els.nextBtn.hidden = allComplete() && isLast;
+      els.nextBtn.disabled = !complete;
+      els.nextBtn.classList.toggle("etraction-is-ready", complete && !allComplete());
+      els.nextBtn.textContent = isLast ? "Concluir" : "Próximo Conjunto →";
+      els.nextBtn.setAttribute("aria-label", isLast ? "Concluir configuração do kit" : "Avançar para a próxima peça");
+    }
+
+    function renderPrices() {
+      const summary = priceSummary();
+      const discountLabel = summary.offerLabel;
+
+      els.discountBadge.textContent = discountLabel;
+      els.flashPrice.textContent = currency(summary.final);
+      els.flashOriginal.textContent = currency(summary.original);
+      els.flashInstallments.textContent = `10x de ${currency(summary.installments)} sem juros`;
+      els.kitSaving.textContent = `★ Economia: -${currency(summary.discountValue)}`;
+      els.footerOriginal.textContent = currency(summary.original);
+      els.footerFinal.textContent = currency(summary.final);
+      els.footerInstallments.textContent = `10x de ${currency(summary.installments)} sem juros`;
+      els.addCart.disabled = !allComplete();
+    }
+
+    function render() {
+      const changed = syncAllCompleteness();
+      if (changed) saveState();
+      renderKitOptions();
+      renderTypeSelector();
+      renderChips();
+      renderCurrentConfigurator();
+      renderPrices();
+    }
+
+    function initStockObserver() {
+      if (!window.MutationObserver) return;
+
+      let scheduled = false;
+      const observer = new MutationObserver(() => {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(() => {
+          scheduled = false;
+          render();
+        });
+      });
+
+      observer.observe(document.body, {
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["data-estoque"]
+      });
+    }
+
+    function initTimer() {
+      const now = Date.now();
+      let deadline = Number(localStorage.getItem(TIMER_KEY));
+
+      if (!deadline || Number.isNaN(deadline) || deadline <= now) {
+        deadline = now + OFFER_DURATION_MS;
+        localStorage.setItem(TIMER_KEY, String(deadline));
+      }
+
+      function tick() {
+        const remaining = Math.max(0, deadline - Date.now());
+        const hours = Math.floor(remaining / 1000 / 60 / 60);
+        const minutes = Math.floor((remaining / 1000 / 60) % 60);
+        const seconds = Math.floor((remaining / 1000) % 60);
+
+        els.countdown.textContent = [hours, minutes, seconds]
+          .map((unit) => String(unit).padStart(2, "0"))
+          .join(":");
+
+        if (remaining <= 0) {
+          deadline = Date.now() + OFFER_DURATION_MS;
+          localStorage.setItem(TIMER_KEY, String(deadline));
+        }
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    window.etractionMonteSeuKit = {
+      ProductStock,
+      getState: () => JSON.parse(JSON.stringify(state)),
+      payload,
+      validateKitBeforeCart,
+      clearSavedState: () => localStorage.removeItem(STORAGE_KEY)
+    };
+
+    els.nextBtn.addEventListener("click", goNext);
+    els.addCart.addEventListener("click", addToCart);
+
+    initTimer();
+    render();
+    initStockObserver();
+    })();
+  </script>
+</div>

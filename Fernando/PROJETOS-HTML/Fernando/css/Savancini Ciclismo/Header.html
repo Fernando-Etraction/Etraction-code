@@ -1,0 +1,387 @@
+<!-- ═══════ SAVANCINI — HEADER CUSTOMIZADO (substitui header do tema) ═══════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap"
+  rel="stylesheet">
+
+<style>
+  #header-react-app {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  /* regra antiga removida */
+  body {
+    padding-top: 0 !important;
+  }
+
+  /* ===== HEADER SAVANCINI ===== */
+  .sav-header-wrap {
+    font-family: 'Inter', sans-serif;
+    color: #0a0a0a;
+  }
+
+  .sav-header-wrap *,
+  .sav-header-wrap *::before,
+  .sav-header-wrap *::after {
+    box-sizing: border-box;
+  }
+
+  .sav-header-wrap a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .sav-trust-bar {
+    background: #0a0a0a;
+    color: #999;
+    font-size: 11px;
+    padding: 7px 0;
+    letter-spacing: .02em;
+  }
+
+  .sav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .sav-trust-bar .sav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .sav-trust-items {
+    display: flex;
+    align-items: center;
+  }
+
+  .sav-trust-item {
+    padding: 0 14px;
+    border-right: 1px solid #1e1e1e;
+    white-space: nowrap;
+  }
+
+  .sav-trust-item:last-child {
+    border-right: none;
+  }
+
+  .sav-trust-item strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .sav-trust-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #999;
+    transition: color .15s;
+  }
+
+  .sav-trust-phone:hover {
+    color: #25d366;
+  }
+
+  .sav-trust-phone svg {
+    width: 13px;
+    height: 13px;
+    color: #25d366;
+  }
+
+  .sav-header {
+    background: #fff;
+    border-bottom: 1px solid #e0e0db;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .sav-header-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 18px 24px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .sav-logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    line-height: 1;
+  }
+
+  .sav-search-form {
+    flex: 1;
+    display: flex;
+    min-width: 0;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .sav-search-input {
+    flex: 1;
+    height: 40px;
+    padding: 0 16px;
+    border: 1px solid #e0e0db;
+    font-size: 13px;
+    outline: none;
+    border-radius: 2px 0 0 2px;
+  }
+
+  .sav-search-input:focus {
+    border-color: #0a0a0a;
+  }
+
+  .sav-search-btn {
+    width: 44px;
+    height: 40px;
+    background: #0a0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 0 2px 2px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sav-search-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .sav-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .sav-h-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .sav-h-action svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .sav-h-cart {
+    position: relative;
+  }
+
+  .sav-cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    background: #e6007e;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sav-cart-badge[hidden] {
+    display: none !important;
+  }
+
+  .sav-nav {
+    background: #fff;
+    border-bottom: 1px solid #e0e0db;
+  }
+
+  .sav-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .sav-nav-a {
+    padding: 14px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333330;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    position: relative;
+    transition: color .15s;
+  }
+
+  .sav-nav-a:hover,
+  .sav-nav-a.active {
+    color: #e6007e;
+  }
+
+  .sav-nav-a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background: #e6007e;
+  }
+
+  .sav-nav-sub {
+    font-size: 9px;
+    color: #e6007e;
+    font-weight: 600;
+    margin-left: 4px;
+  }
+</style>
+
+<div class="sav-header-wrap">
+  <div class="sav-trust-bar">
+    <div class="sav-container">
+      <div class="sav-trust-items">
+        <span class="sav-trust-item">Frete grátis acima de R$399</span>
+        <span class="sav-trust-item">Em até <strong>10x sem juros</strong></span>
+        <span class="sav-trust-item"><strong>10% off no Pix</strong></span>
+        <span class="sav-trust-item">7 dias para troca</span>
+      </div>
+      <a class="sav-trust-phone" href="https://api.whatsapp.com/send?phone=554796309294">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.977-1.303A9.95 9.95 0 0012 22c5.522 0 10-4.477 10-10S17.522 2 12 2z" />
+        </svg>
+        (47) 9630-9294
+      </a>
+    </div>
+  </div>
+
+  <header class="sav-header">
+    <div class="sav-header-inner">
+      <a href="/"><span class="sav-logo-text">SAVANCINI</span></a>
+      <form class="sav-search-form" action="/busca" method="GET" role="search">
+        <input class="sav-search-input" type="text" name="q" autocomplete="off" placeholder="Buscar produtos, coleções...">
+        <button class="sav-search-btn" type="submit">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </button>
+      </form>
+      <div class="sav-header-actions">
+        <a class="sav-h-action" href="/login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>Entrar</a>
+        <a class="sav-h-action" href="/favoritos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg></a>
+        <a class="sav-h-action sav-h-cart" href="/checkout/cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>Carrinho<span class="sav-cart-badge" data-sav-cart-count hidden>0</span></a>
+      </div>
+    </div>
+  </header>
+  <nav class="sav-nav">
+    <div class="sav-nav-inner"></div>
+  </nav>
+
+  <script>
+    (function buildSavNav(){
+    var whitelist = [
+      /lan[\u00e7c]amentos/i,
+      /cole[\u00e7c][\u00f5o]es|combos/i,
+      /feminino/i,
+      /masculino/i,
+      /acess[\u00f3o]rios/i,
+      /outlet/i
+    ];
+    function build(){
+      var root = document.querySelector("#header-react-app");
+      var nav  = document.querySelector(".sav-nav .sav-nav-inner");
+      if(!root || !nav) return false;
+      var lis = root.querySelectorAll("ul.menu-level-1 > li, ul.flex.items-center.justify-center > li");
+      if(!lis.length) return false;
+      var items = Array.prototype.map.call(lis, function(li){
+        var a = li.querySelector(":scope > a");
+        return a ? { text: a.textContent.trim(), href: a.getAttribute("href") } : null;
+      }).filter(Boolean);
+      var finalList = whitelist
+        ? whitelist.map(function(rule){
+            return items.find(function(i){
+              return (rule instanceof RegExp) ? rule.test(i.text) : i.text === rule;
+            });
+          }).filter(Boolean)
+        : items;
+      if(!finalList.length) return false;
+      nav.innerHTML = finalList.map(function(it, idx){
+        var label = it.text.toLowerCase().replace(/(^|\s)\S/g, function(c){ return c.toUpperCase(); });
+        return '<a class="sav-nav-a' + (idx===0?" active":"") + '" href="' + it.href + '">' + label + '</a>';
+      }).join("");
+      return true;
+    }
+    if(build()) return;
+    var obs = new MutationObserver(function(){ if(build()) obs.disconnect(); });
+    obs.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function(){ obs.disconnect(); }, 10000);
+  })();
+  </script>
+
+  <script>
+    (function syncSavCart(){
+      function readCount(){
+        var root = document.querySelector("#header-react-app");
+        if(!root) return null;
+        // Try common selectors used by the Magazord theme
+        var el = root.querySelector(".link-cart, .carrinho-container .link-cart, [data-cart-count], .cart-count, .qtd-itens");
+        if(el){
+          var n = parseInt((el.textContent||"").replace(/\D/g,""),10);
+          if(!isNaN(n)) return n;
+        }
+        // Fallback: count cart items elements
+        var items = root.querySelectorAll(".carrinho-rapido .item-carrinho, .cart-item, [data-cart-item]");
+        if(items && items.length) return items.length;
+        return 0;
+      }
+      function apply(){
+        var badge = document.querySelector(".sav-cart-badge[data-sav-cart-count]");
+        if(!badge) return false;
+        var n = readCount();
+        if(n === null) return false;
+        badge.textContent = n > 99 ? "99+" : String(n);
+        if(n > 0){ badge.removeAttribute("hidden"); } else { badge.setAttribute("hidden",""); }
+        return true;
+      }
+      if(apply()) {/* ok */}
+      var obs = new MutationObserver(function(){ apply(); });
+      var target = document.querySelector("#header-react-app") || document.body;
+      obs.observe(target, { childList:true, subtree:true, characterData:true });
+      document.addEventListener("DOMContentLoaded", apply);
+      window.addEventListener("load", apply);
+      // Re-check periodically for AJAX cart updates
+      setInterval(apply, 2000);
+    })();
+  </script>
+  </nav>
+</div>

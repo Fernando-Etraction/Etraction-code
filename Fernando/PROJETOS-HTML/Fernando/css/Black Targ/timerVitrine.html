@@ -1,0 +1,119 @@
+<style>
+  .ra-vitrine .bottom-0 {
+    bottom: 25px !important;
+  }
+
+  .timer-container-ectraction {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 8;
+
+    width: 100%;
+    padding: 6px 8px;
+
+    color: #fff;
+    background: rgba(0, 0, 0, 0.82);
+    text-align: center;
+    box-sizing: border-box;
+
+    pointer-events: none;
+  }
+
+  .timer-container-ectraction .timer-budget {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+
+  .timer-container-ectraction .timer-budget strong {
+    color: #ffdd75;
+    font-weight: 800;
+  }
+
+  .product-list figure,
+  .swiper-slide figure {
+    position: relative;
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    function inserirTimers() {
+      $(".img-principal").each(function () {
+        const $imagem = $(this);
+        const $figure = $imagem.closest("figure");
+
+        if (!$figure.length) {
+          return;
+        }
+
+        if ($figure.find(".timer-container-ectraction").length) {
+          return;
+        }
+
+        const html = `
+        <div class="swiper">
+            div class="swiper-wrapper">
+              <div class="swiper-slide">
+                Cupom:<div> black5 </div>
+              </div>
+              <div class="timer-container-ectraction">
+                <p class="timer-budget">
+                    Termina em <strong class="timer-ectraction">00:00:00</strong>
+                    </p>
+                </div>
+                </div>
+            </div>
+        `;
+
+        $figure.append(html);
+      });
+    }
+
+    function atualizarTimers() {
+      const agora = new Date();
+
+      const fimDia = new Date();
+      fimDia.setHours(23, 59, 59, 999);
+
+      const diferenca = Math.max(fimDia - agora, 0);
+
+      const tempo = new Date(diferenca).toISOString().substring(11, 19);
+
+      $(".timer-ectraction").text(tempo);
+    }
+
+    const swiper = new Swiper(".swiper", {
+      // Optional parameters
+      direction: "vertical",
+      loop: true,
+
+      // If we need pagination
+      pagination: {
+        el: ".swiper-pagination",
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: ".swiper-scrollbar",
+      },
+    });
+
+    inserirTimers();
+    atualizarTimers();
+
+    setInterval(function () {
+      inserirTimers();
+      atualizarTimers();
+    }, 1000);
+  });
+</script>

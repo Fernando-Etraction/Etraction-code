@@ -1,0 +1,37 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Inter',sans-serif;background:#fafaf7;color:#0a0a0a;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+:root{
+  --pink:#e6007e;       /* rosa Savancini */
+  --pink-d:#b80064;
+  --ink:#0a0a0a;
+  --paper:#fafaf7;
+  --g50:#f0f0eb;
+  --g100:#e0e0db;
+  --g200:#c4c4bf;
+  --g400:#888884;
+  --g600:#555550;
+  --g700:#333330;
+  --r:2px;                /* radius minimalista */
+  --W:1280px;
+  --font-h:'Cormorant Garamond',serif;   /* display editorial */
+  --font-b:'Inter',sans-serif;
+}
+
+.container{max-width:var(--W);margin:0 auto;padding:0 24px}
+
+.section{padding:64px 0}
+.section-sm{padding:40px 0}
+
+.dual-banner{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dual-card{position:relative;aspect-ratio:3/4;overflow:hidden;cursor:pointer;background:#1c1c1a}
+.dual-bg{position:absolute;inset:0;background:repeating-linear-gradient(45deg,#22221f,#22221f 12px,#262624 12px,#262624 24px);transition:transform .6s ease}
+.dual-card:hover .dual-bg{transform:scale(1.04)}
+.dual-content{position:absolute;left:32px;bottom:32px;right:32px;z-index:2;color:#fff}
+.dual-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;margin-bottom:10px}
+.dual-title{font-family:var(--font-h);font-style:italic;font-size:48px;line-height:.95;font-weight:400;margin-bottom:14px}
+.dual-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:4px;transition:border-color .15s}
+.dual-link:hover{border-color:#fff}

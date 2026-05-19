@@ -1,76 +1,5 @@
-<script>
-(function () {
-  const COUPON_CODE = "PRIMEIRACOMPRA";
-  const DISCOUNT_PERCENT = 10;
-  const STORAGE_KEY = "produtoCupomPrimeiraCompraSelecionado";
-  const STORAGE_CODE_KEY = "produtoCupomPrimeiraCompraCodigo";
-
-  const PRICE_SELECTOR = ".full-price .price-big";
-  const INSERT_AFTER_SELECTOR = ".mais-formas-pagamento";
-
-  function showFeedbackMessage(wrapper, message, type) {
-    const feedback = wrapper.querySelector(".etc-cupom-produto-feedback");
-    if (!feedback) return;
-
-    feedback.textContent = message;
-    feedback.className = "etc-cupom-produto-feedback etc-cupom-produto-feedback-" + type;
-    feedback.style.display = "block";
-
-    clearTimeout(feedback._hideTimer);
-    feedback._hideTimer = setTimeout(function () {
-      feedback.style.display = "none";
-    }, 2000);
-  }
-
-  function createCouponBox() {
-    const wrapper = document.createElement("div");
-    wrapper.className = "etc-cupom-produto-box";
-
-    wrapper.innerHTML = `
-      <div class="etc-cupom-produto-line">
-        <div class="etc-cupom-produto-text">
-          <span class="etc-cupom-produto-label">Primeira compra:</span>
-          <strong>${DISCOUNT_PERCENT}% OFF</strong>
-
-        </div>
-
-        <label class="etc-cupom-produto-check">
-          <input type="checkbox" id="etc-aplicar-cupom-primeira-compra">
-          <span>Aplicar</span>
-        </label>
-      </div>
-
-      <div class="etc-cupom-produto-feedback" style="display:none;"></div>
-    `;
-
-    const checkbox = wrapper.querySelector("#etc-aplicar-cupom-primeira-compra");
-
-    checkbox.checked = localStorage.getItem(STORAGE_KEY) === "true";
-
-    checkbox.addEventListener("change", function () {
-      const isChecked = this.checked;
-
-      localStorage.setItem(STORAGE_KEY, isChecked ? "true" : "false");
-      localStorage.setItem(STORAGE_CODE_KEY, isChecked ? COUPON_CODE : "");
-
-      if (isChecked) {
-        showFeedbackMessage(wrapper, "Cupom ativado.", "success");
-      } else {
-        showFeedbackMessage(wrapper, "Cupom removido.", "remove");
-      }
-    });
-
-    return wrapper;
-  }
-
-  function insertStyles() {
-    if (document.getElementById("etc-cupom-produto-style")) return;
-
-    const style = document.createElement("style");
-    style.id = "etc-cupom-produto-style";
-
-    style.innerHTML = `
-      .etc-cupom-produto-box {
+<style>
+        .etc-cupom-produto-box {
         margin-top: 10px;
         font-family: Arial, Helvetica, sans-serif;
       }
@@ -190,18 +119,82 @@
       @media (max-width: 480px) {
         .etc-cupom-produto-line {
           align-items: flex-start;
-          flex-direction: column;
+          flex-direction: row;
         }
 
         .etc-cupom-produto-check {
-          width: 100%;
           justify-content: flex-end;
         }
       }
+</style>
+
+
+<script>
+(function () {
+  const COUPON_CODE = "PRIMEIRACOMPRA";
+  const DISCOUNT_PERCENT = 10;
+  const STORAGE_KEY = "produtoCupomPrimeiraCompraSelecionado";
+  const STORAGE_CODE_KEY = "produtoCupomPrimeiraCompraCodigo";
+
+  const PRICE_SELECTOR = ".full-price .price-big";
+  const INSERT_AFTER_SELECTOR = ".mais-formas-pagamento";
+
+  function showFeedbackMessage(wrapper, message, type) {
+    const feedback = wrapper.querySelector(".etc-cupom-produto-feedback");
+    if (!feedback) return;
+
+    feedback.textContent = message;
+    feedback.className = "etc-cupom-produto-feedback etc-cupom-produto-feedback-" + type;
+    feedback.style.display = "block";
+
+    clearTimeout(feedback._hideTimer);
+    feedback._hideTimer = setTimeout(function () {
+      feedback.style.display = "none";
+    }, 2000);
+  }
+
+  function createCouponBox() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "etc-cupom-produto-box";
+
+    wrapper.innerHTML = `
+      <div class="etc-cupom-produto-line">
+        <div class="etc-cupom-produto-text">
+          <span class="etc-cupom-produto-label">Primeira compra:</span>
+          <strong>${DISCOUNT_PERCENT}% OFF</strong>
+
+        </div>
+
+        <label class="etc-cupom-produto-check">
+          <input type="checkbox" id="etc-aplicar-cupom-primeira-compra">
+          <span>Aplicar</span>
+        </label>
+      </div>
+
+      <div class="etc-cupom-produto-feedback" style="display:none;"></div>
     `;
 
-    document.head.appendChild(style);
+    const checkbox = wrapper.querySelector("#etc-aplicar-cupom-primeira-compra");
+
+    checkbox.checked = localStorage.getItem(STORAGE_KEY) === "true";
+
+    checkbox.addEventListener("change", function () {
+      const isChecked = this.checked;
+
+      localStorage.setItem(STORAGE_KEY, isChecked ? "true" : "false");
+      localStorage.setItem(STORAGE_CODE_KEY, isChecked ? COUPON_CODE : "");
+
+      if (isChecked) {
+        showFeedbackMessage(wrapper, "Cupom ativado.", "success");
+      } else {
+        showFeedbackMessage(wrapper, "Cupom removido.", "remove");
+      }
+    });
+
+    return wrapper;
   }
+
+
 
   function initCouponBox() {
     if (document.querySelector(".etc-cupom-produto-box")) return;
@@ -211,7 +204,6 @@
 
     if (!priceElement || !insertTarget) return;
 
-    insertStyles();
 
     const couponBox = createCouponBox();
     insertTarget.insertAdjacentElement("afterend", couponBox);
