@@ -1,0 +1,358 @@
+<style>
+  .zus-promo-pijamas {
+    width: 100%;
+    max-width: 1320px;
+    margin: 24px auto 28px;
+    padding: 10px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    font-family: inherit;
+  }
+
+  .zus-promo-pijamas__box {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(138, 199, 195, 0.22), transparent 26%),
+      radial-gradient(circle at 82% 80%, rgba(194, 166, 98, 0.22), transparent 28%),
+      linear-gradient(180deg, #f7f7f7 0%, #eeeeee 100%);
+    padding: 24px 36px 22px;
+    text-align: center;
+    color: #050505;
+  }
+
+  .zus-promo-pijamas__box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      transparent 36%,
+      rgba(255, 255, 255, 0.75) 48%,
+      transparent 60%,
+      transparent 100%
+    );
+    transform: translateX(-120%);
+    animation: zusPromoShine 4s infinite;
+    pointer-events: none;
+  }
+
+  .zus-promo-pijamas__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .zus-promo-pijamas__top {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #6f6240;
+  }
+
+  .zus-promo-pijamas__top::before,
+  .zus-promo-pijamas__top::after {
+    content: "";
+    width: 34px;
+    height: 1px;
+    background: #c2a662;
+  }
+
+  .zus-promo-pijamas__offers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .zus-promo-pijamas__offer {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px;
+    min-width: 210px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid rgba(194, 166, 98, 0.48);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+    animation: zusOfferPulseGold 1.45s infinite;
+  }
+
+  .zus-promo-pijamas__offer--secondary {
+    border-color: rgba(138, 199, 195, 0.65);
+    animation-name: zusOfferPulseGreen;
+    animation-delay: 0.22s;
+  }
+
+  .zus-promo-pijamas__qty {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+
+  .zus-promo-pijamas__price {
+    font-size: 29px;
+    font-weight: 950;
+    line-height: 1;
+    letter-spacing: -0.7px;
+  }
+
+  .zus-promo-pijamas__offer:first-child .zus-promo-pijamas__price {
+    color: #b59649;
+  }
+
+  .zus-promo-pijamas__offer--secondary .zus-promo-pijamas__price {
+    color: #73aaa6;
+  }
+
+  .zus-promo-pijamas__or {
+    font-size: 12px;
+    font-weight: 900;
+    color: #111111;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  .zus-promo-pijamas__title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+  }
+
+  .zus-promo-pijamas__line {
+    width: 92px;
+    height: 4px;
+    background: #050505;
+    margin: 18px auto 17px;
+  }
+
+  .zus-promo-pijamas__text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  .zus-promo-pijamas__text strong {
+    display: block;
+    font-weight: 700;
+  }
+
+  .zus-promo-pijamas__cart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 17px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: #050505;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .zus-promo-pijamas__sizes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 1130px;
+    margin: 20px auto 0;
+  }
+
+  .zus-promo-pijamas__size {
+    height: 54px;
+    border: 1px solid #dedede;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.42);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: #050505;
+  }
+
+  @keyframes zusOfferPulseGold {
+    0% {
+      transform: scale(1);
+      box-shadow:
+        0 0 0 0 rgba(194, 166, 98, 0.38),
+        0 10px 26px rgba(0, 0, 0, 0.08);
+    }
+
+    50% {
+      transform: scale(1.045);
+      box-shadow:
+        0 0 0 9px rgba(194, 166, 98, 0),
+        0 13px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    100% {
+      transform: scale(1);
+      box-shadow:
+        0 0 0 0 rgba(194, 166, 98, 0),
+        0 10px 26px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  @keyframes zusOfferPulseGreen {
+    0% {
+      transform: scale(1);
+      box-shadow:
+        0 0 0 0 rgba(138, 199, 195, 0.42),
+        0 10px 26px rgba(0, 0, 0, 0.08);
+    }
+
+    50% {
+      transform: scale(1.045);
+      box-shadow:
+        0 0 0 9px rgba(138, 199, 195, 0),
+        0 13px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    100% {
+      transform: scale(1);
+      box-shadow:
+        0 0 0 0 rgba(138, 199, 195, 0),
+        0 10px 26px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  @keyframes zusPromoShine {
+    0% {
+      transform: translateX(-120%);
+    }
+
+    42% {
+      transform: translateX(120%);
+    }
+
+    100% {
+      transform: translateX(120%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .zus-promo-pijamas {
+      margin: 16px auto 20px;
+      padding: 8px;
+    }
+
+    .zus-promo-pijamas__box {
+      padding: 20px 12px 18px;
+    }
+
+    .zus-promo-pijamas__top {
+      font-size: 10px;
+      letter-spacing: 1.3px;
+      margin-bottom: 12px;
+    }
+
+    .zus-promo-pijamas__top::before,
+    .zus-promo-pijamas__top::after {
+      width: 22px;
+    }
+
+    .zus-promo-pijamas__offers {
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .zus-promo-pijamas__offer {
+      min-width: auto;
+      width: calc(50% - 4px);
+      padding: 11px 8px;
+      gap: 4px;
+    }
+
+    .zus-promo-pijamas__qty {
+      font-size: 12px;
+    }
+
+    .zus-promo-pijamas__price {
+      font-size: 21px;
+    }
+
+    .zus-promo-pijamas__or {
+      display: none;
+    }
+
+    .zus-promo-pijamas__title {
+      font-size: 14px;
+    }
+
+    .zus-promo-pijamas__line {
+      width: 72px;
+      height: 3px;
+      margin: 14px auto 13px;
+    }
+
+    .zus-promo-pijamas__text {
+      font-size: 13px;
+    }
+
+    .zus-promo-pijamas__cart {
+      font-size: 10px;
+      padding: 8px 14px;
+    }
+
+    .zus-promo-pijamas__sizes {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .zus-promo-pijamas__size {
+      height: 42px;
+      font-size: 15px;
+    }
+  }
+</style>
+
+<section class="zus-promo-pijamas">
+  <div class="zus-promo-pijamas__box">
+    <div class="zus-promo-pijamas__content">
+      <div class="zus-promo-pijamas__top">Oferta especial</div>
+
+      <div class="zus-promo-pijamas__offers">
+        <div class="zus-promo-pijamas__offer">
+          <span class="zus-promo-pijamas__qty">3 por</span>
+          <span class="zus-promo-pijamas__price">R$ 139</span>
+        </div>
+
+        <span class="zus-promo-pijamas__or">ou</span>
+
+        <div class="zus-promo-pijamas__offer zus-promo-pijamas__offer--secondary">
+          <span class="zus-promo-pijamas__qty">2 por</span>
+          <span class="zus-promo-pijamas__price">R$ 99</span>
+        </div>
+      </div>
+
+      <h2 class="zus-promo-pijamas__title">Pijamas longos</h2>
+
+      <div class="zus-promo-pijamas__line"></div>
+
+      <p class="zus-promo-pijamas__text">
+        <strong>Aproveite!</strong>
+        Desconto automático no carrinho.
+      </p>
+
+      <span class="zus-promo-pijamas__cart">Compre mais, pague menos</span>
+    </div>
+  </div>
+</section>
