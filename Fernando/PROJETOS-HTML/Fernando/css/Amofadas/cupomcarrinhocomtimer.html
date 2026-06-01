@@ -1,0 +1,260 @@
+<div class="container-cupom" id="container-cupom-femme">
+  <div class="cupom-info">
+    <span class="title">
+      <strong>Aproveite o cupom</strong> — use:
+    </span>
+
+    <div class="cupom-box">
+      <input id="code" readonly type="text" value="AMOFADAS" />
+    </div>
+
+    <span class="subtitle">
+      e <strong>ganhe 5% OFF</strong>
+    </span>
+  </div>
+
+  <div class="cupom-timer">
+    <span class="timer-label">Oferta expira em</span>
+    <span id="cupom-countdown">10:00</span>
+  </div>
+
+  <div id="copied" class="copied-msg">Copiado!</div>
+</div>
+
+<style>
+  .container-cupom {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 20px auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 18px;
+    text-align: center;
+  }
+
+  .container-cupom .cupom-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .container-cupom .title {
+    font-size: 16px;
+    color: #222;
+  }
+
+  .container-cupom .cupom-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container-cupom input#code {
+    background: #f2f2f2;
+    border: 1px dashed #ccc;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    padding: 8px 12px;
+    border-radius: 10px;
+    width: 150px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .container-cupom input#code:hover {
+    background: #e0e0e0;
+  }
+
+  .container-cupom .subtitle {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .cupom-timer {
+    background: #222;
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .timer-label {
+    font-size: 12px;
+    opacity: 0.85;
+  }
+
+  #cupom-countdown {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .copied-msg {
+    display: none;
+    background: #4caf50;
+    color: #fff;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 6px;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    animation: fadeInOut 2s forwards;
+    pointer-events: none;
+  }
+
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -10px);
+    }
+
+    20% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    80% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -10px);
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .container-cupom {
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .container-cupom .cupom-info {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .container-cupom input#code {
+      width: 100%;
+      max-width: 220px;
+    }
+
+    .cupom-timer {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cupomContainer = document.querySelector("#container-cupom-femme");
+    const codeInput = document.querySelector("#code");
+    const copiedMsg = document.querySelector("#copied");
+    const countdownEl = document.querySelector("#cupom-countdown");
+
+    const TIMER_DURATION = 10 * 60 * 1000;
+    const STORAGE_KEY = "cupom_femme5_timer_end";
+
+    function moveCupomAfterCart() {
+      const listaCarrinho = document.querySelector(".lista-carrinho");
+
+      if (!listaCarrinho || !cupomContainer) return;
+
+      const cartArea = document.querySelector("#cart-area");
+
+      if (cartArea && !cartArea.querySelector("#container-cupom-femme")) {
+        listaCarrinho.insertAdjacentElement("afterend", cupomContainer);
+      } else if (!cartArea) {
+        listaCarrinho.insertAdjacentElement("afterend", cupomContainer);
+      }
+    }
+
+    moveCupomAfterCart();
+
+    const mainCartArea = document.querySelector("#main-cart-area");
+
+    if (mainCartArea) {
+      const observer = new MutationObserver(function () {
+        moveCupomAfterCart();
+      });
+
+      observer.observe(mainCartArea, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    let endTime = localStorage.getItem(STORAGE_KEY);
+
+    if (!endTime) {
+      endTime = Date.now() + TIMER_DURATION;
+      localStorage.setItem(STORAGE_KEY, endTime);
+    } else {
+      endTime = Number(endTime);
+    }
+
+    function hideCupom() {
+      if (cupomContainer) {
+        cupomContainer.style.display = "none";
+      }
+    }
+
+    function updateTimer() {
+      const now = Date.now();
+      const remaining = endTime - now;
+
+      if (remaining <= 0) {
+        hideCupom();
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const minutes = Math.floor(remaining / 1000 / 60);
+      const seconds = Math.floor((remaining / 1000) % 60);
+
+      countdownEl.textContent =
+        String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
+    }
+
+    updateTimer();
+
+    const timerInterval = setInterval(updateTimer, 1000);
+
+    function copyCode() {
+      if (!codeInput) return;
+
+      navigator.clipboard.writeText(codeInput.value).then(function () {
+        copiedMsg.style.display = "block";
+
+        setTimeout(function () {
+          copiedMsg.style.display = "none";
+        }, 2000);
+      });
+    }
+
+    if (codeInput) {
+      codeInput.addEventListener("click", copyCode);
+    }
+  });
+</script>

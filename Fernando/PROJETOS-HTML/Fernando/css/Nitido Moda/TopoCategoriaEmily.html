@@ -1,0 +1,322 @@
+<!-- Página de Produtos da Influencer | Cupom EMILLY15 -->
+<style>
+  :root {
+    --influencer-primary: #e84f86;
+    --influencer-primary-dark: #b82f63;
+    --influencer-secondary: #ffe3ec;
+    --influencer-text: #23151a;
+    --influencer-muted: #6f5d64;
+    --influencer-border: rgba(232, 79, 134, 0.18);
+    --influencer-shadow: 0 16px 38px rgba(184, 47, 99, 0.10);
+  }
+
+  .etc-influencer-page {
+    width: 100%;
+    color: var(--influencer-text);
+    font-family: inherit;
+    overflow: hidden;
+  }
+
+  .etc-influencer-wrapper {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .etc-influencer-hero {
+    position: relative;
+    padding: 28px 0 26px;
+  }
+
+  .etc-influencer-hero-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 28px;
+    border: 1px solid var(--influencer-border);
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 10% 15%, rgba(232, 79, 134, 0.16), transparent 30%),
+      radial-gradient(circle at 92% 10%, rgba(255, 197, 217, 0.55), transparent 28%),
+      linear-gradient(135deg, #ffffff 0%, #fff7fa 100%);
+    box-shadow: var(--influencer-shadow);
+    text-align: center;
+  }
+
+  .etc-influencer-content {
+    width: 100%;
+    max-width: 860px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .etc-influencer-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--influencer-secondary);
+    color: var(--influencer-primary-dark);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  }
+
+  .etc-influencer-title {
+    display: block;
+    max-width: 760px;
+    margin: 0;
+    color: var(--influencer-text);
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.02;
+    font-weight: 850;
+    letter-spacing: -1.5px;
+  }
+
+  .etc-influencer-title strong {
+    color: var(--influencer-primary);
+    font-weight: 950;
+  }
+
+  .etc-influencer-subtitle {
+    display: block;
+    max-width: 660px;
+    margin-top: 14px;
+    color: var(--influencer-muted);
+    font-size: clamp(14px, 1.6vw, 17px);
+    line-height: 1.48;
+    font-weight: 400;
+  }
+
+  .etc-influencer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .etc-coupon-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 1px dashed rgba(184, 47, 99, 0.48);
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  .etc-coupon-label {
+    color: var(--influencer-muted);
+    font-size: 12px;
+    font-weight: 750;
+    text-transform: uppercase;
+  }
+
+  .etc-coupon-code {
+    color: var(--influencer-primary-dark);
+    font-size: 18px;
+    font-weight: 950;
+    letter-spacing: 0.8px;
+  }
+
+  .etc-copy-coupon {
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--influencer-primary) 0%, var(--influencer-primary-dark) 100%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 850;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(232, 79, 134, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .etc-copy-coupon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(232, 79, 134, 0.34);
+  }
+
+  .etc-benefits-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .etc-benefit-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid var(--influencer-border);
+    color: var(--influencer-text);
+    font-size: 13px;
+    font-weight: 750;
+    text-align: center;
+  }
+
+  .etc-toast-coupon {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    z-index: 9999;
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+    pointer-events: none;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #23151a;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: 0 14px 30px rgba(35, 21, 26, 0.2);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .etc-toast-coupon.is-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .etc-influencer-wrapper {
+      width: min(100% - 24px, 1180px);
+    }
+
+    .etc-influencer-hero {
+      padding: 20px 0 20px;
+    }
+
+    .etc-influencer-hero-card {
+      padding: 22px 16px;
+      border-radius: 22px;
+    }
+
+    .etc-influencer-title {
+      letter-spacing: -1px;
+    }
+
+    .etc-influencer-subtitle {
+      margin-top: 12px;
+    }
+
+    .etc-influencer-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 18px;
+    }
+
+    .etc-coupon-box,
+    .etc-copy-coupon {
+      width: 100%;
+    }
+
+    .etc-benefits-bar {
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .etc-benefit-item {
+      min-height: 42px;
+      font-size: 12px;
+      border-radius: 13px;
+    }
+  }
+</style>
+
+<div class="etc-influencer-page">
+  <div class="etc-influencer-wrapper">
+    <div class="etc-influencer-hero">
+      <div class="etc-influencer-hero-card">
+        <div class="etc-influencer-content">
+          <span class="etc-influencer-kicker">Seleção exclusiva da Emilly</span>
+
+          <span class="etc-influencer-title">
+            Os favoritos da <strong>Emilly</strong> com 15% OFF
+          </span>
+
+          <span class="etc-influencer-subtitle">
+            Produtos selecionados pela influencer com desconto especial usando o cupom no carrinho.
+          </span>
+
+          <div class="etc-influencer-actions">
+            <div class="etc-coupon-box">
+              <span class="etc-coupon-label">Use o cupom</span>
+              <span class="etc-coupon-code">EMILLY15</span>
+            </div>
+
+            <span class="etc-copy-coupon" data-coupon="EMILLY15">Copiar cupom</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etc-benefits-bar">
+        <div class="etc-benefit-item">Cupom exclusivo: EMILLY15</div>
+        <div class="etc-benefit-item">15% OFF nos selecionados</div>
+        <div class="etc-benefit-item">Produtos favoritos da influencer</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="etc-toast-coupon" id="etcToastCoupon">Cupom EMILLY15 copiado</div>
+
+<script>
+  (function () {
+    var copyButtons = document.querySelectorAll('.etc-copy-coupon');
+    var toast = document.getElementById('etcToastCoupon');
+    var coupon = 'EMILLY15';
+
+    function showToast() {
+      if (!toast) return;
+      toast.classList.add('is-visible');
+      setTimeout(function () {
+        toast.classList.remove('is-visible');
+      }, 1800);
+    }
+
+    function copyCoupon() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(coupon).then(showToast).catch(function () {
+          fallbackCopy();
+        });
+      } else {
+        fallbackCopy();
+      }
+    }
+
+    function fallbackCopy() {
+      var input = document.createElement('input');
+      input.value = coupon;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+      showToast();
+    }
+
+    copyButtons.forEach(function (item) {
+      item.addEventListener('click', copyCoupon);
+    });
+  })();
+</script>

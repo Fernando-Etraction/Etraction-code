@@ -1,0 +1,13 @@
+<script>
+const valorCartaoTexto = document.querySelector('#resumo-compra > div.conteudo-resumo > div.item-resumo.resumo-valores > div > div.value-content > div.value').innerText;
+const valorCartaoFloat = parseFloat(valorCartaoTexto.replace(/[^\d,]/g, '').replace(',', '.'));
+const percentualDesconto = 4.9976;
+
+const valorPixProduto = valorCartaoFloat * (1 - percentualDesconto / 100);
+
+const voceEconomiza = valorCartaoFloat - valorPixProduto;
+
+
+
+console.log('valor do pix: ' , valorPixProduto, 'voce economiza: ' , voceEconomiza); // Retorna 170.91
+</script>
