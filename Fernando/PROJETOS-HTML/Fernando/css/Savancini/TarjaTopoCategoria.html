@@ -1,0 +1,244 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap");
+
+  .etraction-tarja-categoria {
+    font-family: "Poppins", sans-serif;
+    background: #ffffff;
+    max-width: 1240px;
+    margin: 20px auto;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(23, 74, 124, 0.08);
+    border: 1px solid rgba(23, 74, 124, 0.1);
+  }
+
+  .etraction-container-categoria-text {
+    display: flex;
+    padding: 25px 35px;
+    gap: 40px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Left side - main offer */
+  .etraction-tarja-container-left {
+    flex: 1;
+  }
+
+  .etraction-mini-tag-alerta {
+    background: #2e2d2de5;
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+
+  .etraction-titulo-texto-principal {
+    font-size: 26px;
+    margin: 0 0 12px 0;
+    color: #2c3e50;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .etraction-titulo-destaque {
+    color: #174a7c;
+    font-size: 42px;
+    font-weight: 900;
+    display: block;
+    margin-top: 5px;
+  }
+
+  .etraction-titulo-lista {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0;
+    display: flex;
+    gap: 20px;
+  }
+
+  .etraction-titulo-item {
+    font-size: 14px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .etraction-titulo-item::before {
+    content: "\2713";
+    color: #174a7c;
+    font-weight: 900;
+    font-size: 16px;
+  }
+
+  .etraction-tarja-separador {
+    width: 1px;
+    height: 80px;
+    background: #e1e9f0;
+  }
+
+  /* Right side - coupon bonus */
+  .etraction-container-cupom-right {
+    flex: 0 0 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 10px;
+  }
+
+  .etraction-destaque-percentual {
+    margin-bottom: 12px;
+  }
+
+  .etraction-texto-off {
+    font-size: 13px;
+    font-weight: 600;
+    color: #7f8c8d;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .etraction-valor-off {
+    font-size: 18px;
+    font-weight: 800;
+    color: #2c3e50;
+  }
+
+  .etraction-container-cupom {
+    width: 100%;
+  }
+
+  .etraction-cupom-badge {
+    background: #f4f7fa;
+    color: #174a7c;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px dashed #174a7c;
+    text-align: center;
+    display: block;
+  }
+
+  .etraction-cupom-badge:hover {
+    background: #e9eff5;
+  }
+
+  .etraction-regras-cupom {
+    font-size: 11px;
+    color: #95a5a6;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    .etraction-titulo-lista {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .etraction-container-categoria-text {
+      flex-direction: column;
+      padding: 20px;
+      gap: 25px;
+      align-items: flex-start;
+    }
+
+    .etraction-tarja-separador {
+      display: none;
+    }
+
+    .etraction-container-cupom-right {
+      flex: 1 1 auto;
+      width: 100%;
+      padding-left: 0;
+      border-top: 1px dashed #e1e9f0;
+      padding-top: 20px;
+    }
+
+    .etraction-titulo-texto-principal {
+      font-size: 22px;
+    }
+
+    .etraction-titulo-destaque {
+      font-size: 34px;
+    }
+  }
+</style>
+
+<section
+  class="etraction-tarja-categoria"
+  role="region"
+  aria-label="Promo&ccedil;&atilde;o de Macaquinhos"
+>
+  <div class="etraction-container-categoria-text">
+    <div class="etraction-tarja-container-left">
+      <span class="etraction-mini-tag-alerta">Promo&ccedil;&atilde;o Ativa</span>
+      <div class="etraction-titulo-tarja">
+        <div class="etraction-titulo-texto-principal">
+          Leve 2 macaquinhos por apenas
+          <span class="etraction-titulo-destaque">R$149 cada</span>
+        </div>
+        <ul class="etraction-titulo-lista">
+          <li class="etraction-titulo-item">Desconto autom&aacute;tico no carrinho</li>
+          <li class="etraction-titulo-item">Modelos selecionados</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="etraction-tarja-separador" aria-hidden="true"></div>
+
+    <div class="etraction-container-cupom-right">
+      <div class="etraction-destaque-percentual">
+        <span class="etraction-texto-off">&Eacute; sua primeira compra?</span>
+        <span class="etraction-valor-off">Ganhe + 10% OFF</span>
+      </div>
+
+      <div class="etraction-container-cupom">
+        <div
+          class="etraction-cupom-badge"
+          data-coupon="PRIMEIRACOMPRA"
+          role="button"
+          tabindex="0"
+          title="Clique para copiar"
+        >
+          PRIMEIRACOMPRA
+        </div>
+      </div>
+
+      <div class="etraction-regras-cupom">
+        *Copie o cupom acima. V&aacute;lido por tempo limitado para novos clientes.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Script para copiar o cupom ao clicar
+  document.querySelectorAll(".etraction-cupom-badge").forEach((button) => {
+    button.addEventListener("click", () => {
+      const couponCode = button.getAttribute("data-coupon");
+      navigator.clipboard.writeText(couponCode).then(() => {
+        // Mensagem temporaria de sucesso no botao do cupom
+        const originalText = button.textContent;
+        button.innerHTML = "Copiado! <br> Aplique no checkout";
+        setTimeout(() => {
+          button.innerHTML = originalText;
+        }, 2000);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,612 @@
+<section class="alerta-topo alerta-topo-campanha">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="campanha-primeira-compra">
+          <!-- Elementos decorativos de fundo -->
+          <div class="campanha-decoracao campanha-decoracao-1"></div>
+          <div class="campanha-decoracao campanha-decoracao-2"></div>
+          <div class="campanha-decoracao campanha-decoracao-3"></div>
+
+          <div class="campanha-primeira-compra__left">
+            <div class="campanha-badge">OFERTA ESPECIAL</div>
+            <h2 class="campanha-titulo">6 POR R$186</h2>
+            <p class="campanha-descricao">
+              Leve 6 pares por apenas
+              <span class="campanha-destaque">R$186,00</span>.<br />
+              Use o cupom <strong>6POR186</strong> e aproveite também
+              <span class="campanha-bonus">frete grátis</span> para a região
+              Sul e Sudeste.
+            </p>
+            <small>*Aplique o cupom diretamente no</small>
+          </div>
+
+          <div class="campanha-primeira-compra__right">
+            <div class="campanha-cupom-container">
+              <p class="campanha-cupom-label">*Utilize no carrinho</p>
+              <button
+                class="campanha-cupom-btn"
+                type="button"
+                data-coupon="6POR186"
+              >
+                6POR186
+              </button>
+              <span class="campanha-cupom-texto">Clique para copiar</span>
+              <span class="campanha-cupom-feedback" aria-live="polite"></span>
+
+              <div class="campanha-check-mark"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var buttons = document.querySelectorAll(".campanha-cupom-btn[data-coupon]");
+
+    buttons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        var coupon = this.getAttribute("data-coupon");
+        var feedback = this.parentElement.querySelector(
+          ".campanha-cupom-feedback",
+        );
+        var checkMark = this.parentElement.querySelector(
+          ".campanha-check-mark",
+        );
+
+        function showFeedback(message) {
+          if (!feedback) return;
+          feedback.textContent = message;
+          feedback.classList.add("ativo");
+
+          if (checkMark) {
+            checkMark.classList.add("ativo");
+          }
+
+          clearTimeout(feedback._timer);
+          feedback._timer = setTimeout(function () {
+            feedback.textContent = "";
+            feedback.classList.remove("ativo");
+            if (checkMark) {
+              checkMark.classList.remove("ativo");
+            }
+          }, 2500);
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(coupon)
+            .then(function () {
+              showFeedback("Cupom copiado!");
+            })
+            .catch(function () {
+              fallbackCopy(coupon, showFeedback);
+            });
+        } else {
+          fallbackCopy(coupon, showFeedback);
+        }
+      });
+    });
+
+    function fallbackCopy(text, callback) {
+      var input = document.createElement("input");
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      callback("Cupom copiado!");
+    }
+  });
+</script>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .alerta-topo-campanha {
+    background: transparent;
+    padding: 16px 0;
+  }
+
+  .campanha-primeira-compra {
+    position: relative;
+    background: linear-gradient(135deg, #001f47 0%, #002d63 50%, #003d85 100%);
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 28px 30px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+      0 20px 60px rgba(0, 31, 71, 0.3),
+      0 0 60px rgba(0, 61, 133, 0.1);
+    transition:
+      transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease;
+  }
+
+  /* Decorações de fundo */
+  .campanha-decoracao {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .campanha-decoracao-1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #ffffff, transparent);
+    top: -80px;
+    right: -80px;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .campanha-decoracao-2 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #ffffff, transparent);
+    bottom: -60px;
+    left: 10%;
+    animation: float 10s ease-in-out infinite 1s;
+  }
+
+  .campanha-decoracao-3 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, #ffffff, transparent);
+    top: 50%;
+    left: 5%;
+    animation: float 12s ease-in-out infinite 2s;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(20px);
+    }
+  }
+
+  .campanha-primeira-compra__left,
+  .campanha-primeira-compra__right {
+    width: 50%;
+    position: relative;
+    z-index: 2;
+  }
+
+  .campanha-primeira-compra__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #ffffff;
+  }
+
+  .campanha-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    width: fit-content;
+    backdrop-filter: blur(10px);
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  .campanha-titulo {
+    margin: 0 0 6px;
+    font-size: 38px;
+    line-height: 1;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: slideInLeft 0.6s ease-out 0.1s both;
+  }
+
+  .campanha-descricao {
+    margin: 0 0 14px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+    max-width: 95%;
+    animation: slideInLeft 0.6s ease-out 0.2s both;
+  }
+
+  .campanha-destaque {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
+  .campanha-bonus {
+    display: inline-block;
+    background: rgba(74, 222, 128, 0.2);
+    border: 1px solid rgba(74, 222, 128, 0.4);
+    color: #4ade80;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 4px;
+    backdrop-filter: blur(5px);
+  }
+
+  .campanha-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 193, 7, 0.15);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 12px;
+    width: fit-content;
+    margin-top: 10px;
+    animation: slideInLeft 0.6s ease-out 0.3s both;
+  }
+
+  .campanha-timer-icon {
+    font-size: 18px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .campanha-timer-text {
+    color: #ffc107;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .campanha-primeira-compra__right {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.98) 100%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 26px;
+    text-align: center;
+    border-radius: 12px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 31, 71, 0.1);
+    animation: slideInRight 0.6s ease-out 0.2s both;
+    position: relative;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .campanha-cupom-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .campanha-cupom-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 800;
+    color: #001f47;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .campanha-cupom-btn {
+    width: 100%;
+    min-height: 56px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #001f47 0%, #003d85 100%);
+    border: 2px solid #003d85;
+    color: #ffffff;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    font-family: "Courier New", monospace;
+  }
+
+  .campanha-cupom-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .campanha-cupom-btn:active {
+    transform: translateY(0);
+  }
+
+  .campanha-cupom-texto {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #001f47;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .campanha-cupom-feedback {
+    display: block;
+    min-height: 18px;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #4ade80;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .campanha-cupom-feedback.ativo {
+    opacity: 1;
+    animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .campanha-check-mark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #4ade80;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .campanha-check-mark.ativo {
+    opacity: 1;
+    transform: scale(1);
+    animation: checkMark 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes checkMark {
+    0% {
+      opacity: 0;
+      transform: scale(0) rotate(-45deg);
+    }
+
+    70% {
+      opacity: 1;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  /* Responsivo */
+  @media (max-width: 1200px) {
+    .campanha-primeira-compra {
+      padding: 40px 30px;
+      gap: 30px;
+    }
+
+    .campanha-titulo {
+      font-size: 52px;
+    }
+
+    .campanha-descricao {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .campanha-primeira-compra {
+      flex-direction: column;
+      gap: 20px;
+      padding: 32px 24px;
+    }
+
+    .campanha-primeira-compra__left,
+    .campanha-primeira-compra__right {
+      width: 100%;
+    }
+
+    .campanha-titulo {
+      font-size: 44px;
+    }
+
+    .campanha-descricao {
+      font-size: 16px;
+      max-width: 100%;
+    }
+
+    .campanha-cupom-btn {
+      font-size: 32px;
+      min-height: 60px;
+      padding: 16px 18px;
+    }
+
+    .campanha-primeira-compra__right {
+      padding: 32px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .alerta-topo-campanha {
+      padding: 16px 0;
+    }
+
+    .campanha-primeira-compra {
+      padding: 24px 16px;
+      border-radius: 12px;
+    }
+
+    .campanha-titulo {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .campanha-descricao {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .campanha-cupom-btn {
+      font-size: 26px;
+      min-height: 56px;
+      padding: 14px 14px;
+    }
+
+    .campanha-cupom-texto {
+      font-size: 12px;
+    }
+
+    .campanha-primeira-compra__right {
+      padding: 24px 20px;
+    }
+
+    .campanha-badge {
+      font-size: 10px;
+      margin-bottom: 12px;
+    }
+
+    .campanha-timer {
+      margin-top: 12px;
+    }
+
+    /* Reduzir decorações em mobile */
+    .campanha-decoracao-1 {
+      width: 200px;
+      height: 200px;
+      top: -60px;
+      right: -60px;
+    }
+
+    .campanha-decoracao-2 {
+      width: 150px;
+      height: 150px;
+      bottom: -50px;
+    }
+
+    .campanha-decoracao-3 {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .campanha-primeira-compra {
+      padding: 20px 12px;
+    }
+
+    .campanha-titulo {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .campanha-descricao {
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .campanha-badge {
+      font-size: 9px;
+      margin-bottom: 10px;
+    }
+
+    .campanha-cupom-btn {
+      font-size: 22px;
+      min-height: 50px;
+      padding: 12px 10px;
+    }
+
+    .campanha-primeira-compra__right {
+      padding: 20px 16px;
+    }
+
+    .campanha-cupom-label {
+      font-size: 11px;
+    }
+
+    .campanha-timer {
+      font-size: 13px;
+      margin-top: 10px;
+    }
+  }
+</style>

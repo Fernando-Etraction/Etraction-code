@@ -1,0 +1,655 @@
+<style><!--
+/* ─── CONTAINER ─── */
+  .ectraction-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 32px 100px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    color: #111;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── DIVISOR ─── */
+  .ectraction-divider {
+    border: none;
+    border-top: 1px solid #e8e8e8;
+    margin: 40px 0;
+  }
+
+  /* ─── HERO SPLIT ─── */
+  .ectraction-hero-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .ectraction-hero-split-img {
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    object-fit: cover;
+    display: block;
+    background: #f2f2f2;
+  }
+
+  .ectraction-hero-split-text {
+    padding: 44px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #e8e8e8;
+    border-left: none;
+  }
+
+  .ectraction-hero-split-eyebrow {
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #aaa;
+    font-weight: 400;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .ectraction-hero-split-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #111;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .ectraction-hero-split-lead {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: #666;
+    font-weight: 300;
+    display: block;
+  }
+
+  /* ─── BADGES com ícone ─── */
+  .ectraction-badge-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid #e8e8e8;
+    overflow: hidden;
+  }
+
+  .ectraction-badge-item {
+    flex: 1;
+    padding: 20px 14px;
+    border-right: 1px solid #e8e8e8;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .ectraction-badge-item:last-child {
+    border-right: none;
+  }
+
+  .ectraction-badge-icon-img {
+    width: 30px;
+    height: 30px;
+    display: block;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.85;
+  }
+
+  .ectraction-badge-name {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #111;
+    line-height: 1.3;
+    display: block;
+  }
+
+  .ectraction-badge-detail {
+    font-size: 0.5rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #bbb;
+    font-weight: 400;
+    display: block;
+  }
+
+  /* ─── BLOCO BLACKOUT ─── */
+  .ectraction-blackout {
+    background: #0a0a0a;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .ectraction-blackout-text {
+    padding: 48px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ectraction-blackout-eyebrow {
+    font-size: 0.5rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .ectraction-blackout-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.35;
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  .ectraction-blackout-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.75;
+    font-weight: 300;
+    display: block;
+  }
+
+  .ectraction-blackout-desc strong {
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 400;
+  }
+
+  .ectraction-blackout-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    min-height: 280px;
+    background: #1a1a1a;
+  }
+
+  /* ─── SEÇÃO INFO — cards 3 colunas ─── */
+  .ectraction-info-section {
+    margin-bottom: 0;
+  }
+
+  .ectraction-section-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #bbb;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .ectraction-info-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+  }
+
+  .ectraction-info-card {
+    background: #fff;
+    padding: 28px 24px;
+  }
+
+  .ectraction-info-card-label {
+    font-size: 0.5625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #bbb;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .ectraction-info-card-text {
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: #333;
+    font-weight: 300;
+    display: block;
+  }
+
+  .ectraction-info-card-text strong {
+    color: #111;
+    font-weight: 500;
+  }
+
+  /* ─── CUIDADOS — lista compacta ─── */
+  .ectraction-care-section {
+    margin-top: 40px;
+  }
+
+  .ectraction-care-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e8e8e8;
+    border: 1px solid #e8e8e8;
+  }
+
+  .ectraction-care-item {
+    background: #f7f7f7;
+    padding: 20px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .ectraction-care-item-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 500;
+    min-width: 72px;
+    padding-top: 2px;
+    flex-shrink: 0;
+    display: block;
+  }
+
+  .ectraction-care-item-text {
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: #555;
+    font-weight: 300;
+    display: block;
+  }
+
+  .ectraction-care-item-text strong {
+    color: #111;
+    font-weight: 500;
+  }
+
+  /* ─── RODAPÉ ─── */
+  .ectraction-footer-strip {
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: #f7f7f7;
+    border: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .ectraction-footer-specs {
+    font-size: 0.6875rem;
+    color: #111;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: block;
+  }
+
+  .ectraction-footer-note {
+    font-size: 0.6875rem;
+    color: #999;
+    font-weight: 300;
+    text-align: right;
+    white-space: nowrap;
+    display: block;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 680px) {
+    .ectraction-hero-split {
+      grid-template-columns: 1fr;
+    }
+
+    .ectraction-hero-split-text {
+      border-left: 1px solid #e8e8e8;
+      border-top: none;
+    }
+
+    .ectraction-blackout {
+      grid-template-columns: 1fr;
+    }
+
+    .ectraction-blackout-media {
+      min-height: 220px;
+      aspect-ratio: 16/7;
+    }
+
+    .ectraction-info-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .ectraction-care-list {
+      grid-template-columns: 1fr;
+    }
+
+    .ectraction-badge-row {
+      flex-wrap: wrap;
+    }
+
+    .ectraction-badge-item {
+      flex: 1 1 calc(50% - 1px);
+    }
+
+    .ectraction-footer-strip {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ectraction-footer-note {
+      text-align: left;
+      white-space: normal;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .ectraction-wrap {
+      padding: 36px 18px 80px;
+    }
+
+    .ectraction-blackout-text {
+      padding: 36px 28px;
+    }
+
+    .ectraction-hero-split-text {
+      padding: 32px 24px;
+    }
+  }
+--></style>
+
+<div class="ectraction-wrap">
+  <!-- HERO SPLIT: imagem + texto lado a lado -->
+  <div class="ectraction-hero-split">
+    <img class="ectraction-hero-split-img" src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg" alt="Legging Feminina Poliamida Basic Azul Capri" />
+
+    <div class="ectraction-hero-split-text">
+      <span class="ectraction-hero-split-eyebrow">Cole&ccedil;&atilde;o Paris &mdash; Poliamida</span>
+      <span class="ectraction-hero-split-title">Legging Feminina Poliamida Basic &mdash; Azul Capri</span>
+      <span class="ectraction-hero-split-lead">Poliamida premium com toque gelado e macio, cintura alta e modelagem anat&ocirc;mica para acompanhar seus movimentos com conforto e seguran&ccedil;a.</span>
+    </div>
+  </div>
+
+  <hr class="ectraction-divider" />
+
+  <!-- DESTAQUES com ícones em PNG -->
+<!-- DESTAQUES com ícones em PNG -->
+<div class="ectraction-badge-row">
+  <div class="ectraction-badge-item">
+    <img class="ectraction-badge-icon-img" src="https://muvfit.cdn.magazord.com.br/img/2026/05/produto/5407/zero-transparencia.png" alt="Zero Transparência" />
+    <span class="ectraction-badge-name">Zero Transpar&ecirc;ncia</span>
+    <span class="ectraction-badge-detail">Blackout</span>
+  </div>
+
+  <div class="ectraction-badge-item">
+    <img class="ectraction-badge-icon-img" src="https://muvfit.cdn.magazord.com.br/img/2026/05/produto/5403/cintura-alta.png" alt="Cintura Alta" />
+    <span class="ectraction-badge-name">Cintura Alta</span>
+    <span class="ectraction-badge-detail">Anat&ocirc;mica</span>
+  </div>
+
+  <div class="ectraction-badge-item">
+    <img class="ectraction-badge-icon-img" src="https://muvfit.cdn.magazord.com.br/img/2026/05/produto/5405/tecido-gelado.png" alt="Tecido Gelado" />
+    <span class="ectraction-badge-name">Tecido Gelado</span>
+    <span class="ectraction-badge-detail">Macio</span>
+  </div>
+
+  <div class="ectraction-badge-item">
+    <img class="ectraction-badge-icon-img" src="https://muvfit.cdn.magazord.com.br/img/2026/05/produto/5406/uv50.png" alt="UV50+" />
+    <span class="ectraction-badge-name">UV50+</span>
+    <span class="ectraction-badge-detail">Prote&ccedil;&atilde;o</span>
+  </div>
+
+  <div class="ectraction-badge-item">
+    <img class="ectraction-badge-icon-img" src="https://muvfit.cdn.magazord.com.br/img/2026/05/produto/5404/secagem-rapida.png" alt="Secagem Rápida" />
+    <span class="ectraction-badge-name">Secagem R&aacute;pida</span>
+    <span class="ectraction-badge-detail">Dry</span>
+  </div>
+</div>
+
+  <hr class="ectraction-divider" />
+
+  <!-- BLACKOUT — split escuro -->
+  <div class="ectraction-blackout">
+    <div class="ectraction-blackout-text">
+      <span class="ectraction-blackout-eyebrow">Tecnologia Blackout</span>
+      <span class="ectraction-blackout-title">Zero Transpar&ecirc;ncia<br />em Movimento</span>
+      <span class="ectraction-blackout-desc"><strong>Seguran&ccedil;a para treinar, agachar e se movimentar.</strong> A tecnologia Blackout ajuda a evitar transpar&ecirc;ncia durante o uso, mantendo conforto e confian&ccedil;a em diferentes tipos de treino.</span>
+    </div>
+
+    <img class="ectraction-blackout-media" src="https://magazord-public.s3.amazonaws.com/muvfit/img/2026/04/produto/5157/calca-blackout-azul.gif" alt="Tecnologia Blackout em movimento" />
+  </div>
+
+  <hr class="ectraction-divider" />
+
+  <!-- SOBRE O PRODUTO — 3 cards -->
+  <div class="ectraction-info-section">
+    <span class="ectraction-section-label">Detalhes do produto</span>
+
+    <div class="ectraction-info-cards">
+      <div class="ectraction-info-card">
+        <span class="ectraction-info-card-label">Produto</span>
+        <span class="ectraction-info-card-text"><strong>Legging Feminina Poliamida Basic &mdash; Azul Capri</strong><br /> Cole&ccedil;&atilde;o Paris &mdash; Poliamida Premium</span>
+      </div>
+
+      <div class="ectraction-info-card">
+        <span class="ectraction-info-card-label">Tecnologia</span>
+        <span class="ectraction-info-card-text">Tecnologia Blackout<br /> Zero Transpar&ecirc;ncia<br /> Prote&ccedil;&atilde;o UV50+<br /> Tecnologia Dry</span>
+      </div>
+
+      <div class="ectraction-info-card">
+        <span class="ectraction-info-card-label">Benef&iacute;cios</span>
+        <span class="ectraction-info-card-text">Secagem r&aacute;pida<br /> Tecido gelado e macio<br /> Modelagem anat&ocirc;mica<br /> Cintura alta</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUIDADOS — 2 colunas compactas -->
+  <div class="ectraction-care-section">
+    <span class="ectraction-section-label">Cuidados de uso</span>
+
+    <div class="ectraction-care-list">
+      <div class="ectraction-care-item">
+        <span class="ectraction-care-item-label">Lavagem</span>
+        <span class="ectraction-care-item-text">Lave em ciclo delicado, at&eacute; 30&deg;C. <strong>Evite amaciante</strong> para preservar a elasticidade e a performance do tecido.</span>
+      </div>
+
+      <div class="ectraction-care-item">
+        <span class="ectraction-care-item-label">Conserva&ccedil;&atilde;o</span>
+        <span class="ectraction-care-item-text">Evite contato com velcro e superf&iacute;cies &aacute;speras para n&atilde;o puxar fios nem comprometer o acabamento da pe&ccedil;a.</span>
+      </div>
+
+      <div class="ectraction-care-item">
+        <span class="ectraction-care-item-label">Tonalidade</span>
+        <span class="ectraction-care-item-text">A cor Azul Capri pode variar conforme ilumina&ccedil;&atilde;o, tela e configura&ccedil;&atilde;o do dispositivo.</span>
+      </div>
+
+      <div class="ectraction-care-item">
+        <span class="ectraction-care-item-label">Troca</span>
+        <span class="ectraction-care-item-text">At&eacute; 7 dias ap&oacute;s o recebimento para troca ou devolu&ccedil;&atilde;o, conforme pol&iacute;tica da loja.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RODAPÉ -->
+<div class="ectraction-footer-strip">
+  <span class="ectraction-footer-specs">Poliamida Premium &middot; Blackout &middot; UV50+ &middot; Tecnologia Dry</span>
+  <span class="ectraction-footer-note">&middot; Troca em at&eacute; 7 dias</span>
+</div>
+
+<script>// <![CDATA[
+(function () {
+    const LOG_PREFIX = "[ectraction-descricao]";
+    const MAX_TRIES = 40;
+    const TRY_DELAY = 350;
+
+    function log(...args) {
+      console.log(LOG_PREFIX, ...args);
+    }
+
+    function warn(...args) {
+      console.warn(LOG_PREFIX, ...args);
+    }
+
+    function getBestFromImg(img) {
+      if (!img) return "";
+      return (
+        img.getAttribute("data-src-zoom") ||
+        img.getAttribute("data-zoom") ||
+        img.getAttribute("data-src") ||
+        img.getAttribute("src") ||
+        ""
+      );
+    }
+
+    function cleanUrl(url) {
+      return (url || "").replace(/\?.*$/, "");
+    }
+
+    function isValid(url) {
+      if (!url) return false;
+      if (url.startsWith("data:image/")) return false;
+      if (url.includes("data:image/svg")) return false;
+      if (url.includes("data:image/gif")) return false;
+      if (url.includes("avaliacao_anexo")) return false;
+      return true;
+    }
+
+    function isProduct(url) {
+      return url.includes("/img/") && url.includes("/produto/");
+    }
+
+    function parseIms(url) {
+      const m = (url || "").match(/[\?&]ims=(\d+)x(\d+)/i);
+      if (!m) return { area: 0 };
+      const w = parseInt(m[1], 10) || 0;
+      const h = parseInt(m[2], 10) || 0;
+      return { area: w * h };
+    }
+
+    function collectGalleryUrls(doc) {
+      const selectors = [
+        "#block-imagem .gallery-main .swiper-slide img",
+        "#container-swiper .gallery-main .swiper-slide img",
+        ".product-img.container-swiper .gallery-main .swiper-slide img",
+        "#block-imagem .swiper-slide img",
+        ".gallery-main .swiper-slide img",
+        ".swiper-slide img",
+      ];
+
+      let imgs = [];
+
+      for (const sel of selectors) {
+        const found = doc.querySelectorAll(sel);
+        if (found && found.length) {
+          imgs = Array.from(found);
+          break;
+        }
+      }
+
+      const urls = imgs
+        .filter(
+          (img) =>
+            !img.closest(".thumbs-ctn") && !img.closest(".thumbs-gallery"),
+        )
+        .map(getBestFromImg)
+        .map(cleanUrl)
+        .filter(isValid)
+        .filter(isProduct);
+
+      return Array.from(new Set(urls));
+    }
+
+    function pickBestUrl(urls) {
+      if (!urls.length) return "";
+
+      let best = urls[0];
+      let bestArea = parseIms(best).area;
+
+      urls.forEach((url) => {
+        const area = parseIms(url).area;
+        if (area > bestArea) {
+          best = url;
+          bestArea = area;
+        }
+      });
+
+      return best;
+    }
+
+    function replaceOnlyFirstDescriptionImage(urls) {
+      const firstDescriptionImage = document.querySelector(
+        ".ectraction-wrap img",
+      );
+
+      if (!firstDescriptionImage) {
+        warn("Não encontrei a primeira imagem da descrição.");
+        return false;
+      }
+
+      const best = pickBestUrl(urls);
+
+      if (!best) return false;
+
+      firstDescriptionImage.setAttribute("src", best);
+      firstDescriptionImage.setAttribute("data-src", best);
+      firstDescriptionImage.setAttribute("data-src-zoom", best);
+      firstDescriptionImage.removeAttribute("srcset");
+
+      log("Primeira imagem da descrição atualizada:", best);
+      return true;
+    }
+
+    function applyFirstImageReplacement() {
+      let urls = collectGalleryUrls(document);
+
+      if (!urls.length) {
+        const og = document.querySelector(
+          'meta[property="og:image"], meta[name="og:image"]',
+        );
+        const ogUrl = og ? cleanUrl(og.getAttribute("content") || "") : "";
+
+        if (ogUrl && isValid(ogUrl)) {
+          urls = [ogUrl];
+        } else {
+          return false;
+        }
+      }
+
+      return replaceOnlyFirstDescriptionImage(urls);
+    }
+
+    let tries = 0;
+
+    function loop() {
+      tries++;
+
+      if (applyFirstImageReplacement()) return;
+
+      if (tries < MAX_TRIES) {
+        setTimeout(loop, TRY_DELAY);
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () =>
+        setTimeout(loop, 250),
+      );
+    } else {
+      setTimeout(loop, 250);
+    }
+
+    const obs = new MutationObserver(() => {
+      if (applyFirstImageReplacement()) obs.disconnect();
+    });
+
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+
+    setTimeout(() => obs.disconnect(), 12000);
+  })();
+// ]]></script>

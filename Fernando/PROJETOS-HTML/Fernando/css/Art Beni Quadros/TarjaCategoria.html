@@ -1,0 +1,347 @@
+<style><!--
+.descricao-pesquisa h1 { display: none !important; }
+
+  /* Paleta do site */
+  .blh-promos{
+    --bg:#000;
+    --yellow:#F7DC83;
+    --gold:#C5A740;
+    --radius:16px;
+    --shadow:0 16px 36px rgba(0,0,0,.28);
+
+    background:var(--bg);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:22px;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+    max-width:1400px;
+    margin:20px auto;
+    border:1px solid rgba(247,220,131,.22);
+    position:relative;
+    overflow:hidden;
+  }
+  .blh-promos::before{
+    content:"";
+    position:absolute;
+    inset:-80px -140px auto auto;
+    width:420px;height:420px;
+    background:radial-gradient(circle, rgba(247,220,131,.22), transparent 60%);
+    pointer-events:none;
+  }
+  .blh-promos__head{margin-bottom:16px}
+  .blh-promos__title{
+    margin:0;
+    font-size:38px;
+    line-height:1.05;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    font-weight:900;
+    color:var(--yellow);
+  }
+  .blh-promos__subtitle{
+    margin:8px 0 0;
+    font-size:15px;
+    color:rgba(255,255,255,.88);
+  }
+
+  .blh-promos__grid-wrap{
+    display:flex;
+    gap:16px;
+    align-items:stretch;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+  .blh-promos__grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(220px, 1fr));
+    gap:12px;
+    flex:1;
+    min-width:520px;
+  }
+  .blh-card{
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    padding:16px;
+    text-align:left;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(247,220,131,.18);
+  }
+  .blh-card__lead{
+    margin:0 0 8px;
+    font-size:18px;
+    font-weight:900;
+  }
+  .blh-card__lead b{color:var(--yellow)}
+
+  .blh-cupom{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    border:1px dashed rgba(247,220,131,.8);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    border-radius:10px;
+    padding:12px 14px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .12s ease, background .2s ease;
+  }
+  .blh-cupom:hover{background:rgba(0,0,0,.55);transform:translateY(-1px)}
+  .blh-cupom__label{color:rgba(255,255,255,.85);font-weight:700;letter-spacing:.02em;text-transform:none}
+
+  .blh-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+  .blh-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:44px;
+    padding:0 18px;
+    border-radius:12px;
+    border:1px solid rgba(0,0,0,.2);
+    background:linear-gradient(180deg, #F7DC83, #C5A740);
+    color:#000;
+    font-weight:900;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:transform .12s ease, filter .2s ease;
+    text-decoration:none;
+    user-select:none;
+  }
+  .blh-cta:hover{transform:translateY(-1px);filter:brightness(1.02)}
+
+  .blh-timer{
+    text-align:center;
+    background:rgba(255,255,255,.06);
+    padding:16px;
+    border-radius:14px;
+    min-width:290px;
+    box-shadow:var(--shadow);
+    border:1px solid rgba(247,220,131,.18);
+  }
+  .blh-timer__label{margin:0;font-size:13px;color:rgba(255,255,255,.9)}
+  .blh-timer__count{
+    font-size:22px;
+    font-weight:900;
+    color:var(--yellow);
+    margin:8px 0 10px;
+    letter-spacing:.04em;
+  }
+  .blh-note{font-size:12px;color:rgba(255,255,255,.86);margin-top:6px}
+  .blh-note--strong{font-weight:900;text-transform:uppercase;margin-top:10px;color:#fff;letter-spacing:.10em}
+
+  @media (max-width:980px){
+    .blh-promos__title{font-size:32px}
+    .blh-promos__grid{grid-template-columns:1fr;min-width:0}
+  }
+  @media (max-width:768px){
+    .blh-promos{padding:18px}
+    .blh-promos__grid-wrap{flex-direction:column}
+    .blh-timer{width:100%;min-width:0}
+  }
+--></style>
+<p>
+<script>// <![CDATA[
+(function () {
+  var NS = "[blh-promos]";
+  function log(){ try{ console.log.apply(console, [NS].concat([].slice.call(arguments))); }catch(e){} }
+  function warn(){ try{ console.warn.apply(console, [NS].concat([].slice.call(arguments))); }catch(e){} }
+  function err(){ try{ console.error.apply(console, [NS].concat([].slice.call(arguments))); }catch(e){} }
+
+  // ===== CONFIG =====
+  var END_DATE_ISO = "2026-03-31T23:59:59";
+
+  // Seletor onde você quer inserir ANTES
+  var PRIMARY_ANCHOR_SEL = ".descricao-pesquisa";
+
+  // Fallbacks comuns Magazord
+  var FALLBACK_TARGETS = [
+    ".product-details-components",
+    ".page-content",
+    ".container",
+    "main",
+    "body"
+  ];
+
+  function buildHTML() {
+    return ''
+      + '<section class="blh-promos" id="blh-promos" aria-label="Promoções Mês do Consumidor">'
+      +   '<div class="blh-promos__head">'
+      +     '<h2 class="blh-promos__title">MÊS DO CONSUMIDOR</h2>'
+      +     '<p class="blh-promos__subtitle">Garanta descontos progressivos em suas compras!</p>'
+      +   '</div>'
+      +   '<div class="blh-promos__grid-wrap">'
+      +     '<div class="blh-promos__grid">'
+
+
+
+      +       '<article class="blh-card">'
+      +         '<p class="blh-card__lead"><b>R$ 100 OFF</b> em pedidos acima de R$ 250</p>'
+      +         '<button type="button" class="blh-cupom" data-cupom="ART100">'
+      +           '<span class="blh-cupom__label">CUPOM:</span> <span>ART100</span>'
+      +         '</button>'
+      +       '</article>'
+
+      +       '<article class="blh-card">'
+      +         '<p class="blh-card__lead"><b>R$ 200 OFF</b> em pedidos acima de R$ 650</p>'
+      +         '<button type="button" class="blh-cupom" data-cupom="ART200">'
+      +           '<span class="blh-cupom__label">CUPOM:</span> <span>ART200</span>'
+      +         '</button>'
+      +       '</article>'
+
+      +       '<article class="blh-card">'
+      +         '<p class="blh-card__lead"><b>R$ 300 OFF</b> em pedidos acima de R$ 950</p>'
+      +         '<button type="button" class="blh-cupom" data-cupom="ART300">'
+      +           '<span class="blh-cupom__label">CUPOM:</span> <span>ART300</span>'
+      +         '</button>'
+      +       '</article>'
+      +     '</div>'
+
+      +     '<div class="blh-timer">'
+      +       '<p class="blh-timer__label">Mês do Consumidor termina em:</p>'
+      +       '<div id="blh-timer-countdown" class="blh-timer__count">--d --h --m --s</div>'
+      +       '<p class="blh-note blh-note--strong">Exclusivo para esta categoria</p>'
+      +     '</div>'
+
+      +   '</div>'
+      + '</section>';
+  }
+
+  function copyText(text) {
+    if (!text) return;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text)
+        .then(function(){ log("cupom copiado:", text); })
+        .catch(function(e){ warn("falha clipboard API; tentando fallback", e); });
+      return;
+    }
+
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      log("cupom copiado (fallback):", text);
+    } catch (e) {
+      warn("não foi possível copiar cupom", e);
+    }
+  }
+
+  function mount() {
+    if (document.getElementById("blh-promos")) {
+      log("já existe #blh-promos, não vou duplicar");
+      return true;
+    }
+
+    var html = buildHTML();
+
+    // 1) PRIORIDADE: antes da .descricao-pesquisa
+    var anchor = document.querySelector(PRIMARY_ANCHOR_SEL);
+    if (anchor && anchor.parentNode) {
+      anchor.insertAdjacentHTML("beforebegin", html);
+      log("INSERIDO antes de", PRIMARY_ANCHOR_SEL, "| anchor =", anchor);
+      return true;
+    }
+    warn("âncora NÃO encontrada:", PRIMARY_ANCHOR_SEL);
+
+    // 2) FALLBACKS
+    for (var i=0;i<FALLBACK_TARGETS.length;i++){
+      var sel = FALLBACK_TARGETS[i];
+      var t = (sel === "body") ? document.body : document.querySelector(sel);
+      if (t) {
+        t.insertAdjacentHTML("afterbegin", html);
+        warn("INSERIDO em fallback:", sel, "| node =", t);
+        return true;
+      }
+      log("fallback não encontrado:", sel);
+    }
+
+    err("FALHA TOTAL: não encontrei âncora nem fallback para inserir");
+    return false;
+  }
+
+  function bind() {
+    // Timer
+    var timerEl = document.getElementById("blh-timer-countdown");
+    if (!timerEl) {
+      warn("timer não encontrado (#blh-timer-countdown)");
+    } else {
+      var endDate = new Date(END_DATE_ISO).getTime();
+      log("timer configurado para:", END_DATE_ISO, "| timestamp =", endDate);
+
+      function tick() {
+        var dist = endDate - Date.now();
+        if (dist <= 0) { timerEl.textContent = "Encerrado"; return; }
+        var d = Math.floor(dist / 86400000);
+        var h = Math.floor((dist / 3600000) % 24);
+        var m = Math.floor((dist / 60000) % 60);
+        var s = Math.floor((dist / 1000) % 60);
+        timerEl.textContent = d + "d " + h + "h " + m + "m " + s + "s";
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    // Copiar cupom
+    var btns = document.querySelectorAll(".blh-cupom");
+    log("botões .blh-cupom encontrados:", btns.length);
+
+    for (var i=0;i<btns.length;i++){
+      (function(btn){
+        btn.addEventListener("click", function(){
+          var cupom = btn.getAttribute("data-cupom") || "";
+          log("click cupom:", cupom);
+          copyText(cupom);
+
+          var original = btn.innerHTML;
+          btn.innerHTML = '<span class="blh-cupom__label">CUPOM:</span> <span>Copiado!</span>';
+          setTimeout(function(){ btn.innerHTML = original; }, 1500);
+        });
+      })(btns[i]);
+    }
+  }
+
+  function init() {
+    log("init() chamado | readyState =", document.readyState);
+
+    // tenta montar agora
+    if (mount()) { bind(); return; }
+
+    // observer (Magazord pode renderizar depois)
+    warn("não montou agora — iniciando MutationObserver (aguardando render Magazord)");
+    var obs = new MutationObserver(function(muts){
+      log("MutationObserver disparou | muts =", muts.length);
+      if (mount()) {
+        obs.disconnect();
+        log("observer desconectado (montou com sucesso)");
+        bind();
+      }
+    });
+
+    obs.observe(document.documentElement, { childList:true, subtree:true, attributes:true });
+
+    // failsafe
+    setTimeout(function(){
+      try{ obs.disconnect(); warn("failsafe: observer desconectado após 15s"); }catch(e){}
+    }, 15000);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+    log("aguardando DOMContentLoaded...");
+  } else {
+    init();
+  }
+})();
+// ]]></script>
+</p>

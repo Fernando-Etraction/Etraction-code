@@ -1,0 +1,99 @@
+<style>
+  .tag-despacho-priorizado-etraction {
+    display: inline-block !important;
+    width: fit-content !important;
+    margin-top: 6px !important;
+    padding: 4px 8px !important;
+    border-radius: 999px !important;
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+    position: relative !important;
+    z-index: 9999 !important;
+  }
+</style>
+
+<script>
+  (function () {
+    const TAG_CLASS = "tag-despacho-priorizado-etraction";
+
+    function normalizar(texto) {
+      return (texto || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\u00A0/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toUpperCase();
+    }
+
+    function removerTags() {
+      document.querySelectorAll("." + TAG_CLASS).forEach(function (tag) {
+        tag.remove();
+      });
+    }
+
+    function criarTag() {
+      const tag = document.createElement("div");
+      tag.className = TAG_CLASS;
+      tag.textContent = "Despacho priorizado";
+      return tag;
+    }
+
+    function ehBlocoFretePago(elemento) {
+      const texto = normalizar(elemento.textContent);
+
+      const temPrazo = texto.includes("DIAS UTEIS");
+      const temPreco = texto.includes("R$");
+      const ehGratis = texto.includes("GRATIS");
+
+      return temPrazo && temPreco && !ehGratis;
+    }
+
+    function aplicarDespachoPriorizado() {
+      const areaFrete = document.querySelector("#resumo-compra");
+
+      if (!areaFrete) return;
+
+      removerTags();
+
+      const elementos = Array.from(
+        areaFrete.querySelectorAll("div, label, li"),
+      );
+
+      const blocosPagos = elementos.filter(ehBlocoFretePago);
+
+      const blocosFinais = blocosPagos.filter(function (bloco) {
+        return !blocosPagos.some(function (outroBloco) {
+          return outroBloco !== bloco && bloco.contains(outroBloco);
+        });
+      });
+
+      blocosFinais.forEach(function (bloco) {
+        if (!bloco.querySelector("." + TAG_CLASS)) {
+          const valorFrete = bloco.querySelector(".value");
+          const tag = criarTag();
+
+          if (valorFrete) {
+            valorFrete.insertAdjacentElement("beforebegin", tag);
+          } else {
+            bloco.appendChild(tag);
+          }
+        }
+      });
+    }
+
+    document.addEventListener("click", function () {
+      setTimeout(aplicarDespachoPriorizado, 300);
+      setTimeout(aplicarDespachoPriorizado, 800);
+      setTimeout(aplicarDespachoPriorizado, 1500);
+    });
+
+    setTimeout(aplicarDespachoPriorizado, 500);
+    setTimeout(aplicarDespachoPriorizado, 1500);
+  })();
+</script>

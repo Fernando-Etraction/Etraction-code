@@ -1,0 +1,1146 @@
+<style>
+    :root {
+        --black: #0a0a0a;
+        --white: #f5f5f3;
+        --gray-100: #e8e8e6;
+        --gray-300: #b0b0ae;
+        --gray-500: #6b6b69;
+        --gray-700: #3a3a38;
+        --gray-900: #1c1c1a;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: var(--black);
+        color: var(--white);
+        font-family: 'Syne', sans-serif;
+        overflow-x: hidden;
+        cursor: none;
+    }
+
+    /* CURSOR */
+    .cursor {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        background: var(--white);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.3s, height 0.3s;
+        mix-blend-mode: difference;
+    }
+
+    .cursor.expand {
+        width: 56px;
+        height: 56px;
+    }
+
+    /* GRAIN */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 100;
+        opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 28px 48px;
+        z-index: 50;
+        mix-blend-mode: difference;
+    }
+
+    .nav-logo {
+        font-family: 'Anton', sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.2em;
+        color: var(--white);
+        text-decoration: none;
+    }
+
+    .nav-tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        color: var(--gray-300);
+        text-transform: uppercase;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 0 48px 64px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-video-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
+
+    .hero-video-bg video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%) brightness(0.28);
+    }
+
+    .hero-vignette {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(10, 10, 10, 0.35) 0%, rgba(10, 10, 10, 0) 35%, rgba(10, 10, 10, 0.9) 100%);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-year {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        color: var(--gray-300);
+        margin-bottom: 24px;
+        opacity: 0;
+        animation: fadeUp 1s 0.3s forwards;
+    }
+
+    .hero-title {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(64px, 12vw, 180px);
+        line-height: 0.9;
+        opacity: 0;
+        animation: fadeUp 1s 0.5s forwards;
+    }
+
+    .hero-title span {
+        display: block;
+        color: var(--gray-300);
+    }
+
+    .hero-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 48px;
+        opacity: 0;
+        animation: fadeUp 1s 0.8s forwards;
+    }
+
+    .hero-desc {
+        max-width: 340px;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        color: var(--gray-300);
+    }
+
+    .hero-scroll {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+    }
+
+    .scroll-line {
+        width: 1px;
+        height: 60px;
+        background: linear-gradient(to bottom, transparent, var(--gray-500));
+        animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    .hero-mute-btn {
+        position: absolute;
+        bottom: 64px;
+        right: 48px;
+        z-index: 3;
+        background: rgba(10, 10, 10, 0.6);
+        border: 1px solid var(--gray-700);
+        color: var(--gray-300);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 10px 18px;
+        cursor: none;
+        transition: border-color 0.3s, color 0.3s;
+        opacity: 0;
+        animation: fadeUp 1s 1.2s forwards;
+    }
+
+    .hero-mute-btn:hover {
+        border-color: var(--white);
+        color: var(--white);
+    }
+
+    @keyframes scrollPulse {
+
+        0%,
+        100% {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scaleY(0.6);
+            opacity: 0.4;
+        }
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ===== MANIFESTO ===== */
+    .manifesto {
+        padding: 140px 48px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 80px;
+        border-top: 1px solid var(--gray-700);
+    }
+
+    .section-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+        padding-top: 8px;
+    }
+
+    .manifesto-text {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(36px, 5.5vw, 80px);
+        line-height: 1.05;
+    }
+
+    .manifesto-text em {
+        font-style: normal;
+        color: var(--gray-500);
+    }
+
+    /* ===== YT PLAYER — shared styles ===== */
+    .yt-wrapper {
+        position: relative;
+        width: 100%;
+        border: 1px solid var(--gray-700);
+        overflow: hidden;
+        background: #000;
+    }
+
+    .yt-cover {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+        background: var(--gray-900);
+        cursor: none;
+        transition: opacity 0.5s ease;
+    }
+
+    .yt-cover.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .yt-cover-title {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(28px, 5vw, 68px);
+        letter-spacing: -0.01em;
+        text-align: center;
+        line-height: 1;
+    }
+
+    .yt-cover-title span {
+        color: var(--gray-500);
+    }
+
+    .play-btn {
+        width: 72px;
+        height: 72px;
+        border: 1px solid var(--gray-500);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .play-btn:hover {
+        transform: scale(1.12);
+        border-color: var(--white);
+    }
+
+    .play-btn svg {
+        fill: var(--white);
+        margin-left: 5px;
+    }
+
+    .yt-ratio {
+        position: relative;
+        padding-bottom: 52%;
+    }
+
+    .yt-ratio iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    /* ===== VIDEO REEL 1 ===== */
+    .video-reel {
+        padding: 0 48px 120px;
+    }
+
+    .video-reel-label {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 32px;
+    }
+
+    .video-reel-label::before {
+        content: '';
+        display: block;
+        width: 32px;
+        height: 1px;
+        background: var(--gray-700);
+    }
+
+    .video-reel-label span {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee-wrap {
+        border-top: 1px solid var(--gray-700);
+        border-bottom: 1px solid var(--gray-700);
+        overflow: hidden;
+        padding: 18px 0;
+    }
+
+    .marquee-track {
+        display: flex;
+        animation: marquee 18s linear infinite;
+        white-space: nowrap;
+    }
+
+    .marquee-text {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(32px, 5vw, 64px);
+        color: transparent;
+        -webkit-text-stroke: 1px var(--gray-700);
+        padding: 0 48px;
+        flex-shrink: 0;
+    }
+
+    .marquee-dot {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(32px, 5vw, 64px);
+        color: var(--gray-700);
+        padding: 0 24px;
+        flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* ===== TIMELINE ===== */
+    .timeline {
+        padding: 0 48px;
+    }
+
+    .timeline-item {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 48px;
+        border-top: 1px solid #1e1e1c;
+        padding: 64px 0;
+        align-items: start;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .timeline-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .timeline-year {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(72px, 10vw, 140px);
+        color: transparent;
+        -webkit-text-stroke: 1px var(--gray-700);
+        line-height: 1;
+        position: relative;
+    }
+
+    .timeline-year::after {
+        content: attr(data-year);
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--gray-700);
+        font-size: clamp(72px, 10vw, 140px);
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.18, 1);
+    }
+
+    .timeline-item.visible .timeline-year::after {
+        clip-path: inset(0 0% 0 0);
+    }
+
+    .timeline-content {
+        padding-top: 16px;
+    }
+
+    .timeline-tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .timeline-title {
+        font-size: clamp(22px, 3vw, 38px);
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+    }
+
+    .timeline-body {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: var(--gray-300);
+        max-width: 560px;
+    }
+
+    /* ===== PHOTO COLLAGE — 2018 ===== */
+    .photo-collage {
+        margin-top: 44px;
+        position: relative;
+        height: 400px;
+        max-width: 640px;
+    }
+
+    .collage-img {
+        position: absolute;
+        overflow: hidden;
+        border: 1px solid var(--gray-700);
+    }
+
+    .collage-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%) contrast(1.08);
+        display: block;
+        transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .collage-img:hover img {
+        transform: scale(1.05);
+    }
+
+    .collage-img-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+        padding: 24px 14px 12px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.55rem;
+        letter-spacing: 0.2em;
+        color: var(--gray-300);
+        text-transform: uppercase;
+    }
+
+    .collage-img:nth-child(1) {
+        width: 60%;
+        height: 72%;
+        top: 0;
+        left: 0;
+        transform: rotate(-2deg);
+        z-index: 1;
+    }
+
+    .collage-img:nth-child(2) {
+        width: 55%;
+        height: 68%;
+        bottom: 0;
+        right: 0;
+        transform: rotate(2deg);
+        z-index: 2;
+        border-color: var(--gray-500);
+    }
+
+    /* ARTISTS */
+    .artists {
+        margin-top: 36px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .artist-tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        padding: 8px 16px;
+        border: 1px solid var(--gray-700);
+        color: var(--gray-300);
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.3s;
+    }
+
+    .artist-tag::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--white);
+        transform: translateX(-100%);
+        transition: transform 0.3s cubic-bezier(0.77, 0, 0.18, 1);
+    }
+
+    .artist-tag:hover::before {
+        transform: translateX(0);
+    }
+
+    .artist-tag:hover {
+        color: var(--black);
+    }
+
+    .artist-tag span {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ===== CINEMATIC BREAK — YouTube 2 ===== */
+    .video-break {
+        margin: 40px 0 80px;
+        border-top: 1px solid var(--gray-700);
+        border-bottom: 1px solid var(--gray-700);
+    }
+
+    .video-break-inner {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+    }
+
+    .video-break-sidebar {
+        padding: 56px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 1px solid var(--gray-700);
+        background: var(--gray-900);
+        min-height: 460px;
+    }
+
+    .video-break-num {
+        font-family: 'Anton', sans-serif;
+        font-size: 6rem;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--gray-700);
+        line-height: 1;
+    }
+
+    .video-break-caption {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(22px, 2.5vw, 36px);
+        line-height: 1.1;
+        letter-spacing: -0.01em;
+    }
+
+    .video-break-caption span {
+        color: var(--gray-500);
+    }
+
+    .video-break-sub {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+        margin-top: 14px;
+    }
+
+    .video-break-player {
+        position: relative;
+        overflow: hidden;
+        background: #000;
+    }
+
+    .video-break-player .yt-cover {
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    .video-break-player .yt-cover .play-btn {
+        width: 96px;
+        height: 96px;
+    }
+
+    .video-break-player .yt-cover .play-btn svg {
+        width: 24px;
+        height: 28px;
+    }
+
+    .video-break-player .yt-ratio {
+        padding-bottom: 0;
+        min-height: 460px;
+    }
+
+    .video-break-player .yt-ratio iframe {
+        height: 100%;
+    }
+
+    /* ===== CLOSING ===== */
+    .closing {
+        padding: 140px 48px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        border-top: 1px solid var(--gray-700);
+    }
+
+    .closing-statement {
+        font-family: 'Anton', sans-serif;
+        font-size: clamp(40px, 6vw, 90px);
+        line-height: 1.0;
+        letter-spacing: -0.01em;
+    }
+
+    .closing-statement span {
+        display: block;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--gray-500);
+    }
+
+    .closing-right {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .closing-detail {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: var(--gray-300);
+        border-left: 1px solid var(--gray-700);
+        padding-left: 24px;
+    }
+
+    .closing-origin {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .origin-label {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        letter-spacing: 0.3em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+    }
+
+    .origin-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+
+    /* FOOTER */
+    .footer-stamp {
+        padding: 48px;
+        border-top: 1px solid var(--gray-700);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .stamp-logo {
+        font-family: 'Anton', sans-serif;
+        font-size: 2.5rem;
+        letter-spacing: 0.05em;
+        line-height: 1;
+    }
+
+    .stamp-reg {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        color: var(--gray-500);
+        text-transform: uppercase;
+        text-align: right;
+        line-height: 1.8;
+    }
+
+    .h-accent {
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--gray-500);
+        margin-bottom: 32px;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+        transition-delay: 0.15s;
+    }
+
+    .reveal-delay-2 {
+        transition-delay: 0.3s;
+    }
+
+    .reveal-delay-3 {
+        transition-delay: 0.45s;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        nav {
+            padding: 24px;
+        }
+
+        .hero {
+            padding: 0 24px 48px;
+        }
+
+        .hero-mute-btn {
+            right: 24px;
+            bottom: 48px;
+        }
+
+        .manifesto {
+            grid-template-columns: 1fr;
+            padding: 80px 24px;
+            gap: 32px;
+        }
+
+        .video-reel {
+            padding: 0 24px 80px;
+        }
+
+        .timeline {
+            padding: 0 24px;
+        }
+
+        .timeline-item {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 48px 0;
+        }
+
+        .timeline-year {
+            font-size: 72px;
+        }
+
+        .photo-collage {
+            height: 300px;
+        }
+
+        .video-break-inner {
+            grid-template-columns: 1fr;
+        }
+
+        .video-break-sidebar {
+            border-right: none;
+            border-bottom: 1px solid var(--gray-700);
+            min-height: auto;
+            padding: 40px 24px;
+        }
+
+        .video-break-player .yt-ratio {
+            padding-bottom: 56%;
+            min-height: auto;
+        }
+
+        .video-break-player .yt-ratio iframe {
+            height: 100%;
+        }
+
+        .closing {
+            grid-template-columns: 1fr;
+            padding: 80px 24px;
+        }
+
+        .footer-stamp {
+            padding: 32px 24px;
+            flex-direction: column;
+            gap: 24px;
+            align-items: flex-start;
+        }
+    }
+</style>
+
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-logo">BLACK TARG®</a>
+    <span class="nav-tag">The New Concept</span>
+</nav>
+
+<!-- ===== HERO — MP4 background ===== -->
+<section class="hero">
+    <div class="hero-video-bg">
+        <video id="heroVid"
+            src="https://cdn-planweb.com/production/stories-videos/40212c51-2b5b-4c0a-8c45-23a125c7e7b1.mp4"
+            poster="https://cdn-planweb.com/production/stories-videos/ad349a5c-3f4f-4077-aaa2-ebbd9b30d082.jpg" autoplay
+            muted loop playsinline preload="auto">
+        </video>
+        <div class="hero-vignette"></div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-year">EST. 2016 — BRUSQUE / SC — BRASIL</div>
+        <h1 class="hero-title">BLACK<br><span>TARG</span></h1>
+        <div class="hero-bottom">
+            <p class="hero-desc">
+                O novo conceito de moda masculina premium.<br>
+                Estilo que nasce da necessidade real.<br>
+                Qualidade que se vê. Conforto que se sente.
+            </p>
+            <div class="hero-scroll">
+                <div class="scroll-line"></div>
+                scroll
+            </div>
+        </div>
+    </div>
+
+    <button class="hero-mute-btn" id="muteBtn" onclick="toggleMute()">&#9654; SOM OFF</button>
+</section>
+
+<!-- ===== MANIFESTO ===== -->
+<section class="manifesto">
+    <div><span class="section-label">Manifesto</span></div>
+    <div>
+        <p class="manifesto-text reveal">
+            Nascemos de uma<br>
+            <em>frustração.</em><br>
+            Viramos uma<br>
+            <em>referência.</em>
+        </p>
+    </div>
+</section>
+
+<!-- ===== VIDEO REEL — YouTube 1: A origem ===== -->
+<div class="video-reel reveal">
+    <div class="video-reel-label">
+        <span>A história em vídeo — Origem</span>
+    </div>
+    <div class="yt-wrapper">
+        <div class="yt-cover" id="cover1" onclick="playYT('player1','G_62nLaLjPw','cover1')">
+            <p class="yt-cover-title">DE ONDE<br><span>VIEMOS.</span></p>
+            <div class="play-btn">
+                <svg width="18" height="22" viewBox="0 0 18 22">
+                    <path d="M0 0L18 11L0 22V0Z" />
+                </svg>
+            </div>
+        </div>
+        <div class="yt-ratio">
+            <iframe id="player1" src=""
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-wrap">
+    <div class="marquee-track">
+        <span class="marquee-text">PREMIUM</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">MASCULINO</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">ESTILO</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">QUALIDADE</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">CONFORTO</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">PREMIUM</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">MASCULINO</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">ESTILO</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">QUALIDADE</span><span class="marquee-dot">—</span>
+        <span class="marquee-text">CONFORTO</span><span class="marquee-dot">—</span>
+    </div>
+</div>
+
+<!-- ===== TIMELINE ===== -->
+<section class="timeline">
+
+    <!-- 2016 -->
+    <div class="timeline-item">
+        <div class="timeline-year" data-year="2016">2016</div>
+        <div class="timeline-content">
+            <span class="timeline-tag">Origem</span>
+            <h2 class="timeline-title">Tudo começa com uma necessidade.</h2>
+            <p class="timeline-body">
+                A Black Targ nasce em Brusque/SC da insatisfação de um consumidor real. Difícil encontrar roupa com
+                estilo e qualidade no mercado? A solução foi criar as próprias peças. O que começou como customização
+                pessoal rapidamente chamou atenção de quem estava ao redor.
+            </p>
+        </div>
+    </div>
+
+    <!-- 2017 -->
+    <div class="timeline-item">
+        <div class="timeline-year" data-year="2017">2017</div>
+        <div class="timeline-content">
+            <span class="timeline-tag">Primeiro movimento</span>
+            <h2 class="timeline-title">As roupas falaram por si.</h2>
+            <p class="timeline-body">
+                O interesse dos amigos e conhecidos foi crescendo. Ver pessoas usando o que você criou é uma satisfação
+                que nenhum número explica. Foi aí que a decisão foi tomada: confeccionar para vender. A Black Targ
+                deixava de ser pessoal e se tornava uma marca.
+            </p>
+        </div>
+    </div>
+
+    <!-- 2018 — PHOTOS -->
+    <div class="timeline-item">
+        <div class="timeline-year" data-year="2018">2018</div>
+        <div class="timeline-content">
+            <span class="timeline-tag">Expansão</span>
+            <h2 class="timeline-title">A marca ganhou os palcos.</h2>
+            <p class="timeline-body">
+                Eventos, parcerias e artistas. A Black Targ foi representada ao lado de nomes que movem o mercado. O
+                conceito foi levado ao limite — e funcionou. A marca virou referência no segmento premium masculino no
+                Brasil.
+            </p>
+
+            <div class="photo-collage">
+                <div class="collage-img">
+                    <img src="https://blacktarg.cdn.magazord.com.br/img/2021/11/categoria/657/black-targ-evento.jpg"
+                        alt="Black Targ Evento" loading="lazy">
+                    <div class="collage-img-label">Black Targ — Evento 2018</div>
+                </div>
+                <div class="collage-img">
+                    <img src="https://blacktarg.cdn.magazord.com.br/img/2021/11/produto/658/black-targ-camisetas-evento.jpg"
+                        alt="Black Targ Camisetas" loading="lazy">
+                    <div class="collage-img-label">Coleção Evento</div>
+                </div>
+            </div>
+
+            <div class="artists">
+                <div class="artist-tag"><span>Projota</span></div>
+                <div class="artist-tag"><span>Mc Menor</span></div>
+                <div class="artist-tag"><span>MC MR</span></div>
+                <div class="artist-tag"><span>MC Kevin</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2019 -->
+    <div class="timeline-item">
+        <div class="timeline-year" data-year="2019">2019</div>
+        <div class="timeline-content">
+            <span class="timeline-tag">Digital</span>
+            <h2 class="timeline-title">O Brasil todo passou a ser nosso destino.</h2>
+            <p class="timeline-body">
+                A loja online foi o próximo passo natural. Peças de alta qualidade, confeccionadas com dedicação,
+                respeito e carinho — agora acessíveis de qualquer canto do Brasil. Um novo conceito de estilo, levado
+                até você.
+            </p>
+        </div>
+    </div>
+
+</section>
+
+<!-- ===== CINEMATIC VIDEO BREAK — YouTube 2 ===== -->
+<div class="video-break reveal">
+    <div class="video-break-inner">
+        <div class="video-break-sidebar">
+            <div class="video-break-num">02</div>
+            <div>
+                <p class="video-break-caption">QUEM<br>USA,<br><span>ENTENDE.</span></p>
+                <p class="video-break-sub">Black Targ — The New Concept</p>
+            </div>
+        </div>
+        <div class="video-break-player">
+            <div class="yt-cover" id="cover2" onclick="playYT('player2','tUM2CRfTzzU','cover2')">
+                <div class="play-btn" style="width:96px;height:96px;">
+                    <svg width="22" height="28" viewBox="0 0 18 22">
+                        <path d="M0 0L18 11L0 22V0Z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="yt-ratio">
+                <iframe id="player2" src=""
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2025 -->
+<section class="timeline" style="padding-bottom:0;">
+    <div class="timeline-item">
+        <div class="timeline-year" data-year="2025">2025</div>
+        <div class="timeline-content">
+            <span class="timeline-tag">Agora</span>
+            <h2 class="timeline-title">Uma das maiores do Brasil.</h2>
+            <p class="timeline-body">
+                O que começou como uma customização pessoal se tornou uma das maiores marcas de roupas masculinas
+                premium do país. A história não acabou — está sendo escrita a cada peça.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CLOSING ===== -->
+<section class="closing">
+    <div>
+        <span class="h-accent"></span>
+        <h2 class="closing-statement reveal">
+            FEITO<br><span>COM</span><br>ESTILO.
+        </h2>
+    </div>
+    <div class="closing-right">
+        <p class="closing-detail reveal reveal-delay-1">
+            Cada peça da Black Targ carrega a mesma essência de quando tudo começou: a recusa em aceitar menos do que o
+            melhor. Qualidade não é luxo. É padrão.
+        </p>
+        <div style="display:flex; gap: 48px; flex-wrap:wrap;">
+            <div class="closing-origin reveal reveal-delay-2">
+                <span class="origin-label">Fundação</span>
+                <span class="origin-value">2016</span>
+            </div>
+            <div class="closing-origin reveal reveal-delay-2">
+                <span class="origin-label">Origem</span>
+                <span class="origin-value">Brusque / SC</span>
+            </div>
+            <div class="closing-origin reveal reveal-delay-3">
+                <span class="origin-label">Segmento</span>
+                <span class="origin-value">Premium</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-stamp">
+    <div class="stamp-logo">BLACK<br>TARG</div>
+    <div class="stamp-reg">
+        Black Targ® — The New Concept<br>
+        Todos os direitos reservados — 2025
+    </div>
+</footer>
+
+<script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, .artist-tag, button, .yt-cover, .play-btn, .collage-img').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Hero video mute toggle
+    const heroVid = document.getElementById('heroVid');
+    const muteBtn = document.getElementById('muteBtn');
+    let isMuted = true;
+    function toggleMute() {
+        isMuted = !isMuted;
+        heroVid.muted = isMuted;
+        muteBtn.textContent = isMuted ? '▶ SOM OFF' : '🔊 SOM ON';
+    }
+
+    // Lazy YouTube load on click
+    function playYT(playerId, videoId, coverId) {
+        const iframe = document.getElementById(playerId);
+        const cover = document.getElementById(coverId);
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+        cover.classList.add('hidden');
+    }
+
+    // Intersection observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+</script>

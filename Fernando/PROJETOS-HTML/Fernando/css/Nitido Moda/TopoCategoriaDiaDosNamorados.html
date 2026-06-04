@@ -1,0 +1,595 @@
+<!-- Tarja topo de categoria — Dia dos Namorados — formato CARTA DE AMOR (versão maior)
+     Cupom: AMOR12 · 12% OFF · válido até 12/06 · com cronômetro · responsiva -->
+<div class="nt-wrap" role="banner" aria-label="Promoção Dia dos Namorados">
+  <!-- Aba do envelope aberta -->
+  <div class="nt-flap" aria-hidden="true"></div>
+
+  <article class="nt-letter">
+    <span class="nt-grain" aria-hidden="true"></span>
+    <!-- Corpo da carta -->
+    <div class="nt-body">
+      <p class="nt-from">Brasil · Dia dos Namorados</p>
+      <p class="nt-greet">Para você,</p>
+      <h2 class="nt-msg">
+        com <em>amor</em>, um presente:
+        <strong class="nt-off">12% OFF</strong>
+      </h2>
+      <p class="nt-line">
+        Use o cupom abaixo e leve o que o seu coração pediu.
+      </p>
+
+      <div
+        class="nt-cupom"
+        tabindex="0"
+        role="button"
+        aria-label="Copiar cupom AMOR12"
+      >
+        <span class="nt-cupom-label">cupom</span>
+        <span class="nt-cupom-cod">AMOR12</span>
+        <span class="nt-cupom-acao">copiar</span>
+      </div>
+    </div>
+
+    <!-- Coluna do cronômetro -->
+    <aside class="nt-aside" aria-live="polite">
+      <span class="nt-aside-titulo">a carta expira em</span>
+      <div class="nt-timer">
+        <div class="nt-bloco"><b data-d>00</b><i>dias</i></div>
+        <span class="nt-sep">:</span>
+        <div class="nt-bloco"><b data-h>00</b><i>horas</i></div>
+        <span class="nt-sep">:</span>
+        <div class="nt-bloco"><b data-m>00</b><i>min</i></div>
+        <span class="nt-sep">:</span>
+        <div class="nt-bloco"><b data-s>00</b><i>seg</i></div>
+      </div>
+      <span class="nt-validade">válido até 12/06</span>
+
+      <!-- assinatura + selo de cera -->
+      <div class="nt-assinatura">
+        <span class="nt-ass-texto">com carinho</span>
+
+      </div>
+    </aside>
+
+    <button class="nt-fechar" aria-label="Fechar aviso">&times;</button>
+  </article>
+</div>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@400;500;600&family=Petit+Formal+Script&display=swap");
+
+  .nt-wrap {
+    --vinho: #6e1023;
+    --vinho-claro: #a8324a;
+    --rosa: #e8b9c2;
+    --papel: #f8f0e1;
+    --papel-2: #f0e4cf;
+    --papel-borda: #e2d2b6;
+    --tinta: #3a2a26;
+    --cera: #9b1b2e;
+    --ouro: #c89b3c;
+
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+  }
+  .nt-wrap * {
+    box-sizing: border-box;
+  }
+
+  /* aba do envelope */
+  .nt-flap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1080px, 95%);
+    height: clamp(28px, 4vw, 52px);
+    background: linear-gradient(180deg, #ead9bd, #e0cdac);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    box-shadow: 0 4px 8px -4px rgba(110, 16, 35, 0.35);
+    opacity: 0.9;
+    z-index: 1;
+  }
+
+  /* a carta */
+  .nt-letter {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.6fr 0.9fr;
+    gap: clamp(1rem, 3vw, 2.4rem);
+    align-items: stretch;
+    width: min(1080px, 100%);
+    margin: clamp(14px, 2vw, 26px) auto 0;
+    padding: clamp(1.2rem, 3vw, 2.3rem) clamp(1.2rem, 3.2vw, 2.6rem);
+    background:
+      repeating-linear-gradient(
+        180deg,
+        transparent 0 31px,
+        rgba(110, 16, 35, 0.07) 31px 32px
+      ),
+      linear-gradient(160deg, var(--papel) 0%, var(--papel-2) 100%);
+    border: 1px solid var(--papel-borda);
+    border-radius: 4px;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 18px 40px -22px rgba(110, 16, 35, 0.55),
+      0 2px 0 #e6d6ba,
+      0 4px 0 #ddcba9;
+  }
+  .nt-letter::before {
+    /* margem vermelha de caderno, à esquerda */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: clamp(14px, 2.4vw, 30px);
+    width: 1px;
+    background: rgba(168, 50, 74, 0.35);
+  }
+  .nt-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    border-radius: 4px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  }
+
+  /* selo postal */
+  .nt-stamp {
+    position: absolute;
+    top: clamp(-6px, -0.6vw, -2px);
+    right: clamp(12px, 2.4vw, 28px);
+    transform: rotate(4deg);
+    z-index: 3;
+  }
+  .nt-stamp-inner {
+    display: grid;
+    place-items: center;
+    gap: 0.1rem;
+    width: clamp(54px, 7vw, 74px);
+    height: clamp(60px, 8vw, 84px);
+    background: #fbf4e7;
+    color: var(--vinho);
+    padding: 0.35rem;
+    box-shadow: 0 4px 10px -4px rgba(110, 16, 35, 0.5);
+    /* serrilhado do selo */
+    -webkit-mask: radial-gradient(
+        circle 4px at 4px 4px,
+        transparent 96%,
+        #000
+      ) -4px -4px/12px
+      12px;
+    mask: radial-gradient(
+        circle 4px at 4px 4px,
+        transparent 96%,
+        #000
+      ) -4px -4px/12px
+      12px;
+    border: none;
+  }
+  .nt-stamp-heart {
+    width: clamp(20px, 3vw, 28px);
+    height: auto;
+    fill: var(--vinho-claro);
+  }
+  .nt-stamp-val {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    line-height: 1;
+  }
+  .nt-postmark {
+    position: absolute;
+    top: 38%;
+    right: 62%;
+    transform: rotate(-12deg);
+    border: 1.5px solid rgba(110, 16, 35, 0.5);
+    border-radius: 50%;
+    width: clamp(58px, 8vw, 82px);
+    height: clamp(58px, 8vw, 82px);
+    display: grid;
+    place-content: center;
+    text-align: center;
+    color: rgba(110, 16, 35, 0.6);
+    background: rgba(248, 240, 225, 0.2);
+  }
+  .nt-postmark span {
+    font-size: clamp(0.55rem, 1.2vw, 0.72rem);
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+  .nt-postmark small {
+    font-size: clamp(0.4rem, 0.9vw, 0.5rem);
+    letter-spacing: 0.16em;
+  }
+
+  /* corpo */
+  .nt-body {
+    padding-left: clamp(10px, 1.6vw, 18px);
+  }
+  .nt-from {
+    margin: 0;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--vinho-claro);
+  }
+  .nt-greet {
+    margin: 0.15rem 0 0;
+    font-family: "Petit Formal Script", cursive;
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+    color: var(--vinho);
+    line-height: 1;
+  }
+  .nt-msg {
+    margin: 0.2rem 0 0;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: clamp(1.25rem, 3.2vw, 2rem);
+    line-height: 1.15;
+    color: var(--tinta);
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2rem 0.55rem;
+  }
+  .nt-msg em {
+    font-style: italic;
+    color: var(--vinho-claro);
+  }
+  .nt-off {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
+    color: var(--vinho);
+    line-height: 0.85;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .nt-line {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+    color: #6a534c;
+    max-width: 34ch;
+  }
+
+  .nt-cupom {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: fit-content;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    padding: 0.45rem 0.6rem 0.45rem 0.85rem;
+    border: 1.6px dashed var(--vinho);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.45);
+    transition:
+      transform 0.15s,
+      box-shadow 0.2s,
+      background 0.2s;
+  }
+  .nt-cupom:hover,
+  .nt-cupom:focus-visible {
+    transform: translateY(-2px);
+    background: #fff;
+    box-shadow: 0 6px 16px -6px rgba(110, 16, 35, 0.45);
+    outline: none;
+  }
+  .nt-cupom-label {
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--vinho-claro);
+  }
+  .nt-cupom-cod {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 900;
+    font-size: clamp(1.2rem, 2.6vw, 1.7rem);
+    letter-spacing: 0.1em;
+    color: var(--vinho);
+  }
+  .nt-cupom-acao {
+    font-size: 1.2rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--vinho);
+    padding: 0.28rem 0.55rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  .nt-cupom.copiado .nt-cupom-acao {
+    background: var(--ouro);
+    color: var(--tinta);
+  }
+
+  /* coluna lateral / cronômetro */
+  .nt-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding-left: clamp(1rem, 2.4vw, 2rem);
+    border-left: 1px dashed rgba(110, 16, 35, 0.3);
+    text-align: center;
+  }
+  .nt-aside-titulo {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--vinho-claro);
+  }
+  .nt-timer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .nt-bloco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 2.6ch;
+  }
+  .nt-bloco b {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    line-height: 1;
+    color: var(--vinho);
+    font-variant-numeric: tabular-nums;
+  }
+  .nt-bloco i {
+    font-style: normal;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--vinho-claro);
+    margin-top: 0.18rem;
+  }
+  .nt-sep {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(1.4rem, 3.4vw, 2.2rem);
+    color: var(--vinho);
+    opacity: 0.45;
+    align-self: flex-start;
+    line-height: 1;
+  }
+  .nt-validade {
+    font-size: 0.80rem;
+    letter-spacing: 0.06em;
+    color: var(--tinta);
+    opacity: 0.7;
+  }
+
+  .nt-assinatura {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+  }
+  .nt-ass-texto {
+    font-family: "Petit Formal Script", cursive;
+    font-size: clamp(1.05rem, 2.4vw, 1.5rem);
+    color: var(--vinho-claro);
+  }
+  .nt-selo {
+    display: grid;
+    place-items: center;
+    width: clamp(40px, 5.5vw, 54px);
+    height: clamp(40px, 5.5vw, 54px);
+    border-radius: 49% 51% 52% 48%/51% 47% 53% 49%;
+    background: radial-gradient(
+      circle at 32% 28%,
+      #c33049 0%,
+      var(--cera) 45%,
+      #6f1020 100%
+    );
+    box-shadow:
+      inset 0 2px 5px rgba(255, 255, 255, 0.35),
+      inset 0 -4px 7px rgba(0, 0, 0, 0.45),
+      0 4px 10px rgba(110, 16, 35, 0.45);
+    color: #f6e6c8;
+  }
+  .nt-selo-num {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 600;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  }
+
+  /* fechar */
+  .nt-fechar {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    width: 26px;
+    height: 26px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: var(--vinho);
+    font-size: 1.3rem;
+    line-height: 1;
+    border-radius: 50%;
+    transition: background 0.2s;
+    z-index: 4;
+  }
+  .nt-fechar:hover {
+    background: rgba(110, 16, 35, 0.12);
+  }
+
+  /* animações de entrada */
+  @keyframes ntUp {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes ntFlap {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+      opacity: 0.9;
+      transform: translateX(-50%);
+    }
+  }
+  .nt-letter {
+    animation: ntUp 0.55s 0.05s ease both;
+  }
+  .nt-flap {
+    animation: ntFlap 0.5s ease both;
+  }
+  .nt-selo {
+    animation: ntUp 0.6s 0.25s ease both;
+  }
+
+  /* ===== RESPONSIVO ===== */
+  @media (max-width: 820px) {
+    .nt-letter {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .nt-aside {
+      border-left: none;
+      border-top: 1px dashed rgba(110, 16, 35, 0.3);
+      padding-left: 0;
+      padding-top: 1rem;
+      margin-top: 0.4rem;
+    }
+    .nt-assinatura {
+      margin-top: 0.4rem;
+    }
+  }
+  @media (max-width: 480px) {
+    .nt-line {
+      display: none;
+    }
+    .nt-postmark {
+      display: none;
+    }
+    .nt-timer {
+      gap: 0.1rem;
+    }
+    .nt-bloco {
+      min-width: 2.3ch;
+    }
+    .nt-aside-titulo,
+    .nt-validade {
+      font-size: 0.58rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nt-letter,
+    .nt-flap,
+    .nt-selo {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const root = document.querySelector(".nt-wrap");
+    if (!root) return;
+
+    // Cronômetro até 12/06 23:59:59 (próximo 12/06)
+    function alvo() {
+      const agora = new Date();
+      let ano = agora.getFullYear();
+      let d = new Date(ano, 5, 12, 23, 59, 59);
+      if (d < agora) d = new Date(ano + 1, 5, 12, 23, 59, 59);
+      return d;
+    }
+    const fim = alvo();
+    const el = {
+      d: root.querySelector("[data-d]"),
+      h: root.querySelector("[data-h]"),
+      m: root.querySelector("[data-m]"),
+      s: root.querySelector("[data-s]"),
+    };
+    const z = (n) => String(n).padStart(2, "0");
+    function tick() {
+      let diff = Math.max(0, fim - new Date());
+      const dias = Math.floor(diff / 86400000);
+      diff -= dias * 86400000;
+      const hrs = Math.floor(diff / 3600000);
+      diff -= hrs * 3600000;
+      const min = Math.floor(diff / 60000);
+      diff -= min * 60000;
+      const seg = Math.floor(diff / 1000);
+      el.d.textContent = z(dias);
+      el.h.textContent = z(hrs);
+      el.m.textContent = z(min);
+      el.s.textContent = z(seg);
+    }
+    tick();
+    const timer = setInterval(tick, 1000);
+
+    // Copiar cupom
+    const cupom = root.querySelector(".nt-cupom");
+    const codigo = "AMOR12";
+    function copiar() {
+      const done = () => {
+        cupom.classList.add("copiado");
+        const a = cupom.querySelector(".nt-cupom-acao");
+        const t = a.textContent;
+        a.textContent = "copiado!";
+        setTimeout(() => {
+          cupom.classList.remove("copiado");
+          a.textContent = t;
+        }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(codigo).then(done).catch(fb);
+      } else {
+        fb();
+      }
+      function fb() {
+        const t = document.createElement("textarea");
+        t.value = codigo;
+        document.body.appendChild(t);
+        t.select();
+        try {
+          document.execCommand("copy");
+        } catch (e) {}
+        document.body.removeChild(t);
+        done();
+      }
+    }
+    cupom.addEventListener("click", copiar);
+    cupom.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        copiar();
+      }
+    });
+
+    // Fechar
+    root.querySelector(".nt-fechar").addEventListener("click", () => {
+      clearInterval(timer);
+      root.style.transition = "opacity .3s,max-height .45s,padding .3s";
+      root.style.overflow = "hidden";
+      root.style.maxHeight = root.offsetHeight + "px";
+      requestAnimationFrame(() => {
+        root.style.maxHeight = "0";
+        root.style.opacity = "0";
+        root.style.paddingTop = "0";
+        root.style.paddingBottom = "0";
+      });
+      setTimeout(() => root.remove(), 450);
+    });
+  })();
+</script>

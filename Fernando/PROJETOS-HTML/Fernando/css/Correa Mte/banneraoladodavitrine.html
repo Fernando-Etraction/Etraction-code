@@ -1,0 +1,650 @@
+<style>
+
+
+  .container-row-vitrine-native {
+    --correamte-promo-width: 220px;
+    --correamte-vitrine-gap: 30px;
+  }
+
+  .correamte-promo-left {
+    flex: 0 0 var(--correamte-promo-width) !important;
+    width: var(--correamte-promo-width) !important;
+    max-width: var(--correamte-promo-width) !important;
+    min-width: var(--correamte-promo-width) !important;
+    display: flex !important;
+    align-items: stretch !important;
+    /* Esticar para igualar altura */
+    overflow: hidden !important;
+    max-height: none !important;
+  }
+
+  .correamte-vitrine-layout {
+    display: grid !important;
+    grid-template-columns: var(--correamte-promo-width) minmax(0, 1fr);
+    gap: var(--correamte-vitrine-gap) !important;
+    align-items: stretch !important;
+    /* Esticar para igualar altura */
+    width: 100% !important;
+    height: 100% !important;
+    margin: 20px 0;
+  }
+#correamtePromoCard {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  position: relative !important;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: #07090c;
+  box-sizing: border-box !important;
+  font-family: "Montserrat", Arial, sans-serif;
+  isolation: isolate;
+}
+
+#correamtePromoCard::before {
+  content: "";
+  position: absolute;
+  inset: -16px;
+  background-image: url("https://correamateriais.cdn.magazord.com.br/img/2026/05/banner/15079/chatgpt-image-13-de-mai-de-2026-17-14-31.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(2px);
+  transform: scale(1.08);
+  opacity: 0.45;
+  z-index: -2;
+}
+
+  /* ========================================
+     SLIDER SMARTHINT - LADO DIREITO (FLEXÍVEL)
+     ======================================== */
+  .correamte-slider-right {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
+    /* Sem padding - margens negativas do slick-list compensam */
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Vitrine - resetar margins e preencher altura */
+  .correamte-slider-right .smarthint {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .correamte-slider-right .smarthint.sh-home {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    height: 100% !important;
+  }
+
+  /* Containers internos do SmartHint - ocupar toda a largura e altura */
+  .correamte-slider-right .produtos-relacionados,
+  .correamte-slider-right #ofertas-relacionadas,
+  .correamte-slider-right #outras-ofertas-relacionadas,
+  .correamte-slider-right .vitrine,
+  .correamte-slider-right .ra-vitrine {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Modelo 4 - ocupar toda a largura e manter cards esticados */
+  .correamte-slider-right .macro-vitrine-4-itens-black,
+  .correamte-slider-right [class*="macro-vitrine-4"] {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .correamte-slider-right .macro-vitrine-4-itens-black .swiper,
+  .correamte-slider-right [class*="macro-vitrine-4"] .swiper {
+    overflow: hidden !important;
+  }
+
+  .correamte-slider-right .macro-vitrine-4-itens-black .swiper-wrapper,
+  .correamte-slider-right [class*="macro-vitrine-4"] .swiper-wrapper {
+    align-items: stretch !important;
+  }
+
+  .correamte-slider-right .macro-vitrine-4-itens-black .swiper-slide,
+  .correamte-slider-right [class*="macro-vitrine-4"] .swiper-slide,
+  .correamte-slider-right .macro-vitrine-4-itens-black .product-card,
+  .correamte-slider-right [class*="macro-vitrine-4"] .product-card {
+    height: auto !important;
+  }
+
+  .macro-vitrine-4-itens-black .correamte-promo-slide,
+  [class*="macro-vitrine-4"] .correamte-promo-slide {
+    display: block !important;
+    height: auto !important;
+  }
+
+  .macro-vitrine-4-itens-black .correamte-promo-slide #correamtePromoCard,
+  [class*="macro-vitrine-4"] .correamte-promo-slide #correamtePromoCard {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Slick slider - preencher altura */
+  .correamte-slider-right .slick-slider {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Slick dots - ocultar */
+  .correamte-slider-right .slick-dots {
+    display: none !important;
+  }
+
+  /* Navegação do SmartHint - ocultar se não necessária ou resetar espaço */
+  .correamte-slider-right .smarthint-nav,
+  .correamte-slider-right .nav-buttons {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Slick-list - ajustar overflow e manter margens negativas como outras vitrines */
+  .correamte-slider-right .slick-list {
+    overflow: hidden !important;
+    margin-right: -27px !important;
+    margin-left: -27px !important;
+    padding: 0 !important;
+    height: 100% !important;
+    flex: 1 !important;
+  }
+
+  /* Slick track - horizontal com altura uniforme */
+  .correamte-slider-right .slick-track {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    /* Cards com mesma altura */
+    margin: 0 !important;
+  }
+
+  /* Slides - altura uniforme */
+  .correamte-slider-right .slick-slide {
+    float: left !important;
+    height: auto !important;
+    display: flex !important;
+  }
+
+  /* Cards - garantir altura 100% */
+  .correamte-slider-right .slick-slide>div,
+  .correamte-slider-right .slick-slide .apoio-sh {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Seta DIREITA - visível e posicionada igual às outras vitrines SmartHint */
+  .container-row-smarthint .correamte-slider-right .button-next-7tgknk,
+  .container-row-smarthint .correamte-slider-right [class*="button-next"],
+  .container-row-smarthint .correamte-slider-right .slick-next,
+  .container-row-smarthint-1 .button-next-7tgknk,
+  .container-row-smarthint-1 [class*="button-next"],
+  .container-row-smarthint-1 .slick-next {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 100 !important;
+    right: -81px !important;
+    /* Mesmo valor das outras vitrines SmartHint */
+  }
+
+  /* Seta ESQUERDA - OCULTA (fica sobre o bloco promo) - APENAS SmartHint */
+  .container-row-smarthint .correamte-slider-right .button-prev-swomt,
+  .container-row-smarthint .correamte-slider-right [class*="button-prev"],
+  .container-row-smarthint .correamte-slider-right .slick-prev {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  /* ========================================
+     BLOCO PROMOCIONAL - ESTILOS INTERNOS
+     ======================================== */
+
+  /* Animações */
+  @keyframes correamteDotPulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.3);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes correamteTimerPulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.03);
+    }
+  }
+
+  #correamtePromoCard *,
+  #correamtePromoCard *::before,
+  #correamtePromoCard *::after {
+    box-sizing: border-box !important;
+    font-family: "Montserrat", Arial, sans-serif;
+    max-width: 100%;
+  }
+
+  /* Título acima da vitrine */
+  .correamte-titulo-position1 {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+
+  /* Body do card */
+  #correamtePromoCard .correamte-body {
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    overflow: hidden !important;
+    max-width: 100% !important;
+  }
+
+  /* Selo "POR TEMPO LIMITADO" */
+  #correamtePromoCard .correamte-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: rgba(200, 16, 46, 0.12);
+    border: 1px solid rgba(200, 16, 46, 0.25);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #C8102E;
+    white-space: nowrap;
+    text-transform: uppercase;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  #correamtePromoCard .correamte-kicker .correamte-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #C8102E;
+    animation: correamteDotPulse 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  /* Título */
+  #correamtePromoCard .correamte-title {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    color: rgba(255, 255, 255, 0.94);
+    text-align: center;
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+  }
+
+  /* Cronômetro */
+  #correamtePromoCard .correamte-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 100%;
+    animation: correamteTimerPulse 2s ease-in-out infinite;
+  }
+
+  #correamtePromoCard .correamte-timer-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 6px;
+    padding: 6px 2px;
+    min-width: 0;
+    flex: 1 1 0;
+    max-width: 25%;
+  }
+
+  #correamtePromoCard .correamte-timer-number {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #correamtePromoCard .correamte-timer-label {
+    font-size: 7px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.50);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+  }
+
+  #correamtePromoCard .correamte-timer-sep {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.30);
+    line-height: 1;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Subtexto */
+  #correamtePromoCard .correamte-sub {
+    margin: 0;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.60);
+    max-width: 100% !important;
+  }
+
+  /* Benefícios - preencher espaço restante */
+  #correamtePromoCard .correamte-benefits {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 10px;
+  }
+
+  #correamtePromoCard .correamte-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  #correamtePromoCard .correamte-benefit-item:last-child {
+    border-bottom: none;
+  }
+
+  #correamtePromoCard .correamte-benefit-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  #correamtePromoCard .correamte-benefit-text {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  /* Botão CTA */
+  #correamtePromoCard .correamte-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100% !important;
+    height: 42px;
+    border-radius: 8px;
+    background: #C8102E;
+    border: none;
+    color: #ffffff !important;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box !important;
+  }
+
+  #correamtePromoCard .correamte-cta:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(200, 16, 46, 0.35);
+  }
+
+  #correamtePromoCard .correamte-cta:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+    box-shadow: none;
+  }
+
+  /* ========================================
+     AJUSTES DOS CARDS DE PRODUTO - POSITION-1
+     ======================================== */
+
+  /* ========================================
+     MOBILE: PROMO CARD ACIMA DA VITRINE
+     ======================================== */
+  @media (max-width: 768px) {
+    .correamte-vitrine-layout {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+
+    .correamte-promo-left {
+      flex: 0 0 auto !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      min-width: unset !important;
+      max-height: none !important;
+      margin: 0 auto !important;
+    }
+
+    #correamtePromoCard {
+      height: auto !important;
+      min-height: auto !important;
+      max-width: 366px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+    }
+
+    #correamtePromoCard .correamte-body {
+      padding: 14px 12px !important;
+      gap: 10px !important;
+    }
+
+
+    #correamtePromoCard .correamte-kicker {
+      font-size: 8px !important;
+      padding: 4px 10px !important;
+    }
+
+    #correamtePromoCard .correamte-title {
+      font-size: 13px !important;
+    }
+
+    #correamtePromoCard .correamte-timer {
+      gap: 3px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-block {
+      min-width: 0 !important;
+      padding: 5px 2px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-number {
+      font-size: 16px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-label {
+      font-size: 6px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-sep {
+      font-size: 12px !important;
+    }
+
+    #correamtePromoCard .correamte-sub {
+      font-size: 10px !important;
+    }
+
+    #correamtePromoCard .correamte-benefits {
+      display: none !important;
+    }
+
+    #correamtePromoCard .correamte-cta {
+      height: 38px !important;
+      font-size: 12px !important;
+    }
+
+    .correamte-slider-right {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+  }
+  #correamtePromoCard .correamte-benefits-vantagens {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 10px;
+}
+
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 6px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-icon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text {
+  font-size: 9px;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.68);
+  text-align: left;
+}
+
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text strong {
+  display: block;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+}
+/* Ajuste de espaçamento interno do card promocional */
+#correamtePromoCard .correamte-body {
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 14px 10px !important;
+}
+
+/* Remove o empurrão que joga as vantagens para o final */
+#correamtePromoCard .correamte-benefits,
+#correamtePromoCard .correamte-benefits-vantagens {
+  margin-top: 8px !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+/* Deixa as vantagens mais compactas */
+#correamtePromoCard .correamte-benefits-vantagens {
+  gap: 5px !important;
+}
+
+/* Reduz altura dos cards de vantagem */
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-item {
+  padding: 6px 8px !important;
+  min-height: 44px !important;
+}
+
+/* Compacta texto */
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text {
+  font-size: 8px !important;
+  line-height: 1.2 !important;
+}
+
+#correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text strong {
+  font-size: 9px !important;
+  margin-bottom: 2px !important;
+}
+
+/* Compacta o botão */
+#correamtePromoCard .correamte-cta {
+  height: 38px !important;
+  margin-top: 2px !important;
+}
+
+/* Compacta o timer */
+#correamtePromoCard .correamte-timer-block {
+  padding: 5px 2px !important;
+}
+
+#correamtePromoCard .correamte-timer-number {
+  font-size: 16px !important;
+}
+
+#correamtePromoCard .correamte-title {
+  margin-bottom: 0 !important;
+}
+</style>
+

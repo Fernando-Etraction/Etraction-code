@@ -1,0 +1,3604 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArtFactory — Móveis Sob Medida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;850;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* =========================================================
+   ARTFACTORY — LANDING PAGE
+   Tudo escopado dentro de .fernando-cro-artfactory-lp
+   ========================================================= */
+
+      .fernando-cro-artfactory-lp {
+        /* Tokens / variáveis */
+        --fernando-cro-orange: #ff712d;
+        --fernando-cro-orange-deep: #e85f1e;
+        --fernando-cro-white: #ffffff;
+        --fernando-cro-off: #f7f4ef;
+        --fernando-cro-cream: #efeae2;
+        --fernando-cro-soft: #e8e2da;
+        --fernando-cro-line: #1111111a;
+        --fernando-cro-line-strong: #11111133;
+        --fernando-cro-ink: #111111;
+        --fernando-cro-graphite: #181818;
+        --fernando-cro-mute: #5a5a5a;
+        --fernando-cro-mute-2: #8a8a8a;
+
+        --fernando-cro-radius-sm: 4px;
+        --fernando-cro-radius: 8px;
+        --fernando-cro-radius-lg: 18px;
+
+        --fernando-cro-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+        --fernando-cro-font-display:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --fernando-cro-font-body:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+        /* Reset escopado */
+        font-family: var(--fernando-cro-font-body);
+        color: var(--fernando-cro-ink);
+        background: var(--fernando-cro-white);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "ss01", "ss02", "kern";
+        display: block;
+        position: relative;
+        overflow-x: clip;
+      }
+
+      /* Reset interno seguro */
+      .fernando-cro-artfactory-lp,
+      .fernando-cro-artfactory-lp *,
+      .fernando-cro-artfactory-lp *::before,
+      .fernando-cro-artfactory-lp *::after {
+        box-sizing: border-box;
+      }
+
+      .fernando-cro-artfactory-lp h1,
+      .fernando-cro-artfactory-lp h2,
+      .fernando-cro-artfactory-lp h3,
+      .fernando-cro-artfactory-lp h4,
+      .fernando-cro-artfactory-lp p,
+      .fernando-cro-artfactory-lp ul,
+      .fernando-cro-artfactory-lp ol,
+      .fernando-cro-artfactory-lp figure {
+        margin: 0;
+        padding: 0;
+      }
+
+      .fernando-cro-artfactory-lp ul,
+      .fernando-cro-artfactory-lp ol {
+        list-style: none;
+      }
+
+      .fernando-cro-artfactory-lp img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .fernando-cro-artfactory-lp a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .fernando-cro-artfactory-lp button {
+        font: inherit;
+        color: inherit;
+        background: none;
+        border: 0;
+        cursor: pointer;
+      }
+
+      /* Container */
+      .fernando-cro-artfactory-lp .fernando-cro-container {
+        width: min(100% - 32px, 1240px);
+        margin-inline: auto;
+      }
+
+      /* Reveal */
+      .fernando-cro-artfactory-lp .fernando-cro-reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.9s var(--fernando-cro-ease),
+          transform 0.9s var(--fernando-cro-ease);
+        will-change: opacity, transform;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-reveal.fernando-cro-is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* =========================================================
+   TIPOGRAFIA — TÍTULOS
+   ========================================================= */
+      .fernando-cro-artfactory-lp .fernando-cro-hero-title,
+      .fernando-cro-artfactory-lp .fernando-cro-sm-title,
+      .fernando-cro-artfactory-lp .fernando-cro-processo-title,
+      .fernando-cro-artfactory-lp .fernando-cro-projetos-title,
+      .fernando-cro-artfactory-lp .fernando-cro-sobre-title,
+      .fernando-cro-artfactory-lp .fernando-cro-avaliacoes-title,
+      .fernando-cro-artfactory-lp .fernando-cro-faq-title,
+      .fernando-cro-artfactory-lp .fernando-cro-cta-final-title {
+        font-family: var(--fernando-cro-font-display);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1.02;
+        font-feature-settings: "ss01";
+      }
+
+      .fernando-cro-artfactory-lp em {
+        font-style: italic;
+        color: var(--fernando-cro-orange);
+        font-weight: 500;
+      }
+
+      /* Tag de seção (etiqueta superior) */
+      .fernando-cro-artfactory-lp .fernando-cro-section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--fernando-cro-font-body);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--fernando-cro-ink);
+        padding: 7px 12px 7px 0;
+        position: relative;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-section-tag::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--fernando-cro-orange);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-section-tag-light {
+        color: var(--fernando-cro-white);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-section-tag-onorange {
+        color: var(--fernando-cro-white);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-section-tag-onorange::before {
+        background: var(--fernando-cro-white);
+      }
+
+      /* =========================================================
+   BOTÕES
+   ========================================================= */
+      .fernando-cro-artfactory-lp .fernando-cro-btn-primary,
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 16px 26px;
+        min-height: 54px;
+        border-radius: 999px;
+        font-family: var(--fernando-cro-font-body);
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        position: relative;
+        transition:
+          transform 0.35s var(--fernando-cro-ease),
+          background-color 0.35s var(--fernando-cro-ease),
+          color 0.35s var(--fernando-cro-ease),
+          border-color 0.35s var(--fernando-cro-ease),
+          box-shadow 0.35s var(--fernando-cro-ease);
+        white-space: nowrap;
+        text-align: center;
+        line-height: 1;
+        border: 1px solid transparent;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-btn-primary {
+        background: var(--fernando-cro-orange);
+        color: var(--fernando-cro-white);
+        box-shadow: 0 8px 28px -10px rgba(255, 113, 45, 0.55);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-btn-primary:hover {
+        background: var(--fernando-cro-orange-deep);
+        transform: translateY(-1px);
+        box-shadow: 0 14px 36px -12px rgba(255, 113, 45, 0.65);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-btn-primary:active {
+        transform: translateY(0);
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-btn-primary-dark {
+        background: var(--fernando-cro-ink);
+        color: var(--fernando-cro-white);
+        box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.55);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-btn-primary-dark:hover {
+        background: #000;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary {
+        background: transparent;
+        color: var(--fernando-cro-white);
+        border-color: rgba(255, 255, 255, 0.55);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary:hover {
+        background: var(--fernando-cro-white);
+        color: var(--fernando-cro-ink);
+        transform: translateY(-1px);
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary-dark {
+        color: var(--fernando-cro-ink);
+        border-color: var(--fernando-cro-line-strong);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary-dark:hover {
+        background: var(--fernando-cro-ink);
+        color: var(--fernando-cro-white);
+        border-color: var(--fernando-cro-ink);
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary-onorange {
+        color: var(--fernando-cro-white);
+        border-color: rgba(255, 255, 255, 0.65);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-btn-secondary-onorange:hover {
+        background: var(--fernando-cro-white);
+        color: var(--fernando-cro-orange);
+        border-color: var(--fernando-cro-white);
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-btn-arrow {
+        display: inline-block;
+        transition: transform 0.35s var(--fernando-cro-ease);
+        font-size: 16px;
+      }
+      .fernando-cro-artfactory-lp
+        .fernando-cro-btn-primary:hover
+        .fernando-cro-btn-arrow,
+      .fernando-cro-artfactory-lp
+        .fernando-cro-btn-primary-dark:hover
+        .fernando-cro-btn-arrow {
+        transform: translateX(4px);
+      }
+
+      /* =========================================================
+   ACESSIBILIDADE — REDUCED MOTION
+   ========================================================= */
+      @media (prefers-reduced-motion: reduce) {
+        .fernando-cro-artfactory-lp,
+        .fernando-cro-artfactory-lp * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* Foco visível para acessibilidade */
+      .fernando-cro-artfactory-lp a:focus-visible,
+      .fernando-cro-artfactory-lp button:focus-visible,
+      .fernando-cro-artfactory-lp summary:focus-visible {
+        outline: 2px solid var(--fernando-cro-orange);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      /* =========================================================
+   HERO
+   ========================================================= */
+      .fernando-cro-artfactory-lp .fernando-cro-hero {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: clamp(620px, 88vh, 760px);
+        width: 100%;
+        overflow: hidden;
+        isolation: isolate;
+        background: var(--fernando-cro-graphite);
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-hero-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 1;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background:
+          linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.82) 0%,
+            rgba(0, 0, 0, 0.58) 38%,
+            rgba(0, 0, 0, 0.18) 70%,
+            rgba(0, 0, 0, 0.05) 100%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.15) 0%,
+            rgba(0, 0, 0, 0) 30%,
+            rgba(0, 0, 0, 0.35) 100%
+          );
+        pointer-events: none;
+      }
+
+      /* Topbar */
+      .fernando-cro-artfactory-lp .fernando-cro-topbar {
+        position: relative;
+        z-index: 5;
+        padding: 22px 0;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-brand {
+        font-family: var(--fernando-cro-font-display);
+        font-size: clamp(20px, 2.2vw, 24px);
+        font-weight: 600;
+        color: var(--fernando-cro-white);
+        letter-spacing: -0.02em;
+        line-height: 1;
+        display: inline-flex;
+        align-items: baseline;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-brand-accent {
+        color: var(--fernando-cro-orange);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-nav-links {
+        display: flex;
+        gap: 28px;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-nav-links a {
+        position: relative;
+        padding: 6px 0;
+        transition: color 0.3s var(--fernando-cro-ease);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: var(--fernando-cro-orange);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 0.35s var(--fernando-cro-ease);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-nav-links a:hover {
+        color: var(--fernando-cro-white);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-topbar-cta {
+        min-height: 46px;
+        padding: 12px 22px;
+        font-size: 14px;
+      }
+
+      /* Conteúdo do hero */
+      .fernando-cro-artfactory-lp .fernando-cro-hero-content {
+        position: relative;
+        z-index: 4;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-block: clamp(40px, 8vh, 88px);
+        max-width: 760px;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 16px 9px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        width: fit-content;
+        margin-bottom: 28px;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-eyebrow-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--fernando-cro-orange);
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px rgba(255, 113, 45, 0.25);
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-hero-title {
+        color: var(--fernando-cro-white);
+        font-size: clamp(40px, 6.4vw, 78px);
+        margin-bottom: 22px;
+        max-width: 16ch;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-hero-sub {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: clamp(15px, 1.5vw, 18px);
+        max-width: 50ch;
+        margin-bottom: 36px;
+        line-height: 1.6;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-bottom: 48px;
+      }
+
+      .fernando-cro-artfactory-lp .fernando-cro-hero-proofs {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 28px;
+        max-width: 620px;
+        padding-top: 28px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-hero-proofs li {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-proof-num {
+        font-family: var(--fernando-cro-font-display);
+        font-size: clamp(20px, 2.4vw, 26px);
+        color: var(--fernando-cro-white);
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-proof-lbl {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      /* scroll hint */
+      .fernando-cro-artfactory-lp .fernando-cro-hero-scrollhint {
+        position: absolute;
+        right: clamp(20px, 4vw, 48px);
+        bottom: 24px;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-scrollhint-line {
+        display: block;
+        width: 56px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.5);
+        position: relative;
+        overflow: hidden;
+      }
+      .fernando-cro-artfactory-lp .fernando-cro-scrollhint-line::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--fernando-cro-orange);
+        transform: translateX(-100%);
+        animation: fernando-cro-scroll-line 2.4s var(--fernando-cro-ease)
+          infinite;
+      }
+      @keyframes fernando-cro-scroll-line {
+        0% {
+          transform: translateX(-100%);
+        }
+        60% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* =========================================================
+   RESPONSIVO — TABLET
+   ========================================================= */
+      @media (max-width: 1080px) {
+        .fernando-cro-artfactory-lp .fernando-cro-nav-links {
+          display: none;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-sm-grid {
+          grid-template-columns: 1fr;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-sm-figure {
+          position: static;
+          order: -1;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-sm-figure img {
+          aspect-ratio: 16 / 10;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-processo-steps {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-step {
+          border-bottom: 1px solid var(--fernando-cro-line);
+          padding: 32px 24px !important;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-step:nth-child(2) {
+          border-right: 0;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-step:nth-child(3),
+        .fernando-cro-artfactory-lp .fernando-cro-step:nth-child(4) {
+          border-bottom: 0;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-projetos-head {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-projetos-sub {
+          grid-column: 1;
+          grid-row: 3;
+          text-align: left;
+          margin-top: 4px;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-sobre-grid {
+          grid-template-columns: 1fr;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-sobre-figure img {
+          aspect-ratio: 16 / 10;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-aval-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-aval-featured {
+          grid-row: auto;
+          grid-column: span 2;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-faq-grid {
+          grid-template-columns: 1fr;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-faq-head {
+          position: static;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-foot-inner {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-foot-brand,
+        .fernando-cro-artfactory-lp .fernando-cro-foot-info,
+        .fernando-cro-artfactory-lp .fernando-cro-foot-copy {
+          justify-self: center;
+          text-align: center;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-mvv {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-mvv-item {
+          padding: 0 0 22px;
+          border-right: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-mvv-item:last-child {
+          border-bottom: 0;
+          padding-bottom: 0;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero {
+          min-height: clamp(560px, 78vh, 680px);
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-overlay {
+          background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.35) 0%,
+            rgba(0, 0, 0, 0.55) 50%,
+            rgba(0, 0, 0, 0.85) 100%
+          );
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-slide-card {
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr auto;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-slide-figure {
+          aspect-ratio: 16 / 10;
+          min-height: 0;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-slide-content::before {
+          top: 0;
+          left: clamp(28px, 4vw, 56px);
+        }
+      }
+
+      /* =========================================================
+   RESPONSIVO — MOBILE
+   ========================================================= */
+      @media (max-width: 720px) {
+        .fernando-cro-artfactory-lp .fernando-cro-topbar-cta {
+          display: none;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-topbar {
+          padding: 18px 0;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero {
+          min-height: clamp(520px, 86vh, 620px);
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-content {
+          padding-block: 32px 56px;
+          justify-content: flex-end;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-overlay {
+          background: linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.25) 0%,
+            rgba(0, 0, 0, 0.55) 45%,
+            rgba(0, 0, 0, 0.9) 100%
+          );
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-title {
+          font-size: clamp(32px, 9vw, 44px);
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-actions {
+          margin-bottom: 32px;
+          flex-direction: column;
+          align-items: stretch;
+          width: 100%;
+        }
+        .fernando-cro-artfactory-lp
+          .fernando-cro-hero-actions
+          .fernando-cro-btn-primary,
+        .fernando-cro-artfactory-lp
+          .fernando-cro-hero-actions
+          .fernando-cro-btn-secondary {
+          width: 100%;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-proofs {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px;
+          padding-top: 22px;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-hero-scrollhint {
+          display: none;
+        }
+
+        .fernando-cro-artfactory-lp .fernando-cro-processo-steps {
+          grid-template-columns: 1fr;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-step {
+          border-right: 0 !important;
+          border-bottom: 1px solid var(--fernando-cro-line);
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-step:last-child {
+          border-bottom: 0;
+        }
+
+        .fernando-cro-artfactory-lp .fernando-cro-aval-grid {
+          grid-template-columns: 1fr;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-aval-featured {
+          grid-column: auto;
+        }
+
+        .fernando-cro-artfactory-lp .fernando-cro-carousel-controls {
+          grid-template-columns: 1fr;
+          gap: 18px;
+          text-align: center;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-carousel-counter {
+          justify-content: center;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-carousel-arrows {
+          justify-content: center;
+        }
+
+        .fernando-cro-artfactory-lp .fernando-cro-cta-final-actions {
+          flex-direction: column;
+          width: 100%;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-cta-final-actions a {
+          width: 100%;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-cta-meta {
+          flex-direction: column;
+          align-items: center;
+          gap: 14px;
+        }
+        .fernando-cro-artfactory-lp .fernando-cro-cta-meta li::before {
+          display: none;
+        }
+      }
+
+      .af-sm-section,
+      .af-sm-section * {
+        box-sizing: border-box;
+      }
+
+      .af-sm-section {
+        --af-sm-orange: #ff712d;
+        --af-sm-white: #ffffff;
+        --af-sm-offwhite: #f7f4ef;
+        --af-sm-black: #111111;
+        --af-sm-muted: #6d665f;
+        --af-sm-line: #e8e2da;
+        --af-sm-radius-lg: 28px;
+        --af-sm-shadow: 0 24px 70px rgba(17, 17, 17, 0.12);
+
+        background: var(--af-sm-white);
+        color: var(--af-sm-black);
+        font-family:
+          "Montserrat",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.5;
+        padding-block: clamp(72px, 9vw, 128px);
+        overflow: hidden;
+      }
+
+      .af-sm-section a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .af-sm-container {
+        width: min(100% - 32px, 1240px);
+        margin-inline: auto;
+      }
+
+      .af-sm-grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: clamp(24px, 4vw, 56px);
+        align-items: start;
+      }
+
+      .af-sm-intro {
+        position: sticky;
+        top: 24px;
+      }
+
+      .af-sm-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--af-sm-orange);
+        font-size: 12px;
+        font-weight: 850;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .af-sm-label::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+      }
+
+      .af-sm-title {
+        margin: 14px 0 0;
+        max-width: 760px;
+        font-size: clamp(34px, 5vw, 64px);
+        line-height: 1;
+        letter-spacing: -0.055em;
+        font-weight: 860;
+      }
+
+      .af-sm-text {
+        max-width: 700px;
+        margin: 18px 0 0;
+        color: var(--af-sm-muted);
+        font-size: clamp(16px, 1.7vw, 19px);
+      }
+
+      .af-sm-list {
+        margin: 34px 0 0;
+        padding: 0;
+        list-style: none;
+        border-top: 1px solid var(--af-sm-line);
+      }
+
+      .af-sm-list li {
+        position: relative;
+        padding: 18px 0 18px 34px;
+        border-bottom: 1px solid var(--af-sm-line);
+        font-size: clamp(17px, 2vw, 22px);
+        font-weight: 780;
+        letter-spacing: -0.025em;
+      }
+
+      .af-sm-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 27px;
+        width: 10px;
+        height: 10px;
+        border: 2px solid var(--af-sm-orange);
+        transform: rotate(45deg);
+      }
+
+      .af-sm-btn-primary {
+        min-height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 14px 22px;
+        font-size: 14px;
+        font-weight: 850;
+        letter-spacing: 0.01em;
+        background: var(--af-sm-orange);
+        border: 1px solid var(--af-sm-orange);
+        color: #160905;
+        box-shadow: 0 16px 34px rgba(255, 113, 45, 0.28);
+        transition:
+          transform 0.24s ease,
+          background 0.24s ease,
+          color 0.24s ease,
+          box-shadow 0.24s ease;
+      }
+
+      .af-sm-btn-primary:hover {
+        transform: translateY(-2px);
+      }
+
+      .af-sm-cta {
+        margin-top: 30px;
+      }
+
+      .af-sm-process {
+        border: 1px solid var(--af-sm-line);
+        border-radius: var(--af-sm-radius-lg);
+        padding: clamp(26px, 4vw, 48px);
+        background:
+          linear-gradient(135deg, rgba(255, 113, 45, 0.09), transparent 32%),
+          var(--af-sm-offwhite);
+        box-shadow: var(--af-sm-shadow);
+      }
+
+      .af-sm-small-title {
+        display: inline-flex;
+        color: var(--af-sm-orange);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .af-sm-process-title {
+        margin: 14px 0 28px;
+        max-width: 560px;
+        font-size: clamp(28px, 3.5vw, 46px);
+        line-height: 1.02;
+        letter-spacing: -0.05em;
+      }
+
+      .af-sm-process-list {
+        display: grid;
+        gap: 0;
+      }
+
+      .af-sm-process-item {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 20px;
+        padding: 24px 0;
+        border-top: 1px solid rgba(17, 17, 17, 0.12);
+      }
+
+      .af-sm-process-number {
+        color: var(--af-sm-orange);
+        font-size: clamp(34px, 4vw, 48px);
+        line-height: 1;
+        font-weight: 860;
+        letter-spacing: -0.07em;
+      }
+
+      .af-sm-process-copy h4 {
+        margin: 0;
+        font-size: 18px;
+        letter-spacing: -0.025em;
+      }
+
+      .af-sm-process-copy p {
+        margin: 6px 0 0;
+        color: var(--af-sm-muted);
+      }
+
+      .af-sm-section [data-af-sm-reveal] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .af-sm-section [data-af-sm-reveal].af-sm-revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1180px) {
+        .af-sm-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .af-sm-intro {
+          position: static;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .af-sm-container {
+          width: min(100% - 28px, 1240px);
+        }
+
+        .af-sm-btn-primary {
+          width: 100%;
+        }
+
+        .af-sm-process {
+          border-radius: 22px;
+        }
+
+        .af-sm-process-item {
+          grid-template-columns: 58px 1fr;
+          gap: 14px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .af-sm-section *,
+        .af-sm-section *::before,
+        .af-sm-section *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+
+        .af-sm-section [data-af-sm-reveal] {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .afprojx-section,
+      .afprojx-section * {
+        box-sizing: border-box !important;
+      }
+
+      .afprojx-section {
+        --afprojx-orange: #ff712d;
+        --afprojx-orange-deep: #e85f1e;
+        --afprojx-white: #ffffff;
+        --afprojx-off: #f7f4ef;
+        --afprojx-line: #1111111a;
+        --afprojx-line-strong: #11111133;
+        --afprojx-ink: #111111;
+        --afprojx-graphite: #181818;
+        --afprojx-muted: #5a5a5a;
+        --afprojx-muted-2: #8a8a8a;
+        --afprojx-radius-lg: 18px;
+        --afprojx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+        --afprojx-font-display:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --afprojx-font-body:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        overflow: hidden !important;
+        background: var(--afprojx-off) !important;
+        color: var(--afprojx-ink) !important;
+        font-family: var(--afprojx-font-body) !important;
+        line-height: 1.55 !important;
+        padding: clamp(72px, 10vw, 130px) 0 !important;
+        isolation: isolate !important;
+      }
+
+      .afprojx-section h2,
+      .afprojx-section h3,
+      .afprojx-section p,
+      .afprojx-section ul,
+      .afprojx-section li,
+      .afprojx-section figure {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .afprojx-section ul,
+      .afprojx-section li {
+        list-style: none !important;
+      }
+
+      .afprojx-section img {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+      }
+
+      .afprojx-section a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
+      .afprojx-section button {
+        font: inherit !important;
+        color: inherit !important;
+        background: none !important;
+        border: 0 !important;
+        cursor: pointer !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        box-shadow: none !important;
+      }
+
+      .afprojx-container {
+        width: min(100% - 32px, 1240px) !important;
+        max-width: 1240px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .afprojx-heading {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        gap: 32px !important;
+        align-items: end !important;
+        margin-bottom: 56px !important;
+      }
+
+      .afprojx-tag {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        width: fit-content !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: var(--afprojx-ink) !important;
+        padding: 7px 12px 7px 0 !important;
+      }
+
+      .afprojx-tag::before {
+        content: "" !important;
+        width: 28px !important;
+        height: 1px !important;
+        background: var(--afprojx-orange) !important;
+        display: block !important;
+        flex: 0 0 28px !important;
+      }
+
+      .afprojx-title {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+        max-width: 18ch !important;
+        margin-top: 18px !important;
+        font-family: var(--afprojx-font-display) !important;
+        font-weight: 500 !important;
+        font-size: clamp(32px, 4.2vw, 56px) !important;
+        line-height: 1.02 !important;
+        letter-spacing: -0.02em !important;
+        color: var(--afprojx-ink) !important;
+      }
+
+      .afprojx-title em {
+        font-style: italic !important;
+        color: var(--afprojx-orange) !important;
+        font-weight: 500 !important;
+      }
+
+      .afprojx-subtitle {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+        align-self: end !important;
+        max-width: 38ch !important;
+        font-size: 15px !important;
+        color: var(--afprojx-muted) !important;
+        line-height: 1.6 !important;
+        text-align: right !important;
+      }
+
+      .afprojx-component {
+        position: relative !important;
+        width: 100% !important;
+        overflow: visible !important;
+      }
+
+      .afprojx-mask {
+        width: 100% !important;
+        overflow: hidden !important;
+        border-radius: var(--afprojx-radius-lg) !important;
+        background: var(--afprojx-ink) !important;
+        position: relative !important;
+      }
+
+      .afprojx-row {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        transition: height 0.25s ease !important;
+      }
+
+      .afprojx-panel {
+        display: block !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        position: absolute !important;
+        inset: 0 auto auto 0 !important;
+        z-index: 1 !important;
+        transform: none !important;
+        transition:
+          opacity 0.35s ease,
+          visibility 0.35s ease !important;
+      }
+
+      .afprojx-panel.afprojx-current {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        z-index: 2 !important;
+      }
+
+      .afprojx-card {
+        display: grid !important;
+        grid-template-columns: 1.4fr 1fr !important;
+        width: 100% !important;
+        min-height: clamp(420px, 56vw, 580px) !important;
+        background: var(--afprojx-ink) !important;
+        color: var(--afprojx-white) !important;
+        overflow: hidden !important;
+        position: relative !important;
+      }
+
+      .afprojx-media {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        background: var(--afprojx-graphite) !important;
+      }
+
+      .afprojx-media img {
+        transform: none !important;
+        transition: transform 1.4s var(--afprojx-ease) !important;
+      }
+
+      .afprojx-panel.afprojx-current .afprojx-media img {
+        transform: scale(1.04) !important;
+      }
+
+      .afprojx-copy {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 18px !important;
+        padding: clamp(28px, 4vw, 56px) !important;
+        position: relative !important;
+        background: #454545 !important;
+      }
+
+      .afprojx-copy::before {
+        content: "" !important;
+        position: absolute !important;
+        top: clamp(28px, 4vw, 56px) !important;
+        left: 0 !important;
+        width: 32px !important;
+        height: 1px !important;
+        background: var(--afprojx-orange) !important;
+      }
+
+      .afprojx-kicker {
+        display: block !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: var(--afprojx-orange) !important;
+      }
+
+      .afprojx-card-title {
+        font-family: var(--afprojx-font-display) !important;
+        font-weight: 500 !important;
+        font-size: clamp(24px, 2.6vw, 34px) !important;
+        line-height: 1.1 !important;
+        letter-spacing: -0.02em !important;
+        color: var(--afprojx-white) !important;
+      }
+
+      .afprojx-card-text {
+        max-width: 38ch !important;
+        font-size: 15px !important;
+        color: rgba(255, 255, 255, 0.78) !important;
+        line-height: 1.6 !important;
+      }
+
+      .afprojx-controls {
+        display: grid !important;
+        grid-template-columns: auto 1fr auto !important;
+        align-items: center !important;
+        gap: 20px !important;
+        margin-top: 32px !important;
+      }
+
+      .afprojx-count {
+        display: inline-flex !important;
+        align-items: baseline !important;
+        gap: 6px !important;
+        font-family: var(--afprojx-font-display) !important;
+        font-weight: 500 !important;
+        font-size: 18px !important;
+        color: var(--afprojx-ink) !important;
+      }
+
+      .afprojx-count-sep {
+        color: var(--afprojx-muted-2) !important;
+      }
+
+      .afprojx-markers {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 6px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .afprojx-marker {
+        display: block !important;
+        width: 28px !important;
+        height: 3px !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 0 !important;
+        border-radius: 2px !important;
+        background: var(--afprojx-line-strong) !important;
+        opacity: 1 !important;
+        cursor: pointer !important;
+        box-shadow: none !important;
+        line-height: 0 !important;
+        font-size: 0 !important;
+      }
+
+      .afprojx-marker.afprojx-current {
+        width: 44px !important;
+        background: var(--afprojx-orange) !important;
+      }
+
+      .afprojx-nav {
+        display: flex !important;
+        gap: 10px !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+      }
+
+      .afprojx-nav-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 52px !important;
+        height: 52px !important;
+        min-width: 52px !important;
+        min-height: 52px !important;
+        max-width: 52px !important;
+        max-height: 52px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: 1px solid var(--afprojx-line-strong) !important;
+        border-radius: 50% !important;
+        background: var(--afprojx-white) !important;
+        color: var(--afprojx-ink) !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
+        opacity: 1 !important;
+        cursor: pointer !important;
+        position: static !important;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      .afprojx-nav-btn::before,
+      .afprojx-nav-btn::after,
+      .afprojx-marker::before,
+      .afprojx-marker::after {
+        display: none !important;
+        content: none !important;
+      }
+
+      .afprojx-nav-btn:hover {
+        background: var(--afprojx-ink) !important;
+        color: var(--afprojx-white) !important;
+        border-color: var(--afprojx-ink) !important;
+        transform: translateY(-2px) !important;
+      }
+
+      .afprojx-cta {
+        display: flex !important;
+        justify-content: center !important;
+        margin-top: 56px !important;
+      }
+
+      .afprojx-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        min-height: 54px !important;
+        padding: 16px 26px !important;
+        border-radius: 999px !important;
+        background: var(--afprojx-orange) !important;
+        color: var(--afprojx-white) !important;
+        font-weight: 600 !important;
+        font-size: 15px !important;
+        border: 1px solid transparent !important;
+        text-decoration: none !important;
+        white-space: nowrap !important;
+        box-shadow: 0 8px 28px -10px rgba(255, 113, 45, 0.55) !important;
+      }
+
+      .afprojx-btn:hover {
+        background: var(--afprojx-orange-deep) !important;
+        transform: translateY(-1px) !important;
+      }
+
+      .afprojx-reveal {
+        opacity: 0 !important;
+        transform: translateY(24px) !important;
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease !important;
+      }
+
+      .afprojx-reveal.afprojx-visible {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      @media (max-width: 1080px) {
+        .afprojx-heading {
+          grid-template-columns: 1fr !important;
+          align-items: start !important;
+        }
+
+        .afprojx-subtitle {
+          grid-column: 1 !important;
+          grid-row: 3 !important;
+          text-align: left !important;
+          margin-top: 4px !important;
+        }
+
+        .afprojx-card {
+          grid-template-columns: 1fr !important;
+          grid-template-rows: 1fr auto !important;
+        }
+
+        .afprojx-media {
+          aspect-ratio: 16 / 10 !important;
+          min-height: 0 !important;
+          height: auto !important;
+        }
+
+        .afprojx-copy::before {
+          top: 0 !important;
+          left: clamp(28px, 4vw, 56px) !important;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .afprojx-container {
+          width: min(100% - 28px, 1240px) !important;
+        }
+
+        .afprojx-controls {
+          grid-template-columns: 1fr !important;
+          gap: 18px !important;
+          text-align: center !important;
+        }
+
+        .afprojx-count,
+        .afprojx-nav {
+          justify-content: center !important;
+        }
+
+        .afprojx-btn {
+          width: 100% !important;
+        }
+      }
+
+      .afaboutx-section,
+      .afaboutx-section * {
+        box-sizing: border-box !important;
+      }
+
+      .afaboutx-section {
+        --afaboutx-orange: #ff712d;
+        --afaboutx-white: #ffffff;
+        --afaboutx-ink: #111111;
+        --afaboutx-graphite: #181818;
+        --afaboutx-radius: 8px;
+        --afaboutx-radius-lg: 18px;
+        --afaboutx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+        --afaboutx-font-display:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --afaboutx-font-body:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+        display: block !important;
+        position: relative !important;
+        overflow: hidden !important;
+        background: var(--afaboutx-ink) !important;
+        color: var(--afaboutx-white) !important;
+        font-family: var(--afaboutx-font-body) !important;
+        line-height: 1.55 !important;
+        padding: clamp(80px, 11vw, 140px) 0 !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+        isolation: isolate !important;
+      }
+
+      .afaboutx-section h2,
+      .afaboutx-section h3,
+      .afaboutx-section p,
+      .afaboutx-section ul,
+      .afaboutx-section li,
+      .afaboutx-section figure {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .afaboutx-section ul,
+      .afaboutx-section li {
+        list-style: none !important;
+      }
+
+      .afaboutx-section img {
+        display: block !important;
+        max-width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+      }
+
+      .afaboutx-container {
+        width: min(100% - 32px, 1240px) !important;
+        max-width: 1240px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .afaboutx-grid {
+        display: grid !important;
+        grid-template-columns: 0.95fr 1.1fr !important;
+        gap: clamp(40px, 6vw, 90px) !important;
+        align-items: start !important;
+      }
+
+      .afaboutx-media {
+        position: relative !important;
+        border-radius: var(--afaboutx-radius-lg) !important;
+        overflow: hidden !important;
+        background: var(--afaboutx-graphite) !important;
+      }
+
+      .afaboutx-media img {
+        aspect-ratio: 4 / 5 !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      .afaboutx-badge {
+        position: absolute !important;
+        bottom: 24px !important;
+        left: 24px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        padding: 18px 22px !important;
+        border-radius: var(--afaboutx-radius) !important;
+        background: var(--afaboutx-orange) !important;
+        color: var(--afaboutx-white) !important;
+        z-index: 2 !important;
+      }
+
+      .afaboutx-badge-number {
+        font-family: var(--afaboutx-font-display) !important;
+        font-weight: 500 !important;
+        font-size: 28px !important;
+        line-height: 1 !important;
+        letter-spacing: -0.02em !important;
+      }
+
+      .afaboutx-badge-label {
+        font-size: 11px !important;
+        letter-spacing: 0.16em !important;
+        text-transform: uppercase !important;
+        font-weight: 500 !important;
+        opacity: 0.92 !important;
+      }
+
+      .afaboutx-content {
+        padding-top: 8px !important;
+      }
+
+      .afaboutx-tag {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: var(--afaboutx-white) !important;
+        padding: 7px 12px 7px 0 !important;
+        position: relative !important;
+      }
+
+      .afaboutx-tag::before {
+        content: "" !important;
+        width: 28px !important;
+        height: 1px !important;
+        background: var(--afaboutx-orange) !important;
+        display: block !important;
+        flex: 0 0 28px !important;
+      }
+
+      .afaboutx-title {
+        margin: 18px 0 28px !important;
+        color: var(--afaboutx-white) !important;
+        font-family: var(--afaboutx-font-display) !important;
+        font-weight: 500 !important;
+        font-size: clamp(34px, 4.4vw, 60px) !important;
+        line-height: 1.02 !important;
+        letter-spacing: -0.02em !important;
+      }
+
+      .afaboutx-title em {
+        font-style: italic !important;
+        color: var(--afaboutx-orange) !important;
+        font-weight: 500 !important;
+      }
+
+      .afaboutx-text {
+        max-width: 56ch !important;
+        margin-bottom: 18px !important;
+        color: rgba(255, 255, 255, 0.78) !important;
+        font-size: clamp(15px, 1.4vw, 17px) !important;
+        line-height: 1.7 !important;
+      }
+
+      .afaboutx-tags {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        margin: 28px 0 40px !important;
+        padding: 0 !important;
+      }
+
+      .afaboutx-tags li {
+        padding: 8px 14px !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 999px !important;
+        color: rgba(255, 255, 255, 0.85) !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.06em !important;
+        background: transparent !important;
+      }
+
+      .afaboutx-pillars {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+        padding-top: 32px !important;
+      }
+
+      .afaboutx-pillar {
+        padding: 0 22px !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+      }
+
+      .afaboutx-pillar:first-child {
+        padding-left: 0 !important;
+      }
+
+      .afaboutx-pillar:last-child {
+        padding-right: 0 !important;
+        border-right: 0 !important;
+      }
+
+      .afaboutx-pillar h3 {
+        margin-bottom: 14px !important;
+        color: var(--afaboutx-orange) !important;
+        font-family: var(--afaboutx-font-body) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.18em !important;
+        line-height: 1.2 !important;
+        text-transform: uppercase !important;
+      }
+
+      .afaboutx-pillar p {
+        color: rgba(255, 255, 255, 0.78) !important;
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+      }
+
+      .afaboutx-values {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        padding: 0 !important;
+      }
+
+      .afaboutx-values li {
+        position: relative !important;
+        padding-left: 16px !important;
+        color: rgba(255, 255, 255, 0.82) !important;
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+      }
+
+      .afaboutx-values li::before {
+        content: "" !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 9px !important;
+        width: 6px !important;
+        height: 1px !important;
+        background: var(--afaboutx-orange) !important;
+      }
+
+      .afaboutx-reveal {
+        opacity: 0 !important;
+        transform: translateY(24px) !important;
+        transition:
+          opacity 0.9s var(--afaboutx-ease),
+          transform 0.9s var(--afaboutx-ease) !important;
+        will-change: opacity, transform !important;
+      }
+
+      .afaboutx-reveal.afaboutx-visible {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      @media (max-width: 1080px) {
+        .afaboutx-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .afaboutx-media img {
+          aspect-ratio: 16 / 10 !important;
+        }
+
+        .afaboutx-pillars {
+          grid-template-columns: 1fr !important;
+          gap: 24px !important;
+        }
+
+        .afaboutx-pillar {
+          padding: 0 0 22px !important;
+          border-right: 0 !important;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+        }
+
+        .afaboutx-pillar:last-child {
+          padding-bottom: 0 !important;
+          border-bottom: 0 !important;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .afaboutx-container {
+          width: min(100% - 28px, 1240px) !important;
+        }
+
+        .afaboutx-section {
+          padding: clamp(72px, 10vw, 120px) 0 !important;
+        }
+
+        .afaboutx-badge {
+          left: 16px !important;
+          bottom: 16px !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .afaboutx-section,
+        .afaboutx-section * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .afaboutx-reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      .afclientx-section,
+      .afclientx-section * {
+        box-sizing: border-box !important;
+      }
+
+      .afclientx-section {
+        --afclientx-orange: #ff712d;
+        --afclientx-orange-deep: #e85f1e;
+        --afclientx-white: #ffffff;
+        --afclientx-off: #f7f4ef;
+        --afclientx-line: #1111111a;
+        --afclientx-line-strong: #11111133;
+        --afclientx-ink: #111111;
+        --afclientx-mute: #5a5a5a;
+        --afclientx-mute-2: #8a8a8a;
+        --afclientx-radius: 8px;
+        --afclientx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+        --afclientx-font-display:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --afclientx-font-body:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+        display: block !important;
+        position: relative !important;
+        overflow: hidden !important;
+        background: var(--afclientx-white) !important;
+        color: var(--afclientx-ink) !important;
+        font-family: var(--afclientx-font-body) !important;
+        line-height: 1.55 !important;
+        padding: clamp(72px, 10vw, 130px) 0 !important;
+        isolation: isolate !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+      }
+
+      .afclientx-section h2,
+      .afclientx-section h3,
+      .afclientx-section p,
+      .afclientx-section div,
+      .afclientx-section article,
+      .afclientx-section div,
+      .afclientx-section span,
+      .afclientx-section strong {
+        box-sizing: border-box !important;
+      }
+
+      .afclientx-section h2,
+      .afclientx-section h3,
+      .afclientx-section p {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .afclientx-section a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
+      .afclientx-container {
+        width: min(100% - 32px, 1240px) !important;
+        max-width: 1240px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .afclientx-head {
+        text-align: center !important;
+        margin-bottom: 64px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .afclientx-tag {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        font-family: var(--afclientx-font-body) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: var(--afclientx-ink) !important;
+        padding: 7px 12px 7px 0 !important;
+        position: relative !important;
+      }
+
+      .afclientx-tag::before {
+        content: "" !important;
+        width: 28px !important;
+        height: 1px !important;
+        background: var(--afclientx-orange) !important;
+        display: block !important;
+        flex: 0 0 28px !important;
+      }
+
+      .afclientx-title {
+        margin-top: 18px !important;
+        margin-bottom: 18px !important;
+        max-width: 18ch !important;
+        color: var(--afclientx-ink) !important;
+        font-family: var(--afclientx-font-display) !important;
+        font-size: clamp(32px, 4.2vw, 54px) !important;
+        font-weight: 500 !important;
+        line-height: 1.02 !important;
+        letter-spacing: -0.02em !important;
+      }
+
+      .afclientx-title em {
+        font-style: italic !important;
+        color: var(--afclientx-orange) !important;
+        font-weight: 500 !important;
+      }
+
+      .afclientx-subtitle {
+        max-width: 56ch !important;
+        color: var(--afclientx-mute) !important;
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+      }
+
+      .afclientx-grid {
+        display: grid !important;
+        grid-template-columns: 1.4fr 1fr 1fr !important;
+        grid-template-rows: auto auto !important;
+        gap: 20px !important;
+      }
+
+      .afclientx-card {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 18px !important;
+        padding: 32px 28px !important;
+        border-radius: var(--afclientx-radius) !important;
+        background: var(--afclientx-off) !important;
+        color: var(--afclientx-ink) !important;
+        border: 1px solid transparent !important;
+        transition:
+          border-color 0.35s var(--afclientx-ease),
+          transform 0.35s var(--afclientx-ease),
+          background-color 0.35s var(--afclientx-ease) !important;
+      }
+
+      .afclientx-card:hover {
+        border-color: var(--afclientx-line) !important;
+        transform: translateY(-2px) !important;
+      }
+
+      .afclientx-card-featured {
+        grid-row: span 2 !important;
+        position: relative !important;
+        padding: 40px 36px !important;
+        background: var(--afclientx-ink) !important;
+        color: var(--afclientx-white) !important;
+      }
+
+      .afclientx-card-featured::before {
+        content: "“" !important;
+        position: absolute !important;
+        top: 18px !important;
+        right: 28px !important;
+        font-family: var(--afclientx-font-display) !important;
+        font-size: 90px !important;
+        line-height: 1 !important;
+        color: var(--afclientx-orange) !important;
+        opacity: 0.9 !important;
+        pointer-events: none !important;
+      }
+
+      .afclientx-stars {
+        color: var(--afclientx-orange) !important;
+        font-size: 14px !important;
+        letter-spacing: 4px !important;
+        line-height: 1 !important;
+      }
+
+      .afclientx-quote {
+        flex: 1 !important;
+        color: inherit !important;
+        font-family: var(--afclientx-font-display) !important;
+        font-weight: 400 !important;
+        font-size: clamp(17px, 1.6vw, 20px) !important;
+        line-height: 1.4 !important;
+        letter-spacing: -0.01em !important;
+      }
+
+      .afclientx-card-featured .afclientx-quote {
+        font-size: clamp(20px, 2vw, 26px) !important;
+        line-height: 1.35 !important;
+      }
+
+      .afclientx-foot {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        padding-top: 18px !important;
+        border-top: 1px solid var(--afclientx-line) !important;
+      }
+
+      .afclientx-card-featured .afclientx-foot {
+        border-top-color: rgba(255, 255, 255, 0.15) !important;
+      }
+
+      .afclientx-author {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+      }
+
+      .afclientx-author strong {
+        color: inherit !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        line-height: 1.3 !important;
+      }
+
+      .afclientx-author span {
+        color: var(--afclientx-mute) !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+      }
+
+      .afclientx-card-featured .afclientx-author span {
+        color: rgba(255, 255, 255, 0.65) !important;
+      }
+
+      .afclientx-pill {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        padding: 6px 10px !important;
+        border-radius: 999px !important;
+        border: 1px solid var(--afclientx-line) !important;
+        background: var(--afclientx-white) !important;
+        color: var(--afclientx-ink) !important;
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        line-height: 1 !important;
+      }
+
+      .afclientx-card-featured .afclientx-pill {
+        background: var(--afclientx-orange) !important;
+        color: var(--afclientx-white) !important;
+        border-color: var(--afclientx-orange) !important;
+      }
+
+      .afclientx-cta {
+        margin-top: 44px !important;
+        display: flex !important;
+        justify-content: center !important;
+      }
+
+      .afclientx-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        min-height: 54px !important;
+        padding: 16px 26px !important;
+        border-radius: 999px !important;
+        background: transparent !important;
+        color: var(--afclientx-ink) !important;
+        border: 1px solid var(--afclientx-line-strong) !important;
+        font-family: var(--afclientx-font-body) !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.01em !important;
+        line-height: 1 !important;
+        text-align: center !important;
+        cursor: pointer !important;
+        white-space: nowrap !important;
+        user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        transition:
+          transform 0.35s var(--afclientx-ease),
+          background-color 0.35s var(--afclientx-ease),
+          color 0.35s var(--afclientx-ease),
+          border-color 0.35s var(--afclientx-ease) !important;
+      }
+
+      .afclientx-btn:hover {
+        background: var(--afclientx-ink) !important;
+        color: var(--afclientx-white) !important;
+        border-color: var(--afclientx-ink) !important;
+        transform: translateY(-1px) !important;
+      }
+
+      .afclientx-reveal {
+        opacity: 0 !important;
+        transform: translateY(24px) !important;
+        transition:
+          opacity 0.9s var(--afclientx-ease),
+          transform 0.9s var(--afclientx-ease) !important;
+        will-change: opacity, transform !important;
+      }
+
+      .afclientx-reveal.afclientx-visible {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      @media (max-width: 1080px) {
+        .afclientx-grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+
+        .afclientx-card-featured {
+          grid-row: auto !important;
+          grid-column: span 2 !important;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .afclientx-container {
+          width: min(100% - 28px, 1240px) !important;
+        }
+
+        .afclientx-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .afclientx-card-featured {
+          grid-column: auto !important;
+        }
+
+        .afclientx-foot {
+          align-items: flex-start !important;
+          flex-direction: column !important;
+        }
+
+        .afclientx-pill {
+          white-space: normal !important;
+          text-align: left !important;
+        }
+
+        .afclientx-btn {
+          width: 100% !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .afclientx-section,
+        .afclientx-section * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .afclientx-reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      .affaqx-section,
+      .affaqx-section * {
+        box-sizing: border-box !important;
+      }
+
+      .affaqx-section {
+        --affaqx-orange: #ff712d;
+        --affaqx-orange-deep: #e85f1e;
+        --affaqx-white: #ffffff;
+        --affaqx-off: #f7f4ef;
+        --affaqx-line: #1111111a;
+        --affaqx-line-strong: #11111133;
+        --affaqx-ink: #111111;
+        --affaqx-muted: #5a5a5a;
+        --affaqx-radius: 8px;
+        --affaqx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+        --affaqx-font-display:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --affaqx-font-body:
+          "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+        display: block !important;
+        position: relative !important;
+        overflow: visible !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        background: var(--affaqx-off) !important;
+        color: var(--affaqx-ink) !important;
+        font-family: var(--affaqx-font-body) !important;
+        line-height: 1.55 !important;
+        padding: clamp(72px, 10vw, 130px) 0 !important;
+        isolation: isolate !important;
+        -webkit-font-smoothing: antialiased !important;
+        -moz-osx-font-smoothing: grayscale !important;
+        text-rendering: optimizeLegibility !important;
+      }
+
+      .affaqx-section h2,
+      .affaqx-section p,
+      .affaqx-section div,
+      .affaqx-section header,
+      .affaqx-section details,
+      .affaqx-section summary,
+      .affaqx-section span {
+        box-sizing: border-box !important;
+      }
+
+      .affaqx-section h2,
+      .affaqx-section p {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .affaqx-section a {
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+
+      .affaqx-container {
+        width: min(100% - 32px, 1240px) !important;
+        max-width: 1240px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        overflow: visible !important;
+      }
+
+      .affaqx-grid {
+        display: grid !important;
+        grid-template-columns: 0.85fr 1.15fr !important;
+        gap: clamp(40px, 6vw, 96px) !important;
+        align-items: start !important;
+        overflow: visible !important;
+      }
+
+      .affaqx-head {
+        position: sticky !important;
+        top: 100px !important;
+        align-self: start !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        z-index: 2 !important;
+      }
+
+      .affaqx-tag {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        font-family: var(--affaqx-font-body) !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.18em !important;
+        text-transform: uppercase !important;
+        color: var(--affaqx-ink) !important;
+        padding: 7px 12px 7px 0 !important;
+        position: relative !important;
+      }
+
+      .affaqx-tag::before {
+        content: "" !important;
+        display: block !important;
+        width: 28px !important;
+        height: 1px !important;
+        flex: 0 0 28px !important;
+        background: var(--affaqx-orange) !important;
+      }
+
+      .affaqx-title {
+        max-width: 12ch !important;
+        margin: 18px 0 18px !important;
+        color: var(--affaqx-ink) !important;
+        font-family: var(--affaqx-font-display) !important;
+        font-size: clamp(32px, 4.2vw, 54px) !important;
+        font-weight: 500 !important;
+        line-height: 1.02 !important;
+        letter-spacing: -0.02em !important;
+      }
+
+      .affaqx-title em {
+        font-style: italic !important;
+        color: var(--affaqx-orange) !important;
+        font-weight: 500 !important;
+      }
+
+      .affaqx-subtitle {
+        max-width: 36ch !important;
+        margin-bottom: 28px !important;
+        color: var(--affaqx-muted) !important;
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+      }
+
+      .affaqx-cta {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 12px 0 !important;
+        border-bottom: 1px solid var(--affaqx-ink) !important;
+        color: var(--affaqx-ink) !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        line-height: 1 !important;
+        transition:
+          gap 0.35s var(--affaqx-ease),
+          color 0.35s var(--affaqx-ease),
+          border-color 0.35s var(--affaqx-ease) !important;
+      }
+
+      .affaqx-cta:hover {
+        gap: 14px !important;
+        color: var(--affaqx-orange) !important;
+        border-bottom-color: var(--affaqx-orange) !important;
+      }
+
+      .affaqx-list {
+        border-top: 1px solid var(--affaqx-line) !important;
+        overflow: visible !important;
+      }
+
+      .affaqx-item {
+        border-bottom: 1px solid var(--affaqx-line) !important;
+      }
+
+      .affaqx-question {
+        list-style: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 24px !important;
+        padding: 24px 4px !important;
+        cursor: pointer !important;
+        color: var(--affaqx-ink) !important;
+        font-weight: 600 !important;
+        font-size: clamp(15px, 1.4vw, 17px) !important;
+        line-height: 1.4 !important;
+        transition: color 0.25s var(--affaqx-ease) !important;
+      }
+
+      .affaqx-question::-webkit-details-marker {
+        display: none !important;
+      }
+
+      .affaqx-question:hover {
+        color: var(--affaqx-orange) !important;
+      }
+
+      .affaqx-question-text {
+        display: block !important;
+      }
+
+      .affaqx-icon {
+        position: relative !important;
+        width: 22px !important;
+        height: 22px !important;
+        flex: 0 0 22px !important;
+      }
+
+      .affaqx-icon::before,
+      .affaqx-icon::after {
+        content: "" !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        background: var(--affaqx-ink) !important;
+        transition:
+          transform 0.35s var(--affaqx-ease),
+          background-color 0.35s var(--affaqx-ease) !important;
+      }
+
+      .affaqx-icon::before {
+        width: 14px !important;
+        height: 1.5px !important;
+        transform: translate(-50%, -50%) !important;
+      }
+
+      .affaqx-icon::after {
+        width: 1.5px !important;
+        height: 14px !important;
+        transform: translate(-50%, -50%) !important;
+      }
+
+      .affaqx-item[open] .affaqx-question {
+        color: var(--affaqx-orange) !important;
+      }
+
+      .affaqx-item[open] .affaqx-icon::before {
+        background: var(--affaqx-orange) !important;
+      }
+
+      .affaqx-item[open] .affaqx-icon::after {
+        transform: translate(-50%, -50%) scaleY(0) !important;
+      }
+
+      .affaqx-answer {
+        max-width: 64ch !important;
+        overflow: visible !important;
+        padding: 0 4px 26px !important;
+        color: var(--affaqx-muted) !important;
+        font-size: 15px !important;
+        line-height: 1.7 !important;
+      }
+
+      .affaqx-answer p {
+        color: inherit !important;
+        font-size: inherit !important;
+        line-height: inherit !important;
+      }
+
+      .affaqx-reveal {
+        opacity: 0 !important;
+        transform: translateY(24px) !important;
+        transition:
+          opacity 0.9s var(--affaqx-ease),
+          transform 0.9s var(--affaqx-ease) !important;
+        will-change: opacity, transform !important;
+      }
+
+      .affaqx-reveal.affaqx-visible {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      @media (max-width: 1080px) {
+        .affaqx-grid {
+          grid-template-columns: 1fr !important;
+        }
+
+        .affaqx-head {
+          position: relative !important;
+          top: auto !important;
+          z-index: auto !important;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .affaqx-container {
+          width: min(100% - 28px, 1240px) !important;
+        }
+
+        .affaqx-question {
+          gap: 18px !important;
+          padding: 22px 2px !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .affaqx-section,
+        .affaqx-section * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+
+        .affaqx-reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+
+      /* =========================================================
+   AJUSTES GERAIS — ARQUIVO UNIFICADO
+   ========================================================= */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          "Montserrat",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      .fernando-cro-artfactory-lp,
+      .fernando-cro-artfactory-lp *,
+      .af-sm-section,
+      .af-sm-section *,
+      .afprojx-section,
+      .afprojx-section *,
+      .afaboutx-section,
+      .afaboutx-section *,
+      .afclientx-section,
+      .afclientx-section *,
+      .affaqx-section,
+      .affaqx-section * {
+        font-family:
+          "Montserrat",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif !important;
+      }
+
+      #fernando-cro-hero,
+      #fernando-cro-sob-medida,
+      #fernando-cro-projetos,
+      #fernando-cro-sobre,
+      #fernando-cro-faq {
+        scroll-margin-top: 24px;
+      }
+
+      .afaboutx-video {
+        margin: 34px 0 42px !important;
+        width: 100% !important;
+      }
+
+      .afaboutx-video-frame {
+        position: relative !important;
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        border-radius: var(--afaboutx-radius-lg) !important;
+        overflow: hidden !important;
+        background: var(--afaboutx-graphite) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24) !important;
+      }
+
+      .afaboutx-video-frame iframe {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        border: 0 !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="fernando-cro-artfactory-lp" id="fernando-cro-artfactory-lp">
+      <header class="fernando-cro-hero" id="fernando-cro-hero">
+        <!-- Imagem de fundo do hero — SUBSTITUIR a URL pela imagem oficial do projeto -->
+        <img
+          alt="Ambiente sofisticado com móvel sob medida em ferro e madeira"
+          class="fernando-cro-hero-bg"
+          fetchpriority="high"
+          src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&amp;fit=crop&amp;w=2000&amp;q=80"
+        />
+        <div aria-hidden="true" class="fernando-cro-hero-overlay"></div>
+        <nav aria-label="Navegação topo" class="fernando-cro-topbar">
+          <div class="fernando-cro-container fernando-cro-topbar-inner">
+            <a
+              aria-label="ArtFactory — início"
+              class="fernando-cro-brand"
+              href="#fernando-cro-hero"
+            >
+              <span class="fernando-cro-brand-mark">Art</span
+              ><span class="fernando-cro-brand-mark fernando-cro-brand-accent"
+                >Factory</span
+              >
+            </a>
+            <ul class="fernando-cro-nav-links">
+              <li><a href="#fernando-cro-sob-medida">Sob medida</a></li>
+              <li><a href="#fernando-cro-projetos">Projetos</a></li>
+              <li><a href="#fernando-cro-sobre">Sobre</a></li>
+              <li><a href="#fernando-cro-faq">FAQ</a></li>
+            </ul>
+            <!-- Substituir href="#" pelo link real do WhatsApp/orçamento -->
+            <a
+              aria-label="Olá Douglas, quero solicitar um orçamento sob medida para um móvel da ArtFactory."
+              class="fernando-cro-btn-primary fernando-cro-topbar-cta"
+              href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20quero%20solicitar%20um%20or%C3%A7amento%20sob%20medida%20para%20um%20m%C3%B3vel%20da%20ArtFactory."
+              rel="noopener noreferrer"
+              target="_blank"
+              >Orçamento sob medida</a
+            >
+          </div>
+        </nav>
+        <div class="fernando-cro-container fernando-cro-hero-content">
+          <span class="fernando-cro-eyebrow">
+            <span aria-hidden="true" class="fernando-cro-eyebrow-dot"></span>
+            ArtFactory · Ferro + Madeira · Sob medida
+          </span>
+          <h1 class="fernando-cro-hero-title">
+            Móveis sob medida para <em>ambientes</em> com personalidade.
+          </h1>
+          <p class="fernando-cro-hero-sub">
+            Projetos em ferro e madeira feitos de forma artesanal, com
+            atendimento humano e soluções pensadas para o seu espaço.
+          </p>
+          <div class="fernando-cro-hero-actions">
+            <!-- Substituir href="#" pelo link real do WhatsApp/orçamento -->
+            <a
+              aria-label="Olá Douglas, quero solicitar um orçamento sob medida para um móvel da ArtFactory. Pode me ajudar?"
+              class="fernando-cro-btn-primary"
+              href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20quero%20solicitar%20um%20or%C3%A7amento%20sob%20medida%20para%20um%20m%C3%B3vel%20da%20ArtFactory.%20Pode%20me%20ajudar%3F"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Solicitar orçamento sob medida
+              <span aria-hidden="true" class="fernando-cro-btn-arrow">→</span>
+            </a>
+            <!-- Substituir href="#" pelo link real do WhatsApp/orçamento -->
+            <a
+              aria-label="Olá Douglas, tenho uma ideia de móvel sob medida e gostaria de enviar as referências para orçamento."
+              class="fernando-cro-btn-secondary"
+              href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20tenho%20uma%20ideia%20de%20m%C3%B3vel%20sob%20medida%20e%20gostaria%20de%20enviar%20as%20refer%C3%AAncias%20para%20or%C3%A7amento."
+              rel="noopener noreferrer"
+              target="_blank"
+              >Enviar minha ideia</a
+            >
+          </div>
+          <ul
+            aria-label="Diferenciais ArtFactory"
+            class="fernando-cro-hero-proofs"
+          >
+            <li>
+              <span class="fernando-cro-proof-num">2018</span
+              ><span class="fernando-cro-proof-lbl">Desde</span>
+            </li>
+            <li>
+              <span class="fernando-cro-proof-num">100%</span
+              ><span class="fernando-cro-proof-lbl">Artesanal</span>
+            </li>
+            <li>
+              <span class="fernando-cro-proof-num">Real</span
+              ><span class="fernando-cro-proof-lbl">Atendimento humano</span>
+            </li>
+            <li>
+              <span class="fernando-cro-proof-num">1:1</span
+              ><span class="fernando-cro-proof-lbl"
+                >Projetos personalizados</span
+              >
+            </li>
+          </ul>
+        </div>
+        <div aria-hidden="true" class="fernando-cro-hero-scrollhint">
+          <span class="fernando-cro-scrollhint-line"></span>
+          <span>role para descobrir</span>
+        </div>
+      </header>
+    </section>
+
+    <section
+      aria-labelledby="af-sm-title"
+      class="af-sm-section"
+      id="fernando-cro-sob-medida"
+    >
+      <div class="af-sm-container">
+        <div class="af-sm-grid">
+          <article class="af-sm-intro" data-af-sm-reveal="">
+            <span class="af-sm-label">Solução personalizada</span>
+            <h2 class="af-sm-title" id="af-sm-title">
+              Por que fazer um móvel sob medida?
+            </h2>
+            <p class="af-sm-text">
+              Quando o móvel precisa se encaixar no seu espaço, na sua rotina e
+              no seu estilo, o sob medida deixa de ser um detalhe e passa a ser
+              a melhor solução.
+            </p>
+            <ul class="af-sm-list">
+              <li>Medida certa para o seu espaço</li>
+              <li>Mais funcionalidade no dia a dia</li>
+              <li>Design alinhado ao seu estilo</li>
+              <li>Produção artesanal em ferro e madeira</li>
+              <li>Atendimento consultivo e humano</li>
+            </ul>
+            <a
+              aria-label="Olá Douglas, quero começar meu orçamento de móvel sob medida. Pode me orientar?"
+              class="af-sm-btn-primary af-sm-cta"
+              href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20quero%20come%C3%A7ar%20meu%20or%C3%A7amento%20de%20m%C3%B3vel%20sob%20medida.%20Pode%20me%20orientar%3F"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Começar meu orçamento
+            </a>
+          </article>
+          <article
+            aria-labelledby="af-sm-process-title"
+            class="af-sm-process"
+            data-af-sm-reveal=""
+          >
+            <span class="af-sm-small-title">Processo consultivo</span>
+            <h3 class="af-sm-process-title" id="af-sm-process-title">
+              Do primeiro contato ao orçamento do seu móvel
+            </h3>
+            <div class="af-sm-process-list">
+              <div class="af-sm-process-item">
+                <span class="af-sm-process-number">01</span>
+                <div class="af-sm-process-copy">
+                  <h4>Você envia sua ideia</h4>
+                  <p>
+                    Compartilhe o tipo de móvel, medidas aproximadas, ambiente e
+                    referências.
+                  </p>
+                </div>
+              </div>
+              <div class="af-sm-process-item">
+                <span class="af-sm-process-number">02</span>
+                <div class="af-sm-process-copy">
+                  <h4>A equipe entende sua necessidade</h4>
+                  <p>
+                    Avaliamos o que faz sentido para o seu espaço, sua rotina e
+                    seu objetivo.
+                  </p>
+                </div>
+              </div>
+              <div class="af-sm-process-item">
+                <span class="af-sm-process-number">03</span>
+                <div class="af-sm-process-copy">
+                  <h4>Orientação e personalização</h4>
+                  <p>
+                    Ajudamos a transformar sua ideia em uma proposta viável,
+                    funcional e bonita.
+                  </p>
+                </div>
+              </div>
+              <div class="af-sm-process-item">
+                <span class="af-sm-process-number">04</span>
+                <div class="af-sm-process-copy">
+                  <h4>Orçamento sob medida</h4>
+                  <p>
+                    Com as informações alinhadas, a equipe prepara seu orçamento
+                    personalizado.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="afprojx-section" id="fernando-cro-projetos">
+      <div class="afprojx-container">
+        <header class="afprojx-heading afprojx-reveal">
+          <span class="afprojx-tag">03 — Projetos</span>
+          <h2 class="afprojx-title" id="afprojx-title">
+            Projetos que mostram o que o <em>sob medida</em> pode fazer.
+          </h2>
+          <p class="afprojx-subtitle">
+            Veja inspirações de ambientes e soluções desenvolvidas com a
+            estética, a funcionalidade e a presença do ferro e da madeira.
+          </p>
+        </header>
+        <div class="afprojx-component" data-afprojx-component="">
+          <div class="afprojx-mask">
+            <ul class="afprojx-row" data-afprojx-row="">
+              <li class="afprojx-panel" data-afprojx-panel="">
+                <article class="afprojx-card">
+                  <figure class="afprojx-media">
+                    <img
+                      alt="Aparador industrial em ferro e madeira"
+                      loading="lazy"
+                      src="https://artfactory.cdn.magazord.com.br/img/2026/05/produto/9757/design-sem-nome-54.png"
+                    />
+                  </figure>
+                  <div class="afprojx-copy">
+                    <span class="afprojx-kicker">Sala · Aparador</span>
+                    <h3 class="afprojx-card-title">Aparador industrial</h3>
+                    <p class="afprojx-card-text">
+                      Presença visual e proporção pensada para valorizar o
+                      ambiente.
+                    </p>
+                  </div>
+                </article>
+              </li>
+              <li class="afprojx-panel" data-afprojx-panel="">
+                <article class="afprojx-card">
+                  <figure class="afprojx-media">
+                    <img
+                      alt="Home office sob medida em ferro e madeira"
+                      loading="lazy"
+                      src="https://artfactory.cdn.magazord.com.br/img/2026/05/produto/9758/design-sem-nome-55.png"
+                    />
+                  </figure>
+                  <div class="afprojx-copy">
+                    <span class="afprojx-kicker">Trabalho · Home office</span>
+                    <h3 class="afprojx-card-title">Home office sob medida</h3>
+                    <p class="afprojx-card-text">
+                      Solução funcional para rotina de trabalho com estética
+                      limpa e resistente.
+                    </p>
+                  </div>
+                </article>
+              </li>
+              <li class="afprojx-panel" data-afprojx-panel="">
+                <article class="afprojx-card">
+                  <figure class="afprojx-media">
+                    <img
+                      alt="Estante em ferro e madeira"
+                      loading="lazy"
+                      src="https://artfactory.cdn.magazord.com.br/img/2026/05/produto/9759/design-sem-nome-56.png"
+                    />
+                  </figure>
+                  <div class="afprojx-copy">
+                    <span class="afprojx-kicker">Sala · Estante</span>
+                    <h3 class="afprojx-card-title">
+                      Estante em ferro e madeira
+                    </h3>
+                    <p class="afprojx-card-text">
+                      Organização, decoração e destaque visual na mesma peça.
+                    </p>
+                  </div>
+                </article>
+              </li>
+              <li class="afprojx-panel" data-afprojx-panel="">
+                <article class="afprojx-card">
+                  <figure class="afprojx-media">
+                    <img
+                      alt="Bancada personalizada em madeira"
+                      loading="lazy"
+                      src="https://artfactory.cdn.magazord.com.br/img/2026/05/produto/9760/design-sem-nome-57.png"
+                    />
+                  </figure>
+                  <div class="afprojx-copy">
+                    <span class="afprojx-kicker">Cozinha · Bancada</span>
+                    <h3 class="afprojx-card-title">Bancada personalizada</h3>
+                    <p class="afprojx-card-text">
+                      Peça pensada para uso real, acabamento bonito e melhor
+                      aproveitamento do espaço.
+                    </p>
+                  </div>
+                </article>
+              </li>
+              <li class="afprojx-panel" data-afprojx-panel="">
+                <article class="afprojx-card">
+                  <figure class="afprojx-media">
+                    <img
+                      alt="Ambiente comercial com móveis em ferro e madeira"
+                      loading="lazy"
+                      src="https://artfactory.cdn.magazord.com.br/img/2026/05/produto/9761/design-sem-nome-58.png"
+                    />
+                  </figure>
+                  <div class="afprojx-copy">
+                    <span class="afprojx-kicker">Comercial</span>
+                    <h3 class="afprojx-card-title">Ambiente comercial</h3>
+                    <p class="afprojx-card-text">
+                      Soluções para lojas, recepções, escritórios e espaços com
+                      identidade.
+                    </p>
+                  </div>
+                </article>
+              </li>
+            </ul>
+          </div>
+          <div class="afprojx-controls">
+            <div aria-live="polite" class="afprojx-count">
+              <span data-afprojx-current="">01</span>
+              <span class="afprojx-count-sep">/</span>
+              <span data-afprojx-total="">05</span>
+            </div>
+            <div
+              aria-label="Selecionar projeto"
+              class="afprojx-markers"
+              data-afprojx-markers=""
+              role="tablist"
+            ></div>
+            <div class="afprojx-nav">
+              <button
+                aria-label="Projeto anterior"
+                class="afprojx-nav-btn"
+                data-afprojx-prev=""
+                type="button"
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <button
+                aria-label="Próximo projeto"
+                class="afprojx-nav-btn"
+                data-afprojx-next=""
+                type="button"
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="afprojx-cta afprojx-reveal">
+          <a
+            aria-label="Olá Douglas, vi os projetos da ArtFactory e quero fazer um móvel parecido. Pode me ajudar?"
+            class="afprojx-btn"
+            href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20vi%20os%20projetos%20da%20ArtFactory%20e%20quero%20fazer%20um%20m%C3%B3vel%20parecido.%20Pode%20me%20ajudar%3F"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Quero um projeto parecido
+            <span aria-hidden="true" class="afprojx-btn-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section
+      aria-labelledby="afaboutx-title"
+      class="afaboutx-section"
+      id="fernando-cro-sobre"
+    >
+      <div class="afaboutx-container">
+        <div class="afaboutx-grid">
+          <figure class="afaboutx-media afaboutx-reveal">
+              <div class="afaboutx-video-frame">
+                <iframe
+                  allow="
+                    accelerometer;
+                    autoplay;
+                    clipboard-write;
+                    encrypted-media;
+                    gyroscope;
+                    picture-in-picture;
+                    web-share;
+                  "
+                  allowfullscreen=""
+                  frameborder="0"
+                  height="315"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  src="https://www.youtube.com/embed/iLVSLnzFwvA?si=YyqPvivPx1H-rkTf"
+                  title="YouTube video player"
+                  width="560"
+                ></iframe>
+              </div>
+            <span class="afaboutx-badge">
+              <span class="afaboutx-badge-number">2018</span>
+              <span class="afaboutx-badge-label">desde</span>
+            </span>
+          </figure>
+          <div class="afaboutx-content afaboutx-reveal">
+            <span class="afaboutx-tag">04 — Sobre</span>
+            <h2 class="afaboutx-title" id="afaboutx-title">
+              Sobre a <em>ArtFactory.</em>
+            </h2>
+            <p class="afaboutx-text">
+              A ArtFactory nasceu em 2018 com a proposta de levar personalidade
+              para os ambientes por meio de móveis em ferro e madeira feitos com
+              cuidado, presença e identidade.
+            </p>
+            <p class="afaboutx-text">
+              Cada peça é produzida manualmente, uma a uma, sem processos
+              automatizados em massa. Esse cuidado também aparece no
+              atendimento: aqui, você fala com pessoas reais, prontas para
+              ouvir, orientar e acompanhar cada etapa.
+            </p>
+            <ul class="afaboutx-tags">
+              <li>Desde 2018</li>
+              <li>Produção artesanal</li>
+              <li>100% online</li>
+              <li>Gaspar — SC</li>
+              <li>Atendimento humanizado</li>
+            </ul>
+            <div
+              aria-label="Vídeo sobre a ArtFactory"
+              class="afaboutx-video afaboutx-reveal"
+            >
+
+            </div>
+            <div class="afaboutx-pillars">
+              <article class="afaboutx-pillar">
+                <h3>Missão</h3>
+                <p>
+                  Oferecer soluções em móveis de ferro e madeira que combinem
+                  qualidade, design moderno e diversidade, proporcionando
+                  experiências únicas e um relacionamento transparente com
+                  nossos clientes.
+                </p>
+              </article>
+              <article class="afaboutx-pillar">
+                <h3>Visão</h3>
+                <p>
+                  Ser reconhecida como referência na fabricação de móveis de
+                  estilo industrial de alta qualidade nas regiões Sul, Sudeste e
+                  Centro-Oeste do Brasil até 2030.
+                </p>
+              </article>
+              <article class="afaboutx-pillar">
+                <h3>Valores</h3>
+                <ul class="afaboutx-values">
+                  <li>Excelência no atendimento</li>
+                  <li>Espírito de equipe colaborativo</li>
+                  <li>Respeito e compromisso com o cliente</li>
+                  <li>Responsabilidade e transparência</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      aria-labelledby="afclientx-title"
+      class="afclientx-section"
+      id="afclientx-section"
+    >
+      <div class="afclientx-container">
+        <header class="afclientx-head afclientx-reveal">
+          <span class="afclientx-tag">05 — Clientes</span>
+          <h2 class="afclientx-title" id="afclientx-title">
+            O que nossos clientes <em>dizem.</em>
+          </h2>
+          <p class="afclientx-subtitle">
+            Quem entra em contato com a ArtFactory procura mais do que um móvel:
+            procura atendimento, cuidado e uma solução bem pensada para o seu
+            espaço.
+          </p>
+        </header>
+        <div class="afclientx-grid">
+          <article
+            class="afclientx-card afclientx-card-featured afclientx-reveal"
+          >
+            <div aria-label="Avaliação 5 estrelas" class="afclientx-stars">
+              ★★★★★
+            </div>
+            <p class="afclientx-quote">
+              “Comprei uma mesa de jantar para a cozinha e uma escrivaninha,
+              ambos completos em madeira pinus. Além disso pedi algumas
+              modificações no tamanho e veio super certinho, como pedi.
+              Acabamento excelente. Pedi que viesse envernizado para ser mais
+              resistente à umidade. Amei demais. Atendimento excelente, muito
+              bem embalado e protegido.”
+            </p>
+            <div class="afclientx-foot">
+              <div class="afclientx-author">
+                <strong>Beatriz Wolff</strong>
+                <span>Cliente ArtFactory</span>
+              </div>
+              <span class="afclientx-pill">Mesa e escrivaninha</span>
+            </div>
+          </article>
+          <article class="afclientx-card afclientx-reveal">
+            <div aria-label="Avaliação 5 estrelas" class="afclientx-stars">
+              ★★★★★
+            </div>
+            <p class="afclientx-quote">
+              “Encontrei a empresa na internet e confesso ter ficado preocupada,
+              mas me surpreendi positivamente. Tive dúvidas e prontamente fui
+              esclarecida pelo WhatsApp. Os produtos chegaram dois dias antes
+              dos 10 dias úteis, super bem embalados, de fácil montagem e
+              madeira de qualidade.”
+            </p>
+            <div class="afclientx-foot">
+              <div class="afclientx-author">
+                <strong>Ana Beatriz Valentim Gomes</strong>
+                <span>Rio de Janeiro — RJ</span>
+              </div>
+              <span class="afclientx-pill">Compra online</span>
+            </div>
+          </article>
+          <article class="afclientx-card afclientx-reveal">
+            <div aria-label="Avaliação 5 estrelas" class="afclientx-stars">
+              ★★★★★
+            </div>
+            <p class="afclientx-quote">
+              “Trabalho impecável, entrega no prazo, mandei o projeto e eles
+              executaram da forma que eu queria. Excelente profissional.”
+            </p>
+            <div class="afclientx-foot">
+              <div class="afclientx-author">
+                <strong>Leonardo Morais</strong>
+                <span>Cliente ArtFactory</span>
+              </div>
+              <span class="afclientx-pill">Projeto executado</span>
+            </div>
+          </article>
+          <article class="afclientx-card afclientx-reveal">
+            <div aria-label="Avaliação 5 estrelas" class="afclientx-stars">
+              ★★★★★
+            </div>
+            <p class="afclientx-quote">
+              “O atendimento do Douglas é excepcional, conversei com ele para
+              fazermos alguns móveis sob medida, foi tudo muito tranquilo,
+              rápido e o resultado ficou incrível, recomendo muito.”
+            </p>
+            <div class="afclientx-foot">
+              <div class="afclientx-author">
+                <strong>Gui</strong>
+                <span>Cliente ArtFactory</span>
+              </div>
+              <span class="afclientx-pill">Móveis sob medida</span>
+            </div>
+          </article>
+          <article class="afclientx-card afclientx-reveal">
+            <div aria-label="Avaliação 5 estrelas" class="afclientx-stars">
+              ★★★★★
+            </div>
+            <p class="afclientx-quote">
+              “Boa tarde Douglas, tudo bem? Gostaria de passar para agradecer
+              pelo serviço. Montei a estante assim que recebi na quinta-feira e
+              nós amamos o resultado. Ficou perfeita. Muito obrigado!”
+            </p>
+            <div class="afclientx-foot">
+              <div class="afclientx-author">
+                <strong>Tobias</strong>
+                <span>Cliente ArtFactory</span>
+              </div>
+              <span class="afclientx-pill">Estante</span>
+            </div>
+          </article>
+        </div>
+        <div class="afclientx-cta afclientx-reveal">
+          <a
+            aria-label="Olá Douglas, quero solicitar meu orçamento de móvel sob medida. Pode me atender?"
+            class="afclientx-btn"
+            href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20quero%20solicitar%20meu%20or%C3%A7amento%20de%20m%C3%B3vel%20sob%20medida.%20Pode%20me%20atender%3F"
+            rel="noopener noreferrer"
+            target="_blank"
+            >Solicitar meu orçamento</a
+          >
+        </div>
+      </div>
+    </section>
+    <section
+      aria-labelledby="affaqx-title"
+      class="affaqx-section"
+      id="fernando-cro-faq"
+    >
+      <div class="affaqx-container">
+        <div class="affaqx-grid">
+          <header class="affaqx-head affaqx-reveal">
+            <span class="affaqx-tag">06 — Dúvidas</span>
+            <h2 class="affaqx-title" id="affaqx-title">
+              Perguntas <em>frequentes.</em>
+            </h2>
+            <p class="affaqx-subtitle">
+              Tire dúvidas comuns antes de solicitar o seu orçamento sob medida.
+            </p>
+            <a
+              aria-label="Olá Douglas, tenho dúvidas sobre móveis sob medida e gostaria de falar com um especialista."
+              class="affaqx-cta"
+              href="https://wa.me/554733978407?text=Ol%C3%A1%20Douglas%2C%20tenho%20d%C3%BAvidas%20sobre%20m%C3%B3veis%20sob%20medida%20e%20gostaria%20de%20falar%20com%20um%20especialista."
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Falar com especialista
+              <span aria-hidden="true">→</span>
+            </a>
+          </header>
+          <div class="affaqx-list">
+            <details class="affaqx-item" open="">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Como funciona o processo de criação de móveis sob
+                  medida?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Na ArtFactory Design, criamos projetos exclusivos para
+                  transformar o seu espaço. O processo é simples e transparente:
+                  você nos envia sua ideia e as medidas do ambiente, podendo ser
+                  um modelo disponível em nosso site ou uma referência
+                  personalizada.
+                </p>
+                <p>
+                  Em seguida, apresentamos um orçamento detalhado para
+                  aprovação. Após a aprovação, finalizamos o desenho técnico com
+                  as medidas exatas para produção e enviamos para sua validação
+                  final.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Qual o prazo para receber o orçamento do meu projeto?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Nossa equipe técnica analisa sua solicitação e envia o
+                  orçamento em até 24 horas. Em casos de projetos mais complexos
+                  de marcenaria, entraremos em contato caso precisemos de mais
+                  detalhes sobre materiais, medidas ou acabamentos escolhidos.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Qual é a validade do meu orçamento de móveis
+                  planejados?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Para garantir a estabilidade dos preços dos materiais e a
+                  disponibilidade de estoque, os orçamentos têm validade de 60
+                  dias corridos. Após esse período, recomendamos entrar em
+                  contato com nossa equipe para uma reavaliação dos valores.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Quais são as formas de pagamento disponíveis?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Após a aprovação do orçamento e a assinatura do contrato,
+                  trabalhamos com Pix, cartão de crédito em até 6 vezes sem
+                  juros ou boleto bancário. As condições detalhadas são
+                  apresentadas no momento do fechamento do pedido.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Qual o prazo médio de produção dos móveis?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Como trabalhamos com móveis sob medida e alto padrão de
+                  acabamento, o prazo de produção varia de 15 a 25 dias úteis,
+                  dependendo do tamanho e da complexidade do projeto, contados a
+                  partir da aprovação do desenho técnico final.
+                </p>
+                <p>
+                  Esse tempo garante a qualidade e o cuidado que seu móvel
+                  merece. O prazo de produção é enviado junto com o orçamento e
+                  o prazo de entrega.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Como é feito o envio dos móveis para a minha
+                  residência?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Os móveis são embalados com proteção reforçada e enviados por
+                  transportadora terceirizada. O valor e o prazo do frete são
+                  calculados de acordo com o seu CEP durante a fase de
+                  orçamento.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Como funciona a montagem do móvel?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  A montagem é realizada pelo próprio cliente. Para facilitar o
+                  processo, enviamos a instrução de montagem completa junto com
+                  o móvel.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Vocês realizam entregas para todo o Brasil?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Sim. Atendemos projetos de móveis sob medida e despachamos
+                  para todo o Brasil. Independentemente da sua localização,
+                  entregamos qualidade de marcenaria com todo o suporte
+                  necessário para a montagem.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Os móveis possuem garantia?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Sim. Todos os nossos móveis sob medida possuem garantia de 3
+                  meses contra eventuais defeitos de fabricação, conforme
+                  estabelecido pelo Código de Defesa do Consumidor. Nosso
+                  compromisso é entregar móveis planejados com excelência
+                  técnica e acabamento impecável.
+                </p>
+              </div>
+            </details>
+            <details class="affaqx-item">
+              <summary class="affaqx-question">
+                <span class="affaqx-question-text"
+                  >Os móveis são produzidos de forma artesanal?</span
+                >
+                <span aria-hidden="true" class="affaqx-icon"></span>
+              </summary>
+              <div class="affaqx-answer">
+                <p>
+                  Sim. Unimos marcenaria tradicional e tecnologia para produzir
+                  móveis com alto nível de acabamento. Cada peça é feita
+                  manualmente, com cuidado nos detalhes, encaixes precisos e
+                  acabamento superior aos móveis produzidos em série.
+                </p>
+                <p>
+                  Esse processo garante peças únicas, com mais exclusividade e
+                  personalidade para o seu ambiente.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        "use strict";
+
+        const reduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        function smoothScrollTo(target) {
+          if (!target) return;
+
+          target.scrollIntoView({
+            behavior: reduced ? "auto" : "smooth",
+            block: "start",
+          });
+        }
+
+        document.addEventListener("click", function (event) {
+          const link = event.target.closest('a[href^="#"]');
+          if (!link) return;
+
+          const href = link.getAttribute("href");
+          if (!href || href === "#" || href.length < 2) return;
+
+          const target = document.querySelector(href);
+          if (!target) return;
+
+          event.preventDefault();
+          smoothScrollTo(target);
+        });
+
+        function reveal(selector, visibleClass) {
+          const nodes = Array.from(document.querySelectorAll(selector));
+          if (!nodes.length) return;
+
+          if (!("IntersectionObserver" in window) || reduced) {
+            nodes.forEach(function (node) {
+              node.classList.add(visibleClass);
+            });
+            return;
+          }
+
+          const observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add(visibleClass);
+                observer.unobserve(entry.target);
+              });
+            },
+            { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+          );
+
+          nodes.forEach(function (node) {
+            observer.observe(node);
+          });
+        }
+
+        reveal(".fernando-cro-reveal", "fernando-cro-is-visible");
+        reveal("[data-af-sm-reveal]", "af-sm-revealed");
+        reveal(".afprojx-reveal", "afprojx-visible");
+        reveal(".afaboutx-reveal", "afaboutx-visible");
+        reveal(".afclientx-reveal", "afclientx-visible");
+        reveal(".affaqx-reveal", "affaqx-visible");
+
+        function initProjectsCarousel() {
+          const root = document.querySelector(".afprojx-section");
+          if (!root) return;
+
+          const component = root.querySelector("[data-afprojx-component]");
+          if (!component) return;
+
+          const row = component.querySelector("[data-afprojx-row]");
+          const panels = Array.from(
+            component.querySelectorAll("[data-afprojx-panel]"),
+          );
+          const prevBtn = component.querySelector("[data-afprojx-prev]");
+          const nextBtn = component.querySelector("[data-afprojx-next]");
+          const markersContainer = component.querySelector(
+            "[data-afprojx-markers]",
+          );
+          const currentNode = component.querySelector("[data-afprojx-current]");
+          const totalNode = component.querySelector("[data-afprojx-total]");
+
+          if (!panels.length) return;
+
+          let index = 0;
+          const total = panels.length;
+          const markers = [];
+
+          function two(number) {
+            return String(number).padStart(2, "0");
+          }
+
+          if (totalNode) totalNode.textContent = two(total);
+
+          if (markersContainer) {
+            markersContainer.innerHTML = "";
+
+            panels.forEach(function (_, markerIndex) {
+              const marker = document.createElement("button");
+              marker.type = "button";
+              marker.className = "afprojx-marker";
+              marker.setAttribute("role", "tab");
+              marker.setAttribute(
+                "aria-label",
+                "Ir para o projeto " + two(markerIndex + 1),
+              );
+
+              marker.addEventListener("click", function () {
+                goTo(markerIndex);
+              });
+
+              markersContainer.appendChild(marker);
+              markers.push(marker);
+            });
+          }
+
+          function syncHeight() {
+            const active = panels[index];
+            if (!active || !row) return;
+
+            row.style.setProperty(
+              "height",
+              active.offsetHeight + "px",
+              "important",
+            );
+          }
+
+          function update() {
+            panels.forEach(function (panel, panelIndex) {
+              const isCurrent = panelIndex === index;
+
+              panel.classList.toggle("afprojx-current", isCurrent);
+              panel.style.setProperty(
+                "position",
+                isCurrent ? "relative" : "absolute",
+                "important",
+              );
+              panel.style.setProperty(
+                "opacity",
+                isCurrent ? "1" : "0",
+                "important",
+              );
+              panel.style.setProperty(
+                "visibility",
+                isCurrent ? "visible" : "hidden",
+                "important",
+              );
+              panel.style.setProperty(
+                "pointer-events",
+                isCurrent ? "auto" : "none",
+                "important",
+              );
+              panel.style.setProperty(
+                "z-index",
+                isCurrent ? "2" : "1",
+                "important",
+              );
+            });
+
+            markers.forEach(function (marker, markerIndex) {
+              const isCurrent = markerIndex === index;
+              marker.classList.toggle("afprojx-current", isCurrent);
+              marker.setAttribute(
+                "aria-selected",
+                isCurrent ? "true" : "false",
+              );
+            });
+
+            if (currentNode) currentNode.textContent = two(index + 1);
+            syncHeight();
+          }
+
+          function goTo(nextIndex) {
+            index = (nextIndex + total) % total;
+            update();
+          }
+
+          function next() {
+            goTo(index + 1);
+          }
+
+          function prev() {
+            goTo(index - 1);
+          }
+
+          if (prevBtn) {
+            prevBtn.addEventListener("click", function (event) {
+              event.preventDefault();
+              prev();
+            });
+          }
+
+          if (nextBtn) {
+            nextBtn.addEventListener("click", function (event) {
+              event.preventDefault();
+              next();
+            });
+          }
+
+          component.setAttribute("tabindex", "0");
+
+          component.addEventListener("keydown", function (event) {
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              prev();
+            }
+
+            if (event.key === "ArrowRight") {
+              event.preventDefault();
+              next();
+            }
+          });
+
+          let touchStartX = 0;
+
+          component.addEventListener(
+            "touchstart",
+            function (event) {
+              touchStartX = event.changedTouches[0].screenX;
+            },
+            { passive: true },
+          );
+
+          component.addEventListener(
+            "touchend",
+            function (event) {
+              const diff = event.changedTouches[0].screenX - touchStartX;
+
+              if (Math.abs(diff) > 40) {
+                if (diff < 0) next();
+                else prev();
+              }
+            },
+            { passive: true },
+          );
+
+          let autoplayId = null;
+
+          function stopAutoplay() {
+            if (!autoplayId) return;
+            clearInterval(autoplayId);
+            autoplayId = null;
+          }
+
+          function startAutoplay() {
+            if (reduced) return;
+            stopAutoplay();
+            autoplayId = window.setInterval(next, 7000);
+          }
+
+          component.addEventListener("mouseenter", stopAutoplay);
+          component.addEventListener("mouseleave", startAutoplay);
+          component.addEventListener("focusin", stopAutoplay);
+          component.addEventListener("focusout", startAutoplay);
+
+          document.addEventListener("visibilitychange", function () {
+            if (document.hidden) stopAutoplay();
+            else startAutoplay();
+          });
+
+          window.addEventListener("resize", syncHeight);
+          window.addEventListener("load", syncHeight);
+
+          update();
+          startAutoplay();
+        }
+
+        function initFaqAccordion() {
+          const root = document.querySelector(".affaqx-section");
+          if (!root) return;
+
+          const faqItems = Array.from(root.querySelectorAll(".affaqx-item"));
+
+          faqItems.forEach(function (item) {
+            item.addEventListener("toggle", function () {
+              if (!item.open) return;
+
+              faqItems.forEach(function (otherItem) {
+                if (otherItem !== item) {
+                  otherItem.removeAttribute("open");
+                }
+              });
+            });
+          });
+        }
+
+        initProjectsCarousel();
+        initFaqAccordion();
+      })();
+    </script>
+  </body>
+</html>

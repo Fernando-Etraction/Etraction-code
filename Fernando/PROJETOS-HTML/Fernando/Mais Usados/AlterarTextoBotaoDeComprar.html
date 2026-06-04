@@ -1,0 +1,31 @@
+<script>
+(function () {
+  'use strict';
+
+  const TARGET_TEXT = "Comprar";
+  const NEW_TEXT = "Adicionar ao Carrinho";
+
+  function changeButton() {
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach(btn => {
+      if (btn && btn.textContent.trim() === TARGET_TEXT) {
+        btn.textContent = NEW_TEXT;
+      }
+    });
+  }
+
+  // tenta rodar imediatamente
+  changeButton();
+
+  // observa mudanças no DOM (React re-render)
+  const observer = new MutationObserver(() => {
+    changeButton();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+})();
+</script>

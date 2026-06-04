@@ -1,0 +1,696 @@
+<style>
+.af-ob-wrapper {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.af-ob-item {
+  background: #fff;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+  padding: 18px 16px;
+  box-sizing: border-box;
+}
+
+.af-ob-item * {
+  box-sizing: border-box;
+}
+
+.af-ob-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.af-ob-product {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+  flex: 1;
+}
+
+.af-ob-product figure {
+  margin: 0;
+  width: 74px;
+  min-width: 74px;
+}
+
+.af-ob-product figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.af-ob-info {
+  min-width: 0;
+}
+
+.af-ob-label {
+  display: block;
+  font-size: 13px;
+  color: #4b4b4b;
+  margin-bottom: 4px;
+}
+
+.af-ob-title {
+  font-size: 15px;
+  line-height: 1.35;
+  color: #111;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+}
+
+.af-ob-title strong {
+  font-weight: 700;
+}
+
+.af-ob-meta {
+  font-size: 14px;
+  color: #111;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.af-ob-meta strong {
+  font-weight: 700;
+}
+
+.af-ob-qty-col {
+  min-width: 180px;
+  text-align: center;
+}
+
+.af-ob-qty-label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.af-ob-add-btn {
+  border: 0;
+  border-radius: 6px;
+  background: #1B7A45;
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+  animation: af-ob-pulse-btn 1.15s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(27, 122, 69, 0.55);
+}
+
+.af-ob-add-btn:hover {
+  background: #16683a;
+  animation-play-state: paused;
+  transform: translateY(-1px);
+}
+
+.af-ob-add-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  animation: none;
+  box-shadow: none;
+}
+
+@keyframes af-ob-pulse-btn {
+  0% {
+    box-shadow: 0 0 0 0 rgba(27, 122, 69, 0.55);
+    transform: scale(1);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(27, 122, 69, 0);
+    transform: scale(1.035);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(27, 122, 69, 0);
+    transform: scale(1);
+  }
+}
+
+.af-ob-price-col {
+  min-width: 110px;
+  text-align: center;
+}
+
+.af-ob-price-old {
+  font-size: 13px;
+  color: #777;
+  text-decoration: line-through;
+  margin-bottom: 2px;
+  min-height: 18px;
+}
+
+.af-ob-price-sub {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.af-ob-price {
+  font-size: 17px;
+  color: #0a9b55;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.af-ob-card-text {
+  font-size: 13px;
+  color: #666;
+}
+
+.af-ob-feedback {
+  margin-top: 10px;
+  display: none;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.af-ob-feedback.success {
+  display: block;
+  background: #edf8ef;
+  color: #247335;
+}
+
+.af-ob-feedback.error {
+  display: block;
+  background: #fff1f1;
+  color: #b42323;
+}
+
+/* Remove os botões + e - somente do produto travado */
+.af-ob-locked-cart-item button.remove-item,
+.af-ob-locked-cart-item button.add-item {
+  display: none !important;
+}
+
+/* Fallback direto para o item que você enviou */
+#\33 973057 > div > div.column-cart.column-quantidade.flex.center.column > div > button.remove-item,
+#\33 973057 > div > div.column-cart.column-quantidade.flex.center.column > div > button.add-item {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .af-ob-wrapper {
+    margin-top: 12px;
+  }
+
+  .af-ob-item {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .af-ob-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .af-ob-product {
+    order: 1;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .af-ob-product figure {
+    width: 64px;
+    min-width: 64px;
+  }
+
+  .af-ob-info {
+    width: 100%;
+  }
+
+  .af-ob-label {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+
+  .af-ob-title {
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 5px;
+  }
+
+  .af-ob-meta {
+    font-size: 12.5px;
+    line-height: 1.35;
+  }
+
+  .af-ob-price-col {
+    order: 2;
+    min-width: 100%;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2px 10px;
+    padding: 10px 12px;
+    background: #f7f7f7;
+    border-radius: 8px;
+  }
+
+  .af-ob-price-old {
+    display: none;
+  }
+
+  .af-ob-price-sub {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .af-ob-price {
+    grid-row: 1 / 3;
+    grid-column: 2;
+    font-size: 18px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .af-ob-card-text {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .af-ob-qty-col {
+    order: 3;
+    min-width: 100%;
+    text-align: left;
+  }
+
+  .af-ob-qty-label {
+    display: none;
+  }
+
+  .af-ob-add-btn {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  .af-ob-feedback {
+    order: 4;
+    margin-top: 8px;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const ORDER_BUMP = {
+    sku: "1FC11M224-UNI",
+    skuBase: "1FC11M224",
+    name: "Produto Misterioso - Sortido",
+    nameBase: "Produto Misterioso",
+    slug: "produto-misterioso-sortido",
+    price: 29.90,
+    priceText: "R$ 29,90",
+    image: "https://armfitness.cdn.magazord.com.br/img/2026/05/produto/5297/artboard-3-jpg-1.jpeg",
+    imageNeedle: "artboard-3-jpg-1.jpeg",
+    deposito: "1"
+  };
+
+  let isRemovingInvalidItems = false;
+  let eventsBound = false;
+
+  function createOrderBumpHTML() {
+    return `
+      <div class="af-ob-wrapper" id="af-orderbump-misterioso">
+        <div class="af-ob-item">
+          <div class="af-ob-row">
+            <div class="af-ob-product">
+              <figure>
+                <img src="${ORDER_BUMP.image}" alt="${ORDER_BUMP.name}" loading="lazy">
+              </figure>
+
+              <div class="af-ob-info">
+                <span class="af-ob-label">Oferta especial</span>
+
+                <p class="af-ob-title">
+                  <strong>Peça surpresa</strong>
+                </p>
+
+                <p class="af-ob-meta">
+                  <strong>Tipo:</strong> Sortido
+                </p>
+
+                <p class="af-ob-meta">
+                  <strong>Oferta:</strong> Adicione este item surpresa ao seu pedido
+                </p>
+              </div>
+            </div>
+
+            <div class="af-ob-qty-col">
+              <span class="af-ob-qty-label">Quantidade: 1</span>
+
+              <button type="button" class="af-ob-add-btn" id="af-ob-add-btn">
+                Adicionar
+              </button>
+            </div>
+
+            <div class="af-ob-price-col">
+              <div class="af-ob-price-old"></div>
+              <div class="af-ob-price-sub">Valor</div>
+              <div class="af-ob-price">${ORDER_BUMP.priceText}</div>
+              <div class="af-ob-card-text">no cartão</div>
+            </div>
+          </div>
+
+          <div class="af-ob-feedback" id="af-ob-feedback"></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function normalizeText(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function showFeedback(type, message) {
+    const feedback = document.getElementById("af-ob-feedback");
+    if (!feedback) return;
+
+    feedback.className = "af-ob-feedback " + type;
+    feedback.textContent = message;
+  }
+
+  function getCartItems() {
+    return Array.from(document.querySelectorAll(".cart-item"));
+  }
+
+  function getCartItemText(cartItem) {
+    if (!cartItem) return "";
+
+    const attrs = [
+      cartItem.getAttribute("id"),
+      cartItem.getAttribute("data-item-id"),
+      cartItem.getAttribute("data-item-name"),
+      cartItem.getAttribute("data-name"),
+      cartItem.getAttribute("data-item-variant"),
+      cartItem.innerText
+    ];
+
+    const link = cartItem.querySelector("a[href]");
+    if (link) attrs.push(link.getAttribute("href"));
+
+    const img = cartItem.querySelector("img[src]");
+    if (img) attrs.push(img.getAttribute("src"));
+
+    return normalizeText(attrs.join(" "));
+  }
+
+  function isOrderBumpCartItem(cartItem) {
+    const text = getCartItemText(cartItem);
+
+    return (
+      text.indexOf(normalizeText(ORDER_BUMP.sku)) !== -1 ||
+      text.indexOf(normalizeText(ORDER_BUMP.skuBase)) !== -1 ||
+      text.indexOf(normalizeText(ORDER_BUMP.name)) !== -1 ||
+      text.indexOf(normalizeText(ORDER_BUMP.nameBase)) !== -1 ||
+      text.indexOf(normalizeText(ORDER_BUMP.slug)) !== -1 ||
+      text.indexOf(normalizeText(ORDER_BUMP.imageNeedle)) !== -1
+    );
+  }
+
+  function lockOrderBumpQuantityButtons() {
+    getCartItems().forEach(function (cartItem) {
+      if (!isOrderBumpCartItem(cartItem)) return;
+
+      cartItem.classList.add("af-ob-locked-cart-item");
+
+      const removeBtn = cartItem.querySelector("button.remove-item");
+      const addBtn = cartItem.querySelector("button.add-item");
+      const qtyInput = cartItem.querySelector(".qtd-item");
+
+      if (removeBtn) removeBtn.style.setProperty("display", "none", "important");
+      if (addBtn) addBtn.style.setProperty("display", "none", "important");
+
+      if (qtyInput) {
+        qtyInput.setAttribute("readonly", "readonly");
+        qtyInput.style.pointerEvents = "none";
+      }
+    });
+  }
+
+  function productAlreadyInCart() {
+    return getCartItems().some(function (cartItem) {
+      return isOrderBumpCartItem(cartItem);
+    });
+  }
+
+  function getCartItemId(cartItem) {
+    if (!cartItem) return "";
+
+    const input = cartItem.querySelector(".qtd-item");
+
+    if (input) {
+      const dataItemId = input.getAttribute("data-item-id") || "";
+      if (dataItemId) return dataItemId;
+
+      const inputId = input.getAttribute("id") || "";
+      const inputMatch = inputId.match(/item_carrinho_(\d+)/);
+      if (inputMatch && inputMatch[1]) return inputMatch[1];
+    }
+
+    const cartItemId = cartItem.getAttribute("id") || "";
+    const cartItemMatch = cartItemId.match(/\d+/);
+
+    if (cartItemMatch && cartItemMatch[0]) return cartItemMatch[0];
+
+    return "";
+  }
+
+  function getCartItemQuantity(cartItem) {
+    if (!cartItem) return 0;
+
+    const input = cartItem.querySelector(".qtd-item");
+
+    if (input) {
+      const value = parseInt(input.value, 10);
+      return isNaN(value) ? 0 : value;
+    }
+
+    return 0;
+  }
+
+  async function removeCartItemById(itemCartId) {
+    if (!itemCartId) return false;
+
+    const params = new URLSearchParams();
+
+    params.append("id", itemCartId);
+    params.append("area", "main-cart");
+
+    const response = await fetch("/checkout/cart?operation=removeItem", {
+      method: "POST",
+      body: params.toString(),
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "X-Requested-With": "XMLHttpRequest",
+        "Accept": "application/json, text/javascript, */*; q=0.01"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao remover item. Status: " + response.status);
+    }
+
+    return true;
+  }
+
+  async function removeOrderBumpIfQuantityGreaterThanOne() {
+    if (isRemovingInvalidItems) return false;
+
+    const itemsToRemove = [];
+
+    getCartItems().forEach(function (cartItem) {
+      if (!isOrderBumpCartItem(cartItem)) return;
+
+      const qty = getCartItemQuantity(cartItem);
+      const itemCartId = getCartItemId(cartItem);
+
+      if (qty > 1 && itemCartId) {
+        itemsToRemove.push(itemCartId);
+      }
+    });
+
+    if (!itemsToRemove.length) return false;
+
+    isRemovingInvalidItems = true;
+
+    try {
+      for (let i = 0; i < itemsToRemove.length; i++) {
+        await removeCartItemById(itemsToRemove[i]);
+      }
+
+      window.location.reload();
+      return true;
+
+    } catch (error) {
+      console.error(error);
+      isRemovingInvalidItems = false;
+      return false;
+    }
+  }
+
+  async function addToCart() {
+    const button = document.getElementById("af-ob-add-btn");
+
+    if (!button) return;
+
+    button.disabled = true;
+    button.textContent = "Adicionando...";
+
+    try {
+      const params = new URLSearchParams();
+
+      params.append("operation", "AddMultiples");
+      params.append("produtos[0][codigo]", ORDER_BUMP.sku);
+      params.append("produtos[0][quantidade]", "1");
+      params.append("produtos[0][deposito]", ORDER_BUMP.deposito);
+      params.append("source[source]", "Produto");
+      params.append("source[codigoOrigem]", "");
+
+      const response = await fetch("/checkout/cart?operation=AddMultiples", {
+        method: "POST",
+        body: params.toString(),
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "X-Requested-With": "XMLHttpRequest",
+          "Accept": "application/json, text/javascript, */*; q=0.01"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao adicionar produto. Status: " + response.status);
+      }
+
+      showFeedback("success", "Produto adicionado ao carrinho.");
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 700);
+
+    } catch (error) {
+      console.error(error);
+
+      showFeedback(
+        "error",
+        "Não foi possível adicionar o produto. Verifique o código da variação."
+      );
+
+      button.disabled = false;
+      button.textContent = "Adicionar";
+    }
+  }
+
+  function bindEvents() {
+    if (eventsBound) return;
+    eventsBound = true;
+
+    document.addEventListener("click", function (event) {
+      const orderBumpButton = event.target.closest("#af-ob-add-btn");
+
+      if (orderBumpButton) {
+        event.preventDefault();
+        addToCart();
+        return;
+      }
+
+      const qtyButton = event.target.closest("button.add-item, button.remove-item");
+
+      if (qtyButton) {
+        const cartItem = qtyButton.closest(".cart-item");
+
+        if (cartItem && isOrderBumpCartItem(cartItem)) {
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
+
+        setTimeout(function () {
+          lockOrderBumpQuantityButtons();
+          removeOrderBumpIfQuantityGreaterThanOne();
+        }, 350);
+      }
+    }, true);
+
+    document.addEventListener("input", function (event) {
+      const input = event.target.closest(".qtd-item");
+
+      if (!input) return;
+
+      const cartItem = input.closest(".cart-item");
+
+      if (!cartItem) return;
+
+      if (isOrderBumpCartItem(cartItem)) {
+        input.value = "1";
+        lockOrderBumpQuantityButtons();
+        return;
+      }
+
+      setTimeout(function () {
+        removeOrderBumpIfQuantityGreaterThanOne();
+      }, 350);
+    }, true);
+
+    document.addEventListener("change", function () {
+      setTimeout(function () {
+        lockOrderBumpQuantityButtons();
+        removeOrderBumpIfQuantityGreaterThanOne();
+      }, 350);
+    }, true);
+  }
+
+  async function insertOrderBump() {
+    bindEvents();
+    lockOrderBumpQuantityButtons();
+
+    const removedInvalidItem = await removeOrderBumpIfQuantityGreaterThanOne();
+
+    if (removedInvalidItem) return;
+    if (document.getElementById("af-orderbump-misterioso")) return;
+    if (productAlreadyInCart()) return;
+
+    const cartList = document.querySelector(".lista-carrinho");
+
+    if (!cartList) return;
+
+    cartList.insertAdjacentHTML("afterend", createOrderBumpHTML());
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", insertOrderBump);
+  } else {
+    insertOrderBump();
+  }
+
+  setTimeout(insertOrderBump, 500);
+  setTimeout(insertOrderBump, 1200);
+  setTimeout(insertOrderBump, 2500);
+
+  setInterval(function () {
+    lockOrderBumpQuantityButtons();
+    removeOrderBumpIfQuantityGreaterThanOne();
+  }, 1500);
+})();
+</script>

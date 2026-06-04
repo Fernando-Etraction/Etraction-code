@@ -1,0 +1,529 @@
+<!-- ====== DESCRIÇÃO DE PRODUTO | BLOCO SIMPLES (COM FAQ COMPLETO + WHATS) ====== -->
+<style type="text/css">
+  <!--
+  :root {
+    --text: #1f2937;
+    --muted: #6b7280;
+    --brand: #0ea5e9;
+    --line: #e5e7eb;
+    --bg: #ffffff;
+    --radius: 14px;
+    --shadow: 0 6px 18px rgba(0, 0, 0, .06);
+  }
+
+  .desc-simples {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    max-width: 1000px;
+    margin: 32px auto;
+    padding: 0 16px
+  }
+
+  .ds-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px
+  }
+
+  /* HERO */
+  .ds-hero {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 20px;
+    align-items: center
+  }
+
+  .ds-hero figure {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #fff, #f8fafc);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px
+  }
+
+  .ds-hero img {
+    max-width: 520px;
+    width: 100%;
+    height: auto;
+    object-fit: contain
+  }
+
+  .ds-eyebrow {
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--brand);
+    font-weight: 700
+  }
+
+  .ds-title {
+    font-size: clamp(22px, 3vw, 30px);
+    margin: 6px 0 8px;
+    line-height: 1.2
+  }
+
+  .ds-sub {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7
+  }
+
+  /* Badges */
+  .ds-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px
+  }
+
+  .ds-badge {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #f8fafc
+  }
+
+  .ds-badge img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain
+  }
+
+  /* Grid principal (2 colunas) */
+  .ds-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 18px;
+    margin-top: 18px
+  }
+
+  .ds-list {
+    display: grid;
+    gap: 10px
+  }
+
+  .ds-item {
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.5
+  }
+
+  /* Tabelas de especificações e caixa */
+  .ds-kv {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden
+  }
+
+  .ds-kv td {
+    padding: 10px 12px;
+    font-size: 14px
+  }
+
+  .ds-kv tr+tr td {
+    border-top: 1px solid var(--line)
+  }
+
+  /* Ajuste solicitado: primeira coluna à esquerda, segunda coluna à direita */
+  .ds-kv td:first-child {
+    color: var(--muted) !important;
+    width: 42% !important;
+    white-space: nowrap !important;
+    text-align: left !important;
+    font-weight: 400 !important;
+    /* remove negrito */
+  }
+
+  .ds-kv td:last-child {
+    text-align: right !important;
+    font-weight: 400 !important;
+    /* remove negrito */
+  }
+
+  .ds-card h3 {
+    font-size: 18px;
+    margin: 0 0 12px;
+    border-left: 4px solid var(--brand);
+    padding-left: 10px
+  }
+
+  /* FAQ */
+  .ds-faq {
+    margin-top: 18px
+  }
+
+  .ds-faq details {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: #fff;
+    margin-bottom: 8px
+  }
+
+  .ds-faq summary {
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+  }
+
+  .ds-faq summary::-webkit-details-marker {
+    display: none
+  }
+
+  .ds-faq .resp {
+    color: #374151;
+    font-size: 14px;
+    margin-top: 8px
+  }
+
+  /* Bloco WhatsApp */
+  .ds-help p {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 6px 0 12px
+  }
+
+  .ds-whats-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #22c55e;
+    border: 1px solid #16a34a;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: var(--shadow)
+  }
+
+  .ds-whats-btn:hover {
+    filter: brightness(.95)
+  }
+
+  .ds-whats-btn svg {
+    width: 18px;
+    height: 18px
+  }
+
+  @media(max-width:980px) {
+    .ds-hero {
+      grid-template-columns: 1fr
+    }
+
+    .ds-grid {
+      grid-template-columns: 1fr
+    }
+
+    /* no mobile, “Na caixa” e Whats empilham */
+  }
+
+  @media(max-width:478px) {
+    .ds-card{
+      width: 350px;
+    }
+  }
+
+  /* ===== Forçar estilos das tabelas (override da plataforma) ===== */
+  .desc-simples table.ds-kv {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    box-sizing: border-box !important;
+  }
+
+  .desc-simples table.ds-kv td {
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    color: var(--text) !important;
+    background: #fff !important;
+    border: none !important;
+    line-height: 1.5 !important;
+    font-weight: 400 !important;
+    /* garante que tudo esteja normal */
+  }
+
+  .desc-simples table.ds-kv tr+tr td {
+    border-top: 1px solid var(--line) !important;
+  }
+  -->
+</style>
+<section class="desc-simples" id="descricao-produto">
+  <!-- ===== HERO =================================================== -->
+  <div class="ds-card ds-hero">
+    <figure>
+      <img alt="Kit Vaso Sanitário Lift Docol"
+        src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/description/bb17ad493906b8fa612639d8b8c7b6ea.png" />
+    </figure>
+
+    <div>
+      <div class="ds-eyebrow">Incepa</div>
+
+      <h2 class="ds-title">Kit Vaso Sanit&aacute;rio Acesso Confort Incepa</h2>
+
+      <p class="ds-sub">
+        O Kit Completo Vaso Sanit&aacute;rio Acesso Confort Sem Abertura Frontal
+        Especial PCD/PNE Incepa &eacute; a escolha ideal para quem busca
+        conforto, sofistica&ccedil;&atilde;o e acessibilidade em seu banheiro.
+      </p>
+
+      <div class="ds-badges">
+        <span class="ds-badge"><img alt=""
+            src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/description/36cc7d491df5ac90011df77b16c4ef8b.png" />
+          Design moderno e elegante</span>
+        <span class="ds-badge"><img alt=""
+            src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/description/b62ebcc36c03a5c51122f446ab16ed4d.png" />
+          Acabamento de alta qualidade</span>
+        <span class="ds-badge"><img alt=""
+            src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/description/c40e6286a104e8ce2650140b7225b021.png" />
+          Instala&ccedil;&atilde;o f&aacute;cil e segura</span>
+        <span class="ds-badge"><img alt=""
+            src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/micarconstrucao/description/01cc341b5934e6230a3530ae2337ab1e.png" />
+          Conforto garantido com assento almofadado</span>
+      </div>
+    </div>
+  </div>
+  <!-- ===== CONTEÚDO =============================================== -->
+
+  <div class="ds-grid">
+    <!-- BENEFÍCIOS -->
+    <article class="ds-card">
+      <h3>Por que escolher</h3>
+
+      <div class="ds-list">
+        <div class="ds-item">
+          <strong>Conforto Incompar&aacute;vel:</strong> Assento almofadado para
+          maior conforto no dia a dia.
+        </div>
+
+        <div class="ds-item">
+          <strong>Economia de &Aacute;gua:</strong> Sistema de descarga
+          eficiente que otimiza o consumo.
+        </div>
+
+        <div class="ds-item">
+          <strong>F&aacute;cil Instala&ccedil;&atilde;o:</strong> Acompanha
+          todos os itens necess&aacute;rios para montagem.
+        </div>
+
+        <div class="ds-item">
+          <strong>Design Sofisticado:</strong> Transforma seu banheiro em um
+          ambiente elegante.
+        </div>
+
+        <div class="ds-item">
+          <strong>Acessibilidade:</strong> Desenvolvido especialmente para
+          pessoas com necessidades especiais.
+        </div>
+
+        <div class="ds-item">
+          <strong>Durabilidade:</strong> Produto da marca Incepa, sin&ocirc;nimo
+          de qualidade e durabilidade.
+        </div>
+
+        <div class="ds-item">
+          <strong>Garantia:</strong> 10 anos de garantia contra defeitos de
+          fabrica&ccedil;&atilde;o.
+        </div>
+      </div>
+    </article>
+    <!-- ESPECIFICAÇÕES -->
+
+    <aside class="ds-card">
+      <h3>Especifica&ccedil;&otilde;es</h3>
+
+      <table class="ds-kv">
+        <tbody>
+          <tr>
+            <td>Marca:</td>
+            <td>Incepa</td>
+          </tr>
+          <tr>
+            <td>Cor do Vaso Sanit&aacute;rio:</td>
+            <td>Branco</td>
+          </tr>
+          <tr>
+            <td>Material do Vaso Sanit&aacute;rio:</td>
+            <td>Lou&ccedil;a sanit&aacute;ria esmaltada</td>
+          </tr>
+          <tr>
+            <td>Material do Assento:</td>
+            <td>Polipropileno almofadado (cor branca)</td>
+          </tr>
+          <tr>
+            <td>Tipo de Descarga:</td>
+            <td>Caixa acoplada (n&atilde;o inclusa) ou sistema convencional</td>
+          </tr>
+          <tr>
+            <td>Sa&iacute;da:</td>
+            <td>Vertical</td>
+          </tr>
+          <tr>
+            <td>Sistema de Economia de &Aacute;gua:</td>
+            <td>Sim</td>
+          </tr>
+          <tr>
+            <td>Garantia Vaso Sanit&aacute;rio:</td>
+            <td>10 anos</td>
+          </tr>
+        </tbody>
+      </table>
+    </aside>
+    <!-- O QUE VEM NA CAIXA -->
+
+    <aside class="ds-card">
+      <h3>Na caixa</h3>
+
+      <table class="ds-kv">
+        <tbody>
+          <tr>
+            <td>1&times;</td>
+            <td>
+              Kit Vaso Sanit&aacute;rio Acesso Confort Sem Abertura Frontal
+              Especial PCD/PNE Incepa
+            </td>
+          </tr>
+          <tr>
+            <td>1&times;</td>
+            <td>Assento Sanit&aacute;rio Almofadado Branco TPK/AS</td>
+          </tr>
+          <tr>
+            <td>1&times;</td>
+            <td>Anel de veda&ccedil;&atilde;o</td>
+          </tr>
+          <tr>
+            <td>1&times;</td>
+            <td>Conjunto de liga&ccedil;&atilde;o cromado Censi</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="color: var(--muted); font-size: 12px; margin-top: 8px">
+        Itens podem variar conforme o lote do fabricante.
+      </p>
+    </aside>
+    <!-- BLOCO WHATSAPP -->
+
+    <aside class="ds-card ds-help">
+      <h3>Tire suas d&uacute;vidas no WhatsApp</h3>
+
+      <p>
+        Fale com um atendente para tirar a sua d&uacute;vida sobre esse produto
+      </p>
+      <a class="ds-whats-btn"
+        href="https://wa.me/554733791366?text=Olá! Tenho uma dúvida sobre o produto: Kit Vaso Sanitário Acesso Confort Sem Abertura Frontal PCD/PNE Incepa"
+        rel="noopener" target="_blank">Falar no WhatsApp
+      </a>
+
+      <p style="color: var(--muted); font-size: 12px; margin-top: 10px">
+        Atendimento em hor&aacute;rio comercial.
+      </p>
+    </aside>
+  </div>
+  <!-- ===== FAQ COMPLETO ============================================ -->
+
+  <article class="ds-card ds-faq">
+    <h3>FAQ Micar</h3>
+
+    <details>
+      <summary>1. O vaso sanit&aacute;rio acompanha caixa acoplada?</summary>
+
+      <div class="resp">
+        N&atilde;o, este modelo pode ser utilizado com caixa acoplada (vendida
+        separadamente) ou sistema convencional.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        2. O assento sanit&aacute;rio incluso &eacute; confort&aacute;vel?
+      </summary>
+
+      <div class="resp">
+        Sim, o assento almofadado foi projetado para proporcionar maior conforto
+        ao usu&aacute;rio.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        3. O kit inclui todos os itens necess&aacute;rios para
+        instala&ccedil;&atilde;o?
+      </summary>
+
+      <div class="resp">
+        Sim, ele acompanha o vaso sanit&aacute;rio, assento almofadado, anel de
+        veda&ccedil;&atilde;o, conjunto de liga&ccedil;&atilde;o e parafusos de
+        fixa&ccedil;&atilde;o.
+      </div>
+    </details>
+
+    <details>
+      <summary>4. Esse modelo pode ser instalado em qualquer banheiro?</summary>
+
+      <div class="resp">
+        Sim, desde que a sa&iacute;da do esgoto seja compat&iacute;vel com a
+        sa&iacute;da vertical do vaso sanit&aacute;rio.
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        5. O sistema de descarga desse vaso sanit&aacute;rio &eacute;
+        econ&ocirc;mico?
+      </summary>
+
+      <div class="resp">
+        Sim, o design do vaso e do sistema de descarga otimiza o consumo de
+        &aacute;gua, proporcionando efici&ecirc;ncia e sustentabilidade.
+      </div>
+    </details>
+
+    <details>
+      <summary>6. O anel de veda&ccedil;&atilde;o previne vazamentos?</summary>
+
+      <div class="resp">
+        Sim, o anel de veda&ccedil;&atilde;o incluso garante uma
+        veda&ccedil;&atilde;o eficiente, evitando vazamentos de esgoto.
+      </div>
+    </details>
+  </article>
+</section>
+<!-- ====== /DESCRIÇÃO DE PRODUTO | BLOCO SIMPLES ====== -->
+
+<h2>O que vem na caixa?</h2>
+
+<ul>
+  <li>
+    1x Kit Vaso Sanit&aacute;rio Acesso Confort Sem Abertura Frontal Especial
+    PCD/PNE Incepa
+  </li>
+  <li>1x Assento Sanit&aacute;rio Almofadado Branco TPK/AS</li>
+  <li>1x Anel de veda&ccedil;&atilde;o</li>
+  <li>1x Conjunto de liga&ccedil;&atilde;o cromado Censi</li>
+  <li>
+    2x Parafusos bide com bucha
+    <ul></ul>
+  </li>
+</ul>

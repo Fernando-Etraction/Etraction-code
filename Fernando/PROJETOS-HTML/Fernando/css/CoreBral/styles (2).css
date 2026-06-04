@@ -1,0 +1,1947 @@
+/* =============================================================
+   COREBRAL — styles.css
+   CSS puro, sem Tailwind. Organizado por seção.
+   ============================================================= */
+
+/* -------------------------
+   VARIÁVEIS / TOKENS
+------------------------- */
+:root {
+    --brand-yellow:      #F2C300;
+    --brand-yellow-hover:#D9AE00;
+    --brand-yellow-10:   rgba(242, 195, 0, 0.10);
+    --brand-yellow-20:   rgba(242, 195, 0, 0.20);
+    --brand-yellow-30:   rgba(242, 195, 0, 0.30);
+    --brand-black:       #111111;
+    --brand-gray:        #444444;
+    --brand-light:       #F5F5F5;
+    --gray-100:          #f3f4f6;
+    --gray-200:          #e5e7eb;
+    --gray-300:          #d1d5db;
+    --gray-400:          #9ca3af;
+    --gray-500:          #6b7280;
+    --gray-600:          #4b5563;
+    --white:             #ffffff;
+}
+
+/* -------------------------
+   RESET / BASE
+------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    background-color: var(--brand-light);
+    color: var(--brand-gray);
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background-color: var(--brand-yellow);
+    color: var(--brand-black);
+}
+
+img, svg { display: block; max-width: 100%; }
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    background: none;
+}
+
+/* ======================================================
+   HEADER
+====================================================== */
+.corebral-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background-color: var(--white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    z-index: 50;
+}
+
+.corebral-header-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.corebral-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.corebral-logo-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: var(--brand-black);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-yellow);
+    flex-shrink: 0;
+}
+
+.corebral-logo-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.corebral-logo-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--brand-black);
+    letter-spacing: -0.025em;
+}
+
+.corebral-header-cta {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--brand-yellow);
+    color: var(--brand-black);
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+}
+
+.corebral-header-cta:hover { background-color: var(--brand-yellow-hover); }
+.corebral-header-cta svg { width: 1.25rem; height: 1.25rem; }
+
+/* ======================================================
+   MAIN
+====================================================== */
+.corebral-main { padding-top: 5rem; }
+
+/* ======================================================
+   SHARED CONTAINER
+====================================================== */
+.corebral-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+/* ======================================================
+   SHARED SECTION HEADER
+====================================================== */
+.corebral-section-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+.corebral-section-divider {
+    width: 6rem;
+    height: 4px;
+    background-color: var(--brand-yellow);
+    border-radius: 9999px;
+    margin: 1rem auto 0;
+}
+
+/* ======================================================
+   1. HERO
+====================================================== */
+.corebral-hero {
+    position: relative;
+    background-color: var(--brand-black);
+    color: var(--white);
+    padding: 4rem 0;
+    overflow: hidden;
+}
+
+.corebral-hero-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.10;
+    background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+}
+
+.corebral-hero-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+/* --- Hero texto --- */
+.corebral-hero-content { max-width: 42rem; }
+
+.corebral-hero-badge {
+    display: inline-block;
+    background-color: var(--brand-yellow-20);
+    border: 1px solid var(--brand-yellow-30);
+    color: var(--brand-yellow);
+    font-weight: 600;
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.corebral-hero-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.corebral-hero-title span { color: var(--brand-yellow); }
+
+.corebral-hero-description {
+    font-size: 1.125rem;
+    color: #d1d5db;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.corebral-hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-400);
+    font-weight: 500;
+}
+
+.corebral-hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.corebral-hero-trust-item svg {
+    color: var(--brand-yellow);
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+/* --- Hero card de conversão --- */
+.corebral-hero-card-wrapper {
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+.corebral-hero-card {
+    background-color: var(--white);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    padding: 2rem;
+    text-align: center;
+    color: var(--brand-gray);
+    position: relative;
+    border-top: 4px solid var(--brand-yellow);
+}
+
+.corebral-hero-card-icon {
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--brand-yellow-10);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.corebral-hero-card-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--brand-yellow);
+}
+
+.corebral-hero-card-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--brand-black);
+    margin-bottom: 1rem;
+}
+
+.corebral-hero-card-text {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.corebral-hero-card-note {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.corebral-hero-card-note svg {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+}
+
+/* ======================================================
+   BOTÕES COMPARTILHADOS
+====================================================== */
+.corebral-btn-primary {
+    width: 100%;
+    background-color: var(--brand-yellow);
+    color: var(--brand-black);
+    font-weight: 800;
+    font-size: 1.125rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.corebral-btn-primary:hover {
+    background-color: var(--brand-yellow-hover);
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.corebral-btn-primary svg { width: 1.5rem; height: 1.5rem; }
+
+.corebral-btn-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--brand-black);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+    transition: background-color 0.2s;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.corebral-btn-dark:hover { background-color: #222222; }
+.corebral-btn-dark svg { width: 1.25rem; height: 1.25rem; }
+
+.corebral-btn-yellow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--brand-yellow);
+    color: var(--brand-black);
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.12);
+    transition: background-color 0.2s;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.corebral-btn-yellow:hover { background-color: var(--brand-yellow-hover); }
+.corebral-btn-yellow svg { width: 1.25rem; height: 1.25rem; }
+
+.corebral-btn-yellow-xl {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background-color: var(--brand-yellow);
+    color: var(--brand-black);
+    font-weight: 900;
+    font-size: 1.25rem;
+    padding: 1.25rem 2.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    transition: background-color 0.2s, transform 0.2s;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.corebral-btn-yellow-xl:hover {
+    background-color: var(--brand-yellow-hover);
+    transform: scale(1.05);
+}
+
+.corebral-btn-yellow-xl svg { width: 1.5rem; height: 1.5rem; }
+
+.corebral-btn-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+}
+
+/* ======================================================
+   2. AUTORIDADE
+====================================================== */
+.corebral-authority {
+    padding: 4rem 0;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.corebral-authority-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.corebral-authority-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.corebral-authority-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+}
+
+.corebral-authority-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--brand-light);
+    border: 1px solid var(--gray-100);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--brand-yellow);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    flex-shrink: 0;
+}
+
+.corebral-authority-icon svg { width: 2rem; height: 2rem; }
+
+.corebral-authority-item h3 {
+    font-weight: 700;
+    color: var(--brand-black);
+    margin-bottom: 0.5rem;
+}
+
+.corebral-authority-item p {
+    font-size: 0.875rem;
+    color: var(--brand-gray);
+}
+
+.corebral-attendance-bar {
+    margin-top: 3rem;
+    background-color: var(--brand-light);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--brand-gray);
+    border: 1px solid var(--gray-200);
+    text-align: center;
+}
+
+.corebral-attendance-bar svg {
+    color: var(--brand-yellow);
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+}
+
+.corebral-attendance-bar span {
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+/* ======================================================
+   3. PRODUTOS
+====================================================== */
+.corebral-products {
+    padding: 5rem 0;
+    background-color: var(--brand-light);
+}
+
+.corebral-products-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.corebral-products-header p {
+    color: var(--brand-gray);
+    margin-top: 1rem;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.corebral-products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.corebral-product-card {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border: 1px solid var(--gray-100);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.corebral-product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+.corebral-product-icon {
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--brand-yellow-10);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: background-color 0.2s;
+}
+
+.corebral-product-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--brand-yellow);
+    transition: color 0.2s;
+}
+
+.corebral-product-card:hover .corebral-product-icon { background-color: var(--brand-yellow); }
+.corebral-product-card:hover .corebral-product-icon svg { color: var(--brand-black); }
+
+.corebral-product-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-black);
+}
+
+/* ======================================================
+   4. MARCAS
+====================================================== */
+.corebral-brands {
+    padding: 5rem 0;
+    background-color: var(--brand-black);
+    color: var(--white);
+    text-align: center;
+}
+
+.corebral-brands-carousel {
+    position: relative;
+    padding: 0 3.5rem;
+    margin-bottom: 2rem;
+}
+
+.corebral-brands-viewport {
+    overflow: hidden;
+}
+
+.corebral-brands-track {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    touch-action: pan-y;
+}
+
+.corebral-brands h2 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+}
+
+.corebral-brand-item {
+    flex: 0 0 11rem;
+    background-color: rgba(34,34,34,0.8);
+    border: 1px solid #333333;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: #d1d5db;
+    cursor: default;
+    transition: color 0.2s, border-color 0.2s;
+    backdrop-filter: blur(4px);
+    scroll-snap-align: start;
+    text-align: center;
+}
+
+.corebral-brand-item:hover {
+    color: var(--white);
+    border-color: var(--brand-yellow);
+}
+
+.corebral-brands-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    border: 1px solid #333333;
+    background: rgba(17,17,17,0.9);
+    color: #d1d5db;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.corebral-brands-btn:hover {
+    background-color: #1f1f1f;
+    border-color: var(--brand-yellow);
+    color: var(--white);
+}
+
+.corebral-brands-btn svg { width: 1.25rem; height: 1.25rem; }
+.corebral-brands-btn--prev { left: 0; }
+.corebral-brands-btn--next { right: 0; }
+
+.corebral-brands-note {
+    color: var(--gray-400);
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* ======================================================
+   5. SETORES
+====================================================== */
+.corebral-sectors {
+    padding: 5rem 0;
+    background-color: var(--white);
+}
+
+.corebral-sectors-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.corebral-sectors-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.corebral-sector-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--gray-100);
+    background-color: var(--brand-light);
+    transition: background-color 0.2s;
+}
+
+.corebral-sector-item:hover { background-color: var(--brand-yellow-10); }
+
+.corebral-sector-icon {
+    color: var(--brand-yellow);
+    background-color: var(--white);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    flex-shrink: 0;
+}
+
+.corebral-sector-icon svg { width: 1.5rem; height: 1.5rem; }
+
+.corebral-sector-item span {
+    font-weight: 600;
+    color: var(--brand-gray);
+    font-size: 0.875rem;
+    line-height: 1.3;
+}
+
+/* ======================================================
+   5.5 CREDIBILIDADE — AVALIAÇÕES + VÍDEO
+====================================================== */
+.corebral-credibility {
+    padding: 5rem 0;
+    background-color: var(--brand-light);
+    border-top: 1px solid var(--gray-200);
+}
+
+.corebral-credibility-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.corebral-credibility-header p {
+    color: var(--brand-gray);
+    margin-top: 1rem;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.corebral-credibility-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+/* Carrossel */
+.corebral-carousel-wrapper {
+    position: relative;
+    order: 2;
+}
+
+.corebral-carousel-box {
+    overflow: hidden;
+    position: relative;
+    border-radius: 1rem;
+    background-color: var(--white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border: 1px solid var(--gray-100);
+    padding: 2rem;
+}
+
+.corebral-carousel-quotes {
+    color: rgba(242,195,0,0.20);
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+}
+
+.corebral-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    position: relative;
+    z-index: 10;
+}
+
+.corebral-carousel-slide {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 0 0.5rem;
+}
+
+.corebral-carousel-stars {
+    display: flex;
+    color: var(--brand-yellow);
+    margin-bottom: 1.5rem;
+    gap: 0.25rem;
+}
+
+.corebral-carousel-stars svg { width: 1.25rem; height: 1.25rem; }
+
+.corebral-carousel-quote {
+    font-size: 1.25rem;
+    color: var(--brand-black);
+    font-weight: 600;
+    font-style: italic;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.corebral-carousel-author p:first-child {
+    font-weight: 700;
+    color: var(--brand-black);
+    font-size: 1.125rem;
+}
+
+.corebral-carousel-author p:last-child { color: var(--brand-gray); }
+
+/* Controles */
+.corebral-carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.corebral-carousel-btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: var(--white);
+    border: 1px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-gray);
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    flex-shrink: 0;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.corebral-carousel-btn:hover {
+    color: var(--brand-black);
+    border-color: var(--brand-yellow);
+    background-color: var(--brand-yellow-10);
+}
+
+.corebral-carousel-btn svg { width: 1.25rem; height: 1.25rem; }
+
+.corebral-carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.corebral-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 9999px;
+    background-color: var(--gray-300);
+    border: none;
+    padding: 0;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.corebral-dot:hover,
+.corebral-dot.active {
+    background-color: var(--brand-yellow);
+}
+
+/* Vídeo */
+.corebral-video-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    order: 1;
+}
+
+.corebral-video-player {
+    position: relative;
+    width: 100%;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+    aspect-ratio: 16 / 9;
+    background-color: var(--brand-black);
+    border: 1px solid var(--gray-100);
+}
+
+.corebral-video-placeholder {
+    position: absolute;
+    inset: 0;
+    background-color: var(--brand-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+.corebral-video-play-btn {
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--brand-yellow);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(242,195,0,0.3);
+}
+
+.corebral-video-player:hover .corebral-video-play-btn { transform: scale(1.1); }
+
+.corebral-video-play-btn svg {
+    color: var(--brand-black);
+    width: 2rem;
+    height: 2rem;
+    margin-left: 4px;
+}
+
+.corebral-video-info { padding: 0 0.5rem; }
+
+.corebral-video-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--brand-black);
+    margin-bottom: 0.75rem;
+}
+
+.corebral-video-info p {
+    color: var(--brand-gray);
+    line-height: 1.7;
+    font-size: 1.125rem;
+}
+
+/* ======================================================
+   6. FAQ
+====================================================== */
+.corebral-faq {
+    padding: 5rem 0;
+    background-color: var(--brand-light);
+    border-top: 1px solid var(--gray-200);
+}
+
+.corebral-faq-inner {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.corebral-faq-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.corebral-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.corebral-faq-item {
+    background-color: var(--white);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border: 1px solid var(--gray-100);
+    overflow: hidden;
+}
+
+.corebral-faq-trigger {
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+}
+
+.corebral-faq-trigger:focus-visible {
+    outline: 2px solid var(--brand-yellow);
+    outline-offset: -2px;
+}
+
+.corebral-faq-trigger span {
+    font-weight: 700;
+    color: var(--brand-black);
+    font-size: 1.125rem;
+}
+
+.corebral-faq-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--gray-400);
+    flex-shrink: 0;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.corebral-faq-icon.open {
+    transform: rotate(180deg);
+    color: var(--brand-yellow);
+}
+
+.corebral-faq-content {
+    padding: 0 1.5rem 1.25rem;
+    color: var(--brand-gray);
+    display: none;
+}
+
+.corebral-faq-content.open { display: block; }
+
+/* ======================================================
+   7. CTA FINAL
+====================================================== */
+.corebral-cta-final {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--brand-black) 0%, #222222 100%);
+    color: var(--white);
+    text-align: center;
+}
+
+.corebral-cta-final-inner {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.corebral-cta-final h2 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.corebral-cta-final p {
+    font-size: 1.25rem;
+    color: #d1d5db;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+/* ======================================================
+   FOOTER
+====================================================== */
+.corebral-footer {
+    background-color: #0a0a0a;
+    color: var(--gray-400);
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.corebral-footer-inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.corebral-footer-sub {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--gray-600);
+}
+
+/* ======================================================
+   BASES GLOBAIS PARA RESPONSIVIDADE
+   (aplicadas em todos os tamanhos)
+====================================================== */
+
+/* Impede overflow horizontal em qualquer tela */
+html, body { overflow-x: hidden; }
+
+/* Todas as imagens e mídias respeitam o container */
+img, svg, video, iframe, embed, object {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Touch target mínimo recomendado (44px) */
+button, a { touch-action: manipulation; }
+
+/* iOS: evita zoom automático em inputs */
+input, select, textarea { font-size: 16px; }
+
+/* Carrossel: habilita swipe nativo no touch */
+.corebral-carousel-track { touch-action: pan-y; }
+
+/* Video iframe responsivo */
+.corebral-video-player iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+}
+
+/* ======================================================
+   MEDIA QUERIES — MAX-WIDTH (abordagem pedida)
+   Ordem: 1200 → 1024 → 768 → 480
+====================================================== */
+
+/* ──────────────────────────────────────────────────────
+   @media (max-width: 1200px)
+   Notebooks e monitores médios
+────────────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+
+    /* Container: padding lateral ligeiramente menor */
+    .corebral-header-inner,
+    .corebral-hero-inner,
+    .corebral-container,
+    .corebral-faq-inner,
+    .corebral-cta-final-inner,
+    .corebral-footer-inner {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    /* Hero: título levemente menor */
+    .corebral-hero-title { font-size: 3.25rem; }
+
+    /* Marcas: gap menor */
+    .corebral-brands-list { gap: 0.875rem; }
+}
+
+/* ──────────────────────────────────────────────────────
+   @media (max-width: 1024px)
+   Tablets landscape / notebooks pequenos
+────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+    /* HERO: volta para 1 coluna */
+    .corebral-hero               { padding: 4rem 0; }
+    .corebral-hero-inner         { grid-template-columns: 1fr; gap: 2.5rem; }
+    .corebral-hero-title         { font-size: 2.75rem; }
+    .corebral-hero-card-wrapper  { max-width: 34rem; margin-left: auto; margin-right: auto; }
+
+    /* AUTORIDADE: 3 cols (de 5) */
+    .corebral-authority-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    /* PRODUTOS: 2 cols (de 4) */
+    .corebral-products-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* SETORES: 3 cols (de 4) */
+    .corebral-sectors-grid { grid-template-columns: repeat(3, 1fr); }
+
+    /* CREDIBILIDADE: 1 coluna — vídeo sobe, carrossel desce */
+    .corebral-credibility-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
+    .corebral-video-wrapper     { order: 1; }
+    .corebral-carousel-wrapper  { order: 2; }
+}
+
+/* ──────────────────────────────────────────────────────
+   @media (max-width: 768px)
+   Tablets portrait / celulares grandes
+────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+    /* HEADER */
+    .corebral-header-inner { height: 4rem; }
+    .corebral-main         { padding-top: 4rem; }
+    /* CTA do header: oculto no mobile (já aparece no card da hero) */
+    .corebral-header-cta   { display: none; }
+    .corebral-logo-text    { font-size: 1.25rem; }
+
+    /* HERO */
+    .corebral-hero             { padding: 2.5rem 0; }
+    .corebral-hero-inner       { gap: 2rem; padding-left: 1rem; padding-right: 1rem; }
+    .corebral-hero-title       { font-size: 2rem; line-height: 1.15; margin-bottom: 1rem; }
+    .corebral-hero-badge       { font-size: 0.8125rem; margin-bottom: 1rem; }
+    .corebral-hero-description { font-size: 1rem; margin-bottom: 1.25rem; }
+    .corebral-hero-trust       { gap: 1rem; }
+    .corebral-hero-card        { padding: 1.75rem 1.25rem; }
+    .corebral-hero-card-title  { font-size: 1.5rem; }
+    .corebral-hero-card-text   { font-size: 1rem; margin-bottom: 1.5rem; }
+    .corebral-hero-card-icon   { width: 4rem; height: 4rem; margin-bottom: 1rem; }
+    .corebral-hero-card-icon svg { width: 2rem; height: 2rem; }
+    .corebral-btn-primary      { font-size: 1rem; padding: 1rem 1.25rem; gap: 0.5rem; }
+    .corebral-btn-primary svg  { width: 1.25rem; height: 1.25rem; }
+
+    /* AUTORIDADE */
+    .corebral-authority         { padding: 2.5rem 0; }
+    .corebral-authority-header  { margin-bottom: 1.75rem; }
+    .corebral-authority-grid    { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .corebral-authority-item    { padding: 0.75rem 0.5rem; }
+    .corebral-authority-icon    { width: 3.5rem; height: 3.5rem; }
+    .corebral-authority-icon svg { width: 1.75rem; height: 1.75rem; }
+    .corebral-attendance-bar    { padding: 1.25rem; gap: 0.75rem; flex-direction: column; margin-top: 1.5rem; }
+    .corebral-attendance-bar span { font-size: 1rem; }
+    .corebral-section-title     { font-size: 1.5rem; }
+
+    /* PRODUTOS */
+    .corebral-products          { padding: 2.5rem 0; }
+    .corebral-products-header   { margin-bottom: 2rem; }
+    .corebral-products-grid     { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .corebral-product-card      { padding: 1.5rem 1rem; }
+    .corebral-product-icon      { width: 4rem; height: 4rem; margin-bottom: 1rem; }
+    .corebral-product-icon svg  { width: 2rem; height: 2rem; }
+    .corebral-product-card h3   { font-size: 1rem; }
+    .corebral-btn-center        { margin-top: 2rem; }
+    .corebral-btn-dark          { font-size: 1rem; padding: 0.875rem 1.5rem; }
+    .corebral-btn-dark svg      { width: 1.125rem; height: 1.125rem; }
+
+    /* MARCAS */
+    .corebral-brands       { padding: 2.5rem 0; }
+    .corebral-brands h2    { font-size: 1.375rem; margin-bottom: 1.75rem; }
+    .corebral-brands-list  { gap: 0.625rem; margin-bottom: 1.5rem; }
+    .corebral-brand-item   { padding: 0.5rem 1rem; font-size: 1rem; }
+
+    /* SETORES */
+    .corebral-sectors          { padding: 2.5rem 0; }
+    .corebral-sectors-header   { margin-bottom: 2rem; }
+    .corebral-sectors-grid     { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    .corebral-sector-item      { padding: 0.75rem; gap: 0.75rem; }
+    .corebral-sector-icon svg  { width: 1.25rem; height: 1.25rem; }
+    .corebral-btn-yellow       { font-size: 1rem; padding: 0.875rem 1.5rem; }
+    .corebral-btn-yellow svg   { width: 1.125rem; height: 1.125rem; }
+
+    /* CREDIBILIDADE */
+    .corebral-credibility         { padding: 2.5rem 0; }
+    .corebral-credibility-header  { margin-bottom: 2rem; }
+    .corebral-credibility-grid    { gap: 2rem; }
+    .corebral-carousel-box        { padding: 1.5rem 1.25rem; }
+    .corebral-carousel-quote      { font-size: 1.0625rem; margin-bottom: 1.25rem; }
+    .corebral-carousel-stars      { margin-bottom: 1rem; }
+    .corebral-carousel-stars svg  { width: 1.125rem; height: 1.125rem; }
+    .corebral-video-play-btn      { width: 4rem; height: 4rem; }
+    .corebral-video-play-btn svg  { width: 1.75rem; height: 1.75rem; }
+    .corebral-video-info h3       { font-size: 1.25rem; }
+    .corebral-video-info p        { font-size: 1rem; }
+
+    /* FAQ */
+    .corebral-faq           { padding: 2.5rem 0; }
+    .corebral-faq-header    { margin-bottom: 1.75rem; }
+    .corebral-faq-trigger   { padding: 1rem 1.25rem; }
+    .corebral-faq-trigger span { font-size: 1rem; }
+    .corebral-faq-content   { padding: 0 1.25rem 1rem; font-size: 0.9375rem; }
+    .corebral-faq-list      { gap: 0.75rem; }
+
+    /* CTA FINAL */
+    .corebral-cta-final     { padding: 3.5rem 0; }
+    .corebral-cta-final h2  { font-size: 2rem; margin-bottom: 1rem; }
+    .corebral-cta-final p   { font-size: 1.0625rem; margin-bottom: 1.75rem; }
+    .corebral-btn-yellow-xl { font-size: 1.0625rem; padding: 1rem 1.75rem; width: 100%; max-width: 26rem; }
+    .corebral-btn-yellow-xl svg { width: 1.375rem; height: 1.375rem; }
+
+    /* FOOTER */
+    .corebral-footer { padding: 1.5rem 0; }
+}
+
+/* ──────────────────────────────────────────────────────
+   @media (max-width: 480px)
+   Celulares pequenos
+────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+    /* HEADER */
+    .corebral-logo-text  { font-size: 1.125rem; }
+    .corebral-logo-icon  { width: 2rem; height: 2rem; }
+    .corebral-logo-icon svg { width: 1.25rem; height: 1.25rem; }
+
+    /* HERO */
+    .corebral-hero          { padding: 2rem 0; }
+    .corebral-hero-inner    { gap: 1.75rem; }
+    .corebral-hero-title    { font-size: 1.625rem; }
+    .corebral-hero-description { font-size: 0.9375rem; }
+    .corebral-hero-badge    { font-size: 0.75rem; padding: 0.3rem 0.75rem; }
+    .corebral-hero-trust    { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .corebral-hero-card     { padding: 1.25rem 1rem; }
+    .corebral-hero-card-title { font-size: 1.25rem; }
+    .corebral-hero-card-text  { font-size: 0.9375rem; margin-bottom: 1.25rem; }
+
+    /* AUTORIDADE: 1 coluna */
+    .corebral-authority-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .corebral-authority-item {
+        flex-direction: row;
+        text-align: left;
+        gap: 1rem;
+        padding: 0.75rem;
+    }
+    .corebral-authority-icon { margin-bottom: 0; flex-shrink: 0; }
+    .corebral-authority-item h3 { margin-bottom: 0.25rem; }
+
+    /* PRODUTOS: 1 coluna */
+    .corebral-products-grid { grid-template-columns: 1fr; }
+    .corebral-product-card  {
+        padding: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+    }
+    .corebral-product-icon  { margin: 0; flex-shrink: 0; width: 3.5rem; height: 3.5rem; }
+    .corebral-product-icon svg { width: 1.75rem; height: 1.75rem; }
+    .corebral-product-card h3  { font-size: 0.9375rem; }
+
+    /* MARCAS */
+    .corebral-brands h2  { font-size: 1.25rem; }
+    .corebral-brand-item { font-size: 0.9375rem; padding: 0.4375rem 0.875rem; }
+
+    /* SETORES: 1 coluna */
+    .corebral-sectors-grid { grid-template-columns: 1fr; gap: 0.625rem; }
+    .corebral-sector-item span { font-size: 0.875rem; }
+
+    /* CREDIBILIDADE */
+    .corebral-carousel-box   { padding: 1.25rem 1rem; }
+    .corebral-carousel-quote { font-size: 1rem; }
+    .corebral-carousel-author p:first-child { font-size: 0.9375rem; }
+    .corebral-carousel-author p:last-child  { font-size: 0.875rem; }
+    .corebral-carousel-btn   { width: 2.5rem; height: 2.5rem; }
+    .corebral-carousel-btn svg { width: 1rem; height: 1rem; }
+
+    /* FAQ */
+    .corebral-faq-trigger span { font-size: 0.9375rem; }
+
+    /* CTA FINAL */
+    .corebral-cta-final h2  { font-size: 1.625rem; }
+    .corebral-cta-final p   { font-size: 1rem; }
+    .corebral-btn-yellow-xl { font-size: 1rem; padding: 0.9375rem 1.25rem; }
+
+    /* Espaçamentos gerais: reduzir paddings verticais */
+    .corebral-authority  { padding: 2rem 0; }
+    .corebral-products   { padding: 2rem 0; }
+    .corebral-brands     { padding: 2rem 0; }
+    .corebral-sectors    { padding: 2rem 0; }
+    .corebral-credibility { padding: 2rem 0; }
+    .corebral-faq        { padding: 2rem 0; }
+    .corebral-cta-final  { padding: 2.5rem 0; }
+    .corebral-btn-center { margin-top: 1.5rem; }
+    .corebral-products-header { margin-bottom: 1.5rem; }
+    .corebral-sectors-header  { margin-bottom: 1.5rem; }
+    .corebral-credibility-header { margin-bottom: 1.5rem; }
+    .corebral-authority-header   { margin-bottom: 1.5rem; }
+    .corebral-faq-header         { margin-bottom: 1.5rem; }
+}
+
+/* ──────────────────────────────────────────────────────
+   MIN-WIDTH: garante layout correto em desktop/wide
+────────────────────────────────────────────────────── */
+
+/* 640px — padding progressivo */
+@media (min-width: 640px) {
+    .corebral-attendance-bar { flex-direction: row; }
+    .corebral-carousel-slide { padding: 0 1rem; }
+}
+
+/* 769px — header CTA aparece, hero text cresce */
+@media (min-width: 769px) {
+    .corebral-header-cta { display: flex; }
+    .corebral-header-inner { height: 5rem; }
+    .corebral-main { padding-top: 5rem; }
+    .corebral-hero-title { font-size: 3rem; }
+    .corebral-hero-description { font-size: 1.25rem; }
+    .corebral-hero-card { padding: 2.5rem; }
+    .corebral-hero-card-title { font-size: 1.875rem; }
+    .corebral-authority-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .corebral-products-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .corebral-sectors-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .corebral-sector-item span { font-size: 1rem; }
+    .corebral-carousel-quote { font-size: 1.5rem; }
+    .corebral-cta-final h2 { font-size: 3rem; }
+    .corebral-brands-list { gap: 1.5rem; }
+}
+
+/* 1025px — layout desktop completo */
+@media (min-width: 1025px) {
+    .corebral-header-inner,
+    .corebral-container,
+    .corebral-faq-inner,
+    .corebral-cta-final-inner,
+    .corebral-footer-inner { padding-left: 2rem; padding-right: 2rem; }
+
+    .corebral-hero             { padding: 6rem 0; }
+    .corebral-hero-inner       { grid-template-columns: 1fr 1fr; gap: 3rem; padding-left: 2rem; padding-right: 2rem; }
+    .corebral-hero-title       { font-size: 3.75rem; }
+    .corebral-hero-card-wrapper { margin-left: auto; margin-right: 0; }
+
+    .corebral-authority-grid   { grid-template-columns: repeat(5, 1fr); }
+    .corebral-products-grid    { grid-template-columns: repeat(4, 1fr); }
+    .corebral-sectors-grid     { grid-template-columns: repeat(4, 1fr); }
+
+    .corebral-credibility-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .corebral-carousel-wrapper { order: 1; }
+    .corebral-video-wrapper    { order: 2; }
+    .corebral-carousel-controls { padding: 0 1rem; }
+    .corebral-carousel-box     { padding: 2.5rem; }
+}
+
+/* ======================================================
+   SEÇÃO CREDIBILIDADE — REDESIGN COMPLETO
+   Classes exclusivas desta seção. Não afeta nada mais.
+====================================================== */
+
+/* ── Seção wrapper ─────────────────────────────────── */
+.corebral-credibility-section {
+    padding: 5rem 0 6rem;
+    background: linear-gradient(180deg, #f8f8f6 0%, #ffffff 100%);
+    border-top: 1px solid var(--gray-200);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Textura pontilhada sutil no fundo */
+.corebral-credibility-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.corebral-credibility-section .corebral-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Cabeçalho da seção ────────────────────────────── */
+.cred-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.cred-header__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--brand-yellow-10);
+    border: 1px solid var(--brand-yellow-30);
+    color: #9a7b00;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+}
+
+.cred-header__title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--brand-black);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+}
+
+.cred-header__sub {
+    font-size: 1rem;
+    color: var(--gray-500);
+    max-width: 40rem;
+    margin: 0 auto 1.25rem;
+    line-height: 1.65;
+}
+
+/* ── Grade 2 colunas ───────────────────────────────── */
+.cred-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+/* ════════════════════════════════════════════════════
+   VIDEO CARD
+════════════════════════════════════════════════════ */
+.corebral-video-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    /* Mobile: ordem 1 */
+    order: 1;
+}
+
+/* Player 16:9 */
+.corebral-video-card__player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #111111 100%);
+    box-shadow:
+        0 4px 6px -1px rgba(0,0,0,0.07),
+        0 20px 40px -8px rgba(0,0,0,0.22),
+        0 0 0 1px rgba(255,255,255,0.06) inset;
+}
+
+/* Borda amarela topo */
+.corebral-video-card__player::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brand-yellow) 0%, #f0a500 100%);
+    z-index: 3;
+}
+
+/* Grade decorativa no fundo do player */
+.corebral-video-card__player::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Overlay escuro gradiente */
+.corebral-video-card__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 100%);
+    z-index: 2;
+    transition: background 0.35s ease;
+}
+
+.corebral-video-card__player:hover .corebral-video-card__overlay {
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.45) 100%);
+}
+
+/* Botão play */
+.corebral-video-card__play-btn {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: var(--brand-yellow);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    box-shadow:
+        0 0 0 0 rgba(242,195,0,0.5),
+        0 8px 24px rgba(242,195,0,0.35);
+    z-index: 1;
+}
+
+.corebral-video-card__play-btn:hover {
+    transform: scale(1.1);
+    box-shadow:
+        0 0 0 10px rgba(242,195,0,0.12),
+        0 12px 32px rgba(242,195,0,0.45);
+}
+
+/* Anel de pulso animado */
+.corebral-video-card__play-ring {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(242,195,0,0.35);
+    animation: cred-pulse 2.4s ease-out infinite;
+}
+
+@keyframes cred-pulse {
+    0%   { transform: scale(1);    opacity: 0.7; }
+    70%  { transform: scale(1.35); opacity: 0;   }
+    100% { transform: scale(1.35); opacity: 0;   }
+}
+
+.corebral-video-card__play-btn svg {
+    width: 1.625rem;
+    height: 1.625rem;
+    color: var(--brand-black);
+    margin-left: 3px; /* compensação óptica */
+    position: relative;
+    z-index: 1;
+}
+
+/* iframe quando ativo */
+.corebral-video-card__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 5;
+}
+
+/* Info abaixo do player */
+.corebral-video-card__info {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--white);
+    border-radius: 1rem;
+    border: 1px solid var(--gray-100);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.corebral-video-card__info-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    min-width: 2.75rem;
+    background: var(--brand-yellow-10);
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9a7b00;
+    border: 1px solid var(--brand-yellow-20);
+}
+
+.corebral-video-card__info-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.corebral-video-card__info-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brand-black);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+}
+
+.corebral-video-card__info-text {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ════════════════════════════════════════════════════
+   TESTIMONIALS COLUMN
+════════════════════════════════════════════════════ */
+.corebral-testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    /* Mobile: ordem 2 */
+    order: 2;
+}
+
+/* Label topo "O que nossos clientes dizem" */
+.corebral-testimonials__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gray-500);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+}
+
+.corebral-testimonials__label svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--brand-yellow);
+    flex-shrink: 0;
+}
+
+/* ── Viewport do carrossel ─────────────────────────── */
+.corebral-carousel {
+    overflow: hidden;
+    border-radius: 1.25rem;
+    /* Sombra premium */
+    box-shadow:
+        0 1px 3px rgba(0,0,0,0.05),
+        0 8px 24px rgba(0,0,0,0.08),
+        0 0 0 1px rgba(0,0,0,0.04);
+    background: var(--white);
+    position: relative;
+}
+
+.corebral-carousel__track {
+    display: flex;
+    transition: transform 0.48s cubic-bezier(0.77, 0, 0.175, 1);
+    touch-action: pan-y;
+    will-change: transform;
+}
+
+.corebral-carousel__slide {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════
+   TESTIMONIAL CARD (dentro do slide)
+════════════════════════════════════════════════════ */
+.corebral-testimonial-card {
+    padding: 2.25rem 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 100%;
+    position: relative;
+}
+
+/* Borda lateral amarela */
+.corebral-testimonial-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.75rem; bottom: 1.75rem;
+    width: 3px;
+    background: linear-gradient(180deg, var(--brand-yellow) 0%, rgba(242,195,0,0.2) 100%);
+    border-radius: 0 3px 3px 0;
+}
+
+/* Topo: estrelas + aspas */
+.corebral-testimonial-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+}
+
+/* Estrelas */
+.corebral-stars {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+}
+
+.corebral-stars svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: var(--brand-yellow);
+    filter: drop-shadow(0 1px 2px rgba(242,195,0,0.4));
+}
+
+/* Aspas decorativas */
+.corebral-testimonial-card__quote-mark {
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--brand-yellow-20);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 900;
+    user-select: none;
+    margin-top: -1.25rem;
+    letter-spacing: -0.05em;
+}
+
+/* Texto do depoimento */
+.corebral-testimonial-card__text {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #2d2d2d;
+    font-style: italic;
+    margin: 0 0 1.75rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+/* Footer: avatar + autor */
+.corebral-testimonial-card__footer {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--gray-100);
+    margin-top: auto;
+}
+
+.corebral-testimonial-card__avatar {
+    width: 3rem;
+    height: 3rem;
+    min-width: 3rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-black) 0%, #333333 100%);
+    color: var(--brand-yellow);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.04em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border: 2px solid var(--brand-yellow-20);
+}
+
+.corebral-testimonial-card__author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.corebral-testimonial-card__author strong {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--brand-black);
+    display: block;
+}
+
+.corebral-testimonial-card__author span {
+    font-size: 0.8125rem;
+    color: var(--gray-500);
+    display: block;
+}
+
+/* Selo verificado ao lado do nome */
+.corebral-testimonial-card__author strong::after {
+    content: '✓';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    background: var(--brand-yellow);
+    color: var(--brand-black);
+    border-radius: 50%;
+    font-size: 0.5625rem;
+    font-weight: 900;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+}
+
+/* ── Navegação do carrossel ────────────────────────── */
+.corebral-carousel__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1.25rem;
+    background: var(--brand-light);
+    border-radius: 0 0 1.25rem 1.25rem;
+    border-top: 1px solid var(--gray-100);
+    /* Conectado visualmente ao carrossel */
+    margin-top: -0.05px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Setas */
+.corebral-carousel__arrow {
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1.5px solid var(--gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-gray);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    flex-shrink: 0;
+}
+
+.corebral-carousel__arrow:hover {
+    background: var(--brand-yellow);
+    border-color: var(--brand-yellow);
+    color: var(--brand-black);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(242,195,0,0.3);
+}
+
+.corebral-carousel__arrow svg {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+
+/* Dots */
+.corebral-carousel__dots {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Reutiliza .corebral-dot do CSS global */
+.corebral-carousel__dots .corebral-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: var(--gray-300);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+}
+
+.corebral-carousel__dots .corebral-dot::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+}
+
+.corebral-carousel__dots .corebral-dot.active {
+    background: var(--brand-yellow);
+    width: 1.5rem;
+    border-radius: 9999px;
+    box-shadow: 0 2px 6px rgba(242,195,0,0.4);
+}
+
+.corebral-carousel__dots .corebral-dot:hover:not(.active) {
+    background: var(--gray-400);
+}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVIDADE — Seção Credibilidade
+════════════════════════════════════════════════════ */
+
+/* Tablet (max 1024px): colunas ficam mais compactas */
+@media (max-width: 1024px) {
+    .cred-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.75rem;
+    }
+    .corebral-credibility-section { padding: 4rem 0 5rem; }
+    .cred-header { margin-bottom: 2.75rem; }
+    .cred-header__title { font-size: 1.75rem; }
+    .corebral-testimonial-card { padding: 1.75rem 1.5rem 1.5rem; }
+    .corebral-testimonial-card__text { font-size: 1rem; }
+}
+
+/* Tablet menor (max 768px): 1 coluna */
+@media (max-width: 768px) {
+    .corebral-credibility-section { padding: 3rem 0 4rem; }
+
+    .cred-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Ordem: vídeo (1) depois avaliações (2) */
+    .corebral-video-card    { order: 1; }
+    .corebral-testimonials  { order: 2; }
+
+    .cred-header { margin-bottom: 2rem; }
+    .cred-header__title { font-size: 1.5rem; }
+    .cred-header__sub   { font-size: 0.9375rem; }
+
+    .corebral-video-card__info { padding: 1rem 1.25rem; }
+    .corebral-video-card__info-title { font-size: 0.9375rem; }
+
+    .corebral-testimonial-card { padding: 1.5rem 1.25rem 1.25rem; }
+    .corebral-testimonial-card__text { font-size: 0.9375rem; margin-bottom: 1.25rem; }
+    .corebral-testimonial-card__quote-mark { font-size: 4rem; }
+    .corebral-carousel__nav { padding: 0.75rem 1rem; }
+}
+
+/* Celular pequeno (max 480px) */
+@media (max-width: 480px) {
+    .corebral-credibility-section { padding: 2.5rem 0 3rem; }
+
+    .cred-header__title { font-size: 1.375rem; }
+    .cred-header { margin-bottom: 1.75rem; }
+
+    .corebral-testimonial-card { padding: 1.25rem 1rem; }
+    .corebral-testimonial-card__text { font-size: 0.9375rem; line-height: 1.65; }
+    .corebral-testimonial-card__top { margin-bottom: 0.875rem; }
+    .corebral-stars svg { width: 1rem; height: 1rem; }
+    .corebral-testimonial-card__avatar { width: 2.5rem; height: 2.5rem; min-width: 2.5rem; font-size: 0.75rem; }
+    .corebral-testimonial-card__author strong { font-size: 0.875rem; }
+    .corebral-testimonial-card__author span   { font-size: 0.75rem; }
+
+    .corebral-video-card__play-btn { width: 4rem; height: 4rem; }
+    .corebral-video-card__play-btn svg { width: 1.375rem; height: 1.375rem; }
+
+    .corebral-carousel__arrow { width: 2.25rem; height: 2.25rem; }
+    .corebral-carousel__arrow svg { width: 1rem; height: 1rem; }
+}

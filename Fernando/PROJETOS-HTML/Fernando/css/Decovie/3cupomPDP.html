@@ -1,0 +1,343 @@
+<style>
+  .label-preview {
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: 12px;
+  }
+
+  /* ── Variáveis ── */
+  .faixa-wrap {
+    --verde: #3A6453;
+    --verde-dark: #2c4e40;
+    --verde-light: #e8f0ec;
+    --creme: #f7f0e8;
+    --creme-dark: #ede3d6;
+    --bege: #d4b896;
+    --texto: #1a2e26;
+    --branco: #ffffff;
+    font-family: 'Nunito', system-ui, sans-serif;
+    width: fit-content;
+  }
+
+  .faixa-oferta {
+    background: var(--creme);
+    border: 2px solid var(--bege);
+    border-radius: 16px;
+    padding: 6px 13px 8px;
+    width: max-content;
+    max-width: 420px;
+    box-shadow: 0 4px 20px rgba(58, 100, 83, .13);
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .faixa-header {
+    width: 100%;
+    background: var(--verde);
+    border-radius: 10px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+    box-sizing: border-box;
+  }
+
+  .faixa-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--branco);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+
+  .faixa-subtitle {
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, .7);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .timer-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, .75);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .timer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .digito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 8px;
+    padding: 6px 8px 5px;
+    min-width: 38px;
+  }
+
+  .digito .val {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--branco);
+    line-height: 1;
+    letter-spacing: .02em;
+  }
+
+  .digito .label {
+    font-size: 9px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, .65);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-top: 3px;
+  }
+
+  .sep {
+    font-size: 18px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, .5);
+    margin: 0 1px;
+    margin-bottom: 10px;
+  }
+
+  .faixa-cupons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cupom-info {
+    width: 100%;
+    background: var(--branco);
+    border: 1.5px dashed var(--bege);
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-sizing: border-box;
+  }
+
+  .cupom-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .cupom-desconto {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--verde-dark);
+    line-height: 1.1;
+  }
+
+  .cupom-regra {
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+  }
+
+  .cupom-codigo {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--verde);
+    color: var(--branco);
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .15s ease, background .2s ease, box-shadow .15s ease;
+    white-space: nowrap;
+    border: none;
+    letter-spacing: .03em;
+    font-family: inherit;
+  }
+
+
+
+  .cupom-codigo:hover {
+    background: var(--verde-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(58, 100, 83, .3);
+  }
+
+  .cupom-codigo.copied {
+    background: #2e7d32;
+  }
+
+  .frete-row {
+    width: 100%;
+    background: var(--verde-light);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+  }
+
+  .frete-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .frete-texto {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--verde-dark);
+    line-height: 1.5;
+  }
+
+  .frete-destaque {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--verde);
+  }
+
+  @media (max-width: 520px) {
+    .faixa-wrap {
+      width: 100%;
+    }
+
+    .faixa-oferta {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    .faixa-header {
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .digito .val {
+      font-size: 16px;
+    }
+
+    .digito {
+      min-width: 34px;
+    }
+
+    .faixa-subtitle {
+      display: none;
+    }
+  }
+</style>
+
+
+<div class="faixa-wrap">
+  <div class="faixa-oferta js-countdown" role="region" aria-label="Cupons Mês do Consumidor">
+
+    <div class="faixa-header">
+      <div>
+        <div class="faixa-subtitle">Promoção</div>
+        <div class="faixa-title">Mês do Consumidor</div>
+      </div>
+      <div>
+        <div class="timer-label">Oferta acaba em</div>
+        <div class="timer js-timer" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="faixa-cupons">
+
+      <div class="cupom-info">
+        <div class="cupom-texto">
+          <span class="cupom-desconto">R$ 50 OFF</span>
+          <span class="cupom-regra">em compras acima de R$ 1.500</span>
+        </div>
+        <button class="cupom-codigo" data-code="CONSUMIDOR50">CONSUMIDOR50</button>
+      </div>
+
+      <div class="cupom-info">
+        <div class="cupom-texto">
+          <span class="cupom-desconto">R$ 100 OFF</span>
+          <span class="cupom-regra">em compras acima de R$ 2.000</span>
+        </div>
+        <button class="cupom-codigo" data-code="CONSUMIDOR100">CONSUMIDOR100</button>
+      </div>
+
+      <div class="cupom-info">
+        <div class="cupom-texto">
+          <span class="cupom-desconto">R$ 150 OFF</span>
+          <span class="cupom-regra">em compras acima de R$ 3.000</span>
+        </div>
+        <button class="cupom-codigo" data-code="CONSUMIDOR150">CONSUMIDOR150</button>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+<script>
+  const DEADLINE_ISO = "2026-03-18T23:59:59";
+  const DAY_MS = 86400000, HOUR_MS = 3600000, MIN_MS = 60000;
+  const pad2 = n => String(n).padStart(2, "0");
+
+  function renderTimer(el, days, hrs, min, sec) {
+    el.innerHTML = `
+      <div class="digito"><span class="val">${pad2(days)}</span><span class="label">dias</span></div>
+      <span class="sep">:</span>
+      <div class="digito"><span class="val">${pad2(hrs)}</span><span class="label">hrs</span></div>
+      <span class="sep">:</span>
+      <div class="digito"><span class="val">${pad2(min)}</span><span class="label">min</span></div>
+      <span class="sep">:</span>
+      <div class="digito"><span class="val">${pad2(sec)}</span><span class="label">seg</span></div>`;
+  }
+
+  const timerEl = document.querySelector(".js-timer");
+  const deadline = new Date(DEADLINE_ISO).getTime();
+
+  function update() {
+    let dist = deadline - Date.now();
+    if (dist <= 0) { renderTimer(timerEl, 0, 0, 0, 0); clearInterval(iv); return; }
+    const days = Math.floor(dist / DAY_MS); dist %= DAY_MS;
+    const hrs = Math.floor(dist / HOUR_MS); dist %= HOUR_MS;
+    const min = Math.floor(dist / MIN_MS); dist %= MIN_MS;
+    const sec = Math.floor(dist / 1000);
+    renderTimer(timerEl, days, hrs, min, sec);
+  }
+  update();
+  const iv = setInterval(update, 1000);
+
+  // Copiar
+  document.querySelectorAll(".cupom-codigo").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const code = btn.getAttribute("data-code") || "";
+      try { await navigator.clipboard.writeText(code); } catch { }
+      const orig = btn.textContent;
+      btn.textContent = "Copiado!";
+      btn.classList.add("copied");
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove("copied"); }, 1800);
+    });
+  });
+</script>

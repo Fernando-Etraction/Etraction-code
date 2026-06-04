@@ -1,0 +1,1241 @@
+<style>
+  #etractionGiftWidget {
+    position: fixed;
+    left: 16px;
+    bottom: 98px;
+    z-index: 999999;
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 45% 35%, #ffffff 0%, #f3fff8 58%, #dffbea 100%);
+    border: 4px solid #16c76a;
+    box-shadow: 0 10px 30px rgba(22, 199, 106, .25), 0 4px 16px rgba(0,0,0,.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    animation: etractionGiftPulseGreen 2.2s ease-in-out infinite;
+  }
+
+  #etractionGiftWidget::before {
+    content: "🎁";
+    font-size: 34px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,.12));
+  }
+
+  @keyframes etractionGiftPulseGreen {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 10px 30px rgba(22, 199, 106, .22), 0 4px 16px rgba(0,0,0,.14);
+    }
+
+    50% {
+      transform: scale(1.045);
+      box-shadow: 0 12px 36px rgba(22, 199, 106, .36), 0 6px 20px rgba(0,0,0,.18);
+    }
+  }
+
+  #etractionGiftBadge {
+    position: absolute;
+    top: 8px;
+    right: -14px;
+    background: #16c76a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    border-radius: 999px;
+    padding: 5px 8px;
+    line-height: 1;
+    min-width: 42px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(22, 199, 106, .35);
+  }
+
+  #etractionGiftWidgetCheck {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: #16c76a;
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+    border: 2px solid #fff;
+  }
+
+  #etractionGiftWidget.has-gift #etractionGiftWidgetCheck {
+    display: flex;
+  }
+
+  #etractionGiftBar {
+    position: fixed;
+    left: 100px;
+    bottom: 104px;
+    z-index: 999998;
+    width: 390px;
+    max-width: calc(100vw - 118px);
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 26px rgba(0,0,0,.15);
+    padding: 13px 15px 14px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #dff5e8;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+  }
+
+  #etractionGiftBar.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+  #etractionGiftBar::before {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 28px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    transform: rotate(45deg);
+    border-left: 1px solid #dff5e8;
+    border-bottom: 1px solid #dff5e8;
+  }
+
+  #etractionGiftMessage {
+    font-size: 13px;
+    line-height: 1.35;
+    color: #535353;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #etractionGiftMessage strong {
+    color: #0ea65a;
+    font-weight: 900;
+  }
+
+  #etractionGiftProgressTrack {
+    width: 100%;
+    height: 7px;
+    background: #e2f7eb;
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  #etractionGiftProgressBar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #10b85f 0%, #16c76a 100%);
+    transition: width .25s ease;
+    border-radius: 999px;
+  }
+
+  #etractionGiftSteps {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    font-size: 10px;
+    color: #777;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+  }
+
+  .etraction-step {
+    flex: 1;
+    text-align: center;
+  }
+
+  .etraction-step-dot {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    margin: 0 auto 4px;
+    border: 2px solid #cfeedd;
+    background: #fff;
+    position: relative;
+  }
+
+  .etraction-step.unlocked .etraction-step-dot {
+    background: #16c76a;
+    border-color: #16c76a;
+  }
+
+  .etraction-step.unlocked .etraction-step-dot::after {
+    content: "✓";
+    color: #fff;
+    font-size: 10px;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+  }
+
+  #etractionGiftOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+    background: rgba(0,0,0,.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+  }
+
+  #etractionGiftOverlay.is-active {
+    display: flex;
+  }
+
+  #etractionGiftModal {
+    width: 100%;
+    max-width: 430px;
+    background: #fff;
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 44px rgba(0,0,0,.24);
+  }
+
+  #etractionGiftClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 50%;
+    background: #aaa;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .etraction-modal-content {
+    padding: 28px 18px 18px;
+    text-align: center;
+    background: #fff;
+  }
+
+  #etractionGiftModalHeader {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+
+  #etractionGiftModalHeader strong {
+    color: #0ea65a;
+    font-weight: 900;
+  }
+
+  .etraction-preview-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    margin-bottom: 10px;
+  }
+
+  .etraction-arrow {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    color: #666;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+
+  .etraction-arrow[disabled] {
+    opacity: .4;
+    cursor: default;
+  }
+
+  #etractionGiftPreviewCard {
+    width: 132px;
+    margin: 0 16px;
+    border-radius: 7px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 100%);
+    box-shadow: 0 5px 16px rgba(0,0,0,.12);
+    border: 1px solid #ddd;
+  }
+
+  #etractionGiftPreviewCard img {
+    width: 100%;
+    display: block;
+    background: #fff;
+  }
+
+  #etractionGiftPreviewName {
+    background: linear-gradient(transparent, rgba(0,0,0,.76));
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    text-align: left;
+    padding: 20px 8px 8px;
+    margin-top: -42px;
+    min-height: 42px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #etractionGiftStatusTitle {
+    font-size: 17px;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 7px;
+  }
+
+  #etractionGiftStatusText {
+    font-size: 13px;
+    color: #787878;
+    line-height: 1.38;
+    margin: 0 auto 4px;
+    max-width: 320px;
+  }
+
+  #etractionGiftStatusSmall {
+    font-size: 11px;
+    color: #a0a0a0;
+    line-height: 1.35;
+    max-width: 320px;
+    margin: 7px auto 0;
+  }
+
+  #etractionGiftStatusPill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 16px;
+  }
+
+  #etractionGiftStatusPill.is-locked {
+    background: #e1e1e1;
+    color: #8c8c8c;
+  }
+
+  #etractionGiftStatusPill.is-current {
+    background: #16c76a;
+    color: #fff;
+  }
+
+  #etractionGiftStatusPill.is-replaced {
+    background: #e2f7eb;
+    color: #0ea65a;
+  }
+
+  #etractionGiftStatusPill.is-attention {
+    background: #fff4dd;
+    color: #a56a00;
+  }
+
+  .etraction-modal-divider {
+    height: 1px;
+    background: #ececec;
+    margin: 22px 0 16px;
+  }
+
+  .etraction-modal-subtitle {
+    font-size: 12px;
+    color: #9a9a9a;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+
+  #etractionGiftMiniList {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 6px;
+  }
+
+  .etraction-mini-item {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    opacity: .65;
+    transition: .2s ease;
+  }
+
+  .etraction-mini-item.active {
+    opacity: 1;
+  }
+
+  .etraction-mini-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #cfeedd;
+    background: #f3fff8;
+    margin: 0 auto 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+  }
+
+  .etraction-mini-item.active .etraction-mini-circle,
+  .etraction-mini-item.unlocked .etraction-mini-circle {
+    border-color: #16c76a;
+  }
+
+  .etraction-mini-item.replaced .etraction-mini-circle {
+    opacity: .55;
+    border-color: #d8d8d8;
+    background: #f6f6f6;
+  }
+
+  .etraction-mini-percent {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: #16c76a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    border-radius: 999px;
+    padding: 3px 6px;
+    line-height: 1;
+  }
+
+  .etraction-mini-check {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #16c76a;
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+  }
+
+  .etraction-mini-item.current .etraction-mini-check {
+    display: flex;
+  }
+
+  .etraction-mini-label {
+    font-size: 12px;
+    color: #767676;
+    line-height: 1.25;
+  }
+
+  .etraction-mini-status {
+    font-size: 10px;
+    color: #0ea65a;
+    font-weight: 800;
+    margin-top: 4px;
+  }
+
+  .etraction-mini-item.replaced .etraction-mini-status {
+    color: #999;
+  }
+
+  @media (max-width: 768px) {
+    #etractionGiftWidget {
+      left: 12px;
+      bottom: 96px;
+      width: 64px;
+      height: 64px;
+    }
+
+    #etractionGiftWidget::before {
+      font-size: 31px;
+    }
+
+    #etractionGiftBar {
+      left: 12px;
+      right: 12px;
+      bottom: 16px;
+      width: auto;
+      max-width: none;
+    }
+
+    #etractionGiftBar::before {
+      display: none;
+    }
+
+    #etractionGiftModal {
+      max-width: 410px;
+    }
+  }
+</style>
+
+<div id="etractionGiftWidget">
+  <span id="etractionGiftBadge">BRINDE</span>
+  <span id="etractionGiftWidgetCheck">✓</span>
+</div>
+
+<div id="etractionGiftBar">
+  <div id="etractionGiftMessage">Verificando carrinho...</div>
+  <div id="etractionGiftProgressTrack">
+    <div id="etractionGiftProgressBar"></div>
+  </div>
+  <div id="etractionGiftSteps"></div>
+</div>
+
+<div id="etractionGiftOverlay">
+  <div id="etractionGiftModal">
+    <button id="etractionGiftClose">×</button>
+
+    <div class="etraction-modal-content">
+      <div id="etractionGiftModalHeader">
+        <strong>Brindes não cumulativos.</strong><br>
+        Você pode resgatar apenas 1 brinde por pedido. O melhor brinde disponível será considerado o brinde atual.
+      </div>
+
+      <div class="etraction-preview-row">
+        <button class="etraction-arrow" id="etractionGiftPrev">‹</button>
+
+        <div id="etractionGiftPreviewCard">
+          <img id="etractionGiftPreviewImage" src="" alt="">
+          <div id="etractionGiftPreviewName"></div>
+        </div>
+
+        <button class="etraction-arrow" id="etractionGiftNext">›</button>
+      </div>
+
+      <div id="etractionGiftStatusTitle">Carregando...</div>
+      <div id="etractionGiftStatusText"></div>
+      <div id="etractionGiftStatusSmall"></div>
+      <div id="etractionGiftStatusPill" class="is-locked">🔒 Brinde bloqueado</div>
+
+      <div class="etraction-modal-divider"></div>
+      <div class="etraction-modal-subtitle">Veja os níveis de brinde</div>
+      <div id="etractionGiftMiniList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const config = {
+    cartUrl: "/checkout/cart",
+    addUrl: "/checkout/cart",
+    checkInterval: 6000,
+    isCumulative: false,
+    autoAddOnlyHighestGift: true,
+
+    gifts: [
+      {
+        id: 1,
+        minValue: 299.99,
+        name: "KIT PINCEL",
+        shortName: "Kit pincel",
+        code: "04517-Azul",
+        image: "https://nitidojeans.cdn.magazord.com.br/img/2026/02/produto/12354/6.png",
+        payload: {
+          operation: "add",
+          codigo: "04517-Azul",
+          deposito: "1",
+          quantidade: "1",
+          promocaoBrindeId: "8",
+          itemBrindeId: "6",
+          "source[source]": "Brinde",
+          "source[codigoOrigem]": ""
+        }
+      },
+      {
+        id: 2,
+        minValue: 599.99,
+        name: "BOLSA NÍTIDO",
+        shortName: "Bolsa Nítido",
+        code: "03970-7616-UN",
+        image: "https://nitidojeans.cdn.magazord.com.br/img/2025/03/produto/7964/corte-site-1703.png",
+        payload: {
+          operation: "add",
+          codigo: "03970-7616-UN",
+          deposito: "1",
+          quantidade: "1",
+          promocaoBrindeId: "8",
+          itemBrindeId: "2",
+          "source[source]": "Brinde",
+          "source[codigoOrigem]": ""
+        }
+      }
+    ]
+  };
+
+  function stopOldGiftScripts() {
+    if (window.EtractionGiftInterval) {
+      clearInterval(window.EtractionGiftInterval);
+      window.EtractionGiftInterval = null;
+    }
+
+    if (window.EtractionGiftObserver) {
+      window.EtractionGiftObserver.disconnect();
+      window.EtractionGiftObserver = null;
+    }
+
+    if (window.EtractionGiftTimers) {
+      window.EtractionGiftTimers.forEach(clearTimeout);
+      window.EtractionGiftTimers = [];
+    }
+
+    if (window.EtractionGiftClickHandler) {
+      document.removeEventListener("click", window.EtractionGiftClickHandler, true);
+      window.EtractionGiftClickHandler = null;
+    }
+
+    if (window.EtractionGiftNotifyHandler) {
+      document.removeEventListener("click", window.EtractionGiftNotifyHandler, true);
+      window.EtractionGiftNotifyHandler = null;
+    }
+  }
+
+  stopOldGiftScripts();
+
+  const Gift = {
+    isChecking: false,
+    isAddingGift: false,
+    currentIndex: 0,
+    autoAddedCodes: new Set(),
+    notificationTimer: null,
+
+    lastState: {
+      total: 0,
+      currentGift: null,
+      nextGift: config.gifts[0],
+      missing: config.gifts[0].minValue,
+      cartGiftCodes: [],
+      hasAnyGiftInCart: false,
+      hasDifferentGiftInCart: false,
+      differentGiftInCart: null
+    },
+
+    init() {
+      this.renderBottomSteps();
+      this.bindEvents();
+      this.observeUserActions();
+      this.check();
+
+      setTimeout(() => {
+        this.showWidgetNotification(3000);
+      }, 500);
+
+      window.EtractionGiftInterval = setInterval(() => {
+        if (!document.hidden) this.check();
+      }, config.checkInterval);
+
+      console.log("[EtractionGift] pronto - brinde não cumulativo.");
+    },
+
+    bindEvents() {
+      document.getElementById("etractionGiftWidget").addEventListener("click", () => {
+        this.openModal();
+      });
+
+      document.getElementById("etractionGiftClose").addEventListener("click", () => {
+        this.closeModal();
+      });
+
+      document.getElementById("etractionGiftOverlay").addEventListener("click", (event) => {
+        if (event.target.id === "etractionGiftOverlay") {
+          this.closeModal();
+        }
+      });
+
+      document.getElementById("etractionGiftPrev").addEventListener("click", () => {
+        if (this.currentIndex > 0) {
+          this.currentIndex -= 1;
+          this.renderModal();
+        }
+      });
+
+      document.getElementById("etractionGiftNext").addEventListener("click", () => {
+        if (this.currentIndex < config.gifts.length - 1) {
+          this.currentIndex += 1;
+          this.renderModal();
+        }
+      });
+    },
+
+    observeUserActions() {
+      window.EtractionGiftTimers = [];
+
+      const schedule = () => {
+        window.EtractionGiftTimers.forEach(clearTimeout);
+        window.EtractionGiftTimers = [
+          setTimeout(() => this.check(), 700),
+          setTimeout(() => this.check(), 1800),
+          setTimeout(() => this.check(), 3200)
+        ];
+      };
+
+      window.EtractionGiftClickHandler = (event) => {
+        const ignored = event.target.closest(
+          "#etractionGiftWidget, #etractionGiftBar, #etractionGiftOverlay"
+        );
+
+        if (ignored) return;
+
+        const actionable = event.target.closest(
+          ".button-buy, [title='Comprar'], button[type='submit'], .btn-comprar, .botao-comprar, .remover, [class*='remover'], [class*='remove'], [class*='delete'], [class*='excluir'], .qtd-item, [class*='quantidade'], [class*='quantity']"
+        );
+
+        if (actionable) {
+          schedule();
+        }
+      };
+
+      document.addEventListener("click", window.EtractionGiftClickHandler, true);
+
+      window.EtractionGiftNotifyHandler = (event) => {
+        const ignored = event.target.closest(
+          "#etractionGiftWidget, #etractionGiftBar, #etractionGiftOverlay"
+        );
+
+        if (ignored) return;
+
+        const addToCartAction = event.target.closest(
+          ".button-buy, [title='Comprar'], button[type='submit'], .btn-comprar, .botao-comprar, [data-add-cart], [data-comprar]"
+        );
+
+        if (!addToCartAction) return;
+
+        setTimeout(() => {
+          this.showWidgetNotification(3000);
+        }, 600);
+      };
+
+      document.addEventListener("click", window.EtractionGiftNotifyHandler, true);
+    },
+
+    showWidgetNotification(duration) {
+      const bar = document.getElementById("etractionGiftBar");
+
+      if (!bar) return;
+
+      clearTimeout(this.notificationTimer);
+
+      bar.classList.add("is-visible");
+
+      this.notificationTimer = setTimeout(() => {
+        bar.classList.remove("is-visible");
+      }, duration || 3000);
+    },
+
+    hideWidgetNotification() {
+      const bar = document.getElementById("etractionGiftBar");
+
+      if (!bar) return;
+
+      clearTimeout(this.notificationTimer);
+      bar.classList.remove("is-visible");
+    },
+
+    async check() {
+      if (this.isChecking) return;
+
+      this.isChecking = true;
+
+      try {
+        const cart = await this.getCartFromCheckout();
+
+        const currentGift = this.getCurrentGift(cart.total);
+        const nextGift = this.getNextGift(cart.total);
+        const missing = nextGift ? Math.max(nextGift.minValue - cart.total, 0) : 0;
+
+        const giftInCart = this.getGiftInCartByCodes(cart.giftCodes);
+        const hasAnyGiftInCart = !!giftInCart;
+        const hasDifferentGiftInCart = !!(currentGift && giftInCart && giftInCart.code !== currentGift.code);
+
+        this.lastState = {
+          total: cart.total,
+          currentGift,
+          nextGift,
+          missing,
+          cartGiftCodes: cart.giftCodes,
+          hasAnyGiftInCart,
+          hasDifferentGiftInCart,
+          differentGiftInCart: hasDifferentGiftInCart ? giftInCart : null,
+          source: cart.source
+        };
+
+        await this.autoAddCurrentGift();
+
+        this.setSuggestedIndex();
+        this.updateWidget();
+        this.renderModal();
+
+        console.log("[EtractionGift]", this.lastState);
+      } catch (error) {
+        console.warn("[EtractionGift] erro:", error);
+      } finally {
+        this.isChecking = false;
+      }
+    },
+
+    async autoAddCurrentGift() {
+      const gift = this.lastState.currentGift;
+
+      if (!gift) return;
+
+      const normalizedCode = this.normalize(gift.code);
+      const alreadyCurrentGiftInCart = this.lastState.cartGiftCodes.includes(normalizedCode);
+      const alreadyTried = this.autoAddedCodes.has(normalizedCode);
+
+      if (alreadyCurrentGiftInCart || alreadyTried) return;
+
+      /*
+        Como a promoção não é cumulativa, se já existe outro brinde no carrinho,
+        não tentamos adicionar outro por cima. A mensagem orienta a troca no carrinho.
+      */
+      if (this.lastState.hasDifferentGiftInCart) return;
+
+      this.autoAddedCodes.add(normalizedCode);
+
+      await this.addGiftToCart(gift);
+
+      const updatedCart = await this.getCartFromCheckout();
+
+      this.lastState.cartGiftCodes = updatedCart.giftCodes;
+
+      const updatedGiftInCart = this.getGiftInCartByCodes(updatedCart.giftCodes);
+
+      this.lastState.hasAnyGiftInCart = !!updatedGiftInCart;
+      this.lastState.hasDifferentGiftInCart = !!(
+        this.lastState.currentGift &&
+        updatedGiftInCart &&
+        updatedGiftInCart.code !== this.lastState.currentGift.code
+      );
+      this.lastState.differentGiftInCart = this.lastState.hasDifferentGiftInCart ? updatedGiftInCart : null;
+    },
+
+    async getCartFromCheckout() {
+      const response = await fetch(config.cartUrl + "?_=" + Date.now(), {
+        method: "GET",
+        credentials: "include",
+        cache: "no-store"
+      });
+
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+
+      const totalData = this.findCartTotal(doc);
+
+      return {
+        total: totalData.total,
+        source: totalData.source,
+        giftCodes: this.findGiftCodesInCart(doc)
+      };
+    },
+
+    findCartTotal(doc) {
+      const summaryValue = doc.querySelector("#resumo-compra .item-resumo.resumo-valores .value");
+
+      if (summaryValue) {
+        const value = this.extractFirstMoney(summaryValue.textContent);
+
+        if (value > 0) {
+          return {
+            total: value,
+            source: "#resumo-compra .item-resumo.resumo-valores .value"
+          };
+        }
+      }
+
+      const summaryLine = doc.querySelector("#resumo-compra .item-resumo.resumo-valores");
+
+      if (summaryLine) {
+        const value = this.extractFirstMoney(summaryLine.textContent);
+
+        if (value > 0) {
+          return {
+            total: value,
+            source: "#resumo-compra .item-resumo.resumo-valores"
+          };
+        }
+      }
+
+      const itemValues = Array.from(
+        doc.querySelectorAll("#cart-items .cart-item .column-valor-produto .valor")
+      ).map((el) => this.extractFirstMoney(el.textContent)).filter(Boolean);
+
+      if (itemValues.length) {
+        return {
+          total: itemValues.reduce((acc, cur) => acc + cur, 0),
+          source: "#cart-items .cart-item .column-valor-produto .valor"
+        };
+      }
+
+      return {
+        total: 0,
+        source: "not-found"
+      };
+    },
+
+    findGiftCodesInCart(doc) {
+      const cartText = this.normalize(
+        Array.from(doc.querySelectorAll("#cart-items .cart-item"))
+          .map((item) => item.textContent || "")
+          .join(" ")
+      );
+
+      return config.gifts
+        .filter((gift) => {
+          return cartText.includes(this.normalize(gift.code)) ||
+            cartText.includes(this.normalize(gift.name)) ||
+            cartText.includes(this.normalize(gift.shortName));
+        })
+        .map((gift) => this.normalize(gift.code));
+    },
+
+    getGiftInCartByCodes(codes) {
+      if (!codes || !codes.length) return null;
+
+      return config.gifts.find((gift) => {
+        return codes.includes(this.normalize(gift.code));
+      }) || null;
+    },
+
+    getCurrentGift(total) {
+      return config.gifts
+        .filter((gift) => total >= gift.minValue)
+        .sort((a, b) => b.minValue - a.minValue)[0] || null;
+    },
+
+    getNextGift(total) {
+      return config.gifts
+        .filter((gift) => total < gift.minValue)
+        .sort((a, b) => a.minValue - b.minValue)[0] || null;
+    },
+
+    setSuggestedIndex() {
+      if (this.lastState.currentGift) {
+        const idx = config.gifts.findIndex((gift) => gift.code === this.lastState.currentGift.code);
+
+        if (idx >= 0) {
+          this.currentIndex = idx;
+          return;
+        }
+      }
+
+      if (this.lastState.nextGift) {
+        const idx = config.gifts.findIndex((gift) => gift.code === this.lastState.nextGift.code);
+
+        if (idx >= 0) {
+          this.currentIndex = idx;
+        }
+      }
+    },
+
+    getGiftStatus(gift, state) {
+      const total = state.total || 0;
+      const currentGift = state.currentGift;
+      const unlocked = total >= gift.minValue;
+      const currentGiftInCart = state.cartGiftCodes.includes(this.normalize(gift.code));
+
+      if (!unlocked) {
+        return {
+          type: "locked",
+          title: "Brinde bloqueado",
+          text: `Falta apenas ${this.formatMoney(gift.minValue - total)} para liberar ${gift.shortName}.`,
+          small: "Apenas um brinde pode ser resgatado por pedido.",
+          pill: "🔒 Bloqueado"
+        };
+      }
+
+      if (currentGift && currentGift.code !== gift.code) {
+        return {
+          type: "replaced",
+          title: "Brinde substituído",
+          text: `Você atingiu um nível maior. Seu brinde atual é ${currentGift.shortName}.`,
+          small: "Como os brindes não são cumulativos, o brinde de menor nível é substituído pelo melhor brinde disponível.",
+          pill: "↗ Substituído pelo premium"
+        };
+      }
+
+      if (state.hasDifferentGiftInCart && state.differentGiftInCart) {
+        return {
+          type: "attention",
+          title: "Brinde premium liberado",
+          text: `${gift.shortName} é o melhor brinde disponível para seu carrinho.`,
+          small: `Você já possui ${state.differentGiftInCart.shortName} no carrinho. Como os brindes não são cumulativos, remova o brinde anterior no carrinho para selecionar este.`,
+          pill: "⚠ Troque no carrinho"
+        };
+      }
+
+      if (currentGiftInCart) {
+        return {
+          type: "current",
+          title: "Brinde atual",
+          text: `${gift.shortName} já está selecionado para este pedido.`,
+          small: "Brinde adicionado ao carrinho automaticamente. Caso não tenha sido adicionado, prossiga para o carrinho e adicione por lá mesmo.",
+          pill: "✓ Brinde atual"
+        };
+      }
+
+      return {
+        type: "current",
+        title: "Brinde liberado",
+        text: `${gift.shortName} é o melhor brinde disponível para seu carrinho.`,
+        small: "Brinde adicionado ao carrinho automaticamente. Caso não tenha sido adicionado, prossiga para o carrinho e adicione por lá mesmo.",
+        pill: "✓ Melhor brinde disponível"
+      };
+    },
+
+    renderBottomSteps() {
+      const container = document.getElementById("etractionGiftSteps");
+
+      if (!container) return;
+
+      container.innerHTML = config.gifts.map((gift) => {
+        const unlocked = this.lastState.total >= gift.minValue;
+        const current = this.lastState.currentGift && this.lastState.currentGift.code === gift.code;
+
+        return `
+          <div class="etraction-step ${unlocked ? "unlocked" : ""}">
+            <div class="etraction-step-dot"></div>
+            <div>${current ? "Atual" : "R$ " + gift.minValue.toFixed(2).replace(".", ",")}</div>
+          </div>
+        `;
+      }).join("");
+    },
+
+    updateWidget() {
+      const message = document.getElementById("etractionGiftMessage");
+      const progress = document.getElementById("etractionGiftProgressBar");
+      const badge = document.getElementById("etractionGiftBadge");
+      const widget = document.getElementById("etractionGiftWidget");
+
+      if (!message || !progress || !badge || !widget) return;
+
+      const maxValue = Math.max(...config.gifts.map((gift) => gift.minValue));
+      const percent = Math.min((this.lastState.total / maxValue) * 100, 100);
+
+      progress.style.width = percent + "%";
+
+      if (this.lastState.currentGift) {
+        widget.classList.add("has-gift");
+        badge.textContent = this.lastState.currentGift.id === 2 ? "PREMIUM" : "BRINDE";
+      } else {
+        widget.classList.remove("has-gift");
+        badge.textContent = "BRINDE";
+      }
+
+      if (this.lastState.total <= 0) {
+        message.innerHTML = `Adicione produtos ao carrinho para liberar seu <strong>brinde grátis</strong>.`;
+      } else if (this.lastState.currentGift && this.lastState.nextGift) {
+        message.innerHTML = `<strong>${this.lastState.currentGift.shortName}</strong> liberado. Adicione mais <strong>${this.formatMoney(this.lastState.missing)}</strong> para trocar pela <strong>${this.lastState.nextGift.shortName}</strong>.`;
+      } else if (this.lastState.currentGift && !this.lastState.nextGift) {
+        message.innerHTML = `<strong>Brinde premium liberado:</strong> ${this.lastState.currentGift.shortName}. Você garantiu o melhor brinde disponível.`;
+      } else {
+        message.innerHTML = `Falta <strong>${this.formatMoney(this.lastState.missing)}</strong> para liberar seu primeiro brinde: <strong>${this.lastState.nextGift.shortName}</strong>.`;
+      }
+
+      this.renderBottomSteps();
+    },
+
+    renderModal() {
+      const gift = config.gifts[this.currentIndex];
+
+      if (!gift) return;
+
+      const status = this.getGiftStatus(gift, this.lastState);
+
+      const previewImage = document.getElementById("etractionGiftPreviewImage");
+      const previewName = document.getElementById("etractionGiftPreviewName");
+      const title = document.getElementById("etractionGiftStatusTitle");
+      const text = document.getElementById("etractionGiftStatusText");
+      const small = document.getElementById("etractionGiftStatusSmall");
+      const pill = document.getElementById("etractionGiftStatusPill");
+      const prev = document.getElementById("etractionGiftPrev");
+      const next = document.getElementById("etractionGiftNext");
+      const miniList = document.getElementById("etractionGiftMiniList");
+
+      previewImage.src = gift.image;
+      previewImage.alt = gift.name;
+      previewName.textContent = gift.name;
+
+      title.textContent = status.title;
+      text.textContent = status.text;
+      small.textContent = status.small || "";
+      pill.textContent = status.pill;
+
+      pill.className = "";
+      pill.id = "etractionGiftStatusPill";
+      pill.classList.add(
+        status.type === "locked" ? "is-locked" :
+        status.type === "replaced" ? "is-replaced" :
+        status.type === "attention" ? "is-attention" : "is-current"
+      );
+
+      prev.disabled = this.currentIndex === 0;
+      next.disabled = this.currentIndex === config.gifts.length - 1;
+
+      miniList.innerHTML = config.gifts.map((item, index) => {
+        const percent = Math.min(Math.round((this.lastState.total / item.minValue) * 100), 100);
+        const unlocked = this.lastState.total >= item.minValue;
+        const active = index === this.currentIndex;
+        const current = this.lastState.currentGift && this.lastState.currentGift.code === item.code;
+        const replaced = unlocked && this.lastState.currentGift && this.lastState.currentGift.code !== item.code;
+
+        let statusLabel = "Bloqueado";
+
+        if (current) {
+          statusLabel = "Brinde atual";
+        } else if (replaced) {
+          statusLabel = "Substituído";
+        } else if (unlocked) {
+          statusLabel = "Liberado";
+        }
+
+        return `
+          <div class="etraction-mini-item ${active ? "active" : ""} ${unlocked ? "unlocked" : ""} ${current ? "current" : ""} ${replaced ? "replaced" : ""}" data-gift-index="${index}">
+            <div class="etraction-mini-circle">
+              🎁
+              <span class="etraction-mini-percent">${percent > 0 ? percent : 0}%</span>
+              <span class="etraction-mini-check">✓</span>
+            </div>
+            <div class="etraction-mini-label">
+              Acima de<br>R$ ${item.minValue.toFixed(2).replace(".", ",")}
+            </div>
+            <div class="etraction-mini-status">${statusLabel}</div>
+          </div>
+        `;
+      }).join("");
+
+      miniList.querySelectorAll(".etraction-mini-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          this.currentIndex = Number(item.getAttribute("data-gift-index"));
+          this.renderModal();
+        });
+      });
+    },
+
+    openModal() {
+      this.renderModal();
+      document.getElementById("etractionGiftOverlay").classList.add("is-active");
+    },
+
+    closeModal() {
+      document.getElementById("etractionGiftOverlay").classList.remove("is-active");
+    },
+
+    async addGiftToCart(gift) {
+      if (this.isAddingGift) return false;
+
+      this.isAddingGift = true;
+
+      try {
+        const body = new URLSearchParams();
+
+        Object.keys(gift.payload).forEach((key) => {
+          body.append(key, gift.payload[key]);
+        });
+
+        const response = await fetch(config.addUrl, {
+          method: "POST",
+          credentials: "include",
+          cache: "no-store",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body: body.toString()
+        });
+
+        const text = await response.text();
+
+        console.log("[EtractionGift] addGiftToCart", {
+          gift: gift.name,
+          status: response.status,
+          ok: response.ok,
+          preview: text.slice(0, 250)
+        });
+
+        return response.ok;
+      } catch (error) {
+        console.warn("[EtractionGift] erro ao adicionar brinde:", error);
+        return false;
+      } finally {
+        this.isAddingGift = false;
+      }
+    },
+
+    extractFirstMoney(text) {
+      const match = String(text || "").match(/R\$\s?[\d.]+,\d{2}/);
+      return match ? this.parseMoney(match[0]) : 0;
+    },
+
+    parseMoney(text) {
+      return Number(
+        String(text || "")
+          .replace(/\s/g, "")
+          .replace("R$", "")
+          .replace(/\./g, "")
+          .replace(",", ".")
+          .replace(/[^\d.]/g, "")
+      ) || 0;
+    },
+
+    formatMoney(value) {
+      return Number(value || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    },
+
+    normalize(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    },
+
+    async debug() {
+      await this.check();
+      console.log("Estado atual:", this.lastState);
+      console.log("Brinde exibido:", config.gifts[this.currentIndex]);
+      console.log("Tentativas automáticas:", Array.from(this.autoAddedCodes));
+    }
+  };
+
+  window.EtractionGift = Gift;
+  Gift.init();
+})();
+</script>

@@ -1,0 +1,590 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap");
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bt-black: #0a0a0a;
+    --bt-dark: #111111;
+    --bt-surface: #1a1a1a;
+    --bt-border: #2a2a2a;
+    --bt-accent: #e03030;
+    --bt-text: #ffffff;
+    --bt-radius: 12px;
+    --bt-radius-lg: 20px;
+    --bt-shadow: 0 32px 80px rgba(0, 0, 0, 0.85);
+    --bt-font-head: "Bebas Neue", sans-serif;
+    --bt-font-body: "DM Sans", sans-serif;
+    --bt-z-modal: 9999;
+  }
+
+  /* Estilos do Modal */
+  .etraction-bt-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: var(--bt-z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.35s ease,
+      visibility 0.35s ease;
+  }
+
+  .etraction-bt-modal-backdrop.etraction-is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .etraction-bt-modal {
+    background: var(--bt-dark);
+    border: 1px solid #2a2a2a;
+    border-radius: var(--bt-radius-lg);
+    box-shadow: var(--bt-shadow);
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: var(--bt-font-body);
+    color: var(--bt-text);
+  }
+
+  .etraction-bt-modal-backdrop.etraction-is-open .etraction-bt-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .etraction-bt-modal__header {
+    position: relative;
+    padding: 28px 28px 0;
+    text-align: center;
+  }
+
+  .etraction-bt-modal__close {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--bt-border);
+    background: transparent;
+    color: #dddddd;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+
+  .etraction-bt-modal__close:hover {
+    transform: rotate(90deg);
+    color: #fff;
+  }
+
+  .etraction-bt-timer-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-bottom: 18px;
+  }
+
+  .etraction-bt-timer-count {
+    font-family: var(--bt-font-head);
+    font-size: 20px;
+    color: var(--bt-accent);
+    letter-spacing: 2px;
+  }
+
+  .etraction-bt-modal__headline {
+    font-family: var(--bt-font-head);
+    font-size: 34px;
+    letter-spacing: 1px;
+    line-height: 1.05;
+    margin-bottom: 10px;
+  }
+  .etraction-bt-modal__headline em {
+    color: var(--bt-accent);
+    font-style: normal;
+  }
+
+  .etraction-bt-modal__body {
+    padding: 0 24px 28px;
+  }
+
+  /* Grid de Cartas */
+  .etraction-bt-coupons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .etraction-bt-coupon-card {
+    position: relative;
+    border-radius: var(--bt-radius);
+    aspect-ratio: 3/4;
+    border: 1.5px solid #252525;
+    cursor: pointer;
+    background: #141414;
+    transition:
+      transform 0.2s,
+      border-color 0.2s;
+    overflow: hidden;
+  }
+
+  .etraction-bt-coupon-card:hover:not(.etraction-is-disabled) {
+    transform: translateY(-4px);
+    border-color: var(--bt-accent);
+  }
+
+  .etraction-bt-coupon-card.etraction-is-revealed
+    .etraction-bt-coupon-card__back {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .etraction-bt-coupon-card.etraction-is-disabled {
+    opacity: 0.3;
+    filter: grayscale(1);
+    cursor: default;
+  }
+
+  .etraction-bt-coupon-card__back,
+  .etraction-bt-coupon-card__front {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .etraction-bt-coupon-card__back {
+    background: linear-gradient(160deg, #1c1c1c, #111111);
+    z-index: 2;
+    transition: opacity 0.4s;
+  }
+  .etraction-bt-coupon-card__front {
+    background: #1a1a1a;
+    border: 1.5px solid var(--bt-accent);
+    z-index: 1;
+  }
+
+  .etraction-bt-coupon-card__prize-value {
+    font-family: var(--bt-font-head);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  /* Reveal Zone */
+  .etraction-bt-coupon-reveal-zone {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    animation: slideUp 0.4s ease forwards;
+  }
+  .etraction-bt-coupon-reveal-zone.etraction-is-visible {
+    display: flex;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .etraction-bt-coupon-display {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a;
+    border: 1.5px solid var(--bt-accent);
+    border-radius: 10px;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .etraction-bt-coupon-display__code {
+    flex: 1;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bt-accent);
+    letter-spacing: 2px;
+  }
+
+  .etraction-bt-copy-btn,
+  .etraction-bt-cta-btn {
+    background: var(--bt-accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition:
+      background 0.2s,
+      transform 0.1s;
+  }
+
+  .etraction-bt-copy-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  .etraction-bt-copy-btn.etraction-is-copied {
+    background: #27ae60;
+  }
+  .etraction-bt-cta-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+
+  .etraction-bt-dismiss-link {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    background: none;
+    border: none;
+    width: 100%;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+
+  .etraction-bt-social-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 15px;
+  }
+  .etraction-bt-social-proof__dot {
+    width: 8px;
+    height: 8px;
+    background: var(--bt-accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(224, 48, 48, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(224, 48, 48, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(224, 48, 48, 0);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .etraction-bt-modal-backdrop {
+      align-items: flex-end;
+      padding: 0;
+    }
+    .etraction-bt-modal {
+      border-radius: 20px 20px 0 0;
+      transform: translateY(100%);
+    }
+  }
+</style>
+
+<div class="etraction-bt-modal-backdrop" id="js-bt-modal-backdrop">
+  <div class="etraction-bt-modal">
+    <div class="etraction-bt-modal__header">
+      <div class="etraction-bt-timer-bar">
+        <span>🔥 Oferta expira em</span>
+        <span class="etraction-bt-timer-count" id="js-bt-timer">05:00</span>
+      </div>
+
+      <div class="etraction-bt-social-proof">
+        <span class="etraction-bt-social-proof__dot"></span>
+        <span
+          ><span id="js-social-num">29</span> pessoas finalizando agora</span
+        >
+      </div>
+
+      <h2 class="etraction-bt-modal__headline">
+        Espera.<br /><em>Temos algo</em><br />para você.
+      </h2>
+      <p style="font-size: 14px; color: #ccc; margin-bottom: 20px">
+        Escolha uma das cartas abaixo para liberar seu benefício exclusivo.
+      </p>
+
+      <button class="etraction-bt-modal__close" id="js-bt-modal-close">
+        ✕
+      </button>
+    </div>
+
+    <div class="etraction-bt-modal__body">
+      <div class="etraction-bt-coupons-grid">
+        <div
+          class="etraction-bt-coupon-card"
+          data-coupon="ofertadodia1245"
+          data-label="5% OFF"
+          data-emoji="🎯"
+        >
+          <div class="etraction-bt-coupon-card__back">
+            <span>🎁</span><small>Oferta #1</small>
+          </div>
+          <div class="etraction-bt-coupon-card__front">
+            <span style="font-size: 24px">🎯</span>
+            <span class="etraction-bt-coupon-card__prize-value">5% OFF</span>
+          </div>
+        </div>
+        <div
+          class="etraction-bt-coupon-card"
+          data-coupon="ofertadodia1245"
+          data-label="5% OFF"
+          data-emoji="⭐"
+        >
+          <div class="etraction-bt-coupon-card__back">
+            <span>🎁</span><small>Oferta #2</small>
+          </div>
+          <div class="etraction-bt-coupon-card__front">
+            <span style="font-size: 24px">⭐</span>
+            <span class="etraction-bt-coupon-card__prize-value">5% OFF</span>
+          </div>
+        </div>
+        <div
+          class="etraction-bt-coupon-card"
+          data-coupon="ofertadodia1245"
+          data-label="5% OFF"
+          data-emoji="💎"
+        >
+          <div class="etraction-bt-coupon-card__back">
+            <span>🎁</span><small>Oferta #3</small>
+          </div>
+          <div class="etraction-bt-coupon-card__front">
+            <span style="font-size: 24px">💎</span>
+            <span class="etraction-bt-coupon-card__prize-value">5% OFF</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="etraction-bt-coupon-reveal-zone" id="js-reveal-zone">
+        <p style="text-align: center; font-size: 13px">
+          🎉 <strong>Excelente escolha!</strong> Cupom liberado:
+        </p>
+        <div class="etraction-bt-coupon-display">
+          <span
+            class="etraction-bt-coupon-display__code"
+            id="js-coupon-code-display"
+            >ofertadodia1245</span
+          >
+          <button class="etraction-bt-copy-btn" id="js-copy-btn">Copiar</button>
+        </div>
+      </div>
+
+      <button class="etraction-bt-cta-btn" id="js-bt-cta">
+        FINALIZAR MINHA COMPRA →
+      </button>
+      <button class="etraction-bt-dismiss-link" id="js-dismiss-link">
+        Não quero desconto, prefiro pagar valor cheio
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Script 1: Lógica do Modal de Retenção
+  (function BT_RetentionSystem() {
+    const CONFIG = {
+      coupon: "ofertadodia1245",
+      displayDelay: 40,
+      timerSeconds: 40,
+      storageKey: "bt_last_coupon",
+    };
+
+    let state = {
+      isOpen: false,
+      revealed: false,
+      timeLeft: CONFIG.timerSeconds,
+    };
+
+    const el = {
+      backdrop: document.getElementById("js-bt-modal-backdrop"),
+      timer: document.getElementById("js-bt-timer"),
+      copyBtn: document.getElementById("js-copy-btn"),
+      revealZone: document.getElementById("js-reveal-zone"),
+      cards: document.querySelectorAll(".etraction-bt-coupon-card"),
+      close: document.getElementById("js-bt-modal-close"),
+      dismiss: document.getElementById("js-dismiss-link"),
+      cta: document.getElementById("js-bt-cta"),
+    };
+
+    function openModal() {
+      // Verifica se está na página de checkout
+      if (!window.location.href.includes("checkout/onepage")) {
+        return;
+      }
+      if (state.isOpen || sessionStorage.getItem("bt_modal_viewed")) return;
+      state.isOpen = true;
+      el.backdrop.classList.add("etraction-is-open");
+      sessionStorage.setItem("bt_modal_viewed", "true");
+      startTimer();
+    }
+
+    function closeModal() {
+      el.backdrop.classList.remove("etraction-is-open");
+      state.isOpen = false;
+    }
+
+    function startTimer() {
+      const countdown = setInterval(() => {
+        state.timeLeft--;
+        let min = Math.floor(state.timeLeft / 60);
+        let sec = state.timeLeft % 60;
+        el.timer.textContent = `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+        if (state.timeLeft <= 0) clearInterval(countdown);
+      }, 1000);
+    }
+
+    // Função de aplicar diretamente (caso o usuário esteja na página de checkout/carrinho)
+    function autoApplyIfInCart(couponCode) {
+      const discountInput = document.getElementById("cupom-desconto");
+      if (discountInput) {
+        discountInput.value = couponCode;
+        discountInput.dispatchEvent(new Event("input", { bubbles: true }));
+        discountInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+        const applyButton = document.querySelector(".aplicar-desconto");
+        if (applyButton) {
+          applyButton.click();
+        } else if (
+          typeof Zord !== "undefined" &&
+          Zord.checkout &&
+          typeof Zord.checkout.addCupomDesconto === "function"
+        ) {
+          Zord.checkout.addCupomDesconto();
+        }
+      }
+    }
+
+    // Lógica de Revelar e Salvar no LocalStorage
+    el.cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        if (state.revealed) return;
+        state.revealed = true;
+
+        card.classList.add("etraction-is-revealed");
+        el.cards.forEach((c) => {
+          if (c !== card) c.classList.add("etraction-is-disabled");
+        });
+
+        el.revealZone.classList.add("etraction-is-visible");
+
+        // SALVAR NO LOCALSTORAGE AO REVELAR
+        localStorage.setItem(CONFIG.storageKey, CONFIG.coupon);
+
+        // Tenta aplicar no input instantaneamente se ele já estiver visível na página
+        autoApplyIfInCart(CONFIG.coupon);
+      });
+    });
+
+    // Lógica de Copiar
+    el.copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(CONFIG.coupon).then(() => {
+        el.copyBtn.textContent = "✓ SALVO!";
+        el.copyBtn.classList.add("etraction-is-copied");
+
+        // Reforça o salvamento no localStorage
+        localStorage.setItem(CONFIG.storageKey, CONFIG.coupon);
+
+        setTimeout(() => {
+          el.copyBtn.textContent = "Copiar";
+          el.copyBtn.classList.remove("etraction-is-copied");
+        }, 2000);
+      });
+    });
+
+    // Triggers
+    setTimeout(openModal, CONFIG.displayDelay * 1000);
+
+    // Exit Intent (Desktop)
+    document.addEventListener("mouseleave", (e) => {
+      if (e.clientY < 0) openModal();
+    });
+
+    // Eventos Básicos
+    // Eventos Básicos
+    el.close.onclick = closeModal;
+    el.dismiss.onclick = closeModal;
+
+    el.cta.onclick = () => {
+      // 1. Salva o cupom se o usuário tiver revelado a carta
+      if (state.revealed) {
+        localStorage.setItem(CONFIG.storageKey, CONFIG.coupon);
+      }
+
+      // 2. Opcional: fecha o modal (pode remover se o redirecionamento for rápido)
+      closeModal();
+
+      // 3. Redireciona o usuário para o carrinho/checkout
+      window.location.href = "https://www.blacktarg.com.br/checkout/onepage";
+    };
+  })();
+</script>
+
+<script>
+  // Script 2: Auto-Preencher ao Carregar a Página
+  // Executa assim que a página carregar caso o cliente já tenha pego o cupom antes
+  document.addEventListener("DOMContentLoaded", function () {
+    const savedCoupon = localStorage.getItem("bt_last_coupon");
+
+    if (savedCoupon) {
+      const discountInput = document.getElementById("cupom-desconto");
+
+      if (discountInput) {
+        // Insere o valor no campo
+        discountInput.value = savedCoupon;
+
+        // Dispara os eventos para a plataforma reconhecer a digitação
+        discountInput.dispatchEvent(new Event("input", { bubbles: true }));
+        discountInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+        // Busca o botão de aplicar usando a classe fornecida
+        const applyButton = document.querySelector(".aplicar-desconto");
+
+        if (applyButton) {
+          applyButton.click();
+        } else if (
+          typeof Zord !== "undefined" &&
+          Zord.checkout &&
+          typeof Zord.checkout.addCupomDesconto === "function"
+        ) {
+          Zord.checkout.addCupomDesconto();
+        }
+      }
+    }
+  });
+</script>

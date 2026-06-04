@@ -1,0 +1,399 @@
+<section class="promo-info">
+    <div class="promo-infomain">
+        <div class="promo-infotitle"><span style="color: #000000;">SALE</span><br /><span
+                style="color: #000000;">AT&Eacute; 70% off</span></div>
+    </div>
+</section>
+<style>
+    <!--
+    /* ====== Informativo de campanha ====== */
+    .promo-info {
+        padding: 18px 16px;
+        text-align: center;
+        background-color: #F1F1F1 !important;
+        /* fundo preto */
+        color: #000;
+        /* texto branco */
+    }
+
+    .promo-infotitle {
+        margin: 0 0 6px;
+        font-size: clamp(18px, 2.2vw, 28px);
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: .02em;
+        color: #f1F1F1;
+        /* título branco */
+        text-transform: uppercase;
+    }
+
+    .promo-infodesc {
+        margin: 0 auto;
+        max-width: 900px;
+        font-size: clamp(12px, 1.3vw, 14px);
+        line-height: 1.6;
+        color: #000;
+        /* descrição branca */
+    }
+    -->
+</style>
+<!-- TIMER DIÁRIO (só números + frase, preto) -->
+<div class="mz-timer">
+    <div class="mz-timer__digits"><span style="color: #333333; font-size: 18pt;"><span class="mz-group mz-group--hours">
+                <span class="mz-num" data-unit="hours">00</span><span class="mz-sep">:</span> </span> <span
+                class="mz-group mz-group--minutes"> <span class="mz-num" data-unit="minutes">00</span><span
+                    class="mz-sep">:</span> </span> <span class="mz-group mz-group--seconds"> <span class="mz-num"
+                    data-unit="seconds">00</span> </span></span></div>
+    <div class="mz-timer__note"><span style="color: #333333;">Restam poucas horas</span></div>
+</div>
+<style>
+    <!--
+    /* ===== Visual minimalista (preto, sem fundo/borda) ===== */
+    .mz-timer {
+        --mz-color: #f1F1F1;
+        display: block;
+        margin: 8px auto;
+        width: 100%;
+        max-width: 560px;
+        text-align: center;
+    }
+
+    /* Números */
+    .mz-timer__digits {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 0;
+        line-height: 1;
+        margin-bottom: 6px;
+        font-weight: 800;
+        letter-spacing: .04em;
+        font-variant-numeric: tabular-nums;
+        color: var(--mz-color);
+        font-size: clamp(20px, 6vw, 40px);
+    }
+
+    .mz-group {
+        display: inline-flex;
+        align-items: baseline;
+    }
+
+    .mz-num {
+        display: inline-block;
+        min-width: 2ch;
+        text-align: center;
+    }
+
+    .mz-sep {
+        display: inline-block;
+        padding: 0 .28ch;
+        opacity: .9;
+    }
+
+    /* Frase abaixo */
+    .mz-timer__note {
+        font-size: clamp(12px, 3.2vw, 14px);
+        color: var(--mz-color);
+        font-weight: 600;
+    }
+
+    /* Ajustes mobile */
+    @media (max-width: 480px) {
+        .mz-timer__digits {
+            font-size: clamp(18px, 7vw, 32px);
+            letter-spacing: .02em;
+        }
+
+        .mz-sep {
+            padding: 0 .22ch;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .mz-timer__digits {
+            font-size: clamp(16px, 8vw, 28px);
+        }
+    }
+
+    /* Modo compacto: esconde “dias” quando faltar espaço */
+    .mz-compact .mz-group--days {
+        display: none;
+    }
+
+    .mz-compact .mz-group--hours .mz-sep {
+        padding-left: 0;
+    }
+    -->
+</style>
+<script>// <![CDATA[
+    function updateTimer() {
+        const now = new Date();
+        // Define a meia-noite do dia atual 
+        const midnight = new Date(now);
+        midnight.setHours(23, 59, 59, 999);
+        // Calcula a diferença em milissegundos 
+        let diff = midnight - now; if (diff < 0) diff = 0;
+        // Evita valores negativos (no caso de ultrapassar meia-noite)
+        const h = Math.floor((diff / 1000 / 60 / 60) % 24);
+        const m = Math.floor((diff / 1000 / 60) % 60);
+        const s = Math.floor((diff / 1000) % 60);
+        // Atualiza os números no timer 
+        document.querySelector('[data-unit="hours"]').textContent = String(h).padStart(2, '0');
+        document.querySelector('[data-unit="minutes"]').textContent = String(m).padStart(2, '0');
+        document.querySelector('[data-unit="seconds"]').textContent = String(s).padStart(2, '0');
+    }
+    // Inicializa o timer imediatamente 
+    updateTimer();
+    // Atualiza a cada segundo
+    setInterval(updateTimer, 1000);
+    // ]]></script>
+<!-- CARROSSEL DE CATEGORIAS -->
+<div class="risty-track"><!-- CONJUNTOS (AGORA PRIMEIRO) -->
+    <div class="risty-card" style="text-align: center;"><a href="/sale?categoria=14"> <img class="risty-cat-img"
+                src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1799/01-conjunto-feminino-fitness-calca-e-cropped-luna-verde-militar-risty.jpeg?ims=726x1100"
+                alt="Conjuntos" /> <span class="risty-cat-title">Conjuntos</span> </a></div>
+    <div class="risty-card" style="text-align: center;"><a href="https://www.risty.com.br/sale?categoria=7"> <img
+                class="risty-cat-img"
+                src="https://risty.cdn.magazord.com.br/img/2024/02/produto/1053/18-top-acqua.jpeg?ims=726x1100"
+                alt="Tops" /> <span class="risty-cat-title">Tops</span> </a></div>
+    <div class="risty-card" style="text-align: center;"><a href="https://www.risty.com.br/sale?categoria=8"> <img
+                class="risty-cat-img"
+                src="https://risty.cdn.magazord.com.br/img/2024/02/produto/1059/02-shorts-acqua.jpeg?ims=726x1100"
+                alt="Shorts" /> <span class="risty-cat-title">Shorts</span> </a></div>
+    <div class="risty-card" style="text-align: center;"><a href="https://www.risty.com.br/sale?categoria=9"> <img
+                class="risty-cat-img"
+                src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1698/02-conjunto-feminino-fitness-calca-e-top-color-duo-preto-c-branco-risty.jpeg"
+                alt="Leggings" /> <span class="risty-cat-title">Leggings</span> </a></div>
+    <div class="risty-card"><a href="/sale?categoria=10"> <img class="risty-cat-img"
+                style="display: block; margin-left: auto; margin-right: auto;"
+                src="https://risty.cdn.magazord.com.br/img/2024/02/produto/1120/18-camiseta-over-risty-preto-p.jpeg?ims=726x1100"
+                alt="Sobreposi&ccedil;&otilde;es" /> <span class="risty-cat-title">Sobreposi&ccedil;&otilde;es</span>
+        </a></div>
+</div>
+<p></p>
+<style>
+    <!--
+    :root {
+        --visibles: 5;
+        /* 5 categorias no desktop */
+    }
+
+    /* Agora mostra 3 no mobile */
+    @media (max-width: 768px) {
+        :root {
+            --visibles: 3;
+        }
+    }
+
+    .risty-carousel {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding: 0;
+    }
+
+    .risty-viewport {
+        overflow-x: auto;
+        scroll-behavior: smooth;
+    }
+
+    .risty-track {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        padding: 2px 0;
+    }
+
+    /* Desktop centralizado */
+    @media (min-width: 769px) {
+        .risty-track {
+            justify-content: center;
+        }
+    }
+
+    /* Mobile vira carrossel */
+    @media (max-width: 768px) {
+        .risty-viewport {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .risty-track {
+            justify-content: flex-start;
+        }
+    }
+
+    .risty-card {
+        flex: 0 0 calc(100% / var(--visibles) - 5px);
+        text-align: center;
+    }
+
+    .risty-cat-img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid #f5f5f5;
+        padding: 5px;
+        display: block;
+        margin: 0 auto;
+        transition: transform 0.3s ease;
+    }
+
+    .risty-cat-img:hover {
+        transform: scale(1.05);
+    }
+
+    .risty-cat-title {
+        display: block;
+        margin-top: 3px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #000;
+    }
+
+    /* ===== Setas (somente mobile) ===== */
+    .risty-arrow {
+        position: absolute;
+        top: 45%;
+        transform: translateY(-50%);
+        background: #00000015;
+        border: none;
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        z-index: 2;
+        transition: background 0.3s;
+    }
+
+    .risty-arrow:hover {
+        background: #00000030;
+    }
+
+    .risty-prev {
+        left: 6px;
+    }
+
+    .risty-next {
+        right: 6px;
+    }
+
+    .risty-arrow::before {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-top: 2px solid #000;
+        border-right: 2px solid #000;
+    }
+
+    .risty-prev::before {
+        transform: rotate(-135deg);
+    }
+
+    .risty-next::before {
+        transform: rotate(45deg);
+    }
+
+    /* Esconde as setas no desktop */
+    @media (min-width: 769px) {
+        .risty-arrow {
+            display: none !important;
+        }
+    }
+
+    /* Ajustes mobile */
+    @media (max-width: 768px) {
+        .risty-cat-img {
+            width: 90px;
+            height: 90px;
+        }
+
+        .risty-cat-title {
+            font-size: 13px;
+            margin-top: 2px;
+        }
+
+        .risty-track {
+            gap: 5px;
+            padding: 2px 0;
+        }
+    }
+    -->
+</style>
+<script>// <![CDATA[
+    (function () {
+        const root = document.querySelector('.risty-carousel');
+        if (!root) return;
+        const viewport = root.querySelector('.risty-viewport');
+        const track = root.querySelector('.risty-track');
+        const prevBtn = root.querySelector('.risty-prev');
+        const nextBtn = root.querySelector('.risty-next');
+        const items = Array.from(track.children);
+        let current = 0;
+        function getVisibles() {
+            const styles = getComputedStyle(document.documentElement);
+            const v = parseFloat(styles.getPropertyValue('--visibles')) || 4; return Math.max(1, Math.floor(v));
+        }
+        function scrollToIndex(idx) {
+            const target = items[idx];
+            if (!target) return;
+            const left = target.offsetLeft - parseFloat(getComputedStyle(track).gap || 0);
+            viewport.scrollTo({ left, behavior: 'smooth' }); current = idx; updateArrows();
+        }
+        function maxIndex() {
+            const v = getVisibles(); return Math.max(0, items.length - v);
+        }
+        function move(dir) {
+            const v = getVisibles();
+            const step = v; let next = current + (dir * step);
+            next = Math.max(0, Math.min(next, maxIndex())); scrollToIndex(next);
+        } function updateArrows() {
+            const m = maxIndex();
+            prevBtn.toggleAttribute('disabled', current <= 0);
+            nextBtn.toggleAttribute('disabled', current >= m);
+        }
+        prevBtn.addEventListener('click', () => move(-1));
+        nextBtn.addEventListener('click', () => move(1));
+        window.addEventListener('resize', () => {
+            current = Math.min(current, maxIndex());
+            scrollToIndex(current);
+        }); updateArrows();
+        scrollToIndex(0);
+    })();
+    // ]]></script>
+<style>
+    <!--
+    /* ====== Informativo de campanha ====== */
+    .promo-info {
+        padding: 18px 16px;
+        text-align: center;
+        background-color: #000;
+        /* fundo preto */
+        color: #fff;
+        /* texto branco */
+    }
+
+    .promo-infotitle {
+        margin: 0 0 6px;
+        font-size: clamp(18px, 2.2vw, 28px);
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: .02em;
+        color: #fff;
+        /* título branco */
+        text-transform: uppercase;
+    }
+
+    .promo-infodesc {
+        margin: 0 auto;
+        max-width: 900px;
+        font-size: clamp(12px, 1.3vw, 14px);
+        line-height: 1.6;
+        color: #fff;
+        /* descrição branca */
+    }
+
+</style>

@@ -1,0 +1,235 @@
+<div class="container-cupom">
+  <div class="cupom-info">
+    <span class="cupom-label">Oferta exclusiva</span>
+
+    <div class="cupom-title">
+      <span class="cupom-percent">10%</span>
+      <span class="cupom-off">OFF</span>
+    </div>
+
+    <span class="cupom-text"> exclusivo para você </span>
+
+    <span class="cupom-subtitle">
+      Válido somente hoje. Use o cupom no checkout e garanta seu desconto.
+    </span>
+  </div>
+
+  <div class="cupom-box">
+    <input id="code" readonly type="text" value="FEMME10" />
+    <span class="cupom-copy-text">clique para copiar</span>
+  </div>
+
+  <div id="copied" class="copied-msg">Cupom copiado!</div>
+</div>
+
+<style>
+  .container-cupom {
+    font-family: Arial, sans-serif;
+    color: #111;
+    background: #fff;
+    border: 1px solid #eadfd6;
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 20px auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(185, 111, 52, 0.08);
+  }
+
+  .container-cupom::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 16px;
+    right: 16px;
+    height: 3px;
+    background: linear-gradient(90deg, #c47434, #f0d1b5, transparent);
+  }
+
+  .cupom-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .cupom-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #c47434;
+    margin-bottom: 14px;
+    position: relative;
+    padding-left: 12px;
+  }
+
+  .cupom-label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: #c47434;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 5px;
+  }
+
+  .cupom-title {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    line-height: 1;
+  }
+
+  .cupom-percent {
+    font-size: 38px;
+    font-weight: 800;
+    color: #c47434;
+  }
+
+  .cupom-off {
+    font-size: 21px;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 4px;
+  }
+
+  .cupom-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: #000;
+    margin-top: 2px;
+  }
+
+  .cupom-subtitle {
+    font-size: 13px;
+    color: #6f6258;
+    margin-top: 6px;
+    line-height: 1.35;
+  }
+
+  .cupom-box {
+    min-width: 155px;
+    border: 1px dashed #c47434;
+    border-radius: 14px;
+    padding: 12px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+    background: #fffaf6;
+  }
+
+  .cupom-box:hover {
+    background: #fff3ea;
+    transform: translateY(-1px);
+  }
+
+  .container-cupom input#code {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #000;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .cupom-copy-text {
+    display: block;
+    font-size: 12px;
+    color: #9b6a45;
+    margin-top: 3px;
+  }
+
+  .copied-msg {
+    display: none;
+    background: #c47434;
+    color: #fff;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 8px;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 12px;
+    z-index: 5;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .container-cupom {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 18px;
+      gap: 16px;
+    }
+
+    .cupom-info {
+      align-items: flex-start;
+    }
+
+    .cupom-box {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .copied-msg {
+      top: 8px;
+      right: 12px;
+    }
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    $(".container-cupom").insertAfter(".lista-carrinho");
+  });
+
+  window.addEventListener("load", () => {
+    const cupom = $(".container-cupom");
+
+    if ($("#cart-area .container-cupom").length == 0) {
+      $(".lista-carrinho").after(cupom);
+    }
+
+    const elem = document.querySelector("#main-cart-area");
+
+    if (elem) {
+      const observer = new MutationObserver(() => {
+        if ($("#cart-area .container-cupom").length == 0) {
+          $(".lista-carrinho").after(cupom);
+        }
+      });
+
+      observer.observe(elem, {
+        childList: true,
+        subtree: true,
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const codeInput = document.getElementById("code");
+    const cupomBox = document.querySelector(".cupom-box");
+    const copiedMsg = document.getElementById("copied");
+
+    function copyCode() {
+      navigator.clipboard.writeText(codeInput.value).then(() => {
+        copiedMsg.style.display = "block";
+
+        setTimeout(() => {
+          copiedMsg.style.display = "none";
+        }, 1800);
+      });
+    }
+
+    codeInput.addEventListener("click", copyCode);
+    cupomBox.addEventListener("click", copyCode);
+  });
+</script>

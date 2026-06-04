@@ -1,0 +1,68 @@
+
+
+
+
+    //colocar css e html dentro do js e utilizar um insertAfter para colocar abaixo de uma div especifica
+    const css = `  .hitzz-promo {
+    font-family: 'Inter', sans-serif;
+    max-width: 100%;
+    margin: 18px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-sizing: border-box;
+    text-align: center;
+    background: #fafafa;
+  }
+
+  .hitzz-promo-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 6px;
+    line-height: 1.3;
+  }
+
+  .hitzz-promo-desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: #555;
+    margin: 0 0 4px;
+    line-height: 1.5;
+  }
+
+  .hitzz-promo-footer {
+    font-size: 11px;
+    color: #999;
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .hitzz-promo {
+      padding: 14px 16px;
+    }
+
+    .hitzz-promo-title {
+      font-size: 14px;
+    }
+
+    .hitzz-promo-desc {
+      font-size: 12px;
+    }
+  }`;
+
+  const html = `<div class="hitzz-promo">
+  <p class="hitzz-promo-title">🎉 1 Ano de Hitzz</p>
+  <p class="hitzz-promo-desc">Compras acima de R$ 699,90 concorrem a 1 Hitzz por mês durante 12 meses</p>
+  <p class="hitzz-promo-footer">Sorteio no final do mês</p>
+</div>`;
+
+  const container = document.createElement('div');
+  container.innerHTML = html;
+  container.style.cssText = css;
+
+  const targetDiv = document.querySelector('.target-div'); // Substitua '.target-div' pelo seletor da div específica
+  if (targetDiv) {
+    targetDiv.insertAdjacentElement('afterend', container);
+  }
+

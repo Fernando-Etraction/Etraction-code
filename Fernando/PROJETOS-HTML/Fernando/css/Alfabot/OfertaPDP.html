@@ -1,0 +1,155 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap");
+
+  :root{
+    --mc-base:#000F47; /* ✅ nova cor */
+    --mc-1:#001a7a;
+    --mc-2:#00155f;
+    --mc-3:#000f47;
+    --mc-4:#000a31;
+    --mc-text:#fff;
+  }
+
+  .frete-progressivo{
+    float:left;
+    margin:0 auto;
+    font-family:"Poppins",sans-serif;
+  }
+
+  .title-content{
+    font-weight:800;
+    margin:0 0 10px 0;
+    text-transform:uppercase;
+    font-size:16px;
+    color:var(--mc-base);
+    letter-spacing:.4px;
+  }
+
+  .mc-notes{
+    margin-top:10px;
+    font-size:12px;
+    color:#111;
+    opacity:.85;
+    line-height:1.35;
+  }
+
+  .content-cupom{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:stretch;
+    margin:auto;
+    width:800px;
+    gap:10px;
+  }
+
+  .step{
+    height:88px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-weight:400;
+    padding:16px 28px 16px 44px;
+    text-transform:uppercase;
+    flex:1;
+    position:relative;
+    color:var(--mc-text);
+    clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 10% 50%, 0% 0%);
+  }
+
+  .step:first-child{
+    clip-path: polygon(90% 0%, 100% 50%, 90% 100%, 0% 100%, 0% 50%, 0% 0%);
+    padding-left:18px;
+    background:linear-gradient(135deg,var(--mc-1) 0%, var(--mc-2) 55%, var(--mc-3) 100%);
+    z-index:4;
+  }
+  .step:nth-child(2){
+    background:linear-gradient(135deg,var(--mc-2) 0%, var(--mc-3) 55%, var(--mc-4) 100%);
+    z-index:3;
+  }
+  .step:nth-child(3){
+    background:linear-gradient(135deg,var(--mc-3) 0%, var(--mc-4) 65%, #000 120%);
+    z-index:2;
+  }
+  .step:last-child{
+    clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0% 100%, 10% 50%, 0% 0%);
+    background:linear-gradient(135deg,var(--mc-4) 0%, #000a2a 55%, #000 110%);
+    z-index:1;
+  }
+
+  .step + .step{ margin-left:-16px; }
+
+  .step span{
+    font-size:10px;
+    display:block;
+    width:120%;
+    opacity:.95;
+  }
+  .step p{
+    margin:6px 0 0 0;
+    font-size:18px;
+    font-weight:900;
+    line-height:1;
+    letter-spacing:.2px;
+  }
+
+  @media (max-width:600px){
+    .frete-progressivo{ max-width:100%; margin:0 auto !important; }
+    .title-content{ font-size:13px; margin-bottom:8px; }
+    .content-cupom{ font-size:10px; }
+    .step{ height:90px; padding:12px 6px; clip-path:none; }
+    .step + .step{ margin-left:8px; }
+    .step span{ width:100%; font-size:10px; }
+    .step p{ font-size:14px; width:100%; }
+    .mc-notes{ font-size:11px; }
+  }
+
+  .minibanner{ float:left; }
+</style>
+
+<script>
+  $(document).ready(function () {
+    const html = `
+      <div class="frete-progressivo" id="mc-regua-consumidor">
+        <h3 class="title-content">MÊS DO CONSUMIDOR</h3>
+
+        <div class="content-cupom">
+          <div class="step">
+            <span>Compras acima de</span>
+            <p>R$ 600</p>
+            <span>3% OFF</span>
+          </div>
+
+          <div class="step">
+            <span>Compras acima de</span>
+            <p>R$ 1.000</p>
+            <span>5% OFF</span>
+          </div>
+
+          <div class="step">
+            <span>Compras acima de</span>
+            <p>R$ 2.000</p>
+            <span>7% OFF</span>
+          </div>
+
+          <div class="step">
+            <span>Compras acima de</span>
+            <p>R$ 5.000</p>
+            <span>10% OFF</span>
+          </div>
+        </div>
+
+        <div class="mc-notes">
+          *Desconto automático no carrinho<br>
+          *Válidos somente para CNPJ
+        </div>
+      </div>
+    `;
+
+    $(html).insertAfter(
+      '#container-swiper > div '
+    );
+  });
+</script>

@@ -1,0 +1,14 @@
+<script>
+    //Quando clicar no botão "Copiar Código do Cupom", o código do cupom será copiado e aplicado automaticamente
+    $(document).ready(function () {
+        $('.area-desconto #cupom').on('click', function () {
+            var cupomValue = $(this).val();
+            if (Zord.copy('#cupom')) {
+                $('.area-desconto .something').html('Código copiado e aplicado com sucesso!');
+                // Preenche o campo de cupom do checkout e aplica
+                $('#cupom-desconto').val(cupomValue);
+                Zord.checkout.addCupomDesconto();
+            }
+        });
+    });
+</script>

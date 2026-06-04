@@ -1,0 +1,4143 @@
+<!-- ══════════════════════════════════════════════════════
+     MICAR JARDIM — LP COMPLETA v3.0
+     ✅ Sem hero no topo (banner já existe na página)
+     ✅ Vitrine 1: Carousel destaque  → #componente-id-rsHgScvph6
+     ✅ Vitrine 2: Grid com tabs      → #componente-id-xBNAL2Fsqi
+     ✅ Estrutura SEO/CRO/UX mobile-first
+     ✅ Prefixo CSS .mlp-* + .mv-*  (sem conflitos)
+     ✅ JS isolados, defensivos, sem tocar no DOM original
+═══════════════════════════════════════════════════════ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap"
+  rel="stylesheet" />
+
+<!-- SEO: schema FAQPage + Organization (ativar removendo comentário) -->
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Micar Construção",
+        "url": "https://www.micarconstrucao.com.br",
+        "telephone": "+554733791366"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Qual o prazo de despacho?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pedidos aprovados até as 15h são despachados no mesmo dia útil."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Tem desconto no Pix?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim, 13% de desconto em todo pedido pago via Pix ou boleto bancário."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Posso parcelar sem juros?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim, em até 12× sem juros nos principais cartões de crédito."
+            }
+          }
+        ]
+      }
+    ]
+  }
+</script>
+
+<style>
+  /* ===== TOKENS (mínimos p/ HERO) ===== */
+  .mlp-hero-scope {
+    --blue: #396087;
+    --blue-dark: #2a4a6a;
+    --blue-deeper: #1e3448;
+    --blue-dim: rgba(57, 96, 135, 0.12);
+    --blue-glow: rgba(57, 96, 135, 0.3);
+    --yellow: #fec72f;
+    --yellow-glow: rgba(254, 199, 47, 0.45);
+    --text: #1e2d3d;
+    --font-head: "Barlow Condensed", sans-serif;
+    --font-body: "Barlow", sans-serif;
+    --r: 10px;
+    --r-xl: 22px;
+  }
+
+  /* ===== RESET ESCOPADO ===== */
+  .mlp-hero-scope,
+  .mlp-hero-scope *,
+  .mlp-hero-scope *::before,
+  .mlp-hero-scope *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mlp-hero-scope {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 12px;
+    font-family: var(--font-body);
+    color: var(--text);
+  }
+
+  /* ===== HERO ===== */
+  .mlp-hero {
+    position: relative;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    background: var(--blue-deeper);
+    margin: 18px 0 20px;
+    min-height: 340px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .mlp-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 75% 115%,
+        rgba(58, 125, 68, 0.5) 0%,
+        transparent 55%),
+      radial-gradient(ellipse 50% 80% at 5% 50%,
+        rgba(57, 96, 135, 0.7) 0%,
+        transparent 60%),
+      linear-gradient(160deg, #1a2e40 0%, #1e3448 45%, #162b20 100%);
+    z-index: 0;
+  }
+
+  .mlp-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(-48deg,
+        transparent 0,
+        transparent 28px,
+        rgba(255, 255, 255, 0.02) 28px,
+        rgba(255, 255, 255, 0.02) 29px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .mlp-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 36px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    max-width: 580px;
+  }
+
+  .mlp-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    width: fit-content;
+    margin-bottom: 16px;
+    animation: mlpPulse 2.4s ease-in-out infinite;
+  }
+
+  .mlp-pill::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: var(--blue-deeper);
+    border-radius: 50%;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  @keyframes mlpPulse {
+
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 var(--yellow-glow);
+    }
+
+    50% {
+      box-shadow: 0 0 0 10px transparent;
+    }
+  }
+
+  .mlp-hero h1 {
+    font-family: var(--font-head);
+    font-size: 42px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 0.96;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .mlp-hero h1 em {
+    font-style: italic;
+    color: var(--yellow);
+  }
+
+  .mlp-hero-sub {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    max-width: 440px;
+  }
+
+  .mlp-hero-proof {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .mlp-hero-proof-stars {
+    color: var(--yellow);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  .mlp-hero-proof-text {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .mlp-hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .mlp-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 28px;
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border-radius: var(--r);
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.2s,
+      background 0.2s,
+      filter 0.2s;
+    box-shadow: 0 5px 20px var(--yellow-glow);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mlp-btn-primary:hover {
+    background: #ffe066;
+    transform: translateY(-2px);
+  }
+
+  .mlp-btn-primary:active {
+    transform: scale(0.97);
+  }
+
+  .mlp-btn-primary svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mlp-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 22px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: var(--r);
+    border: 1.5px solid rgba(255, 255, 255, 0.22);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      border-color 0.2s,
+      transform 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mlp-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  .mlp-hero-disc {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    box-shadow: 0 4px 18px var(--yellow-glow);
+    animation: mlpSpin 10s linear infinite;
+  }
+
+  .mlp-hero-disc strong {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .mlp-hero-disc span {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .mlp-hero-disc-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: mlpSpinRev 10s linear infinite;
+  }
+
+  @keyframes mlpSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes mlpSpinRev {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  .mlp-hero-stats {
+    display: flex;
+    gap: 18px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+
+  .mlp-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mlp-stat-val {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+  }
+
+  .mlp-stat-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+  }
+
+  .mlp-stat-sep {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    align-self: stretch;
+  }
+
+  /* Imagem lateral (desktop) */
+  .mlp-hero-img {
+    display: none;
+    position: relative;
+    z-index: 1;
+    flex: 0 0 380px;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .mlp-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    mix-blend-mode: luminosity;
+    opacity: 0.5;
+  }
+
+  /* ===== STICKY CTA (opcional) ===== */
+  .mlp-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    box-shadow: 0 -4px 24px rgba(30, 52, 72, 0.22);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .mlp-sticky.show {
+    transform: translateY(0);
+  }
+
+  .mlp-sticky-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 10px;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: filter 0.15s;
+  }
+
+  .mlp-sticky-btn:active {
+    filter: brightness(0.9);
+  }
+
+  .mlp-sticky-btn.primary {
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    flex: 2;
+  }
+
+  .mlp-sticky-btn.wpp {
+    background: #25d366;
+    color: #fff;
+  }
+
+  .mlp-sticky-btn svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ===== RESPONSIVO ===== */
+  @media (min-width: 560px) {
+    .mlp-hero h1 {
+      font-size: 45px;
+    }
+  }
+
+  @media (min-width: 860px) {
+    .mlp-hero {
+      min-height: 400px;
+    }
+
+
+
+    .mlp-hero-content {
+      padding: 32px 34px;
+    }
+
+    .mlp-hero-img {
+      display: flex;
+    }
+
+    .mlp-hero h1 {
+      font-size: 45px;
+    }
+
+    .mlp-hero-disc {
+      width: 84px;
+      height: 84px;
+      top: 26px;
+      right: 26px;
+    }
+
+    .mlp-hero-disc strong {
+      font-size: 28px;
+    }
+
+    .mlp-sticky {
+      display: none;
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+   TOKENS GLOBAIS
+══════════════════════════════════════════════════════ */
+  :root {
+    --mlp-blue: #396087;
+    --mlp-blue-dark: #2a4a6a;
+    --mlp-blue-deeper: #1e3448;
+    --mlp-blue-dim: rgba(57, 96, 135, 0.12);
+    --mlp-blue-glow: rgba(57, 96, 135, 0.3);
+    --mlp-yellow: #fec72f;
+    --mlp-yellow-dim: rgba(254, 199, 47, 0.16);
+    --mlp-yellow-glow: rgba(254, 199, 47, 0.45);
+    --mlp-green: #3a7d44;
+    --mlp-bg: #f5f4f0;
+    --mlp-bg2: #ffffff;
+    --mlp-bg3: #eceae4;
+    --mlp-border: rgba(57, 96, 135, 0.12);
+    --mlp-text: #1e2d3d;
+    --mlp-muted: #6b7a8a;
+    --mlp-muted2: #b0bac3;
+    --mlp-font-head: "Barlow Condensed", sans-serif;
+    --mlp-font-body: "Barlow", sans-serif;
+    --mlp-r: 10px;
+    --mlp-r-lg: 16px;
+    --mlp-r-xl: 22px;
+    --mlp-shadow: 0 2px 14px rgba(30, 52, 72, 0.09);
+    --mlp-shadow-lg: 0 8px 32px rgba(30, 52, 72, 0.15);
+    --mlp-shadow-xl: 0 16px 48px rgba(30, 52, 72, 0.2);
+  }
+
+  /* ══════════════════════════════════════════════════════
+   RESET ESCOPADO
+══════════════════════════════════════════════════════ */
+  .mlp-page,
+  .mlp-page *,
+  .mlp-page *::before,
+  .mlp-page *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mlp-page {
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    font-family: var(--mlp-font-body);
+    color: var(--mlp-text);
+    padding: 0 12px 80px;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   1. TRUST BAR — marquee topo
+══════════════════════════════════════════════════════ */
+  .mlp-trust-bar {
+    background: var(--mlp-blue-deeper);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 9px 0;
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  .mlp-trust-bar::before,
+  .mlp-trust-bar::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 48px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .mlp-trust-bar::before {
+    left: 0;
+    background: linear-gradient(to right, var(--mlp-blue-deeper), transparent);
+  }
+
+  .mlp-trust-bar::after {
+    right: 0;
+    background: linear-gradient(to left, var(--mlp-blue-deeper), transparent);
+  }
+
+  .mlp-trust-track {
+    display: inline-flex;
+    animation: mlpMarq 22s linear infinite;
+  }
+
+  .mlp-trust-track:hover {
+    animation-play-state: paused;
+  }
+
+  .mlp-trust-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0 24px;
+    font-family: var(--mlp-font-head);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .mlp-trust-item b {
+    color: var(--mlp-yellow);
+    font-weight: 900;
+  }
+
+  @keyframes mlpMarq {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+   WRAP PRINCIPAL (contém tudo)
+══════════════════════════════════════════════════════ */
+
+  /* ══════════════════════════════════════════════════════
+   2. BENEFÍCIOS
+══════════════════════════════════════════════════════ */
+  .mlp-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 20px 0 28px;
+  }
+
+  .mlp-benefit {
+    background: var(--mlp-bg2);
+    border: 1px solid var(--mlp-border);
+    border-radius: var(--mlp-r-lg);
+    padding: 15px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    box-shadow: var(--mlp-shadow);
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .mlp-benefit:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--mlp-shadow-lg);
+  }
+
+  .mlp-benefit-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--mlp-blue-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .mlp-benefit-text strong {
+    display: block;
+    font-family: var(--mlp-font-head);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--mlp-blue-deeper);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 2px;
+  }
+
+  .mlp-benefit-text p {
+    font-size: 12px;
+    color: var(--mlp-muted);
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   SECTION HEAD (reutilizável)
+══════════════════════════════════════════════════════ */
+  .mlp-sec-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .mlp-sec-title {
+    font-family: var(--mlp-font-head);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--mlp-blue-deeper);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .mlp-sec-title span {
+    color: var(--mlp-blue);
+  }
+
+  .mlp-sec-sub {
+    font-size: 12px;
+    color: var(--mlp-muted2);
+    font-weight: 500;
+    font-family: var(--mlp-font-head);
+    letter-spacing: 0.04em;
+  }
+
+  .mlp-sec-line {
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(to right, var(--mlp-border), transparent);
+    border-radius: 2px;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   3. VITRINE DESTAQUE (mv-root carousel)
+      ⚠️ Estilos completos preservados do original
+══════════════════════════════════════════════════════ */
+  .mv-root,
+  .mv-root *,
+  .mv-root *::before,
+  .mv-root *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mv-root {
+    --blue: #396087;
+    --blue-dark: #2a4a6a;
+    --blue-deeper: #1e3448;
+    --blue-dim: rgba(57, 96, 135, 0.12);
+    --blue-glow: rgba(57, 96, 135, 0.35);
+    --yellow: #fec72f;
+    --yellow-dim: rgba(254, 199, 47, 0.18);
+    --yellow-glow: rgba(254, 199, 47, 0.4);
+    --bg: #f5f4f0;
+    --bg2: #ffffff;
+    --bg3: #eceae4;
+    --border: rgba(57, 96, 135, 0.13);
+    --text: #1e2d3d;
+    --muted: #6b7a8a;
+    --muted2: #b0bac3;
+    --font-head: "Barlow Condensed", sans-serif;
+    --font-body: "Barlow", sans-serif;
+    --r: 10px;
+    --r-lg: 14px;
+    --shadow: 0 2px 12px rgba(30, 52, 72, 0.09);
+    --shadow-lg: 0 6px 24px rgba(30, 52, 72, 0.14);
+    width: 100%;
+    font-family: var(--font-body);
+    color: var(--text);
+    padding: 0 0 4px;
+  }
+
+  body.__mvReady__ .vitrine.macro_vitrine,
+  body.__mvReady__ .ra-vitrine,
+  body.__mvReady__ [id^="vitrine-react-app"],
+  body.__mvReady__ ul.swiper-wrapper.product-list,
+  #componente-id-xBNAL2Fsqi {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .mv-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .mv-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 14px 4px 9px;
+    border-radius: 4px;
+    clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 100%, 0 100%);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mv-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--blue-deeper);
+    border-radius: 50%;
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+
+  .mv-header-title {
+    font-family: var(--font-head);
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    white-space: nowrap;
+  }
+
+  .mv-header-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, var(--blue-dim), transparent);
+    border-radius: 2px;
+    min-width: 0;
+  }
+
+  .mv-carousel-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 12px 10px;
+    background: var(--bg2);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mv-carousel-row::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--yellow), var(--blue));
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+
+  .mv-ctrl-btn {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--bg3);
+    color: var(--blue);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mv-ctrl-btn:active {
+    background: var(--blue);
+    color: #fff;
+    transform: scale(0.93);
+  }
+
+  .mv-ctrl-btn svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .mv-overflow {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .mv-track {
+    display: flex;
+    gap: 8px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .mv-slide {
+    flex: 0 0 90px;
+    height: 90px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background: var(--bg3);
+    position: relative;
+    transition:
+      border-color 0.25s,
+      transform 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mv-slide:active {
+    transform: scale(0.96);
+  }
+
+  .mv-slide.active {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px var(--blue-dim);
+  }
+
+  .mv-slide.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--yellow);
+  }
+
+  .mv-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: var(--bg3);
+  }
+
+  .mv-slide-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 2;
+    letter-spacing: 0.03em;
+  }
+
+  .mv-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .mv-featured {
+    position: relative;
+  }
+
+  .mv-frame {
+    position: relative;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .mv-frame::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--yellow) 0%, transparent 60%);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.75;
+  }
+
+  .mv-frame::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: linear-gradient(to top,
+        rgba(30, 52, 72, 0.45) 0%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .mv-frame img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+    background: var(--bg3);
+  }
+
+  .mv-frame img.fade {
+    opacity: 0;
+  }
+
+  .mv-progress-wrap {
+    height: 3px;
+    background: var(--bg3);
+    border-radius: 0 0 var(--r-lg) var(--r-lg);
+    overflow: hidden;
+    margin-top: -1px;
+    border: 1px solid var(--border);
+    border-top: none;
+  }
+
+  .mv-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--yellow), var(--blue));
+  }
+
+  .mv-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .mv-counter {
+    font-family: var(--font-head);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .mv-dots {
+    display: flex;
+    gap: 5px;
+  }
+
+  .mv-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--muted2);
+    cursor: pointer;
+    transition: all 0.22s;
+    border: 1.5px solid transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mv-dot.active {
+    background: var(--blue);
+    border-color: var(--yellow);
+    transform: scale(1.25);
+  }
+
+  .mv-info {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 20px 18px 18px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  .mv-info::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--yellow), var(--blue));
+    border-radius: var(--r-lg) 0 0 var(--r-lg);
+  }
+
+  .mv-info::after {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle, var(--yellow-dim) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .mv-info.animate {
+    animation: mvFadeUp 0.32s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+
+  @keyframes mvFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .mv-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-head);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    background: var(--blue-dim);
+    padding: 3px 10px 3px 7px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    width: fit-content;
+  }
+
+  .mv-category::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    background: var(--yellow);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .mv-name {
+    font-family: var(--font-head);
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--blue-deeper);
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+  }
+
+  .mv-divider {
+    width: 32px;
+    height: 3px;
+    background: linear-gradient(to right, var(--yellow), var(--blue));
+    border-radius: 2px;
+  }
+
+  .mv-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .mv-price-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: var(--bg);
+    border-radius: var(--r);
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+  }
+
+  .mv-price-pix {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mv-price-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1px;
+  }
+
+  .mv-price-val {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--blue-deeper);
+    line-height: 1;
+  }
+
+  .mv-price-cupom {
+    position: relative;
+    font-size: 12.5px;
+    color: #1a5c2a;
+    margin-top: 8px;
+    padding: 8px 10px 8px 28px;
+    border: 1.5px dashed #3a7d44;
+    border-radius: 6px;
+    background: linear-gradient(135deg,
+        rgba(58, 125, 68, 0.08) 0%,
+        rgba(22, 163, 74, 0.04) 100%);
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+    overflow: hidden;
+  }
+
+  .mv-price-cupom::before {
+    content: "✂";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+  .mv-price-cupom strong {
+    font-weight: 800;
+    color: #15803d;
+  }
+
+  .mv-price-cupom strong:last-child {
+    display: inline-block;
+    background: #15803d;
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-left: 2px;
+    vertical-align: middle;
+  }
+
+  .mv-discount-pill {
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .mv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--blue);
+    color: #fff;
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: var(--r);
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px var(--blue-glow);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mv-btn:active {
+    background: var(--blue-dark);
+    transform: scale(0.98);
+  }
+
+  .mv-btn svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   4. URGÊNCIA / TIMER
+══════════════════════════════════════════════════════ */
+  .mlp-urgency {
+    background: var(--mlp-blue-deeper);
+    border-radius: var(--mlp-r-lg);
+    padding: 20px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 28px 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--mlp-shadow-lg);
+  }
+
+  .mlp-urgency::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg,
+        rgba(254, 199, 47, 0.07) 0%,
+        transparent 50%);
+    pointer-events: none;
+  }
+
+  .mlp-urgency::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--mlp-yellow), var(--mlp-blue));
+  }
+
+  .mlp-urgency-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    animation: mlpShake 2.5s ease-in-out infinite;
+  }
+
+  @keyframes mlpShake {
+
+    0%,
+    100%,
+    50% {
+      transform: rotate(0);
+    }
+
+    10% {
+      transform: rotate(-10deg);
+    }
+
+    20% {
+      transform: rotate(10deg);
+    }
+
+    30% {
+      transform: rotate(-5deg);
+    }
+
+    40% {
+      transform: rotate(5deg);
+    }
+  }
+
+  .mlp-urgency-text {
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .mlp-urgency-text strong {
+    display: block;
+    font-family: var(--mlp-font-head);
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 2px;
+  }
+
+  .mlp-urgency-text p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .mlp-urgency-timer {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .mlp-timer-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 6px 9px;
+    min-width: 42px;
+  }
+
+  .mlp-timer-val {
+    font-family: var(--mlp-font-head);
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--mlp-yellow);
+    line-height: 1;
+  }
+
+  .mlp-timer-lbl {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .mlp-timer-sep {
+    font-family: var(--mlp-font-head);
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--mlp-yellow);
+    opacity: 0.5;
+    align-self: flex-start;
+    padding-top: 4px;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   5. TABS (lp-tab classe original preservada)
+══════════════════════════════════════════════════════ */
+  .lp-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .lp-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    border: 1.5px solid var(--mlp-border);
+    background: var(--mlp-bg2);
+    color: var(--mlp-muted);
+    font-family: var(--mlp-font-head);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: var(--mlp-shadow);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lp-tab:hover {
+    border-color: var(--mlp-blue);
+    color: var(--mlp-blue);
+  }
+
+  .lp-tab.active {
+    background: var(--mlp-blue);
+    border-color: var(--mlp-blue);
+    color: #fff;
+    box-shadow: 0 4px 14px var(--mlp-blue-glow);
+  }
+
+  .lp-tab svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   GRID DE PRODUTOS (lp-card / lp-grid — preservados)
+══════════════════════════════════════════════════════ */
+  .lp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .lp-card {
+    background: var(--mlp-bg2);
+    border: 1px solid var(--mlp-border);
+    border-radius: var(--mlp-r-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--mlp-shadow);
+    transition:
+      transform 0.22s,
+      box-shadow 0.22s;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .lp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--mlp-shadow-xl);
+  }
+
+  .lp-card:active {
+    transform: scale(0.98);
+  }
+
+  .lp-card-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    background: var(--mlp-yellow);
+    color: var(--mlp-blue-deeper);
+    font-family: var(--mlp-font-head);
+    font-size: 10px;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .lp-card-badge.new {
+    background: var(--mlp-blue);
+    color: #fff;
+  }
+
+  .lp-card-img {
+    position: relative;
+    height: 155px;
+    overflow: hidden;
+  }
+
+  .lp-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s;
+  }
+
+  .lp-card:hover .lp-card-img img {
+    transform: scale(1.07);
+  }
+
+  .lp-card-cat {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(30, 52, 72, 0.75);
+    backdrop-filter: blur(4px);
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--mlp-font-head);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .lp-card-stars {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .lp-card-stars-inner {
+    color: var(--mlp-yellow);
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+
+  .lp-card-stars-count {
+    font-size: 10px;
+    color: var(--mlp-muted);
+  }
+
+  .lp-card-body {
+    padding: 13px 13px 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .lp-card-brand {
+    font-family: var(--mlp-font-head);
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--mlp-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+
+  .lp-card-name {
+    font-family: var(--mlp-font-head);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--mlp-blue-deeper);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .lp-card-feats {
+    list-style: none;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .lp-card-feats li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--mlp-muted);
+    line-height: 1.4;
+  }
+
+  .lp-card-feats li::before {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--mlp-yellow);
+    flex-shrink: 0;
+  }
+
+  .lp-card-price-wrap {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--mlp-border);
+  }
+
+  .lp-card-price-old {
+    font-size: 11px;
+    color: var(--mlp-muted2);
+    text-decoration: line-through;
+    margin-bottom: 1px;
+  }
+
+  .lp-card-price {
+    font-family: var(--mlp-font-head);
+    font-size: 21px;
+    font-weight: 900;
+    color: var(--mlp-blue-deeper);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .lp-card-price-tag {
+    font-size: 10px;
+    color: var(--mlp-green);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .lp-card-cupom {
+    position: relative;
+    margin-top: 8px;
+    padding: 7px 10px 7px 30px;
+    border: 2px dashed var(--yellow);
+    border-radius: 6px;
+    background: rgba(254, 199, 47, 0.07);
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--blue-dark);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+
+  .lp-card-cupom::before {
+    content: "✂";
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: var(--blue-dark);
+    opacity: 0.5;
+  }
+
+  .lp-card-cupom .cc-price {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--blue-deeper);
+    line-height: 1;
+  }
+
+  .lp-card-cupom .cc-code {
+    margin-left: auto;
+    background: var(--yellow);
+    color: var(--blue-deeper);
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  .lp-card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--mlp-blue);
+    color: #fff;
+    border-radius: var(--mlp-r);
+    font-family: var(--mlp-font-head);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+
+  .lp-card:hover .lp-card-cta {
+    background: var(--mlp-blue-dark);
+  }
+
+  .lp-card-cta svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .lp-card.featured {
+    grid-column: 1/-1;
+    flex-direction: row;
+  }
+
+  .lp-card.featured .lp-card-img {
+    height: auto;
+    min-height: 180px;
+    flex: 0 0 42%;
+  }
+
+  .lp-card.featured .lp-card-body {
+    padding: 16px;
+  }
+
+  .lp-card.featured .lp-card-name {
+    font-size: 17px;
+    -webkit-line-clamp: 3;
+  }
+
+  .lp-card.featured .lp-card-price {
+    font-size: 24px;
+  }
+
+  .lp-card[data-cat].hidden {
+    display: none;
+  }
+
+  .lp-empty {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--mlp-muted);
+    font-size: 14px;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   6. POR QUE COMPRAR
+══════════════════════════════════════════════════════ */
+  .mlp-why {
+    background: linear-gradient(135deg,
+        var(--mlp-blue-deeper) 0%,
+        #1a3328 100%);
+    border-radius: var(--mlp-r-xl);
+    padding: 30px 22px;
+    margin: 32px 0;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--mlp-shadow-xl);
+  }
+
+  .mlp-why::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(-48deg,
+        transparent 0,
+        transparent 28px,
+        rgba(255, 255, 255, 0.018) 28px,
+        rgba(255, 255, 255, 0.018) 29px);
+    pointer-events: none;
+  }
+
+  .mlp-why-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mlp-why-title {
+    font-family: var(--mlp-font-head);
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--mlp-yellow);
+    line-height: 1.05;
+    margin-bottom: 4px;
+  }
+
+  .mlp-why-sub {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 22px;
+  }
+
+  .mlp-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .mlp-why-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .mlp-why-icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: rgba(254, 199, 47, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+  }
+
+  .mlp-why-item strong {
+    display: block;
+    font-family: var(--mlp-font-head);
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 1px;
+  }
+
+  .mlp-why-item p {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   7. DEPOIMENTOS
+══════════════════════════════════════════════════════ */
+  .mlp-reviews {
+    margin: 28px 0;
+  }
+
+  .mlp-reviews-title {
+    font-family: var(--mlp-font-head);
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--mlp-blue-deeper);
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+
+  .mlp-reviews-sub {
+    font-size: 12px;
+    color: var(--mlp-muted);
+    margin-bottom: 16px;
+  }
+
+  .mlp-reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .mlp-review {
+    background: var(--mlp-bg2);
+    border: 1px solid var(--mlp-border);
+    border-radius: var(--mlp-r-lg);
+    padding: 18px;
+    box-shadow: var(--mlp-shadow);
+    position: relative;
+    transition: transform 0.2s;
+  }
+
+  .mlp-review:hover {
+    transform: translateY(-2px);
+  }
+
+  .mlp-review::before {
+    content: "\201C";
+    position: absolute;
+    top: 6px;
+    right: 14px;
+    font-family: Georgia, serif;
+    font-size: 52px;
+    color: var(--mlp-blue-dim);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .mlp-review-stars {
+    color: var(--mlp-yellow);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .mlp-review-text {
+    font-size: 13px;
+    color: var(--mlp-text);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  .mlp-review-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mlp-review-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--mlp-blue-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mlp-font-head);
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--mlp-blue);
+    flex-shrink: 0;
+  }
+
+  .mlp-review-name strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mlp-blue-deeper);
+  }
+
+  .mlp-review-name span {
+    font-size: 11px;
+    color: var(--mlp-muted);
+  }
+
+  .mlp-review-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--mlp-green);
+    margin-left: auto;
+  }
+
+  .mlp-review-verified::before {
+    content: "✓";
+  }
+
+  /* ══════════════════════════════════════════════════════
+   8. FAQ
+══════════════════════════════════════════════════════ */
+  .mlp-faq {
+    margin: 28px 0;
+  }
+
+  .mlp-faq-title {
+    font-family: var(--mlp-font-head);
+    font-size: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--mlp-blue-deeper);
+    margin-bottom: 16px;
+    letter-spacing: 0.03em;
+  }
+
+  .mlp-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mlp-faq-item {
+    background: var(--mlp-bg2);
+    border: 1px solid var(--mlp-border);
+    border-radius: var(--mlp-r-lg);
+    overflow: hidden;
+    box-shadow: var(--mlp-shadow);
+  }
+
+  .mlp-faq-item.open {
+    border-color: rgba(57, 96, 135, 0.25);
+  }
+
+  .mlp-faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 18px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--mlp-font-head);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--mlp-blue-deeper);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s;
+  }
+
+  .mlp-faq-q:hover {
+    background: var(--mlp-blue-dim);
+  }
+
+  .mlp-faq-q svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    fill: none;
+    stroke: var(--mlp-blue);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s;
+  }
+
+  .mlp-faq-item.open .mlp-faq-q svg {
+    transform: rotate(180deg);
+  }
+
+  .mlp-faq-item.open .mlp-faq-q {
+    border-bottom: 1px solid var(--mlp-border);
+  }
+
+  .mlp-faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.4s ease,
+      padding 0.25s;
+    font-size: 13px;
+    color: var(--mlp-muted);
+    line-height: 1.68;
+    padding: 0 18px;
+  }
+
+  .mlp-faq-item.open .mlp-faq-a {
+    max-height: 250px;
+    padding: 12px 18px 16px;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   9. CTA FINAL
+══════════════════════════════════════════════════════ */
+  .mlp-cta-final {
+    background: var(--mlp-bg2);
+    border: 1px solid var(--mlp-border);
+    border-radius: var(--mlp-r-xl);
+    padding: 32px 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--mlp-shadow);
+    margin: 28px 0;
+  }
+
+  .mlp-cta-final::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right,
+        var(--mlp-yellow),
+        var(--mlp-blue),
+        var(--mlp-yellow));
+    background-size: 200%;
+    animation: mlpSlide 3s linear infinite;
+  }
+
+  @keyframes mlpSlide {
+    from {
+      background-position: 0%;
+    }
+
+    to {
+      background-position: 200%;
+    }
+  }
+
+  .mlp-cta-final h2 {
+    font-family: var(--mlp-font-head);
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--mlp-blue-deeper);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .mlp-cta-final p {
+    font-size: 14px;
+    color: var(--mlp-muted);
+    margin-bottom: 22px;
+    line-height: 1.6;
+  }
+
+  .mlp-cta-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .mlp-btn-blue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 28px;
+    background: var(--mlp-blue);
+    color: #fff;
+    border-radius: var(--mlp-r);
+    border: none;
+    font-family: var(--mlp-font-head);
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 6px 20px var(--mlp-blue-glow);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mlp-btn-blue:hover {
+    background: var(--mlp-blue-dark);
+    transform: translateY(-2px);
+  }
+
+  .mlp-btn-wpp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 28px;
+    background: #25d366;
+    color: #fff;
+    border-radius: var(--mlp-r);
+    border: none;
+    font-family: var(--mlp-font-head);
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mlp-btn-wpp:hover {
+    background: #1fbb59;
+  }
+
+  .mlp-trust-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .mlp-trust-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--mlp-muted);
+    font-weight: 500;
+  }
+
+  .mlp-trust-chip::before {
+    content: "✓";
+    color: var(--mlp-green);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   10. STICKY CTA BAR (mobile)
+══════════════════════════════════════════════════════ */
+  .mlp-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    box-shadow: 0 -4px 24px rgba(30, 52, 72, 0.22);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .mlp-sticky.show {
+    transform: translateY(0);
+  }
+
+  .mlp-sticky-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 10px;
+    font-family: var(--mlp-font-head);
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: filter 0.15s;
+  }
+
+  .mlp-sticky-btn:active {
+    filter: brightness(0.9);
+  }
+
+  .mlp-sticky-btn.buy {
+    background: var(--mlp-yellow);
+    color: var(--mlp-blue-deeper);
+    flex: 2;
+  }
+
+  .mlp-sticky-btn.wpp {
+    background: #25d366;
+    color: #fff;
+  }
+
+  .mlp-sticky-btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════════════════════
+   REVEAL
+══════════════════════════════════════════════════════ */
+  .mlp-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
+  }
+
+  .mlp-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ══════════════════════════════════════════════════════
+   RESPONSIVO
+══════════════════════════════════════════════════════ */
+  @media (min-width: 560px) {
+    .mlp-page {
+      padding: 0 16px 80px;
+    }
+
+    .mlp-benefits {
+      gap: 12px;
+    }
+
+    .mv-slide {
+      flex: 0 0 110px;
+      height: 110px;
+    }
+
+    .mv-frame img {
+      height: 280px;
+    }
+
+    .mv-name {
+      font-size: 26px;
+    }
+
+    .mv-price-val {
+      font-size: 32px;
+    }
+
+    .mv-btn {
+      width: auto;
+      align-self: flex-start;
+    }
+
+    .mv-info {
+      padding: 24px 22px 20px;
+      gap: 16px;
+    }
+
+    .mv-desc {
+      -webkit-line-clamp: 4;
+    }
+
+    .mlp-cta-btns {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .mlp-btn-blue,
+    .mlp-btn-wpp {
+      width: auto;
+    }
+
+    .mlp-reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 860px) {
+    .mlp-page {
+      padding: 0 20px 80px;
+    }
+
+    .mv-carousel-row {
+      padding: 16px 14px;
+      gap: 10px;
+    }
+
+    .mv-ctrl-btn {
+      width: 36px;
+      height: 36px;
+    }
+
+    .mv-ctrl-btn:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+      transform: scale(1.08);
+    }
+
+    .mv-slide {
+      flex: 0 0 130px;
+      height: 130px;
+      border-radius: var(--r);
+    }
+
+    .mv-bottom {
+      flex-direction: row;
+      align-items: start;
+    }
+
+    .mv-featured {
+      flex: 0 0 340px;
+      order: 2;
+    }
+
+    .mv-info {
+      flex: 1;
+      order: 1;
+      min-height: 320px;
+      padding: 28px 28px 24px;
+      gap: 0;
+      justify-content: space-between;
+    }
+
+    .mv-frame img {
+      height: 360px;
+    }
+
+    .mv-name {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .mv-price-val {
+      font-size: 36px;
+    }
+
+    .mv-category {
+      margin-bottom: 10px;
+    }
+
+    .mv-divider {
+      margin-bottom: 16px;
+    }
+
+    .mv-desc {
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .mv-price-block {
+      margin-bottom: 22px;
+    }
+
+    .mv-btn {
+      width: auto;
+      padding: 13px 26px;
+    }
+
+    .mv-btn:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px var(--blue-glow);
+    }
+
+    .mv-more-btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px 20px;
+      background: var(--yellow);
+      color: var(--blue-deeper);
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: var(--r-lg);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px var(--yellow-glow);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mv-more-btn:hover {
+      background: #ffe066;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--yellow-glow);
+    }
+
+    .mv-more-btn:active {
+      transform: scale(0.98);
+    }
+
+    .lp-load-more-btn {
+      display: block;
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px 20px;
+      background: var(--mlp-yellow);
+      color: var(--mlp-blue-deeper);
+      font-family: var(--mlp-font-head);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: var(--mlp-r-lg);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px var(--mlp-yellow-glow);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .lp-load-more-btn:hover {
+      background: #ffe066;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px var(--mlp-yellow-glow);
+    }
+
+    .lp-load-more-btn:active {
+      transform: scale(0.98);
+    }
+
+    .mlp-benefits {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mlp-benefit {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .lp-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .lp-card.featured {
+      grid-column: span 2;
+    }
+
+    .lp-card.featured .lp-card-img {
+      min-height: 220px;
+      flex: 0 0 44%;
+    }
+
+    .lp-card-img {
+      height: 190px;
+    }
+
+    .mlp-why-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .mlp-reviews-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mlp-sticky {
+      display: none;
+    }
+
+    .mlp-sec-title {
+      font-size: 26px;
+    }
+  }
+
+  @media (min-width: 1080px) {
+    .mv-slide {
+      flex: 0 0 140px;
+      height: 140px;
+    }
+
+    .mv-featured {
+      flex: 0 0 360px;
+    }
+
+    .mv-frame img {
+      height: 380px;
+    }
+
+    .mv-name {
+      font-size: 32px;
+    }
+
+    .lp-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .lp-card.featured {
+      grid-column: span 2;
+    }
+  }
+
+  .mlp-spacer {
+    height: 64px;
+    display: block;
+  }
+
+  @media (min-width: 860px) {
+    .mlp-spacer {
+      display: none;
+    }
+  }
+</style>
+
+<!-- ══════════════════════════════════════
+     STICKY BAR (mobile)
+══════════════════════════════════════ -->
+
+
+<!-- ══════════════════════════════════════
+     1. TRUST BAR
+══════════════════════════════════════ -->
+<div class="mlp-trust-bar" role="marquee" aria-label="Benefícios Micar">
+  <div class="mlp-trust-track">
+    <span class="mlp-trust-item">🚀 Despacho <b>24h</b></span>
+    <span class="mlp-trust-item">💳 <b>12×</b> sem juros</span>
+    <span class="mlp-trust-item">💰 <b>13% off</b> no Pix</span>
+    <span class="mlp-trust-item">🛡️ Garantia <b>total</b></span>
+    <span class="mlp-trust-item">📦 Todo <b>o Brasil</b></span>
+    <span class="mlp-trust-item">🔧 Suporte <b>especializado</b></span>
+    <span class="mlp-trust-item">↩️ <b>7 dias</b> p/ devolução</span>
+    <!-- duplicado para loop suave -->
+    <span class="mlp-trust-item">🚀 Despacho <b>24h</b></span>
+    <span class="mlp-trust-item">💳 <b>12×</b> sem juros</span>
+    <span class="mlp-trust-item">💰 <b>13% off</b> no Pix</span>
+    <span class="mlp-trust-item">🛡️ Garantia <b>total</b></span>
+    <span class="mlp-trust-item">📦 Todo <b>o Brasil</b></span>
+    <span class="mlp-trust-item">🔧 Suporte <b>especializado</b></span>
+    <span class="mlp-trust-item">↩️ <b>7 dias</b> p/ devolução</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     WRAP PRINCIPAL
+══════════════════════════════════════ -->
+<div class="mlp-page">
+  <!-- 2. BENEFÍCIOS -->
+  <div class="mlp-benefits mlp-reveal" style="margin-top: 20px; transition-delay: 0.05s">
+    <div class="mlp-benefit">
+      <div class="mlp-benefit-icon">🚀</div>
+      <div class="mlp-benefit-text">
+        <strong>Despacho 24h</strong>
+        <p>Aprovado até 15h, sai no mesmo dia útil</p>
+      </div>
+    </div>
+    <div class="mlp-benefit">
+      <div class="mlp-benefit-icon">💳</div>
+      <div class="mlp-benefit-text">
+        <strong>12× sem juros</strong>
+        <p>Nos principais cartões, sem acréscimo</p>
+      </div>
+    </div>
+    <div class="mlp-benefit">
+      <div class="mlp-benefit-icon">💰</div>
+      <div class="mlp-benefit-text">
+        <strong>13% no Pix</strong>
+        <p>Melhor preço garantido à vista</p>
+      </div>
+    </div>
+    <div class="mlp-benefit">
+      <div class="mlp-benefit-icon">🛡️</div>
+      <div class="mlp-benefit-text">
+        <strong>Garantia total</strong>
+        <p>Suporte técnico especializado incluso</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       3. VITRINE DESTAQUE (Carousel)
+       ⚠️ mv-root — puxa #componente-id-rsHgScvph6
+  ════════════════════════════════════ -->
+  <div class="mlp-sec-head mlp-reveal" style="transition-delay: 0.1s">
+    <h2 class="mlp-sec-title">Produtos em <span>Destaque</span></h2>
+    <div class="mlp-sec-line"></div>
+  </div>
+  <div class="lp-tabs mlp-reveal" id="lpTabs" style="transition-delay: 0.08s">
+    <button class="lp-tab active" data-filter="todos">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+      </svg>
+      Todos
+    </button>
+    <button class="lp-tab" data-filter="cortador">
+      <svg viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8" />
+        <circle cx="11" cy="11" r="3" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+      Cortadores
+    </button>
+    <button class="lp-tab" data-filter="rocadeira">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z" />
+      </svg>
+      Roçadeiras
+    </button>
+    <button class="lp-tab" data-filter="acessorio">
+      <svg viewBox="0 0 24 24">
+        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3-3a1 1 0 000-1.4l-1.6-1.6a1 1 0 00-1.4 0l-3 3z" />
+        <path d="M5 20l8-8m-2-2l2-3 3 3-3 2" />
+      </svg>
+      Acessórios
+    </button>
+  </div>
+
+  <div class="lp-grid mlp-reveal" id="lpGrid" style="transition-delay: 0.1s"></div>
+
+
+
+  <div class="mlp-hero-scope">
+    <!-- HERO -->
+    <div class="mlp-hero" id="mlpHero">
+      <div class="mlp-hero-disc" aria-hidden="true">
+        <div class="mlp-hero-disc-inner">
+          <strong>ATÉ</strong>
+          <span>13% OFF</span>
+        </div>
+      </div>
+
+      <div class="mlp-hero-content">
+        <div class="mlp-pill">🌿 Temporada de jardim</div>
+
+        <h1>
+          Jardim no ponto.<br />
+          Cortadores que<br />
+          <em>não param</em>.
+        </h1>
+
+        <p class="mlp-hero-sub">
+          Cortadores de grama e roçadeiras profissionais. Despacho em 24h, 12×
+          sem juros ou 13% de desconto no Pix.
+        </p>
+
+        <div class="mlp-hero-proof">
+          <span class="mlp-hero-proof-stars">★★★★★</span>
+          <span class="mlp-hero-proof-text">+1.200 clientes satisfeitos</span>
+        </div>
+
+        <div class="mlp-hero-ctas">
+          <a href="#mlp-produtos" class="mlp-btn-primary" id="mlpHeroCta">
+            Ver ofertas agora
+            <svg viewBox="0 0 24 24">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </a>
+
+          <a href="https://api.whatsapp.com/send?phone=554733791366" class="mlp-btn-ghost" target="_blank"
+            rel="noopener">
+            💬 Falar com especialista
+          </a>
+        </div>
+
+        <div class="mlp-hero-stats">
+          <div class="mlp-stat">
+            <span class="mlp-stat-val">+500</span><span class="mlp-stat-label">Produtos</span>
+          </div>
+          <div class="mlp-stat-sep"></div>
+          <div class="mlp-stat">
+            <span class="mlp-stat-val">24h</span><span class="mlp-stat-label">Despacho</span>
+          </div>
+          <div class="mlp-stat-sep"></div>
+          <div class="mlp-stat">
+            <span class="mlp-stat-val">13%</span><span class="mlp-stat-label">Desc. à vista</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mlp-hero-img" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=760&q=75" alt="" loading="lazy"
+          width="380" height="400" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. URGÊNCIA / TIMER -->
+  <div class="mlp-urgency mlp-reveal" style="transition-delay: 0.1s">
+    <div class="mlp-urgency-icon">⏰</div>
+    <div class="mlp-urgency-text">
+      <strong>Oferta por tempo limitado!</strong>
+      <p>Preços especiais válidos enquanto durarem os estoques</p>
+    </div>
+    <div class="mlp-urgency-timer">
+      <div class="mlp-timer-block">
+        <span class="mlp-timer-val" id="mlpH">00</span><span class="mlp-timer-lbl">horas</span>
+      </div>
+      <span class="mlp-timer-sep">:</span>
+      <div class="mlp-timer-block">
+        <span class="mlp-timer-val" id="mlpM">00</span><span class="mlp-timer-lbl">min</span>
+      </div>
+      <span class="mlp-timer-sep">:</span>
+      <div class="mlp-timer-block">
+        <span class="mlp-timer-val" id="mlpS">00</span><span class="mlp-timer-lbl">seg</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       5. VITRINE GRID (tabs + cards)
+       ⚠️ #lpGrid / #lpTabs / #lpCount
+          são usados pelo JS original — não alterar
+  ════════════════════════════════════ -->
+  <div class="mlp-sec-head mlp-reveal" style="transition-delay: 0.05s" id="mlp-vitrine2">
+    <h2 class="mlp-sec-title">Todos os <span>Produtos</span></h2>
+    <div class="mlp-sec-line"></div>
+  </div>
+
+
+
+  <div class="mv-root mlp-reveal" style="transition-delay: 0.12s">
+    <div class="mv-carousel-row">
+      <button class="mv-ctrl-btn" id="mvBtnPrev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+      <div class="mv-overflow">
+        <div class="mv-track" id="mvTrack"></div>
+      </div>
+      <button class="mv-ctrl-btn" id="mvBtnNext" aria-label="Próximo">
+        <svg viewBox="0 0 24 24">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+    </div>
+    <div class="mv-bottom">
+      <div class="mv-featured">
+        <div class="mv-frame">
+          <img id="mvFeaturedImg" src="" alt="Produto em destaque" width="360" height="360" />
+        </div>
+        <div class="mv-progress-wrap">
+          <div class="mv-progress-fill" id="mvProgress"></div>
+        </div>
+        <div class="mv-footer">
+          <span class="mv-counter" id="mvCounter">1 / 1</span>
+          <div class="mv-dots" id="mvDots"></div>
+        </div>
+      </div>
+      <div class="mv-info" id="mvInfo"></div>
+    </div>
+  </div>
+
+  <!-- ⚠️ #lpGrid — JS original renderiza os cards aqui. NÃO REMOVER. -->
+
+
+  <!-- 6. POR QUE COMPRAR -->
+  <div class="mlp-why mlp-reveal" style="transition-delay: 0.05s">
+    <div class="mlp-why-inner">
+      <h2 class="mlp-why-title">Por que comprar na Micar?</h2>
+      <p class="mlp-why-sub">
+        Mais de 20 anos levando as melhores máquinas até você
+      </p>
+      <div class="mlp-why-grid">
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">⚡</div>
+          <div>
+            <strong>Entrega Expressa</strong>
+            <p>Aprovação até 15h = despacho no mesmo dia</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">🏆</div>
+          <div>
+            <strong>Marcas líderes</strong>
+            <p>Honda, Husqvarna, B&amp;S e mais</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">🔧</div>
+          <div>
+            <strong>Suporte técnico</strong>
+            <p>Equipe especializada em máquinas de jardim</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">↩️</div>
+          <div>
+            <strong>7 dias p/ troca</strong>
+            <p>Devolvemos sem questionamentos</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">🔒</div>
+          <div>
+            <strong>Pagamento seguro</strong>
+            <p>SSL, ambiente certificado</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">📦</div>
+          <div>
+            <strong>Rastreamento</strong>
+            <p>Acompanhe em tempo real</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">💬</div>
+          <div>
+            <strong>WhatsApp direto</strong>
+            <p>Fale com especialista agora</p>
+          </div>
+        </div>
+        <div class="mlp-why-item">
+          <div class="mlp-why-icon">🌟</div>
+          <div>
+            <strong>Nota 4.9 / 5</strong>
+            <p>+1.200 avaliações verificadas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. DEPOIMENTOS -->
+  <div class="mlp-reviews mlp-reveal">
+    <div class="mlp-sec-head">
+      <h2 class="mlp-reviews-title">
+        O que nossos <span style="color: var(--mlp-blue)">clientes</span> dizem
+      </h2>
+      <div class="mlp-sec-line"></div>
+    </div>
+    <p class="mlp-reviews-sub">
+      ★★★★★ Média 4.9 — +1.200 avaliações verificadas
+    </p>
+    <div class="mlp-reviews-grid">
+      <div class="mlp-review">
+        <div class="mlp-review-stars">★★★★★</div>
+        <p class="mlp-review-text">
+          Recebi o cortador em menos de 48h. Produto idêntico à descrição, bem
+          embalado. A equipe tirou todas minhas dúvidas pelo WhatsApp antes de
+          comprar. Super recomendo!
+        </p>
+        <div class="mlp-review-author">
+          <div class="mlp-review-avatar">MF</div>
+          <div class="mlp-review-name">
+            <strong>Marcelo F.</strong><span>São Paulo, SP · Cortador de grama</span>
+          </div>
+          <span class="mlp-review-verified">Verificado</span>
+        </div>
+      </div>
+      <div class="mlp-review">
+        <div class="mlp-review-stars">★★★★★</div>
+        <p class="mlp-review-text">
+          Comprei a roçadeira a gasolina com desconto no Pix. O preço foi o
+          melhor que achei. Máquina chegou em perfeito estado, motor ligou na
+          primeira puxada.
+        </p>
+        <div class="mlp-review-author">
+          <div class="mlp-review-avatar">CP</div>
+          <div class="mlp-review-name">
+            <strong>Carlos P.</strong><span>Curitiba, PR · Roçadeira</span>
+          </div>
+          <span class="mlp-review-verified">Verificado</span>
+        </div>
+      </div>
+      <div class="mlp-review">
+        <div class="mlp-review-stars">★★★★★</div>
+        <p class="mlp-review-text">
+          Fiz a troca de um produto sem nenhum problema. Atendimento nota 10,
+          resposta rápida. Com certeza vou voltar para comprar mais. Recomendo
+          muito!
+        </p>
+        <div class="mlp-review-author">
+          <div class="mlp-review-avatar">LR</div>
+          <div class="mlp-review-name">
+            <strong>Luciana R.</strong><span>Belo Horizonte, MG · Acessórios</span>
+          </div>
+          <span class="mlp-review-verified">Verificado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. FAQ -->
+  <div class="mlp-faq mlp-reveal">
+    <div class="mlp-sec-head">
+      <h2 class="mlp-faq-title">
+        Dúvidas <span style="color: var(--mlp-blue)">frequentes</span>
+      </h2>
+      <div class="mlp-sec-line"></div>
+    </div>
+    <div class="mlp-faq-list" id="mlpFaq">
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          Qual o prazo de despacho?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          Pedidos aprovados até as 15h são despachados no mesmo dia útil. Os
+          demais saem no próximo dia útil. Você recebe o código de rastreamento
+          por e-mail após o despacho.
+        </div>
+      </div>
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          Como funciona o desconto no Pix?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          O desconto de 13% é aplicado automaticamente ao selecionar Pix ou
+          Boleto Bancário. Não é necessário nenhum cupom adicional.
+        </div>
+      </div>
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          Posso parcelar sem juros?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          Sim! Até 12× sem juros nos principais cartões (Visa, Mastercard, Elo,
+          American Express). Sem tarifas extras.
+        </div>
+      </div>
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          E se eu quiser devolver o produto?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          7 dias corridos após o recebimento para devolução sem precisar
+          justificar (CDC). Entre em contato pelo WhatsApp e cuidamos de tudo.
+        </div>
+      </div>
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          Os produtos têm garantia?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          Todos têm garantia de fábrica (mín. 12 meses) + suporte técnico
+          especializado da Micar.
+        </div>
+      </div>
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          Entregam para todo o Brasil?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          Sim, atendemos todos os estados via transportadoras parceiras com
+          rastreamento em tempo real.
+        </div>
+      </div>
+      <div class="mlp-faq-item">
+        <button class="mlp-faq-q" aria-expanded="false">
+          Cortador ou roçadeira — qual escolher?<svg viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div class="mlp-faq-a">
+          Cortadores são ideais para gramados planos. Roçadeiras cortam mato
+          alto e terrenos irregulares. Ficou em dúvida? Fale com nosso
+          especialista no WhatsApp.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. CTA FINAL -->
+  <!-- <div class="mlp-cta-final mlp-reveal">
+    <h2>Pronto para um jardim impecável?</h2>
+    <p>Escolha o equipamento ideal, pague no Pix e economize 13%. Despacho em 24h, garantia total.</p>
+    <div class="mlp-cta-btns">
+      <a href="#mlp-vitrine2" class="mlp-btn-blue" id="mlpFinalCta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+          stroke-linejoin="round" width="15" height="15">
+          <circle cx="9" cy="21" r="1" />
+          <circle cx="20" cy="21" r="1" />
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+        </svg>
+        Ver todos os produtos
+      </a>
+      <a href="https://api.whatsapp.com/send?phone=554733791366" class="mlp-btn-wpp" target="_blank" rel="noopener">
+        💬 Falar no WhatsApp
+      </a>
+    </div>
+    <div class="mlp-trust-row">
+      <span class="mlp-trust-chip">Despacho 24h</span>
+      <span class="mlp-trust-chip">12× sem juros</span>
+      <span class="mlp-trust-chip">13% no Pix</span>
+      <span class="mlp-trust-chip">7 dias p/ devolução</span>
+    </div>
+  </div> -->
+
+  <div class="mlp-spacer"></div>
+</div>
+<!-- /.mlp-page -->
+
+<!-- ══════════════════════════════════════════════════════
+     ██ JS VITRINE 1 — CAROUSEL DESTAQUE ██
+     Puxa: #componente-id-rsHgScvph6
+     Renderiza: #mvTrack / #mvInfo / #mvFeaturedImg
+     PRESERVADO INTEGRALMENTE
+══════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    "use strict";
+
+    var SCOPE_SEL = "#componente-id-rsHgScvph6 > div > div";
+    var ITEM_SEL = "li.swiper-slide:not(.swiper-slide-duplicate)";
+
+    function $(sel, ctx) {
+      return (ctx || document).querySelector(sel);
+    }
+    function $$(sel, ctx) {
+      return Array.prototype.slice.call(
+        (ctx || document).querySelectorAll(sel),
+      );
+    }
+    function clean(t) {
+      return (t || "").replace(/\s+/g, " ").trim();
+    }
+
+    function normalizeUrl(url) {
+      if (!url) return "";
+      url = String(url)
+        .trim()
+        .replace(/^["']|["']$/g, "");
+      if (!url) return "";
+      if (url.indexOf("data:") === 0) return "";
+      if (url.startsWith("//")) url = "https:" + url;
+      if (url.startsWith("/")) url = location.origin + url;
+      return url;
+    }
+
+    function bestFromSrcset(srcset) {
+      if (!srcset) return "";
+      var parts = srcset
+        .split(",")
+        .map(function (s) {
+          return s.trim();
+        })
+        .filter(Boolean);
+      if (!parts.length) return "";
+      return normalizeUrl(parts[parts.length - 1].split(" ")[0]);
+    }
+
+    function getBgFromComputed(el) {
+      if (!el) return "";
+      var bg = "";
+      try {
+        bg = window.getComputedStyle(el).backgroundImage || "";
+      } catch (_) { }
+      var m = bg.match(/url\(['"]?([^'")\s]+)['"]?\)/i);
+      return m ? normalizeUrl(m[1]) : "";
+    }
+
+    function pickImage(item) {
+      var img = $("img", item);
+      if (img) {
+        var u = bestFromSrcset(
+          img.getAttribute("srcset") || img.getAttribute("data-srcset") || "",
+        );
+        if (u) return u;
+        return normalizeUrl(
+          img.getAttribute("data-src") || img.getAttribute("src") || "",
+        );
+      }
+      var fig = $("figure", item) || item;
+      return getBgFromComputed(fig) || "";
+    }
+
+    function parseBRL(text) {
+      if (!text) return NaN;
+      var t = String(text)
+        .replace(/\s/g, "")
+        .replace(/[^\d,\.]/g, "")
+        .replace(/\./g, "")
+        .replace(",", ".");
+      var n = parseFloat(t);
+      return isNaN(n) ? NaN : n;
+    }
+
+    function tickLazy() {
+      try {
+        window.dispatchEvent(new Event("scroll"));
+      } catch (_) { }
+      try {
+        window.dispatchEvent(new Event("resize"));
+      } catch (_) { }
+    }
+
+    function getCtx() {
+      var scope = $(SCOPE_SEL);
+      if (!scope) return null;
+      var app = scope.querySelector('[id^="vitrine-react-app-"]');
+      if (!app) return null;
+      var wrap = app.querySelector("ul.swiper-wrapper.product-list");
+      if (!wrap) return null;
+      var items = $$(ITEM_SEL, wrap);
+      return { scope: scope, app: app, wrap: wrap, items: items };
+    }
+
+    function waitForCtx(maxMs, intervalMs) {
+      maxMs = maxMs || 25000;
+      intervalMs = intervalMs || 300;
+      return new Promise(function (resolve) {
+        var start = Date.now();
+        (function loop() {
+          tickLazy();
+          var ctx = getCtx();
+          if (ctx && ctx.items && ctx.items.length) return resolve(ctx);
+          if (Date.now() - start >= maxMs) return resolve(ctx || null);
+          setTimeout(loop, intervalMs);
+        })();
+      });
+    }
+
+    function extrairProdutos(ctx) {
+      var produtos = [];
+      var vistos = Object.create(null);
+      ctx.items.forEach(function (item, i) {
+        var a = $("a[href]", item);
+        var link = a ? a.href : "#";
+        var nomeEl =
+          $("h3.product-name", item) ||
+          item.querySelector('[class*="product-name"]') ||
+          $("h3", item) ||
+          $("h2", item);
+        var nome = clean(nomeEl ? nomeEl.textContent : "Produto " + (i + 1));
+        var pixEl =
+          $("span.price-boleto", item) || $("span.primary-price", item);
+        var precoPix = clean(pixEl ? pixEl.textContent : "");
+        var cardEl = $("span.price-cartao", item);
+        var precoCartao = clean(cardEl ? cardEl.textContent : "");
+        var imagem = pickImage(item);
+        if (!imagem) return;
+        if (vistos[imagem]) return;
+        
+        // Filtra produtos sem preço (sem estoque / indisponíveis)
+        if (!precoPix || precoPix.trim() === "") {
+          return;
+        }
+        
+        vistos[imagem] = true;
+        var desconto = "";
+        var vPix = parseBRL(precoPix);
+        var vCard = parseBRL(precoCartao);
+        if (!isNaN(vPix) && !isNaN(vCard) && vCard > vPix) {
+          desconto = "-" + Math.round((1 - vPix / vCard) * 100) + "%";
+        }
+        produtos.push({
+          nome: nome,
+          categoria: "Promoção",
+          descricao: "Aproveite as condições especiais por tempo limitado.",
+          preco: precoPix,
+          precoOld: precoCartao && precoCartao !== precoPix ? precoCartao : "",
+          desconto: desconto,
+          imagem: imagem,
+          link: link,
+        });
+      });
+      return produtos;
+    }
+
+    function ocultarSomenteEstaVitrine(ctx) {
+      var toHide =
+        ctx.app.closest(".vitrine.macro_vitrine") ||
+        ctx.app.closest(".ra-vitrine") ||
+        ctx.app;
+      if (toHide && !toHide.closest(".mv-root")) {
+        toHide.style.setProperty("display", "none", "important");
+        toHide.style.setProperty("visibility", "hidden", "important");
+        toHide.style.setProperty("height", "0", "important");
+        toHide.style.setProperty("margin", "0", "important");
+        toHide.style.setProperty("padding", "0", "important");
+        toHide.style.setProperty("overflow", "hidden", "important");
+      }
+    }
+
+    function construirCarrossel(produtos) {
+      var track = document.getElementById("mvTrack");
+      var infoBox = document.getElementById("mvInfo");
+      var featuredImg = document.getElementById("mvFeaturedImg");
+      var btnPrev = document.getElementById("mvBtnPrev");
+      var btnNext = document.getElementById("mvBtnNext");
+      var counter = document.getElementById("mvCounter");
+      var dotsWrap = document.getElementById("mvDots");
+      var progress = document.getElementById("mvProgress");
+      if (!track || !infoBox || !featuredImg) return;
+
+      var current = 0,
+        autoTimer = null,
+        AUTO_DELAY = 5500;
+      track.innerHTML = "";
+      dotsWrap.innerHTML = "";
+
+      produtos.forEach(function (p, i) {
+        var slide = document.createElement("div");
+        slide.className = "mv-slide" + (i === 0 ? " active" : "");
+        slide.innerHTML =
+          '<img src="' +
+          p.imagem +
+          '" alt="' +
+          p.nome +
+          '" loading="lazy"/>' +
+          (p.desconto
+            ? '<span class="mv-slide-badge">' + p.desconto + "</span>"
+            : "");
+        slide.addEventListener("click", function () {
+          goTo(i);
+        });
+        track.appendChild(slide);
+        var dot = document.createElement("div");
+        dot.className = "mv-dot" + (i === 0 ? " active" : "");
+        dot.addEventListener("click", function () {
+          goTo(i);
+        });
+        dotsWrap.appendChild(dot);
+      });
+
+      function renderInfo(idx) {
+        var p = produtos[idx];
+        featuredImg.classList.add("fade");
+        setTimeout(function () {
+          featuredImg.src = p.imagem;
+          featuredImg.alt = p.nome;
+          featuredImg.classList.remove("fade");
+        }, 300);
+        counter.textContent = idx + 1 + " / " + produtos.length;
+        dotsWrap.querySelectorAll(".mv-dot").forEach(function (d, i) {
+          d.classList.toggle("active", i === idx);
+        });
+        infoBox.classList.remove("animate");
+        void infoBox.offsetWidth;
+        infoBox.classList.add("animate");
+        var precoHTML =
+          '<div class="mv-price-block"><div class="mv-price-pix"><span class="mv-price-label">Pix / À vista</span><span class="mv-price-val">' +
+          p.preco +
+          "</span></div>" +
+          (function () {
+            var v = parseBRL(p.preco);
+            if (!isNaN(v) && v > 0) {
+              var comCupom = v * (1 - 5.555 / 100);
+              var cupomFormatado = comCupom.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              });
+              return (
+                '<div class="mv-price-cupom">Pague  <strong>' +
+                cupomFormatado +
+                "</strong> com o cupom <strong>MICAR5</strong></div>"
+              );
+            }
+            return "";
+          })() +
+          (p.desconto
+            ? '<span class="mv-discount-pill">' + p.desconto + "</span>"
+            : "") +
+          "</div>";
+        infoBox.innerHTML =
+          '<div><div class="mv-category">' +
+          p.categoria +
+          '</div><h3 class="mv-name">' +
+          p.nome +
+          '</h3><div class="mv-divider"></div><p class="mv-desc">' +
+          p.descricao +
+          "</p></div><div>" +
+          precoHTML +
+          '<a class="mv-btn" href="' +
+          p.link +
+          '">Ver produto <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>';
+      }
+
+      function calcSlideW() {
+        var first = track.querySelector(".mv-slide");
+        if (!first) return 140;
+        return Math.max(80, first.getBoundingClientRect().width + 8);
+      }
+
+      function goTo(idx) {
+        var slides = track.querySelectorAll(".mv-slide");
+        slides[current].classList.remove("active");
+        current = ((idx % produtos.length) + produtos.length) % produtos.length;
+        slides[current].classList.add("active");
+        var slideW = calcSlideW();
+        var viewW = track.parentElement.offsetWidth;
+        var maxScroll = Math.max(0, produtos.length * slideW - viewW);
+        var offset = Math.max(
+          0,
+          Math.min(current * slideW - (viewW / 2 - slideW / 2), maxScroll),
+        );
+        track.style.transform = "translateX(-" + offset + "px)";
+        renderInfo(current);
+        resetAuto();
+      }
+
+      function resetAuto() {
+        clearTimeout(autoTimer);
+        if (progress) {
+          progress.style.transition = "none";
+          progress.style.width = "0%";
+          void progress.offsetWidth;
+          progress.style.transition = "width " + AUTO_DELAY + "ms linear";
+          progress.style.width = "100%";
+        }
+        autoTimer = setTimeout(function () {
+          goTo(current + 1);
+        }, AUTO_DELAY);
+      }
+
+      btnPrev &&
+        btnPrev.addEventListener("click", function () {
+          goTo(current - 1);
+        });
+      btnNext &&
+        btnNext.addEventListener("click", function () {
+          goTo(current + 1);
+        });
+      renderInfo(0);
+      resetAuto();
+    }
+
+    function start() {
+      waitForCtx(25000, 300).then(function (ctx) {
+        if (!ctx || !ctx.items || !ctx.items.length) return;
+        var produtos = extrairProdutos(ctx);
+        if (!produtos.length) return;
+        ocultarSomenteEstaVitrine(ctx);
+        construirCarrossel(produtos);
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(start, 350);
+      });
+    } else {
+      setTimeout(start, 350);
+    }
+  })();
+</script>
+
+<!-- ══════════════════════════════════════════════════════
+     ██ JS VITRINE 2 — GRID COM TABS ██
+     Puxa: #componente-id-xBNAL2Fsqi
+     Renderiza: #lpGrid / tabs: #lpTabs / contagem: #lpCount
+     PRESERVADO INTEGRALMENTE
+══════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    "use strict";
+
+    var TARGET_SCOPE_SEL = "#componente-id-xBNAL2Fsqi > div > div";
+    var ITEM_SEL = "li.swiper-slide:not(.swiper-slide-duplicate)";
+
+    function tickLazy() {
+      try {
+        window.dispatchEvent(new Event("scroll"));
+      } catch (_) { }
+      try {
+        window.dispatchEvent(new Event("resize"));
+      } catch (_) { }
+    }
+
+    function normalizeUrl(url) {
+      if (!url) return "";
+      url = String(url)
+        .trim()
+        .replace(/^["']|["']$/g, "");
+      if (!url) return "";
+      if (url.indexOf("data:") === 0) return "";
+      if (url.startsWith("//")) url = "https:" + url;
+      if (url.startsWith("/")) url = location.origin + url;
+      return url;
+    }
+
+    function resolverImg(el) {
+      if (!el) return "";
+      var ss =
+        el.getAttribute("srcset") || el.getAttribute("data-srcset") || "";
+      if (ss) {
+        var partes = ss
+          .split(",")
+          .map(function (s) {
+            return s.trim().split(/\s+/)[0];
+          })
+          .filter(Boolean);
+        if (partes.length) {
+          var ultima = normalizeUrl(partes[partes.length - 1]);
+          if (ultima && ultima.indexOf("data:") !== 0) return ultima;
+        }
+      }
+      var prioridade = [
+        "data-src",
+        "data-lazy-src",
+        "data-original",
+        "data-url",
+        "data-image",
+        "src",
+      ];
+      for (var i = 0; i < prioridade.length; i++) {
+        var v = normalizeUrl((el.getAttribute(prioridade[i]) || "").trim());
+        if (v && v.indexOf("data:") !== 0 && v.length > 10) return v;
+      }
+      return "";
+    }
+
+    function limparPreco(str) {
+      if (!str) return "";
+      return str
+        .replace(/[\r\n\t]+/g, " ")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    }
+    function valorNumerico(str) {
+      if (!str) return 0;
+      var s = String(str)
+        .replace(/[^\d,]/g, "")
+        .replace(",", ".");
+      return parseFloat(s) || 0;
+    }
+
+    var SEL = {
+      nome: [
+        ".product-name",
+        ".product__name",
+        '[class*="product-name"]',
+        '[class*="nome-produto"]',
+        '[itemprop="name"]',
+        "h3",
+        "h2",
+      ],
+      link: ["a.product-name", 'a[class*="product"]', 'a[href*="/produto"]'],
+      img: [
+        "img[data-srcset]",
+        "img[srcset]",
+        "img[data-src]",
+        "img[data-lazy-src]",
+        "img[data-original]",
+        'img[itemprop="image"]',
+        "img",
+      ],
+      precoPix: [
+        "span.price-boleto",
+        '[class*="price-boleto"]',
+        '[class*="pix"]',
+        '[class*="boleto"]',
+        '[class*="avista"]',
+        '[class*="a-vista"]',
+        ".preco-a-vista",
+        '[class*="sale-price"]',
+        '[class*="price--sale"]',
+        '[itemprop="price"]',
+        '[class*="preco-pix"]',
+        '[class*="price-pix"]',
+      ],
+      precoDe: [
+        "del",
+        "s",
+        "span.price-cartao",
+        ".price-cartao",
+        '[class*="price-compare"]',
+        '[class*="old-price"]',
+        '[class*="preco-de"]',
+        '[class*="price--compare"]',
+        '[class*="was-price"]',
+      ],
+      parcelas: [
+        '[class*="parcel"]',
+        '[class*="parcela"]',
+        '[class*="installment"]',
+        '[class*="cartao"]',
+        '[class*="credito"]',
+      ],
+      estrelas: [
+        '[class*="star-rating"]',
+        '[class*="rating-stars"]',
+        '[class*="avaliac"]',
+        ".rating",
+        '[itemprop="ratingValue"]',
+      ],
+      numAvaliacoes: [
+        '[class*="review-count"]',
+        '[class*="num-avaliac"]',
+        '[class*="rating-count"]',
+        '[itemprop="reviewCount"]',
+      ],
+    };
+
+    function querySelector(scope, selectors) {
+      for (var i = 0; i < selectors.length; i++) {
+        try {
+          var el = scope.querySelector(selectors[i]);
+          if (el) return el;
+        } catch (e) { }
+      }
+      return null;
+    }
+
+    function inferirCategoria(nome) {
+      var n = (nome || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, ""); // remove acentos
+
+      if (/ro[cç]adeira|rocad/.test(n)) return "rocadeira";
+
+      // aparador/aparadores + variações comuns
+      if (/(cortador|aparador(?:es)?|tosa|grama|lawn|mower)/.test(n)) return "cortador";
+
+      if (/(lamina|fio|cabo|acess|peca|filtro|vela|tesoura|poda|bico|turbo|jato|enrolador|mangueira|irrigador|aspersor|oscilante|lanca|tubeira|faca|foice|ferramentas|conjunto|distribuidor|desvio|pistola|gatilho|carretel|nylon|ceifinha|suporte|luva)/.test(n)) return "acessorio";
+
+      return "outros";
+    }
+
+    function getFeats(nome) {
+      var n = (nome || "").toLowerCase();
+      var f = [];
+      var m;
+      if (/elétri|eletri/.test(n)) f.push("Motor elétrico");
+      if (/gasolina/.test(n)) f.push("Motor a gasolina");
+      if (/4\s*temp/.test(n)) f.push("Motor 4 tempos");
+      if (/2\s*temp/.test(n)) f.push("Motor 2 tempos");
+      if (/tracion/.test(n)) f.push("Tração automática");
+      if (/colec/.test(n)) f.push("Com coletor de grama");
+      m = nome && nome.match(/(\d+[\.,]?\d*)\s*cc/i);
+      if (m) f.push(m[1] + "cc de cilindrada");
+      m = nome && nome.match(/(\d+)\s*w\b/i);
+      if (m) f.push(m[1] + "W de potência");
+      m = nome && nome.match(/(\d+[\.,]?\d*)\s*(hp|cv)\b/i);
+      if (m) f.push(m[1] + " " + m[2].toUpperCase() + " de potência");
+      if (f.length === 0) f = ["Alta durabilidade", "Fácil manuseio"];
+      return f.slice(0, 3);
+    }
+
+    function extrairItem(slide, idx) {
+      try {
+        // Verifica se o produto está sem estoque
+        var stockAttr = slide.getAttribute("data-stock");
+        var hasUnavailableClass = slide.classList.contains("out-of-stock") || 
+                                   slide.classList.contains("esgotado") ||
+                                   slide.classList.contains("unavailable") ||
+                                   slide.classList.contains("sem-estoque");
+        var unavailableEl = querySelector(slide, [
+          "[class*='out-of-stock']",
+          "[class*='esgotado']",
+          "[class*='unavailable']",
+          "[class*='sem-estoque']"
+        ]);
+        
+        // Se o produto não tem estoque, pula
+        if (stockAttr === "0" || hasUnavailableClass || unavailableEl) {
+          return null;
+        }
+        
+        var nomeEl = querySelector(slide, SEL.nome);
+        var nome = nomeEl ? nomeEl.textContent.trim() : "";
+        if (!nome) nome = "Produto " + (idx + 1);
+        var linkEl =
+          querySelector(slide, SEL.link) || slide.querySelector("a[href]");
+        var link = linkEl ? linkEl.href : "#";
+        var imgEl = querySelector(slide, SEL.img);
+        var img = imgEl ? resolverImg(imgEl) : "";
+        if (!img) {
+          var todas = slide.querySelectorAll("img");
+          for (var t = 0; t < todas.length; t++) {
+            var c = resolverImg(todas[t]);
+            if (c) {
+              img = c;
+              break;
+            }
+          }
+        }
+        if (!img || img.indexOf("data:") === 0) return null;
+        var pixEl = querySelector(slide, SEL.precoPix);
+        var preco = pixEl ? limparPreco(pixEl.textContent) : "";
+        var deEl = querySelector(slide, SEL.precoDe);
+        var precoDe = deEl ? limparPreco(deEl.textContent) : "";
+        var parcelaEl = querySelector(slide, SEL.parcelas);
+        var parcelas = parcelaEl ? limparPreco(parcelaEl.textContent) : "";
+        
+        // Filtra produtos sem preço (sem estoque / indisponíveis)
+        if (!preco || preco.trim() === "") {
+          return null;
+        }
+        
+        var desconto = "";
+        var vN = valorNumerico(preco);
+        var vO = valorNumerico(precoDe);
+        if (vO > 0 && vN > 0 && vO > vN) {
+          desconto = "-" + Math.round((1 - vN / vO) * 100) + "%";
+        }
+        var estrelaEl = querySelector(slide, SEL.estrelas);
+        var qtdEl = querySelector(slide, SEL.numAvaliacoes);
+        var rating = estrelaEl
+          ? estrelaEl.getAttribute("data-score") || estrelaEl.textContent.trim()
+          : "";
+        var qtdRating = qtdEl ? qtdEl.textContent.replace(/[^\d]/g, "") : "";
+        var dataId = slide.getAttribute("data-id") || "";
+        var dataBrand = slide.getAttribute("data-brand") || "";
+        var catSlug = inferirCategoria((dataBrand || "") + " " + nome);
+        return {
+          dataId: dataId,
+          dataBrand: dataBrand,
+          nome: nome,
+          link: link,
+          img: img,
+          preco: preco,
+          precoDe: precoDe,
+          parcelas: parcelas,
+          desconto: desconto,
+          rating: rating,
+          qtdRating: qtdRating,
+          catSlug: catSlug,
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function waitForTargetSlides(cb, maxMs) {
+      maxMs = maxMs || 60000;
+      var start = Date.now();
+      var done = false;
+      var obs = null;
+      var timerId = null;
+      function cleanup() {
+        done = true;
+        try {
+          if (obs) obs.disconnect();
+        } catch (_) { }
+        obs = null;
+        if (timerId) {
+          clearTimeout(timerId);
+          timerId = null;
+        }
+      }
+      function getSlides() {
+        var scope = document.querySelector(TARGET_SCOPE_SEL);
+        if (!scope) return [];
+        var app = scope.querySelector('[id^="vitrine-react-app-"]');
+        if (!app) return [];
+        var wrap = app.querySelector("ul.swiper-wrapper.product-list");
+        if (!wrap) return [];
+        return Array.prototype.slice.call(wrap.querySelectorAll(ITEM_SEL));
+      }
+      function tryNow() {
+        if (done) return;
+        tickLazy();
+        var slides = getSlides();
+        if (slides.length) {
+          cleanup();
+          cb(slides);
+          return;
+        }
+        if (Date.now() - start > maxMs) {
+          cleanup();
+          renderGrid([]);
+        }
+      }
+      tryNow();
+      if (done) return;
+      obs = new MutationObserver(tryNow);
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+      (function loop() {
+        if (done) return;
+        tryNow();
+        timerId = setTimeout(loop, 800);
+      })();
+    }
+
+    function calcCupomPrice(precoStr) {
+      var v = valorNumerico(precoStr);
+      if (!v || v <= 0) return "";
+      var descPercent = 5.555;
+      var comCupom = v * (1 - descPercent / 100);
+      return comCupom.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    }
+
+    var GRID_ITEMS_PER_PAGE = 10;
+    var currentGridPage = 0;
+    var allGridProdutos = [];
+
+    function renderGridPage(produtos, page) {
+      var grid = document.getElementById("lpGrid");
+      var count = document.getElementById("lpCount");
+      if (!grid) return;
+      
+      var start = page * GRID_ITEMS_PER_PAGE;
+      var end = Math.min(start + GRID_ITEMS_PER_PAGE, produtos.length);
+      
+      if (page === 0) {
+        grid.innerHTML = "";
+      }
+      
+      for (var idx = start; idx < end; idx++) {
+        var p = produtos[idx];
+        var i = idx - start;
+        var featured = i === 0 && page === 0;
+        var feats = getFeats(p.nome);
+        var featHTML = feats
+          .map(function (f) {
+            return "<li>" + f + "</li>";
+          })
+          .join("");
+        var badgeHTML = "";
+        if (p.desconto) {
+          badgeHTML = '<span class="lp-card-badge">' + p.desconto + "</span>";
+        } else if (i < 2 && page === 0) {
+          badgeHTML = '<span class="lp-card-badge new">DESTAQUE</span>';
+        }
+        var starsHTML = "";
+        if (p.rating) {
+          var rVal = parseFloat(p.rating) || 0;
+          var stars = "";
+          for (var s = 1; s <= 5; s++) stars += s <= rVal ? "★" : "☆";
+          starsHTML =
+            '<div class="lp-card-stars"><span class="lp-card-stars-inner">' +
+            stars +
+            "</span>" +
+            (p.qtdRating
+              ? '<span class="lp-card-stars-count">(' + p.qtdRating + ")</span>"
+              : "") +
+            "</div>";
+        }
+        var cupomHTML = "";
+        if (p.preco !== "Consulte") {
+          var precoCupom = calcCupomPrice(p.preco);
+          if (precoCupom) {
+            cupomHTML =
+              '<div class="lp-card-cupom">Pague <span class="cc-price" style="font-family:\'Barlow Condensed\',sans-serif;font-size:15px;font-weight:800;color:#1e3448;line-height:1;">' +
+              precoCupom +
+              '</span> com cupom <span class="cc-code" style="margin-left:5px;background:#fec72f;color:#1e3448;font-family:\'Barlow Condensed\',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.06em;padding:2px 7px;border-radius:4px;">' +
+              'MICAR5</span></div>';
+          }
+        }
+        var tagPix =
+          p.preco !== "Consulte"
+            ? '<div class="lp-card-price-tag">💰 Pix / Boleto</div>'
+            : "";
+        var card = document.createElement("a");
+        card.className = "lp-card" + (featured ? " featured" : "");
+        card.href = p.link;
+        card.setAttribute("data-cat", p.catSlug);
+        card.innerHTML =
+          badgeHTML +
+          '<div class="lp-card-img"><img src="' +
+          p.img +
+          '" alt="' +
+          p.nome.replace(/"/g, "&quot;") +
+          '" loading="lazy"/><span class="lp-card-cat">' +
+          (p.dataBrand || "Jardim") +
+          '</span></div><div class="lp-card-body">' +
+          (p.dataBrand
+            ? '<div class="lp-card-brand">' + p.dataBrand + "</div>"
+            : "") +
+          starsHTML +
+          '<h3 class="lp-card-name">' +
+          p.nome +
+          '</h3><ul class="lp-card-feats">' +
+          featHTML +
+          '</ul><div class="lp-card-price-wrap">' +
+          (p.precoDe
+            ? '<div class="lp-card-price-old">De ' + p.precoDe + "</div>"
+            : "") +
+          tagPix +
+          '<div class="lp-card-price">' +
+          p.preco +
+          "</div>" +
+          cupomHTML +
+          '</div><div class="lp-card-cta">Ver produto <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>';
+        grid.appendChild(card);
+      }
+      
+      if (count) {
+        count.textContent = produtos.length + " produto" + (produtos.length > 1 ? "s" : "");
+      }
+      
+      // Adicionar botão "Ver Mais" se houver mais produtos
+      var existingBtn = document.getElementById("lp-load-more-btn");
+      if (existingBtn) {
+        existingBtn.parentNode.removeChild(existingBtn);
+      }
+      
+      if (end < produtos.length) {
+        var moreBtn = document.createElement("button");
+        moreBtn.id = "lp-load-more-btn";
+        moreBtn.className = "lp-load-more-btn";
+        moreBtn.textContent = "Ver mais produtos";
+        moreBtn.addEventListener("click", function () {
+          currentGridPage++;
+          renderGridPage(allGridProdutos, currentGridPage);
+        });
+        grid.parentNode.insertBefore(moreBtn, grid.nextSibling);
+      }
+    }
+
+    function renderGrid(produtos) {
+      var grid = document.getElementById("lpGrid");
+      var count = document.getElementById("lpCount");
+      if (!grid) return;
+      if (!produtos.length) {
+        grid.innerHTML =
+          '<div class="lp-empty">Nenhum produto encontrado.</div>';
+        if (count) count.textContent = "";
+        return;
+      }
+      allGridProdutos = produtos;
+      currentGridPage = 0;
+      renderGridPage(produtos, 0);
+    }
+
+    function filtrar(cat) {
+      var cards = document.querySelectorAll(".lp-card[data-cat]");
+      var visiveis = 0;
+      cards.forEach(function (c) {
+        var show = cat === "todos" || c.getAttribute("data-cat") === cat;
+        c.classList.toggle("hidden", !show);
+        if (show) visiveis++;
+      });
+      var count = document.getElementById("lpCount");
+      if (count)
+        count.textContent = visiveis + " produto" + (visiveis !== 1 ? "s" : "");
+    }
+
+    var tabs = document.getElementById("lpTabs");
+    if (tabs) {
+      tabs.addEventListener("click", function (e) {
+        var btn = e.target.closest(".lp-tab");
+        if (!btn) return;
+        tabs.querySelectorAll(".lp-tab").forEach(function (t) {
+          t.classList.remove("active");
+        });
+        btn.classList.add("active");
+        filtrar(btn.getAttribute("data-filter"));
+      });
+    }
+
+    waitForTargetSlides(function (slides) {
+      var produtos = [];
+      var seen = {};
+      slides.forEach(function (slide, i) {
+        var p = extrairItem(slide, i);
+        if (!p) return;
+        var txt = (p.nome + " " + (p.dataBrand || "")).toLowerCase();
+        if (!/cortador|aparadores|aparador|grama|rocadeira|roçadeira|tesoura|poda|bico|turbo|jato|enrolador|mangueira|irrigador|aspersor|oscilante|lanca|tubeira|faca|foice|ferramentas|conjunto|distribuidor|desvio|pistola|gatilho|carretel|nylon|ceifinha|suporte|luva/.test(txt)) return;
+        if (seen[p.img]) return;
+        seen[p.img] = true;
+        produtos.push(p);
+      });
+      var hash = produtos
+        .map(function (p) {
+          return p.link || p.img || p.nome;
+        })
+        .join("|");
+      if (window.__LP_LAST_HASH__ === hash) return;
+      window.__LP_LAST_HASH__ = hash;
+      renderGrid(produtos);
+      initReveal();
+    }, 60000);
+  })();
+</script>
+
+<!-- ══════════════════════════════════════════════════════
+     ██ JS AUXILIAR — sticky / timer / FAQ / reveal / tracking ██
+══════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    "use strict";
+
+    /* ── TIMER ── */
+    (function () {
+      var KEY = "mlpEnd_v3";
+      var end;
+      try {
+        var s = localStorage.getItem(KEY);
+        if (s) {
+          end = parseInt(s, 10);
+          if (isNaN(end) || end < Date.now()) end = null;
+        }
+      } catch (e) { }
+      if (!end) {
+        end = Date.now() + 8 * 60 * 60 * 1000;
+        try {
+          localStorage.setItem(KEY, String(end));
+        } catch (e) { }
+      }
+      function pad(n) {
+        return String(n).padStart(2, "0");
+      }
+      function tick() {
+        var d = Math.max(0, end - Date.now());
+        var h = Math.floor(d / 3600000),
+          m = Math.floor((d % 3600000) / 60000),
+          sc = Math.floor((d % 60000) / 1000);
+        var eH = document.getElementById("mlpH"),
+          eM = document.getElementById("mlpM"),
+          eS = document.getElementById("mlpS");
+        if (eH) eH.textContent = pad(h);
+        if (eM) eM.textContent = pad(m);
+        if (eS) eS.textContent = pad(sc);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    /* ── STICKY ── */
+    var sticky = document.getElementById("mlpSticky");
+    if (sticky) {
+      window.addEventListener(
+        "scroll",
+        function () {
+          sticky.classList.toggle(
+            "show",
+            (window.scrollY || window.pageYOffset) > 300,
+          );
+        },
+        { passive: true },
+      );
+    }
+
+    /* ── SCROLL SUAVE ── */
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute("href").slice(1);
+      var t = document.getElementById(id);
+      if (!t) return;
+      e.preventDefault();
+      window.scrollTo({
+        top:
+          t.getBoundingClientRect().top +
+          (window.scrollY || window.pageYOffset) -
+          12,
+        behavior: "smooth",
+      });
+    });
+
+    /* ── FAQ ACCORDION ── */
+    var faq = document.getElementById("mlpFaq");
+    if (faq) {
+      faq.addEventListener("click", function (e) {
+        var btn = e.target.closest(".mlp-faq-q");
+        if (!btn) return;
+        var item = btn.closest(".mlp-faq-item");
+        var isOpen = item.classList.contains("open");
+        faq.querySelectorAll(".mlp-faq-item.open").forEach(function (i) {
+          i.classList.remove("open");
+          i.querySelector(".mlp-faq-q").setAttribute("aria-expanded", "false");
+        });
+        if (!isOpen) {
+          item.classList.add("open");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+    }
+
+    /* ── SCROLL REVEAL ── */
+    function initReveal() {
+      var els = document.querySelectorAll(".mlp-reveal");
+      if (!els.length) return;
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.05 },
+        );
+        els.forEach(function (el) {
+          io.observe(el);
+        });
+      } else {
+        els.forEach(function (el) {
+          el.classList.add("visible");
+        });
+      }
+    }
+    window.initReveal =
+      initReveal; /* expõe para o JS da vitrine 2 chamar após render */
+    initReveal();
+
+    /* ── TRACKING ── */
+    function track(ev, p) {
+      try {
+        if (typeof gtag === "function") gtag("event", ev, p || {});
+      } catch (_) { }
+      try {
+        if (typeof fbq === "function") fbq("trackCustom", ev, p || {});
+      } catch (_) { }
+    }
+    var sb = document.getElementById("mlpStickyBuy");
+    if (sb)
+      sb.addEventListener("click", function () {
+        track("sticky_cta_click");
+      });
+    var fc = document.getElementById("mlpFinalCta");
+    if (fc)
+      fc.addEventListener("click", function () {
+        track("final_cta_click");
+      });
+    document.addEventListener("click", function (e) {
+      var card = e.target.closest(".lp-card");
+      if (!card) return;
+      var nm = card.querySelector(".lp-card-name");
+      track("product_click", { product_name: nm ? nm.textContent.trim() : "" });
+      var mv = e.target.closest(".mv-btn");
+      if (!mv) return;
+      track("featured_product_click");
+    });
+  })();
+</script>

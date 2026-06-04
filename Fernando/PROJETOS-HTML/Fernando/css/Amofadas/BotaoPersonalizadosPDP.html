@@ -1,0 +1,55 @@
+<style>
+    .botao-personalizado {
+        border: 1px solid #16A34A;
+        border-radius: 5px;
+        background: #16a34a36;
+    }
+
+    .botao{
+        font-size: 18px;
+        color: #0d5a29;
+        font-weight: 800;
+    }
+</style>
+
+
+
+
+<script>
+
+//Html via js
+$(document).ready(function() {
+const html = `
+<div class="botao-personalizado">
+    <button class="botao">Mande seu produto para o whats</button>
+    <a href="" target="_blank" rel="noopener noreferrer"></a>
+</div>`;
+    $(".container").insertAfter('.quantidade-comprar');
+});
+
+
+
+
+
+
+    //Pegar link do produto pela url
+        (function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const productLink = urlParams.get('link');
+          if (productLink) {
+            const whatsappLink = `https://wa.me/5547988299491?text=Olá,%20quero%20personalizar%20este%20produto!%20Sobre%20este%20produto:%20${encodeURIComponent(productLink)}`;
+            document.querySelector('.botao-personalizado a').href = whatsappLink;
+          } else {
+            console.warn('Link do produto não encontrado na URL.');
+          }
+
+          //pegar titulo do produto e passar por parametro
+          document.querySelector("#produto-react-app > div.flex.topo-produto.mt-space-20.pt-space-10.relative > div.informacoes-compra-produto.relative.w-\\[450px\\] > h1").addEventListener("click", function() {
+            const productTitle = this.textContent.trim();
+            const whatsappLink = `https://wa.me/5547988299491?text=Olá,%20quero%20personalizar%20este%20produto!%20Sobre%20este%20produto:%20${encodeURIComponent(productTitle)}`;
+            document.querySelector('.botao-personalizado a').href = whatsappLink;
+          });
+        })();
+
+
+</script>

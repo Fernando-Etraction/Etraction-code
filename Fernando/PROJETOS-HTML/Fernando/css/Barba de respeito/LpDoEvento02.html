@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BDR Experience – Evento para Barbeiros</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,900;1,900&display=swap" rel="stylesheet" />
+
+  <!-- ═══════════════════════════════════════
+       CSS · BASE & VARIÁVEIS
+  ════════════════════════════════════════ -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --laranja:  #E8450A;
+      --laranja2: #c73a08;
+      --preto:    #161616;
+      --cinza1:   #1c1c1c;
+      --cinza2:   #222222;
+      --cinza3:   #2e2e2e;
+      --branco:   #FFFFFF;
+      --texto:    rgba(255,255,255,0.65);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--preto);
+      color: var(--branco);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--preto); }
+    ::-webkit-scrollbar-thumb { background: var(--laranja); border-radius: 10px; }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · COMPONENTES GLOBAIS (botões, tags)
+  ════════════════════════════════════════ -->
+  <style>
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--laranja);
+      color: var(--branco);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 40px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--laranja2); transform: translateY(-2px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--preto);
+      color: var(--branco);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 40px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--laranja); color: var(--laranja); }
+
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--preto);
+      color: var(--branco);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 20px 56px;
+      border-radius: 2px;
+      position: relative;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-dark:hover { background: #0a0a0a; transform: translateY(-2px); }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--laranja);
+      margin-bottom: 16px;
+    }
+
+    .section-header { margin-bottom: 64px; }
+    .section-header.center { text-align: center; }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+      margin-top: 16px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--texto);
+      max-width: 560px;
+    }
+    .section-header.center p { margin: 16px auto 0; }
+
+    .section { padding: 100px 80px; }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · NAV
+  ════════════════════════════════════════ -->
+  <style>
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(22,22,22,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-brand {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--laranja);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--laranja); }
+
+    .nav-cta {
+      background: var(--laranja);
+      color: var(--branco) !important;
+      padding: 10px 24px;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: var(--laranja2) !important; color: var(--branco) !important; }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · HERO
+  ════════════════════════════════════════ -->
+  <style>
+    .hero {
+      min-height: 100vh;
+      background: var(--preto);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 80px 80px;
+      position: relative;
+      overflow: hidden;
+      gap: 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(232,69,10,0.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-left { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(232,69,10,0.12);
+      border: 1px solid rgba(232,69,10,0.4);
+      color: var(--laranja);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+    }
+
+    .hero-eyebrow span {
+      width: 6px; height: 6px;
+      background: var(--laranja);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(1.5); }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--laranja);
+      display: block;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--texto);
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* coluna direita — grade de fotos */
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .hero-img-wrap {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .hero-img-wrap:first-child { grid-column: 1 / -1; height: 340px; }
+    .hero-img-wrap:nth-child(2),
+    .hero-img-wrap:nth-child(3) { height: 220px; }
+
+    .hero-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: grayscale(20%);
+      transition: transform 0.4s, filter 0.4s;
+    }
+    .hero-img-wrap:hover img { transform: scale(1.04); filter: grayscale(0); }
+
+    .hero-img-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px 20px 16px;
+      background: linear-gradient(to top, rgba(22,22,22,0.95) 0%, transparent 100%);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .hero-img-label strong { display: block; font-size: 1rem; }
+    .hero-img-label span { color: var(--laranja); font-size: 0.7rem; letter-spacing: 0.15em; }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · STATS BAR
+  ════════════════════════════════════════ -->
+  <style>
+    .stats-bar {
+      background: var(--laranja);
+      padding: 28px 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-item .num {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-item .lbl {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.75;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .stat-sep {
+      width: 1px; height: 40px;
+      background: rgba(255,255,255,0.3);
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · BENEFÍCIOS
+  ════════════════════════════════════════ -->
+  <style>
+    .beneficios { background: var(--cinza1); }
+
+    .ben-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+    }
+
+    .ben-card {
+      background: var(--cinza2);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s;
+    }
+
+    .ben-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--laranja);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .ben-card:hover { background: var(--cinza3); }
+    .ben-card:hover::before { transform: scaleX(1); }
+
+    .ben-card.featured {
+      grid-row: 1 / 3;
+      background: var(--laranja);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 420px;
+    }
+    .ben-card.featured::before { display: none; }
+
+    .ben-num {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: rgba(255,255,255,0.12);
+      position: absolute;
+      top: 24px; right: 28px;
+    }
+    .ben-card.featured .ben-num { color: rgba(255,255,255,0.2); }
+
+    .ben-icon { font-size: 2rem; margin-bottom: 20px; }
+
+    .ben-card h3 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .ben-card p {
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+    }
+    .ben-card.featured p { color: rgba(255,255,255,0.8); }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · PALESTRANTES
+  ════════════════════════════════════════ -->
+  <style>
+    .palestrantes { background: var(--preto); }
+
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      grid-auto-rows: 380px;
+      align-items: center;
+    }
+
+    .speakers-grid > div:nth-child(1),
+    .speakers-grid > div:nth-child(3) {
+      align-self: center;
+    }
+
+    .speakers-grid > div:nth-child(2) {
+      grid-row: span 2;
+      align-self: stretch;
+    }
+
+    .sp-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      height: 100%;
+    }
+
+    .sp-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      filter: grayscale(40%) brightness(0.85);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .sp-card:hover img {
+      filter: grayscale(0%) brightness(1);
+      transform: scale(1.04);
+    }
+
+    .sp-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(22,22,22,0.97) 0%, rgba(22,22,22,0.1) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 36px 32px;
+      transition: background 0.3s;
+    }
+    .sp-card:hover .sp-overlay {
+      background: linear-gradient(to top, rgba(232,69,10,0.92) 0%, rgba(22,22,22,0.05) 55%, transparent 100%);
+    }
+
+    .sp-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--laranja);
+      margin-bottom: 8px;
+      transition: color 0.3s;
+    }
+    .sp-card:hover .sp-tag { color: rgba(255,255,255,0.85); }
+
+    .sp-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .sp-desc {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.65);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, color 0.3s;
+    }
+    .sp-card:hover .sp-desc {
+      max-height: 100px;
+      color: rgba(255,255,255,0.85);
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · LINHA DO TEMPO
+  ════════════════════════════════════════ -->
+  <style>
+    .timeline-section { background: var(--cinza1); }
+
+    .tl-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .tl-sticky { position: sticky; top: 100px; }
+
+    .tl-sticky h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .tl-sticky p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--texto);
+      margin-bottom: 40px;
+    }
+
+    .tl-list { display: flex; flex-direction: column; }
+
+    .tl-item {
+      display: flex;
+      gap: 0;
+      position: relative;
+    }
+
+    .tl-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 24px;
+    }
+
+    .tl-circle {
+      width: 40px; height: 40px; min-width: 40px;
+      border: 2px solid var(--laranja);
+      border-radius: 50%;
+      background: var(--cinza2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 900;
+      color: var(--laranja);
+      transition: background 0.2s;
+      z-index: 1;
+    }
+    .tl-item:hover .tl-circle { background: var(--laranja); color: var(--branco); }
+
+    .tl-line {
+      width: 1px; flex: 1;
+      background: rgba(232,69,10,0.2);
+      margin: 4px 0;
+    }
+    .tl-item:last-child .tl-line { display: none; }
+
+    .tl-body { padding-bottom: 36px; padding-top: 8px; flex: 1; }
+
+    .tl-time {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--laranja);
+      margin-bottom: 6px;
+    }
+
+    .tl-title {
+      font-size: 1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .tl-sub {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      color: var(--texto);
+    }
+
+    .tl-badge {
+      display: inline-block;
+      background: rgba(232,69,10,0.15);
+      border: 1px solid rgba(232,69,10,0.5);
+      color: var(--laranja);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · PATROCINADORES
+  ════════════════════════════════════════ -->
+  <style>
+    .patrocinadores { background: var(--preto); }
+
+    .sp-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 72px;
+      flex-wrap: wrap;
+    }
+
+    .sp-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sp-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .sp-item img {
+      height: 52px; width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.55;
+      transition: opacity 0.25s, filter 0.25s;
+    }
+    .sp-item img:hover {
+      opacity: 1;
+      filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(-10deg);
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · CTA FINAL
+  ════════════════════════════════════════ -->
+  <style>
+    .cta-section {
+      background: var(--laranja);
+      padding: 120px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: 'BDR';
+      position: absolute;
+      font-size: 28vw;
+      font-weight: 900;
+      font-style: italic;
+      color: rgba(255,255,255,0.07);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .cta-section p {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 48px;
+      position: relative;
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · FOOTER
+  ════════════════════════════════════════ -->
+  <style>
+    footer {
+      background: #0e0e0e;
+      padding: 48px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      width: 44px; height: 44px;
+      border: 1px solid var(--laranja);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--laranja); }
+  </style>
+
+  <!-- ═══════════════════════════════════════
+       CSS · RESPONSIVO
+  ════════════════════════════════════════ -->
+  <style>
+    @media (max-width: 1024px) {
+      nav { padding: 16px 28px; }
+      .nav-links { display: none; }
+
+      .hero { grid-template-columns: 1fr; padding: 100px 28px 60px; gap: 48px; }
+      .hero-right { grid-template-columns: 1fr 1fr; }
+      .hero-img-wrap:first-child { grid-column: 1 / -1; height: 260px; }
+
+      .stats-bar { padding: 28px 28px; }
+
+      .section { padding: 72px 28px; }
+
+      .ben-grid { grid-template-columns: 1fr 1fr; }
+      .ben-card.featured { grid-row: auto; grid-column: 1 / -1; min-height: 260px; }
+
+      .speakers-grid { grid-template-columns: 1fr; }
+      .sp-card img { height: 360px; }
+
+      .tl-wrapper { grid-template-columns: 1fr; gap: 48px; }
+      .tl-sticky { position: static; }
+
+      .cta-section { padding: 80px 28px; }
+
+      footer { padding: 36px 28px; flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.8rem; }
+      .ben-grid { grid-template-columns: 1fr; }
+      .sp-row { gap: 40px; }
+      .stat-sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       HTML · NAV
+  ════════════════════════════════════════ -->
+  <nav>
+    <div class="nav-brand">Logo</div>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#palestrantes">Palestrantes</a></li>
+      <li><a href="#programacao">Programação</a></li>
+      <li><a href="#inscricao" class="nav-cta">Garantir vaga</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HTML · HERO
+  ════════════════════════════════════════ -->
+  <section class="hero" id="sobre">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span></span>
+        Evento exclusivo para barbeiros
+      </div>
+      <h1>
+        Barba<br />de
+        <em>Respeito.</em>
+      </h1>
+      <p class="hero-desc">
+        Um dia inteiro de conteúdo real, palestras práticas e conexões que movem carreiras.
+        Tudo pensado de barbeiro para barbeiro.
+      </p>
+      <div class="hero-actions">
+        <a href="#inscricao" class="btn-primary">Garantir minha vaga →</a>
+        <a href="#programacao" class="btn-ghost">Ver programação</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-img-wrap">
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/DSC_0566.jpg?v=1774875086" alt="Juarez Leite" />
+        <div class="hero-img-label">
+          <span>Encerramento · Visagismo</span>
+          <strong>Juarez Leite</strong>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/IMG_6954_JPG.jpg?v=1774875084" alt="Isabela" />
+        <div class="hero-img-label">
+          <span>Palestra · Crescimento</span>
+          <strong>Isabela</strong>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/KAUA_jpg.jpg?v=1774875086" alt="Kauã" />
+        <div class="hero-img-label">
+          <span>Palestra · Negócios</span>
+          <strong>Kauã</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HTML · STATS BAR
+  ════════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="num">3</span>
+      <span class="lbl">Palestrantes</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <span class="num">7h</span>
+      <span class="lbl">De conteúdo</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <span class="num">100%</span>
+      <span class="lbl">Prático</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <span class="num">1</span>
+      <span class="lbl">Dia transformador</span>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       HTML · BENEFÍCIOS
+  ════════════════════════════════════════ -->
+  <section class="section beneficios">
+    <div class="section-header">
+      <span class="section-tag">Por que participar</span>
+      <h2>O que você vai<br />levar daqui</h2>
+    </div>
+    <div class="ben-grid">
+      <div class="ben-card featured">
+        <div class="ben-num">01</div>
+        <div class="ben-icon">🚀</div>
+        <h3>Crescimento Real</h3>
+        <p>Conteúdo direto ao ponto sobre como crescer de forma sólida, sustentável e consistente dentro da barbearia.</p>
+      </div>
+      <div class="ben-card">
+        <div class="ben-num">02</div>
+        <div class="ben-icon">🧠</div>
+        <h3>Mentalidade</h3>
+        <p>A mudança começa na cabeça. Aprenda a pensar como um empreendedor de verdade.</p>
+      </div>
+      <div class="ben-card">
+        <div class="ben-num">03</div>
+        <div class="ben-icon">💰</div>
+        <h3>Mais Faturamento</h3>
+        <p>Estratégias práticas para aumentar o ticket médio e ganhar mais com os produtos certos.</p>
+      </div>
+      <div class="ben-card">
+        <div class="ben-num">04</div>
+        <div class="ben-icon">✂️</div>
+        <h3>Visagismo</h3>
+        <p>Técnica que diferencia os grandes profissionais — entenda como aplicar e cobrar mais por isso.</p>
+      </div>
+      <div class="ben-card">
+        <div class="ben-num">05</div>
+        <div class="ben-icon">🤝</div>
+        <h3>Networking</h3>
+        <p>Conecte-se com outros barbeiros e construa relações que duram além do evento.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HTML · PALESTRANTES
+  ════════════════════════════════════════ -->
+  <section class="section palestrantes" id="palestrantes">
+    <div class="section-header center">
+      <span class="section-tag">Quem vai palestrar</span>
+      <h2>Os Palestrantes</h2>
+      <p>Profissionais que vivem o que ensinam. Cada um com uma missão diferente dentro do evento.</p>
+    </div>
+    <div class="speakers-grid">
+      <div class="sp-card">
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/IMG_6954_JPG.jpg?v=1774875084" alt="Isabela" />
+        <div class="sp-overlay">
+          <p class="sp-tag">Palestra · 16:15</p>
+          <h3 class="sp-name">Isabela</h3>
+          <p class="sp-desc">Uma visão poderosa e honesta sobre crescimento pessoal e profissional dentro da área.</p>
+        </div>
+      </div>
+      <div class="sp-card">
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/KAUA_jpg.jpg?v=1774875086" alt="Kauã" />
+        <div class="sp-overlay">
+          <p class="sp-tag">Palestra · 17:45</p>
+          <h3 class="sp-name">Kauã</h3>
+          <p class="sp-desc">Mentalidade e negócios na prática — como ganhar mais dinheiro com produtos e posicionamento.</p>
+        </div>
+      </div>
+      <div class="sp-card">
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/DSC_0566.jpg?v=1774875086" alt="Juarez Leite" />
+        <div class="sp-overlay">
+          <p class="sp-tag">Encerramento · 20:00</p>
+          <h3 class="sp-name">Juarez Leite</h3>
+          <p class="sp-desc">Referência em visagismo. Uma aula que vai mudar a forma como você enxerga o seu trabalho.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HTML · LINHA DO TEMPO
+  ════════════════════════════════════════ -->
+  <section class="section timeline-section" id="programacao">
+    <div class="tl-wrapper">
+      <div class="tl-sticky">
+        <span class="section-tag">Programação completa</span>
+        <h2>Como vai ser<br />o dia</h2>
+        <p>Das 15h às 22h, cada bloco foi pensado para maximizar seu aprendizado e experiência.</p>
+        <a href="#inscricao" class="btn-primary">Garantir vaga →</a>
+      </div>
+
+      <div class="tl-list">
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">1</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">15:00 – 16:00</p>
+            <h4 class="tl-title">Credenciamento & Abertura</h4>
+            <p class="tl-sub">Credenciamento, música ambiente, networking, fotos e introdução ao sistema. Apresentação da marca: história, posicionamento e novidades.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">2</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">16:15</p>
+            <div class="tl-badge">Palestra</div>
+            <h4 class="tl-title">Isabela — Crescimento</h4>
+            <p class="tl-sub">Uma conversa direta e prática sobre crescer de forma consistente e sustentável na área.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">3</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">17:15</p>
+            <h4 class="tl-title">Intervalo</h4>
+            <p class="tl-sub">Música ao vivo com Bruktus. Momento de relaxar e conectar.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">4</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">17:45 – 18:30</p>
+            <div class="tl-badge">Palestra</div>
+            <h4 class="tl-title">Kauã — Mentalidade & Negócios</h4>
+            <p class="tl-sub">Como transformar mentalidade em dinheiro. Abordagem prática sobre ganhar mais com produtos.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">5</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">18:30 – 19:00</p>
+            <h4 class="tl-title">Intervalo</h4>
+            <p class="tl-sub">Música, networking e descontração entre os participantes.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">6</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">19:00</p>
+            <div class="tl-badge">Bate-papo</div>
+            <h4 class="tl-title">Juliano</h4>
+            <p class="tl-sub">Uma conversa aberta com troca real de experiências e insights do mercado.</p>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left"><div class="tl-circle">7</div><div class="tl-line"></div></div>
+          <div class="tl-body">
+            <p class="tl-time">20:00 – 22:00</p>
+            <div class="tl-badge">Encerramento</div>
+            <h4 class="tl-title">Juarez Leite — Visagismo</h4>
+            <p class="tl-sub">O grand finale. Técnica, identidade visual e como o visagismo transforma carreiras e preços.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HTML · PATROCINADORES
+  ════════════════════════════════════════ -->
+  <section class="section patrocinadores">
+    <div class="section-header center">
+      <span class="section-tag">Realização & Apoio</span>
+      <h2>Quem torna isso possível</h2>
+    </div>
+    <div class="sp-row">
+      <div class="sp-item">
+        <span class="sp-label">Patrocinador</span>
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/logo_b-way_BLANCO.png?v=1774875084" alt="B-Way" />
+      </div>
+      <div class="sp-item">
+        <span class="sp-label">Apoio</span>
+        <img src="https://cdn.shopify.com/s/files/1/0581/4550/5415/files/D_NQ_NP_772166-MLA91418682359_092025-F.jpg?v=1774875084" alt="Pichau" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HTML · CTA FINAL
+  ════════════════════════════════════════ -->
+  <section class="cta-section" id="inscricao">
+    <h2>Pronto para o<br />próximo nível?</h2>
+    <p>Vagas limitadas. O evento que vai mudar a forma como você trabalha.</p>
+    <a href="#" class="btn-dark">Quero participar →</a>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       HTML · FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-logo">Logo</div>
+      <span class="footer-copy">© 2026 Barba de Respeito · Todos os direitos reservados</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#palestrantes">Palestrantes</a></li>
+      <li><a href="#programacao">Programação</a></li>
+      <li><a href="#inscricao">Inscrição</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

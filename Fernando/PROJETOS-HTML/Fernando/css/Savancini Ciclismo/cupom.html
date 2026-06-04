@@ -1,0 +1,232 @@
+<style>
+        .etc-cupom-produto-box {
+        margin-top: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .etc-cupom-produto-line {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border: 1px solid #e5e1da;
+        border-radius: 9px;
+        background: #fffdf8;
+      }
+
+      .etc-cupom-produto-text {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+        color: #4b453d;
+        font-size: 13.5px;
+        line-height: 1.35;
+      }
+
+      .etc-cupom-produto-label {
+        color: #6f675d;
+        font-weight: 500;
+      }
+
+      .etc-cupom-produto-text strong {
+        color: #2f2a24;
+        font-weight: 800;
+      }
+
+      .etc-cupom-produto-code {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 0 8px;
+        border: 1px dashed #c9bcaa;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #3a3128;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .etc-cupom-produto-check {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        color: #3f3a33;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .etc-cupom-produto-check input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        cursor: pointer;
+        accent-color: #4b453d;
+      }
+
+      .etc-cupom-produto-feedback {
+        margin-top: 7px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-size: 12.5px;
+        line-height: 1.35;
+        font-weight: 600;
+      }
+
+      .etc-cupom-produto-feedback-success {
+        background: #f0f7f1;
+        color: #2f6b3c;
+        border: 1px solid #d7eadb;
+      }
+
+      .etc-cupom-produto-feedback-remove {
+        background: #f8eeee;
+        color: #8a3a3a;
+        border: 1px solid #ead4d4;
+      }
+
+      @media (max-width: 768px) {
+        .etc-cupom-produto-line {
+          padding: 10px;
+          gap: 9px;
+        }
+
+        .etc-cupom-produto-text {
+          font-size: 12.8px;
+        }
+
+        .etc-cupom-produto-code {
+          min-height: 23px;
+          padding: 0 7px;
+          font-size: 11.5px;
+        }
+
+        .etc-cupom-produto-check {
+          font-size: 12.5px;
+        }
+
+        .etc-cupom-produto-check input[type="checkbox"] {
+          width: 15px;
+          height: 15px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .etc-cupom-produto-line {
+          align-items: flex-start;
+          flex-direction: row;
+        }
+
+        .etc-cupom-produto-check {
+          justify-content: flex-end;
+        }
+      }
+</style>
+
+
+<script>
+(function () {
+  const COUPON_CODE = "PRIMEIRACOMPRA";
+  const DISCOUNT_PERCENT = 10;
+  const STORAGE_KEY = "produtoCupomPrimeiraCompraSelecionado";
+  const STORAGE_CODE_KEY = "produtoCupomPrimeiraCompraCodigo";
+
+  const PRICE_SELECTOR = ".full-price .price-big";
+  const INSERT_AFTER_SELECTOR = ".mais-formas-pagamento";
+
+  function showFeedbackMessage(wrapper, message, type) {
+    const feedback = wrapper.querySelector(".etc-cupom-produto-feedback");
+    if (!feedback) return;
+
+    feedback.textContent = message;
+    feedback.className = "etc-cupom-produto-feedback etc-cupom-produto-feedback-" + type;
+    feedback.style.display = "block";
+
+    clearTimeout(feedback._hideTimer);
+    feedback._hideTimer = setTimeout(function () {
+      feedback.style.display = "none";
+    }, 2000);
+  }
+
+  function createCouponBox() {
+    const wrapper = document.createElement("div");
+    wrapper.className = "etc-cupom-produto-box";
+
+    wrapper.innerHTML = `
+      <div class="etc-cupom-produto-line">
+        <div class="etc-cupom-produto-text">
+          <span class="etc-cupom-produto-label">Primeira compra:</span>
+          <strong>${DISCOUNT_PERCENT}% OFF</strong>
+
+        </div>
+
+        <label class="etc-cupom-produto-check">
+          <input type="checkbox" id="etc-aplicar-cupom-primeira-compra">
+          <span>Aplicar</span>
+        </label>
+      </div>
+
+      <div class="etc-cupom-produto-feedback" style="display:none;"></div>
+    `;
+
+    const checkbox = wrapper.querySelector("#etc-aplicar-cupom-primeira-compra");
+
+    checkbox.checked = localStorage.getItem(STORAGE_KEY) === "true";
+
+    checkbox.addEventListener("change", function () {
+      const isChecked = this.checked;
+
+      localStorage.setItem(STORAGE_KEY, isChecked ? "true" : "false");
+      localStorage.setItem(STORAGE_CODE_KEY, isChecked ? COUPON_CODE : "");
+
+      if (isChecked) {
+        showFeedbackMessage(wrapper, "Cupom ativado.", "success");
+      } else {
+        showFeedbackMessage(wrapper, "Cupom removido.", "remove");
+      }
+    });
+
+    return wrapper;
+  }
+
+
+
+  function initCouponBox() {
+    if (document.querySelector(".etc-cupom-produto-box")) return;
+
+    const priceElement = document.querySelector(PRICE_SELECTOR);
+    const insertTarget = document.querySelector(INSERT_AFTER_SELECTOR);
+
+    if (!priceElement || !insertTarget) return;
+
+
+    const couponBox = createCouponBox();
+    insertTarget.insertAdjacentElement("afterend", couponBox);
+  }
+
+  function waitForElement() {
+    let attempts = 0;
+    const maxAttempts = 60;
+
+    const interval = setInterval(function () {
+      attempts++;
+      initCouponBox();
+
+      if (document.querySelector(".etc-cupom-produto-box") || attempts >= maxAttempts) {
+        clearInterval(interval);
+      }
+    }, 500);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", waitForElement);
+  } else {
+    waitForElement();
+  }
+})();
+</script>

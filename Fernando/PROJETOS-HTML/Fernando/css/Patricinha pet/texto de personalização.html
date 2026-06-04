@@ -1,0 +1,55 @@
+<style>
+    .texto-personalizado {
+        font-size: 18px;
+        color: #333;
+        margin: 20px 0;
+        text-align: center;
+        padding: 5px;
+        border-left: 5px solid #d66b98;
+        border-bottom: 1px solid #d66b98;
+        border-top: 1px solid #d66b98;
+        border-right: 1px solid #d66b98;
+        background-color: #d66b981a;
+        border-radius: 10px;
+        text-align: left;
+        width: fit-content;
+    }
+</style>
+
+<script>
+(function () {
+  'use strict';
+
+  function inserir() {
+    const elemento = document.querySelector(".tail-prod-ver-grupo-precos");
+    const seletor = document.querySelector(".js-tail-pers-divs");
+
+    // só executa se os dois existirem
+    if (!elemento || !seletor) return false;
+
+    // evita duplicação
+    if (document.querySelector('.texto-personalizado')) return true;
+
+    const span = document.createElement('span');
+    span.className = 'texto-personalizado';
+    span.textContent = 'Selecione um tamanho para personalizar';
+
+    elemento.parentNode.insertBefore(span, elemento.nextSibling);
+
+    return true;
+  }
+
+  // tenta imediato
+  if (!inserir()) {
+    // fallback para render dinâmico (Magazord)
+    const observer = new MutationObserver((_, obs) => {
+      if (inserir()) obs.disconnect();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    setTimeout(() => observer.disconnect(), 10000);
+  }
+
+})();
+</script>

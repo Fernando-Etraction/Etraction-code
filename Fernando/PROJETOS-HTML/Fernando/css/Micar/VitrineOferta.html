@@ -1,0 +1,1911 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800&family=Barlow:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+
+<style>
+    /* ═══════════════════════════════════════════
+   RESET ESCOPADO
+═══════════════════════════════════════════ */
+    .lp-grama,
+    .lp-grama *,
+    .lp-grama *::before,
+    .lp-grama *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+   TOKENS — IDENTIDADE MICAR
+═══════════════════════════════════════════ */
+    .lp-grama {
+        --blue: #396087;
+        --blue-dark: #2a4a6a;
+        --blue-deeper: #1e3448;
+        --blue-dim: rgba(57, 96, 135, 0.12);
+        --blue-glow: rgba(57, 96, 135, 0.30);
+        --yellow: #FEC72F;
+        --yellow-dark: #e0a800;
+        --yellow-dim: rgba(254, 199, 47, 0.16);
+        --yellow-glow: rgba(254, 199, 47, 0.45);
+        --green: #3a7d44;
+        --green-dim: rgba(58, 125, 68, 0.10);
+        --bg: #f5f4f0;
+        --bg2: #ffffff;
+        --bg3: #eceae4;
+        --border: rgba(57, 96, 135, 0.12);
+        --text: #1e2d3d;
+        --muted: #6b7a8a;
+        --muted2: #b0bac3;
+        --font-head: 'Barlow Condensed', sans-serif;
+        --font-body: 'Barlow', sans-serif;
+        --r: 10px;
+        --r-lg: 16px;
+        --r-xl: 22px;
+        --shadow: 0 2px 14px rgba(30, 52, 72, 0.09);
+        --shadow-lg: 0 8px 32px rgba(30, 52, 72, 0.15);
+        --shadow-xl: 0 16px 48px rgba(30, 52, 72, 0.20);
+
+        width: 100%;
+        max-width: 1220px;
+        margin: 0 auto;
+        font-family: var(--font-body);
+        color: var(--text);
+        background: var(--bg);
+        padding: 0 12px 48px;
+    }
+
+    /* ═══════════════════════════════════════════
+   HERO BANNER
+═══════════════════════════════════════════ */
+    .lp-hero {
+        position: relative;
+        border-radius: var(--r-xl);
+        overflow: hidden;
+        background: var(--blue-deeper);
+        margin-bottom: 28px;
+        min-height: 320px;
+        display: flex;
+        align-items: stretch;
+    }
+
+    .lp-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 80% 60% at 70% 110%, rgba(58, 125, 68, 0.45) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 80% at 10% 50%, rgba(57, 96, 135, 0.6) 0%, transparent 65%),
+            linear-gradient(160deg, #1e3448 0%, #2a4a6a 50%, #1a3328 100%);
+        z-index: 0;
+    }
+
+    .lp-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(-48deg,
+                transparent 0px,
+                transparent 28px,
+                rgba(255, 255, 255, 0.022) 28px,
+                rgba(255, 255, 255, 0.022) 29px);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .lp-hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 32px 24px 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+        max-width: 560px;
+    }
+
+    .lp-hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--yellow);
+        color: var(--blue-deeper);
+        font-family: var(--font-head);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 50px;
+        margin-bottom: 18px;
+        width: fit-content;
+        animation: lpPulse 2.4s ease-in-out infinite;
+    }
+
+    .lp-hero-pill::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        background: var(--blue-deeper);
+        border-radius: 50%;
+        opacity: 0.5;
+        flex-shrink: 0;
+    }
+
+    @keyframes lpPulse {
+
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 var(--yellow-glow);
+        }
+
+        50% {
+            box-shadow: 0 0 0 8px transparent;
+        }
+    }
+
+    .lp-hero-title {
+        font-family: var(--font-head);
+        font-size: 38px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 1.0;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+
+    .lp-hero-title em {
+        font-style: italic;
+        color: var(--yellow);
+    }
+
+    .lp-hero-sub {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.70);
+        line-height: 1.65;
+        margin-bottom: 26px;
+        max-width: 400px;
+    }
+
+    .lp-hero-ctas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .lp-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 24px;
+        background: var(--yellow);
+        color: var(--blue-deeper);
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: var(--r);
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 16px var(--yellow-glow);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .lp-btn-primary:hover {
+        background: #ffe066;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px var(--yellow-glow);
+    }
+
+    .lp-btn-primary:active {
+        transform: scale(0.97);
+    }
+
+    .lp-btn-primary svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .lp-btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 22px;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        border-radius: var(--r);
+        border: 1.5px solid rgba(255, 255, 255, 0.20);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .lp-btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .lp-hero-img-wrap {
+        display: none;
+        position: relative;
+        z-index: 1;
+        flex: 0 0 380px;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .lp-hero-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        mix-blend-mode: luminosity;
+        opacity: 0.55;
+        transition: opacity 0.3s;
+    }
+
+    .lp-hero-img-wrap:hover img {
+        opacity: 0.7;
+    }
+
+    .lp-hero-discount {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: var(--yellow);
+        color: var(--blue-deeper);
+        font-family: var(--font-head);
+        box-shadow: 0 4px 16px var(--yellow-glow);
+        animation: lpSpin 10s linear infinite;
+    }
+
+    .lp-hero-discount strong {
+        font-size: 22px;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .lp-hero-discount span {
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    @keyframes lpSpin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .lp-hero-discount-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: lpSpinReverse 10s linear infinite;
+    }
+
+    @keyframes lpSpinReverse {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(-360deg);
+        }
+    }
+
+    .lp-hero-stats {
+        display: flex;
+        gap: 20px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+    }
+
+    .lp-stat {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .lp-stat-val {
+        font-family: var(--font-head);
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--yellow);
+        line-height: 1;
+    }
+
+    .lp-stat-label {
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 500;
+    }
+
+    .lp-stat-sep {
+        width: 1px;
+        background: rgba(255, 255, 255, 0.15);
+        align-self: stretch;
+    }
+
+    /* ═══════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════ */
+    .lp-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 22px;
+        flex-wrap: wrap;
+    }
+
+    .lp-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 18px;
+        border-radius: 50px;
+        border: 1.5px solid var(--border);
+        background: var(--bg2);
+        color: var(--muted);
+        font-family: var(--font-head);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: var(--shadow);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .lp-tab:hover {
+        border-color: var(--blue);
+        color: var(--blue);
+    }
+
+    .lp-tab.active {
+        background: var(--blue);
+        border-color: var(--blue);
+        color: #fff;
+        box-shadow: 0 4px 14px var(--blue-glow);
+    }
+
+    .lp-tab svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+   BENEFÍCIOS
+═══════════════════════════════════════════ */
+    .lp-benefits {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 28px;
+    }
+
+    .lp-benefit {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        padding: 16px 16px 14px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .lp-benefit:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .lp-benefit-icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: var(--blue-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .lp-benefit-text strong {
+        display: block;
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--blue-deeper);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 2px;
+    }
+
+    .lp-benefit-text p {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.55;
+    }
+
+    /* ═══════════════════════════════════════════
+   SECTION TITLE
+═══════════════════════════════════════════ */
+    .lp-section-head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+
+    .lp-section-title {
+        font-family: var(--font-head);
+        font-size: 24px;
+        font-weight: 900;
+        color: var(--blue-deeper);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        line-height: 1;
+    }
+
+    .lp-section-title span {
+        color: var(--blue);
+    }
+
+    .lp-section-count {
+        font-family: var(--font-head);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--muted2);
+        letter-spacing: 0.06em;
+    }
+
+    .lp-section-line {
+        flex: 1;
+        height: 1.5px;
+        background: linear-gradient(to right, var(--border), transparent);
+        border-radius: 2px;
+    }
+
+    /* ═══════════════════════════════════════════
+   GRID DE PRODUTOS
+═══════════════════════════════════════════ */
+    .lp-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 28px;
+    }
+
+    .lp-card {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow);
+        transition: transform 0.22s, box-shadow 0.22s;
+        position: relative;
+        -webkit-tap-highlight-color: transparent;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .lp-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .lp-card:active {
+        transform: scale(0.98);
+    }
+
+    .lp-card-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 2;
+        background: var(--yellow);
+        color: var(--blue-deeper);
+        font-family: var(--font-head);
+        font-size: 10px;
+        font-weight: 900;
+        padding: 2px 8px;
+        border-radius: 4px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .lp-card-badge.new {
+        background: var(--blue);
+        color: #fff;
+    }
+
+    .lp-card-img {
+        position: relative;
+        height: 160px;
+        background: var(--bg3);
+        overflow: hidden;
+    }
+
+    .lp-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .lp-card:hover .lp-card-img img {
+        transform: scale(1.07);
+    }
+
+    .lp-card-cat {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(30, 52, 72, 0.75);
+        backdrop-filter: blur(4px);
+        color: rgba(255, 255, 255, 0.9);
+        font-family: var(--font-head);
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 4px;
+    }
+
+    /* Rating stars */
+    .lp-card-stars {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+
+    .lp-card-stars-inner {
+        color: var(--yellow);
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    .lp-card-stars-count {
+        font-size: 10px;
+        color: var(--muted);
+    }
+
+    .lp-card-body {
+        padding: 14px 14px 16px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .lp-card-brand {
+        font-family: var(--font-head);
+        font-size: 10px;
+        font-weight: 800;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 4px;
+    }
+
+    .lp-card-name {
+        font-family: var(--font-head);
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--blue-deeper);
+        text-transform: uppercase;
+        letter-spacing: 0.01em;
+        line-height: 1.15;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .lp-card-feats {
+        list-style: none;
+        margin-bottom: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .lp-card-feats li {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.4;
+    }
+
+    .lp-card-feats li::before {
+        content: '';
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--yellow);
+        flex-shrink: 0;
+    }
+
+    .lp-card-price-wrap {
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+    }
+
+    .lp-card-price-old {
+        font-size: 11px;
+        color: var(--muted2);
+        text-decoration: line-through;
+        margin-bottom: 1px;
+    }
+
+    .lp-card-price {
+        font-family: var(--font-head);
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--blue-deeper);
+        line-height: 1;
+        margin-bottom: 2px;
+    }
+
+    .lp-card-price-tag {
+        font-size: 10px;
+        color: var(--green);
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    .lp-card-installment {
+        font-size: 11px;
+        color: var(--muted);
+    }
+
+    .lp-card-installment strong {
+        color: var(--blue);
+    }
+
+    .lp-card-cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 12px;
+        padding: 10px 12px;
+        background: var(--blue);
+        color: #fff;
+        border-radius: var(--r);
+        font-family: var(--font-head);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: background 0.2s;
+    }
+
+    .lp-card:hover .lp-card-cta {
+        background: var(--blue-dark);
+    }
+
+    .lp-card-cta svg {
+        width: 12px;
+        height: 12px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    /* Featured card */
+    .lp-card.featured {
+        grid-column: 1 / -1;
+        flex-direction: row;
+    }
+
+    .lp-card.featured .lp-card-img {
+        height: auto;
+        min-height: 180px;
+        flex: 0 0 42%;
+    }
+
+    .lp-card.featured .lp-card-body {
+        padding: 18px 18px 18px;
+    }
+
+    .lp-card.featured .lp-card-name {
+        font-size: 18px;
+        -webkit-line-clamp: 3;
+    }
+
+    .lp-card.featured .lp-card-price {
+        font-size: 26px;
+    }
+
+    /* ═══════════════════════════════════════════
+   BANNER URGÊNCIA
+═══════════════════════════════════════════ */
+    .lp-urgency {
+        background: var(--blue-deeper);
+        border-radius: var(--r-lg);
+        padding: 22px 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 28px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .lp-urgency::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(254, 199, 47, 0.07) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .lp-urgency::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(to right, var(--yellow), var(--blue));
+    }
+
+    .lp-urgency-icon {
+        font-size: 32px;
+        flex-shrink: 0;
+        animation: lpShake 2s ease-in-out infinite;
+    }
+
+    @keyframes lpShake {
+
+        0%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        10% {
+            transform: rotate(-8deg);
+        }
+
+        20% {
+            transform: rotate(8deg);
+        }
+
+        30% {
+            transform: rotate(-4deg);
+        }
+
+        40% {
+            transform: rotate(4deg);
+        }
+
+        50% {
+            transform: rotate(0deg);
+        }
+    }
+
+    .lp-urgency-text {
+        flex: 1;
+        min-width: 180px;
+    }
+
+    .lp-urgency-text strong {
+        display: block;
+        font-family: var(--font-head);
+        font-size: 18px;
+        font-weight: 900;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 3px;
+    }
+
+    .lp-urgency-text p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.60);
+    }
+
+    .lp-urgency-timer {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .lp-timer-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        padding: 6px 10px;
+        min-width: 44px;
+    }
+
+    .lp-timer-val {
+        font-family: var(--font-head);
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--yellow);
+        line-height: 1;
+    }
+
+    .lp-timer-label {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    .lp-timer-sep {
+        font-family: var(--font-head);
+        font-size: 20px;
+        font-weight: 900;
+        color: var(--yellow);
+        opacity: 0.5;
+        align-self: flex-start;
+        padding-top: 4px;
+    }
+
+    /* ═══════════════════════════════════════════
+   CTA FINAL
+═══════════════════════════════════════════ */
+    .lp-cta-final {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: var(--r-xl);
+        padding: 28px 24px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+    }
+
+    .lp-cta-final::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to right, var(--yellow), var(--blue), var(--yellow));
+        background-size: 200%;
+        animation: lpSlide 3s linear infinite;
+    }
+
+    @keyframes lpSlide {
+        from {
+            background-position: 0%;
+        }
+
+        to {
+            background-position: 200%;
+        }
+    }
+
+    .lp-cta-final::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        right: -60px;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, var(--yellow-dim) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .lp-cta-final-title {
+        font-family: var(--font-head);
+        font-size: 26px;
+        font-weight: 900;
+        color: var(--blue-deeper);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        margin-bottom: 8px;
+        line-height: 1.1;
+    }
+
+    .lp-cta-final-sub {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 22px;
+        line-height: 1.6;
+    }
+
+    .lp-cta-final-btns {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .lp-btn-final {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 320px;
+        padding: 16px 28px;
+        background: var(--blue);
+        color: #fff;
+        font-family: var(--font-head);
+        font-size: 16px;
+        font-weight: 900;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        border-radius: var(--r);
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 6px 20px var(--blue-glow);
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .lp-btn-final:hover {
+        background: var(--blue-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 28px var(--blue-glow);
+    }
+
+    .lp-btn-final svg {
+        width: 15px;
+        height: 15px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .lp-btn-wpp {
+        background: #25D366;
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.30);
+    }
+
+    .lp-btn-wpp:hover {
+        background: #1fbb59;
+        box-shadow: 0 10px 28px rgba(37, 211, 102, 0.40);
+    }
+
+    .lp-trust-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+
+    .lp-trust-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 500;
+    }
+
+    .lp-trust-item::before {
+        content: '✓';
+        color: var(--green);
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    /* ── EMPTY STATE ─── */
+    .lp-empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--muted);
+        font-size: 14px;
+    }
+
+    .lp-empty svg {
+        width: 48px;
+        height: 48px;
+        stroke: var(--muted2);
+        margin-bottom: 12px;
+        display: block;
+        margin-inline: auto;
+    }
+
+    /* ── OCULTO / REVEAL ─── */
+    .lp-card[data-cat].hidden {
+        display: none;
+    }
+
+    .lp-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .lp-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════
+   RESPONSIVO
+═══════════════════════════════════════════ */
+    @media (min-width: 560px) {
+        .lp-grama {
+            padding: 0 16px 56px;
+        }
+
+        .lp-hero-title {
+            font-size: 46px;
+        }
+
+        .lp-benefits {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .lp-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .lp-card-img {
+            height: 180px;
+        }
+
+        .lp-card.featured .lp-card-img {
+            min-height: 200px;
+        }
+
+        .lp-cta-final-btns {
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .lp-btn-final {
+            width: auto;
+        }
+    }
+
+    @media (min-width: 860px) {
+        .lp-grama {
+            padding: 0 20px 64px;
+        }
+
+        .lp-hero {
+            min-height: 380px;
+        }
+
+        .lp-hero-content {
+            padding: 48px 40px 48px;
+        }
+
+        .lp-hero-img-wrap {
+            display: flex;
+        }
+
+        .lp-hero-title {
+            font-size: 54px;
+        }
+
+        .lp-hero-discount {
+            top: 28px;
+            right: 28px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lp-hero-discount strong {
+            font-size: 26px;
+        }
+
+        .lp-benefits {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .lp-benefit {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .lp-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .lp-card.featured {
+            grid-column: span 2;
+        }
+
+        .lp-card.featured .lp-card-img {
+            min-height: 240px;
+            flex: 0 0 44%;
+        }
+
+        .lp-card.featured .lp-card-name {
+            font-size: 20px;
+        }
+
+        .lp-card.featured .lp-card-price {
+            font-size: 28px;
+        }
+
+        .lp-card-img {
+            height: 200px;
+        }
+
+        .lp-section-title {
+            font-size: 28px;
+        }
+
+        .lp-cta-final {
+            padding: 40px 48px;
+        }
+
+        .lp-cta-final-title {
+            font-size: 32px;
+        }
+    }
+
+    @media (min-width: 1080px) {
+        .lp-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .lp-card.featured {
+            grid-column: span 2;
+        }
+    }
+</style>
+
+<!-- ══════════════════════════════════════════
+     MARKUP
+══════════════════════════════════════════ -->
+<div class="lp-grama">
+
+    <!-- ── HERO ──────────────────────────────── -->
+
+    <!-- ── BENEFÍCIOS ─────────────────────────── -->
+    <div class="lp-benefits lp-reveal" style="transition-delay:0.1s">
+        <div class="lp-benefit">
+            <div class="lp-benefit-icon">🚀</div>
+            <div class="lp-benefit-text"><strong>Despacho 24h</strong>
+                <p>Pedido aprovado hoje, saiu amanhã</p>
+            </div>
+        </div>
+        <div class="lp-benefit">
+            <div class="lp-benefit-icon">💳</div>
+            <div class="lp-benefit-text"><strong>12× sem juros</strong>
+                <p>No cartão, sem acréscimo algum</p>
+            </div>
+        </div>
+        <div class="lp-benefit">
+            <div class="lp-benefit-icon">💰</div>
+            <div class="lp-benefit-text"><strong>13% no Pix</strong>
+                <p>Melhor preço à vista garantido</p>
+            </div>
+        </div>
+        <div class="lp-benefit">
+            <div class="lp-benefit-icon">🛡️</div>
+            <div class="lp-benefit-text"><strong>Garantia total</strong>
+                <p>Suporte e assistência técnica</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TABS ────────────────────────────────── -->
+    <div class="lp-tabs lp-reveal" style="transition-delay:0.15s" id="lpTabs">
+        <button class="lp-tab active" data-filter="todos">
+            <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+            </svg>
+            Todos
+        </button>
+        <button class="lp-tab" data-filter="cortador">
+            <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <circle cx="11" cy="11" r="3" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            Cortadores
+        </button>
+        <button class="lp-tab" data-filter="rocadeira">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z" />
+            </svg>
+            Roçadeiras
+        </button>
+        <button class="lp-tab" data-filter="acessorio">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3-3a1 1 0 000-1.4l-1.6-1.6a1 1 0 00-1.4 0l-3 3z" />
+                <path d="M5 20l8-8m-2-2l2-3 3 3-3 2" />
+            </svg>
+            Acessórios
+        </button>
+    </div>
+
+    <!-- ── BANNER URGÊNCIA ───────────────────── -->
+    <div class="lp-urgency lp-reveal" style="transition-delay:0.18s">
+        <div class="lp-urgency-icon">⏰</div>
+        <div class="lp-urgency-text">
+            <strong>Oferta por tempo limitado!</strong>
+            <p>Preços especiais válidos enquanto durarem os estoques</p>
+        </div>
+        <div class="lp-urgency-timer" id="lpTimer">
+            <div class="lp-timer-block"><span class="lp-timer-val" id="tmH">00</span><span
+                    class="lp-timer-label">horas</span></div>
+            <span class="lp-timer-sep">:</span>
+            <div class="lp-timer-block"><span class="lp-timer-val" id="tmM">00</span><span
+                    class="lp-timer-label">min</span></div>
+            <span class="lp-timer-sep">:</span>
+            <div class="lp-timer-block"><span class="lp-timer-val" id="tmS">00</span><span
+                    class="lp-timer-label">seg</span></div>
+        </div>
+    </div>
+
+    <!-- ── GRID DE PRODUTOS ──────────────────── -->
+    <div class="lp-section-head lp-reveal" style="transition-delay:0.2s" id="lp-produtos">
+        <span class="lp-section-title">Produtos em <span>Destaque</span></span>
+        <span class="lp-section-count" id="lpCount"></span>
+        <div class="lp-section-line"></div>
+    </div>
+
+    <div class="lp-grid lp-reveal" id="lpGrid" style="transition-delay:0.25s"></div>
+
+    <!-- ── CTA FINAL ─────────────────────────── -->
+    <div class="lp-cta-final lp-reveal" style="transition-delay:0.3s">
+        <h3 class="lp-cta-final-title">Pronto para transformar<br>seu jardim?</h3>
+        <p class="lp-cta-final-sub">Acesse o catálogo completo ou fale com nossa equipe — encontramos o equipamento
+            ideal para você.</p>
+        <div class="lp-cta-final-btns">
+            <a href="#" class="lp-btn-final">
+                Ver catálogo completo
+                <svg viewBox="0 0 24 24">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+            <a href="https://api.whatsapp.com/send?phone=554733791366&text=Olá! Tenho interesse em cortadores de grama."
+                class="lp-btn-final lp-btn-wpp" target="_blank" rel="noopener">
+                💬 WhatsApp
+            </a>
+        </div>
+        <div class="lp-trust-row">
+            <span class="lp-trust-item">Frete para todo Brasil</span>
+            <span class="lp-trust-item">Pagamento seguro</span>
+            <span class="lp-trust-item">Nota fiscal garantida</span>
+            <span class="lp-trust-item">Suporte pós-venda</span>
+        </div>
+    </div>
+    
+
+</div><!-- /.lp-grama -->
+
+<script>
+    (function () {
+        'use strict';
+
+        /* =========================================================
+           LP GRAMA — FIXADO NA VITRINE CORRETA + SEM PISCAR
+           ✅ Pega SOMENTE a vitrine dentro do componente:
+              #componente-id-xBNAL2Fsqi > div > div
+           ✅ Ignora qualquer outra .swiper-slide da página
+           ✅ Espera lazy/async com MutationObserver + fallback
+           ✅ Roda 1x (anti-piscar) + hash de render
+        ========================================================= */
+
+        /* ─────────────────────────────────────────
+           0) CONFIG — VITRINE ALVO
+        ───────────────────────────────────────── */
+        var TARGET_SCOPE_SEL = '#componente-id-xBNAL2Fsqi > div > div';
+        var ITEM_SEL = 'li.swiper-slide:not(.swiper-slide-duplicate)';
+
+        /* ─────────────────────────────────────────
+           1) HELPERS
+        ───────────────────────────────────────── */
+        function tickLazy() {
+            try { window.dispatchEvent(new Event('scroll')); } catch (_) { }
+            try { window.dispatchEvent(new Event('resize')); } catch (_) { }
+        }
+
+        function normalizeUrl(url) {
+            if (!url) return '';
+            url = String(url).trim().replace(/^["']|["']$/g, '');
+            if (!url) return '';
+            if (url.indexOf('data:') === 0) return '';
+            if (url.startsWith('//')) url = 'https:' + url;
+            if (url.startsWith('/')) url = location.origin + url;
+            return url;
+        }
+
+        /* =========================================================
+           2) EXTRATOR DE IMAGEM (MELHORADO)
+              - prioriza srcset (maior resolução)
+              - depois data-src / src
+        ========================================================= */
+        function resolverImg(el) {
+            if (!el) return '';
+
+            // 1) srcset (pega última / maior)
+            var ss = el.getAttribute('srcset') || el.getAttribute('data-srcset') || '';
+            if (ss) {
+                var partes = ss
+                    .split(',')
+                    .map(function (s) { return s.trim().split(/\s+/)[0]; })
+                    .filter(Boolean);
+
+                if (partes.length) {
+                    var ultima = normalizeUrl(partes[partes.length - 1]);
+                    if (ultima && ultima.indexOf('data:') !== 0) return ultima;
+                }
+            }
+
+            // 2) atributos comuns
+            var prioridade = [
+                'data-src',
+                'data-lazy-src',
+                'data-original',
+                'data-url',
+                'data-image',
+                'src'
+            ];
+
+            for (var i = 0; i < prioridade.length; i++) {
+                var v = normalizeUrl((el.getAttribute(prioridade[i]) || '').trim());
+                if (v && v.indexOf('data:') !== 0 && v.length > 10) return v;
+            }
+
+            return '';
+        }
+
+        /* =========================================================
+           3) EXTRATOR DE PREÇO
+        ========================================================= */
+        function limparPreco(str) {
+            if (!str) return '';
+            return str.replace(/[\r\n\t]+/g, ' ').replace(/\s{2,}/g, ' ').trim();
+        }
+
+        function valorNumerico(str) {
+            if (!str) return 0;
+            var s = String(str).replace(/[^\d,]/g, '').replace(',', '.');
+            return parseFloat(s) || 0;
+        }
+
+        /* =========================================================
+           4) SELETORES MAGAZORD / MICAR
+        ========================================================= */
+        var SEL = {
+            nome: [
+                '.product-name',
+                '.product__name',
+                '[class*="product-name"]',
+                '[class*="nome-produto"]',
+                '[itemprop="name"]',
+                'h3',
+                'h2'
+            ],
+            link: [
+                'a.product-name',
+                'a[class*="product"]',
+                'a[href*="/produto"]'
+            ],
+            img: [
+                'img[data-srcset]',
+                'img[srcset]',
+                'img[data-src]',
+                'img[data-lazy-src]',
+                'img[data-original]',
+                'img[itemprop="image"]',
+                'img'
+            ],
+            precoPix: [
+                'span.price-boleto',
+                '[class*="price-boleto"]',
+                '[class*="pix"]',
+                '[class*="boleto"]',
+                '[class*="avista"]',
+                '[class*="a-vista"]',
+                '.preco-a-vista',
+                '[class*="sale-price"]',
+                '[class*="price--sale"]',
+                '[itemprop="price"]',
+                '[class*="preco-pix"]',
+                '[class*="price-pix"]'
+            ],
+            precoDe: [
+                'del',
+                's',
+                'span.price-cartao',
+                '.price-cartao',
+                '[class*="price-compare"]',
+                '[class*="old-price"]',
+                '[class*="preco-de"]',
+                '[class*="price--compare"]',
+                '[class*="was-price"]'
+            ],
+            parcelas: [
+                '[class*="parcel"]',
+                '[class*="parcela"]',
+                '[class*="installment"]',
+                '[class*="cartao"]',
+                '[class*="credito"]'
+            ],
+            estrelas: [
+                '[class*="star-rating"]',
+                '[class*="rating-stars"]',
+                '[class*="avaliac"]',
+                '.rating',
+                '[itemprop="ratingValue"]'
+            ],
+            numAvaliacoes: [
+                '[class*="review-count"]',
+                '[class*="num-avaliac"]',
+                '[class*="rating-count"]',
+                '[itemprop="reviewCount"]'
+            ]
+        };
+
+        function querySelector(scope, selectors) {
+            for (var i = 0; i < selectors.length; i++) {
+                try {
+                    var el = scope.querySelector(selectors[i]);
+                    if (el) return el;
+                } catch (e) { }
+            }
+            return null;
+        }
+
+        /* =========================================================
+           5) INFERIR CATEGORIA PELO NOME
+        ========================================================= */
+        function inferirCategoria(nome) {
+            var n = (nome || '').toLowerCase();
+            if (/ro[cç]adeira|roçad/.test(n)) return 'rocadeira';
+            if (/cortador|aparador|tosa|grama|lawn|mower/.test(n)) return 'cortador';
+            if (/l[aâ]mina|fio|cabo|acess|peça|filtro|vela/.test(n)) return 'acessorio';
+            return 'outros';
+        }
+
+        /* =========================================================
+           6) GERAR FEATURES A PARTIR DO NOME
+        ========================================================= */
+        function getFeats(nome) {
+            var n = (nome || '').toLowerCase();
+            var f = [];
+            var m;
+
+            if (/elétri|eletri/.test(n)) f.push('Motor elétrico');
+            if (/gasolina/.test(n)) f.push('Motor a gasolina');
+            if (/4\s*temp/.test(n)) f.push('Motor 4 tempos');
+            if (/2\s*temp/.test(n)) f.push('Motor 2 tempos');
+            if (/tracion/.test(n)) f.push('Tração automática');
+            if (/colec/.test(n)) f.push('Com coletor de grama');
+
+            m = nome && nome.match(/(\d+[\.,]?\d*)\s*cc/i);
+            if (m) f.push(m[1] + 'cc de cilindrada');
+
+            m = nome && nome.match(/(\d+)\s*w\b/i);
+            if (m) f.push(m[1] + 'W de potência');
+
+            m = nome && nome.match(/(\d+[\.,]?\d*)\s*(hp|cv)\b/i);
+            if (m) f.push(m[1] + ' ' + m[2].toUpperCase() + ' de potência');
+
+            if (f.length === 0) f = ['Alta durabilidade', 'Fácil manuseio'];
+            return f.slice(0, 3);
+        }
+
+        /* =========================================================
+           7) EXTRAIR PRODUTO DE UM SLIDE
+        ========================================================= */
+        function extrairItem(slide, idx) {
+            try {
+                var nomeEl = querySelector(slide, SEL.nome);
+                var nome = nomeEl ? nomeEl.textContent.trim() : '';
+                if (!nome) nome = 'Produto ' + (idx + 1);
+
+                var linkEl = querySelector(slide, SEL.link) || slide.querySelector('a[href]');
+                var link = linkEl ? linkEl.href : '#';
+
+                var imgEl = querySelector(slide, SEL.img);
+                var img = imgEl ? resolverImg(imgEl) : '';
+
+                if (!img) {
+                    var todas = slide.querySelectorAll('img');
+                    for (var t = 0; t < todas.length; t++) {
+                        var c = resolverImg(todas[t]);
+                        if (c) { img = c; break; }
+                    }
+                }
+                if (!img || img.indexOf('data:') === 0) return null;
+
+                var pixEl = querySelector(slide, SEL.precoPix);
+                var preco = pixEl ? limparPreco(pixEl.textContent) : '';
+
+                var deEl = querySelector(slide, SEL.precoDe);
+                var precoDe = deEl ? limparPreco(deEl.textContent) : '';
+
+                var parcelaEl = querySelector(slide, SEL.parcelas);
+                var parcelas = parcelaEl ? limparPreco(parcelaEl.textContent) : '';
+
+                var desconto = '';
+                var vN = valorNumerico(preco);
+                var vO = valorNumerico(precoDe);
+                if (vO > 0 && vN > 0 && vO > vN) {
+                    desconto = '-' + Math.round((1 - vN / vO) * 100) + '%';
+                }
+
+                var estrelaEl = querySelector(slide, SEL.estrelas);
+                var qtdEl = querySelector(slide, SEL.numAvaliacoes);
+                var rating = estrelaEl ? (estrelaEl.getAttribute('data-score') || estrelaEl.textContent.trim()) : '';
+                var qtdRating = qtdEl ? qtdEl.textContent.replace(/[^\d]/g, '') : '';
+
+                var dataId = slide.getAttribute('data-id') || '';
+                var dataBrand = slide.getAttribute('data-brand') || '';
+                var dataPos = slide.getAttribute('data-position') || String(idx);
+                var dataName = slide.getAttribute('data-name') || '';
+
+                var catSlug = inferirCategoria((dataBrand || '') + ' ' + nome);
+
+                return {
+                    idx: idx,
+                    dataId: dataId,
+                    dataBrand: dataBrand,
+                    dataPos: dataPos,
+                    dataName: dataName,
+                    nome: nome,
+                    link: link,
+                    img: img,
+                    preco: preco || 'Consulte',
+                    precoDe: precoDe,
+                    parcelas: parcelas,
+                    desconto: desconto,
+                    rating: rating,
+                    qtdRating: qtdRating,
+                    catSlug: catSlug
+                };
+            } catch (e) {
+                return null;
+            }
+        }
+
+        /* =========================================================
+           8) WAIT — VITRINE ALVO (ANTI-PISCAR)
+              ✅ executa 1x e desliga tudo
+        ========================================================= */
+        function waitForTargetSlides(cb, maxMs) {
+            maxMs = maxMs || 60000;
+
+            var start = Date.now();
+            var done = false;
+            var obs = null;
+            var timerId = null;
+
+            function cleanup() {
+                done = true;
+                try { if (obs) obs.disconnect(); } catch (_) { }
+                obs = null;
+                if (timerId) { clearTimeout(timerId); timerId = null; }
+            }
+
+            function getSlides() {
+                var scope = document.querySelector(TARGET_SCOPE_SEL);
+                if (!scope) return [];
+
+                var app = scope.querySelector('[id^="vitrine-react-app-"]');
+                if (!app) return [];
+
+                var wrap = app.querySelector('ul.swiper-wrapper.product-list');
+                if (!wrap) return [];
+
+                var slides = wrap.querySelectorAll(ITEM_SEL);
+                return Array.prototype.slice.call(slides);
+            }
+
+            function tryNow() {
+                if (done) return;
+
+                tickLazy();
+                var slides = getSlides();
+
+                if (slides.length) {
+                    cleanup();
+                    cb(slides);
+                    return;
+                }
+
+                if (Date.now() - start > maxMs) {
+                    cleanup();
+                    renderGrid([]);
+                }
+            }
+
+            tryNow();
+            if (done) return;
+
+            obs = new MutationObserver(tryNow);
+            obs.observe(document.documentElement, { childList: true, subtree: true });
+
+            (function loop() {
+                if (done) return;
+                tryNow();
+                timerId = setTimeout(loop, 800);
+            })();
+        }
+
+        /* =========================================================
+           9) RENDER GRID
+        ========================================================= */
+        var todosProdutos = [];
+
+        function renderGrid(produtos) {
+            var grid = document.getElementById('lpGrid');
+            var count = document.getElementById('lpCount');
+            if (!grid) return;
+
+            if (!produtos.length) {
+                grid.innerHTML =
+                    '<div class="lp-empty">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round">' +
+                    '<circle cx="11" cy="11" r="8"/>' +
+                    '<line x1="21" y1="21" x2="16.65" y2="16.65"/>' +
+                    '</svg>' +
+                    'Nenhum produto encontrado.' +
+                    '</div>';
+                if (count) count.textContent = '';
+                return;
+            }
+
+            if (count) count.textContent = produtos.length + ' produto' + (produtos.length > 1 ? 's' : '');
+            grid.innerHTML = '';
+
+            produtos.forEach(function (p, i) {
+                var featured = (i === 0);
+                var feats = getFeats(p.nome);
+                var featHTML = feats.map(function (f) { return '<li>' + f + '</li>'; }).join('');
+
+                var badgeHTML = '';
+                if (p.desconto) {
+                    badgeHTML = '<span class="lp-card-badge">' + p.desconto + '</span>';
+                } else if (i < 2) {
+                    badgeHTML = '<span class="lp-card-badge new">DESTAQUE</span>';
+                }
+
+                var starsHTML = '';
+                if (p.rating) {
+                    var rVal = parseFloat(p.rating) || 0;
+                    var stars = '';
+                    for (var s = 1; s <= 5; s++) stars += (s <= rVal ? '★' : '☆');
+                    starsHTML =
+                        '<div class="lp-card-stars">' +
+                        '<span class="lp-card-stars-inner">' + stars + '</span>' +
+                        (p.qtdRating ? '<span class="lp-card-stars-count">(' + p.qtdRating + ')</span>' : '') +
+                        '</div>';
+                }
+
+                var parcelasHTML = '';
+                if (p.parcelas) {
+                    parcelasHTML = '<div class="lp-card-installment">' + p.parcelas + '</div>';
+                } else if (p.preco !== 'Consulte') {
+                    parcelasHTML = '<div class="lp-card-installment">ou <strong>12×</strong> sem juros no cartão</div>';
+                }
+
+                var tagPix = (p.preco !== 'Consulte')
+                    ? '<div class="lp-card-price-tag">💰 Pix / Boleto</div>'
+                    : '';
+
+                var card = document.createElement('a');
+                card.className = 'lp-card' + (featured ? ' featured' : '');
+                card.href = p.link;
+                card.setAttribute('data-cat', p.catSlug);
+
+                card.innerHTML =
+                    badgeHTML +
+                    '<div class="lp-card-img">' +
+                    '<img src="' + p.img + '" alt="' + p.nome.replace(/"/g, '&quot;') + '" loading="lazy" />' +
+                    '<span class="lp-card-cat">' + (p.dataBrand || 'Jardim') + '</span>' +
+                    '</div>' +
+                    '<div class="lp-card-body">' +
+                    (p.dataBrand ? '<div class="lp-card-brand">' + p.dataBrand + '</div>' : '') +
+                    starsHTML +
+                    '<h3 class="lp-card-name">' + p.nome + '</h3>' +
+                    '<ul class="lp-card-feats">' + featHTML + '</ul>' +
+                    '<div class="lp-card-price-wrap">' +
+                    (p.precoDe ? '<div class="lp-card-price-old">De ' + p.precoDe + '</div>' : '') +
+                    tagPix +
+                    '<div class="lp-card-price">' + p.preco + '</div>' +
+                    parcelasHTML +
+                    '</div>' +
+                    '<div class="lp-card-cta">Ver produto ' +
+                    '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>' +
+                    '</div>' +
+                    '</div>';
+
+                grid.appendChild(card);
+            });
+        }
+
+        /* =========================================================
+           10) FILTRO DE TABS
+        ========================================================= */
+        function filtrar(cat) {
+            var cards = document.querySelectorAll('.lp-card[data-cat]');
+            var visiveis = 0;
+            cards.forEach(function (c) {
+                var show = (cat === 'todos') || (c.getAttribute('data-cat') === cat);
+                c.classList.toggle('hidden', !show);
+                if (show) visiveis++;
+            });
+            var count = document.getElementById('lpCount');
+            if (count) count.textContent = visiveis + ' produto' + (visiveis !== 1 ? 's' : '');
+        }
+
+        var tabs = document.getElementById('lpTabs');
+        if (tabs) {
+            tabs.addEventListener('click', function (e) {
+                var btn = e.target.closest('.lp-tab');
+                if (!btn) return;
+                tabs.querySelectorAll('.lp-tab').forEach(function (t) { t.classList.remove('active'); });
+                btn.classList.add('active');
+                filtrar(btn.getAttribute('data-filter'));
+            });
+        }
+
+        /* =========================================================
+           11) COUNTDOWN (8h)
+        ========================================================= */
+        function initTimer() {
+            var KEY = 'lpGramaEnd';
+            var end;
+
+            try {
+                var saved = localStorage.getItem(KEY);
+                if (saved) {
+                    end = parseInt(saved, 10);
+                    if (isNaN(end) || end < Date.now()) end = null;
+                }
+            } catch (e) { }
+
+            if (!end) {
+                end = Date.now() + 8 * 60 * 60 * 1000;
+                try { localStorage.setItem(KEY, String(end)); } catch (e) { }
+            }
+
+            function pad(n) { return String(n).padStart(2, '0'); }
+
+            function tick() {
+                var diff = Math.max(0, end - Date.now());
+                var h = Math.floor(diff / 3600000);
+                var m = Math.floor((diff % 3600000) / 60000);
+                var s = Math.floor((diff % 60000) / 1000);
+
+                var elH = document.getElementById('tmH');
+                var elM = document.getElementById('tmM');
+                var elS = document.getElementById('tmS');
+
+                if (elH) elH.textContent = pad(h);
+                if (elM) elM.textContent = pad(m);
+                if (elS) elS.textContent = pad(s);
+            }
+
+            tick();
+            setInterval(tick, 1000);
+        }
+        initTimer();
+
+        /* =========================================================
+           12) SCROLL REVEAL
+        ========================================================= */
+        function initReveal() {
+            var els = document.querySelectorAll('.lp-grama .lp-reveal');
+            if (!els.length) return;
+
+            if ('IntersectionObserver' in window) {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) {
+                        if (e.isIntersecting) {
+                            e.target.classList.add('visible');
+                            io.unobserve(e.target);
+                        }
+                    });
+                }, { threshold: 0.08 });
+
+                els.forEach(function (el) { io.observe(el); });
+            } else {
+                els.forEach(function (el) { el.classList.add('visible'); });
+            }
+        }
+
+        /* =========================================================
+           13) BOOTSTRAP (ANTI-PISCAR + HASH)
+        ========================================================= */
+        waitForTargetSlides(function (slides) {
+            var produtos = [];
+            var seen = {};
+
+            slides.forEach(function (slide, i) {
+                var p = extrairItem(slide, i);
+                if (!p) return;
+
+                // filtro extra para garantir que é “jardim / cortador”
+                var txt = (p.nome + ' ' + (p.dataBrand || '')).toLowerCase();
+                if (!/cortador|aparador|grama|rocadeira|roçadeira/.test(txt)) return;
+
+                if (seen[p.img]) return;
+                seen[p.img] = true;
+
+                produtos.push(p);
+            });
+
+            // ✅ evita re-render com mesmo conteúdo (anti-piscar)
+            var hash = produtos.map(function (p) { return (p.link || p.img || p.nome); }).join('|');
+            if (window.__LP_LAST_HASH__ === hash) return;
+            window.__LP_LAST_HASH__ = hash;
+
+            todosProdutos = produtos;
+            renderGrid(todosProdutos);
+
+            var hero = document.querySelector('.lp-grama .lp-hero');
+            if (hero) hero.classList.add('visible');
+
+            initReveal();
+        }, 60000);
+
+    })();
+</script>

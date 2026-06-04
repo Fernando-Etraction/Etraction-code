@@ -1,0 +1,296 @@
+<style>
+.dv-frete-cta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #f4fff8;
+  color: #1f7a43;
+  border: 1px solid #bfe8ce;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.08);
+  transition: all .25s ease;
+}
+
+.dv-frete-cta:hover {
+  background: #ecfff3;
+  border-color: #25D366;
+  color: #17883f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.14);
+}
+
+.dv-frete-cta svg {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  color: #25D366;
+}
+
+.dv-frete-cta div {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.dv-frete-cta strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f7a43;
+}
+
+.dv-frete-cta small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 400;
+  color: #5f7b6a;
+  opacity: 1;
+}
+
+.dv-frete-tag {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.dv-frete-tag.barato {
+  background: #e6f7ec;
+  color: #1a8a3d;
+}
+
+.dv-frete-tag.rapido {
+  background: #fff3e0;
+  color: #c75b00;
+}
+
+.dv-frete-tag.combo {
+  background: #e7f0ff;
+  color: #1457c2;
+}
+
+.dv-fabricacao-info {
+  margin-top: 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #6b6b6b;
+  background: #f7f7f7;
+  border-left: 3px solid #cfcfcf;
+  border-radius: 3px;
+  line-height: 1.4;
+}
+
+.dv-fabricacao-info strong {
+  color: #333;
+}
+
+@media (max-width: 600px) {
+  .dv-frete-cta {
+    align-items: flex-start;
+    padding: 11px 12px;
+  }
+
+  .dv-frete-cta strong {
+    font-size: 12px;
+  }
+
+  .dv-frete-cta small {
+    font-size: 10.5px;
+  }
+}
+
+</style>
+
+<script>
+(function(){
+
+const MANUFACTURING_DAYS = 5;
+const WHATSAPP_NUMBER = '554732040508';
+const WHATSAPP_MSG = 'Ol\u00e1! Tenho uma d\u00favida sobre o prazo ou entrega deste produto: ' +
+(document.title || '').replace(' - D\u00e9coVie', '');
+
+function getManufacturingDays(){
+  const availability = document.querySelector("#form_comprar .product-info.product-availability");
+
+  if(!availability) {
+    return MANUFACTURING_DAYS;
+  }
+
+  const text = availability.innerText || availability.textContent || '';
+  const match = text.match(/(\d+)/);
+
+  if(!match || !match[1]) {
+    return MANUFACTURING_DAYS;
+  }
+
+  const days = parseInt(match[1], 10) || MANUFACTURING_DAYS;
+
+  // Esconde o bloco original depois de ler o número
+  availability.style.display = 'none';
+
+  return days;
+}
+
+function parsePrice(text){
+  return parseFloat(text.replace(/[^\d,]/g,'').replace(',','.')) || 0;
+}
+
+function parseDays(text){
+  const m1 = text.match(/(\d+)\s*a\s*(\d+)/i);
+  if (m1) return { min:+m1[1], max:+m1[2] };
+
+  const m2 = text.match(/(\d+)/);
+  if (m2) return { min:+m2[1], max:+m2[1] };
+
+  return null;
+}
+
+function process(){
+  const container = document.querySelector('.product-shipping');
+  if(!container) return;
+
+  const table = container.querySelector('.shipping-rates-table');
+  if(!table || table.dataset.dvProcessed === "1") return;
+
+  const rows = Array.from(table.querySelectorAll('tbody tr')).slice(1);
+  if(!rows.length) return;
+
+  const fabricationDays = getManufacturingDays();
+
+  let cheapest = null;
+  let fastest = null;
+
+  const data = rows.map(row => {
+    const priceCell = row.children[1];
+    const daysCell = row.children[2];
+
+    if(!priceCell || !daysCell) return null;
+
+    const price = parsePrice(priceCell.innerText || '');
+    const prazo = parseDays(daysCell.innerText || '');
+
+    return { row, price, prazo };
+  }).filter(Boolean);
+
+  if(!data.length) return;
+
+  data.forEach(item => {
+    if(!cheapest || item.price < cheapest.price){
+      cheapest = item;
+    }
+
+    if(item.prazo){
+      if(
+        !fastest ||
+        item.prazo.min < fastest.prazo.min ||
+        (item.prazo.min === fastest.prazo.min && item.prazo.max < fastest.prazo.max)
+      ){
+        fastest = item;
+      }
+    }
+  });
+
+  data.forEach(item => {
+    const tdNome = item.row.children[0];
+    const tdPrazo = item.row.children[2];
+
+    if(!tdNome || !tdPrazo) return;
+
+    if(!tdNome.querySelector('.dv-frete-tag')){
+      let tag = "";
+      let tagClass = "";
+
+      const isCheap = item === cheapest;
+      const isFast = item === fastest;
+
+      if(isCheap && isFast){
+        tag = "Mais barato e r\u00e1pido";
+        tagClass = "combo";
+      }else if(isCheap){
+        tag = "Mais barato";
+        tagClass = "barato";
+      }else if(isFast){
+        tag = "Mais r\u00e1pido";
+        tagClass = "rapido";
+      }
+
+      if(tag){
+        const span = document.createElement('span');
+        span.className = `dv-frete-tag ${tagClass}`;
+        span.textContent = tag;
+        tdNome.appendChild(span);
+      }
+    }
+
+    if(item.prazo){
+      let min = Math.max(0, item.prazo.min - fabricationDays);
+      let max = Math.max(0, item.prazo.max - fabricationDays);
+
+      let text = (min === max)
+        ? `${min} dias \u00fateis`
+        : `${min} a ${max} dias \u00fateis`;
+
+      tdPrazo.innerHTML = `<strong>${text}</strong>`;
+    }
+  });
+
+  if(!container.querySelector('.dv-fabricacao-info')){
+    const info = document.createElement('div');
+    info.className = 'dv-fabricacao-info';
+    info.innerHTML = `+ <strong>${fabricationDays} dias \u00fateis</strong> de fabrica\u00e7\u00e3o.`;
+    table.insertAdjacentElement('afterend', info);
+  }
+
+  if(!container.querySelector('.dv-frete-cta')){
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+
+    const btn = document.createElement('a');
+    btn.href = url;
+    btn.target = "_blank";
+    btn.rel = "noopener";
+    btn.className = "dv-frete-cta";
+    btn.dataset.dvCta = "1";
+
+    btn.innerHTML = `
+      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path d="M16 .396C7.163.396 0 7.559 0 16.396c0 2.888.757 5.6 2.082 7.95L.36 31.64l7.5-1.67a15.94 15.94 0 0 0 8.14 2.2c8.837 0 16-7.163 16-16S24.837.396 16 .396zm0 29.184a13.1 13.1 0 0 1-6.67-1.84l-.48-.28-4.45.99.94-4.34-.31-.45A13.07 13.07 0 1 1 16 29.58zm7.36-9.73c-.4-.2-2.35-1.16-2.72-1.3-.37-.14-.64-.2-.91.2-.27.4-1.05 1.3-1.29 1.56-.24.27-.48.3-.88.1-.4-.2-1.7-.63-3.24-2.01-1.2-1.07-2.01-2.39-2.25-2.79-.24-.4-.03-.62.17-.82.18-.18.4-.48.6-.72.2-.24.27-.4.4-.66.14-.27.07-.5-.03-.7-.1-.2-.91-2.2-1.25-3.02-.33-.8-.67-.69-.91-.7l-.78-.01c-.27 0-.7.1-1.06.5-.37.4-1.4 1.37-1.4 3.34 0 1.97 1.43 3.87 1.63 4.14.2.27 2.82 4.3 6.84 6.02.96.41 1.7.65 2.28.83.96.3 1.83.26 2.52.16.77-.12 2.35-.96 2.68-1.88.33-.92.33-1.7.23-1.88-.1-.17-.37-.27-.77-.47z"/>
+      </svg>
+      <div>
+        <strong>D\u00favidas sobre prazo ou entrega?</strong>
+        <small>Fale com nosso atendimento pelo WhatsApp</small>
+      </div>
+    `;
+
+    const fabricacaoInfo = container.querySelector('.dv-fabricacao-info');
+
+    if(fabricacaoInfo){
+      fabricacaoInfo.insertAdjacentElement('afterend', btn);
+    }else{
+      table.insertAdjacentElement('afterend', btn);
+    }
+  }
+
+  table.dataset.dvProcessed = "1";
+}
+
+document.addEventListener('DOMContentLoaded', process);
+window.addEventListener('load', process);
+
+const observer = new MutationObserver(process);
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+})();
+</script>

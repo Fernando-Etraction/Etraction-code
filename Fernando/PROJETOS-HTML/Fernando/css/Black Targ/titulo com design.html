@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarja CRO Premium - BlackTarg</title>
+  <style>
+    /* Reset básico */
+    .cro-section * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Estrutura Principal */
+    .cro-section {
+      background-color: #ffffff;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 32px 20px;
+      border-top: 2px solid #f5f5f5;
+      border-bottom: 2px solid #f5f5f5;
+    }
+
+    .cro-container {
+      max-width: 1100px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+      
+      /* Animação inicial */
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* LADO ESQUERDO: A Oferta Irresistível */
+    .cro-offer-block {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cro-urgency {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e60000;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .cro-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #e60000;
+      border-radius: 50%;
+      animation: cro-pulse 1.5s infinite;
+    }
+
+    .cro-headline {
+      color: #000000;
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+    }
+
+    .cro-headline span.price {
+      color: #e60000;
+    }
+
+    .cro-headline span.unit {
+      font-size: 18px;
+      font-weight: 500;
+      color: #666666;
+      letter-spacing: 0;
+      vertical-align: middle;
+    }
+
+    .cro-savings-tag {
+      display: inline-block;
+      background-color: #111111;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 4px;
+      align-self: flex-start;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .cro-savings-tag strong {
+      color: #ff4d4d; /* Tom de vermelho mais claro para contrastar no fundo preto */
+      font-weight: 900;
+    }
+
+    /* LADO DIREITO: A Prova e Confiança */
+    .cro-trust-block {
+      flex: 0.8;
+      background-color: #fcfcfc;
+      border: 1px solid #eeeeee;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cro-stars {
+      color: #e60000;
+      font-size: 18px;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .cro-trust-title {
+      color: #000000;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .cro-trust-text {
+      color: #555555;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .cro-trust-text strong {
+      color: #000000;
+    }
+
+    /* Animação do Ponto */
+    @keyframes cro-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.5); }
+      70% { box-shadow: 0 0 0 8px rgba(230, 0, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0); }
+    }
+
+    .cro-loaded {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsividade CRO (Mobile First Mindset) */
+    @media (max-width: 850px) {
+      .cro-section {
+        padding: 24px 16px;
+      }
+
+      .cro-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .cro-offer-block {
+        align-items: center;
+        text-align: center;
+      }
+
+      .cro-headline {
+        font-size: 28px;
+      }
+
+      .cro-savings-tag {
+        align-self: center;
+        font-size: 13px;
+        width: 100%;
+      }
+
+      .cro-trust-block {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        border-top: 1px dashed #dddddd;
+        border-radius: 0;
+        padding: 16px 0 0 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="cro-section">
+    <div class="cro-container" id="croBanner">
+      
+      <div class="cro-offer-block">
+        <div class="cro-urgency">
+          <span class="cro-dot"></span> Lote Promocional: O Gerente Ficou Maluco
+        </div>
+        <h2 class="cro-headline">
+          Leve 3 calças por <span class="price">R$ 53</span> <span class="unit">cada</span>
+        </h2>
+        <div class="cro-savings-tag">
+          Garantido: <strong>Você economiza R$ 110,70</strong> hoje.
+        </div>
+      </div>
+
+      <div class="cro-trust-block">
+        <div class="cro-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="cro-trust-title">Qualidade BlackTarg</div>
+        <p class="cro-trust-text">
+          A calça mais versátil do Brasil. Há <strong>mais de 10 anos</strong> garantindo conforto e durabilidade incomparáveis.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Efeito de entrada suave para chamar a atenção logo no carregamento
+      setTimeout(() => {
+        const banner = document.getElementById('croBanner');
+        if(banner) {
+          banner.classList.add('cro-loaded');
+        }
+      }, 100);
+    });
+  </script>
+
+</body>
+</html>

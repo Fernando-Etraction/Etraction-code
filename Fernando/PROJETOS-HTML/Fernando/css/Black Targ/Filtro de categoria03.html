@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conceito Lookbook Editorial - Black Targ</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0f0f0f; /* Fundo super escuro, quase preto */
+      color: #fff;
+    }
+
+    .lookbook-section {
+      width: 100%;
+      height: 80vh; /* Ocupa boa parte da tela */
+      min-height: 500px;
+      position: relative;
+    }
+
+    .swiper-lookbook {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* O Slide principal usando Flexbox para dividir a tela */
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: 0 5%;
+    }
+
+    /* Metade Esquerda: Tipografia */
+    .slide-text-content {
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+      z-index: 2;
+    }
+
+    .category-number {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .category-title {
+      font-size: 4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin: 0 0 30px 0;
+      letter-spacing: -1px;
+    }
+
+    .shop-button {
+      display: inline-block;
+      width: fit-content;
+      padding: 15px 40px;
+      background-color: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .shop-button:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Metade Direita: Imagem com overflow hidden para o Parallax */
+    .slide-image-wrapper {
+      width: 50%;
+      height: 80%;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px; /* Opcional: pode remover para ficar totalmente reto */
+    }
+
+    /* A imagem dentro tem altura maior para permitir o efeito parallax */
+    .slide-image-wrapper img {
+      width: 100%;
+      height: 130%; /* Maior que o container */
+      object-fit: cover;
+      position: absolute;
+      top: -15%;
+      left: 0;
+    }
+
+    /* Controles de Navegação (Inferior Esquerdo) */
+    .custom-controls {
+      position: absolute;
+      bottom: 5%;
+      left: 5%;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      z-index: 10;
+    }
+
+    /* Paginação Customizada (Ex: 01 / 06) */
+    .swiper-pagination-fraction {
+      position: static;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      width: auto;
+    }
+
+    /* Setas Minimalistas */
+    .nav-arrow {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-arrow:hover {
+      transform: scale(1.2);
+    }
+
+    .nav-arrow svg {
+      width: 30px;
+      height: 30px;
+      fill: #fff;
+    }
+
+    /* Responsividade para Celulares */
+    @media (max-width: 768px) {
+      .swiper-slide {
+        flex-direction: column-reverse; /* Texto vai para baixo, Imagem sobe */
+        justify-content: center;
+        padding: 0;
+      }
+      .slide-image-wrapper {
+        width: 100%;
+        height: 55%;
+        border-radius: 0;
+      }
+      .slide-text-content {
+        width: 100%;
+        height: 45%;
+        padding: 30px 5%;
+        box-sizing: border-box;
+        justify-content: center;
+      }
+      .category-title {
+        font-size: 2.5rem;
+      }
+      .custom-controls {
+        bottom: 2%; /* Move os controles mais para baixo no mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="lookbook-section">
+    <div class="swiper swiper-lookbook">
+      <div class="swiper-wrapper">
+        
+        <div class="swiper-slide">
+          <div class="slide-text-content" data-swiper-parallax="-300">
+            <span class="category-number">01</span>
+            <h2 class="category-title">Calça<br>Cargo &<br>Jogger</h2>
+            <a href="/calcas" class="shop-button">Explorar</a>
+          </div>
+          <div class="slide-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1000&auto=format&fit=crop" data-swiper-parallax="30%" alt="Calça">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-text-content" data-swiper-parallax="-300">
+            <span class="category-number">02</span>
+            <h2 class="category-title">Corta<br>Vento</h2>
+            <a href="/corta-vento" class="shop-button">Explorar</a>
+          </div>
+          <div class="slide-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1548624149-f4728f32267a?q=80&w=1000&auto=format&fit=crop" data-swiper-parallax="30%" alt="Corta Vento">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-text-content" data-swiper-parallax="-300">
+            <span class="category-number">03</span>
+            <h2 class="category-title">Camisetas<br>Urbanas</h2>
+            <a href="/camisetas" class="shop-button">Explorar</a>
+          </div>
+          <div class="slide-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000&auto=format&fit=crop" data-swiper-parallax="30%" alt="Camisetas">
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-text-content" data-swiper-parallax="-300">
+            <span class="category-number">04</span>
+            <h2 class="category-title">Jaquetas<br>e Casacos</h2>
+            <a href="/jaquetas" class="shop-button">Explorar</a>
+          </div>
+          <div class="slide-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1000&auto=format&fit=crop" data-swiper-parallax="30%" alt="Jaquetas">
+          </div>
+        </div>
+
+      </div>
+
+      <div class="custom-controls">
+        <div class="nav-arrow btn-prev-lookbook">
+          <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </div>
+        
+        <div class="swiper-pagination"></div>
+        
+        <div class="nav-arrow btn-next-lookbook">
+          <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var swiper = new Swiper(".swiper-lookbook", {
+        speed: 1000, // Transição mais lenta e cinematográfica
+        parallax: true, // Ativa o efeito parallax nas imagens e textos
+        loop: true,
+        grabCursor: true,
+        navigation: {
+          nextEl: ".btn-next-lookbook",
+          prevEl: ".btn-prev-lookbook",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          type: "fraction", // Mostra formato "1 / 4"
+          formatFractionCurrent: function (number) {
+            return '0' + number; // Adiciona o zero na frente (01)
+          },
+          formatFractionTotal: function (number) {
+            return '0' + number;
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,352 @@
+(function () {
+  function init() {
+    const body = document.body;
+    if (!body) return;
+
+    if (document.getElementById("blh-promos")) return;
+
+    console.log("Script Mês do Consumidor Maloa iniciado (exclusive, sem black/sale).");
+
+    const style = document.createElement("style");
+    style.textContent = `
+      .descricao-pesquisa h1 { display: none !important; }
+
+      .blh-promos {
+        --bg: #B4B3B5;
+        --radius: 14px;
+        --shadow: 0 10px 30px rgba(0,0,0,.25);
+
+        background: var(--bg);
+        color: #fff;
+        border-radius: var(--radius);
+        padding: 18px;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+        max-width: 1400px;
+        margin: 20px auto;
+        box-sizing: border-box;
+      }
+
+      /* ── GRID WRAP ── */
+      .blh-promos__grid-wrap {
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+      }
+
+      .blh-promos__grid {
+        display: flex;
+        gap: 14px;
+        flex: 1;
+        flex-wrap: nowrap;
+      }
+
+      /* ── CARDS ── */
+      .blh-card {
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        padding: 18px 26px;
+        flex: 1;
+        text-align: center;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+      }
+
+      .blh-card:nth-child(1) { background: #313246; }
+      .blh-card:nth-child(2) { background: #41597F; }
+      .blh-card:nth-child(3) { background: #6E93B0; }
+
+      .blh-card__lead {
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1.2;
+      }
+
+      .blh-card__sub {
+        font-size: 13px;
+        color: rgba(255,255,255,.85);
+        margin: 6px 0 10px;
+      }
+
+      .blh-copy {
+        background: rgba(255,255,255,.15);
+        color: #fff;
+        border: 1px solid rgba(255,255,255,.4);
+        border-radius: 6px;
+        padding: 10px 50px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background .3s;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .blh-copy:hover { background: rgba(255,255,255,.28); }
+
+      /* ── TIMER ── */
+      .blh-timer {
+        background: linear-gradient(135deg, #1a1a28 0%, #2d2d3d 100%);
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,.3);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex-shrink: 0;
+        min-width: 260px;
+      }
+
+      .blh-timer__left {
+        text-align: center;
+        width: 100%;
+      }
+
+      .blh-timer__label {
+        font-size: 12px;
+        opacity: 0.85;
+        letter-spacing: 0.5px;
+        margin: 0;
+      }
+
+      .blh-timer__count {
+        font-size: 28px;
+        font-weight: 800;
+        margin: 6px 0 0 0;
+        font-family: 'Courier New', monospace;
+        color: #FF6B6B;
+        letter-spacing: 1px;
+      }
+
+      .blh-timer__right {
+        width: 100%;
+        border-top: 1px solid rgba(255,255,255,.15);
+        padding-top: 8px;
+      }
+
+      .blh-note {
+        font-size: 12px;
+        opacity: 0.85;
+        font-weight: 600;
+        margin: 0;
+        line-height: 1.3;
+      }
+
+      .blh-note--strong {
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.4px;
+      }
+
+      /* ══════════════════════════════
+         MOBILE  ≤ 768 px
+      ══════════════════════════════ */
+      @media (max-width: 768px) {
+        .blh-promos {
+          padding: 10px;
+          border-radius: 12px;
+          margin: 12px auto;
+        }
+
+        /* coluna única */
+        .blh-promos__grid-wrap {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .blh-promos__grid {
+          flex-direction: column;
+          gap: 7px;
+        }
+
+        /* card vira linha */
+        .blh-card {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 14px;
+          border-radius: 10px;
+          gap: 10px;
+          text-align: left;
+        }
+
+        .blh-card__info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          flex: 1;
+          min-width: 0;
+        }
+
+        .blh-card__lead {
+          font-size: 14px;
+        }
+
+        .blh-card__sub {
+          font-size: 10px;
+          margin: 0;
+        }
+
+        .blh-copy {
+          padding: 7px 12px;
+          font-size: 10px;
+          flex-shrink: 0;
+        }
+
+        /* timer vira card compacto */
+        .blh-timer {
+          flex-direction: column;
+          width: 100%;
+          min-width: unset;
+          padding: 12px 14px;
+          border-radius: 10px;
+          gap: 8px;
+
+          margin: 8px 0 0 0;
+        }
+
+        .blh-timer__left {
+          text-align: center;
+          width: 100%;
+        }
+
+        .blh-timer__label {
+          font-size: 10px;
+          opacity: 0.85;
+          letter-spacing: 0.3px;
+          margin: 0;
+        }
+
+        .blh-timer__count {
+          font-size: 20px;
+          font-weight: 800;
+          margin: 4px 0 0 0;
+          color: #FF6B6B;
+        }
+
+        .blh-timer__right {
+          width: 100%;
+          border-top: 1px solid rgba(255,255,255,.1);
+          padding-top: 6px;
+        }
+
+        .blh-note {
+          font-size: 10px;
+          opacity: 0.8;
+          font-weight: 600;
+          margin: 0;
+          line-height: 1.2;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const html = `
+      <section class="blh-promos" id="blh-promos">
+        <div class="blh-promos__grid-wrap">
+
+          <div class="blh-promos__grid">
+            <article class="blh-card">
+              <div class="blh-card__info">
+                <span class="blh-card__lead">R$ <strong>80 OFF</strong> acima de R$999</span>
+                <p class="blh-card__sub">Use o cupom:</p>
+              </div>
+              <button class="blh-copy" data-cupom="CLIENTE80">CLIENTE80</button>
+            </article>
+
+            <article class="blh-card">
+              <div class="blh-card__info">
+                <span class="blh-card__lead">R$ <strong>120 OFF</strong> acima de R$1500</span>
+                <p class="blh-card__sub">Use o cupom:</p>
+              </div>
+              <button class="blh-copy" data-cupom="CLIENTE120">CLIENTE120</button>
+            </article>
+
+            <article class="blh-card">
+              <div class="blh-card__info">
+                <span class="blh-card__lead">R$ <strong>200 OFF</strong> acima de R$1800</span>
+                <p class="blh-card__sub">Use o cupom:</p>
+              </div>
+              <button class="blh-copy" data-cupom="CLIENTE200">CLIENTE200</button>
+            </article>
+          </div>
+
+          <div class="blh-timer">
+            <div class="blh-timer__left">
+              <p class="blh-timer__label">Mês do Consumidor Maloa termina em:</p>
+              <div id="blh-timer-countdown" class="blh-timer__count">--d --h --m --s</div>
+            </div>
+            <div class="blh-timer__right">
+              <p class="blh-note">🚚 Frete grátis acima de R$999 Sul, Sudeste e Centro-Oeste</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    `;
+
+    const target =
+      document.querySelector("#page-cart > div.container.main-container") ||
+      document.querySelector(".container") ||
+      document.querySelector("main") ||
+      document.body;
+
+    target.insertAdjacentHTML("beforebegin", html);
+
+    const timerEl = document.getElementById("blh-timer-countdown");
+    if (timerEl) {
+      const endDate = new Date("2026-03-18T23:59:59").getTime();
+
+      function updateTimer() {
+        const dist = endDate - Date.now();
+        if (dist <= 0) { timerEl.textContent = "Encerrado"; return; }
+        const d = Math.floor(dist / 86400000);
+        const h = Math.floor((dist / 3600000) % 24);
+        const m = Math.floor((dist / 60000) % 60);
+        const s = Math.floor((dist / 1000) % 60);
+        timerEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
+    }
+
+    document.querySelectorAll(".blh-copy").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const cupom = btn.dataset.cupom;
+        const original = btn.textContent;
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(cupom).then(() => {
+            btn.textContent = "✓ Copiado";
+            setTimeout(() => btn.textContent = original, 1400);
+          });
+        } else {
+          const input = document.createElement("input");
+          input.value = cupom;
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand("copy");
+          document.body.removeChild(input);
+          btn.textContent = "✓ Copiado";
+          setTimeout(() => btn.textContent = original, 1400);
+        }
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();

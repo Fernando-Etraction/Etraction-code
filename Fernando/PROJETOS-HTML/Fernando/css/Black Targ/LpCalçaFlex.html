@@ -1,0 +1,901 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap");
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --rc-black: #0a0a0a;
+    --rc-dark: #111111;
+    --rc-border: #2a2a2a;
+    --rc-accent: #e03030;
+    --rc-accent-live: #ff2d2d;
+    --rc-accent-dark: #b72020;
+    --rc-text: #ffffff;
+    --rc-muted: #b8b8b8;
+    --rc-radius: 12px;
+    --rc-radius-lg: 22px;
+    --rc-shadow: 0 24px 70px rgba(0, 0, 0, 0.58);
+    --rc-font-head: "Bebas Neue", sans-serif;
+    --rc-font-body: "DM Sans", sans-serif;
+  }
+
+  body {
+    background: var(--rc-black);
+  }
+
+  .rcx-rebuy-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: url("https://blacktarg.cdn.magazord.com.br/img/2026/05/produto/9523/gemini-generated-image-prpjvfprpjvfprpj.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+  .rcx-rebuy-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.86) 0%,
+      rgba(0, 0, 0, 0.66) 46%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+  }
+
+  .rcx-rebuy-page {
+    min-height: 100vh;
+    color: var(--rc-text);
+    font-family: var(--rc-font-body);
+    padding: 28px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rcx-rebuy-page__container {
+    width: 100%;
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
+    gap: 28px;
+    align-items: center;
+  }
+
+  .rcx-rebuy-page__content {
+    min-width: 0;
+  }
+
+  .rcx-rebuy-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #ededed;
+    margin-bottom: 18px;
+  }
+
+  .rcx-rebuy-page__eyebrow-dot,
+  .rcx-proof__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rc-accent);
+    animation: rcxPulse 2s infinite;
+    flex: 0 0 auto;
+  }
+
+  .rcx-rebuy-page__title {
+    font-family: var(--rc-font-head);
+    font-size: clamp(48px, 7vw, 82px);
+    line-height: 0.92;
+    letter-spacing: 1px;
+    max-width: 620px;
+    margin-bottom: 16px;
+  }
+
+  .rcx-rebuy-page__title em {
+    color: var(--rc-accent);
+    font-style: normal;
+  }
+
+  .rcx-rebuy-page__text {
+    max-width: 500px;
+    color: var(--rc-muted);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .rcx-game-panel {
+    background: rgba(17, 17, 17, 0.96);
+    border: 1px solid var(--rc-border);
+    border-radius: var(--rc-radius-lg);
+    box-shadow: var(--rc-shadow);
+    overflow: hidden;
+  }
+
+  .rcx-game-panel__header {
+    padding: 24px 24px 0;
+    text-align: center;
+  }
+
+  .rcx-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+
+  .rcx-timer__count {
+    font-family: var(--rc-font-head);
+    font-size: 20px;
+    color: var(--rc-accent);
+    letter-spacing: 2px;
+  }
+
+  .rcx-proof {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 14px;
+  }
+
+  .rcx-game-panel__headline {
+    font-family: var(--rc-font-head);
+    font-size: 36px;
+    letter-spacing: 1px;
+    line-height: 1.03;
+    margin-bottom: 10px;
+  }
+
+  .rcx-game-panel__headline em {
+    color: var(--rc-accent);
+    font-style: normal;
+  }
+
+  .rcx-game-panel__subheadline {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 18px;
+    line-height: 1.45;
+  }
+
+  .rcx-game-panel__body {
+    padding: 0 24px 24px;
+  }
+
+  .rcx-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .rcx-prize-card {
+    position: relative;
+    border-radius: var(--rc-radius);
+    aspect-ratio: 3 / 4;
+    border: 1.5px solid #252525;
+    cursor: pointer;
+    background: #141414;
+    overflow: hidden;
+    transition:
+      transform 0.2s,
+      border-color 0.2s,
+      opacity 0.2s,
+      filter 0.2s;
+  }
+
+  .rcx-prize-card:hover:not(.rcx-state-disabled) {
+    transform: translateY(-4px);
+    border-color: var(--rc-accent);
+  }
+
+  .rcx-prize-card.rcx-state-revealed .rcx-prize-card__back {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .rcx-prize-card.rcx-state-disabled {
+    opacity: 0.32;
+    filter: grayscale(1);
+    cursor: default;
+  }
+
+  .rcx-prize-card__back,
+  .rcx-prize-card__front {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+
+  .rcx-prize-card__back {
+    background: linear-gradient(160deg, #1c1c1c, #111111);
+    z-index: 2;
+    transition: opacity 0.4s;
+  }
+
+  .rcx-prize-card__back span {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .rcx-prize-card__back small {
+    color: #bdbdbd;
+    font-size: 11px;
+  }
+
+  .rcx-prize-card__front {
+    background: #1a1a1a;
+    border: 1.5px solid var(--rc-accent);
+    z-index: 1;
+  }
+
+  .rcx-prize-card__front span:first-child {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+
+  .rcx-prize-card__value {
+    font-family: var(--rc-font-head);
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .rcx-prize-card__code {
+    display: none;
+    margin-top: 6px;
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.6px;
+    overflow-wrap: anywhere;
+  }
+
+  .rcx-prize-card.rcx-state-revealed .rcx-prize-card__code {
+    display: block;
+  }
+
+  .rcx-coupon-box {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    animation: rcxSlideUp 0.35s ease forwards;
+  }
+
+  .rcx-coupon-box.rcx-state-visible {
+    display: flex;
+  }
+
+  .rcx-coupon-box p {
+    text-align: center;
+    font-size: 13px;
+    color: #dedede;
+  }
+
+  .rcx-coupon-box__display {
+    display: flex;
+    align-items: center;
+    background: #1a1a1a;
+    border: 1.5px solid var(--rc-accent);
+    border-radius: 10px;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .rcx-coupon-box__code {
+    flex: 1;
+    font-family: monospace;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--rc-accent);
+    letter-spacing: 1.5px;
+    overflow-wrap: anywhere;
+  }
+
+  .rcx-copy-button,
+  .rcx-products-cta {
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 800;
+    transition:
+      background 0.2s,
+      transform 0.1s,
+      box-shadow 0.2s,
+      opacity 0.2s,
+      filter 0.2s;
+  }
+
+  .rcx-copy-button {
+    background: #3a3a3a;
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .rcx-copy-button:hover {
+    background: var(--rc-accent-dark);
+  }
+
+  .rcx-copy-button.rcx-state-copied {
+    background: #27ae60;
+  }
+
+  .rcx-products-cta {
+    width: 100%;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    padding: 16px;
+    font-size: 15px;
+    margin-top: 14px;
+    background: var(--rc-accent-live) !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+    box-shadow:
+      0 0 0 1px rgba(255, 45, 45, 0.32),
+      0 14px 34px rgba(255, 45, 45, 0.38) !important;
+    filter: saturate(1.35) !important;
+  }
+
+  .rcx-products-cta:hover {
+    background: #ff4141 !important;
+  }
+
+  .rcx-status-note {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: #888;
+    width: 100%;
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+
+  @keyframes rcxSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes rcxPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(224, 48, 48, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(224, 48, 48, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(224, 48, 48, 0);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .rcx-rebuy-page {
+      align-items: flex-start;
+      padding: 22px 14px;
+    }
+
+    .rcx-rebuy-page__container {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      max-width: 460px;
+    }
+
+    .rcx-rebuy-page__content {
+      text-align: center;
+    }
+
+    .rcx-rebuy-page__eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .rcx-rebuy-page__title {
+      font-size: 46px;
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 12px;
+    }
+
+    .rcx-rebuy-page__text {
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .rcx-game-panel__header {
+      padding: 20px 18px 0;
+    }
+
+    .rcx-game-panel__body {
+      padding: 0 18px 20px;
+    }
+
+    .rcx-game-panel__headline {
+      font-size: 31px;
+    }
+
+    .rcx-game-panel__subheadline {
+      font-size: 13px;
+      margin-bottom: 14px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .rcx-rebuy-page {
+      padding: 18px 12px;
+    }
+
+    .rcx-rebuy-page__title {
+      font-size: 40px;
+    }
+
+    .rcx-rebuy-page__text {
+      font-size: 13px;
+    }
+
+    .rcx-timer {
+      font-size: 12px;
+      padding: 8px 10px;
+    }
+
+    .rcx-card-grid {
+      gap: 8px;
+    }
+
+    .rcx-prize-card__value {
+      font-size: 17px;
+    }
+
+    .rcx-prize-card__code {
+      font-size: 8px;
+      letter-spacing: 0.2px;
+    }
+
+    .rcx-coupon-box__display {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+
+    .rcx-copy-button {
+      width: 100%;
+    }
+  }
+</style>
+
+<section class="rcx-rebuy-page" id="rcx-rebuy-page">
+  <div class="rcx-rebuy-page__container">
+    <div class="rcx-rebuy-page__content">
+      <div class="rcx-rebuy-page__eyebrow">
+        <span class="rcx-rebuy-page__eyebrow-dot"></span>
+        Oferta exclusiva de recompra
+      </div>
+
+      <h1 class="rcx-rebuy-page__title">
+        Escolha uma carta e ganhe <em>desconto na Calça Elast Fit.</em>
+      </h1>
+
+      <p class="rcx-rebuy-page__text">
+        Seu cupom exclusivo será liberado após virar uma carta. Depois, basta
+        escolher sua Calça Elast Fit : o desconto será aplicado automaticamente
+        no carrinho.
+      </p>
+    </div>
+
+    <div class="rcx-game-panel">
+      <div class="rcx-game-panel__header">
+        <div class="rcx-timer">
+          <span>🔥 Oferta expira em</span>
+          <span class="rcx-timer__count" id="rcx-timer-count">03:00</span>
+        </div>
+
+        <div class="rcx-proof">
+          <span class="rcx-proof__dot"></span>
+          <span
+            ><span id="rcx-proof-count">29</span> pessoas comprando agora</span
+          >
+        </div>
+
+        <h2 class="rcx-game-panel__headline">
+          Vire uma carta<br /><em>e libere seu cupom</em>
+        </h2>
+
+        <p class="rcx-game-panel__subheadline">
+          Escolha apenas uma opção abaixo. O cupom será salvo e aplicado
+          automaticamente no carrinho.
+        </p>
+      </div>
+
+      <div class="rcx-game-panel__body">
+        <div class="rcx-card-grid">
+          <div
+            class="rcx-prize-card"
+            data-rcx-coupon="agorae10calca"
+            data-rcx-label="10% OFF"
+          >
+            <div class="rcx-prize-card__back">
+              <span>🎁</span><small>Carta #1</small>
+            </div>
+            <div class="rcx-prize-card__front">
+              <span>🎯</span>
+              <span class="rcx-prize-card__value">10% OFF</span>
+              <span class="rcx-prize-card__code">agorae10calca</span>
+            </div>
+          </div>
+
+          <div
+            class="rcx-prize-card"
+            data-rcx-coupon="agorae10calca"
+            data-rcx-label="10% OFF"
+          >
+            <div class="rcx-prize-card__back">
+              <span>🎁</span><small>Carta #2</small>
+            </div>
+            <div class="rcx-prize-card__front">
+              <span>⭐</span>
+              <span class="rcx-prize-card__value">10% OFF</span>
+              <span class="rcx-prize-card__code">agorae10calca</span>
+            </div>
+          </div>
+
+          <div
+            class="rcx-prize-card"
+            data-rcx-coupon="agorae10calca"
+            data-rcx-label="10% OFF"
+          >
+            <div class="rcx-prize-card__back">
+              <span>🎁</span><small>Carta #3</small>
+            </div>
+            <div class="rcx-prize-card__front">
+              <span>💎</span>
+              <span class="rcx-prize-card__value">10% OFF</span>
+              <span class="rcx-prize-card__code">agorae10calca</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="rcx-coupon-box" id="rcx-coupon-box">
+          <p>
+            🎉 Cupom liberado. Ele será aplicado automaticamente no carrinho:
+          </p>
+          <div class="rcx-coupon-box__display">
+            <span class="rcx-coupon-box__code" id="rcx-selected-coupon">
+              SELECIONE UMA CARTA
+            </span>
+            <button class="rcx-copy-button" id="rcx-copy-coupon" type="button">
+              Copiar
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="rcx-products-cta"
+          id="rcx-products-cta"
+          data-rcx-url="https://www.blacktarg.com.br/calcas-esportivas"
+          role="button"
+          tabindex="0"
+        >
+          ESCOLHER PRODUTOS →
+        </div>
+
+        <span class="rcx-status-note" id="rcx-status-note">
+          Selecione uma carta para desbloquear seu cupom automático.
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function RCX_RebuyCouponGame() {
+    const RCX_CONFIG = {
+      timerSeconds: 180,
+      storageKey: "cupom-oferta-calca",
+      targetUrl: "https://www.blacktarg.com.br/calcas-esportivas",
+      checkoutCouponInputId: "cupom-desconto",
+      checkoutApplyButtonSelector: ".aplicar-desconto",
+    };
+
+    const rcxState = {
+      hasRevealedCard: false,
+      selectedCoupon: "",
+      countdownId: null,
+    };
+
+    const rcxElements = {
+      timer: document.getElementById("rcx-timer-count"),
+      proofCount: document.getElementById("rcx-proof-count"),
+      couponBox: document.getElementById("rcx-coupon-box"),
+      selectedCoupon: document.getElementById("rcx-selected-coupon"),
+      copyButton: document.getElementById("rcx-copy-coupon"),
+      productsCta: document.getElementById("rcx-products-cta"),
+      statusNote: document.getElementById("rcx-status-note"),
+    };
+
+    function rcxStartCountdown() {
+      if (!rcxElements.timer) return;
+
+      let secondsLeft = RCX_CONFIG.timerSeconds;
+
+      function rcxRenderCountdown() {
+        const minutes = Math.floor(secondsLeft / 60);
+        const seconds = secondsLeft % 60;
+        rcxElements.timer.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      if (rcxState.countdownId) {
+        clearInterval(rcxState.countdownId);
+      }
+
+      rcxRenderCountdown();
+
+      rcxState.countdownId = setInterval(function () {
+        secondsLeft -= 1;
+
+        if (secondsLeft <= 0) {
+          secondsLeft = 0;
+          rcxRenderCountdown();
+          clearInterval(rcxState.countdownId);
+          rcxState.countdownId = null;
+          return;
+        }
+
+        rcxRenderCountdown();
+      }, 1000);
+    }
+
+    function rcxStartProofCounter() {
+      if (!rcxElements.proofCount) return;
+
+      setInterval(function () {
+        const randomNumber = Math.floor(Math.random() * 12) + 21;
+        rcxElements.proofCount.textContent = String(randomNumber);
+      }, 4500);
+    }
+
+    function rcxSaveCoupon(couponCode) {
+      if (!couponCode) return;
+      localStorage.setItem(RCX_CONFIG.storageKey, couponCode);
+    }
+
+    function rcxCopyCoupon(couponCode) {
+      if (!couponCode || !navigator.clipboard) return;
+
+      navigator.clipboard.writeText(couponCode).then(function () {
+        if (!rcxElements.copyButton) return;
+
+        rcxElements.copyButton.textContent = "✓ Copiado";
+        rcxElements.copyButton.classList.add("rcx-state-copied");
+
+        setTimeout(function () {
+          rcxElements.copyButton.textContent = "Copiar";
+          rcxElements.copyButton.classList.remove("rcx-state-copied");
+        }, 2000);
+      });
+    }
+
+    function rcxKeepCtaLive() {
+      if (!rcxElements.productsCta) return;
+
+      rcxElements.productsCta.dataset.rcxUrl = RCX_CONFIG.targetUrl;
+
+      rcxElements.productsCta.style.setProperty(
+        "background",
+        "var(--rc-accent-live)",
+        "important",
+      );
+
+      rcxElements.productsCta.style.setProperty(
+        "background-color",
+        "var(--rc-accent-live)",
+        "important",
+      );
+
+      rcxElements.productsCta.style.setProperty("opacity", "1", "important");
+
+      rcxElements.productsCta.style.setProperty(
+        "filter",
+        "saturate(1.35)",
+        "important",
+      );
+
+      rcxElements.productsCta.style.setProperty(
+        "box-shadow",
+        "0 0 0 1px rgba(255, 45, 45, 0.32), 0 14px 34px rgba(255, 45, 45, 0.38)",
+        "important",
+      );
+
+      rcxElements.productsCta.style.setProperty(
+        "cursor",
+        "pointer",
+        "important",
+      );
+
+      rcxElements.productsCta.style.setProperty(
+        "pointer-events",
+        "auto",
+        "important",
+      );
+    }
+
+    function rcxRevealPrizeCard(cardElement) {
+      if (!cardElement || rcxState.hasRevealedCard) return;
+
+      const selectedCoupon = cardElement.dataset.rcxCoupon;
+      const selectedLabel = cardElement.dataset.rcxLabel || "Cupom";
+
+      if (!selectedCoupon) return;
+
+      rcxState.hasRevealedCard = true;
+      rcxState.selectedCoupon = selectedCoupon;
+
+      cardElement.classList.add("rcx-state-revealed");
+      cardElement.classList.remove("rcx-state-disabled");
+
+      document.querySelectorAll(".rcx-prize-card").forEach(function (card) {
+        if (card !== cardElement) {
+          card.classList.add("rcx-state-disabled");
+        }
+      });
+
+      if (rcxElements.selectedCoupon) {
+        rcxElements.selectedCoupon.textContent = selectedCoupon;
+      }
+
+      if (rcxElements.couponBox) {
+        const revealText = rcxElements.couponBox.querySelector("p");
+
+        if (revealText) {
+          revealText.innerHTML = `🎉 Você desbloqueou <strong>${selectedLabel}</strong>. O cupom será aplicado automaticamente no carrinho:`;
+        }
+
+        rcxElements.couponBox.classList.add("rcx-state-visible");
+      }
+
+      if (rcxElements.statusNote) {
+        rcxElements.statusNote.textContent =
+          "Cupom salvo. Agora escolha seu produto para aplicar o desconto no carrinho.";
+      }
+
+      rcxSaveCoupon(selectedCoupon);
+      rcxCopyCoupon(selectedCoupon);
+      rcxKeepCtaLive();
+    }
+
+    function rcxGoToProducts(event) {
+      if (!rcxState.hasRevealedCard) {
+        if (event) event.preventDefault();
+
+        if (rcxElements.statusNote) {
+          rcxElements.statusNote.textContent =
+            "Primeiro selecione uma carta para liberar seu cupom automático.";
+        }
+
+        rcxKeepCtaLive();
+        return;
+      }
+
+      rcxSaveCoupon(rcxState.selectedCoupon);
+      window.location.href = RCX_CONFIG.targetUrl;
+    }
+
+    function rcxApplySavedCouponOnCheckout() {
+      const savedCoupon = localStorage.getItem(RCX_CONFIG.storageKey);
+      if (!savedCoupon) return;
+
+      const discountInput = document.getElementById(
+        RCX_CONFIG.checkoutCouponInputId,
+      );
+
+      if (!discountInput) return;
+
+      discountInput.value = savedCoupon;
+      discountInput.dispatchEvent(new Event("input", { bubbles: true }));
+      discountInput.dispatchEvent(new Event("change", { bubbles: true }));
+
+      const applyButton = document.querySelector(
+        RCX_CONFIG.checkoutApplyButtonSelector,
+      );
+
+      if (applyButton) {
+        applyButton.click();
+        return;
+      }
+
+      if (
+        typeof Zord !== "undefined" &&
+        Zord.checkout &&
+        typeof Zord.checkout.addCupomDesconto === "function"
+      ) {
+        Zord.checkout.addCupomDesconto();
+      }
+    }
+
+    document.addEventListener("click", function (event) {
+      const clickedCard = event.target.closest(".rcx-prize-card");
+      const clickedCta = event.target.closest("#rcx-products-cta");
+
+      if (clickedCard) {
+        rcxRevealPrizeCard(clickedCard);
+        return;
+      }
+
+      if (clickedCta) {
+        rcxGoToProducts(event);
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (
+        (event.key === "Enter" || event.key === " ") &&
+        event.target.closest("#rcx-products-cta")
+      ) {
+        event.preventDefault();
+        rcxGoToProducts(event);
+      }
+    });
+
+    if (rcxElements.copyButton) {
+      rcxElements.copyButton.addEventListener("click", function () {
+        const couponCode =
+          rcxState.selectedCoupon ||
+          localStorage.getItem(RCX_CONFIG.storageKey);
+
+        rcxSaveCoupon(couponCode);
+        rcxCopyCoupon(couponCode);
+      });
+    }
+
+    rcxKeepCtaLive();
+    rcxStartCountdown();
+    rcxStartProofCounter();
+    rcxApplySavedCouponOnCheckout();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", RCX_RebuyCouponGame);
+  } else {
+    RCX_RebuyCouponGame();
+  }
+</script>

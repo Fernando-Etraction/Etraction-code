@@ -1,0 +1,322 @@
+<style>
+  :root {
+    --cupom-text: var(--color-primary, var(--primary-color, #111111));
+    --cupom-muted: var(--color-text, var(--text-color, rgba(17, 17, 17, 0.72)));
+    --cupom-bg: var(--color-bg, var(--background, #ffffff));
+    --cupom-border: rgba(17, 17, 17, 0.14);
+    --cupom-soft: rgba(17, 17, 17, 0.04);
+    --cupom-radius: 12px;
+  }
+
+  .cupom-lateral {
+    width: 100%;
+    max-width: 420px;
+    padding: 14px;
+    background: var(--cupom-bg);
+    border: 1px solid var(--cupom-border);
+    border-radius: var(--cupom-radius);
+    box-sizing: border-box;
+    margin-bottom: 14px;
+  }
+
+  .cupom-lateral-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .cupom-lateral .texto {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .cupom-lateral .kicker {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cupom-muted);
+    margin: 0 0 6px 0;
+    line-height: 1.1;
+  }
+
+  .cupom-lateral .titulo {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.25;
+    font-weight: 700;
+    color: var(--cupom-text);
+    word-break: break-word;
+  }
+
+  .cupom-lateral .sub {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--cupom-muted);
+  }
+
+  .cupom-lateral .sub strong {
+    color: var(--cupom-text);
+    font-weight: 800;
+  }
+
+  .cupom-lateral .codigo-area {
+    appearance: none;
+    background: transparent;
+    border: 1px dashed #af7746;
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 120px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cupom-lateral .codigo-area:hover {
+    background: var(--cupom-soft);
+    border-color: #af7746;
+  }
+
+  .cupom-lateral .codigo-area:focus-visible {
+    outline: 2px solid rgba(17, 17, 17, 0.35);
+    outline-offset: 2px;
+  }
+
+  .cupom-lateral .codigo {
+    display: block;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    color: var(--cupom-text);
+  }
+
+  .cupom-lateral .copiado {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(17, 17, 17, 0.06);
+    border: 1px solid rgba(17, 17, 17, 0.16);
+    color: var(--cupom-text);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity 0.16s ease,
+      transform 0.16s ease;
+    pointer-events: none;
+  }
+
+  .cupom-lateral.is-copied .copiado {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    .cupom-lateral {
+      max-width: 100%;
+      margin: 12px 0;
+    }
+
+    .cupom-lateral-container {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cupom-lateral .codigo-area {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+</style>
+
+<script>
+  $(function () {
+    var cupomCode = "BUGBEE5";
+    var CUPOM_PERCENT = 5;
+
+    if (document.getElementById("cupom-container")) return;
+
+    $(`
+      <div id="cupom-container" class="cupom-lateral" role="note" aria-label="Cupom de desconto">
+        <div class="cupom-lateral-container">
+          <div class="texto">
+            <div class="kicker">Você ganhou um cupom!</div>
+            <p class="titulo">5% OFF em sua compra.</p>
+          </div>
+
+          <button type="button" id="codigo-click" class="codigo-area" aria-label="Copiar cupom BUGBEE5">
+            <span class="codigo">${cupomCode}</span>
+            <span class="copiado" id="copiado-msg">✔ Copiado!</span>
+          </button>
+        </div>
+
+        <div class="sub">
+          Economize até <strong id="cupom-economia">R$ —</strong> nesse produto usando o cupom.
+        </div>
+      </div>
+    `).insertBefore("#area-comprar");
+
+    function getPixEl() {
+      return (
+        document.querySelector(".full-price") ||
+        document.querySelector("[class*='full-price']") ||
+        document.querySelector(".price.pix span.price-big") ||
+        document.querySelector(".price-big") ||
+        document.querySelector(".preco-principal") ||
+        document.querySelector(".preco-de")
+      );
+    }
+
+    function parseBRL(text) {
+      var raw = (text || "").trim();
+
+      var n = Number(
+        raw
+          .replace(/\s/g, "")
+          .replace("R$", "")
+          .replace(/\./g, "")
+          .replace(",", ".")
+      );
+
+      return isFinite(n) ? n : NaN;
+    }
+
+    function formatBRL(n) {
+      return n.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function calcEconomia() {
+      var el = getPixEl();
+
+      if (!el) return null;
+
+      var priceText = el.textContent || el.innerText || "";
+      var price = parseBRL(priceText);
+
+      if (!isFinite(price) || price <= 0) return null;
+
+      var economia = price * (CUPOM_PERCENT / 100);
+
+      return {
+        price: price,
+        economia: economia,
+        economiaFmt: formatBRL(economia)
+      };
+    }
+
+    var updateTimer = null;
+
+    function updateEconomia() {
+      var out = document.getElementById("cupom-economia");
+
+      if (!out) return;
+
+      var result = calcEconomia();
+      var text = result ? result.economiaFmt : "R$ —";
+
+      if (out.textContent !== text) {
+        out.textContent = text;
+      }
+    }
+
+    function scheduleUpdate() {
+      clearTimeout(updateTimer);
+
+      updateTimer = setTimeout(function () {
+        updateEconomia();
+      }, 120);
+    }
+
+    function initObserver() {
+      var root =
+        document.querySelector(".values-area") ||
+        document.querySelector(".price.pix") ||
+        document.querySelector(".values") ||
+        document.querySelector(".flex.values-area") ||
+        document.querySelector("#product-price-info") ||
+        document.body;
+
+      try {
+        var observer = new MutationObserver(function () {
+          scheduleUpdate();
+        });
+
+        observer.observe(root, {
+          childList: true,
+          subtree: true,
+          characterData: true
+        });
+
+        scheduleUpdate();
+
+        setTimeout(function () {
+          observer.disconnect();
+        }, 30000);
+      } catch (e) {
+        scheduleUpdate();
+        setTimeout(scheduleUpdate, 600);
+        setTimeout(scheduleUpdate, 1400);
+      }
+    }
+
+    setTimeout(function () {
+      updateEconomia();
+      initObserver();
+    }, 150);
+
+    function setCopiedState() {
+      var $card = $("#cupom-container");
+
+      $card.addClass("is-copied");
+
+      clearTimeout(window.__cupomCopiedTimer);
+
+      window.__cupomCopiedTimer = setTimeout(function () {
+        $card.removeClass("is-copied");
+      }, 1400);
+    }
+
+    function fallbackCopy(text) {
+      var $temp = $("<input>");
+
+      $("body").append($temp);
+      $temp.val(text).select();
+
+      try {
+        document.execCommand("copy");
+        setCopiedState();
+      } catch (e) {
+        console.log("Falha ao copiar o cupom:", e);
+      }
+
+      $temp.remove();
+    }
+
+    $("#codigo-click").on("click", function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard
+          .writeText(cupomCode)
+          .then(setCopiedState)
+          .catch(function () {
+            fallbackCopy(cupomCode);
+          });
+      } else {
+        fallbackCopy(cupomCode);
+      }
+    });
+  });
+</script>

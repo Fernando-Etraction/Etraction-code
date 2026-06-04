@@ -1,0 +1,100 @@
+<style>
+  .box-fidegg,
+  #content-price-product > div.mais-formas-pagamento.mt-space-16 > a {
+    padding: 4px !important;
+    background-color: white !important;
+    box-shadow: 0 0 0 1px #e2dddd;
+    border-left: 4px solid darkgreen;
+    border-radius: 7px !important;
+    width: fit-content !important;
+    margin-top: 10px;
+  }
+
+  .info-fidegg {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 5px;
+    font-size: 12px !important;
+    color: #333 !important;
+  }
+
+  .box-fidegg .info-fidegg strong {
+    font-size: 12px !important;
+    color: #27ae60 !important;
+  }
+
+  .tag-frete {
+    padding: 4px !important;
+    background-color: white !important;
+    box-shadow: 0 0 0 1px #e2dddd;
+    border-left: 4px solid darkgreen;
+    border-radius: 7px !important;
+    width: 80% !important;
+  }
+
+  .tag-frete__icon {
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+  }
+
+  .tag-frete__title {
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .tag-frete__subtitle {
+    font-size: 13px;
+    color: #777;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .tag-frete {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .box-fidegg {
+      width: 100% !important;
+      border-radius: 8px !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    function moverBoxFidegg() {
+      try {
+        const destino = document.querySelector(
+          "#content-price-product > div.mais-formas-pagamento.mt-space-16"
+        );
+
+        const box = document.querySelector(".box-fidegg");
+
+        if (!destino || !box) return;
+
+        destino.insertAdjacentElement("afterend", box);
+      } catch (err) {
+        console.error("moverBoxFidegg error:", err);
+      }
+    }
+
+    function iniciar() {
+      moverBoxFidegg();
+
+      setTimeout(moverBoxFidegg, 300);
+      setTimeout(moverBoxFidegg, 800);
+      setTimeout(moverBoxFidegg, 1500);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", iniciar);
+    } else {
+      iniciar();
+    }
+
+    window.addEventListener("load", moverBoxFidegg);
+  })();
+</script>

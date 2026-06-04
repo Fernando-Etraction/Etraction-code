@@ -1,0 +1,42 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{font-family:'Inter',sans-serif;background:#fafaf7;color:#0a0a0a;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+:root{
+  --pink:#e6007e;       /* rosa Savancini */
+  --pink-d:#b80064;
+  --ink:#0a0a0a;
+  --paper:#fafaf7;
+  --g50:#f0f0eb;
+  --g100:#e0e0db;
+  --g200:#c4c4bf;
+  --g400:#888884;
+  --g600:#555550;
+  --g700:#333330;
+  --r:2px;                /* radius minimalista */
+  --W:1280px;
+  --font-h:'Cormorant Garamond',serif;   /* display editorial */
+  --font-b:'Inter',sans-serif;
+}
+
+.container{max-width:var(--W);margin:0 auto;padding:0 24px}
+
+.header{background:#fff;border-bottom:1px solid var(--g100);position:sticky;top:0;z-index:100}
+.header-inner{display:flex;align-items:center;gap:24px;padding:18px 24px;max-width:var(--W);margin:0 auto}
+.logo-link{flex-shrink:0;text-decoration:none}
+.logo-text{font-family:var(--font-h);font-size:32px;font-weight:500;letter-spacing:.06em;color:var(--ink);line-height:1}
+.search-form{flex:1;display:flex;min-width:0;max-width:520px;margin:0 auto}
+.search-input{flex:1;height:40px;padding:0 16px;border:1px solid var(--g100);background:#fff;font-size:13px;font-family:var(--font-b);outline:none;color:var(--ink);border-radius:var(--r) 0 0 var(--r);transition:border-color .15s}
+.search-input:focus{border-color:var(--ink)}
+.search-input::placeholder{color:var(--g400)}
+.search-btn{width:44px;height:40px;background:var(--ink);color:#fff;border:none;border-radius:0 var(--r) var(--r) 0;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.search-btn:hover{background:#333}
+.search-btn svg{width:15px;height:15px}
+.header-actions{display:flex;align-items:center;gap:18px;flex-shrink:0}
+.h-action{display:flex;align-items:center;gap:6px;color:var(--ink);font-size:12px;font-weight:500;text-decoration:none;transition:opacity .15s;letter-spacing:.04em;text-transform:uppercase}
+.h-action:hover{opacity:.6}
+.h-action svg{width:18px;height:18px}
+.h-cart{position:relative}
+.cart-badge{position:absolute;top:-6px;right:-8px;width:16px;height:16px;background:var(--pink);color:#fff;border-radius:50%;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:var(--font-b)}

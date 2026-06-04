@@ -1,0 +1,575 @@
+<style><!--
+.espacamento{
+    gap:10px;
+}
+.borda-redonda img{
+  border-radius:10px;
+}
+.title-ctn h2.bg-title {
+    font-weight: normal;
+}
+
+
+.espaco{margin-top:15px}
+.espaco-maior{margin-top:20px}
+.espaco-grande{margin-top:25px}
+
+header#header-react-app {
+    position: absolute;
+    width: 100%;
+}
+
+header::before{
+    background: rgba(83, 83, 83, 18%) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px) !important;
+    content: "";
+    position: absolute;
+    inset: 0px;
+    border-bottom: 1px solid #ffffff5f;
+    z-index:-1;
+    transition: background 200ms;
+}
+
+@media (min-width: 1024px) {
+    ul#nav-root > li > a {
+        color: #fff !important;
+    }
+
+    .acoes-header * svg path {
+        fill: #fff !important;
+    }
+
+    .logo a img{
+        width:80% !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .menu-button svg path,
+    #cart-preview-area > a svg path {
+        fill: #fff;
+    }
+
+    .header-search-full {
+        background: none;
+    }
+
+    .search-area {
+        background: none;
+    }
+
+    input[type="search"] {
+        background: none;
+        color: #fff;
+    }
+
+    input[type="search"]::placeholder {
+        color: #fff;
+    }
+
+    .header-middle{
+        background:none;
+    }
+
+    .header-middle svg path{
+        fill:#fff;
+    }
+}
+
+.container-row.componente-id-7VryTuOLHv.container-row-type-1.e.espacamento>div>div {
+    justify-content: space-evenly;
+}
+
+.banners-categorias img {
+    width: 90px;
+    height: 90px;
+    transition: background-color 0.3s;
+}
+
+/* Nova header */
+
+/* =========================
+   GARANTE QUE NADA CORTE O SUBMENU
+========================= */
+#header-react-app .header-top,
+#header-react-app .container,
+#header-react-app #nav-root,
+#header-react-app #nav-root > li{
+    overflow: visible !important;
+}
+
+#start-recognition > svg > path,#header-react-app > div > div > div.acoes-header.flex.items-center.gap-space-32 > div.area-busca.search-area.active-recognition.social-pesquisa-container.transition-all.transition-duration-500.gap-space-16.shadow-overlayLight.dark\:bg-dark-600.absolute.left-0.top-0.z-30.flex.h-\[160px\].w-full.items-center.justify-between.bg-white.translate-y-\[0\].opacity-1 > div > div > span:nth-child(2) > svg > path,#frm-search > button > svg > path{
+    fill:black !important;
+}
+
+/* =========================
+   ITENS COM SUBMENU
+========================= */
+#nav-root > li.menu-list-18.has-childs,
+#nav-root > li.menu-list-19.has-childs,
+#nav-root > li.menu-list-20.has-childs,
+#nav-root > li.menu-list-21.has-childs,
+#nav-root > li.menu-list-22.has-childs{
+    position: relative !important;
+}
+
+/* =========================
+   SUBMENUS BASE
+========================= */
+#nav-root > li.menu-list-18.has-childs > .container-menu,
+#nav-root > li.menu-list-19.has-childs > .container-menu,
+#nav-root > li.menu-list-20.has-childs > .container-menu,
+#nav-root > li.menu-list-21.has-childs > .container-menu,
+#nav-root > li.menu-list-22.has-childs > .container-menu{
+    position: fixed !important;
+    top: 90px !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: none !important;
+    translate: none !important;
+    transition: opacity .25s ease !important;
+    z-index: 9999 !important;
+    padding: 30px 40px !important;
+    background: rgba(83, 83, 83, 18%) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08) !important;
+    border: 0 !important;
+}
+
+/* =========================
+   MOSTRA NO HOVER
+========================= */
+#nav-root > li.menu-list-18.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-19.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-20.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-21.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-22.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-18.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-19.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-20.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-21.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-22.has-childs > .container-menu:hover{
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* =========================
+   UL INTERNO
+========================= */
+#nav-root > li.menu-list-18.has-childs > .container-menu > ul,
+#nav-root > li.menu-list-19.has-childs > .container-menu > ul,
+#nav-root > li.menu-list-20.has-childs > .container-menu > ul,
+#nav-root > li.menu-list-21.has-childs > .container-menu > ul,
+#nav-root > li.menu-list-22.has-childs > .container-menu > ul{
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 50px !important;
+    width: 100% !important;
+    max-width: 1700px !important;
+    margin: 0 auto !important;
+    padding: 0 20px !important;
+}
+
+/* =========================
+   ITENS
+========================= */
+#nav-root > li.menu-list-18.has-childs > .container-menu > ul > li,
+#nav-root > li.menu-list-19.has-childs > .container-menu > ul > li,
+#nav-root > li.menu-list-20.has-childs > .container-menu > ul > li,
+#nav-root > li.menu-list-21.has-childs > .container-menu > ul > li,
+#nav-root > li.menu-list-22.has-childs > .container-menu > ul > li{
+    width: fit-content !important;
+    float: none !important;
+    margin: 0 !important;
+    list-style: none !important;
+    pointer-events: auto !important;
+}
+
+/* =========================
+   LINKS INTERNOS
+========================= */
+#nav-root > li.menu-list-18.has-childs > .container-menu a,
+#nav-root > li.menu-list-19.has-childs > .container-menu a,
+#nav-root > li.menu-list-20.has-childs > .container-menu a,
+#nav-root > li.menu-list-21.has-childs > .container-menu a,
+#nav-root > li.menu-list-22.has-childs > .container-menu a{
+    display: inline-block !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    text-decoration: none !important;
+}
+
+/* Atrasa o fechamento */
+#nav-root > li.menu-list-18.has-childs > .container-menu,
+#nav-root > li.menu-list-19.has-childs > .container-menu,
+#nav-root > li.menu-list-20.has-childs > .container-menu,
+#nav-root > li.menu-list-21.has-childs > .container-menu,
+#nav-root > li.menu-list-22.has-childs > .container-menu {
+    transition: opacity .25s ease, visibility 0s linear .6s !important;
+}
+
+/* Remove o delay ao abrir */
+#nav-root > li.menu-list-18.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-19.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-20.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-21.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-22.has-childs:hover > .container-menu,
+#nav-root > li.menu-list-18.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-19.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-20.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-21.has-childs > .container-menu:hover,
+#nav-root > li.menu-list-22.has-childs > .container-menu:hover {
+    transition: opacity .25s ease, visibility 0s linear 0s !important;
+}
+
+/* Bridge invisível que cobre o gap entre o item e o submenu */
+#nav-root > li.menu-list-18.has-childs::after,
+#nav-root > li.menu-list-19.has-childs::after,
+#nav-root > li.menu-list-20.has-childs::after,
+#nav-root > li.menu-list-21.has-childs::after,
+#nav-root > li.menu-list-22.has-childs::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: -20px !important;
+    right: -20px !important;
+    height: 30px !important;
+    background: transparent !important;
+    z-index: 9998 !important;
+}
+
+@media (max-width:500px){
+    #header-react-app > div.relative.z-40.flex.w-full.flex-col.shadow-default > div > div.flex.fixed.z-\[20\].transition-transform.duration-500.top-0.menu-mobile-ctn.bg-primary-color.left-0.translate-x-\[0\].menu-open.left-open{
+        width: 100%;
+        height: calc(-51px + 100dvh);
+        overflow: visible !important;
+        background: rgb(255, 255, 255);
+        transition-duration: .5s;
+        z-index: 999;
+    }
+
+    #header-react-app > div.relative.z-40.flex.w-full.flex-col.shadow-default > div > div.flex.fixed.z-\[20\].transition-transform.duration-500.top-0.menu-mobile-ctn.bg-primary-color.left-0.translate-x-\[0\].menu-open.left-open > div.z-\[10\].flex.h-screen.w-\[270px\].flex-col.overflow-hidden.bg-primary-color.shadow-overlay{
+        width:100%;
+        position: relative !important;
+    }
+}
+
+/* =========================
+   BOTÃO NOVO DENTRO DO INFO-USER
+========================= */
+#header-react-app .menu-mobile-ctn .info-user{
+    position: relative !important;
+    padding-right: 52px !important;
+}
+
+#header-react-app .menu-mobile-ctn .custom-close-inside-info-user{
+    position: absolute !important;
+    top: 50% !important;
+    right: 12px !important;
+    transform: translateY(-50%) !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: 0 !important;
+    color: #000 !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    z-index: 10001 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+#header-react-app .menu-mobile-ctn .custom-close-inside-info-user:hover{
+    opacity: .75 !important;
+}
+
+#header-react-app .menu-mobile-ctn .custom-close-inside-info-user:focus{
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+#header-react-app .menu-mobile-ctn .custom-close-inside-info-user svg,
+#header-react-app .menu-mobile-ctn .custom-close-inside-info-user svg path{
+    fill: #000 !important;
+    stroke: #000 !important;
+}
+
+/* esconde o botão antigo fora do lugar */
+#header-react-app .menu-mobile-ctn .close-button{
+    display: none !important;
+}
+
+.menu-text{
+    color:white !important;
+}
+
+/* =========================================================
+   ===== NOVOS FIXES — SUBMENUS DA HEADER (DESKTOP) =====
+   ========================================================= */
+
+/* FIX 1: Reset float/w-1/2 e organizar nivel 2 em colunas (grid) */
+#nav-root > li.has-childs > .container-menu > ul {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(180px, 1fr)) !important;
+    gap: 24px 32px !important;
+    align-items: start !important;
+    justify-content: start !important;
+}
+#nav-root > li.has-childs > .container-menu > ul > li {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* FIX 2: Submenu de NIVEL 3 (filhos de POLIAMIDA/POLIÉSTER em COMBOS)
+   Renderiza inline abaixo do título da coluna, herdando visibilidade do pai */
+#nav-root > li.has-childs > .container-menu > ul > li.has-childs > .container-menu {
+    position: static !important;
+    display: block !important;
+    visibility: inherit !important;
+    opacity: inherit !important;
+    pointer-events: inherit !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: auto !important;
+    transition: none !important;
+}
+#nav-root > li.has-childs > .container-menu > ul > li.has-childs > .container-menu > ul.menu-level-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 10px !important;
+    padding: 0 !important;
+    visibility: inherit !important;
+}
+#nav-root > li.has-childs > .container-menu > ul > li.has-childs > .container-menu > ul.menu-level-3 > li {
+    width: 100% !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    visibility: inherit !important;
+}
+
+/* FIX 3: Remover bullets, ícones placeholder e setinhas ">" (SVG chevron) */
+#nav-root > li.has-childs > .container-menu li {
+    list-style: none !important;
+}
+#nav-root > li.has-childs > .container-menu li::marker {
+    content: none !important;
+    display: none !important;
+}
+#nav-root > li.has-childs > .container-menu a > svg {
+    display: none !important;
+}
+#nav-root > li.has-childs > .container-menu .menu-icon {
+    display: none !important;
+}
+
+/* FIX 4: Tipografia — diferencia título de coluna (has-childs) dos links (not-has-childs) */
+#nav-root > li.has-childs > .container-menu > ul > li.has-childs > a {
+    pointer-events: none !important;
+    cursor: default !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    color: #fff !important;
+    opacity: 0.9 !important;
+    margin-bottom: 6px !important;
+    display: block !important;
+    padding-bottom: 6px !important;
+    border-bottom: 1px solid rgba(255,255,255,0.25) !important;
+}
+#nav-root > li.has-childs > .container-menu a {
+    color: #fff !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+}
+#nav-root > li.has-childs > .container-menu .menu-level-3 a {
+    font-weight: 400 !important;
+    text-transform: none !important;
+    opacity: 0.85 !important;
+}
+#nav-root > li.has-childs > .container-menu .menu-level-3 a:hover {
+    opacity: 1 !important;
+    text-decoration: underline !important;
+}
+
+/* FIX 5: Header items em uma linha só (corrige "AVALIAÇÕES DE CLIENTES ★" e "COLEÇÃO PARIS") */
+#nav-root > li > a,
+#nav-root > li > a .menu-text {
+    white-space: nowrap !important;
+}
+--></style>
+<p>
+<script>// <![CDATA[
+(function () {
+  const HEADER_SELECTOR = "#header-react-app";
+  const SCROLL_CLASS = "submenu-scroll-lock";
+  let scrollTimer;
+
+  function injectStyle() {
+    if (document.getElementById("submenu-scroll-lock-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "submenu-scroll-lock-style";
+    style.textContent = `
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-18.has-childs > .container-menu,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-19.has-childs > .container-menu,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-20.has-childs > .container-menu,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-21.has-childs > .container-menu,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-22.has-childs > .container-menu{
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-18.has-childs::after,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-19.has-childs::after,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-20.has-childs::after,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-21.has-childs::after,
+      ${HEADER_SELECTOR}.${SCROLL_CLASS} #nav-root > li.menu-list-22.has-childs::after{
+        pointer-events: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function lockMenus() {
+    const header = document.querySelector(HEADER_SELECTOR);
+    if (!header) return;
+    header.classList.add(SCROLL_CLASS);
+  }
+
+  function unlockMenus() {
+    const header = document.querySelector(HEADER_SELECTOR);
+    if (!header) return;
+    header.classList.remove(SCROLL_CLASS);
+  }
+
+  function onScroll() {
+    lockMenus();
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(unlockMenus, 180);
+  }
+
+  injectStyle();
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
+// ]]></script>
+<script>// <![CDATA[
+(function () {
+  var MENU_OPEN_SELECTOR = '#header-react-app .menu-mobile-ctn.menu-open.left-open';
+  var INFO_USER_SELECTOR = '#header-react-app .menu-mobile-ctn.menu-open.left-open .info-user';
+  var CUSTOM_BTN_CLASS = 'custom-close-inside-info-user';
+
+  function getInfoUser() {
+    return document.querySelector(INFO_USER_SELECTOR);
+  }
+
+  function getNativeCloseButton() {
+    var scope = document.querySelector(MENU_OPEN_SELECTOR);
+    if (!scope) return null;
+
+    return scope.querySelector('.close-button') ||
+           scope.querySelector('[class*="close-button"]') ||
+           scope.querySelector('[class*="close"]') ||
+           scope.querySelector('button[aria-label*="Fechar"]') ||
+           scope.querySelector('button[aria-label*="fechar"]');
+  }
+
+  function forceCloseMenu() {
+    var menu = document.querySelector(MENU_OPEN_SELECTOR);
+    if (!menu) return;
+
+    menu.classList.remove('menu-open');
+    menu.classList.remove('left-open');
+
+    document.body.classList.remove('overflow-hidden');
+    document.documentElement.classList.remove('overflow-hidden');
+
+    var overlays = document.querySelectorAll('#header-react-app .animate-overlayShow');
+    overlays.forEach(function(el){
+      el.style.display = 'none';
+    });
+  }
+
+  function createButton(infoUser) {
+    if (!infoUser) return;
+    if (infoUser.querySelector('.' + CUSTOM_BTN_CLASS)) return;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = CUSTOM_BTN_CLASS;
+    btn.setAttribute('aria-label', 'Fechar menu');
+    btn.innerHTML = '&times;';
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      var nativeBtn = getNativeCloseButton();
+
+      if (nativeBtn && nativeBtn !== btn) {
+        nativeBtn.click();
+      } else {
+        forceCloseMenu();
+      }
+    });
+
+    infoUser.appendChild(btn);
+  }
+
+  function init() {
+    var infoUser = getInfoUser();
+    if (!infoUser) return;
+    createButton(infoUser);
+  }
+
+  var observer = new MutationObserver(function () {
+    init();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+  });
+
+  window.addEventListener('load', init);
+  setTimeout(init, 300);
+  setTimeout(init, 800);
+  setTimeout(init, 1500);
+})();
+// ]]></script>
+</p>

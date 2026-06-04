@@ -1,0 +1,1556 @@
+{% style %}
+  :root {
+    --orange: #e8450a;
+    --orange-glow: rgba(220, 90, 33, 0.35);
+    --orange-dark: #c73a08;
+    --orange-light: #f0854e;
+    --black: #161616;
+    --black-deep: #0d0d0d;
+    --black-card: #1a1a1a;
+    --white: #f5f5f5;
+    --gray: #999999;
+    --gray-light: #cccccc;
+    --border: rgba(255, 255, 255, 0.06);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+    --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .footer__title,
+  .footer__menu > li > a,
+  .footer__base-links > span,
+  .footer__base-links > a {
+    color: white !important;
+  }
+
+  .social-icons > li > a > svg {
+    fill: #fff;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: "DM Sans", sans-serif;
+    background: var(--black-deep);
+    color: var(--white);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.15;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--orange-light);
+    border: 1px solid rgba(232, 69, 10, 0.35);
+    background: rgba(232, 69, 10, 0.08);
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.4;
+      transform: scale(0.7);
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .btn:hover::after {
+    opacity: 0.07;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background: var(--orange);
+    color: var(--white);
+    box-shadow: 0 4px 24px var(--orange-glow);
+  }
+
+  .btn-primary:hover {
+    background: var(--orange-dark);
+    box-shadow: 0 6px 32px rgba(232, 69, 10, 0.5);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--orange);
+    color: var(--orange-light);
+  }
+
+  .btn-whatsapp {
+    background: #25d366;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 16px 36px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 28px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-whatsapp:hover {
+    background: #1ebe5d;
+    box-shadow: 0 6px 36px rgba(37, 211, 102, 0.45);
+  }
+
+  .btn-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), transparent);
+    border-radius: 2px;
+    margin: 1.25rem 0 1.75rem;
+  }
+
+  #hero {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--black-deep);
+    padding-block: 6rem 4rem;
+  }
+
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      rgba(232, 69, 10, 0.13) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center top, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center top, black 40%, transparent 80%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 8vw, 5.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title span {
+    color: var(--orange);
+    position: relative;
+  }
+
+  .hero-title span::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--orange-light));
+    border-radius: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: var(--gray);
+    max-width: 580px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--gray);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .hero-scroll svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+      transform: translateX(-50%) translateY(6px);
+    }
+  }
+
+  .product-banner {
+    padding-block: 4.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-banner::before {
+    content: "";
+    position: absolute;
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: var(--orange-glow);
+    filter: blur(90px);
+    pointer-events: none;
+  }
+
+  .product-banner-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .product-number {
+    font-size: clamp(5rem, 15vw, 10rem);
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.03);
+    position: absolute;
+    right: 0;
+    top: -1.5rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .product-banner h2 {
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .product-banner p.lead {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--gray);
+    max-width: 560px;
+    font-weight: 300;
+  }
+
+  .info-video {
+    padding-block: 1rem 4rem;
+  }
+
+  .info-video-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .info-video-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 3rem;
+    }
+  }
+
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .info-card {
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition:
+      border-color var(--transition),
+      transform var(--transition);
+    cursor: default;
+  }
+
+  .info-card:hover {
+    border-color: rgba(232, 69, 10, 0.3);
+    transform: translateX(4px);
+  }
+
+  .info-card-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(232, 69, 10, 0.12);
+    border: 1px solid rgba(232, 69, 10, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .info-card-icon svg {
+    width: 18px;
+    height: 18px;
+    color: var(--orange-light);
+  }
+
+  .info-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--white);
+  }
+
+  .info-card-text {
+    font-size: 0.87rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  .video-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .video-wrapper {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    aspect-ratio: 9 / 16;
+  }
+
+  @media (min-width: 768px) {
+    .video-wrapper {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--black-card);
+    cursor: pointer;
+  }
+
+  .video-play-btn {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform var(--transition),
+      box-shadow var(--transition);
+    box-shadow: 0 0 0 12px var(--orange-glow);
+  }
+
+  .video-play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 18px var(--orange-glow);
+  }
+
+  .video-play-btn svg {
+    width: 26px;
+    height: 26px;
+    color: #fff;
+    margin-left: 4px;
+  }
+
+  .video-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .faq-section {
+    padding-block: 4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-header {
+    margin-bottom: 2rem;
+  }
+
+  .faq-header h3 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-header p {
+    color: var(--gray);
+    font-size: 0.95rem;
+    font-weight: 300;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.97rem;
+    font-weight: 500;
+    text-align: left;
+    padding: 1.25rem 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: color var(--transition);
+  }
+
+  .faq-question:hover,
+  .faq-question.active {
+    color: var(--orange-light);
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform var(--transition),
+      border-color var(--transition),
+      background var(--transition);
+  }
+
+  .faq-question.active .faq-icon {
+    background: var(--orange);
+    border-color: var(--orange);
+    transform: rotate(45deg);
+  }
+
+  .faq-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-answer-inner {
+    padding-bottom: 1.25rem;
+    font-size: 0.9rem;
+    color: var(--gray);
+    line-height: 1.75;
+  }
+
+  .cta-block {
+    margin-top: 3rem;
+    background: var(--black-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-block::before {
+    content: "";
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(37, 211, 102, 0.06);
+    filter: blur(40px);
+  }
+
+  @media (min-width: 600px) {
+    .cta-block {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .cta-text h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .cta-text p {
+    font-size: 0.87rem;
+    color: var(--gray);
+    font-weight: 300;
+    max-width: 360px;
+  }
+
+  .section-sep {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--orange-glow), transparent);
+    margin-block: 0;
+  }
+
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13, 13, 13, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding-block: 0.85rem;
+  }
+
+  .sticky-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .sticky-brand {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+
+  .sticky-brand span {
+    color: var(--orange);
+  }
+
+  .sticky-links {
+    display: flex;
+    gap: 8px;
+  }
+
+  .sticky-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    transition: var(--transition);
+  }
+
+  .sticky-link:hover,
+  .sticky-link.active {
+    color: var(--orange-light);
+    border-color: rgba(232, 69, 10, 0.4);
+    background: rgba(232, 69, 10, 0.07);
+  }
+
+  .product-section {
+    padding-block: 0;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+      opacity 0.65s ease,
+      transform 0.65s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 {
+    transition-delay: 0.1s;
+  }
+
+  .reveal-delay-2 {
+    transition-delay: 0.2s;
+  }
+
+  .reveal-delay-3 {
+    transition-delay: 0.3s;
+  }
+
+  .reveal-delay-4 {
+    transition-delay: 0.4s;
+  }
+
+  @media (max-width: 480px) {
+    .hero-btns {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .video-wrapper {
+      aspect-ratio: 9 / 16;
+    }
+
+    .sticky-nav-inner {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .sticky-links {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+{% endstyle %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<nav class="sticky-nav" aria-label="Navegação dos produtos">
+  <div class="container sticky-nav-inner">
+    <span class="sticky-brand">Cooper <span>Guide</span></span>
+
+    <div class="sticky-links">
+      <a href="#beard" class="sticky-link" data-anchor="beard">Cooper Beard</a>
+      <a href="#hair" class="sticky-link" data-anchor="hair">Cooper Hair</a>
+    </div>
+  </div>
+</nav>
+
+<section id="hero" aria-label="Introdução">
+  <div class="hero-noise" aria-hidden="true"></div>
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="container hero-inner">
+    <p class="hero-eyebrow reveal">Guia de Uso Completo</p>
+
+    <h1 class="hero-title reveal reveal-delay-1">
+      Como usar<br /><span>Cooper Beard</span>
+    </h1>
+
+    <p class="hero-subtitle reveal reveal-delay-2">
+      Aprenda a aplicar corretamente cada produto e mantenha uma rotina diária simples, prática e eficiente.
+    </p>
+
+    <div class="hero-btns reveal reveal-delay-3">
+      <a href="#beard" class="btn btn-primary">
+        Como usar o Cooper Beard
+      </a>
+
+      <a href="#hair" class="btn btn-outline">
+        Como usar o Cooper Hair
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="1.5"
+        d="M19 9l-7 7-7-7"
+      />
+    </svg>
+    Scroll
+  </div>
+</section>
+
+<div class="section-sep" aria-hidden="true"></div>
+
+<section id="beard" class="product-section" aria-label="Cooper Beard">
+  <div class="product-banner">
+    <div class="container product-banner-inner">
+      <span aria-hidden="true" class="product-number">01</span>
+      <span class="tag reveal">Produto 01</span>
+
+      <h2 class="reveal reveal-delay-1">Cooper<br />Beard</h2>
+
+      <div class="divider reveal reveal-delay-1" aria-hidden="true"></div>
+
+      <p class="lead reveal reveal-delay-2">
+        Produto de uso diário para aplicação direta na região da barba, com o rosto limpo e completamente seco.
+      </p>
+    </div>
+  </div>
+
+  <div class="info-video">
+    <div class="container">
+      <div class="info-video-grid">
+        <div class="info-cards">
+          <div class="info-card reveal reveal-delay-1">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Quando usar?</p>
+              <p class="info-card-text">
+                Utilize o Cooper Beard diariamente, preferencialmente após o banho, com o rosto limpo e completamente seco.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-delay-2">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15 12H9m12 0A9 9 0 113 12a9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Onde aplicar?</p>
+              <p class="info-card-text">
+                Aplique o produto diretamente na região da barba, utilizando 2 aplicações, sendo uma em cada lado do rosto.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-delay-3">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M7.5 12a4.5 4.5 0 019 0m-9 0a4.5 4.5 0 009 0m-9 0H3m13.5 0H21"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Como espalhar?</p>
+              <p class="info-card-text">
+                Após a aplicação, massageie a área com a ponta dos dedos, fazendo movimentos suaves e circulares para espalhar o produto de maneira uniforme.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-delay-4">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Não enxágue</p>
+              <p class="info-card-text">
+                Não enxágue após o uso. Deixe o produto agir naturalmente sobre a pele e a região aplicada.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-col reveal reveal-delay-2">
+          <div class="video-wrapper" id="video-beard">
+            <div
+              class="video-placeholder"
+              id="placeholder-beard"
+              onclick="loadVideo('beard', '{{ section.settings.video_beard_id }}')"
+            >
+              <div class="video-play-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5.14v14l11-7-11-7z" />
+                </svg>
+              </div>
+
+              <p class="video-label">Ver tutorial do Cooper Beard</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.8rem; color: var(--gray); text-align: center; font-style: italic;">
+            Assista ao passo a passo completo da aplicação
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <div class="container">
+      <div class="faq-header reveal">
+        <h3>Dúvidas sobre o Cooper Beard</h3>
+        <p>Orientações rápidas para o uso correto do produto</p>
+      </div>
+
+      <div class="faq-list reveal reveal-delay-1" id="faq-beard">
+        <div class="faq-item">
+          <button class="faq-question" data-faq="beard-1" aria-expanded="false">
+            O Cooper Beard deve ser usado todos os dias?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-beard-1">
+            <div class="faq-answer-inner">
+              Sim. O uso recomendado é diário, preferencialmente após o banho, com o rosto limpo e completamente seco.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-faq="beard-2" aria-expanded="false">
+            Quantas aplicações devo fazer?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-beard-2">
+            <div class="faq-answer-inner">
+              Utilize 2 aplicações, sendo uma em cada lado do rosto, diretamente na região da barba.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-faq="beard-3" aria-expanded="false">
+            Preciso massagear depois da aplicação?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-beard-3">
+            <div class="faq-answer-inner">
+              Sim. Massageie a área com a ponta dos dedos, usando movimentos suaves e circulares para espalhar o produto de maneira uniforme.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-faq="beard-4" aria-expanded="false">
+            Precisa enxaguar?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-beard-4">
+            <div class="faq-answer-inner">
+              Não. Após aplicar e massagear, deixe o produto agir naturalmente sobre a pele e a região aplicada.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-block reveal reveal-delay-2">
+        <div class="cta-text">
+          <h4>Ainda com dúvidas sobre o Cooper Beard?</h4>
+          <p>
+            Fale com nossa equipe para receber orientação sobre o uso correto do produto.
+          </p>
+        </div>
+
+        <a
+          href="{{ section.settings.whatsapp_beard }}"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-whatsapp"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.65 4.78 1.79 6.78L2 30l7.42-1.74A13.91 13.91 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm7.6 19.4c-.32.9-1.87 1.72-2.57 1.8-.66.08-1.47.11-2.38-.15a22.07 22.07 0 01-2.15-.8C13.1 21 10.9 18.2 10.7 17.93c-.18-.27-1.5-2-1.5-3.8s.95-2.7 1.29-3.07c.34-.36.74-.45 1-.45.24 0 .5 0 .71.01.23.01.54-.09.84.64.32.75 1.08 2.61 1.17 2.8.09.18.15.4.03.64-.12.24-.18.38-.35.59-.18.2-.37.45-.53.6-.17.18-.35.37-.15.72.2.35.88 1.45 1.9 2.34 1.3 1.16 2.4 1.52 2.73 1.69.34.17.54.14.74-.08.2-.23.86-1 1.09-1.34.22-.35.44-.29.74-.17.3.12 1.88.89 2.2 1.05.3.16.52.24.6.38.07.13.07.76-.25 1.66z" />
+          </svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-sep" aria-hidden="true"></div>
+
+<section id="hair" class="product-section" aria-label="Cooper Hair">
+  <div class="product-banner">
+    <div class="container product-banner-inner">
+      <span aria-hidden="true" class="product-number">02</span>
+      <span class="tag reveal">Produto 02</span>
+
+      <h2 class="reveal reveal-delay-1">Cooper<br />Hair</h2>
+
+      <div class="divider reveal reveal-delay-1" aria-hidden="true"></div>
+
+      <p class="lead reveal reveal-delay-2">
+        Produto de uso diário para aplicação direta no couro cabeludo limpo e completamente seco.
+      </p>
+    </div>
+  </div>
+
+  <div class="info-video">
+    <div class="container">
+      <div class="info-video-grid">
+        <div class="info-cards">
+          <div class="info-card reveal reveal-delay-1">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Quando usar?</p>
+              <p class="info-card-text">
+                Utilize o Cooper Hair diariamente, preferencialmente após o banho, com o couro cabeludo limpo e completamente seco.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-delay-2">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M12 3.75a8.25 8.25 0 100 16.5 8.25 8.25 0 000-16.5z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Onde aplicar?</p>
+              <p class="info-card-text">
+                Aplique o produto diretamente no couro cabeludo, distribuindo em 3 regiões principais: coroinha, parte superior e região frontal.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-delay-3">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M7.5 12a4.5 4.5 0 019 0m-9 0a4.5 4.5 0 009 0m-9 0H3m13.5 0H21"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Como espalhar?</p>
+              <p class="info-card-text">
+                Após a aplicação, massageie a área com a ponta dos dedos, fazendo movimentos suaves e circulares para espalhar o produto de maneira uniforme pelo couro cabeludo.
+              </p>
+            </div>
+          </div>
+
+          <div class="info-card reveal reveal-delay-4">
+            <div class="info-card-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.8"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p class="info-card-title">Não enxágue</p>
+              <p class="info-card-text">
+                Não enxágue após o uso. Deixe o produto agir naturalmente sobre a área aplicada.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-col reveal reveal-delay-2">
+          <div class="video-wrapper" id="video-hair">
+            <div
+              class="video-placeholder"
+              id="placeholder-hair"
+              onclick="loadVideo('hair', '{{ section.settings.video_hair_id }}')"
+            >
+              <div class="video-play-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5.14v14l11-7-11-7z" />
+                </svg>
+              </div>
+
+              <p class="video-label">Ver tutorial do Cooper Hair</p>
+            </div>
+          </div>
+
+          <p style="font-size: 0.8rem; color: var(--gray); text-align: center; font-style: italic;">
+            Assista ao passo a passo completo da aplicação
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <div class="container">
+      <div class="faq-header reveal">
+        <h3>Dúvidas sobre o Cooper Hair</h3>
+        <p>Orientações rápidas para o uso correto do produto</p>
+      </div>
+
+      <div class="faq-list reveal reveal-delay-1" id="faq-hair">
+        <div class="faq-item">
+          <button class="faq-question" data-faq="hair-1" aria-expanded="false">
+            O Cooper Hair deve ser usado todos os dias?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-hair-1">
+            <div class="faq-answer-inner">
+              Sim. O uso recomendado é diário, preferencialmente após o banho, com o couro cabeludo limpo e completamente seco.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-faq="hair-2" aria-expanded="false">
+            Em quais regiões devo aplicar?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-hair-2">
+            <div class="faq-answer-inner">
+              Distribua o produto em 3 regiões principais do couro cabeludo: coroinha, parte superior e região frontal.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-faq="hair-3" aria-expanded="false">
+            Preciso massagear depois da aplicação?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-hair-3">
+            <div class="faq-answer-inner">
+              Sim. Massageie com a ponta dos dedos, fazendo movimentos suaves e circulares para espalhar o produto de maneira uniforme pelo couro cabeludo.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" data-faq="hair-4" aria-expanded="false">
+            Precisa enxaguar?
+            <span class="faq-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </span>
+          </button>
+
+          <div class="faq-answer" id="faq-hair-4">
+            <div class="faq-answer-inner">
+              Não. Após aplicar e massagear, deixe o produto agir naturalmente sobre a área aplicada.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-block reveal reveal-delay-2">
+        <div class="cta-text">
+          <h4>Ainda com dúvidas sobre o Cooper Hair?</h4>
+          <p>
+            Fale com nossa equipe para receber orientação sobre o uso correto do produto.
+          </p>
+        </div>
+
+        <a
+          href="{{ section.settings.whatsapp_hair }}"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-whatsapp"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M16 2C8.28 2 2 8.28 2 16c0 2.46.65 4.78 1.79 6.78L2 30l7.42-1.74A13.91 13.91 0 0016 30c7.72 0 14-6.28 14-14S23.72 2 16 2zm7.6 19.4c-.32.9-1.87 1.72-2.57 1.8-.66.08-1.47.11-2.38-.15a22.07 22.07 0 01-2.15-.8C13.1 21 10.9 18.2 10.7 17.93c-.18-.27-1.5-2-1.5-3.8s.95-2.7 1.29-3.07c.34-.36.74-.45 1-.45.24 0 .5 0 .71.01.23.01.54-.09.84.64.32.75 1.08 2.61 1.17 2.8.09.18.15.4.03.64-.12.24-.18.38-.35.59-.18.2-.37.45-.53.6-.17.18-.35.37-.15.72.2.35.88 1.45 1.9 2.34 1.3 1.16 2.4 1.52 2.73 1.69.34.17.54.14.74-.08.2-.23.86-1 1.09-1.34.22-.35.44-.29.74-.17.3.12 1.88.89 2.2 1.05.3.16.52.24.6.38.07.13.07.76-.25 1.66z" />
+          </svg>
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll(".faq-question").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var faqId = this.getAttribute("data-faq");
+      var answer = document.getElementById("faq-" + faqId);
+      var isOpen = this.classList.contains("active");
+
+      var container = this.closest(".faq-list");
+
+      container.querySelectorAll(".faq-question").forEach(function (q) {
+        q.classList.remove("active");
+        q.setAttribute("aria-expanded", "false");
+
+        var id = q.getAttribute("data-faq");
+        var a = document.getElementById("faq-" + id);
+
+        if (a) {
+          a.style.maxHeight = null;
+        }
+      });
+
+      if (!isOpen) {
+        this.classList.add("active");
+        this.setAttribute("aria-expanded", "true");
+
+        if (answer) {
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      }
+    });
+  });
+
+  function loadVideo(product, videoId) {
+    var placeholder = document.getElementById("placeholder-" + product);
+
+    if (!placeholder || !videoId || videoId.trim() === "") {
+      console.warn("Insira o ID do vídeo do YouTube no editor da seção para este produto.");
+      return;
+    }
+
+    var iframe = document.createElement("iframe");
+
+    iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:none;";
+
+    var wrapper = document.getElementById("video-" + product);
+
+    if (wrapper) {
+      wrapper.innerHTML = "";
+      wrapper.appendChild(iframe);
+    }
+  }
+
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -40px 0px"
+    }
+  );
+
+  document.querySelectorAll(".reveal").forEach(function (el) {
+    observer.observe(el);
+  });
+
+  var sections = ["beard", "hair"];
+
+  var sectionEls = sections
+    .map(function (id) {
+      return document.getElementById(id);
+    })
+    .filter(Boolean);
+
+  var navObs = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        var id = entry.target.id;
+        var link = document.querySelector('.sticky-link[data-anchor="' + id + '"]');
+
+        if (!link) return;
+
+        if (entry.isIntersecting) {
+          document.querySelectorAll(".sticky-link").forEach(function (l) {
+            l.classList.remove("active");
+          });
+
+          link.classList.add("active");
+        }
+      });
+    },
+    {
+      threshold: 0.3
+    }
+  );
+
+  sectionEls.forEach(function (el) {
+    navObs.observe(el);
+  });
+
+  window.addEventListener("DOMContentLoaded", function () {
+    var heroItems = document.querySelectorAll("#hero .reveal");
+
+    heroItems.forEach(function (el, i) {
+      setTimeout(function () {
+        el.classList.add("visible");
+      }, 150 + i * 130);
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Como Usar Cooper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_beard_id",
+      "label": "ID do vídeo do YouTube - Cooper Beard",
+      "default": "INSIRA_ID_DO_VIDEO"
+    },
+    {
+      "type": "text",
+      "id": "video_hair_id",
+      "label": "ID do vídeo do YouTube - Cooper Hair",
+      "default": "INSIRA_ID_DO_VIDEO"
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_beard",
+      "label": "Link do WhatsApp - Cooper Beard",
+      "default": "/"
+    },
+    {
+      "type": "url",
+      "id": "whatsapp_hair",
+      "label": "Link do WhatsApp - Cooper Hair",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Como Usar Cooper"
+    }
+  ]
+}
+{% endschema %}

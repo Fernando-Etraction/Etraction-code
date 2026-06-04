@@ -1,0 +1,286 @@
+<style>
+  <!--
+  /* --- CORES E VARIÁVEIS (Estilo Amora) --- */
+      :root {
+          --brand-red: #c81a2b; /* Vermelho escuro/vinho */
+          --brand-dark: #333333;
+          --brand-light: #f9f9f9;
+          --brand-border: #e0e0e0;
+      }
+
+      /* Reset da seção */
+      .pf-catcarousel {
+          width: 100%;
+          max-width: 1240px;
+          margin: 0 auto;
+          font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+
+      .pf-catcarousel__title {
+          margin: 0 0 20px;
+          text-align: center;
+          font-size: 20px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: var(--brand-dark);
+      }
+
+      .pf-catcarousel__wrap {
+          position: relative;
+          padding: 0 20px; /* Margem para as setas não colarem */
+      }
+
+      /* ===== SWIPER ===== */
+      .pf-swiper {
+          overflow: hidden;
+      }
+
+      .pf-swiper .swiper-wrapper {
+          display: flex;
+          align-items: center; /* Centraliza verticalmente */
+      }
+
+      .pf-swiper .swiper-slide {
+          height: auto;
+          /* Flex para centralizar o conteúdo do slide */
+          display: flex;
+          justify-content: center;
+      }
+
+      /* ===== CARD DO ITEM ===== */
+      .pf-catitem {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          text-decoration: none;
+          cursor: pointer;
+          transition: transform 0.2s ease;
+      }
+
+      /* Círculo da Imagem */
+      .pf-catitem__circle {
+          width: 100px; /* Tamanho equilibrado */
+          height: 100px;
+          border-radius: 50%;
+          background: #fff;
+          border: 1px solid var(--brand-border);
+          box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          transition: all 0.3s ease;
+      }
+
+      .pf-catitem__circle img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* ou 'contain' dependendo da sua imagem */
+          display: block;
+          transition: transform 0.4s ease;
+      }
+
+      /* Texto */
+      .pf-catitem__label {
+          font-size: 14px;
+          font-weight: 600;
+          color: #555;
+          text-align: center;
+          text-transform: uppercase;
+          font-size: 12px;
+          letter-spacing: 0.5px;
+          transition: color 0.3s ease;
+      }
+
+      /* ===== HOVER EFFECTS ===== */
+      .pf-catitem:hover .pf-catitem__circle {
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.10);
+      }
+
+      .pf-catitem:hover .pf-catitem__circle img {
+      }
+
+
+      /* ===== NAV ARROWS ===== */
+      .pf-swiper-btn {
+          position: absolute;
+          top: 45%;
+          transform: translateY(-50%);
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          background: #fff;
+          border: 1px solid #eee;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          color: #333;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          z-index: 10;
+          transition: all 0.3s;
+          font-size: 18px;
+          line-height: 0;
+      }
+
+      .pf-swiper-prev { left: -5px; }
+      .pf-swiper-next { right: -5px; }
+
+      /* Esconde setas se não forem necessárias (ex: só 3 itens no desktop) */
+      .pf-swiper-btn.swiper-button-disabled {
+          opacity: 0;
+          pointer-events: none;
+      }
+      .pf-swiper-btn.swiper-button-lock {
+          display: none;
+      }
+
+      /* ===== RESPONSIVO ===== */
+      @media (max-width: 768px) {
+          .pf-catitem__circle { width: 80px; height: 80px; }
+          .pf-catcarousel__title { font-size: 18px; margin-bottom: 15px; }
+
+          /* Ajuste fino para setas no mobile (opcional, pode ocultar se preferir) */
+          .pf-swiper-btn { width: 30px; height: 30px; font-size: 16px; }
+      }
+  -->
+</style>
+<section class="pf-catcarousel">
+  <h2 class="pf-catcarousel__title">O que voc&ecirc; procura?</h2>
+  <div class="pf-catcarousel__wrap">
+    <div id="pf-cat-swiper" class="swiper pf-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/bermudas-femininas">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14811/shorts.png"
+                alt="Bermuda"
+              />
+            </span>
+            <span class="pf-catitem__label">Bermuda</span>
+          </a>
+        </div>
+
+
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/bretelles">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14812/bretelle.png"
+                alt="Bretelle"
+              />
+            </span>
+            <span class="pf-catitem__label">Bretelle</span>
+          </a>
+        </div>
+
+        
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/calcas-femininas">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14813/calca.png"
+                alt="Calças"
+              />
+            </span>
+            <span class="pf-catitem__label">Calças</span>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/camisas-femininas">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14817/camisa.png"
+                alt="Camisas"
+              />
+            </span>
+            <span class="pf-catitem__label">Camisas</span>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/macacoes">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14815/macacao.png"
+                alt="Macacões"
+              />
+            </span>
+            <span class="pf-catitem__label">Macacões</span>
+          </a>
+        </div>
+        
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/macaquinhos">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14816/macaquinho.png"
+                alt="Macaquinhos"
+              />
+            </span>
+            <span class="pf-catitem__label">Macaquinhos</span>
+          </a>
+        </div>
+
+        <div class="swiper-slide">
+          <a class="pf-catitem" href="https://www.savancini.com.br/tops">
+            <span class="pf-catitem__circle">
+              <img
+                src="https://magazord-public.s3.amazonaws.com/savancini/img/2026/04/produto/14814/top.png"
+                alt="Top"
+              />
+            </span>
+            <span class="pf-catitem__label">Top</span>
+          </a>
+        </div>
+
+      </div>
+      <button class="pf-swiper-btn pf-swiper-prev" type="button">❮</button>
+      <button class="pf-swiper-btn pf-swiper-next" type="button">❯</button>
+    </div>
+  </div>
+</section>
+<p>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // <![CDATA[
+    document.addEventListener("DOMContentLoaded", function () {
+      new Swiper("#pf-cat-swiper", {
+        // ESSENCIAL: Centraliza os slides se houver poucos (ex: apenas 3 em tela grande)
+        centerInsufficientSlides: true,
+        centeredSlides: false, // Mantém false por padrão
+        grabCursor: true,
+        loop: false, // Não faça loop com poucos itens
+
+        navigation: {
+          nextEl: ".pf-swiper-next",
+          prevEl: ".pf-swiper-prev",
+        },
+
+        breakpoints: {
+          // Mobile: mostra pedaço do próximo para indicar scroll
+          0: {
+            slidesPerView: 3.2,
+            spaceBetween: 15,
+          },
+          // Tablet
+          600: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+          // Desktop
+          1024: {
+            slidesPerView: 6, // Espaço para mais itens no futuro
+            spaceBetween: 30,
+          },
+        },
+      });
+    });
+    // ]]>
+  </script>
+</p>

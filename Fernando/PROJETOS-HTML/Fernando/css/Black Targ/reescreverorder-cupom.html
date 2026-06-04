@@ -1,0 +1,86 @@
+<style>
+  .order-bump {
+    background: #f3f3f3 !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    border: 2px solid #d3d3d3d3 !important;
+  }
+</style>
+
+<style>
+  .cronometro-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .cronometro-titulo {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .cronometro-pequeno {
+    font-size: 18px;
+    font-weight: 700;
+    color: #d93025; /* vermelho leve (urgência) */
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    min-width: 70px;
+  }
+</style>
+
+<script>
+  if (!window.location.href.includes("checkout/onepage")) {
+    throw new Error("Script deve rodar apenas em checkout/onepage");
+  }
+
+  $(document).ready(function () {
+    const targetSelector =
+      "#order-bump-react-app > div > div > div.ctn-title.mb-space-12.flex.flex-col.items-center.gap-1";
+
+    const html = `
+      <div class="cronometro-wrapper">
+        <div class="cronometro-titulo">Oferta expira em</div>
+        <div class="cronometro-pequeno" id="timer">2:00</div>
+      </div>
+    `;
+
+    $(html).insertBefore(targetSelector);
+
+    let timeLeft = 120;
+
+    const timerInterval = setInterval(() => {
+      const timerElement = document.getElementById("timer");
+      if (!timerElement) return;
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        timerElement.textContent = "00:00";
+
+        const orderBump = document.querySelector(".order-bump");
+        if (orderBump) {
+          orderBump.style.display = "none";
+        }
+
+        return;
+      }
+
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+
+      timerElement.textContent = `${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+
+      timeLeft--;
+    }, 1000);
+  });
+</script>

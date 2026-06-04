@@ -1,0 +1,258 @@
+<style>
+  /* TAG FRETE (classes alteradas) */
+  .amo-tf {
+    --tf-green:        #1a7a3c;
+    --tf-green-light:  #e8f5ee;
+    --tf-green-accent: #2ea94f;
+    --tf-gold:         #e8900a;
+    --tf-text:         #1c2620;
+    --tf-muted:        #6b7a70;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px 10px 14px;
+    background: white;
+    border: 1.5px solid rgba(30, 122, 60, .18);
+    border-left: 5px solid var(--tf-green);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    width: fit-content;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+    transition: box-shadow .25s ease, transform .2s ease;
+    animation: amo-tf-fadein .4s ease both;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .amo-tf::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, var(--tf-green-light) 0%, transparent 55%);
+    opacity: .55;
+    pointer-events: none;
+  }
+
+  .amo-tf:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(26, 122, 60, .13), 0 1px 4px rgba(0,0,0,.06);
+  }
+
+  .amo-tf__icon {
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    background: var(--tf-green);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .amo-tf__icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .amo-tf__icon::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 2px solid var(--tf-green-accent);
+    border-radius: 10px;
+    opacity: 0;
+    animation: amo-tf-pulse 2.4s ease-in-out 1s infinite;
+  }
+
+  .amo-tf__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .amo-tf__title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--tf-green);
+    letter-spacing: -.01em;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .amo-tf__title::after {
+    content: 'GRÁTIS';
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    background: var(--tf-green-accent);
+    border-radius: 4px;
+    padding: 1px 5px;
+    letter-spacing: .04em;
+  }
+
+  .amo-tf__subtitle {
+    font-size: 12.5px;
+    color: var(--tf-muted);
+    line-height: 1.35;
+    font-weight: 400;
+  }
+
+  .amo-tf__subtitle strong {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--tf-text);
+  }
+
+  .amo-tf__coupon {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tf-gold);
+    background: #fff8ec;
+    border: 1.5px dashed #f0bc5e;
+    border-radius: 5px;
+    padding: 1px 7px;
+    letter-spacing: .05em;
+    display: inline-block;
+    cursor: pointer;
+    transition: background .2s;
+  }
+
+  .amo-tf:hover .amo-tf__coupon {
+    background: #fff2d6;
+  }
+
+  .amo-tf__divider {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(to bottom, transparent, #d4e8da, transparent);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .amo-tf__timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .amo-tf__clock {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--tf-muted);
+    letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+
+  .amo-tf__countdown {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--tf-text);
+    letter-spacing: .03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @keyframes amo-tf-fadein {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes amo-tf-pulse {
+    0%, 100% { opacity: 0; transform: scale(.92); }
+    50%       { opacity: .55; transform: scale(1.08); }
+  }
+
+  @media (max-width: 768px) {
+    .amo-tf {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .amo-tf__divider,
+    .amo-tf__timer {
+      display: none;
+    }
+  }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // evita duplicar
+    if ($('#amo-tf').length) return;
+
+    // Injeta o banner antes de .area-comprar
+    const $tagFrete = $(`
+      <div id="amo-tf" class="amo-tf" role="note" aria-label="Frete grátis e cupom de desconto">
+        <div class="amo-tf__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="1" y="3" width="15" height="13" rx="1"/>
+            <path d="M16 8h4l3 5v4h-7V8z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
+        <div class="amo-tf__text">
+          <div class="amo-tf__title">Frete</div>
+          <div class="amo-tf__subtitle">
+            Somente hoje <strong>10% OFF</strong> — cupom:
+            <span class="amo-tf__coupon">FOLIA</span>
+          </div>
+        </div>
+        <div class="amo-tf__divider" aria-hidden="true"></div>
+        <div class="amo-tf__timer" aria-live="polite" aria-atomic="true">
+          <span class="amo-tf__clock">Expira em</span>
+          <span class="amo-tf__countdown" id="amo-tf-countdown">–:–:–</span>
+        </div>
+      </div>
+    `);
+
+    $tagFrete.insertBefore(".area-comprar");
+
+    // Countdown até meia-noite
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      const now = new Date();
+      const end = new Date();
+      end.setHours(23, 59, 59, 0);
+
+      const diff = Math.max(0, Math.floor((end - now) / 1000));
+      const h = Math.floor(diff / 3600);
+      const m = Math.floor((diff % 3600) / 60);
+      const s = diff % 60;
+
+      $('#amo-tf-countdown').text(pad(h) + ':' + pad(m) + ':' + pad(s));
+      if (diff <= 3600) $('#amo-tf-countdown').css('color', '#c0392b');
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // Copiar cupom ao clicar
+    $(document).on('click', '.amo-tf__coupon', function () {
+      const $el = $(this);
+      const code = $el.text().trim();
+
+      navigator.clipboard.writeText(code).then(function () {
+        $el.text('Copiado!').css({ color: '#1a7a3c', borderColor: '#1a7a3c' });
+        setTimeout(function () {
+          $el.text(code).css({ color: '', borderColor: '' });
+        }, 1600);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,263 @@
+﻿<script>
+    (function () {
+    // ── CSS da Tarja ──
+    const tarjaCSS = `
+      .tarja {
+        width: 100%;
+        background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #0d0d0d 100%);
+        color: #e8e4df;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        padding: 14px 20px;
+        text-align: center;
+        line-height: 1.5;
+        position: relative;
+        z-index: 999;
+        border-bottom: 1px solid rgba(200, 180, 155, 0.15);
+        overflow: hidden;
+        animation: tarjaFadeIn 0.8s ease-out;
+      }
+
+      .tarja::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(212, 190, 160, 0.35), transparent);
+      }
+
+      .tarja::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(212, 190, 160, 0.2), transparent);
+      }
+
+      .tarja__inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: wrap;
+      }
+
+      .tarja__headline {
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #f5f0ea;
+        position: relative;
+      }
+      .tarja__highlight{
+        font-size:15px;
+      }
+
+      .tarja__link {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        gap: 8px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+      }
+
+      .tarja__link:hover .tarja__highlight {
+        color: #f5f0ea;
+      }
+
+      .tarja__highlight {
+        color: #d4b990;
+        font-weight: 600;
+      }
+
+      .tarja__timer {
+        font-family: "Inter", sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        color: rgba(232, 228, 223, 0.6);
+        letter-spacing: 1.2px;
+      }
+
+      .tarja__timer-label {
+        font-weight: 300;
+        color: white;
+        margin-right: 6px;
+        text-transform: uppercase;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+      }
+
+      .tarja__timer-value {
+        font-variant-numeric: tabular-nums;
+        color: #d4b990;
+        font-weight: 500;
+        letter-spacing: 1.8px;
+      }
+
+      .tarja__sep {
+        width: 1px;
+        height: 18px;
+        background: linear-gradient(180deg, transparent, rgba(212, 190, 160, 0.25), transparent);
+        margin: 0 24px;
+        flex-shrink: 0;
+      }
+
+      .tarja__close {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        line-height: 1;
+        padding: 6px;
+        transition: color 0.4s ease;
+        font-family: "Inter", sans-serif;
+        font-weight: 300;
+      }
+
+      .tarja__close:hover {
+        color: rgba(212, 190, 160, 0.7);
+      }
+
+      @keyframes tarjaFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (min-width: 768px) {
+        .tarja {
+          padding: 13px 56px;
+        }
+        .tarja__highlight{
+            font-size:14px;
+        }
+        .tarja__inner {
+          flex-direction: row;
+          gap: 0;
+        }
+        .tarja__headline {
+          font-size: 12px;
+          letter-spacing: 3px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .tarja {
+          padding: 12px 40px 12px 16px;
+        }
+                .tarja__highlight{
+            font-size:13px;
+        }
+        .tarja__inner {
+          flex-direction: column;
+          gap: 5px;
+        }
+        .tarja__sep {
+          display: none;
+        }
+        .tarja__headline {
+          font-size: 10px;
+          letter-spacing: 2px;
+        }
+      }
+    `;
+
+    // ── Injetar CSS ──
+    const styleElement = document.createElement("style");
+    styleElement.textContent = tarjaCSS;
+    document.head.appendChild(styleElement);
+
+    // ── HTML do Banner ──
+    const bannerHTML = `
+      <div class="tarja" id="tarjaPromo">
+        <div class="tarja__inner">
+          <a href="https://www.riscofinno.com.br/semana-extraordinaria" class="tarja__link">
+            <div class="tarja__headline">
+              <span class="tarja__highlight">SEMANA EXTRAORDINÁRIA</span> - Até 40% Off - 
+          
+
+               <span class="tarja__timer-value" id="timerDisplay">--d --h --m</span>
+            </div>
+          </a>
+          <div class="tarja__timer">
+           
+          </div>
+        </div>
+        <button class="tarja__close" id="tarjaClose" aria-label="Fechar">&times;</button>
+      </div>
+    `;
+
+    // ── Criar elemento e inserir antes da header ──
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(bannerHTML, "text/html");
+    const tarjaElement = doc.body.firstChild;
+
+    const header = document.querySelector("header");
+    if (header) {
+      header.parentNode.insertBefore(tarjaElement, header);
+    } else {
+      document.body.insertBefore(tarjaElement, document.body.firstChild);
+    }
+
+    // ── Timer ──
+    setTimeout(function () {
+      const TARGET = new Date("2026-03-15T23:59:59-03:00").getTime();
+      const display = document.getElementById("timerDisplay");
+
+      function pad(n) {
+        return String(n).padStart(2, "0");
+      }
+
+      function tick() {
+        const now = Date.now();
+        const diff = TARGET - now;
+
+        if (diff <= 0) {
+          display.textContent = "Encerrado";
+          return;
+        }
+
+        const days = Math.floor(diff / 86400000);
+        const hours = Math.floor((diff % 86400000) / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+
+        display.textContent =
+          pad(days) + "d  " + pad(hours) + "h  " + pad(mins) + "m  " + pad(secs) + "s";
+      }
+
+      tick();
+      setInterval(tick, 1000);
+
+      // ── Fechar tarja ──
+      document.getElementById("tarjaClose").addEventListener("click", function () {
+        const tarja = document.getElementById("tarjaPromo");
+        tarja.style.opacity = "0";
+        tarja.style.transform = "translateY(-4px)";
+        tarja.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+        setTimeout(function () {
+          tarja.style.display = "none";
+        }, 400);
+      });
+    }, 100);
+  })();
+</script>
