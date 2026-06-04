@@ -5,6 +5,8 @@
   if (oldStyle) oldStyle.remove();
   if (oldBox) oldBox.remove();
 
+  const mainColor = "#F2C85D";
+
   const style = document.createElement("style");
   style.id = "etc-kit-prices-layout";
 
@@ -21,7 +23,7 @@
     .etc-kit-card {
       position: relative;
       min-height: 116px;
-      border: 1px solid #e6e1d6;
+      border: 1px solid #e8e1cf;
       border-radius: 12px;
       background: #fffdf8;
       padding: 18px 10px 12px;
@@ -33,14 +35,14 @@
     }
 
     .etc-kit-card:hover {
-      border-color: #d6a843;
+      border-color: ${mainColor};
       background: #fffaf0;
     }
 
     .etc-kit-card.etc-active {
-      border: 2px solid #c9942f;
-      background: #fff7e5;
-      box-shadow: 0 4px 12px rgba(201, 148, 47, .14);
+      border: 2px solid ${mainColor};
+      background: #fff8df;
+      box-shadow: 0 4px 12px rgba(242, 200, 93, .28);
     }
 
     .etc-kit-radio {
@@ -56,14 +58,14 @@
     }
 
     .etc-kit-card.etc-active .etc-kit-radio {
-      border-color: #c9942f;
+      border-color: ${mainColor};
     }
 
     .etc-kit-card.etc-active .etc-kit-radio::after {
       content: "";
       position: absolute;
       inset: 2px;
-      background: #c9942f;
+      background: ${mainColor};
       border-radius: 50%;
     }
 
@@ -72,8 +74,8 @@
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background: #c9942f;
-      color: #fff;
+      background: ${mainColor};
+      color: #2f240f;
       font-size: 8px;
       font-weight: 900;
       padding: 6px 13px;
@@ -194,7 +196,7 @@
       <span class="etc-kit-radio"></span>
       <div class="etc-kit-title">1 Mês</div>
       <span class="etc-kit-old">R$ 248,88</span>
-      <div class="etc-kit-price">R$ 198,88</div>
+      <div class="etc-kit-price">R$ 248,88</div>
       <div class="etc-kit-line"></div>
       <div class="etc-kit-ml">30 cápsulas</div>
       <div class="etc-kit-desc">Ideal para começar por 1 mês</div>
@@ -215,7 +217,7 @@
       <span class="etc-kit-radio"></span>
       <div class="etc-kit-title">3 Meses</div>
       <span class="etc-kit-old">R$ 746,64</span>
-      <div class="etc-kit-price">R$ 248,88</div>
+      <div class="etc-kit-price">R$ 198,88</div>
       <div class="etc-kit-line"></div>
       <div class="etc-kit-ml">90 cápsulas</div>
       <div class="etc-kit-desc">Estoque completo para até 3 meses</div>
