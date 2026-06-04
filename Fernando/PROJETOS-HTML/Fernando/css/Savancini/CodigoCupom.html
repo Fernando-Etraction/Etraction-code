@@ -1,0 +1,179 @@
+<script>
+    $(document).ready(function () {
+        // === Criação do bloco do cupom ===
+        const $cupomBox = $(`
+    <div class="cupom-box">
+      <div class="cupom-info">
+        <h3>Aproveite o Cupom</h3>
+        <p>5% de Desconto</p>
+      </div>
+      <div class="cupom-codigo" id="btn-cupom">
+        <span>BLACK5</span>
+      </div>
+    </div>
+  `);
+
+        // === Inserir após .info-garantia ===
+        $cupomBox.insertBefore('.area-comprar');
+
+        // === Adicionar estilos no head ===
+        const style = `
+      <style>
+      .cupom-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.164);
+        padding: 16px 20px;
+        max-width: 480px;
+        font-family: "Poppins", Arial, sans-serif;
+        margin-top: 16px;
+        gap: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .cupom-info h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 0;
+        color: #222;
+      }
+
+      .cupom-info p {
+        margin: 4px 0;
+        color: #555;
+        font-size: 0.95rem;
+      }
+
+      .cupom-validade {
+        color: #999;
+        font-size: 0.8rem;
+        display: block;
+      }
+
+      .cupom-codigo {
+        border: 2px dashed #bbb;
+        border-radius: 8px;
+        padding: 12px 22px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        min-width: 130px;
+        background: #fafafa;
+      }
+
+      .cupom-codigo:hover {
+        background: #f3f3f3;
+        border-color: #999;
+      }
+
+      .cupom-codigo span {
+        display: block;
+        font-weight: 700;
+        color: #222;
+        font-size: 0.95rem;
+        letter-spacing: 0.6px;
+      }
+
+      .cupom-codigo small {
+        color: #777;
+        font-size: 0.8rem;
+      }
+
+      .cupom-info {
+  margin: 4px 0;
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+      /* ====== RESPONSIVIDADE ====== */
+      @media (max-width: 600px) {
+        .cupom-box {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          max-width: 100%;
+          padding: 10px;
+          gap: 4px;
+        }
+
+          .cupom-info {
+            color: #333;
+            font-size: 1.2rem;
+            text-align: center;
+            gap:0px;
+            margin:0px;
+  }
+
+        .cupom-info h3 {
+          font-size: 1.4rem;
+          margin: -9px;
+        }
+
+        .cupom-info p {
+        font-size: 1.1rem;
+        margin-bottom: -5px;
+        }
+
+        .cupom-codigo {
+          width: 100%;
+          padding: 14px;
+        }
+
+        .cupom-codigo span {
+          font-size: 1.0rem;
+        }
+
+        /* Move validade para baixo no mobile */
+        .cupom-validade {
+          order: 3;
+          text-align: center;
+          font-size: 0.85rem;
+          color: #777;
+        }
+      }
+
+      /* ===== Popup de sucesso ===== */
+      .cupom-toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s ease;
+        z-index: 9999;
+      }
+      .cupom-toast.show {
+        opacity: 1;
+        pointer-events: auto;
+        bottom: 40px;
+      }
+    </style>
+  `;
+        $('head').append(style);
+
+        // === Toast ===
+        $('body').append('<div class="cupom-toast" id="cupom-toast">Cupom copiado com sucesso!</div>');
+
+        // === Função copiar + exibir toast ===
+        $('#btn-cupom').on('click', function () {
+            const texto = 'BLACK5';
+            navigator.clipboard.writeText(texto);
+            const toast = $('#cupom-toast');
+            toast.addClass('show');
+            setTimeout(() => toast.removeClass('show'), 2500);
+        });
+    });
+</script>

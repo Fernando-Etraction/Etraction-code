@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guarda-Roupa Elyse - Rudnick Móveis</title>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Seção 1: Descrição do Produto */
+        .product-description {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .product-description h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .feature-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .gif-placeholder {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gif-placeholder p {
+            color: #666;
+            font-size: 0.9rem;
+            max-width: 250px;
+        }
+
+        .product-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .product-info p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Seção 2: Características do Produto */
+        .product-features {
+            padding: 60px 0;
+            background-color: #fafafa;
+        }
+
+        .features-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            text-align: center;
+        }
+
+        .feature-gif {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 165px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .feature-description {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Seção 3: Dimensões e Cores */
+        .product-specs {
+            padding: 60px 0;
+        }
+
+        .specs-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .wardrobe-image {
+            text-align: center;
+        }
+
+        .wardrobe-placeholder {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .dimension-label {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .dimension-height {
+            top: 20px;
+            right: 20px;
+        }
+
+        .dimension-width {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dimension-depth {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .specs-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .specs-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .spec-value {
+            margin-left: auto;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .colors-list {
+            list-style: none;
+        }
+
+        .colors-list li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .colors-list li:before {
+            content: "•";
+            color: #666;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .gif-placeholder-specs {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 30px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gif-placeholder-specs p {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Seção 4: Sofisticação e Layout */
+        .sophistication-section {
+            padding: 60px 0;
+            background-color: #fafafa;
+        }
+
+        .sophistication-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .sophistication-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .sophistication-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .origin-tag {
+            background-color: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .layout-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .layout-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .layout-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .layout-gif {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 40px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Seção 5: Embalagem e Transporte */
+        .packaging-section {
+            padding: 60px 0;
+        }
+
+        .packaging-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .packaging-text h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .packaging-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .packaging-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* Seção 6: Sobre Nós com Swiper */
+        .about-section {
+            padding: 60px 0;
+            background-color: #fafafa;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .testimonials-carousel {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .swiper {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 410px;
+        }
+
+        .testimonial-card {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            padding: 80px;
+            width: 100%;
+            max-width: 400px;
+            min-height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Customização dos botões de navegação do Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #666;
+            background: #e0e0e0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-top: -20px;
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: #e0e0e0;
+        }
+
+        /* Customização dos indicadores de paginação */
+        .swiper-pagination-bullet {
+            background: #ccc;
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #666;
+            opacity: 1;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+
+            .product-details,
+            .specs-container,
+            .sophistication-content,
+            .layout-section,
+            .packaging-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .features-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-description h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .product-description h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Seção 1: Descrição do Produto -->
+    <section class="product-description">
+        <div class="container">
+            <h1>Descrição do produto</h1>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-circle">Material em MDF</div>
+                    <div class="feature-text">Material em MDF</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-circle">Portas de Correr</div>
+                    <div class="feature-text">Portas de Correr</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-circle">3 Meses de Garantia</div>
+                    <div class="feature-text">3 Meses de Garantia</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-circle">Montagem Média</div>
+                    <div class="feature-text">Montagem Média</div>
+                </div>
+            </div>
+
+            <div class="product-details">
+                <div class="gif-placeholder">
+                    <p>Colocar GIF do andamento feito para ter um MDF de qualidade.</p>
+                </div>
+                <div class="product-info">
+                    <h2>MDF de Alta Qualidade</h2>
+                    <p>Nosso MDF supera muitos tipos de madeira maciça em estabilidade e acabamento. Sua estrutura
+                        uniforme evita imperfeições naturais, como nós e rachaduras, comuns em madeiras tradicionais.
+                        Além disso, oferece maior resistência a empenamentos e variações climáticas, garantindo
+                        durabilidade e um visual sempre impecável.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 2: Características do Produto -->
+    <section class="product-features">
+        <div class="container">
+            <div class="features-grid-2">
+                <div class="feature-card">
+                    <div class="feature-gif">GIF</div>
+                    <div class="feature-description">Sistema deslizante nas portas</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-gif">GIF</div>
+                    <div class="feature-description">Trilhos de inox com revestimento extra contra oxidação</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-gif">GIF</div>
+                    <div class="feature-description">Puxadores de inox com revestimento extra contra oxidação</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-gif">GIF</div>
+                    <div class="feature-description">Revestimento interno com tecido de proteção extra em todas as peças
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-gif">GIF</div>
+                    <div class="feature-description">Camada superior de verniz na parte de trás para proteção extra
+                        contra mofo</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-gif">GIF</div>
+                    <div class="feature-description">Pintura com acabamento Pintura UV de alta resistencia</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3: Dimensões e Cores -->
+    <section class="product-specs">
+        <div class="container">
+            <div class="specs-container">
+                <div class="wardrobe-image">
+                    <div class="wardrobe-placeholder">
+                        <p>Imagem do Guarda-Roupa</p>
+                    </div>
+                </div>
+                <div class="specs-info">
+                    <div class="specs-section">
+                        <h3>Dimensões</h3>
+                        <div class="spec-item">
+                            <span class="spec-icon">↑</span>
+                            <span>Altura</span>
+                            <span class="spec-value">220.00CM</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">↔</span>
+                            <span>Largura</span>
+                            <span class="spec-value">200.00CM</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">↖</span>
+                            <span>Profundidade</span>
+                            <span class="spec-value">60.00CM</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-icon">⌂</span>
+                            <span>Peso</span>
+                            <span class="spec-value">142.50KG</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="product-specs">
+        <div class="container">
+            <div class="specs-container">
+                <div class="specs-info">
+                    <div class="specs-section">
+                        <h3>Disponivel</h3>
+                        <div class="spec-item">
+                            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus illo iusto, a nam
+                                temporibus odit quam corporis itaque quasi? Similique laudantium, unde adipisci ullam
+                                sint modi molestiae soluta consectetur necessitatibus.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="wardrobe-image">
+                    <div class="wardrobe-placeholder">
+                        <p>Imagem do Guarda-Roupa</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção 4: Sofisticação e Layout -->
+    <section class="sophistication-section">
+        <div class="container">
+            <div class="sophistication-content">
+                <div class="gif-placeholder">
+                    <p>GIF</p>
+                </div>
+                <div class="sophistication-text">
+                    <h2>Sofisticação e Design</h2>
+                    <p>O Guarda-Roupa Elyse representa a perfeita união entre sofisticação estética e funcionalidade
+                        excepcional. Com acabamento elegante e design moderno, ele se harmoniza perfeitamente com
+                        qualquer ambiente, oferecendo durabilidade e custo-benefício incomparáveis. Uma escolha ideal
+                        para quem busca qualidade, estilo e praticidade.</p>
+                    <div class="origin-tag">Origem: Brasil</div>
+                </div>
+            </div>
+
+            <div class="layout-section">
+                <div class="layout-text">
+                    <h2>Layout Interno do Seu Jeito</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                </div>
+                <div class="gif-placeholder">GIF</div>
+            </div>
+            <div class="sophistication-content" style="margin-top: 60px;">
+                <div class="gif-placeholder">
+                    <p>GIF</p>
+                </div>
+                <div class="sophistication-text">
+                    <h2>Sofisticação e Design</h2>
+                    <p>O Guarda-Roupa Elyse representa a perfeita união entre sofisticação estética e funcionalidade
+                        excepcional. Com acabamento elegante e design moderno, ele se harmoniza perfeitamente com
+                        qualquer ambiente, oferecendo durabilidade e custo-benefício incomparáveis. Uma escolha ideal
+                        para quem busca qualidade, estilo e praticidade.</p>
+                    <div class="origin-tag">Origem: Brasil</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 6: Sobre Nós com Swiper -->
+    <section class="about-section">
+        <div class="container">
+            <h2>Somos um site seguro?</h2>
+            <p>A Rudnick Móveis atua há mais de 86 anos no mercado, com sede em São Bento do Sul. Ao longo dessa
+                trajetória, conquistamos clientes em todo o Brasil, sempre entregando móveis de qualidade superior,
+                fabricados com a excelência que é a marca da nossa história.</p>
+
+            <div class="testimonials-carousel">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <p>"Móvel de qualidade superior, vale cada centavo investido!"</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <p>"Produto durável e design moderno. Superou expectativas."</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <p>"Atendimento excepcional e entrega pontual. Muito satisfeito!"</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <p>"Móvel de qualidade superior, vale cada centavo investido."</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card">
+                                <p>"Móvel de qualidade superior, vale cada centavo investido."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navegação -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+
+                    <!-- Paginação -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // Inicialização do Swiper
+        const swiper = new Swiper('.swiper', {
+            // Configurações básicas
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            loop: true,
+
+            // Autoplay
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+
+            // Navegação
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+
+            // Paginação
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+
+            // Responsividade: largura do slide é controlada por CSS (width)
+
+            // Efeitos
+            effect: 'slide',
+            speed: 600,
+
+            // Loop infinito
+            loopAdditionalSlides: 1,
+
+            // Pausa no hover
+            pauseOnMouseEnter: true,
+        });
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animação de entrada para as seções
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animação a todas as seções
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+
+</html>

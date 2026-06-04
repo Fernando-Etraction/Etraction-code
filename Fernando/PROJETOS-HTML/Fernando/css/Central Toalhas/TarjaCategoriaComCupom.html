@@ -1,0 +1,398 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .promo-banner {
+        position: relative;
+        width: 100%;
+        /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+        background-color: #df818f;
+        padding: 20px 15px;
+        overflow: hidden;
+        animation: slideDown 0.6s ease-out;
+        border-radius: 10px;
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .promo-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% {
+            left: -100%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    .promo-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        max-width: 1200px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+    }
+
+    .promo-icon {
+        display: none;
+        color: #fff;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.1);
+        }
+    }
+
+    .promo-text {
+        flex: 1;
+        min-width: 250px;
+        color: #fff;
+    }
+
+    .promo-title {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 5px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .promo-highlight {
+        background: #e43f57;
+        color: #fff;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 20px;
+        font-weight: 900;
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-3px);
+        }
+    }
+
+    .promo-separator {
+        opacity: 0.7;
+        font-weight: 300;
+    }
+
+    .promo-subtitle {
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .promo-code {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px dashed #fff;
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-weight: 900;
+        letter-spacing: 1px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .promo-code:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+    }
+
+    .promo-details {
+        font-size: 13px;
+        opacity: 0.95;
+        font-weight: 400;
+    }
+
+    .promo-btn {
+        background: #f02745;
+        color: #fff;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 900;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+    }
+
+    .promo-btn:hover {
+        background: #f30d2f;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .promo-btn:active {
+        transform: translateY(0);
+    }
+
+    .btn-icon {
+        font-size: 16px;
+    }
+
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+        .promo-banner {
+            padding: 18px 30px;
+        }
+
+        .promo-icon {
+            display: block;
+        }
+
+        .promo-content {
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+
+        .promo-title {
+            font-size: 22px;
+            gap: 10px;
+        }
+
+        .promo-highlight {
+            font-size: 24px;
+            padding: 5px 16px;
+        }
+
+        .promo-subtitle {
+            font-size: 18px;
+        }
+
+        .promo-code {
+            font-size: 20px;
+            padding: 5px 15px;
+        }
+
+        .promo-details {
+            font-size: 14px;
+        }
+
+        .promo-btn {
+            padding: 14px 30px;
+            font-size: 15px;
+        }
+
+        .promo-text {
+            min-width: auto;
+        }
+    }
+
+    /* Large Desktop */
+    @media (min-width: 1024px) {
+        .promo-banner {
+            padding: 20px 40px;
+        }
+
+        .promo-title {
+            font-size: 24px;
+        }
+
+        .promo-highlight {
+            font-size: 26px;
+        }
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 480px) {
+        .promo-title {
+            font-size: 16px;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .promo-highlight {
+            font-size: 18px;
+        }
+
+        .promo-code {
+            font-size: 16px;
+        }
+
+        .promo-details {
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .promo-btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 5px;
+        }
+    }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+        const html = `
+        <div class="promo-banner">
+    <div class="promo-content">
+        <div class="promo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+        </div>
+        <div class="promo-text">
+            <div class="promo-title">
+                <span class="promo-highlight">10% OFF</span>
+                <span class="promo-separator">|</span>
+                <span class="promo-subtitle">Use o cupom:</span>
+                <span class="promo-code" id="promoCoupon">VOLTEI10</span>
+            </div>
+            <div class="promo-details">
+                Compras acima de <strong>R$ 149</strong> • Válido somente nesta categoria
+            </div>
+        </div>
+        <button class="promo-btn" onclick="copyCoupon()">
+            <span class="btn-text">COPIAR CUPOM</span>
+            <span class="btn-icon">📋</span>
+        </button>
+    </div>
+    <div class="promo-shine"></div>
+</div>
+        `;
+        $(html).insertAfter('.title-pesquisa');
+    })
+
+
+    function copyCoupon() {
+        const couponCode = document.getElementById('promoCoupon').textContent;
+
+        // Copia para o clipboard
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(couponCode).then(() => {
+                showNotification('Cupom copiado: ' + couponCode);
+            }).catch(() => {
+                fallbackCopy(couponCode);
+            });
+        } else {
+            fallbackCopy(couponCode);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showNotification('Cupom copiado: ' + text);
+        } catch (err) {
+            showNotification('Erro ao copiar. Cupom: ' + text);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function showNotification(message) {
+        // Remove notificação existente se houver
+        const existing = document.querySelector('.copy-notification');
+        if (existing) existing.remove();
+
+        // Cria notificação
+        const notification = document.createElement('div');
+        notification.className = 'copy-notification';
+        notification.textContent = message;
+        notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 10000;
+      font-weight: 600;
+      animation: slideIn 0.3s ease-out;
+    `;
+
+        // Adiciona animação
+        const style = document.createElement('style');
+        style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    `;
+        document.head.appendChild(style);
+
+        document.body.appendChild(notification);
+
+        // Remove após 3 segundos
+        setTimeout(() => {
+            notification.style.animation = 'slideIn 0.3s ease-out reverse';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    // Permite copiar clicando no código também
+    document.addEventListener('DOMContentLoaded', function () {
+        const couponElement = document.getElementById('promoCoupon');
+        if (couponElement) {
+            couponElement.addEventListener('click', copyCoupon);
+        }
+    });
+</script>

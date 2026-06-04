@@ -1,0 +1,242 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const target = document.querySelector('.container-produto-react');
+      if(!target) return;
+    
+      const html = `
+      <main class="complete-look" aria-labelledby="complete-look-title">
+        <div class="cl-header">
+          <h3 id="complete-look-title">Complete o look</h3>
+          <p>Combine e economize</p>
+        </div>
+    
+        <div class="cl-wrapper">
+          <!-- Produto principal -->
+          <aside class="main-card" aria-label="Produto principal"
+                 data-sku="1FC06CML129-Branco" data-nome="Legging preta" data-cor="Preto" data-tamanho="M" data-qty="1">
+            <div class="main-media">
+              <img src="https://picsum.photos/id/1011/800/1200" alt="Legging preta minimalista">
+            </div>
+            <h2 class="main-title">Legging preta</h2>
+            <p class="main-meta">Cor: Preto · Tamanho: M</p>
+          </aside>
+    
+          <!-- Compre Junto -->
+          <section class="reco" aria-label="Compre Junto">
+            <div class="reco-row" role="list">
+              <!-- Card 1 -->
+              <article class="card" role="listitem"
+                       data-sku="1FC06CML129-Branco" data-nome="Top esportivo" data-selected="false">
+                <div class="card-media">
+                  <img src="https://picsum.photos/id/1080/800/800" alt="Top esportivo cinza">
+                  <span class="badge">Mais vendido</span>
+                </div>
+                <div class="card-body">
+                  <h4>Top esportivo</h4>
+                  <div class="price"><span class="now">R$ 58,00</span> <span class="was">R$ 69,00</span></div>
+    
+                  <div class="swatches" aria-label="Cores">
+                    <input type="radio" id="top-cor-preto" name="top-cor" checked>
+                    <label for="top-cor-preto" class="swatch" style="--sw:#111" title="Preto"></label>
+                    <input type="radio" id="top-cor-grafite" name="top-cor">
+                    <label for="top-cor-grafite" class="swatch" style="--sw:#777" title="Grafite"></label>
+                    <input type="radio" id="top-cor-cinza" name="top-cor">
+                    <label for="top-cor-cinza" class="swatch" style="--sw:#bdbdbd" title="Cinza"></label>
+                  </div>
+    
+                  <div class="sizes" aria-label="Tamanhos">
+                    <input type="radio" id="top-p" name="top-size"><label class="chip" for="top-p">P</label>
+                    <input type="radio" id="top-m" name="top-size" checked><label class="chip" for="top-m">M</label>
+                    <input type="radio" id="top-g" name="top-size"><label class="chip" for="top-g">G</label>
+                  </div>
+    
+                  <div class="qty">
+                    <label for="qty-top" class="sr-only">Quantidade</label>
+                    <input id="qty-top" type="number" min="0" value="1" inputmode="numeric">
+                  </div>
+    
+                  <button class="btn-mini add-btn" type="button">Adicionar</button>
+                </div>
+              </article>
+    
+              <!-- Card 2 -->
+              <article class="card" role="listitem"
+                       data-sku="1FC06CML129-Branco" data-nome="Jaqueta leve" data-selected="false">
+                <div class="card-media">
+                  <img src="https://picsum.photos/id/1000/800/800" alt="Jaqueta leve grafite">
+                  <span class="badge">Novo</span>
+                </div>
+                <div class="card-body">
+                  <h4>Jaqueta leve</h4>
+                  <div class="price"><span class="now">R$ 179,00</span></div>
+    
+                  <div class="sizes" aria-label="Tamanhos">
+                    <input type="radio" id="jk-p" name="jk-size"><label class="chip" for="jk-p">P</label>
+                    <input type="radio" id="jk-m" name="jk-size" checked><label class="chip" for="jk-m">M</label>
+                    <input type="radio" id="jk-g" name="jk-size"><label class="chip" for="jk-g">G</label>
+                  </div>
+    
+                  <div class="qty">
+                    <label for="qty-jk" class="sr-only">Quantidade</label>
+                    <input id="qty-jk" type="number" min="0" value="1" inputmode="numeric">
+                  </div>
+    
+                  <button class="btn-mini add-btn" type="button">Adicionar</button>
+                </div>
+              </article>
+    
+              <!-- Card 3 -->
+              <article class="card" role="listitem"
+                       data-sku="SKU-SOCKS-001" data-nome="Meias técnicas" data-selected="false">
+                <div class="card-media">
+                  <img src="https://picsum.photos/id/1062/800/800" alt="Meias técnicas brancas">
+                </div>
+                <div class="card-body">
+                  <h4>Meias técnicas</h4>
+                  <div class="price"><span class="now">R$ 25,00</span></div>
+    
+                  <div class="qty">
+                    <label for="qty-socks" class="sr-only">Quantidade</label>
+                    <input id="qty-socks" type="number" min="0" value="1" inputmode="numeric">
+                  </div>
+    
+                  <button class="btn-mini add-btn" type="button">Adicionar</button>
+                </div>
+              </article>
+            </div>
+    
+            <div class="footer" aria-live="polite">
+              <div class="controls">
+                <label><input type="checkbox" checked> Combinar minha cor</label>
+                <span class="save">Você economiza <strong>R$ 20,00</strong></span>
+                <span class="summary" id="summary">Selecionados: 0</span>
+              </div>
+              <div class="actions">
+                <button class="btn" id="addAllBtn" type="button">Adicionar ao carrinho</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+      `;
+    
+      target.insertAdjacentHTML("afterend", html);
+    
+      /* ============ JS da lógica ============ */
+      function getSelections(card){
+        const sizeChecked = card.querySelector('.sizes input:checked + label')?.textContent?.trim() || null;
+        const colorLabel = card.querySelector('.swatches input:checked + label')?.getAttribute('title') || null;
+        const qty = parseInt(card.querySelector('.qty input')?.value || '1', 10);
+        return { size: sizeChecked, color: colorLabel, qty: isNaN(qty) ? 1 : qty };
+      }
+    
+      function addToCartMagazord(sku, quantity, callback) {
+        try {
+          if (window.Zord?.checkout?.addCart) {
+            Zord.checkout.addCart(sku, quantity, 1, 0, function () {
+              if (window.Zord?.checkout?.atualizaQuantidadeEspecificaCarrinho) {
+                Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+              }
+              if (typeof callback === 'function') callback(true);
+            });
+          } else {
+            if (typeof callback === 'function') callback(false);
+          }
+        } catch (e) {
+          if (typeof callback === 'function') callback(false);
+        }
+      }
+    
+      function openCartPopupSafe(){
+        if (window.Zord?.checkout?.openCartPopup) {
+          Zord.checkout.openCartPopup();
+        } else if (window.Zord?.cart?.openPopup) {
+          Zord.cart.openPopup();
+        } else {
+          window.location.href = '/checkout/cart';
+        }
+      }
+    
+      const cards = document.querySelectorAll('.card');
+      const summary = document.getElementById('summary');
+      const addAllBtn = document.getElementById('addAllBtn');
+    
+      function updateSummary(){
+        const count = [...cards].filter(c => c.dataset.selected === 'true').length;
+        summary.textContent = \`Selecionados: \${count}\`;
+        addAllBtn.textContent = count > 0 ? \`Adicionar ao carrinho (\${count + 1})\` : 'Adicionar ao carrinho';
+      }
+    
+      document.querySelectorAll('.add-btn').forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          const card = e.currentTarget.closest('.card');
+          const selected = card.dataset.selected === 'true';
+          card.dataset.selected = String(!selected);
+          btn.classList.toggle('selected', !selected);
+          btn.textContent = !selected ? 'Selecionado' : 'Adicionar';
+          updateSummary();
+        });
+      });
+    
+      addAllBtn.addEventListener('click', ()=>{
+        const main = document.querySelector('.main-card');
+        const allItems = [{
+          sku: main.dataset.sku,
+          name: main.dataset.nome,
+          size: main.dataset.tamanho || null,
+          color: main.dataset.cor || null,
+          qty: Math.max(1, parseInt(main.dataset.qty || '1', 10))
+        }];
+    
+        document.querySelectorAll('.card[data-selected="true"]').forEach(card=>{
+          const { size, color, qty } = getSelections(card);
+          if (qty > 0) {
+            allItems.push({ sku: card.dataset.sku, name: card.dataset.nome, size, color, qty });
+          }
+        });
+    
+        if (allItems.length === 0) return;
+        let processed = 0;
+        const total = allItems.length;
+    
+        allItems.forEach((item)=>{
+          let fullSku = item.sku;
+          if (item.size) fullSku += \`-\${item.size}\`;
+          if (item.color) fullSku += \`-\${item.color}\`;
+    
+          addToCartMagazord(fullSku, item.qty, (success) => {
+            processed++;
+            if (processed === total) openCartPopupSafe();
+          });
+        });
+      });
+    
+      function resetCardSelection(card){
+        if (!card) return;
+        card.dataset.selected = 'false';
+        const btn = card.querySelector('.add-btn');
+        if (btn) {
+          btn.classList.remove('selected');
+          btn.textContent = 'Adicionar';
+        }
+        updateSummary();
+      }
+    
+      document.querySelectorAll('.sizes input, .swatches input').forEach(el=>{
+        el.addEventListener('change', (e)=> resetCardSelection(e.target.closest('.card')));
+      });
+    
+      document.querySelectorAll('.qty input[type="number"]').forEach(el=>{
+        const normalize = (input)=>{
+          let v = parseInt(input.value || '1', 10);
+          if (isNaN(v) || v < 1) v = 1;
+          input.value = v;
+        };
+        el.addEventListener('input', (e)=>{ normalize(e.target); resetCardSelection(e.target.closest('.card')); });
+        el.addEventListener('change', (e)=>{ normalize(e.target); resetCardSelection(e.target.closest('.card')); });
+      });
+    
+      updateSummary();
+    });
+    </script>
+    

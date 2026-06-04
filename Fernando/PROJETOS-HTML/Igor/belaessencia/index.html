@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compre Junto - Enchimentos para Almofadas</title>
+    <style>
+        /* Reset e variáveis */
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --text-muted: #999999;
+            --accent: #000000;
+            --border: #eaeaea;
+            --radius: 8px;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --transition: all 0.2s ease;
+        }
+
+        /* Container principal */
+        .compre-junto-container {
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin: 20px 0;
+            max-width: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Call to action */
+        .compre-junto-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 16px 0;
+            text-align: center;
+        }
+
+        /* Layout do produto */
+        .compre-junto-content {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        /* Imagem do produto */
+        .compre-junto-image {
+            flex-shrink: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .compre-junto-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Informações do produto */
+        .compre-junto-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .compre-junto-product-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+            line-height: 1.3;
+        }
+
+        /* Preços */
+        .compre-junto-prices {
+            margin-bottom: 12px;
+        }
+
+        .compre-junto-original-price {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin: 0 0 4px 0;
+        }
+
+        .compre-junto-current-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 4px 0;
+        }
+
+        .compre-junto-payment-method {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .compre-junto-card-price {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Controles de quantidade e botão */
+        .compre-junto-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Seletor de quantidade */
+        .compre-junto-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .compre-junto-qty-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .compre-junto-qty-btn:hover {
+            background: #f5f5f5;
+            border-color: var(--text-secondary);
+        }
+
+        .compre-junto-qty-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .compre-junto-qty-input {
+            width: 50px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+        }
+
+        .compre-junto-qty-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Botão adicionar ao carrinho */
+        .compre-junto-add-btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 44px;
+        }
+
+        .compre-junto-add-btn:hover {
+            background: #333333;
+        }
+
+        .compre-junto-add-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .compre-junto-add-btn.loading {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* Estados de loading */
+        .compre-junto-loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .compre-junto-container {
+                padding: 16px;
+                margin: 16px 0;
+            }
+
+            .compre-junto-content {
+                gap: 12px;
+            }
+
+            .compre-junto-image {
+                width: 70px;
+                height: 70px;
+            }
+
+            .compre-junto-title {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+
+            .compre-junto-product-name {
+                font-size: 15px;
+            }
+
+            .compre-junto-current-price {
+                font-size: 18px;
+            }
+
+            .compre-junto-controls {
+                gap: 10px;
+            }
+        }
+
+        /* Esconder componente quando não há produto compatível */
+        .compre-junto-container.hidden {
+            display: none;
+        }
+
+        /* Popup de confirmação */
+        .compre-junto-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .compre-junto-popup.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .compre-junto-popup-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius);
+            padding: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .compre-junto-popup.show .compre-junto-popup-content {
+            transform: scale(1);
+        }
+
+        .compre-junto-popup-icon {
+            width: 60px;
+            height: 60px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .compre-junto-popup-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .compre-junto-popup-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0 0 20px 0;
+            line-height: 1.4;
+        }
+
+        .compre-junto-popup-product {
+            background: #f8f9fa;
+            border-radius: var(--radius);
+            padding: 12px;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .compre-junto-popup-product img {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .compre-junto-popup-product-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .compre-junto-popup-product-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 2px 0;
+        }
+
+        .compre-junto-popup-product-qty {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .compre-junto-popup-btn {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: var(--radius);
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 120px;
+        }
+
+        .compre-junto-popup-btn:hover {
+            background: #333333;
+        }
+
+        @media (max-width: 768px) {
+            .compre-junto-popup-content {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .compre-junto-popup-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+
+            .compre-junto-popup-title {
+                font-size: 16px;
+            }
+
+            .compre-junto-popup-message {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Componente será inserido aqui via JavaScript -->
+    <div id="compre-junto-placeholder"></div>
+
+    <script>
+        // Configuração dos enchimentos por tamanho de almofada
+        const ENCHIMENTOS_CONFIG = {
+            '45x30': {
+                sku: 'ENC30X45001',
+                name: 'Enchimento para Almofada 45x30',
+                price: {
+                    pix: 21.76,
+                    card: 22.90
+                },
+                originalPrice: 39.90,
+                image: 'https://amofadas.cdn.magazord.com.br/img/2022/01/produto/695/enchimento-45x30.jpg'
+            },
+            '45x45': {
+                sku: 'ENC45X45001',
+                name: 'Enchimento para Almofada 45×45',
+                price: {
+                    pix: 28.41,
+                    card: 29.90
+                },
+                originalPrice: 54.90,
+                image: 'https://amofadas.cdn.magazord.com.br/img/2022/01/produto/692/enchimento-45x45.jpg'
+            },
+            '50x50': {
+                sku: 'ENC50X50001',
+                name: 'Enchimento para Almofada 50×50',
+                price: {
+                    pix: 33.16,
+                    card: 34.90
+                },
+                originalPrice: 64.90,
+                image: 'https://amofadas.cdn.magazord.com.br/img/2022/01/produto/692/enchimento-45x45.jpg'
+            },
+            '60x60': {
+                sku: 'ENC60X60001',
+                name: 'Enchimento para Almofada 60×60',
+                price: {
+                    pix: 45.51,
+                    card: 47.90
+                },
+                originalPrice: 69.90,
+                image: 'https://amofadas.cdn.magazord.com.br/img/2022/01/produto/692/enchimento-45x45.jpg'
+            },
+            '50x30': {
+                sku: 'ENC30X50001',
+                name: 'Enchimento para Almofada 50x30',
+                price: {
+                    pix: 23.66,
+                    card: 24.90
+                },
+                originalPrice: 42.90,
+                image: 'https://amofadas.cdn.magazord.com.br/img/2022/01/produto/695/enchimento-45x30.jpg'
+            }
+        };
+
+        class CompreJuntoAlmofadas {
+            constructor() {
+                this.container = null;
+                this.currentProduct = null;
+                this.quantity = 1;
+                this.isLoading = false;
+                
+                this.init();
+            }
+
+            init() {
+                // Aguardar o DOM estar pronto
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => this.setup());
+                } else {
+                    this.setup();
+                }
+            }
+
+            setup() {
+                // Procurar pela classe .calculo-frete
+                const freteElement = document.querySelector('.calculo-frete');
+                if (!freteElement) {
+                    console.warn('Elemento .calculo-frete não encontrado');
+                    return;
+                }
+
+                // Detectar o tamanho da almofada atual
+                const tamanho = this.detectarTamanhoAlmofada();
+                if (!tamanho || !ENCHIMENTOS_CONFIG[tamanho]) {
+                    console.log('Tamanho de almofada não detectado ou não suportado:', tamanho);
+                    return;
+                }
+
+                this.currentProduct = ENCHIMENTOS_CONFIG[tamanho];
+                this.render(freteElement);
+                this.bindEvents();
+            }
+
+            detectarTamanhoAlmofada() {
+                // Métodos para detectar o tamanho da almofada
+                const methods = [
+                    () => this.detectarPorTitulo(),
+                    () => this.detectarPorSKU(),
+                    () => this.detectarPorVariacoes(),
+                    () => this.detectarPorConteudo()
+                ];
+
+                for (const method of methods) {
+                    const tamanho = method();
+                    if (tamanho) {
+                        console.log('Tamanho detectado:', tamanho);
+                        return tamanho;
+                    }
+                }
+
+                return null;
+            }
+
+            detectarPorTitulo() {
+                const titulo = document.querySelector('h1, .product-title, .product-name');
+                if (!titulo) return null;
+
+                const texto = titulo.textContent.toLowerCase();
+                const match = texto.match(/(\d+)x(\d+)/);
+                if (match) {
+                    return match[0];
+                }
+                return null;
+            }
+
+            detectarPorSKU() {
+                // Procurar por elementos com SKU
+                const skuElements = document.querySelectorAll('[data-sku], .sku, .product-sku');
+                for (const element of skuElements) {
+                    const sku = element.textContent || element.dataset.sku || '';
+                    const match = sku.match(/(\d+)x(\d+)/i);
+                    if (match) {
+                        return match[0];
+                    }
+                }
+                return null;
+            }
+
+            detectarPorVariacoes() {
+                // Procurar por seletores de tamanho/variante
+                const variacoes = document.querySelectorAll('.variation, .size-option, .variant-option');
+                for (const variacao of variacoes) {
+                    const texto = variacao.textContent.toLowerCase();
+                    const match = texto.match(/(\d+)x(\d+)/);
+                    if (match) {
+                        return match[0];
+                    }
+                }
+                return null;
+            }
+
+            detectarPorConteudo() {
+                // Buscar em todo o conteúdo da página
+                const bodyText = document.body.textContent.toLowerCase();
+                const match = bodyText.match(/(\d+)x(\d+)/);
+                if (match) {
+                    return match[0];
+                }
+                return null;
+            }
+
+            render(targetElement) {
+                const html = `
+                    <div class="compre-junto-container" id="compre-junto-almofadas">
+                        <h3 class="compre-junto-title">Não esqueça de levar o enchimento!</h3>
+                        <div class="compre-junto-content">
+                            <div class="compre-junto-image">
+                                <img src="${this.currentProduct.image}" alt="${this.currentProduct.name}" />
+                            </div>
+                            <div class="compre-junto-info">
+                                <h4 class="compre-junto-product-name">${this.currentProduct.name}</h4>
+                                <div class="compre-junto-prices">
+                                    <p class="compre-junto-original-price">de R$ ${this.currentProduct.originalPrice.toFixed(2).replace('.', ',')} por</p>
+                                    <p class="compre-junto-current-price">R$ ${this.currentProduct.price.pix.toFixed(2).replace('.', ',')}</p>
+                                    <p class="compre-junto-payment-method">no pix</p>
+                                    <p class="compre-junto-card-price">Ou R$ ${this.currentProduct.price.card.toFixed(2).replace('.', ',')} no cartão</p>
+                                </div>
+                                <div class="compre-junto-controls">
+                                    <div class="compre-junto-quantity">
+                                        <button class="compre-junto-qty-btn" id="qty-minus">-</button>
+                                        <input type="number" class="compre-junto-qty-input" id="qty-input" value="1" min="1" max="10">
+                                        <button class="compre-junto-qty-btn" id="qty-plus">+</button>
+                                    </div>
+                                    <button class="compre-junto-add-btn" id="add-to-cart-btn">
+                                        Adicionar ao carrinho
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                targetElement.insertAdjacentHTML('afterend', html);
+                this.container = document.getElementById('compre-junto-almofadas');
+            }
+
+            bindEvents() {
+                if (!this.container) return;
+
+                // Botões de quantidade
+                const minusBtn = this.container.querySelector('#qty-minus');
+                const plusBtn = this.container.querySelector('#qty-plus');
+                const qtyInput = this.container.querySelector('#qty-input');
+                const addBtn = this.container.querySelector('#add-to-cart-btn');
+
+                minusBtn.addEventListener('click', () => this.decreaseQuantity());
+                plusBtn.addEventListener('click', () => this.increaseQuantity());
+                qtyInput.addEventListener('change', (e) => this.setQuantity(parseInt(e.target.value) || 1));
+                addBtn.addEventListener('click', () => this.addToCart());
+            }
+
+            decreaseQuantity() {
+                if (this.quantity > 1) {
+                    this.setQuantity(this.quantity - 1);
+                }
+            }
+
+            increaseQuantity() {
+                if (this.quantity < 10) {
+                    this.setQuantity(this.quantity + 1);
+                }
+            }
+
+            setQuantity(qty) {
+                this.quantity = Math.max(1, Math.min(10, qty));
+                const qtyInput = this.container.querySelector('#qty-input');
+                const minusBtn = this.container.querySelector('#qty-minus');
+                const plusBtn = this.container.querySelector('#qty-plus');
+
+                qtyInput.value = this.quantity;
+                minusBtn.disabled = this.quantity <= 1;
+                plusBtn.disabled = this.quantity >= 10;
+            }
+
+            addToCart() {
+                if (this.isLoading) return;
+
+                // Buscar a quantidade atual do input
+                const qtyInput = this.container.querySelector('#qty-input');
+                const currentQuantity = parseInt(qtyInput.value) || 1;
+                
+                // Atualizar this.quantity com o valor atual
+                this.quantity = currentQuantity;
+
+                this.isLoading = true;
+                const addBtn = this.container.querySelector('#add-to-cart-btn');
+                const originalText = addBtn.textContent;
+
+                addBtn.textContent = 'Adicionando...';
+                addBtn.classList.add('loading');
+                this.container.classList.add('compre-junto-loading');
+
+                console.log('Adicionando ao carrinho:', {
+                    sku: this.currentProduct.sku,
+                    quantity: this.quantity
+                });
+
+                // Usar a função da Magazord para adicionar ao carrinho
+                this.addToCartMagazord(this.currentProduct.sku, this.quantity, (success) => {
+                    this.isLoading = false;
+                    addBtn.textContent = success ? 'Adicionado!' : originalText;
+                    addBtn.classList.remove('loading');
+                    this.container.classList.remove('compre-junto-loading');
+
+                    if (success) {
+                        // Mostrar feedback positivo
+                        setTimeout(() => {
+                            addBtn.textContent = originalText;
+                        }, 2000);
+
+                        // Mostrar popup de confirmação
+                        this.showSuccessPopup();
+                    }
+                });
+            }
+
+            addToCartMagazord(sku, quantity, callback) {
+                try {
+                    // Garantir que quantity é um número válido
+                    const qty = parseInt(quantity) || 1;
+                    
+                    console.log('addToCartMagazord chamado com:', { sku, qty });
+
+                    // Verificar se a Magazord está disponível
+                    if (!window.Zord?.checkout?.addCart) {
+                        console.warn('Magazord não disponível');
+                        if (typeof callback === 'function') callback(false);
+                        return;
+                    }
+
+                    // Se a quantidade for 1, adiciona direto
+                    if (qty === 1) {
+                        window.Zord.checkout.addCart(
+                            sku,
+                            1,
+                            1, // vendedor
+                            0, // gift/wishlist
+                            (response) => {
+                                if (window.Zord.checkout.atualizaQuantidadeEspecificaCarrinho) {
+                                    window.Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+                                }
+                                if (typeof callback === 'function') callback(true);
+                            },
+                            (error) => {
+                                console.error('Erro ao adicionar ao carrinho:', error);
+                                if (typeof callback === 'function') callback(false);
+                            }
+                        );
+                    } else {
+                        // Para quantidades maiores, fazer loop
+                        console.log(`Adicionando ${qty} unidades...`);
+                        let added = 0;
+                        const total = qty;
+                        
+                        const addNext = () => {
+                            window.Zord.checkout.addCart(
+                                sku,
+                                1,
+                                1, // vendedor
+                                0, // gift/wishlist
+                                (response) => {
+                                    added++;
+                                    console.log(`Adicionado ${added} de ${total}...`);
+                                    
+                                    if (added >= total) {
+                                        // Atualizar carrinho ao final
+                                        if (window.Zord.checkout.atualizaQuantidadeEspecificaCarrinho) {
+                                            window.Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+                                        }
+                                        console.log('Todas as unidades foram adicionadas!');
+                                        if (typeof callback === 'function') callback(true);
+                                    } else {
+                                        // Continuar adicionando
+                                        setTimeout(addNext, 100);
+                                    }
+                                },
+                                (error) => {
+                                    console.error('Erro ao adicionar ao carrinho:', error);
+                                    if (typeof callback === 'function') callback(false);
+                                }
+                            );
+                        };
+                        
+                        addNext();
+                    }
+                } catch (error) {
+                    console.error('Exceção ao adicionar ao carrinho:', error);
+                    if (typeof callback === 'function') callback(false);
+                }
+            }
+
+            showSuccessPopup() {
+                // Criar popup se não existir
+                if (!document.getElementById('compre-junto-popup')) {
+                    this.createPopup();
+                }
+
+                const popup = document.getElementById('compre-junto-popup');
+                const popupContent = popup.querySelector('.compre-junto-popup-content');
+                
+                // Atualizar informações do produto no popup
+                const productImg = popup.querySelector('.compre-junto-popup-product img');
+                const productName = popup.querySelector('.compre-junto-popup-product-name');
+                const productQty = popup.querySelector('.compre-junto-popup-product-qty');
+
+                productImg.src = this.currentProduct.image;
+                productImg.alt = this.currentProduct.name;
+                productName.textContent = this.currentProduct.name;
+                productQty.textContent = `${this.quantity} ${this.quantity === 1 ? 'unidade' : 'unidades'} adicionada${this.quantity === 1 ? '' : 's'}`;
+
+                // Mostrar popup
+                popup.classList.add('show');
+                document.body.style.overflow = 'hidden';
+
+                // Auto-fechar após 4 segundos
+                setTimeout(() => {
+                    this.hidePopup();
+                }, 4000);
+            }
+
+            createPopup() {
+                const popupHTML = `
+                    <div class="compre-junto-popup" id="compre-junto-popup">
+                        <div class="compre-junto-popup-content">
+                            <div class="compre-junto-popup-icon">✓</div>
+                            <h3 class="compre-junto-popup-title">Enchimento adicionado!</h3>
+                            <p class="compre-junto-popup-message">
+                                O enchimento foi adicionado ao seu carrinho com sucesso.
+                            </p>
+                            <div class="compre-junto-popup-product">
+                                <img src="" alt="" />
+                                <div class="compre-junto-popup-product-info">
+                                    <p class="compre-junto-popup-product-name"></p>
+                                    <p class="compre-junto-popup-product-qty"></p>
+                                </div>
+                            </div>
+                            <button class="compre-junto-popup-btn" onclick="document.getElementById('compre-junto-popup').classList.remove('show'); document.body.style.overflow = '';">
+                                Continuar comprando
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                document.body.insertAdjacentHTML('beforeend', popupHTML);
+
+                // Fechar popup ao clicar fora
+                const popup = document.getElementById('compre-junto-popup');
+                popup.addEventListener('click', (e) => {
+                    if (e.target === popup) {
+                        this.hidePopup();
+                    }
+                });
+            }
+
+            hidePopup() {
+                const popup = document.getElementById('compre-junto-popup');
+                if (popup) {
+                    popup.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // Inicializar o componente
+        new CompreJuntoAlmofadas();
+    </script>
+</body>
+</html>

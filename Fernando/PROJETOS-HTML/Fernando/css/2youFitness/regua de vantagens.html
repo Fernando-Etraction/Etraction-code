@@ -1,0 +1,211 @@
+<style>
+    :root {
+        --banner-bg: #fff;
+        --banner-border: #e9e9e9;
+        --text: #111;
+        --muted: #555;
+        --radius: 14px;
+    }
+
+    .texto-banner .item,
+    .texto-banner-swiper .swiper-slide {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: var(--banner-bg);
+        border: 1px solid var(--banner-border);
+        border-radius: var(--radius);
+        min-height: 86px;
+    }
+
+    /* ÍCONES PNG */
+    .benefit-icon {
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .texto-banner p,
+    .texto-banner-swiper p {
+        margin: 0;
+        color: var(--text);
+        line-height: 1.25;
+        font-size: 14px;
+    }
+
+    .texto-banner p strong,
+    .texto-banner-swiper p strong {
+        font-weight: 700;
+    }
+
+    /* Desktop/Mobile toggle */
+    .texto-banner {
+        display: block;
+    }
+
+    .texto-banner-swiper {
+        display: none;
+    }
+
+    @media (max-width:799px) {
+        .texto-banner {
+            display: none !important;
+        }
+
+        .texto-banner-swiper {
+            display: block;
+        }
+
+        .item{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="texto-banner-wrapper">
+
+        <!-- DESKTOP (Owl) -->
+        <div class="texto-banner">
+
+            <div class="item">
+                <img class="benefit-icon"
+                    src="https://magazord-public.s3.amazonaws.com/2youfitness/img/2026/02/produto/109/credit-card-681176.png"
+                    alt="Cartão de crédito" />
+                <p><strong>Parcelamento em até 8x sem juros</strong><br>Parcela mínima de R$ 80,00</p>
+            </div>
+
+            <div class="item">
+                <img class="benefit-icon"
+                    src="https://magazord-public.s3.amazonaws.com/2youfitness/img/2026/02/produto/110/pix-brands-solid-full.png"
+                    alt="PIX" />
+                <p><strong>5% OFF</strong><br>Cupom: PRIMEIRACOMPRA</p>
+            </div>
+
+            <div class="item">
+                <img class="benefit-icon"
+                    src="https://magazord-public.s3.amazonaws.com/2youfitness/img/2026/02/produto/111/delivery-truck-181638.png"
+                    alt="Entrega" />
+                <p><strong>Frete Grátis acima de R$ 499,00</strong><br>Para todo o Brasil</p>
+            </div>
+
+        </div>
+
+        <!-- MOBILE (Swiper) -->
+        <div class="texto-banner-swiper">
+            <div class="swiper" id="benefitsSwiper">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <img class="benefit-icon"
+                                src="https://magazord-public.s3.amazonaws.com/2youfitness/img/2026/02/produto/109/credit-card-681176.png"
+                                alt="Cartão de crédito" />
+                            <p><strong>Parcelamento em até 8x sem juros</strong><br>Parcela mínima de R$ 80,00</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <img class="benefit-icon"
+                                src="https://magazord-public.s3.amazonaws.com/2youfitness/img/2026/02/produto/110/pix-brands-solid-full.png"
+                                alt="PIX" />
+                            <p><strong>5% OFF</strong><br>Cupom: PRIMEIRACOMPRA</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="item">
+                            <img class="benefit-icon"
+                                src="https://magazord-public.s3.amazonaws.com/2youfitness/img/2026/02/produto/111/delivery-truck-181638.png"
+                                alt="Entrega" />
+                            <p><strong>Frete Grátis acima de R$ 499,00</strong><br>Para todo o Brasil</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+<script>
+    (function () {
+        'use strict';
+
+        // Desktop Owl
+        function initOwl() {
+            if (!window.jQuery) return;
+            var $ = window.jQuery;
+
+            if (window.innerWidth >= 800) {
+                if ($('.texto-banner').length && !$('.texto-banner').hasClass('owl-loaded')) {
+                    $('.texto-banner').owlCarousel({
+                        singleItem: false,
+                        itemsCustom: [[0, 1], [800, 4]],
+                        navigation: false,
+                        pagination: false,
+                        autoPlay: 3000,
+                        stopOnHover: true
+                    });
+                }
+            } else {
+                // Se estiver no mobile e o owl estiver carregado, destrói
+                if ($('.texto-banner').hasClass('owl-loaded')) {
+                    $('.texto-banner').data('owlCarousel')?.destroy?.();
+                    $('.texto-banner').removeClass('owl-loaded owl-hidden');
+                    $('.texto-banner').find('.owl-wrapper-outer, .owl-controls').remove();
+                    $('.texto-banner').children().unwrap();
+                }
+            }
+        }
+
+        // Mobile Swiper
+        var benefitsSwiper = null;
+
+        function initSwiper() {
+            if (window.innerWidth <= 799) {
+                if (!benefitsSwiper) {
+                    benefitsSwiper = new Swiper('#benefitsSwiper', {
+                        slidesPerView: 1,
+                        spaceBetween: 12,
+                        loop: true,
+                        autoplay: { delay: 2800, disableOnInteraction: false },
+                        pagination: { el: '.swiper-pagination', clickable: true }
+                    });
+                }
+            } else {
+                if (benefitsSwiper) {
+                    benefitsSwiper.destroy(true, true);
+                    benefitsSwiper = null;
+                }
+            }
+        }
+
+        // init
+        initOwl();
+        initSwiper();
+
+        // on resize (debounce simples)
+        var resizeTimer = null;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                initOwl();
+                initSwiper();
+            }, 150);
+        });
+    })();
+</script>

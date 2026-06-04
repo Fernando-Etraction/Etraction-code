@@ -1,0 +1,372 @@
+<style>
+    .dlz-carousel {
+        max-width: 100%;
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 30px 20px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        margin-bottom: 40px;
+        position: relative;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .dlz-title {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #1a1a1a;
+    }
+
+    .dlz-subtitle {
+        font-size: 14px;
+        text-align: center;
+        color: #666;
+        margin-bottom: 25px;
+    }
+
+    .dlz-track-container {
+        overflow: hidden;
+    }
+
+    .dlz-track {
+        display: flex;
+        gap: 20px;
+        transition: transform 0.4s ease;
+    }
+
+    .dlz-item {
+        max-width: 250px;
+        background: #fdf6f7;
+        border: 1px solid #f3e1e2;
+        padding: 22px;
+        border-radius: 14px;
+        flex-shrink: 0;
+        transition: all 0.25s ease;
+        cursor: pointer;
+    }
+
+    .dlz-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(189, 137, 138, 0.18);
+        border-color: #BD898A;
+    }
+
+    .dlz-stars {
+        display: flex;
+        gap: 3px;
+        color: #fbbf24;
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
+    .dlz-item p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+        margin-bottom: 16px;
+        min-height: 75px;
+    }
+
+    .dlz-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid #dcdce7;
+    }
+
+    .dlz-avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #BD898A;
+        color: #fff;
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dlz-author-info strong {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    .dlz-author-info span {
+        font-size: 12px;
+        color: #777;
+    }
+
+    .dlz-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .dlz-controls button {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 2px solid #BD898A;
+        background: #fff;
+        color: #BD898A;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .dlz-controls button:hover:not(:disabled) {
+        background: #BD898A;
+        color: #fff;
+    }
+
+    .dlz-controls button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    .dlz-dots {
+        display: flex;
+        gap: 6px;
+    }
+
+    .dlz-dot {
+        width: 8px;
+        height: 8px;
+        background: #cfd3dd;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.25s ease;
+    }
+
+    .dlz-dot.active {
+        width: 22px;
+        border-radius: 4px;
+        background: #BD898A;
+    }
+
+    @media (max-width: 768px) {
+        .dlz-item {
+            min-width: 240px;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        const $carrossel = $(`
+<section class="dlz-carousel">
+
+  <h2 class="dlz-title">O que estão falando da DLZ</h2>
+  <p class="dlz-subtitle">Avaliação 4,9 de 5,0 com clientes reais em todo Brasil</p>
+
+  <div class="dlz-track-container">
+    <div class="dlz-track">
+
+      <!-- 1 -->
+      <div class="dlz-item">
+        <p>Compra simples, entrega certinha e os conjuntos são lindos. Fiquei muito feliz com o pedido.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">MA</div>
+          <div class="dlz-author-info">
+            <strong>Mábili Amaral</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>18/12/2024 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="dlz-item">
+        <p>Experiência de compra excelente, peças bonitas e com preço bem justo. Voltarei a comprar.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">JR</div>
+          <div class="dlz-author-info">
+            <strong>Jennifer Rocha</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>18/12/2024 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="dlz-item">
+        <p>Meu pedido chegou rapidinho e o material surpreendeu pela qualidade. Muito melhor do que eu esperava.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">ME</div>
+          <div class="dlz-author-info">
+            <strong>Maria Eduarda</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>18/12/2024 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="dlz-item">
+        <p>Site fácil de navegar e os conjuntos ficam ainda mais bonitos ao vivo. Gostei demais da experiência.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">GA</div>
+          <div class="dlz-author-info">
+            <strong>Gabriela Anita da Silva</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>18/12/2024 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="dlz-item">
+        <p>Produto excelente e entrega bem rápida. Tudo chegou certinho e em perfeito estado.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">NS</div>
+          <div class="dlz-author-info">
+            <strong>Naiara Santos</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>12/12/2024 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="dlz-item">
+        <p>Pedido veio muito bem embalado, peças bonitas e com ótimo custo-benefício. Valeu super a pena.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">SB</div>
+          <div class="dlz-author-info">
+            <strong>Soliane Batista de Sousa</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>24/02/2025 • Cidade Ocidental - GO</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="dlz-item">
+        <p>Produtos caprichados e atendimento muito atencioso. Dá segurança na hora de comprar online.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">WC</div>
+          <div class="dlz-author-info">
+            <strong>Weider Charles Gomes de Sousa</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>19/02/2025 • Itiquira - MT</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="dlz-item">
+        <p>Desde o pedido até a entrega, deu tudo certo. Gostei muito das peças que recebi.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">AL</div>
+          <div class="dlz-author-info">
+            <strong>Angela de Oliveira Lima</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>02/02/2025 • São Paulo - SP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="dlz-item">
+        <p>Equipe super atenciosa e encomenda bem rápida. Dá para ver o cuidado com cada detalhe.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">HL</div>
+          <div class="dlz-author-info">
+            <strong>Heloisa Lara Carvalho</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>24/09/2025 • Presidente Getúlio - SC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="dlz-item">
+        <p>Adorei as peças, vestem muito bem e são fiéis às fotos do site. Com certeza indico.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">CR</div>
+          <div class="dlz-author-info">
+            <strong>Cliente Real</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>2025 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="dlz-item">
+        <p>Compra tranquila, acompanhamento do pedido e tudo chegou certinho. Experiência muito positiva.</p>
+        <div class="dlz-author">
+          <div class="dlz-avatar">RC</div>
+          <div class="dlz-author-info">
+            <strong>Outra Cliente</strong>
+            <div class="dlz-stars">★★★★★</div>
+            <span>2025 • Brasil</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="dlz-controls">
+    <button class="dlz-prev">‹</button>
+    <div class="dlz-dots"></div>
+    <button class="dlz-next">›</button>
+  </div>
+
+</section>
+        `);
+
+        // Insere o carrossel antes da descrição do produto
+        if ($('.descricao-produto').length) {
+            $('.descricao-produto').before($carrossel);
+        } else {
+            // fallback: joga no final do body se a classe não existir
+            $('body').append($carrossel);
+        }
+
+        // Lógica do carrossel limitada ao componente recém-inserido
+        const track = $carrossel.find('.dlz-track')[0];
+        const items = $carrossel.find('.dlz-item');
+        const dotsContainer = $carrossel.find('.dlz-dots')[0];
+        const prevBtn = $carrossel.find('.dlz-prev')[0];
+        const nextBtn = $carrossel.find('.dlz-next')[0];
+
+        let index = 0;
+        const itemWidth = 250; // largura base para cálculo
+        const visible = Math.floor(window.innerWidth / itemWidth) || 1;
+        const pages = Math.ceil(items.length / visible);
+
+        for (let i = 0; i < pages; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dlz-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => go(i);
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = $carrossel.find('.dlz-dot');
+
+        function go(i) {
+            index = Math.max(0, Math.min(i, pages - 1));
+            track.style.transform = `translateX(${-index * itemWidth * visible}px)`;
+            dots.each(function (x, el) {
+                $(el).toggleClass('active', x === index);
+            });
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === pages - 1;
+        }
+
+        prevBtn.onclick = () => go(index - 1);
+        nextBtn.onclick = () => go(index + 1);
+
+        go(0);
+    });
+</script>

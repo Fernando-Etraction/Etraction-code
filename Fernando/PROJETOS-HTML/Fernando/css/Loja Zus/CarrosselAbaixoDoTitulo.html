@@ -1,0 +1,127 @@
+<style>
+.vantagens-swiper-section {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  overflow: hidden;
+  padding: 10px 0;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+  border-radius: 8px;
+}
+
+.vantagens-swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.vantagens-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+  align-items: center;
+}
+
+.vantagens-swiper .swiper-slide {
+  width: auto !important;
+  flex-shrink: 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 24px;
+  position: relative;
+}
+
+.vantagens-swiper .swiper-slide::after {
+  content: "•";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  opacity: 0.55;
+}
+
+@media (max-width: 768px) {
+  .vantagens-swiper-section {
+    padding: 8px 0;
+    margin-bottom: 10px;
+  }
+
+  .vantagens-swiper .swiper-slide {
+    font-size: 12px;
+    padding: 0 18px;
+  }
+
+  .vantagens-swiper .swiper-slide::after {
+    right: -3px;
+  }
+}
+</style>
+
+<script>
+(function () {
+  function initVantagensSwiper() {
+    if (typeof Swiper === "undefined") {
+      return;
+    }
+
+    const target = document.querySelector(".product-sku");
+
+    if (!target) {
+      return;
+    }
+
+    if (document.querySelector(".vantagens-swiper-section")) {
+      return;
+    }
+
+    const html = `
+      <section class="vantagens-swiper-section">
+        <div class="swiper vantagens-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">Frete grátis acima de R$199,99</div>
+            <div class="swiper-slide">Desconto automático no carrinho</div>
+            <div class="swiper-slide">Compra segura</div>
+            <div class="swiper-slide">Envio rápido</div>
+            <div class="swiper-slide">Produtos selecionados</div>
+            <div class="swiper-slide">Atendimento humanizado</div>
+
+            <div class="swiper-slide">Frete grátis acima de R$199,99</div>
+            <div class="swiper-slide">Desconto automático no carrinho</div>
+            <div class="swiper-slide">Compra segura</div>
+            <div class="swiper-slide">Envio rápido</div>
+            <div class="swiper-slide">Produtos selecionados</div>
+            <div class="swiper-slide">Atendimento humanizado</div>
+          </div>
+        </div>
+      </section>
+    `;
+
+    target.insertAdjacentHTML("beforebegin", html);
+
+    new Swiper(".vantagens-swiper", {
+      slidesPerView: "auto",
+      spaceBetween: 0,
+      loop: true,
+      speed: 6000,
+      allowTouchMove: false,
+      autoplay: {
+        delay: 0,
+        disableOnInteraction: false
+      },
+      freeMode: {
+        enabled: true,
+        momentum: false
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initVantagensSwiper);
+  } else {
+    initVantagensSwiper();
+  }
+})();
+</script>

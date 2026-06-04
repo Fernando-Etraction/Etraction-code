@@ -1,0 +1,515 @@
+<!-- DLZ - Notificação (4s) -> Bolinha 30x30 -> Modal Brinde (estático) + logo -->
+<style>
+    :root {
+        --dlz-bg: #fff;
+        --dlz-text: #111;
+        --dlz-muted: rgba(0, 0, 0, .65);
+        --dlz-border: rgba(0, 0, 0, .10);
+        --dlz-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+        --dlz-overlay: rgba(0, 0, 0, .55);
+        --dlz-green: #000;
+        --dlz-radius: 16px;
+    }
+
+    /* ================= NOTIFICAÇÃO ================= */
+    .dlz-toast {
+        position: fixed;
+        z-index: 999999;
+        left: 16px;
+        right: 16px;
+        top: 14px;
+        background: var(--dlz-bg);
+        border: 1px solid var(--dlz-border);
+        border-radius: 14px;
+        box-shadow: var(--dlz-shadow);
+        padding: 12px;
+        display: grid;
+        grid-template-columns: 44px 1fr auto;
+        gap: 10px;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        transform: translateY(-10px);
+        opacity: 0;
+        transition: .22s ease;
+    }
+
+    .dlz-toast--show {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    .dlz-toast__bar {
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 4px;
+        background: var(--dlz-green);
+        border-radius: 14px 14px 0 0;
+    }
+
+    /* Logo 40x40 */
+    .dlz-toast__logo {
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+    }
+
+    .dlz-toast__logo img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, .08);
+        background: #fff;
+    }
+
+    .dlz-toast__txt {
+        min-width: 0;
+        display: grid;
+        gap: 2px;
+    }
+
+    .dlz-modal__txt {
+        font-size: 18px;
+        font-weight: 600;
+        color: #26262e;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .dlz-toast__title {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--dlz-text);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .dlz-toast__msg {
+        font-size: 13px;
+        color: var(--dlz-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .dlz-toast__x {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        color: rgba(0, 0, 0, .55);
+        display: grid;
+        place-items: center;
+    }
+
+    .dlz-toast__x:hover {
+        background: rgba(0, 0, 0, .06);
+    }
+
+    @media (min-width: 900px) {
+        .dlz-toast {
+            left: auto;
+            right: 18px;
+            width: 360px;
+            top: 18px;
+        }
+    }
+
+    /* ================= BOLINHA 30x30 ================= */
+    .dlz-fab {
+        position: fixed;
+        z-index: 999999;
+        /* right: 16px; */
+        bottom: 71px;
+        left: 8px;
+        width: 60px;
+        height: 60px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 0, 0, .08);
+        background: #8a8a8a;
+        box-shadow: var(--dlz-shadow);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(8px) scale(.95);
+        transition: .2s ease;
+    }
+
+    .dlz-fab--show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    .dlz-fab img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+    }
+
+    /* ================= MODAL / OVERLAY ================= */
+    .dlz-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 999998;
+        background: var(--dlz-overlay);
+        opacity: 0;
+        pointer-events: none;
+        transition: .2s ease;
+    }
+
+    .dlz-overlay--show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .dlz-modal {
+        position: fixed;
+        z-index: 999999;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -48%) scale(.98);
+        width: min(760px, calc(100vw - 28px));
+        background: var(--dlz-bg);
+        border: 1px solid var(--dlz-border);
+        border-radius: var(--dlz-radius);
+        box-shadow: var(--dlz-shadow);
+        opacity: 0;
+        pointer-events: none;
+        transition: .22s ease;
+        overflow: hidden;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .dlz-modal--show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    .dlz-modal__head {
+        padding: 16px 16px 12px;
+        border-bottom: 1px solid rgba(0, 0, 0, .08);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px;
+        align-items: start;
+    }
+
+    .dlz-modal__title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 900;
+        color: var(--dlz-text);
+    }
+
+    .dlz-modal__sub {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: var(--dlz-muted);
+        line-height: 1.35;
+    }
+
+    .dlz-modal__x {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        border: 0;
+        cursor: pointer;
+        background: rgba(0, 0, 0, .06);
+        color: rgba(0, 0, 0, .65);
+        display: grid;
+        place-items: center;
+    }
+
+    .dlz-modal__x:hover {
+        background: rgba(0, 0, 0, .10);
+    }
+
+    .dlz-modal__body {
+        padding: 14px 16px 16px;
+        display: grid;
+        gap: 12px;
+    }
+
+    .dlz-products {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr;
+    }
+
+    .dlz-product {
+        border: 1px solid rgba(0, 0, 0, .10);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        gap: 12px;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .dlz-product img {
+        width: 92px;
+        height: 92px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, .08);
+        background: #f6f6f6;
+    }
+
+    .dlz-product__name {
+        font-weight: 900;
+        color: var(--dlz-text);
+        font-size: 14px;
+        margin-bottom: 4px;
+        line-height: 1.15;
+    }
+
+    .dlz-product__desc {
+        font-size: 13px;
+        color: var(--dlz-muted);
+        line-height: 1.2;
+    }
+
+    .dlz-cta {
+        border-top: 1px solid rgba(0, 0, 0, .08);
+        padding: 12px 16px 16px;
+        display: grid;
+        gap: 10px;
+    }
+
+    .dlz-btn {
+        border: 0;
+        cursor: pointer;
+        border-radius: 14px;
+        padding: 12px 14px;
+        font-weight: 900;
+        font-size: 14px;
+    }
+
+    .dlz-btn--primary {
+        background: var(--dlz-green);
+        color: #fff;
+    }
+
+    .dlz-btn--ghost {
+        background: rgba(0, 0, 0, .06);
+        color: rgba(0, 0, 0, .72);
+    }
+
+    @media (min-width: 900px) {
+        .dlz-products {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .dlz-modal__title {
+            font-size: 18px;
+        }
+
+        .dlz-modal__txt {
+            font-size: 16px;
+            font-weight: 600;
+            color: #26262e;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+    }
+
+    @media (max-width: 899px) {
+
+
+        .dlz-modal {
+            left: 0;
+            right: 0;
+            top: auto;
+            bottom: 0;
+            transform: translate(0, 12px);
+            width: 100%;
+            border-radius: 18px 18px 0 0;
+        }
+
+        .dlz-fab {
+            position: fixed;
+            z-index: 999999;
+            bottom: 130px;
+            left: 8px;
+        }
+
+        .dlz-modal--show {
+            transform: translate(0, 0);
+        }
+
+        .dlz-modal__txt {
+            font-size: 16px;
+            font-weight: 600;
+            color: #26262e;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+    }
+</style>
+
+<!-- Toast -->
+<div class="dlz-toast" id="dlzToast" role="button" aria-label="Notificação do brinde" tabindex="0">
+    <div class="dlz-toast__bar"></div>
+
+    <div class="dlz-toast__logo">
+        <img src="https://dlz.cdn.magazord.com.br/img/2026/01/produto/45320/design-sem-nome-2.png" alt="DLZ" width="40"
+            height="40" loading="lazy">
+    </div>
+
+    <div class="dlz-toast__txt">
+        <div class="dlz-toast__title">Brinde disponível 🎁</div>
+        <div class="dlz-toast__msg">Toque para ver os produtos da campanha.</div>
+    </div>
+
+    <button class="dlz-toast__x" id="dlzToastClose" type="button" aria-label="Fechar">✕</button>
+</div>
+
+<!-- Bolinha 30x30 -->
+<button class="dlz-fab" id="dlzFab" type="button" aria-label="Abrir brinde">
+    <img src="https://dlz.cdn.magazord.com.br/img/2026/01/produto/45320/design-sem-nome-2.png" alt="" width="18"
+        height="18" loading="lazy">
+</button>
+
+<!-- Modal -->
+<div class="dlz-overlay" id="dlzOverlay" aria-hidden="true"></div>
+
+<div class="dlz-modal" id="dlzModal" role="dialog" aria-modal="true" aria-labelledby="dlzTitle" aria-hidden="true">
+    <div class="dlz-modal__head">
+        <div>
+            <h3 class="dlz-modal__title" id="dlzTitle">Brinde disponível🎁</h3>
+            <p class="dlz-modal__txt">Em compras acima de R$ 359,00.</p>
+            <p class="dlz-modal__sub">Confira os produtos da campanha (sem escolha, apenas informativo).</p>
+        </div>
+        <button class="dlz-modal__x" id="dlzClose" type="button" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="dlz-modal__body">
+        <div class="dlz-products">
+            <div class="dlz-product">
+                <img alt="Necessaire DLZ"
+                    src="https://dlz.cdn.magazord.com.br/img/2025/11/produto/44477/01-necessaire-dlz.jpeg"
+                    loading="lazy">
+                <div>
+                    <div class="dlz-product__name">Necessaire</div>
+                    <div class="dlz-product__desc">Brinde em compras acima de R$ 359.</div>
+                </div>
+            </div>
+
+            <div class="dlz-product">
+                <img alt="Squeeze DLZ"
+                    src="https://dlz.cdn.magazord.com.br/img/2025/11/produto/44481/01-squeeze-dlz.jpeg" loading="lazy">
+                <div>
+                    <div class="dlz-product__name">Squeeze</div>
+                    <div class="dlz-product__desc">Brinde em compras acima de R$ 359.</div>
+                </div>
+            </div>
+
+            <!-- NOVO PRODUTO (adicionado) -->
+            <div class="dlz-product">
+                <img alt="Brinde DLZ"
+                    src="https://dlz.cdn.magazord.com.br/img/2026/01/produto/45294/whatsapp-image-2026-01-07-at-14-25-40.jpeg"
+                    loading="lazy">
+                <div>
+                    <div class="dlz-product__name">Copo Térmico</div>
+                    <div class="dlz-product__desc">Brinde em compras acima de R$ 359.</div>
+                </div>
+            </div>
+            <!-- /NOVO PRODUTO -->
+
+        </div>
+    </div>
+
+    <div class="dlz-cta">
+        <button class="dlz-btn dlz-btn--primary" type="button" id="dlzOk">Entendi</button>
+        <button class="dlz-btn dlz-btn--ghost" type="button" id="dlzClose2">Fechar</button>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const SHOW_TOAST_MS = 4000;
+
+        const toast = document.getElementById('dlzToast');
+        const toastClose = document.getElementById('dlzToastClose');
+        const fab = document.getElementById('dlzFab');
+
+        const overlay = document.getElementById('dlzOverlay');
+        const modal = document.getElementById('dlzModal');
+        const closeBtn = document.getElementById('dlzClose');
+        const closeBtn2 = document.getElementById('dlzClose2');
+        const okBtn = document.getElementById('dlzOk');
+
+        function showToast() {
+            toast.classList.add('dlz-toast--show');
+        }
+
+        function hideToast(showFabAfter = true) {
+            toast.classList.remove('dlz-toast--show');
+            if (showFabAfter) {
+                setTimeout(() => fab.classList.add('dlz-fab--show'), 180);
+            }
+        }
+
+        function openModal() {
+            overlay.classList.add('dlz-overlay--show');
+            modal.classList.add('dlz-modal--show');
+            overlay.setAttribute('aria-hidden', 'false');
+            modal.setAttribute('aria-hidden', 'false');
+            setTimeout(() => closeBtn.focus(), 50);
+        }
+
+        function closeModal() {
+            overlay.classList.remove('dlz-overlay--show');
+            modal.classList.remove('dlz-modal--show');
+            overlay.setAttribute('aria-hidden', 'true');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        // Click na notificação abre modal (exceto no X)
+        toast.addEventListener('click', (e) => {
+            if (e.target === toastClose) return;
+            openModal();
+        });
+
+        // X da notificação: fecha e vira bolinha
+        toastClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hideToast(true);
+        });
+
+        // Enter/Space na notificação abre modal
+        toast.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal();
+            }
+        });
+
+        // Bolinha abre modal
+        fab.addEventListener('click', openModal);
+
+        // Fechamentos do modal
+        overlay.addEventListener('click', closeModal);
+        closeBtn.addEventListener('click', closeModal);
+        closeBtn2.addEventListener('click', closeModal);
+        okBtn.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Fluxo: toast aparece -> 4s -> some -> vira bolinha
+        showToast();
+        setTimeout(() => hideToast(true), SHOW_TOAST_MS);
+
+    })();
+</script>

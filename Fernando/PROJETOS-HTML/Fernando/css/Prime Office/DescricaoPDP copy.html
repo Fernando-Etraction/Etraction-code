@@ -1,0 +1,481 @@
+<style>
+    <!--
+    :root {
+        --bg-soft: #f0f0f0;
+        --txt-1: #333;
+        --txt-2: #555;
+        --muted: #666;
+        --po-container: 1200px;
+        --radius: 15px;
+        --gap: 40px;
+    }
+
+    * {
+        box-sizing: border-box
+    }
+
+    body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin: 0;
+        color: var(--txt-1);
+        background: #fff;
+    }
+
+    .po-container {
+        max-width: var(--po-container);
+        margin: 0 auto;
+        padding: 0 20px
+    }
+
+    /* Seção 1: Descrição / Destaques */
+    .product-description {
+        padding: 0;
+        text-align: center
+    }
+
+    .product-description h1 {
+        font-size: 2.2rem;
+        margin: 0 0 32px
+    }
+
+    .features-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+        margin-bottom: 50px
+    }
+
+    .feature-item {
+        flex: 1;
+        min-width: 220px;
+        max-width: 260px
+    }
+
+    .feature-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: var(--radius);
+        background: var(--bg-soft);
+        margin: 0 auto 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .feature-circle .icon {
+        width: 70%;
+        height: 70%;
+        display: block;
+    }
+
+    .feature-circle .icon * {
+        stroke: var(--txt-1)
+    }
+
+    .feature-text {
+        font-size: .95rem;
+        color: var(--txt-2);
+        line-height: 1.5
+    }
+
+    /* Seção 2: Dimensões e Especificações / Blocos visuais */
+    .product-specs {
+        margin-bottom: 55px
+    }
+
+    .layout-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap);
+        align-items: center
+    }
+
+    .layout-text h2 {
+        font-size: 1.6rem;
+        margin: 0 0 14px
+    }
+
+    .layout-text p {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--txt-2);
+        margin: 0
+    }
+
+    /* Placeholders visuais que recebem IMG */
+    .gif-placeholder,
+    .wardrobe-placeholder {
+        background: var(--bg-soft);
+        border-radius: var(--radius);
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .gif-placeholder {
+        padding: 0;
+        max-width: 400px;
+    }
+
+    .wardrobe-placeholder {
+        padding: 0;
+        min-height: 400px;
+        position: relative
+    }
+
+    /* Imagens ocupam 100% do container */
+    .gif-placeholder img,
+    .wardrobe-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* use 'contain' se quiser ver a imagem inteira sem cortes */
+        display: block;
+    }
+
+    .specs-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap);
+        align-items: center
+    }
+
+    .specs-info {
+        display: flex;
+        flex-direction: column;
+        gap: 30px
+    }
+
+    .specs-section h3 {
+        font-size: 1.35rem;
+        margin: 0 0 16px
+    }
+
+    .spec-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        color: var(--txt-2)
+    }
+
+    .spec-icon {
+        font-size: 1.1rem;
+        color: var(--muted)
+    }
+
+    .spec-value {
+        margin-left: auto;
+        font-weight: 700;
+        color: var(--txt-1)
+    }
+
+    .origin-tag {
+        background: var(--bg-soft);
+        border-radius: 20px;
+        color: var(--muted);
+        display: inline-block;
+        font-size: .9rem;
+        padding: 8px 16px
+    }
+
+    .horizontal-bar {
+        width: 80%;
+        height: 5px;
+        margin: 55px auto;
+        background: var(--muted);
+        border-radius: 5px
+    }
+
+    /* Seção 3: Benefícios / Sofisticação */
+    .sophistication-section {
+        padding: 0;
+        background: #fff
+    }
+
+    .sophistication-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap);
+        align-items: center;
+        margin-bottom: 60px
+    }
+
+    .sophistication-text h2 {
+        font-size: 1.6rem;
+        margin: 0 0 14px
+    }
+
+    .sophistication-text p {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--txt-2);
+        margin: 0 0 16px
+    }
+
+    /* ============ RESPONSIVO ============ */
+    @media (max-width:900px) {
+
+        /* empilha em 1 coluna */
+        .layout-section,
+        .specs-container,
+        .sophistication-content {
+            grid-template-columns: 1fr
+        }
+
+        /* Destaques ficam 2 por linha e depois 1 */
+        .feature-item {
+            min-width: 45%
+        }
+    }
+
+    @media (max-width:640px) {
+        .product-description h1 {
+            font-size: 1.8rem
+        }
+
+        .feature-item {
+            min-width: 100%
+        }
+
+        .wardrobe-placeholder {
+            min-height: 300px
+        }
+    }
+
+    /* Ordem no MOBILE: TEXTO -> IMAGEM
+             (apenas nos blocos que originalmente tinham IMAGEM antes do TEXTO) */
+    @media (max-width:900px) {
+
+        /* Nos blocos .sophistication-content a imagem vem primeiro no HTML.
+               Invertendo para texto primeiro no mobile: */
+        .sophistication-content>.sophistication-text {
+            order: 0
+        }
+
+        .sophistication-content>.gif-placeholder {
+            order: 1
+        }
+
+        /* Em .layout-section o texto já vem primeiro no HTML — nada muda. */
+    }
+
+    @media (max-width: 900px) {
+        .po-container {
+            text-align: center;
+        }
+
+        .specs-container {
+            grid-template-columns: 1fr;
+            /* empilha */
+        }
+
+        .specs-info {
+            order: 0;
+            /* texto primeiro */
+        }
+
+        .wardrobe-placeholder {
+            order: 1;
+            /* imagem depois */
+        }
+
+        .features-grid {
+            display: none;
+        }
+    }
+
+    /* Mobile only: inverter ordem apenas na seção "Assento Extra Cofortavel" */
+    @media (max-width:900px) {
+        .assento-extra {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .assento-extra .layout-text {
+            order: 0;
+        }
+
+        .assento-extra .gif-placeholder {
+            order: 1;
+        }
+    }
+
+    .feature-circle img {
+        width: 70px;
+    }
+
+    .feature-circle {
+        color: var(--txt-1);
+    }
+
+    .feature-circle .icon {
+        width: 70%;
+        height: 70%;
+        display: block;
+    }
+
+    .feature-circle svg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .feature-text {
+        text-align: center;
+    }
+    -->
+</style>
+<section class="product-description">
+    <div class="po-container"></div>
+</section>
+<!-- Seção 2: Dimensões e Especificações -->
+<section class="product-specs">
+    <div class="po-container">
+        <div class="features-grid"><!-- 1. Capacidade de peso -->
+            <div class="feature-item">
+                <div class="feature-circle"><img
+                        src="https://magazord-public.s3.amazonaws.com/primeoffice/img/2025/09/produto/1164/weight-286113-1.svg?_gl=1*1t7n4pb*_ga*MTMzMzI3NTQ4NC4xNzUyMjQwNjk2*_ga_4JXK3QVJ6X*czE3NTY3NDc0OTQkbzE1NiRnMSR0MTc1Njc1MTczOCRqNTQkbDAkaDA."
+                        alt="" /></div>
+                <div class="feature-text"><strong>Capacidade de peso</strong>: at&eacute; 120 kg.</div>
+            </div>
+            <!-- 2. Desempenho / Motor -->
+            <div class="feature-item">
+                <div class="feature-circle"><img
+                        src="https://magazord-public.s3.sa-east-1.amazonaws.com/primeoffice/img/2025/11/produto/1296/moto-12368850.png"
+                        alt="moto 12368850" width="70" height="70" data-midia-id="1296" /></div>
+                <div class="feature-text">Scooter el&eacute;trica <strong>TUI POP 1000W</strong>, ideal para mobilidade
+                    urbana.</div>
+            </div>
+            <!-- 3. Garantia -->
+            <div class="feature-item">
+                <div class="feature-circle"><img
+                        src="https://magazord-public.s3.amazonaws.com/primeoffice/img/2025/09/produto/1166/guarantee-10806533.svg?_gl=1*1agn0dc*_ga*MTMzMzI3NTQ4NC4xNzUyMjQwNjk2*_ga_4JXK3QVJ6X*czE3NTY3NDc0OTQkbzE1NiRnMSR0MTc1Njc1MTgzNyRqMzQkbDAkaDA."
+                        alt="" /></div>
+                <div class="feature-text"><strong>Garantia:</strong> garantia de f&aacute;brica TUI Motors.</div>
+            </div>
+            <!-- 4. Pagamento -->
+            <div class="feature-item">
+                <div class="feature-circle"><img
+                        src="https://magazord-public.s3.amazonaws.com/primeoffice/img/2025/09/produto/1165/money-14724755.svg?_gl=1*1xudbj6*_ga*MTMzMzI3NTQ4NC4xNzUyMjQwNjk2*_ga_4JXK3QVJ6X*czE3NTY3NDc0OTQkbzE1NiRnMSR0MTc1Njc1MTgyMCRqNTEkbDAkaDA."
+                        alt="" /></div>
+                <div class="feature-text">Condi&ccedil;&otilde;es de pagamento facilitadas no cart&atilde;o de
+                    cr&eacute;dito.</div>
+            </div>
+        </div>
+        <div class="specs-container">
+            <div class="specs-info">
+                <div class="specs-section">
+                    <h3>Dispon&iacute;vel nas Cores&nbsp;</h3>
+                    <ul style="list-style-type: disc;">
+                        <li><span style="font-size: 12pt;"><strong>Branco/Branco</strong></span></li>
+                        <li><span style="font-size: 12pt;"><strong>Branco/Preto</strong></span></li>
+                        <li><span style="font-size: 12pt;"><strong>Preto/Branco</strong></span></li>
+                        <li><span style="font-size: 16px;"><strong>Preto/Preto</strong></span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="wardrobe-placeholder"><img
+                    src="https://magazord-public.s3.sa-east-1.amazonaws.com/primeoffice/img/2025/11/produto/1295/design-sem-nome-17.gif"
+                    alt="design sem nome 17" width="600" height="600" data-midia-id="1295" /></div>
+        </div>
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="gif-placeholder"><img
+                    src="https://primeoffice.cdn.magazord.com.br/img/2025/07/produto/1050/tui-pop-branco-branco-img02.png"
+                    alt="Detalhe da scooter TUI POP" /></div>
+            <div class="sophistication-text">
+                <h2>Motor El&eacute;trico 1000W</h2>
+                <p>O motor de <strong>1000W</strong> entrega for&ccedil;a e acelera&ccedil;&atilde;o suave para o dia a
+                    dia. Ideal para trajetos urbanos, garante &oacute;timo torque, resposta r&aacute;pida e
+                    condu&ccedil;&atilde;o est&aacute;vel, com zero ru&iacute;do e sem consumo de gasolina.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Seção 3: Benefícios e Ergonomia -->
+<section class="sophistication-section">
+    <div class="po-container">
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="sophistication-text">
+                <h2>Mobilidade El&eacute;trica Sem CNH</h2>
+                <p>A TUI POP &eacute; classificada como equipamento de mobilidade individual, permitindo que voc&ecirc;
+                    se locomova pela cidade com liberdade, sem precisar de CNH, com zero emiss&atilde;o de poluentes e
+                    muito estilo.</p>
+                <div class="origin-tag">Marca: TUI Motors</div>
+            </div>
+            <div class="gif-placeholder"><img
+                    src="https://magazord-public.s3.sa-east-1.amazonaws.com/primeoffice/img/2025/07/produto/1051/tui-pop-branco-branco-img03.png"
+                    alt="tui pop branco branco img03" width="1200" height="1200" data-midia-id="1051" /></div>
+        </div>
+        <div class="layout-section assento-extra">
+            <div class="gif-placeholder"><img
+                    src="https://primeoffice.cdn.magazord.com.br/img/2025/07/produto/1052/tui-pop-branco-branco-img04.png"
+                    alt="Detalhe do assento da TUI POP" /></div>
+            <div class="layout-text">
+                <h2>Assento Confort&aacute;vel</h2>
+                <p>Assento largo e macio, pensado para trajetos mais longos com conforto. A posi&ccedil;&atilde;o de
+                    condu&ccedil;&atilde;o oferece boa ergonomia, apoio e estabilidade durante todo o percurso.</p>
+            </div>
+        </div>
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="sophistication-text">
+                <h2>Autonomia de At&eacute; 60 km</h2>
+                <p>A bateria de l&iacute;tio interna e fixa proporciona autonomia de at&eacute; <strong>60 km</strong>
+                    por carga, dependendo do peso do condutor e das condi&ccedil;&otilde;es de uso. Ideal para ir ao
+                    trabalho, faculdade ou compromissos di&aacute;rios sem preocupa&ccedil;&atilde;o.</p>
+                <div class="origin-tag">Cor: Branco/Branco</div>
+            </div>
+            <div class="gif-placeholder"><img
+                    src="https://magazord-public.s3.sa-east-1.amazonaws.com/primeoffice/img/2025/07/produto/1055/tui-pop-branco-branco-img09.png"
+                    alt="tui pop branco branco img09" width="1200" height="1200" data-midia-id="1055" /></div>
+        </div>
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="gif-placeholder"><img
+                    src="https://primeoffice.cdn.magazord.com.br/img/2025/07/produto/1058/tui-pop-branco-branco-img12.png"
+                    alt="Detalhe dos freios da TUI POP" /></div>
+            <div class="sophistication-text">
+                <h2>Freios a Disco</h2>
+                <p>Equipada com freios a disco, a TUI POP oferece frenagens mais seguras e eficientes, dando maior
+                    controle ao condutor em diferentes situa&ccedil;&otilde;es de uso.</p>
+            </div>
+        </div>
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="sophistication-text">
+                <h2>Estrutura Robusta</h2>
+                <p>A constru&ccedil;&atilde;o da scooter foi pensada para suportar at&eacute; <strong>120 kg</strong>
+                    com estabilidade. Materiais resistentes garantem durabilidade no uso di&aacute;rio e
+                    seguran&ccedil;a em pistas urbanas.</p>
+            </div>
+            <div class="gif-placeholder"><img
+                    src="https://primeoffice.cdn.magazord.com.br/img/2025/07/produto/1057/tui-pop-branco-branco-img11.png"
+                    alt="Chassi refor&ccedil;ado da TUI POP" /></div>
+        </div>
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="gif-placeholder"><img
+                    src="https://primeoffice.cdn.magazord.com.br/img/2025/07/produto/1053/tui-pop-branco-branco-img06.png"
+                    alt="Ilumina&ccedil;&atilde;o da TUI POP" /></div>
+            <div class="sophistication-text">
+                <h2>Ilumina&ccedil;&atilde;o em LED</h2>
+                <p>Farol, ilumina&ccedil;&atilde;o traseira e sinaliza&ccedil;&atilde;o garantem mais visibilidade em
+                    trajetos noturnos, aumentando a seguran&ccedil;a e a percep&ccedil;&atilde;o pelos outros
+                    ve&iacute;culos.</p>
+            </div>
+        </div>
+        <div class="horizontal-bar"></div>
+        <div class="sophistication-content" style="margin-top: 60px;">
+            <div class="sophistication-text">
+                <h2>Embalagem e Transporte</h2>
+                <p>A scooter &eacute; enviada em embalagem refor&ccedil;ada, com prote&ccedil;&atilde;o adequada para
+                    evitar danos durante o transporte, garantindo que voc&ecirc; receba o produto em perfeitas
+                    condi&ccedil;&otilde;es.</p>
+            </div>
+            <div class="gif-placeholder"><img
+                    src="https://magazord-public.s3.amazonaws.com/primeoffice/img/2025/09/produto/1175/transporte.png"
+                    alt="Embalagem refor&ccedil;ada da TUI POP" /></div>
+        </div>
+    </div>
+</section>

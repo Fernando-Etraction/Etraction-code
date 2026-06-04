@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Provador Virtual · Almofadas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --cream: #f7f3ed;
+            --warm-white: #faf8f4;
+            --sand: #e8ddd0;
+            --terracotta: #c4714a;
+            --terracotta-deep: #a85b38;
+            --charcoal: #2c2520;
+            --muted: #9a8e85;
+            --border: #ddd4c8;
+            --success: #5a8a6e;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* ── Trigger button ── */
+        .trigger-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .trigger-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--muted);
+            letter-spacing: .05em;
+        }
+        .trigger-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .75rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            border: none;
+            padding: .9rem 2rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .85rem;
+            font-weight: 500;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background .25s, transform .15s;
+            border-radius: 2px;
+        }
+        .trigger-btn:hover { background: var(--terracotta); transform: translateY(-1px); }
+        .trigger-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+        /* ── Overlay ── */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(44,37,32,.55);
+            backdrop-filter: blur(6px);
+            z-index: 900;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .35s ease;
+        }
+        .overlay.open { opacity: 1; pointer-events: all; }
+
+        /* ── Modal ── */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 901;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            pointer-events: none;
+        }
+        .modal-box {
+            background: var(--warm-white);
+            width: 100%;
+            max-width: 560px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(44,37,32,.22), 0 4px 16px rgba(44,37,32,.08);
+            transform: translateY(28px) scale(.97);
+            opacity: 0;
+            transition: transform .4s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+            pointer-events: none;
+        }
+        .modal.open .modal-box {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ── Modal header ── */
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 1.75rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--cream);
+        }
+        .modal-title-group { display: flex; flex-direction: column; gap: .15rem; }
+        .modal-eyebrow {
+            font-size: .7rem;
+            font-weight: 500;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+        }
+        .modal-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.55rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            line-height: 1.15;
+        }
+        .close-btn {
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+        .close-btn:hover { background: var(--sand); border-color: var(--sand); color: var(--charcoal); }
+
+        /* ── Step indicators ── */
+        .steps {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .85rem 1.75rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--warm-white);
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            font-size: .72rem;
+            font-weight: 500;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color .3s;
+        }
+        .step.active { color: var(--charcoal); }
+        .step.done { color: var(--terracotta); }
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid currentColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: background .3s, border-color .3s;
+        }
+        .step.active .step-dot { background: var(--charcoal); border-color: var(--charcoal); color: var(--cream); }
+        .step.done .step-dot { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+        .step-divider { flex: 1; height: 1px; background: var(--border); }
+
+        /* ── Screens ── */
+        .screen { display: none; flex-direction: column; padding: 1.75rem; gap: 1.25rem; }
+        .screen.active { display: flex; }
+
+        /* ── Form elements ── */
+        .field { display: flex; flex-direction: column; gap: .45rem; }
+        .field-label {
+            font-size: .72rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--charcoal);
+        }
+        .field-hint { font-size: .75rem; color: var(--muted); margin-top: -.2rem; }
+        .field input, .field select {
+            width: 100%;
+            padding: .7rem .95rem;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .85rem;
+            color: var(--charcoal);
+            background: var(--warm-white);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .field input:focus, .field select:focus {
+            border-color: var(--terracotta);
+            box-shadow: 0 0 0 3px rgba(196,113,74,.1);
+        }
+        .field input::placeholder { color: var(--muted); }
+
+        /* ── File upload drop zone ── */
+        .drop-zone {
+            border: 1.5px dashed var(--border);
+            border-radius: 4px;
+            background: var(--cream);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color .2s, background .2s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .55rem;
+        }
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: var(--terracotta);
+            background: #fdf5f0;
+        }
+        .drop-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .drop-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--terracotta);
+        }
+        .drop-title {
+            font-size: .82rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        .drop-hint {
+            font-size: .72rem;
+            color: var(--muted);
+        }
+        .drop-formats {
+            font-size: .68rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: var(--sand);
+            padding: .2rem .55rem;
+            border-radius: 99px;
+        }
+
+        /* Sofa preview (after upload) */
+        .sofa-preview-box {
+            display: none;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--sand);
+        }
+        .sofa-preview-box.show { display: block; }
+        .sofa-preview-box img {
+            width: 100%;
+            max-height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .sofa-preview-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .5rem .75rem;
+            background: var(--warm-white);
+            border-top: 1px solid var(--border);
+        }
+        .sofa-file-name {
+            font-size: .72rem;
+            color: var(--charcoal);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 240px;
+        }
+        .sofa-remove-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--muted);
+            padding: .15rem;
+            display: flex;
+            align-items: center;
+            transition: color .2s;
+            flex-shrink: 0;
+        }
+        .sofa-remove-btn:hover { color: #c45a5a; }
+
+        /* Preview strip */
+        .preview-strip {
+            display: flex;
+            gap: .75rem;
+            align-items: flex-start;
+        }
+        .preview-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            object-fit: cover;
+            flex-shrink: 0;
+            background: var(--sand);
+            display: none;
+        }
+        .preview-thumb.show { display: block; }
+        .preview-info { flex: 1; }
+
+        /* Pillow auto-fetch note */
+        .fetch-note {
+            display: flex;
+            align-items: flex-start;
+            gap: .6rem;
+            background: #f0ebe4;
+            border-left: 3px solid var(--terracotta);
+            border-radius: 0 3px 3px 0;
+            padding: .65rem .85rem;
+            font-size: .77rem;
+            color: var(--charcoal);
+            line-height: 1.5;
+        }
+        .fetch-note svg { flex-shrink: 0; margin-top: .1rem; color: var(--terracotta); }
+        /* Aspect ratio picker */
+        /* ── Buttons ── */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            background: var(--terracotta);
+            color: #fff;
+            border: none;
+            padding: .85rem 1.75rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .82rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background .22s, transform .15s;
+            width: 100%;
+            margin-top: .25rem;
+        }
+        .btn-primary:hover:not(:disabled) { background: var(--terracotta-deep); transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            background: transparent;
+            color: var(--charcoal);
+            border: 1px solid var(--border);
+            padding: .75rem 1.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .82rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all .2s;
+            flex: 1;
+        }
+        .btn-secondary:hover { background: var(--sand); border-color: var(--sand); }
+        .btn-row { display: flex; gap: .75rem; }
+
+        /* ── Loading screen ── */
+        .loading-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.75rem;
+            gap: 1.5rem;
+            text-align: center;
+        }
+        .loader-ring {
+            width: 56px;
+            height: 56px;
+            border: 2.5px solid var(--border);
+            border-top-color: var(--terracotta);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-headline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.45rem;
+            font-weight: 400;
+            color: var(--charcoal);
+        }
+        .loading-sub { font-size: .82rem; color: var(--muted); line-height: 1.6; max-width: 320px; }
+        .loading-steps { display: flex; flex-direction: column; gap: .4rem; width: 100%; max-width: 280px; }
+        .loading-step-item {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .75rem;
+            color: var(--muted);
+            transition: color .4s;
+        }
+        .loading-step-item.active { color: var(--charcoal); }
+        .loading-step-item.done { color: var(--success); }
+        .step-check { width: 14px; height: 14px; flex-shrink: 0; }
+        .pulse-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            animation: pulse 1.1s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.75); } }
+
+        /* ── Result screen ── */
+        .result-img-wrap {
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            cursor: zoom-in;
+            background: var(--sand);
+        }
+        .result-img {
+            width: 100%;
+            display: block;
+            transition: transform .35s ease;
+        }
+        .result-img-wrap:hover .result-img { transform: scale(1.02); }
+        .zoom-badge {
+            position: absolute;
+            bottom: .6rem;
+            right: .6rem;
+            background: rgba(44,37,32,.7);
+            color: #fff;
+            font-size: .65rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .3rem .6rem;
+            border-radius: 2px;
+            backdrop-filter: blur(4px);
+            pointer-events: none;
+        }
+        .ai-disclaimer {
+            display: flex;
+            align-items: flex-start;
+            gap: .65rem;
+            background: #fdf4ef;
+            border: 1px solid #f0d8cc;
+            border-radius: 3px;
+            padding: .85rem 1rem;
+            font-size: .76rem;
+            color: var(--charcoal);
+            line-height: 1.55;
+        }
+        .ai-disclaimer svg { flex-shrink: 0; color: var(--terracotta); margin-top: .05rem; }
+        .ai-disclaimer strong { font-weight: 500; display: block; margin-bottom: .2rem; }
+
+        .result-actions { display: flex; flex-direction: column; gap: .65rem; }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            background: var(--charcoal);
+            color: var(--cream);
+            border: none;
+            padding: .85rem 1.75rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .82rem;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background .22s;
+            text-decoration: none;
+            flex: 1;
+            text-align: center;
+        }
+        .btn-download:hover { background: var(--terracotta); }
+
+        /* ── Error banner ── */
+        .error-banner {
+            display: none;
+            align-items: flex-start;
+            gap: .65rem;
+            background: #fdf0f0;
+            border: 1px solid #f0cccc;
+            border-radius: 3px;
+            padding: .85rem 1rem;
+            font-size: .78rem;
+            color: #8a2828;
+            line-height: 1.5;
+        }
+        .error-banner.show { display: flex; }
+        .error-banner svg { flex-shrink: 0; margin-top: .05rem; }
+
+        /* Divider text */
+        .divider-text {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            font-size: .68rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .divider-text::before, .divider-text::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .modal-box { max-width: 100%; }
+            .preview-strip { flex-direction: column; }
+            .preview-thumb { width: 100%; height: 160px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── PAGE DEMO CONTEXT ── -->
+<div class="trigger-wrap">
+    <span class="trigger-label">Experimente em seu ambiente</span>
+    <button class="trigger-btn" onclick="openModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18M9 21V9"/>
+            <circle cx="16" cy="15" r="2.5" fill="currentColor" stroke="none"/>
+        </svg>
+        Provador Virtual
+    </button>
+</div>
+
+<!-- ── OVERLAY ── -->
+<div class="overlay" id="overlay" onclick="closeModal()"></div>
+
+<!-- ── MODAL ── -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+
+        <!-- Header -->
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-eyebrow">Experiência Imersiva</span>
+                <h2 class="modal-title">Provador Virtual</h2>
+            </div>
+            <button class="close-btn" onclick="closeModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Step indicators -->
+        <div class="steps">
+            <div class="step active" id="step-ind-1">
+                <div class="step-dot">1</div>
+                <span>Imagens</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step" id="step-ind-2">
+                <div class="step-dot">2</div>
+                <span>Processando</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step" id="step-ind-3">
+                <div class="step-dot">3</div>
+                <span>Resultado</span>
+            </div>
+        </div>
+
+        <!-- ════════════════ SCREEN 1: UPLOAD ════════════════ -->
+        <div class="screen active" id="screen-1">
+
+            <!-- Sofá -->
+            <div class="field">
+                <label class="field-label">Foto do Seu Sofá</label>
+                <span class="field-hint">Envie uma foto do seu sofa em qualquer formato de imagem. Vamos converter automaticamente antes de enviar para a IA.</span>
+
+                <div class="drop-zone" id="drop-zone"
+                     ondragover="handleDragOver(event)"
+                     ondragleave="handleDragLeave(event)"
+                     ondrop="handleDrop(event)">
+                    <input type="file" id="sofa-file" onchange="handleFileSelect(event)" />
+                    <div class="drop-icon">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <div class="drop-title">Clique para selecionar ou arraste aqui</div>
+                    <div class="drop-hint">Foto do seu sofá em casa</div>
+                    <span class="drop-formats">Qualquer imagem · conversao automatica para JPEG</span>
+                </div>
+
+                <!-- Preview after upload -->
+                <div class="sofa-preview-box" id="sofa-preview-box">
+                    <img id="sofa-preview-img" src="" alt="Prévia do sofá" />
+                    <div class="sofa-preview-bar">
+                        <span class="sofa-file-name" id="sofa-file-name"></span>
+                        <button class="sofa-remove-btn" onclick="removeSofaFile()" title="Remover imagem">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 6L6 18M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider-text">Referência da PDP</div>
+
+            <div class="field">
+                <label class="field-label">Almofadas de Referência</label>
+                <span class="field-hint">A imagem das almofadas é capturada automaticamente da PDP e enviada junto com esta requisição. Nesta etapa você só precisa enviar a foto do sofá.</span>
+            </div>
+
+            <div class="field">
+                <label class="field-label">Saída da Imagem</label>
+                <span class="field-hint">A geração usa proporção fixa 4:3.</span>
+            </div>
+
+            <div class="error-banner" id="err-1">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+                </svg>
+                <span id="err-1-msg">Preencha todos os campos antes de continuar.</span>
+            </div>
+
+            <button class="btn-primary" onclick="startGeneration()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                Gerar Visualização
+            </button>
+        </div>
+        <!-- /screen-1 -->
+
+        <!-- ════════════════ SCREEN 2: LOADING ════════════════ -->
+        <div class="screen" id="screen-2">
+            <div class="loading-center">
+                <div class="loader-ring"></div>
+                <div>
+                    <div class="loading-headline">Criando sua visualização</div>
+                    <div class="loading-sub">Nossa IA está aplicando automaticamente a coleção de almofadas ao seu sofá. Isso pode levar alguns instantes.</div>
+                </div>
+                <div class="loading-steps">
+                    <div class="loading-step-item active" id="lstep-1">
+                        <div class="pulse-dot" id="ldot-1"></div>
+                        <span>Enviando foto do sofa para a S3</span>
+                    </div>
+                    <div class="loading-step-item" id="lstep-2">
+                        <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="lcheck-2">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <span>Analisando ambiente e composição</span>
+                    </div>
+                    <div class="loading-step-item" id="lstep-3">
+                        <svg class="step-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="lcheck-3">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <span>Renderizando resultado final</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /screen-2 -->
+
+        <!-- ════════════════ SCREEN 3: RESULT ════════════════ -->
+        <div class="screen" id="screen-3">
+
+            <div class="ai-disclaimer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <div>
+                    <strong>Imagem gerada por Inteligência Artificial</strong>
+                    O resultado é uma simulação e pode apresentar imperfeições como distorções, sombras incorretas ou diferenças de escala. Use como referência visual, não como representação exata do produto.
+                </div>
+            </div>
+
+            <div class="result-img-wrap" id="result-wrap" onclick="openFull()">
+                <img class="result-img" id="result-img" src="" alt="Resultado gerado pela IA" />
+                <div class="zoom-badge">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="display:inline;vertical-align:middle;margin-right:.3rem">
+                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                        <path d="M11 8v6M8 11h6"/>
+                    </svg>
+                    Ampliar
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <div class="btn-row">
+                    <a class="btn-download" id="open-full-btn" href="#" target="_blank" rel="noopener">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                        </svg>
+                        Ver em Tamanho Real
+                    </a>
+                    <button class="btn-secondary" onclick="resetModal()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/>
+                        </svg>
+                        Nova Simulação
+                    </button>
+                </div>
+            </div>
+
+            <div class="error-banner" id="err-3">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+                </svg>
+                <span id="err-3-msg"></span>
+            </div>
+
+        </div>
+        <!-- /screen-3 -->
+
+    </div>
+</div>
+
+<script>
+    // ── State ──────────────────────────────────────────────
+    const FIXED_ASPECT_RATIO = '4:3';
+    let generatedUrl = '';
+        // ── Modal open / close ─────────────────────────────────
+    function openModal() {
+        document.getElementById('overlay').classList.add('open');
+        document.getElementById('modal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+        document.getElementById('overlay').classList.remove('open');
+        document.getElementById('modal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // ── Sofa file upload ────────────────────────────────────
+    const SOFA_UPLOAD_MAX_DIMENSION = 640;
+    const SOFA_UPLOAD_QUALITY = 0.78;
+    let sofaFile = null;
+    let sofaBase64 = null;
+    let sofaS3Key = null;
+function cleanUrl(url) {
+  return url ? url.replace(/\?.*$/, '') : null;
+}
+
+function getFirstSwiperImage() {
+  // 1. Tenta via instância Swiper
+  const swiperEls = document.querySelectorAll('.swiper, .swiper-container');
+
+  for (const el of swiperEls) {
+    if (
+      el.swiper &&
+      el.className.includes('swiper-horizontal') &&
+      el.className.includes('h-full')
+    ) {
+      const firstSlide = el.swiper.slides[0];
+      const img = firstSlide?.querySelector('img');
+
+      if (img) {
+        const url = img.getAttribute('data-src') || img.src;
+        return cleanUrl(url);
+      }
+    }
+  }
+
+  // 2. Fallback via DOM puro
+  const fallbackSwiper = document.querySelector('.gallery-main, .swiper-horizontal');
+  const firstImg = fallbackSwiper?.querySelector('.swiper-slide:first-child img');
+
+  if (firstImg) {
+    const url = firstImg.getAttribute('data-src') || firstImg.src;
+    return cleanUrl(url);
+  }
+
+  return null;
+}
+
+const firstImageUrl = getFirstSwiperImage();
+
+    function readFileAsDataUrl(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error('Nao foi possivel ler o arquivo enviado.'));
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function loadImageElement(src) {
+        return new Promise((resolve, reject) => {
+            const image = new Image();
+            image.onload = () => resolve(image);
+            image.onerror = () => reject(new Error('Nao foi possivel abrir este arquivo no navegador para converte-lo automaticamente.'));
+            image.src = src;
+        });
+    }
+
+    function toNormalizedSofaFileName(fileName) {
+        if (!fileName) return 'imagem.jpg';
+        const baseName = fileName.replace(/\.[^.]+$/, '') || 'imagem';
+        return `${baseName}.jpg`;
+    }
+
+    function dataUrlToBlob(dataUrl) {
+        const parts = (dataUrl || '').split(',');
+        if (parts.length !== 2) {
+            throw new Error('Nao foi possivel preparar o envio da imagem.');
+        }
+
+        const mimeMatch = parts[0].match(/data:([^;]+);base64/i);
+        const mimeType = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+        const binaryString = atob(parts[1]);
+        const bytes = new Uint8Array(binaryString.length);
+
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+
+        return new Blob([bytes], { type: mimeType });
+    }
+
+    async function normalizeSofaImage(file) {
+        const originalDataUrl = await readFileAsDataUrl(file);
+        const image = await loadImageElement(originalDataUrl);
+        const originalWidth = Math.max(1, image.naturalWidth || image.width || 1);
+        const originalHeight = Math.max(1, image.naturalHeight || image.height || 1);
+        const scale = Math.min(1, SOFA_UPLOAD_MAX_DIMENSION / Math.max(originalWidth, originalHeight));
+        const width = Math.max(1, Math.round(originalWidth * scale));
+        const height = Math.max(1, Math.round(originalHeight * scale));
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        if (!context) {
+            throw new Error('Nao foi possivel preparar a conversao da imagem.');
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        context.drawImage(image, 0, 0, width, height);
+
+        const jpegDataUrl = canvas.toDataURL('image/jpeg', SOFA_UPLOAD_QUALITY);
+        if (!jpegDataUrl || jpegDataUrl === 'data:,') {
+            throw new Error('Nao foi possivel converter este arquivo automaticamente.');
+        }
+
+        return jpegDataUrl;
+    }
+
+    function handleFileSelect(e) {
+        const file = e.target.files[0];
+        if (file) applySofaFile(file);
+    }
+    function handleDragOver(e) {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.add('drag-over');
+    }
+    function handleDragLeave(e) {
+        document.getElementById('drop-zone').classList.remove('drag-over');
+    }
+    function handleDrop(e) {
+        e.preventDefault();
+        document.getElementById('drop-zone').classList.remove('drag-over');
+        const file = e.dataTransfer.files[0];
+        if (file) applySofaFile(file);
+    }
+    async function applySofaFile(file) {
+        if (!file) {
+            document.getElementById('sofa-file').value = '';
+            return;
+        }
+
+        try {
+            sofaFile = file;
+            sofaS3Key = null;
+            sofaBase64 = await normalizeSofaImage(file);
+            document.getElementById('sofa-preview-img').src = sofaBase64;
+            document.getElementById('sofa-file-name').textContent = `${toNormalizedSofaFileName(file.name)} · otimizado para envio`;
+            document.getElementById('sofa-preview-box').classList.add('show');
+            document.getElementById('drop-zone').style.display = 'none';
+            hideError(1);
+        } catch (error) {
+            sofaFile = null;
+            sofaBase64 = null;
+            document.getElementById('sofa-file').value = '';
+            document.getElementById('sofa-preview-box').classList.remove('show');
+            document.getElementById('drop-zone').style.display = 'flex';
+            showError(1, `Foto do sofa: ${error.message}`);
+        }
+    }
+    function removeSofaFile() {
+        sofaFile = null;
+        sofaBase64 = null;
+        sofaS3Key = null;
+        document.getElementById('sofa-file').value = '';
+        document.getElementById('sofa-preview-box').classList.remove('show');
+        document.getElementById('drop-zone').style.display = 'flex';
+    }
+
+    async function uploadSofaToS3() {
+        if (sofaS3Key) return sofaS3Key;
+        if (!sofaBase64) {
+            throw new Error('A foto do sofa ainda nao foi preparada para envio.');
+        }
+
+        const query = new URLSearchParams({
+            fileName: toNormalizedSofaFileName(sofaFile?.name),
+            contentType: 'image/jpeg'
+        });
+
+        const uploadUrlResponse = await fetch(`http://localhost:8080/s3/upload-url?${query.toString()}`, {
+            method: 'POST',
+            headers: {
+                'Origin': 'http://127.0.0.1:5500'
+            }
+        });
+
+        if (!uploadUrlResponse.ok) {
+            throw new Error('Nao foi possivel obter a URL de upload para a S3.');
+        }
+
+        const uploadData = await uploadUrlResponse.json();
+        if (!uploadData?.url || !uploadData?.key) {
+            throw new Error('A API nao retornou os dados de upload da S3.');
+        }
+
+        const uploadResult = await fetch(uploadData.url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'image/jpeg'
+            },
+            body: dataUrlToBlob(sofaBase64)
+        });
+
+        if (!uploadResult.ok) {
+            throw new Error('Nao foi possivel enviar a imagem do sofa para a S3.');
+        }
+
+        sofaS3Key = uploadData.key;
+        return sofaS3Key;
+    }
+
+    // ── Step indicator helpers ────────────────────────────
+    function setStepIndicators(active) {
+        for (let i = 1; i <= 3; i++) {
+            const el = document.getElementById(`step-ind-${i}`);
+            el.className = 'step';
+            if (i < active) el.classList.add('done');
+            else if (i === active) el.classList.add('active');
+        }
+    }
+
+    function showScreen(n) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(`screen-${n}`).classList.add('active');
+        setStepIndicators(n);
+    }
+
+    // ── Loading step animation ────────────────────────────
+    function animateLoadingSteps() {
+        const steps = [1, 2, 3];
+        const delays = [0, 2200, 4800];
+
+        steps.forEach((s, i) => {
+            const el = document.getElementById(`lstep-${s}`);
+            const dot = document.getElementById(`ldot-${s}`);
+            const check = document.getElementById(`lcheck-${s}`);
+
+            setTimeout(() => {
+                el.className = 'loading-step-item active';
+                if (dot) dot.style.display = 'block';
+                if (check) check.innerHTML = `<circle cx="12" cy="12" r="10"/>`;
+            }, delays[i]);
+
+            if (i < steps.length - 1) {
+                setTimeout(() => {
+                    el.className = 'loading-step-item done';
+                    if (dot) dot.style.display = 'none';
+                    if (check) check.innerHTML = `
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          `;
+                    const nextEl = document.getElementById(`lstep-${steps[i+1]}`);
+                    if (nextEl) nextEl.className = 'loading-step-item active';
+                }, delays[i + 1] - 400);
+            }
+        });
+    }
+
+    // ── Show error ────────────────────────────────────────
+    function showError(screen, msg) {
+        const banner = document.getElementById(`err-${screen}`);
+        const msgEl = document.getElementById(`err-${screen}-msg`);
+        if (msgEl) msgEl.textContent = msg;
+        banner.classList.add('show');
+    }
+    function hideError(screen) {
+        document.getElementById(`err-${screen}`)?.classList.remove('show');
+    }
+
+    // ── Main generation flow ──────────────────────────────
+    async function startGeneration() {
+        hideError(1);
+
+        if (!sofaBase64) { showError(1, 'Envie uma foto do sofa antes de continuar.'); return; }
+
+        showScreen(2);
+        animateLoadingSteps();
+
+        try {
+            const sofaImageKey = await uploadSofaToS3();
+            const pillowImage = resolvePillowImageReference();
+
+            if (!pillowImage) {
+                throw new Error('Nao foi possivel localizar a imagem da almofada na PDP.');
+            }
+
+            const payload = {
+                sofaImage: sofaImageKey,
+                pillowImage: pillowImage,
+                aspectRatio: FIXED_ASPECT_RATIO
+            };
+
+            const res = await fetch('http://localhost:8080/flux-klein/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Origin': 'http://127.0.0.1:5500'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+
+            if (data.status === 'success' && data.imageUrl) {
+                generatedUrl = data.imageUrl;
+                document.getElementById('result-img').src = generatedUrl;
+                document.getElementById('open-full-btn').href = generatedUrl;
+                showScreen(3);
+            } else {
+                const errMsg = data.message || 'Erro desconhecido retornado pela API.';
+                showScreen(3);
+                document.getElementById('result-img').style.display = 'none';
+                document.getElementById('result-wrap').style.display = 'none';
+                showError(3, `Falha ao gerar a imagem: ${errMsg}`);
+            }
+        } catch (err) {
+            showScreen(3);
+            document.getElementById('result-img').style.display = 'none';
+            document.getElementById('result-wrap').style.display = 'none';
+            showError(3, `Não foi possível conectar à API. Verifique se o servidor está rodando em localhost:8080. (${err.message})`);
+        }
+    }
+
+    // ── Open full size ────────────────────────────────────
+    function openFull() {
+        if (generatedUrl) window.open(generatedUrl, '_blank');
+    }
+
+    // ── Reset ─────────────────────────────────────────────
+    function resetModal() {
+        // Reset sofa file
+        sofaFile = null;
+        sofaBase64 = null;
+        sofaS3Key = null;
+        document.getElementById('sofa-file').value = '';
+        document.getElementById('sofa-preview-box').classList.remove('show');
+        document.getElementById('drop-zone').style.display = 'flex';
+
+        document.getElementById('result-img').style.display = '';
+        document.getElementById('result-wrap').style.display = '';
+        hideError(1);
+        hideError(3);
+        generatedUrl = '';
+        showScreen(1);
+        // reset loading steps
+        for (let i = 1; i <= 3; i++) {
+            const el = document.getElementById(`lstep-${i}`);
+            if (el) el.className = 'loading-step-item' + (i === 1 ? ' active' : '');
+        }
+    }
+
+    // Keyboard close
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

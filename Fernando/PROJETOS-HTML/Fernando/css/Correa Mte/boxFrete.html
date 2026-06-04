@@ -1,0 +1,428 @@
+
+<style>
+    .old-shipping-price{
+        color: #dc2626;
+        text-decoration: line-through;
+        margin-right: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        width: max-content;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration-thickness: 2px;
+        position: relative;
+    }
+
+    /* Animação mais impactante */
+    @keyframes urgentPulse {
+        0% { 
+            opacity: 1; 
+            transform: scale(1);
+            filter: brightness(1);
+        }
+        25% { 
+            opacity: 0.7; 
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+        50% { 
+            opacity: 0.5; 
+            transform: scale(1.08);
+            filter: brightness(1.3);
+        }
+        75% { 
+            opacity: 0.8; 
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+        100% { 
+            opacity: 1; 
+            transform: scale(1);
+            filter: brightness(1);
+        }
+    }
+
+    /* Animação de entrada suave */
+    @keyframes slideInLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(-15px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .blink-red {
+        animation: urgentPulse 0.9s ease-in-out infinite;
+    }
+
+    .slide-in-effect {
+        animation: slideInLeft 0.5s ease-out;
+    }
+
+    /* Verde mais impactante para "Super Promocional" */
+    .super-promocional-label {
+        color: #059669 !important;
+        font-weight: bold !important;
+        letter-spacing: 0.4px;
+        text-shadow: 0 1px 2px rgba(5, 150, 105, 0.2);
+        position: relative;
+    }
+
+    /* Estilo para frete Expresso */
+    .expresso-label {
+        color: #ea580c !important;
+        font-weight: bold !important;
+        position: relative;
+        letter-spacing: 0.3px;
+    }
+
+    .expresso-label::after {
+        content: "⚡";
+        margin-left: 4px;
+        font-size: 12px;
+        animation: sparkle 1.5s ease-in-out infinite;
+    }
+
+    /* Animação de "faísca" para o raio */
+    @keyframes sparkle {
+        0%, 100% { 
+            opacity: 1; 
+            transform: scale(1) rotate(0deg);
+            filter: brightness(1);
+        }
+        25% { 
+            opacity: 0.7; 
+            transform: scale(1.1) rotate(-5deg);
+            filter: brightness(1.3);
+        }
+        50% { 
+            opacity: 0.9; 
+            transform: scale(1.15) rotate(5deg);
+            filter: brightness(1.5);
+        }
+        75% { 
+            opacity: 0.8; 
+            transform: scale(1.05) rotate(-2deg);
+            filter: brightness(1.2);
+        }
+    }
+
+    /* Destaque sutil no container promocional */
+    .promocional-highlight {
+        background: linear-gradient(90deg, 
+            rgba(5, 150, 105, 0.03) 0%, 
+            rgba(5, 150, 105, 0.08) 50%, 
+            rgba(5, 150, 105, 0.03) 100%);
+        border-left: 2px solid #059669;
+        padding-left: 6px !important;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    /* Destaque container expresso */
+    .expresso-highlight {
+        background: linear-gradient(90deg, 
+            rgba(234, 88, 12, 0.03) 0%, 
+            rgba(234, 88, 12, 0.08) 50%, 
+            rgba(234, 88, 12, 0.03) 100%);
+        border-left: 2px solid #ea580c;
+        padding-left: 6px !important;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+
+    /* Destaque sutil no preço final do Super Promocional */
+    .preco-promocional-destaque {
+        font-weight: bold !important;
+        font-size: 14px !important;
+        transition: all 0.3s ease !important;
+        display: inline-block !important;
+    }
+
+    @media (max-width: 800px){
+        .old-shipping-price{
+            width: 95px;
+            font-size: 12px;
+        }
+    }
+
+    /* ======== ADICIONADO (ECONÔMICO) ======== */
+    .economico-label {
+        color: #059669 !important;
+        font-weight: bold !important;
+        letter-spacing: 0.3px;
+        text-shadow: 0 1px 2px rgba(5,150,105,.18);
+        position: relative;
+    }
+    .economico-highlight {
+        background: linear-gradient(90deg,
+            rgba(5,150,105,.03) 0%,
+            rgba(5,150,105,.08) 50%,
+            rgba(5,150,105,.03) 100%);
+        border-left: 2px solid #059669;
+        padding-left: 6px !important;
+        border-radius: 3px;
+        transition: all .3s ease;
+    }
+    /* Valor do Econômico em verde (GRÁTIS ou preço) */
+    .economico-highlight .descricao-valor,
+    .economico-highlight .frete-gratis {
+        color: #059669 !important;
+    }
+</style>
+
+<script>
+(function() {
+    'use strict';
+
+    // Intercepta fetch (React usa fetch para requisições)
+    const originalFetch = window.fetch;
+    window.fetch = function(...args) {
+        return originalFetch.apply(this, args).then(response => {
+            const url = args[0];
+            if (typeof url === 'string' && url.indexOf('/checkout/cart?operation=calculaFreteProduto') !== -1) {
+                executarProcessamentoFrete();
+            }
+            return response;
+        });
+    };
+
+    // Intercepta XMLHttpRequest (caso o React use)
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function(method, url) {
+        this.addEventListener('load', function() {
+            if (url.indexOf('/checkout/cart?operation=calculaFreteProduto') !== -1) {
+                executarProcessamentoFrete();
+            }
+        });
+        return originalOpen.apply(this, arguments);
+    };
+
+    function executarProcessamentoFrete() {
+        // Aplica estilos promocionais melhorados
+        setTimeout(function(){
+            // Super Promocional em verde
+            document.querySelectorAll('p.text-xs').forEach(function(el) {
+                if (el.textContent.includes('Super Promocional')) {
+                    el.classList.add('super-promocional-label');
+                    const container = el.closest('div.flex.w.full.flex-wrap') || el.closest('div.flex.w-full.flex-wrap');
+                    const fallback = el.closest('div');
+                    const target = container || fallback;
+                    if (target) target.classList.add('promocional-highlight');
+                }
+            });
+
+            // Expresso em laranja com efeito especial
+            document.querySelectorAll('p.text-xs').forEach(function(el) {
+                if (el.textContent.includes('Expresso')) {
+                    el.classList.add('expresso-label');
+                    const container = el.closest('div.flex.w.full.flex-wrap') || el.closest('div.flex.w-full.flex-wrap');
+                    const fallback = el.closest('div');
+                    const target = container || fallback;
+                    if (target) target.classList.add('expresso-highlight');
+                }
+            });
+
+            // ======== ADICIONADO (ECONÔMICO) ========
+            document.querySelectorAll('p.text-xs').forEach(function(el) {
+                const txt = (el.textContent || '').toLowerCase();
+                if (txt.includes('econômico') || txt.includes('economico')) {
+                    el.classList.add('economico-label');
+                    const container = el.closest('div.flex.w.full.flex-wrap') || el.closest('div.flex.w-full.flex-wrap');
+                    const fallback = el.closest('div');
+                    const target = container || fallback;
+                    if (target) target.classList.add('economico-highlight');
+                }
+            });
+        }, 50);
+
+        // Processa o cálculo com timing otimizado
+        setTimeout(processaRespostaFrete, 250);
+        setTimeout(processaRespostaFrete, 600);
+        setTimeout(processaRespostaFrete, 1000);
+
+        // Mostra o preço antigo com efeitos aprimorados
+        setTimeout(function(){
+            const oldPrices = document.querySelectorAll('.old-shipping-price');
+            oldPrices.forEach(function(el) {
+                el.style.opacity = '1';
+                el.classList.add('blink-red', 'slide-in-effect');
+            });
+
+            // Para a animação após 4s (mais tempo para impacto)
+            setTimeout(function(){
+                oldPrices.forEach(function(el) {
+                    el.classList.remove('blink-red');
+                    el.style.opacity = '0.85';
+                    el.style.color = '#dc2626';
+                    el.style.transform = 'scale(1)';
+                });
+            }, 4000);
+
+            // Destaque sutil a cada 12s
+            setInterval(function(){
+                const visibleOldPrices = document.querySelectorAll('.old-shipping-price');
+                visibleOldPrices.forEach(function(el) {
+                    if (el.offsetParent !== null) {
+                        el.style.opacity = '1';
+                        el.style.transform = 'scale(1.02)';
+                        setTimeout(function(){
+                            el.style.opacity = '0.85';
+                            el.style.transform = 'scale(1)';
+                        }, 300);
+                    }
+                });
+            }, 12000);
+
+        }, 350);
+
+        // Destaca o preço final do Super Promocional
+        setTimeout(function(){
+            document.querySelectorAll('p.text-xs').forEach(function(el) {
+                if (el.textContent.includes('Super Promocional')) {
+                    const container = el.closest('div.flex.w.full.flex-wrap') || el.closest('div.flex.w-full.flex-wrap') || el.closest('div');
+                    if (!container) return;
+                    
+                    const spans = Array.from(container.querySelectorAll('span'));
+                    const priceSpans = spans.filter(function(span) {
+                        return span.textContent.includes('R$') && !span.classList.contains('old-shipping-price');
+                    });
+                    
+                    if (priceSpans.length > 0) {
+                        const precoFinal = priceSpans[priceSpans.length - 1];
+                        precoFinal.classList.add('preco-promocional-destaque');
+                    }
+                }
+            });
+        }, 1200);
+    }
+
+    function processaRespostaFrete() {
+        // Busca elementos com "Super Promocional"
+        const boxResults = document.querySelectorAll('.box-result p.text-xs');
+        const allTextElements = document.querySelectorAll('p.text-xs');
+        
+        const elementsToCheck = boxResults.length > 0 ? boxResults : allTextElements;
+        
+        elementsToCheck.forEach(function(el) {
+            if (!el.textContent.includes('Super Promocional')) return;
+            
+            const container = el.closest('div.flex.w.full.flex-wrap') || el.closest('div.flex.w-full.flex-wrap') || el.closest('div');
+            if (!container) return;
+            
+            const priceSpans = container.querySelectorAll('span');
+            let priceSpan = null;
+            
+            priceSpans.forEach(function(span) {
+                if (span.textContent.includes('R$')) {
+                    priceSpan = span;
+                }
+            });
+            
+            if (!priceSpan) return;
+            
+            // Verifica se já tem o preço antigo
+            const prevElement = priceSpan.previousElementSibling;
+            if (prevElement && prevElement.classList.contains('old-shipping-price')) return;
+
+            const rawText = priceSpan.textContent.replace(/\u00A0/g, ' ').trim();
+            const numStr = rawText.replace(/[^0-9,]/g, '').replace(',', '.'); 
+            const price = parseFloat(numStr);
+
+            if (!isNaN(price) && price > 0) {
+                // Aumento de 15% como originalmente
+                const oldPrice = price * 1.15;
+                
+                const oldPriceStr = new Intl.NumberFormat('pt-BR', { 
+                    minimumFractionDigits: 2, 
+                    maximumFractionDigits: 2 
+                }).format(oldPrice);
+
+                const oldSpan = document.createElement('span');
+                oldSpan.textContent = 'R$ ' + oldPriceStr;
+                oldSpan.className = 'old-shipping-price';
+                
+                priceSpan.parentNode.insertBefore(oldSpan, priceSpan);
+            }
+        });
+
+        /* ======== ADICIONADO (NORMAL +15% riscado) ======== */
+        const normalEls = Array.from(document.querySelectorAll('.box-result p.text-xs, p.text-xs'))
+          .filter(function(el){
+            const t = (el.textContent || '').toLowerCase();
+            return t.includes('normal');
+          });
+
+        normalEls.forEach(function(el){
+          const container = el.closest('div.flex.w.full.flex-wrap') || el.closest('div.flex.w-full.flex-wrap') || el.closest('div');
+          if (!container) return;
+
+          // último span com "R$" que NÃO seja old-shipping-price
+          const spans = Array.from(container.querySelectorAll('span'));
+          const priceSpan = spans.reverse().find(function(s){
+            return (s.textContent || '').includes('R$') && !s.classList.contains('old-shipping-price');
+          });
+          if (!priceSpan) return;
+
+          const prev = priceSpan.previousElementSibling;
+          if (prev && prev.classList && prev.classList.contains('old-shipping-price')) return;
+
+          const raw = (priceSpan.textContent || '').replace(/\u00A0/g,' ').trim();
+          const numStr = raw.replace(/[^0-9,]/g,'').replace(',', '.');
+          const atual = parseFloat(numStr);
+          if (isNaN(atual) || !(atual > 0)) return;
+
+          const cheio = atual * 1.15;
+          const cheioStr = new Intl.NumberFormat('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }).format(cheio);
+
+          const oldSpan = document.createElement('span');
+          oldSpan.className = 'old-shipping-price';
+          oldSpan.textContent = 'R$ ' + cheioStr;
+
+          priceSpan.parentNode.insertBefore(oldSpan, priceSpan);
+        });
+    }
+
+    // MutationObserver para detectar mudanças do React no DOM
+    const observer = new MutationObserver(function(mutations) {
+        let hasFreteContent = false;
+        
+        mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) {
+                    const text = node.textContent || '';
+                    if (text.includes('Super Promocional') || text.includes('Expresso') || text.toLowerCase().includes('econômico') || text.toLowerCase().includes('economico') || text.toLowerCase().includes('normal')) {
+                        hasFreteContent = true;
+                    }
+                }
+            });
+        });
+
+        if (hasFreteContent) {
+            setTimeout(executarProcessamentoFrete, 100);
+        }
+    });
+
+    // Inicia o observer quando o DOM estiver pronto
+    if (document.body) {
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    } else {
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+    }
+
+})();
+</script>

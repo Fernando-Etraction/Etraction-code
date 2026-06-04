@@ -1,0 +1,338 @@
+<p><!-- CUPOM DE DESCONTO NO CARRINHO DE COMPRAS ATT --></p>
+<style><!--
+.cupom-content {
+    display: flex
+;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    padding: 15px -124px;
+    border-radius: 12px;
+    position: relative;
+    margin: auto;
+    width: 100% !important;
+    margin-top: 10px; 
+  }
+  body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .dropbtn {
+    background-color: white;
+    border: 1px solid #A98958;
+    color: #A98958;
+    padding: 13px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    /* border: none; */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropbtn:hover {
+    background-color: #A98958;
+    color: white;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    width: 100%;
+    place-items: center;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 420px;
+    max-width: 95vw;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 9999;
+    padding: 15px;
+    border-radius: 10px;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto;
+  }
+  
+  .dropdown-content.show {
+    display: block !important;
+  }
+
+  /* Removido hover para abrir. Agora abre por clique via JS */
+
+  .cupom-info {
+    background-color: #ecd3ad21;
+    border-left: 4px solid #A98958;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  .cupom-info p {
+    margin: 0 0 5px;
+    font-size: 14px;
+  }
+
+  .desconto-true {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #A98958;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .desconto-true:hover{
+      
+    background-color: #705936;
+  }
+
+  .desconto-true.copied {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  
+  .desconto-true.copied::after {
+    content: ' ✓';
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  .desconto-prev {
+    padding: 8px 14px;
+    background-color: #e6f0ff;
+    color: #007FFF;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+  }
+
+  .desconto-prev p {
+    margin: 0;
+  }
+
+  /* Responsividade */
+  @media screen and (max-width: 600px) {
+    .cupom-content {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dropdown-content {
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      min-width: auto;
+      width: 95%;
+      transform: none;
+    }
+
+    .dropbtn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+--></style>
+<p>
+<script>// <![CDATA[
+(function () {
+  const WIDGET_ID = 'cupom-widget';
+  const MOUNT_AFTER_SELECTORS = ['.acao-button', '.lista-carrinho'];
+  const WIDGET_HTML = `
+    <div id="${WIDGET_ID}" class="cupom-content">
+      <div class="dropbtn">Cupons Disponíveis!</div>
+      <div class="dropdown-content">
+        <p><strong>Economize em suas compras com estes cupons especiais para você!</strong></p>
+        <p style="font-size: 12px; margin-top: 4px;">Utilize no Carrinho de Compras</p>
+
+        <div class="cupom-info">
+          <p>Ganhe R$ 50,00 de <span style="color: #705936;">Desconto</span> em compras acima de R$ 600,00</p>
+          <div class="desconto-true" data-codigo="50">GANHA R$ 50,00</div>
+        </div>
+
+        <div class="cupom-info">
+          <p>Ganhe R$ 120,00 de <span style="color: #705936;">Desconto</span> em Compras Acima de R$ 1300,00</p>
+          <div class="desconto-true" data-codigo="120">GANHA R$ 120,00</div>
+        </div>
+
+        <div class="cupom-info">
+          <p>Ganhe R$ 220,00 de <span style="color: #705936;">Desconto</span> em Compras Acima de R$ 2300,00</p>
+          <div class="desconto-true" data-codigo="220">GANHA R$ 220,00</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  function findMountPoint() {
+    for (const sel of MOUNT_AFTER_SELECTORS) {
+      const el = document.querySelector(sel);
+      if (el) return el;
+    }
+    return null;
+  }
+
+  function mountWidget() {
+    if (document.getElementById(WIDGET_ID)) return;
+    const anchor = findMountPoint();
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = WIDGET_HTML.trim();
+    const widget = wrapper.firstElementChild;
+    if (anchor) {
+      anchor.insertAdjacentElement('afterend', widget);
+    } else {
+      document.body.appendChild(widget);
+    }
+  }
+
+  function toggleDropdown(force) {
+    const widget = document.getElementById(WIDGET_ID);
+    if (!widget) return;
+    const dropdown = widget.querySelector('.dropdown-content');
+    if (!dropdown) return;
+
+    let willOpen = force;
+    if (typeof force === 'undefined') {
+      willOpen = !(dropdown.classList.contains('show') || dropdown.style.display === 'block');
+    }
+
+    if (willOpen) {
+      dropdown.classList.add('show');
+      dropdown.style.display = 'block';
+    } else {
+      dropdown.classList.remove('show');
+      dropdown.style.display = 'none';
+    }
+  }
+
+  function copiarTexto(texto, onOk, onErr) {
+    const val = String(texto || '').trim();
+    if (!val) return onErr && onErr();
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(val).then(onOk).catch(() => fallback());
+    } else {
+      fallback();
+    }
+
+    function fallback() {
+      const ta = document.createElement('textarea');
+      ta.value = val;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        const ok = document.execCommand('copy');
+        ok ? onOk && onOk() : onErr && onErr();
+      } catch (e) {
+        onErr && onErr();
+      } finally {
+        document.body.removeChild(ta);
+      }
+    }
+  }
+
+  function feedback(btn, msg) {
+    if (!btn) return;
+    btn.classList.add('copied');
+    const original = btn.getAttribute('data-original-text') || btn.textContent;
+    btn.setAttribute('data-original-text', original);
+    btn.textContent = msg;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = btn.getAttribute('data-original-text') || original;
+    }, 2000);
+  }
+
+  // === EVENTOS (delegação) ===
+  document.addEventListener('click', (e) => {
+    const widget = document.getElementById(WIDGET_ID);
+
+    // Clique no botão principal
+    if (e.target.closest(`#${WIDGET_ID} .dropbtn`)) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleDropdown();
+      return;
+    }
+
+    // Clique nos botões de cupom
+    const btnCupom = e.target.closest(`#${WIDGET_ID} .desconto-true`);
+    if (btnCupom) {
+      e.preventDefault();
+      e.stopPropagation();
+      const codigo = btnCupom.getAttribute('data-codigo') ||
+                     (btnCupom.textContent.match(/R\$\s*(\d+)/)?.[1] || '');
+      copiarTexto(codigo, () => feedback(btnCupom, 'Copiado!'),
+                         () => feedback(btnCupom, 'Erro ao copiar'));
+      return;
+    }
+
+    // Clique fora: fecha dropdown
+    if (widget && !widget.contains(e.target)) {
+      const open = widget.querySelector('.dropdown-content.show, .dropdown-content[style*="display: block"]');
+      if (open) toggleDropdown(false);
+    }
+  });
+
+  // === OBSERVADOR para manter widget mesmo após re-render do carrinho ===
+  let rafScheduled = false;
+  function ensureMounted() {
+    if (rafScheduled) return;
+    rafScheduled = true;
+    requestAnimationFrame(() => {
+      rafScheduled = false;
+      mountWidget();
+    });
+  }
+
+  const observer = new MutationObserver(() => {
+    if (!document.getElementById(WIDGET_ID)) {
+      ensureMounted();
+    } else {
+      const anchor = findMountPoint();
+      const widget = document.getElementById(WIDGET_ID);
+      if (anchor && widget && widget.previousElementSibling !== anchor) {
+        anchor.insertAdjacentElement('afterend', widget);
+      }
+    }
+  });
+
+  observer.observe(document.documentElement || document.body, {
+    childList: true,
+    subtree: true
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ensureMounted);
+  } else {
+    ensureMounted();
+  }
+
+})();
+// ]]></script>
+</p>

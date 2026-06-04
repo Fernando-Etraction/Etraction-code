@@ -1,0 +1,40 @@
+<style>
+  .aviso-promocao-troca {
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #7c7c7c; /* vermelho discreto */
+      font-weight: 500;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // pega o "preço de" do produto principal
+      var precoDe = document.querySelector('.container-product .buy-area .preco-de');
+      if (!precoDe) return;
+
+      var texto = precoDe.textContent.replace(/\s+/g, ' ').toLowerCase();
+
+      // confere se realmente é um "de ... por"
+      if (texto.includes('de') && texto.includes('por')) {
+
+          // evita duplicar caso já tenha sido inserido
+          if (document.querySelector('.aviso-promocao-troca')) return;
+
+          var aviso = document.createElement('div');
+          aviso.className = 'aviso-promocao-troca';
+          aviso.textContent = 'Não aceitamos trocas e devoluções de peças da promoção';
+
+          // tenta inserir depois do botão de comprar
+          var areaComprar = document.querySelector('.quantidade-comprar');
+
+          if (areaComprar) {
+              areaComprar.insertAdjacentElement('beforebegin', aviso);
+          } else {
+              // fallback: insere logo abaixo do "de ... por"
+              precoDe.insertAdjacentElement('afterend', aviso);
+          }
+      }
+  });
+</script>

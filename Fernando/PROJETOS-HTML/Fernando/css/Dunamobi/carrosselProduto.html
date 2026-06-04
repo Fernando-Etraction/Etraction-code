@@ -1,0 +1,252 @@
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+  /* CSS novo já com prefixo dk- */
+  .dk-avaliacoes { padding: 40px 20px; background: #fff; border: 1px solid #e0e0e0; border-radius: 16px; max-width: 1420px; margin: 30px auto 0; width: 100%; box-sizing: border-box; }
+  @media (max-width: 480px) { .dk-avaliacoes { padding: 30px 15px; border-radius: 12px; } }
+
+  .dk-card { display: flex; flex-direction: column; min-height: 300px; padding: 24px; background-color: #ffffff; border-radius: 16px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .dk-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+
+  .dk-name { font-weight: 600; font-size: 1.1rem; color: #333; margin-bottom: 10px; }
+
+  .dk-rating { display: flex; align-items: center; margin-bottom: 10px; }
+  .dk-star { width: 18px; height: 18px; margin-right: 4px; display: inline-block; }
+  .dk-star svg { width: 100%; height: 100%; }
+  .dk-star--full path { fill: #fbb832; }
+  .dk-star--half path { fill: url(#gradiente-meia); }
+  .dk-star--empty path { fill: #ccc; }
+
+  .dk-meta { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+  .dk-text { font-size: 0.95rem; color: #555; line-height: 1.5; }
+
+  .dk-swiper { position: relative; padding: 0 40px; overflow: hidden; }
+
+  .dk-avaliacoes .swiper-button-prev,
+  .dk-avaliacoes .swiper-button-next {
+    top: 50%; transform: translateY(-50%); width: 32px; height: 32px;
+    background-color: rgba(255, 255, 255, 0.9); border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); color: #333; z-index: 10;
+  }
+  .dk-avaliacoes .swiper-button-next { right: 10px; }
+  .dk-avaliacoes .swiper-button-prev { left: 10px; }
+  .dk-avaliacoes .swiper-button-next::after,
+  .dk-avaliacoes .swiper-button-prev::after { font-size: 16px; font-weight: bold; }
+
+  @media (max-width: 768px) {
+    .dk-card { padding: 20px; }
+    .dk-text { font-size: 0.9rem; }
+  }
+
+  .dk-header { text-align: center; margin-bottom: 30px; }
+  .dk-title { font-size: 1.8rem; font-weight: 700; color: #222; margin-bottom: 10px; }
+  .dk-fixed-stars { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
+  .dk-subtitle { font-size: 1rem; color: #666; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  $(` 
+  <div class="dk-avaliacoes">
+    <div class="dk-header">
+      <h2 class="dk-title">Clientes de todo o Brasil aprovam a Dunamobi</h2>
+      <div class="dk-fixed-stars">
+        <div class="dk-star dk-star--full"><svg viewBox="0 0 14 14"><g transform="translate(-97 -342)"><path d="M107.65 355.814l-3.013-1.61-3.013 1.611a1.08 1.08 0 01-1.146-.077 1.1 1.1 0 01-.444-1.086l.575-3.41-2.437-2.416a1.106 1.106 0 01.607-1.883l3.369-.5 1.507-3.099a1.089 1.089 0 011.965 0l1.506 3.1 3.369.5a1.091 1.091 0 01.607 1.883l-2.438 2.414.575 3.41a1.1 1.1 0 01-1.078 1.215z"/></g></svg></div>
+        <div class="dk-star dk-star--full"><svg viewBox="0 0 14 14"><g transform="translate(-97 -342)"><path d="M107.65 355.814l-3.013-1.61-3.013 1.611a1.08 1.08 0 01-1.146-.077 1.1 1.1 0 01-.444-1.086l.575-3.41-2.437-2.416a1.106 1.106 0 01.607-1.883l3.369-.5 1.507-3.099a1.089 1.089 0 011.965 0l1.506 3.1 3.369.5a1.091 1.091 0 01.607 1.883l-2.438 2.414.575 3.41a1.1 1.1 0 01-1.078 1.215z"/></g></svg></div>
+        <div class="dk-star dk-star--full"><svg viewBox="0 0 14 14"><g transform="translate(-97 -342)"><path d="M107.65 355.814l-3.013-1.61-3.013 1.611a1.08 1.08 0 01-1.146-.077 1.1 1.1 0 01-.444-1.086l.575-3.41-2.437-2.416a1.106 1.106 0 01.607-1.883l3.369-.5 1.507-3.099a1.089 1.089 0 011.965 0l1.506 3.1 3.369.5a1.091 1.091 0 01.607 1.883l-2.438 2.414.575 3.41a1.1 1.1 0 01-1.078 1.215z"/></g></svg></div>
+        <div class="dk-star dk-star--full"><svg viewBox="0 0 14 14"><g transform="translate(-97 -342)"><path d="M107.65 355.814l-3.013-1.61-3.013 1.611a1.08 1.08 0 01-1.146-.077 1.1 1.1 0 01-.444-1.086l.575-3.41-2.437-2.416a1.106 1.106 0 01.607-1.883l3.369-.5 1.507-3.099a1.089 1.089 0 011.965 0l1.506 3.1 3.369.5a1.091 1.091 0 01.607 1.883l-2.438 2.414.575 3.41a1.1 1.1 0 01-1.078 1.215z"/></g></svg></div>
+        <div class="dk-star dk-star--full"><svg viewBox="0 0 14 14"><g transform="translate(-97 -342)"><path d="M107.65 355.814l-3.013-1.61-3.013 1.611a1.08 1.08 0 01-1.146-.077 1.1 1.1 0 01-.444-1.086l.575-3.41-2.437-2.416a1.106 1.106 0 01.607-1.883l3.369-.5 1.507-3.099a1.089 1.089 0 011.965 0l1.506 3.1 3.369.5a1.091 1.091 0 01.607 1.883l-2.438 2.414.575 3.41a1.1 1.1 0 01-1.078 1.215z"/></g></svg></div>
+      </div>
+      <p class="dk-subtitle">Qualidade, conforto e acabamento que fazem a diferença no seu ambiente</p>
+    </div>
+
+    <div class="swiper dk-swiper">
+      <div class="swiper-wrapper">
+        <!-- Slide 1 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">ADILSON DOS SANTOS</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Rio de Janeiro - RJ</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Design lindo e acabamento impecável. A cadeira chegou muito bem embalada e valorizou minha sala. Recomendo!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Gilson Eduardo Ferreira</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Umuarama - PR</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Produto fiel às fotos, madeira maciça com ótimo toque. Entrega dentro do prazo e atendimento atencioso no WhatsApp.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Cláudia Cristina Gonçalves Martins</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Teófilo Otoni - MG</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">A poltrona é super confortável e o tecido tem ótimo caimento. Coube perfeitamente na decoração.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Alan Luiz Costa</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Belo Horizonte - MG</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Ergonomia excelente e visual moderno. Superou as expectativas em conforto e acabamento.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Janaína Pereira de Souza Nunes</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Goiás - GO</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Adorei o conjunto! Materiais de ótima qualidade, veio muito bem protegido e sem avarias.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Carlos Alberto Souza Andrade</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Barreiras - BA</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Compra tranquila do início ao fim. Banco giratório robusto e muito bonito, veio exatamente como no site.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Vanda Dal Molin</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Canoas - RS</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Entrega rápida e produto premium. O acabamento em linho ficou perfeito no meu espaço.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Vanderli Pereira Bomfim</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">São Luís do Norte - GO</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Atendimento excelente e montagem simples. As cadeiras são firmes e muito confortáveis.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="swiper-slide dk-item">
+          <div class="dk-card">
+            <p class="dk-name">Nicholas Andrés Ferreira</p>
+            <div class="dk-rating" data-rating data-nota="5.0"></div>
+            <div class="dk-meta"><span class="dk-local">Santos - SP</span><br><span class="dk-date data-aval"></span></div>
+            <div class="dk-comment">
+              <p class="dk-text">Comprei a mesa cone: peça sólida, linda e muito bem finalizada. Voltarei a comprar.</p>
+            </div>
+          </div>
+        </div>
+        <!-- adicione os demais slides iguais ao modelo -->
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+  `).insertAfter('.container-product');
+
+  // Swiper
+  new Swiper(".dk-swiper", {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    autoplay: { delay: 2500, disableOnInteraction: false },
+    loop: true,
+    breakpoints: {
+      640: { slidesPerView: 2, spaceBetween: 20 },
+      768: { slidesPerView: 3, spaceBetween: 30 },
+      1024:{ slidesPerView: 4, spaceBetween: 40 },
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
+  // Datas randômicas
+  const hoje = new Date();
+  document.querySelectorAll('.data-aval').forEach(el => {
+    const diasAtras = Math.floor(Math.random() * 5);
+    const data = new Date(hoje);
+    data.setDate(hoje.getDate() - diasAtras);
+    el.textContent = data.toLocaleDateString('pt-BR');
+  });
+
+  // Geração das estrelas
+  gerarEstrelasFixasComSVG();
+});
+
+// função estrelas
+function gerarEstrelasFixasComSVG() {
+  const avaliacoes = document.querySelectorAll('[data-rating]');
+  const svgNamespace = "http://www.w3.org/2000/svg";
+
+  avaliacoes.forEach((el, index) => {
+    const nota = el.getAttribute('data-nota') || '5.0';
+    const notaFloat = parseFloat(nota);
+    const estrelasCheias = Math.floor(notaFloat);
+    const temMeia = notaFloat % 1 >= 0.25 && notaFloat % 1 <= 0.75;
+    const totalEstrelas = 5;
+    el.innerHTML = '';
+
+    for (let i = 0; i < totalEstrelas; i++) {
+      let classe = 'dk-star--empty';
+      if (i < estrelasCheias) { classe = 'dk-star--full'; }
+      else if (i === estrelasCheias && temMeia) { classe = 'dk-star--half'; }
+
+      const estrela = document.createElement('div');
+      estrela.classList.add('dk-star', classe);
+
+      const svg = document.createElementNS(svgNamespace, 'svg');
+      svg.setAttribute('viewBox', '0 0 14 14');
+      const g = document.createElementNS(svgNamespace, 'g');
+      g.setAttribute('transform', 'translate(-97 -342)');
+      const path = document.createElementNS(svgNamespace, 'path');
+      path.setAttribute('d',"M107.65 355.814l-3.013-1.61-3.013 1.611a1.08 1.08 0 01-1.146-.077l.575-3.41-2.437-2.416a1.106 1.106 0 01.607-1.883l3.369-.5 1.507-3.099a1.089 1.089 0 011.965 0l1.506 3.1 3.369.5a1.091 1.091 0 01.607 1.883l-2.438 2.414.575 3.41a1.1 1.1 0 01-1.078 1.215z");
+      path.setAttribute('fill', classe === 'dk-star--full' ? '#fbb832' : '#ccc');
+      g.appendChild(path); svg.appendChild(g); estrela.appendChild(svg);
+      el.appendChild(estrela);
+    }
+    const notaTexto = document.createElement('span');
+    notaTexto.textContent = nota;
+    notaTexto.style.marginLeft = '6px';
+    notaTexto.style.fontWeight = '500';
+    notaTexto.style.color = '#555';
+    el.appendChild(notaTexto);
+  });
+}
+</script>

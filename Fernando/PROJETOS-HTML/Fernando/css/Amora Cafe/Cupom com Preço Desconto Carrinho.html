@@ -1,0 +1,214 @@
+<p>
+<script>// <![CDATA[
+(function () {
+  const TAG = "[AUTO-CUPOM]";
+  const log  = (...a) => console.log(TAG, ...a);
+  const warn = (...a) => console.warn(TAG, ...a);
+
+  if (!location.href.includes("/checkout/cart")) return;
+
+  const LS_COUPON   = "mz_auto_coupon";
+  const LS_APPLY_ON = "mz_apply_coupon_on_cart";
+  const LS_TOKEN    = "mz_apply_coupon_token";
+  const SS_DONE     = "mz_last_apply_token_done";
+
+  const coupon  = (localStorage.getItem(LS_COUPON) || "").trim();
+  const applyOn = localStorage.getItem(LS_APPLY_ON) === "1";
+  const token   = (localStorage.getItem(LS_TOKEN) || "").trim();
+  const doneTok = sessionStorage.getItem(SS_DONE) || "";
+
+  log("Init", { applyOn, coupon, token, doneTok });
+
+  if (!applyOn || !coupon || !token) return;
+  if (token === doneTok) { log("Token já processado. Saindo."); return; }
+
+  // ===== confirm via request =====
+  let confirmedSuccess = false;
+
+  function looksLikeCouponRequest(url) {
+    const u = String(url || "").toLowerCase();
+    return u.includes("cupom") || u.includes("coupon") || u.includes("desconto") || u.includes("discount");
+  }
+
+  function responseLooksSuccess(text) {
+    const t = String(text || "").toLowerCase();
+    const okWords  = ["sucesso","aplicado","aplicada","validado","válido","valido","updated","success"];
+    const badWords = ["inválido","invalido","expirado","erro","error","não encontrado","nao encontrado","invalid","expired"];
+    const hasOk = okWords.some(w => t.includes(w));
+    const hasBad = badWords.some(w => t.includes(w));
+    return hasOk && !hasBad;
+  }
+
+  function stopAll(reason) {
+    log("🛑 STOP:", reason);
+    try { window.fetch = _fetch; } catch(e) {}
+    try {
+      XMLHttpRequest.prototype.open = _open;
+      XMLHttpRequest.prototype.send = _send;
+    } catch(e) {}
+    clearTimeout(stopTimer);
+  }
+
+  function confirmApplied(reason, payload) {
+    if (confirmedSuccess) return;
+    confirmedSuccess = true;
+
+    log("✅ CUPOM CONFIRMADO (request):", reason, payload || "");
+    sessionStorage.setItem(SS_DONE, token);
+    localStorage.removeItem(LS_APPLY_ON); // não aplica em entradas normais futuras
+
+    stopAll("confirmed");
+  }
+
+  // Patch fetch / xhr
+  const _fetch = window.fetch;
+  const _open = XMLHttpRequest.prototype.open;
+  const _send = XMLHttpRequest.prototype.send;
+
+  if (_fetch) {
+    window.fetch = async function (...args) {
+      const res = await _fetch.apply(this, args);
+      try {
+        const url = (args && args[0] && (args[0].url || args[0])) || "";
+        if (looksLikeCouponRequest(url)) {
+          const clone = res.clone();
+          let txt = "";
+          try { txt = await clone.text(); } catch(e) {}
+          log("fetch(cupom?)", url, "status:", res.status);
+          if (responseLooksSuccess(txt)) confirmApplied("fetch", { url, status: res.status });
+        }
+      } catch(e) {}
+      return res;
+    };
+  }
+
+  XMLHttpRequest.prototype.open = function (method, url) {
+    this.__mz_url = url;
+    this.__mz_method = method;
+    return _open.apply(this, arguments);
+  };
+
+  XMLHttpRequest.prototype.send = function () {
+    try {
+      this.addEventListener("load", function () {
+        try {
+          const url = this.__mz_url || "";
+          if (!looksLikeCouponRequest(url)) return;
+
+          const respText = this.responseText || "";
+          log("xhr(cupom?)", url, "status:", this.status);
+
+          if (responseLooksSuccess(respText)) confirmApplied("xhr", { url, status: this.status });
+        } catch(e) {}
+      });
+    } catch(e) {}
+    return _send.apply(this, arguments);
+  };
+
+  // ===== UI apply (ONCE) =====
+  const SEL = {
+    openerBox: ".acao-button.cupom-desconto",
+    openerLabel: 'label[for="cupom-desconto"]',
+    input: "#cupom-desconto",
+    btn: "button.aplica-desconto-buttons",
+  };
+
+  function setNativeValue(el, value) {
+    const proto = Object.getPrototypeOf(el);
+    const desc = Object.getOwnPropertyDescriptor(proto, "value");
+    if (desc && desc.set) desc.set.call(el, value);
+    else el.value = value;
+  }
+  function fireInput(el) {
+    el.dispatchEvent(new InputEvent("input", { bubbles: true, cancelable: true, inputType: "insertText" }));
+    el.dispatchEvent(new Event("change", { bubbles: true, cancelable: true }));
+  }
+  function key(el, type, keyName) {
+    el.dispatchEvent(new KeyboardEvent(type, {
+      bubbles: true, cancelable: true,
+      key: keyName, code: keyName === "Enter" ? "Enter" : "",
+      which: keyName === "Enter" ? 13 : 0,
+      keyCode: keyName === "Enter" ? 13 : 0
+    }));
+  }
+
+  function openCouponArea() {
+    const box = document.querySelector(SEL.openerBox);
+    const label = document.querySelector(SEL.openerLabel);
+    if (box) { box.click(); return true; }
+    if (label) { label.click(); return true; }
+    return false;
+  }
+
+  function applyOnce() {
+    const input = document.querySelector(SEL.input);
+    const btn = document.querySelector(SEL.btn);
+
+    if (!input || !btn) {
+      log("Sem input/botão ainda.", { input: !!input, btn: !!btn });
+      return false;
+    }
+
+    if (input.hasAttribute("readonly")) input.removeAttribute("readonly");
+
+    input.focus();
+    setNativeValue(input, "");
+    fireInput(input);
+
+    setNativeValue(input, coupon);
+    fireInput(input);
+
+    key(input, "keydown", "Enter");
+    key(input, "keyup", "Enter");
+    input.blur();
+
+    log("Aplicando 1x. value:", input.value, "| btn.disabled:", btn.disabled);
+    btn.click();
+
+    const form = btn.closest("form");
+    if (form) {
+      try { form.requestSubmit ? form.requestSubmit() : form.submit(); } catch(e) {}
+    }
+    return true;
+  }
+
+  // ===== RUN ONCE (com retry curto só para esperar render) =====
+  let inserted = false;
+  let tries = 0;
+  const maxTries = 10;
+
+  const onceInterval = setInterval(() => {
+    tries++;
+
+    if (inserted) {
+      clearInterval(onceInterval);
+      return;
+    }
+
+    openCouponArea();
+    const ok = applyOnce();
+
+    if (ok) {
+      inserted = true;
+      clearInterval(onceInterval);
+      log("✅ Inserido/aplicado (clique) UMA vez. Agora só aguardando confirmação via request...");
+    }
+
+    if (tries >= maxTries) {
+      clearInterval(onceInterval);
+      warn("Não consegui inserir (input/botão não apareceram). Vou parar.");
+      stopAll("no-elements");
+    }
+  }, 500);
+
+  // Se não confirmar em X segundos, para de vez (não fica reinserindo)
+  const stopTimer = setTimeout(() => {
+    if (!confirmedSuccess) {
+      warn("Sem confirmação via request após timeout. Parando (sem loop).");
+      stopAll("timeout-no-confirm");
+    }
+  }, 12000);
+
+})();
+// ]]></script>
+</p>

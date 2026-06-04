@@ -1,0 +1,148 @@
+<style>
+    .postagens-content-ctn .categoria-postagem h3 {
+    color: #ffffff;
+}
+.postagens-content-ctn .data-postagem .text {
+    color: #ffffff;
+}
+.postagens-content-ctn .postagem .title h2 {
+    color: #ffffff;
+}
+.postagens-inferior .post-ctn .content-post-blog h2 {
+    color: #ffffff;
+}
+.postagens-inferior .post-ctn .resumo-postagem {
+   
+    color: #ffffff;
+}
+.lateral-info-posts .title-ctn-blog span {
+    color: #ffffff;
+}
+a {
+    color: #ffffff;
+}
+.lateral-info-posts .title-ctn-blog:after {
+    background: #ffffff;
+}
+.postagens-inferior .post-ctn .ver-post {
+    color: #ffffff;
+}
+.postagens-inferior .post-ctn .data-comments-categoria-post .text {
+   
+    color: #ffffff;
+}
+.postagens-inferior .post-ctn .categoria-postagem .text {
+    color: #ffffff;
+}
+.postagens-inferior .post-ctn .icon-view > svg path {
+    fill: #ffffff;
+}
+.paginacao, .pesquisa-paginacao {
+    height: 53px;
+    background: #000000;
+    text-align: center;
+    margin-top: 26px;
+}
+.paginacao .paginator li:not(.dotted):hover, .paginacao .paginator li:not(.dotted).selected, .pesquisa-paginacao .paginator li:not(.dotted):hover, .pesquisa-paginacao .paginator li:not(.dotted).selected
+ {
+    border: 2px solid #ffffff;
+}
+.paginacao .paginator li:not(.dotted):hover.selected a, .paginacao .paginator li:not(.dotted).selected.selected a, .pesquisa-paginacao .paginator li:not(.dotted):hover.selected a, .pesquisa-paginacao .paginator li:not(.dotted).selected.selected a {
+    color: #ffffff;
+    background: black;
+    border: 1px solid white;
+    border-color: white;
+}
+.device-desktop{
+    background-color: #000000;
+}
+</style>
+
+<!-- acima o fundo do blog preto  -->
+
+    
+<!-- banner divididos tarefa 2-->
+<style>
+    .dynamic-banner.full img {
+    width: 70%;
+}
+.dynamic-banner.full {
+    padding: 0;
+    width: 90%;
+}
+</style>
+<br>
+
+<!-- carrosel preto na home tarefa 1 -->
+
+<style>
+    .destaques-do-blog .content .title h2 {
+    color: #fff;
+}
+.destaques-do-blog .categoria-postagem h3 span {
+    border-bottom: 2px solid #fff;
+}
+.destaques-do-blog .content .categoria-postagem h3 {
+    color: #fff !important;
+}
+.destaques-do-blog .dados-autor-post .data-views-postagem .text {
+    
+    color: #ffffff;
+}
+.destaques-do-blog .image-wrapper {
+    position: relative;
+    background: black;
+}
+.destaques-do-blog .content {
+    padding: 13px 20px;
+    background: black;
+}
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const textos = [
+    "Batedeiras <span> - saiba mais</span>",
+    "Máquinas de café <span> - saiba mais</span>",
+    "Geladeiras coloridas <span> - saiba mais</span>"
+  ];
+
+  const figures = document.querySelectorAll(".swiper-slide figure");
+
+  figures.forEach((figure, index) => {
+    if (textos[index]) {
+      const legenda = document.createElement("p");
+      legenda.innerHTML = textos[index];
+      legenda.style.textAlign = "center";
+      legenda.style.fontWeight = "bold";
+      legenda.querySelector("span").style.color = "#007bff"; // cor do "saiba mais"
+      legenda.querySelector("span").style.fontWeight = "normal";
+      figure.appendChild(legenda);
+    }
+  });
+});
+</script>
+
+
+<!--  troca de texto categorias -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const spans = document.querySelectorAll(".bg-title span");
+
+  spans.forEach(span => {
+    if (span.textContent.trim() === "Compre por Categoria") {
+      span.innerHTML = `
+        <svg width="64" height="32" viewBox="0 0 64 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.73486 31.49C13.0841 31.49 16.6099 27.9642 16.6099 23.615C16.6099 19.2657 13.0841 15.74 8.73486 15.74C4.38562 15.74 0.859863 19.2657 0.859863 23.615C0.859863 27.9642 4.38562 31.49 8.73486 31.49Z" fill="#F0F0F0"/>
+<path d="M24.4849 15.74C28.8341 15.74 32.3599 12.2142 32.3599 7.86499C32.3599 3.51575 28.8341 -0.0100098 24.4849 -0.0100098C20.1356 -0.0100098 16.6099 3.51575 16.6099 7.86499C16.6099 12.2142 20.1356 15.74 24.4849 15.74Z" fill="#F0F0F0"/>
+<path d="M24.4849 31.49C28.8341 31.49 32.3599 27.9642 32.3599 23.615C32.3599 19.2657 28.8341 15.74 24.4849 15.74C20.1356 15.74 16.6099 19.2657 16.6099 23.615C16.6099 27.9642 20.1356 31.49 24.4849 31.49Z" fill="#F0F0F0"/>
+<path d="M40.2349 15.74C44.5841 15.74 48.1099 12.2142 48.1099 7.86499C48.1099 3.51575 44.5841 -0.0100098 40.2349 -0.0100098C35.8856 -0.0100098 32.3599 3.51575 32.3599 7.86499C32.3599 12.2142 35.8856 15.74 40.2349 15.74Z" fill="#F0F0F0"/>
+<path d="M40.2349 31.49C44.5841 31.49 48.1099 27.9642 48.1099 23.615C48.1099 19.2657 44.5841 15.74 40.2349 15.74C35.8856 15.74 32.3599 19.2657 32.3599 23.615C32.3599 27.9642 35.8856 31.49 40.2349 31.49Z" fill="#F0F0F0"/>
+<path d="M55.9849 15.74C60.3341 15.74 63.8599 12.2142 63.8599 7.86499C63.8599 3.51575 60.3341 -0.0100098 55.9849 -0.0100098C51.6356 -0.0100098 48.1099 3.51575 48.1099 7.86499C48.1099 12.2142 51.6356 15.74 55.9849 15.74Z" fill="#F0F0F0"/>
+</svg>
+        Categorias
+      `;
+    }
+  });
+});
+</script>
+

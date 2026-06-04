@@ -1,0 +1,180 @@
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const target = document.querySelector(".values-area");
+  if (!target) return console.warn("Elemento .values-area não encontrado.");
+
+  // === Cria o container da promoção ===
+  const promoContainer = document.createElement("div");
+  promoContainer.innerHTML = `
+    <div class="promo-container">
+      <div class="promo-row">
+        <h2 class="promo-title">Aproveite a promoção relâmpago!</h2>
+
+        <div class="timer-box" aria-live="polite">
+          <div><span id="hours">00</span><small>h</small></div>
+          <div><span id="minutes">00</span><small>min</small></div>
+          <div><span id="seconds">00</span><small>seg</small></div>
+        </div>
+
+        </div>
+        <div class="promo-cupom">
+          <span class="cupom-label">Use o cupom:</span>
+          <button class="cupom-copiar" id="copiarCupom">BLACK5</button>
+        </div>
+    </div>
+  `;
+
+  // === Insere o bloco após o elemento .values-area ===
+  target.insertAdjacentElement("afterend", promoContainer);
+
+  // === CSS injetado ===
+  const style = document.createElement("style");
+  style.textContent = `
+    :root {
+      --brand: #000F47;
+      --ink: #fff;
+      --radius: 12px;
+      --highlight: #F6ED39;
+    }
+
+    .promo-container {
+      background: #8C518C;
+      color: var(--ink);
+      padding: 15px 22px;
+      border-radius: var(--radius);
+      font-family: "Poppins", system-ui, sans-serif;
+      margin-top: 24px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .promo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: px;
+    }
+
+    .promo-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .timer-box {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .timer-box div {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 4px 10px;
+      min-width: 40px;
+      text-align: center;
+    }
+
+    .timer-box span {
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .timer-box small {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .promo-cupom {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 6px;
+      padding: 8px;
+      white-space: nowrap;
+      margin-top:10px;
+    }
+
+    .cupom-label {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .cupom-codigo {
+      font-weight: 700;
+      color: var(--highlight);
+      background: rgba(255,255,255,0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+
+    .cupom-copiar {
+      background: var(--highlight);
+      color: var(--brand);
+      border: none;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .cupom-copiar:hover {
+      background: #fff04d;
+    }
+
+    @media (max-width: 768px) {
+      .promo-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      .promo-cupom { justify-content: center; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // === TIMER DINÂMICO (horas / min / seg) ===
+  const endDate = new Date("2025-11-10T23:59:59").getTime();
+
+  function updateTimer() {
+    const now = Date.now();
+    const diff = endDate - now;
+
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const box = document.querySelector(".timer-box");
+
+    if (!hoursEl || !minutesEl || !secondsEl || !box) return;
+
+    if (diff <= 0) {
+      box.innerHTML = '<div style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.12)">Promoção encerrada!</div>';
+      return;
+    }
+
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    hoursEl.textContent = String(hours).padStart(2, "0");
+    minutesEl.textContent = String(minutes).padStart(2, "0");
+    secondsEl.textContent = String(seconds).padStart(2, "0");
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+
+  // === FUNÇÃO COPIAR CUPOM ===
+  const copyButton = document.getElementById("copiarCupom");
+  const cupomText = document.getElementById("cupomCodigo");
+
+  copyButton?.addEventListener("click", () => {
+    navigator.clipboard.writeText(cupomText.textContent.trim());
+    copyButton.textContent = "Copiado!";
+    setTimeout(() => (copyButton.textContent = "Copiar"), 2000);
+  });
+});
+</script>

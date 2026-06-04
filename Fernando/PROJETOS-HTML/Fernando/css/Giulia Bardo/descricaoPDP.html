@@ -1,0 +1,249 @@
+<section class="gb-caracteristicas" role="region" aria-labelledby="gb-caracteristicas-title">
+  <style>
+
+    .title-ctn h2.bg-title{
+      display: none;
+    }
+    /* ===== Bloco de características – apenas preto e branco ===== */
+    .gb-caracteristicas {
+      --gb-bg: #fff;
+      --gb-ink: #000;
+      --gb-muted: rgba(0, 0, 0, 0.66);
+      --gb-line: rgba(0, 0, 0, 0.12);
+      --gb-elev: rgba(0, 0, 0, 0.06);
+      --gb-radius: 16px;
+      background: var(--gb-bg);
+      color: var(--gb-ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    }
+
+    .gb-caracteristicas .gb-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 16px 32px;
+    }
+
+    /* Títulos */
+    .gb-caracteristicas .gb-title {
+      color: #292929;
+      text-align: center;
+      font-size: clamp(22px, 2vw + 14px, 30px);
+      font-weight: 750;
+      margin: 0 0 18px;
+      background-color: rgba(0,0,0,0.04);
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 0.5px solid rgba(0,0,0,0.18);
+    }
+
+    .gb-caracteristicas .gb-subtitle {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0 0 12px;
+      text-transform: none;
+    }
+
+    /* Grid de conteúdo */
+    .gb-caracteristicas .gb-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .gb-caracteristicas .gb-grid {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 20px;
+      }
+    }
+
+    /* Cards */
+    .gb-caracteristicas .gb-card {
+      background: #fff;
+      border: 1px solid var(--gb-line);
+      border-radius: var(--gb-radius);
+      box-shadow: 0 10px 30px var(--gb-elev);
+      padding: 16px;
+    }
+
+    /* Lista de detalhes */
+    .gb-caracteristicas .gb-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .gb-caracteristicas .gb-list-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      align-items: baseline;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px dashed var(--gb-line);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.02);
+    }
+    .gb-caracteristicas .gb-list-label { font-weight: 700; color: var(--gb-ink); }
+    .gb-caracteristicas .gb-list-value { color: var(--gb-muted); }
+
+    /* Texto da descrição */
+    .gb-caracteristicas .gb-text { font-size: 0.985rem; line-height: 1.65; color: var(--gb-muted); }
+    .gb-caracteristicas .gb-text p { margin: 0 0 12px; }
+    .gb-caracteristicas .gb-text p:last-child { margin-bottom: 0; }
+
+    /* ====== Destaques (imagem à esquerda, texto à direita) – P&B ====== */
+    .gb-caracteristicas .gb-featurelist {
+      margin-top: 20px;
+      display: grid;
+      gap: 16px;
+    }
+    .gb-caracteristicas .gb-featureitem {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      background: #fff;
+      border: 1px solid var(--gb-line);
+      border-radius: var(--gb-radius);
+      box-shadow: 0 10px 30px var(--gb-elev);
+      padding: 16px;
+      align-items: center;
+    }
+    .gb-caracteristicas .gb-featuremedia {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.04);
+    }
+    .gb-caracteristicas .gb-featuremedia img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gb-caracteristicas .gb-featurebody {
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .gb-caracteristicas .gb-featuretitle {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 750;
+      color: var(--gb-ink);
+    }
+    .gb-caracteristicas .gb-featuretext {
+      margin: 0;
+      font-size: .975rem;
+      line-height: 1.6;
+      color: var(--gb-muted);
+    }
+    @media (min-width: 768px) {
+      .gb-caracteristicas .gb-featureitem {
+        grid-template-columns: 1.1fr 1.4fr; /* imagem : texto */
+        gap: 18px;
+        padding: 18px;
+      }
+      .gb-caracteristicas .gb-featurebody { align-self: center; }
+    }
+
+    /* Acessibilidade extra (texto oculto visualmente) */
+    .gb-visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap; border: 0; padding: 0; margin: -1px;
+    }
+  </style>
+
+  <div class="gb-wrap">
+    <h2 id="gb-caracteristicas-title" class="gb-title">Descrição do Produto</h2>
+
+    <div class="gb-grid">
+      <section class="gb-card gb-card--details" aria-labelledby="gb-detalhes-title">
+        <h3 id="gb-detalhes-title" class="gb-subtitle">Detalhes do Produto</h3>
+        <ul class="gb-list">
+          <li class="gb-list-item">
+            <span class="gb-list-label">Tipo:</span>
+            <span class="gb-list-value">Sandália plataforma</span>
+          </li>
+          <li class="gb-list-item">
+            <span class="gb-list-label">Material:</span>
+            <span class="gb-list-value">Camurça</span>
+          </li>
+          <li class="gb-list-item">
+            <span class="gb-list-label">Altura do salto:</span>
+            <span class="gb-list-value">11&nbsp;cm (traseiro) / 4&nbsp;cm (plataforma frontal)</span>
+          </li>
+          <li class="gb-list-item">
+            <span class="gb-list-label">Forma:</span>
+            <span class="gb-list-value">Pequena — peça um número maior que o habitual</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="gb-card gb-card--desc" aria-labelledby="gb-descricao-title">
+        <h3 id="gb-descricao-title" class="gb-subtitle">Por que apostar?</h3>
+        <div class="gb-text">
+          <p>
+            A sandália aposta no acabamento acamurçado e no tramado da tira frontal, que insere um toque
+            despojado e elegante nas produções. É a escolha ideal para as mais diversas ocasiões, indo do
+            office casual ao passeio.
+          </p>
+          <p>
+            <strong>Descrição:</strong> Sandália plataforma em camurça, com tira frontal média tramada.
+            Possui tiras que saem das laterais, cruzam na parte traseira, contornam o tornozelo e
+            fecham em fivela lateral. Conta com palmilha acolchoada e inscrição do nome da marca.
+            Confortável e moderna, é perfeita para compor looks despojados com estilo.
+          </p>
+          <p>
+            <strong>Atenção à forma:</strong> modelo com forma pequena — recomendamos pedir uma numeração maior.
+            Exemplo: se calça 35, escolha 36.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- DESTAQUES -->
+    <section class="gb-featurelist" aria-label="Destaques do Produto">
+      <!-- Item 1 -->
+      <article class="gb-featureitem">
+        <div class="gb-featuremedia">
+          <img
+            src="https://giuliabardo.cdn.magazord.com.br/img/2025/08/produto/5591/134.jpg"
+            alt="Sandália plataforma em camurça — vista lateral com tira frontal tramada"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="gb-featurebody">
+          <h3 class="gb-featuretitle">Plataforma estável e confortável</h3>
+          <p class="gb-featuretext">
+            Alturas proporcionais (11&nbsp;cm atrás / 4&nbsp;cm na frente) para ganhar
+            alguns centímetros mantendo o equilíbrio e o conforto ao caminhar.
+          </p>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="gb-featureitem">
+        <div class="gb-featurebody">
+          <h3 class="gb-featuretitle">Acabamento em camurça com tramado</h3>
+          <p class="gb-featuretext">
+            Textura acamurçada e tira frontal tramada elevam o visual do casual ao evento,
+            enquanto as tiras com fivela no tornozelo garantem ajuste seguro.
+          </p>
+        </div>
+        <div class="gb-featuremedia">
+          <img
+            src="https://giuliabardo.cdn.magazord.com.br/img/2025/08/produto/5598/188.jpg"
+            alt="Detalhe do tramado frontal e tiras com fivela na sandália plataforma"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </article>
+    </section>
+  </div>
+</section>

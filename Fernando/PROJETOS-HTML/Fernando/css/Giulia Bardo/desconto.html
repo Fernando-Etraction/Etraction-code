@@ -1,0 +1,87 @@
+<script type="text/javascript">
+function economize() {
+    try {
+        const precoAntigoEl = $('.preco-de .line-through');
+        const precoAtualEl = $('.values .full-price');
+        if (precoAntigoEl.length && precoAtualEl.length) {
+            let precoAntigoStr = precoAntigoEl.text().trim();
+            let precoAtualStr = precoAtualEl.text().trim();
+            const precoAntigo = parsePrice(precoAntigoStr);
+            const precoAtual = parsePrice(precoAtualStr);
+            console.log('PreÃ§o antigo:', precoAntigo);
+            console.log('PreÃ§o atual:', precoAtual);
+
+            if (!isNaN(precoAntigo) && !isNaN(precoAtual) && precoAntigo > precoAtual) {
+                const economia = (precoAntigo - precoAtual).toFixed(2).replace('.', ',');
+                
+                const economiaHtml = `
+                    <div class="economize" style="
+                        color:#059669;
+                        display:flex;
+                        flex-direction: column;
+                        align-items:flex-start;
+                        gap: 4px;
+                        margin-top:10px;
+                        background-color:#f0fdf4;
+                        padding:10px 15px;
+                        border-radius:10px;
+                        font-weight: 500;
+                        font-size: 0.95rem;
+                    ">
+                       <span style="color:#16a34a; font-weight:bold; font-size: 1.05rem;">Promo Outlet - Últimas unidades</span>
+                       <span>Você economiza <strong>R$ ${economia}</strong></span>
+                    </div>
+                `;
+                
+                $('.form-pag-link').after(economiaHtml);
+
+                iniciarContador();
+            }
+        } else {
+            console.log('Elementos de preÃ§o nÃ£o encontrados.');
+        }
+    } catch (e) {
+        console.error('Erro na funÃ§Ã£o economize:', e);
+    }
+}
+
+function parsePrice(text) {
+    if (!text) return NaN;
+    return parseFloat(
+        text
+            .replace('R$', '')
+            .replace(/\./g, '')
+            .replace(',', '.')
+            .replace(/\s/g, '')
+    );
+}
+
+function iniciarContador() {
+    const fim = new Date('2025-08-03T23:59:59').getTime();
+    const timerEl = document.getElementById('timer-promocao');
+
+    function atualizar() {
+        const agora = new Date().getTime();
+        const restante = fim - agora;
+
+        if (restante <= 0) {
+            timerEl.textContent = 'PromoÃ§Ã£o encerrada';
+            return;
+        }
+
+        const d = Math.floor(restante / (1000 * 60 * 60 * 24));
+        const h = Math.floor((restante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((restante % (1000 * 60)) / 1000);
+
+        timerEl.textContent = `Termina em: ${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+    }
+
+    atualizar();
+    setInterval(atualizar, 1000);
+}
+
+setTimeout(function(){
+    economize();
+}, 500);
+</script>

@@ -1,0 +1,262 @@
+<!-- Swiper.js -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<!-- CSS -->
+<style><!--
+.checkout-banner-container {
+    padding: 20px 0;
+  }
+
+  .checkout-banner-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  .swiper.texto-banner {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 16px;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+
+  .product-card {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .product-image img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    gap: 16px;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .product-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    text-align: left;
+  }
+
+  .price-container {
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+    line-height: 1.3;
+  }
+
+  .price-boleto {
+    color: #000;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .botao-prod {
+    background-color: #28a745;
+    color: #fff;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .botao-prod:hover {
+    background-color: #218838;
+  }
+
+  @media (max-width: 768px) {
+    .product-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .card-body {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .botao-prod {
+      align-self: stretch;
+      text-align: center;
+      width: 100%;
+    }
+  }
+--></style>
+<!-- JavaScript -->
+<script>// <![CDATA[
+$(document).ready(function () {
+    initTopBannerEnch();
+
+    $(document).ajaxComplete(function (event, xhr, settings) {
+      if (
+        [
+          "/checkout/cart?operation=deleteItem",
+          "/checkout/cart?operation=adicionaItem",
+          "/checkout/cart?operation=removeItem",
+        ].includes(settings.url)
+      ) {
+        initTopBannerEnch();
+      }
+    });
+
+    function initTopBannerEnch() {
+      const divCompleta = `
+    <div class="checkout-banner-container">
+  <div class="checkout-banner-title">
+    Garanta também um item extra para sua compra!
+  </div>
+
+  <div class="swiper texto-banner">
+    <div class="swiper-wrapper">
+
+      <!-- Produto - Soquete Branca -->
+      <div class="swiper-slide">
+        <div class="product-card">
+          <div class="card-body">
+            <div class="product-image">
+              <img src="https://blacktarg.cdn.magazord.com.br/img/2025/04/produto/7824/preta-0001-agrupar-8-0000-remover-copiar-5.png" alt="Meia Soquete Branca">
+            </div>
+            <div class="product-info">
+              <div class="product-name">Par Meia Soquete Branca Médio</div>
+              <div class="price-container">
+                <span class="price-boleto">R$ 29,90</span>
+              </div>
+            </div>
+          </div>
+          <button class="botao-prod" data-sku="7900103038869">Adicionar</button>
+        </div>
+      </div>
+
+      <!-- Produto - Chaveiro White Gorilla -->
+      <div class="swiper-slide">
+        <div class="product-card">
+          <div class="card-body">
+            <div class="product-image">
+              <img src="https://blacktarg.cdn.magazord.com.br/img/2025/05/produto/7849/chaveiro-para-site-0001-preto-e-branco-1.png" alt="Chaveiro White Gorilla">
+            </div>
+            <div class="product-info">
+              <div class="product-name">Chaveiro White Gorilla</div>
+              <div class="price-container">
+                <span class="price-boleto">R$ 14,99</span>
+              </div>
+            </div>
+          </div>
+          <button class="botao-prod" data-sku="7900103038982">Adicionar</button>
+        </div>
+      </div>
+
+      <!-- Produto - Chaveiro Milk Carton -->
+      <div class="swiper-slide">
+        <div class="product-card">
+          <div class="card-body">
+            <div class="product-image">
+              <img src="https://blacktarg.cdn.magazord.com.br/img/2025/05/produto/7845/chaveiro-para-site-0004-remover-macnhas.png" alt="Chaveiro Milk Carton">
+            </div>
+            <div class="product-info">
+              <div class="product-name">Chaveiro Milk Carton Classifieds</div>
+              <div class="price-container">
+                <span class="price-boleto">R$ 14,99</span>
+              </div>
+            </div>
+          </div>
+          <button class="botao-prod" data-sku="7900103039026">Adicionar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>`;
+
+      if ($("#cart-area .checkout-banner-container").length === 0) {
+        $("#resumo-compra").append(divCompleta);
+      }
+
+      new Swiper(".texto-banner.swiper", {
+        breakpoints: {
+          0: { slidesPerView: 1 },
+          520: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 2 },
+          1400: { slidesPerView: 2 },
+        },
+      });
+
+      $(document)
+        .off("click", ".botao-prod")
+        .on("click", ".botao-prod", function (event) {
+          event.preventDefault();
+          const sku = $(this).data("sku");
+          if (!sku) {
+            alert("Produto sem SKU definido.");
+            return;
+          }
+
+          if (
+            typeof Zord !== "undefined" &&
+            Zord.checkout &&
+            typeof Zord.checkout.addCart === "function"
+          ) {
+            Zord.checkout.addCart(sku, 1, 1, 0, function () {
+              Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+            });
+          } else {
+            console.error("Zord.checkout.addCart não está disponível.");
+          }
+        });
+    }
+
+    // Garante reinserção no carrinho se sumir
+    window.addEventListener("load", () => {
+      const prodshow = $(".checkout-banner-container");
+      if ($("#cart-area .checkout-banner-container").length == 0) {
+        $(".lista-carrinho").after(prodshow);
+      }
+
+      let elem = document.querySelector("#main-cart-area");
+      let observer = new MutationObserver(() => {
+        if ($("#cart-area .checkout-banner-container").length == 0) {
+          $(".lista-carrinho").after(prodshow);
+        }
+      });
+
+      if (elem) {
+        observer.observe(elem, {
+          childList: true,
+        });
+      }
+    });
+  });
+// ]]></script>

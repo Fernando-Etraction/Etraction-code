@@ -1,0 +1,465 @@
+<style>
+  @media (min-width: 600px) {
+    .ofertas-banners-produtos {
+      display: none;
+    }
+  }
+  @media (max-width: 600px) {
+    .banner-topo-pesquisa {
+      display: none;
+    }
+  }
+</style>
+
+<style>
+  /* ====== WRAPPER ====== */
+  #filtros-tamanho-cor-wrapper {
+    margin: 10px auto 24px;
+    max-width: 1200px;
+  }
+  .exibir-mais-conteudo-adicional {
+    display: none !important;
+  }
+
+  /* ====== TÍTULO ====== */
+  .titulo-filtros {
+    font-weight: 700;
+    text-align: center;
+    margin: 10px 0 12px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ====== GRID BASE ====== */
+  .btns-estacoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .btns-estacoes.tamanhos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(56px, 1fr));
+    gap: 10px;
+  }
+
+  /* ====== TAMANHOS ====== */
+  .btn-estacao {
+    background: transparent;
+    border-radius: 100px;
+    cursor: pointer;
+    padding: 0;
+    color: #000;
+    text-align: center;
+    transition: 0.2s;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .btn-estacao:hover {
+    background: rgba(40, 40, 40, 0.011);
+  }
+  .btn-estacao a {
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    position: relative;
+    padding: 0;
+  }
+  /* padding vai no span .tx para que as barras fiquem relativas ao texto */
+  .btn-estacao a .tx {
+    position: relative;
+    display: inline-block;
+    padding: 8px 24px;
+    --bar-gap: 0.5em; /* distância texto ↔ barra */
+    --bar-w: 2px; /* largura da barra */
+    --bar-h: 1.25em; /* altura da barra */
+  }
+
+  /* Removemos as barras antigas do <a> */
+  .btn-estacao.is-active a::before,
+  .btn-estacao.is-active a::after {
+    content: none;
+  }
+
+  /* Barras novas: presas às bordas do texto, gap constante */
+  .btn-estacao.is-active a .tx::before,
+  .btn-estacao.is-active a .tx::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--bar-w);
+    height: var(--bar-h);
+    background: #111;
+    border-radius: 1px;
+  }
+  .btn-estacao.is-active a .tx::before {
+    right: calc(62% + var(--bar-gap));
+  }
+  .btn-estacao.is-active a .tx::after {
+    left: calc(62% + var(--bar-gap));
+  }
+  .btn-estacao.is-active a {
+    font-weight: 600;
+  }
+
+  /* ====== CORES ====== */
+  .btns-cores {
+    display: none !important;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 8px;
+    min-height: 48px;
+    visibility: visible;
+  }
+  .cor-swatch {
+    --c: #ddd;
+    box-sizing: border-box;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.05s;
+    position: relative;
+    user-select: none;
+  }
+  .cor-swatch:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+  }
+  .cor-swatch.is-active {
+    outline: 2px solid var(--cor-base-light, #111);
+    outline-offset: 0;
+  }
+  .cor-swatch::after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--c) !important;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  /* ====== AÇÕES ====== */
+  .filtros-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .btn-limpar-filtros {
+    appearance: none;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.05s;
+  }
+  .btn-limpar-filtros:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
+  }
+
+  /* ====== MOBILE ====== */
+  @media (max-width: 780px) {
+    .btns-estacoes.tamanhos {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .btn-estacao {
+      flex: 0 1 56px;
+      display: flex;
+      justify-content: center;
+      border: none;
+      border: 0.5px solid rgb(158, 158, 158);
+      padding: 0px 3px;;
+    }
+    .btn-estacao a .tx {
+      padding: 6px 10px;
+      --bar-gap: 0.4em;
+    } /* gap um pouco menor no mobile */
+  }
+</style>
+
+
+<div id="filtros-tamanho-cor-wrapper" data-moved="0">
+  <div class="btns-estacoes categorias estacoes" style="display: none"></div>
+  <div class="btns-estacoes categorias genero" style="display: none"></div>
+
+  <!-- TAMANHOS -->
+   
+<h3 class="titulo-filtros" style="display: block; color: #000; font-size: 18px;">Qual seu tamanho? </h3>
+  <div class="btns-estacoes tamanhos">
+    <div class="btn-estacao">
+      <a href="derivacao=4" data-param="derivacao" data-value="4">PP</a>
+    </div>
+    <div class="btn-estacao">
+      <a href="derivacao=5" data-param="derivacao" data-value="5">P</a>
+    </div>
+    <div class="btn-estacao">
+      <a href="derivacao=6" data-param="derivacao" data-value="6">M</a>
+    </div>
+    <div class="btn-estacao">
+      <a href="derivacao=7" data-param="derivacao" data-value="7">G</a>
+    </div>
+    <div class="btn-estacao">
+      <a href="derivacao=67" data-param="derivacao" data-value="67">G1</a>
+    </div>
+    <div class="btn-estacao">
+      <a href="derivacao=68" data-param="derivacao" data-value="68">G2</a>
+    </div>
+    <div class="btn-estacao">
+      <a href="derivacao=69" data-param="derivacao" data-value="69">G3</a>
+    </div>
+  </div>
+
+  <div class="btns-cores">
+    <div
+      class="cor-swatch"
+      style="--c: #000000"
+      title="Preto"
+      data-param="cor"
+      data-value="101"
+      data-slug="preto"
+    ></div>
+    <div
+      class="cor-swatch"
+      style="--c: #ffffff"
+      title="Branco"
+      data-param="cor"
+      data-value="102"
+      data-slug="branco"
+    ></div>
+    <div
+      class="cor-swatch"
+      style="--c: #1e5aaf"
+      title="Azul"
+      data-param="cor"
+      data-value="103"
+      data-slug="azul"
+    ></div>
+    <div
+      class="cor-swatch"
+      style="--c: #f5f5dc"
+      title="Bege"
+      data-param="cor"
+      data-value="104"
+      data-slug="bege"
+    ></div>
+    <div
+      class="cor-swatch"
+      style="--c: #2fa84f"
+      title="Verde"
+      data-param="cor"
+      data-value="105"
+      data-slug="verde"
+    ></div>
+    <div
+      class="cor-swatch"
+      style="--c: #805a46"
+      title="Marrom"
+      data-param="cor"
+      data-value="106"
+      data-slug="marrom"
+    ></div>
+  </div>
+
+  <div class="filtros-actions">
+    <button class="btn-limpar-filtros" hidden type="button">
+      Limpar filtros
+    </button>
+  </div>
+
+  <script>
+    // <![CDATA[
+    (function () {
+      var $ = function (sel, ctx) {
+        return (ctx || document).querySelector(sel);
+      };
+      var $$ = function (sel, ctx) {
+        return Array.prototype.slice.call(
+          (ctx || document).querySelectorAll(sel)
+        );
+      };
+
+      /* === Envolve o texto dos tamanhos em <span class="tx"> para as barras === */
+      $$(".btn-estacao > a").forEach(function (a) {
+        if (!a.querySelector(".tx")) {
+          var txt = a.textContent.trim();
+          a.textContent = "";
+          var span = document.createElement("span");
+          span.className = "tx";
+          span.textContent = txt;
+          a.appendChild(span);
+        }
+      });
+
+      function getParams() {
+        var url = new URL(window.location.href);
+        var params = Object.fromEntries(url.searchParams.entries());
+        var carList = url.searchParams.getAll("caracteristica");
+        return { url, params, carList };
+      }
+
+      function setParamAndGo(param, value, slug) {
+        var o = getParams(),
+          url = o.url;
+        if (param === "cor") {
+          var chosen = slug && slug.trim() ? slug.trim() : String(value).trim();
+          var all = url.searchParams.getAll("caracteristica");
+          url.searchParams.delete("caracteristica");
+          all.forEach(function (v) {
+            if (!String(v).toLowerCase().startsWith("cor:")) {
+              url.searchParams.append("caracteristica", v);
+            }
+          });
+          url.searchParams.append("caracteristica", "cor:" + chosen);
+        } else {
+          url.searchParams.set(param, value);
+        }
+        window.location.href = url.toString();
+      }
+
+      function getActiveColorFromUrl() {
+        var o = getParams(),
+          params = o.params,
+          carList = o.carList;
+        var found = (carList || []).find(function (v) {
+          return String(v).toLowerCase().startsWith("cor:");
+        });
+        if (found) return found.split(":")[1];
+        if (params.cor) return params.cor;
+        return null;
+      }
+
+      function clearFilters() {
+        var o = getParams(),
+          url = o.url;
+        url.searchParams.delete("derivacao");
+        url.searchParams.delete("cor");
+        var all = url.searchParams.getAll("caracteristica");
+        url.searchParams.delete("caracteristica");
+        all.forEach(function (v) {
+          if (!String(v).toLowerCase().startsWith("cor:")) {
+            url.searchParams.append("caracteristica", v);
+          }
+        });
+        window.location.href = url.toString();
+      }
+
+      function hasActiveFilters() {
+        var params = getParams().params;
+        return !!params.derivacao || !!getActiveColorFromUrl();
+      }
+
+      function toggleClearBtn() {
+        var btn = $(".btn-limpar-filtros");
+        if (!btn) return;
+        btn.hidden = !hasActiveFilters();
+      }
+
+      function markActive() {
+        var params = getParams().params;
+
+        var deriv = params.derivacao || null;
+        $$(".btn-estacao").forEach(function (el) {
+          el.classList.remove("is-active");
+        });
+        if (deriv) {
+          $$('.btn-estacao a[data-param="derivacao"]').forEach(function (a) {
+            if (String(a.getAttribute("data-value")) === String(deriv)) {
+              a.closest(".btn-estacao").classList.add("is-active");
+            }
+          });
+        }
+
+        var active = getActiveColorFromUrl();
+        $$(".cor-swatch").forEach(function (el) {
+          el.classList.remove("is-active");
+        });
+        if (active) {
+          $$(".cor-swatch").forEach(function (el) {
+            var slug = (el.getAttribute("data-slug") || "").toLowerCase();
+            var value = (el.getAttribute("data-value") || "").toLowerCase();
+            if (
+              slug === String(active).toLowerCase() ||
+              value === String(active).toLowerCase()
+            ) {
+              el.classList.add("is-active");
+            }
+          });
+        }
+
+        toggleClearBtn();
+      }
+
+      function bindClicks() {
+        $$(".btn-estacao a").forEach(function (a) {
+          a.addEventListener("click", function (ev) {
+            ev.preventDefault();
+            var param =
+              a.getAttribute("data-param") ||
+              a.getAttribute("href").split("=")[0] ||
+              "";
+            var val =
+              a.getAttribute("data-value") ||
+              a.getAttribute("href").split("=")[1] ||
+              "";
+            if (!param || !val) return;
+            setParamAndGo(param, val);
+          });
+        });
+
+        $$(".cor-swatch").forEach(function (el) {
+          el.addEventListener("click", function () {
+            var val = el.getAttribute("data-value");
+            var slug = el.getAttribute("data-slug");
+            if (!val && !slug) return;
+            setParamAndGo("cor", val, slug);
+          });
+        });
+
+        var clearBtn = $(".btn-limpar-filtros");
+        if (clearBtn) clearBtn.addEventListener("click", clearFilters);
+      }
+
+      function moveAboveProducts() {
+        var wrapper = document.getElementById("filtros-tamanho-cor-wrapper");
+        var title = document.querySelector(".titulo-filtros");
+        var target = document.getElementById("lista-produtos-area");
+        if (wrapper && target && wrapper.getAttribute("data-moved") !== "1") {
+          if (title) {
+            title.style.display = "";
+            target.parentNode.insertBefore(title, target);
+          }
+          target.parentNode.insertBefore(wrapper, target);
+          wrapper.setAttribute("data-moved", "1");
+        }
+      }
+
+      function init() {
+        bindClicks();
+        markActive();
+        // moveAboveProducts(); // descomente se precisar mover acima da lista
+        window.addEventListener("popstate", markActive);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    })();
+    // ]]>
+  </script>
+</div>

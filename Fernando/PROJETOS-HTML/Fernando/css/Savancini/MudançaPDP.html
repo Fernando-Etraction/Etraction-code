@@ -1,0 +1,95 @@
+<div class="combo-progress">
+    <div class="combo-progress-bar"></div>
+</div>
+<style>
+    .ra-conjunto .flex.items-center.justify-between.text-sm.text-secondary-400 {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .ra-conjunto .combo-progress {
+        width: 60px;
+        height: 6px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .ra-conjunto .combo-progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #00c04b;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    
+    // --- LÓGICA 1 (ATUALIZADA): Mover bloco de TOTAL para baixo das estrelas ---
+    
+    // 1. A função que tenta mover o bloco total
+    function moverBlocoTotal() {
+        // O bloco das estrelas (ponto de referência)
+        const blocoEstrelas = document.querySelector('.center.flex.items-center.gap-space-4.text-xl.text-secondary-400');
+        
+        // O bloco de preço total (que queremos mover)
+        const blocoTotal = document.querySelector('.total.mb-space-8.flex.w-full'); 
+
+        // 2. Se encontrar os dois...
+        if (blocoEstrelas && blocoTotal) {
+            
+            // Move o 'blocoTotal' para logo depois (abaixo) do 'blocoEstrelas'
+            blocoEstrelas.insertAdjacentElement('afterend', blocoTotal);
+            
+            // 3. IMPORTANTE: Para de observar
+            // Já fizemos o trabalho, não precisamos mais rodar este código.
+            observerLogic1.disconnect(); 
+        }
+    }
+
+    // 4. Cria o observador que chama a função 'moverBlocoTotal'
+    const observerLogic1 = new MutationObserver(moverBlocoTotal);
+
+    // 5. Inicia o observador
+    observerLogic1.observe(document.body, {
+        childList: true, // Observa adição/remoção de filhos
+        subtree: true    // Observa toda a árvore de descendentes
+    });
+
+    // 6. Tenta rodar a função uma vez (caso já estejam na página)
+    moverBlocoTotal();
+
+    
+    // --- LÓGICA 2 (MANTIDA): Criar barra de progresso ---
+    const target = document.querySelector('.flex.items-center.justify-between.text-sm.text-secondary-400');
+    
+    if (target) { 
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'combo-progress';
+        const progressBar = document.createElement('div');
+        progressBar.className = 'combo-progress-bar';
+        progressContainer.appendChild(progressBar);
+        target.appendChild(progressContainer);
+
+        const observerLogic2 = new MutationObserver(() => {
+            const texto = target.textContent.trim();
+            const match = texto.match(/(\d+)\/(\d+)/);
+            if (match) {
+                const atual = parseInt(match[1]);
+                const total = parseInt(match[2]);
+                progressBar.style.width = (atual / total * 100) + '%';
+            }
+        });
+
+        observerLogic2.observe(target, { childList: true, characterData: true, subtree: true });
+    }
+
+});
+</script>

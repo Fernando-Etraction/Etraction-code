@@ -1,0 +1,326 @@
+<style type="text/css">
+    <!--
+    /* ====== SEU CSS ORIGINAL (inalterado) ====== */
+    .descricao-desconto p.obs {
+        color: #505050 !important;
+        margin-bottom: 16px !important;
+        font-weight: thin;
+        text-align: center
+    }
+
+    h1.title-pesquisa {
+        display: none
+    }
+
+    .descricao-pesquisa {
+        margin-top: 0
+    }
+
+    .content-cupom {
+        padding: 30px 55px;
+        background: #EAEAEA;
+        color: #505050;
+        display: table
+    }
+
+    .descricao-desconto {
+        width: 50%;
+        float: left
+    }
+
+    .descricao-desconto .title {
+        display: block;
+        font-size: 25px;
+        text-transform: uppercase;
+        line-height: 30px;
+        position: relative;
+        margin-bottom: 25px
+    }
+
+    .descricao-desconto .title:before {
+        content: "";
+        position: absolute;
+        bottom: -13px;
+        background-color: #CF9E1A;
+        padding: 3px 35px;
+        width: 75px
+    }
+
+    .descricao-desconto div {
+        display: block;
+        font-size: 35px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+    }
+
+    #main-area .descricao-pesquisa .descricao .content p.obs {
+        color: #333;
+        padding-right: 80px;
+        margin-top: 25px
+    }
+
+    .aplicar-desconto {
+        width: 50%;
+        float: left;
+        text-align: center
+    }
+
+    .aplicar-desconto .title-desconto {
+        font-size: 15px;
+        text-transform: uppercase
+    }
+
+    .area-desconto {
+        background: #fff;
+        padding: 15px 15px 12px;
+        margin-top: 10px;
+        border: 4px dashed #f2f2f2;
+        border-radius: 5%
+    }
+
+    .area-desconto .cupom {
+        width: 100%;
+        height: 60px;
+        color: #333;
+        font-weight: bold;
+        font-size: 25px;
+        text-align: center;
+        border: 1px solid #000
+    }
+
+    .area-desconto .cupom:hover {
+        cursor: pointer
+    }
+
+    .area-desconto .something {
+        display: block;
+        font-size: 12px;
+        color: #505050;
+        margin-top: 10px
+    }
+
+    span.something del {
+        font-size: 21px
+    }
+
+    @media(max-width:800px) {
+        .conteudo-adicional-footer {
+            padding: 0
+        }
+
+        .exibir-mais-conteudo-adicional {
+            display: none
+        }
+
+        .content-cupom {
+            padding: 10px;
+            text-align: center
+        }
+
+        .descricao-desconto,
+        .aplicar-desconto {
+            width: 100%
+        }
+
+        .conteudo-adicional .description li,
+        .conteudo-adicional .description p {
+            color: #000;
+            text-align: center
+        }
+
+        .area-desconto {
+            padding: 5px
+        }
+
+        .descricao-desconto div,
+        .descricao-desconto .title {
+            text-align: center;
+            font-size: 25px;
+        }
+
+        .descricao-desconto p.obs {
+            font-size: .7125em;
+            line-height: 15px;
+            margin: 10px 0
+        }
+
+        .descricao-desconto div {
+            display: inline-block
+        }
+
+        .descricao-desconto .title:before {
+            margin: auto;
+            left: 0;
+            right: 0
+        }
+    }
+
+    /* ====== OVERRIDES P/ CABER EM 386x70 E NÃO QUEBRAR TEXTO ====== */
+    .content-cupom.compacto-386 {
+        box-sizing: border-box;
+        width: 386px;
+        height: 100px;
+        padding: 6px 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 6px;
+        overflow: hidden
+    }
+
+    .content-cupom.compacto-386 .descricao-desconto,
+    .content-cupom.compacto-386 .aplicar-desconto {
+        float: none;
+        width: auto
+    }
+
+    .content-cupom.compacto-386 .descricao-desconto {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1 1 auto;
+        min-width: 0
+    }
+
+    /* “PRIMEIRA COMPRA” — usa clamp para reduzir sozinho se precisar */
+    .content-cupom.compacto-386 .descricao-desconto div {
+        font-size: clamp(14px, 2.6vw, 18px);
+        line-height: 1.1;
+        margin: 0;
+        white-space: nowrap
+    }
+
+    /* linhas de observação — sem quebra; JS garante ajuste fino */
+    .content-cupom.compacto-386 .descricao-desconto p.obs {
+        margin: 2px 0 !important;
+        font-size: clamp(10px, 2.2vw, 12px);
+        line-height: 1.2;
+        padding-right: 0 !important;
+        text-align: left;
+        overflow: hidden
+    }
+
+    .content-cupom.compacto-386 .aplicar-desconto {
+        flex: 0 0 150px;
+        text-align: center
+    }
+
+    .content-cupom.compacto-386 .area-desconto {
+        margin: 0;
+        padding: 6px;
+        border-radius: 8px;
+        border-width: 3px
+    }
+
+    .content-cupom.compacto-386 .area-desconto .cupom {
+        height: 34px;
+        font-size: 16px
+    }
+
+    /* dica some no compacto para manter 70px fixo */
+    .content-cupom.compacto-386 .area-desconto .something {
+        display: none
+    }
+
+    /* “responsivo”: se a coluna pai for < 386px, o bloco ocupa 100% mantendo 70px */
+    @media (max-width:420px) {
+        .content-cupom.compacto-386 {
+            width: 100%;
+            height: 130px;
+        }
+    }
+    -->
+</style>
+
+<div class="content-cupom compacto-386 clearfix" id="cupom-bloco">
+    <div class="descricao-desconto">
+        <div>BLACK FRIDAY</div>
+        <p class="obs">Aplique o cupom <strong>BLACK5</strong>&nbsp;no carrinho e ganhe <strong>5% OFF</strong> nas suas
+            Compras!</p>
+            </div>
+            <div class="aplicar-desconto">
+                <div class="area-desconto">
+                    <input id="cupom" class="cupom" readonly="readonly" type="text" value="BLACK5" />
+                    <div class="something">Clique e copie o cupom!</div>
+                    <p>
+                        <script>
+                    // <![CDATA[
+                    $(document).ready(function () {
+                        // copiar com Zord.copy se existir; fallback manual
+                        $('.area-desconto #cupom').on('click', function () {
+                            let ok = false;
+                            if (typeof Zord !== 'undefined' && Zord.copy && Zord.copy('#cupom')) ok = true;
+                            if (!ok) {
+                                try {
+                                    const $tmp = $('<input>'); $('body').append($tmp);
+                                    $tmp.val($('#cupom').val()).select(); document.execCommand('copy'); $tmp.remove(); ok = true;
+                                } catch (e) { }
+                            }
+                            if (ok) {
+                                // feedback rápido sem alterar cores
+                                const $txt = $('#cupom-bloco .descricao-desconto p.obs').first();
+                                const old = $txt.html();
+                                $txt.html('Código copiado! Use <strong>BLACK5</strong> no carrinho.');
+                                setTimeout(() => { $txt.html(old); fitAll(); }, 1800);
+                            }
+                        });
+
+                        // inserir após .area-comprar
+                        const $cupom = $("#cupom-bloco");
+                        const place = () => { const $ref = $(".area-comprar").first(); if ($ref.length && !$ref.next().is("#cupom-bloco")) { $ref.after($cupom); } };
+                        place();
+                        new MutationObserver(place).observe(document.body, { childList: true, subtree: true });
+
+                        // ====== AUTO-AJUSTE DE TEXTO (sem quebrar) ======
+                        function fitLine(el, minPx) {
+                            const $el = $(el);
+                            const parent = $el.parent()[0];
+                            if (!parent) return;
+                            const maxW = parent.clientWidth - 160; // reserva ~150px p/ cupom + gap
+                            let size = parseFloat(getComputedStyle(el).fontSize);
+                            const original = size;
+                            // reduz até caber na largura disponível
+                            while (el.scrollWidth > maxW && size > minPx) {
+                                size -= 0.5; el.style.fontSize = size + 'px';
+                            }
+                            // se sobrou espaço, tenta crescer até o limite original
+                            while (el.scrollWidth <= maxW && size < original) {
+                                size += 0.5; el.style.fontSize = size + 'px';
+                                if (el.scrollWidth > maxW) { size -= 0.5; el.style.fontSize = size + 'px'; break; }
+                            }
+                        }
+                        function fitAll() {
+                            const title = document.querySelector('#cupom-bloco .descricao-desconto > div');
+                            const line1 = document.querySelectorAll('#cupom-bloco .descricao-desconto p.obs')[0];
+                            const line2 = document.querySelectorAll('#cupom-bloco .descricao-desconto p.obs')[1];
+                            if (title) fitLine(title, 12);
+                            if (line1) fitLine(line1, 10);
+                            if (line2) fitLine(line2, 9);
+                        }
+                        fitAll();
+                        window.addEventListener('resize', () => { fitAll(); });
+
+                    });
+                    // ]]>
+                </script>
+            </p>
+        </div>
+    </div>
+</div>
+
+<p>
+    <script type="text/javascript">
+        // <![CDATA[
+        $(document).ready(function () {
+            // garante que o bloco compacto fique após .area-comprar sempre
+            const $cupom = $(".content-cupom.compacto-386");
+            const place = () => { if ($(".area-comprar").length && !$(".area-comprar").next().is(".content-cupom.compacto-386")) { $(".area-comprar").after($cupom); } };
+            place();
+            const elem = document.querySelector("#main-cart-area") || document.querySelector("#cart-area") || document.body;
+            new MutationObserver(place).observe(elem, { childList: true, subtree: true });
+        });
+        // ]]>
+    </script>
+</p>

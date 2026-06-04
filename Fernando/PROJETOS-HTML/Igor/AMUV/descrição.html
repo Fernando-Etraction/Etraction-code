@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Conjunto Classic Camurça — Muv Fit</title>
+
+    <!-- Fonte -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #ffffff; /* fundo branco */
+        --card: #ffffff; /* cartões brancos */
+        --border: #000000; /* borda preta */
+        --text: #000000; /* texto preto */
+        --muted: #000000; /* sem cinza: usar preto */
+        --shadow: none; /* sem sombra */
+        --radius: 18px;
+        --radius-sm: 12px;
+        --maxw: 1120px;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+      strong {
+        font-weight: 600;
+      }
+      body {
+        margin: 0;
+        font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+          sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* Utilitários / layout */
+      .container {
+        max-width: var(--maxw);
+        margin-inline: auto;
+        padding: 28px 20px;
+      }
+      .grid {
+        display: grid;
+        gap: 24px;
+        align-items: stretch;
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+      .grid-balanced {
+        display: grid;
+        gap: 28px;
+        align-items: center;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card {
+        background: var(--bg-soft);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 22px;
+        border: 1px solid var(--border); /* borda preta */
+      }
+      .card--white {
+        background: var(--card);
+        border: 1px solid var(--border); /* borda preta */
+        border-radius: var(--radius-sm);
+        box-shadow: none;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      h2,
+      h3 {
+        line-height: 1.25;
+        margin: 0 0 0.5rem 0;
+      }
+      h2 {
+        font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+        font-weight: 500;
+      }
+      h3 {
+        font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+        font-weight: 500;
+      }
+      p {
+        margin: 0.6rem 0;
+      }
+
+      figure {
+        margin: 0;
+        overflow: hidden;
+        border-radius: var(--radius);
+        background: var(--bg-soft);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border); /* borda preta */
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .hero-img {
+        height: clamp(240px, 36vw, 380px);
+        object-fit: cover;
+        border-radius: var(--radius);
+        background: #fff;
+      }
+
+      /* Informações rápidas */
+      .quick {
+        display: grid;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .quick-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--card);
+        border: 1px solid var(--border); /* borda preta */
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        font-weight: 400;
+        transition: none; /* sem efeitos/cores */
+      }
+      .quick-item small {
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      /* ===== Acordeão com ícones no summary e chevron à direita ===== */
+      .accordion {
+        display: grid;
+        gap: 12px;
+      }
+      details.card--white {
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .acc-summary {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 14px 16px;
+        cursor: pointer;
+        list-style: none;
+        font-weight: 400;
+        user-select: none;
+        color: var(--text);
+        background: var(--card);
+      }
+      .acc-summary::-webkit-details-marker {
+        display: none;
+      }
+      .acc-summary::marker {
+        content: "";
+      }
+
+      /* Ícone à esquerda, controlado por --icon */
+      .acc-ic {
+        flex: 0 0 20px;
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+        background: currentColor;
+        -webkit-mask: var(--icon) no-repeat center / contain;
+        mask: var(--icon) no-repeat center / contain;
+      }
+
+      /* Chevron à direita */
+      .acc-summary::after {
+        content: "";
+        margin-left: auto;
+        width: 18px;
+        height: 18px;
+        opacity: 1;
+        background: currentColor;
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+          no-repeat center / contain;
+        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+          no-repeat center / contain;
+        transform: rotate(0deg);
+        transition: transform 0.25s ease;
+      }
+      details[open] > .acc-summary::after {
+        transform: rotate(180deg);
+      }
+
+      /* Conteúdo do dropdown */
+      .acc-panel {
+        padding: 0 16px 14px 16px;
+        color: var(--text);
+        background: #fff;
+      }
+
+      /* Ícones por item (definidos via data-icon no <details>) */
+      details[data-icon="blackout"] {
+        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3.5 9-7 10-3.5-1-7-5-7-10V6l7-3z" fill="black"/></svg>');
+      }
+      details[data-icon="cintura"] {
+        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 3h12v3c0 1.7-1.3 3.2-3 3.9L13 12l2 2.1c1.7.7 3 2.2 3 3.9v3H6v-3c0-1.7 1.3-3.2 3-3.9L11 12 9 9.9C7.3 9.2 6 7.7 6 6V3z" fill="black"/></svg>');
+      }
+      details[data-icon="dry"] {
+        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3c3 4 6 6.8 6 10.5A6 6 0 1 1 6 13.5C6 9.8 9 7 12 3z" fill="black"/></svg>');
+      }
+      details[data-icon="uv"] {
+        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="black"/><path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="black" stroke-width="2" stroke-linecap="round"/></svg>');
+      }
+      details[data-icon="top"] {
+        --icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3c.5 1.7 1.8 3 3 3s2.5-1.3 3-3l4 2.5-2 3V21H7V8.5l-2-3L9 3z" fill="black"/></svg>');
+      }
+
+      /* Bloco Cuidados */
+      .care-list {
+        padding-left: 1.25rem;
+      }
+      .care-list li {
+        margin: 0.35rem 0;
+      }
+      .care-hr {
+        border: none;
+        border-top: 1px solid var(--border);
+        margin: 12px 0;
+      }
+
+      /* Responsividade */
+      @media (max-width: 1024px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .grid-balanced {
+          grid-template-columns: 1fr;
+        }
+        .prose {
+          max-width: 100%;
+        }
+      }
+
+      /* Foco visível (preto) */
+      :focus-visible {
+        outline: 2px solid #000;
+        outline-offset: 2px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Utilitários opcionais do seu projeto -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var el = document.querySelector(".w-md-60");
+        if (el) {
+          el.style.setProperty("width", "100%", "important");
+          el.style.setProperty("max-width", "100%", "important");
+        }
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const el = Array.from(
+          document.querySelectorAll(".font-weight-bold.mb-3")
+        ).find((div) => div.textContent.trim() === "Descrição");
+        if (el) {
+          el.style.textAlign = "center";
+        }
+      });
+    </script>
+
+    <!-- DESCRIÇÃO PRINCIPAL -->
+    <section class="container">
+      <div class="grid">
+        <article class="card">
+          <header class="prose">
+            <h2>Descrição</h2>
+            <p class="muted" style="font-weight: 600; margin: 0.25rem 0 1rem 0">
+              Conjunto Feminino Legging + Top Nadador Classic – Camurça · Muv
+              Fit
+            </p>
+          </header>
+
+          <div class="prose">
+            <p>
+              O <strong>Conjunto Classic Camurça</strong> foi criado para unir
+              estilo, performance e versatilidade em um visual completo. A
+              modelagem anatômica valoriza a silhueta com
+              <strong>cintura alta</strong> na legging e sustentação confortável
+              no <strong>top nadador</strong>, garantindo liberdade de movimento
+              sem apertar ou marcar.
+            </p>
+            <p>
+              Confeccionado em tecido de <strong>média compressão</strong> e
+              toque ultra macio, o conjunto traz
+              <strong>Tecnologia Dry</strong> para evaporação rápida do suor e
+              <strong>Proteção UV50+</strong> para treinos ao ar livre. O grande
+              diferencial é a <strong>Tecnologia Blackout</strong>, que garante
+              <strong>ZERO TRANSPARÊNCIA</strong> em qualquer movimento — agache
+              sem medo. <em>O top não acompanha bojo</em>, mas possui entrada
+              para você usar o bojo de sua preferência. Composição:
+              <strong>86% Poliéster / 14% Elastano</strong>.
+            </p>
+          </div>
+        </article>
+
+        <aside class="card" aria-labelledby="info-rapidas-title">
+          <h3 id="info-rapidas-title">Informações Rápidas</h3>
+          <div class="quick">
+            <div class="quick-item">
+              Zero Transparência
+              <small>Blackout</small>
+            </div>
+            <div class="quick-item">
+              Cintura Alta
+              <small>média compressão</small>
+            </div>
+            <div class="quick-item">
+              Tecnologia Dry
+              <small>secagem rápida</small>
+            </div>
+            <div class="quick-item">
+              Proteção UV50+
+              <small>outdoor</small>
+            </div>
+            <div class="quick-item">
+              Top sem bojo
+              <small>entrada p/ bojo</small>
+            </div>
+            <div class="quick-item">
+              86% Poliéster / 14% Elastano
+              <small>dupla frontura</small>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- BLOCO DE DESTAQUE -->
+    <section class="container">
+      <div class="grid-balanced">
+        <div class="prose">
+          <h3>Zero transparência para treinar com confiança</h3>
+          <p class="muted">
+            A <strong>Tecnologia Blackout</strong> combina tecido de
+            <em>dupla frontura</em>
+            e forro interno escuro para cobertura total, mesmo em agachamentos e
+            alongamentos mais intensos — mais foco, menos preocupação.
+          </p>
+        </div>
+
+        <figure>
+          <img
+            class="hero-img"
+            src="https://muvfit.cdn.magazord.com.br/img/2025/08/produto/4767/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta.jpg"
+            alt="Conjunto Classic Camurça: legging cintura alta e top nadador com tecnologia blackout"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <!-- BENEFÍCIOS EM ACORDEÃO (ícones no summary + um aberto por vez) -->
+    <section class="container">
+      <div
+        class="grid"
+        style="grid-template-columns: 360px 1fr; align-items: start"
+      >
+        <figure>
+          <img
+            src="https://muvfit.cdn.magazord.com.br/img/2025/07/produto/2720/calca-legging-feminina-classic-marrom-camurca-muv-fit-basica-lisa-minimalista-academia-fitness-treino-treinar-corrida-correr-cintura-alta-3.jpg"
+            alt="Detalhe da legging Classic Camurça com dupla frontura e forro interno"
+          />
+        </figure>
+
+        <div class="accordion js-accordion" style="min-width: 0">
+          <details class="card--white" data-icon="blackout" open>
+            <summary class="acc-summary">
+              <span class="acc-ic" aria-hidden="true"></span>
+              Blackout = Zero Transparência
+            </summary>
+            <div class="acc-panel">
+              Cobertura total em qualquer movimento graças à combinação de
+              <strong>dupla frontura</strong> e forro interno preto. Treine com
+              confiança, sem esbranquiçar o tecido.
+            </div>
+          </details>
+
+          <details class="card--white" data-icon="cintura">
+            <summary class="acc-summary">
+              <span class="acc-ic" aria-hidden="true"></span>
+              Cintura Alta & Média Compressão
+            </summary>
+            <div class="acc-panel">
+              Modela e apoia sem restringir, com caimento estável do aquecimento
+              ao pós-treino.
+            </div>
+          </details>
+
+          <details class="card--white" data-icon="dry">
+            <summary class="acc-summary">
+              <span class="acc-ic" aria-hidden="true"></span>
+              Secagem Rápida (Tecnologia Dry)
+            </summary>
+            <div class="acc-panel">
+              Dispersa o suor e acelera a evaporação para manter a sensação de
+              frescor.
+            </div>
+          </details>
+
+          <details class="card--white" data-icon="uv">
+            <summary class="acc-summary">
+              <span class="acc-ic" aria-hidden="true"></span>
+              Proteção UV50+
+            </summary>
+            <div class="acc-panel">
+              Ideal para atividades ao ar livre, ajudando a proteger a pele da
+              radiação solar.
+            </div>
+          </details>
+
+          <details class="card--white" data-icon="top">
+            <summary class="acc-summary">
+              <span class="acc-ic" aria-hidden="true"></span>
+              Top Nadador com Entrada para Bojo
+            </summary>
+            <div class="acc-panel">
+              O top não acompanha bojo, mas possui <strong>entrada</strong> para
+              adicionar o seu.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOVO: BLOCO DE CUIDADOS COM A PEÇA -->
+    <section class="container" aria-labelledby="care-title">
+      <article class="card prose" id="care-block">
+        <h2 id="care-title">Cuidados com a peça</h2>
+
+        <h3 style="margin-top: 0.75rem">Dicas de Uso:</h3>
+        <p>
+          O poliéster pode ser sensível a atritos, então evite o contato da sua
+          roupa com fixadores e fechos de contato, como o velcro. Eles podem
+          acabar desfiando o tecido. Recomendamos também evitar contato com
+          superfícies muito ásperas, como paredes texturizadas.
+        </p>
+
+        <hr class="care-hr" />
+
+        <h3>Dicas de Lavagem:</h3>
+        <p>
+          Para preservar a qualidade e durabilidade da sua legging, recomendamos
+          lavá-la à mão e com sabão neutro, de preferência de modo suave,
+          secá-la à sombra. Evite produtos agressivos para preservar a
+          elasticidade e a cor da sua legging. Não utilizar ferro de passar.
+        </p>
+
+        <hr class="care-hr" />
+
+        <h3>Atenção às Cores:</h3>
+        <p>
+          Podem haver variações nas cores do produto de acordo com o brilho do
+          seu monitor ou tela de celular.
+        </p>
+
+        <hr class="care-hr" />
+
+        <h3>Precisou Devolver? Sem problemas.</h3>
+        <p>
+          Você tem até 7 dias após o recebimento para solicitar a devolução do
+          seu pedido. Basta entrar em contato com nosso atendimento e seguiremos
+          com o processo de forma rápida e simples.
+        </p>
+      </article>
+    </section>
+
+    <!-- JS: fecha os demais quando um abre -->
+    <script>
+      (function () {
+        const groups = document.querySelectorAll(".js-accordion");
+        groups.forEach((group) => {
+          const items = Array.from(group.querySelectorAll("details"));
+          items.forEach((dtl) => {
+            dtl.addEventListener("toggle", () => {
+              if (dtl.open) {
+                items.forEach((other) => {
+                  if (other !== dtl) other.open = false;
+                });
+              }
+            });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

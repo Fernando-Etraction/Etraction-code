@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Provador Virtual de Almofadas</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+        .pv-shell {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+        .pv-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+        .pv-header {
+            padding: 24px;
+            background: linear-gradient(135deg, #111827, #1f2937);
+            color: #fff;
+        }
+        .pv-header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+        .pv-header p {
+            margin: 0;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+        .pv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 24px;
+        }
+        .pv-panel {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            background: #fafafa;
+        }
+        .pv-panel h2 {
+            margin: 0 0 14px;
+            font-size: 20px;
+        }
+        .pv-field {
+            margin-bottom: 16px;
+        }
+        .pv-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .pv-input,
+        .pv-select,
+        .pv-button {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            padding: 12px 14px;
+            font-size: 15px;
+        }
+        .pv-input,
+        .pv-select {
+            background: #fff;
+        }
+        .pv-button {
+            border: 0;
+            background: #111827;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .15s ease, opacity .15s ease;
+        }
+        .pv-button:hover { opacity: .95; }
+        .pv-button:active { transform: scale(.99); }
+        .pv-button[disabled] {
+            cursor: not-allowed;
+            opacity: .6;
+        }
+        .pv-preview-box {
+            width: 100%;
+            min-height: 360px;
+            border-radius: 16px;
+            border: 2px dashed #d1d5db;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .pv-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .pv-placeholder {
+            text-align: center;
+            padding: 24px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        .pv-status {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .pv-status.is-info {
+            display: block;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+        .pv-status.is-success {
+            display: block;
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+        .pv-status.is-error {
+            display: block;
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+        .pv-meta {
+            margin-top: 16px;
+            padding: 14px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            font-size: 13px;
+            color: #4b5563;
+            word-break: break-word;
+        }
+        .pv-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .pv-row .pv-button-secondary {
+            background: #fff;
+            color: #111827;
+            border: 1px solid #d1d5db;
+        }
+        .pv-hidden { display: none !important; }
+
+        @media (max-width: 900px) {
+            .pv-grid { grid-template-columns: 1fr; }
+            .pv-header h1 { font-size: 24px; }
+            .pv-preview-box { min-height: 280px; }
+        }
+    </style>
+</head>
+<body>
+<div class="pv-shell">
+    <div class="pv-card">
+        <div class="pv-header">
+            <h1>Provador Virtual de Almofadas</h1>
+            <p>Envie a foto do sofá, use a imagem da almofada da página e gere um preview automático.</p>
+        </div>
+
+        <div class="pv-grid">
+            <div class="pv-panel">
+                <h2>Enviar imagem do sofá</h2>
+
+                <div class="pv-field">
+                    <label class="pv-label" for="pvSofaFile">Foto do sofá</label>
+                    <input class="pv-input" id="pvSofaFile" type="file" accept="image/png,image/jpeg,image/webp" />
+                </div>
+
+                <div class="pv-field">
+                    <label class="pv-label" for="pvPillowsUrl">URL da imagem das almofadas</label>
+                    <input class="pv-input" id="pvPillowsUrl" type="text" placeholder="https://site.com/imagem-da-almofada.png" />
+                </div>
+
+                <div class="pv-field">
+                    <label class="pv-label" for="pvAspectRatio">Aspect ratio</label>
+                    <select class="pv-select" id="pvAspectRatio">
+                        <option value="1:1">1:1</option>
+                        <option value="4:3">4:3</option>
+                        <option value="3:4">3:4</option>
+                        <option value="16:9">16:9</option>
+                        <option value="9:16">9:16</option>
+                    </select>
+                </div>
+
+                <button class="pv-button" id="pvGenerateButton" type="button">Gerar preview</button>
+
+                <div class="pv-row">
+                    <button class="pv-button pv-button-secondary" id="pvAutoFillButton" type="button">Pegar almofada da página</button>
+                    <button class="pv-button pv-button-secondary" id="pvResetButton" type="button">Limpar</button>
+                </div>
+
+                <div class="pv-status" id="pvStatus"></div>
+
+                <div class="pv-meta" id="pvMeta">
+                    <strong>Como funciona:</strong><br>
+                    1. A foto do sofá sobe para a S3.<br>
+                    2. A API usa a URL da almofada já existente na página.<br>
+                    3. A IA gera a composição.<br>
+                    4. O resultado volta pronto para preview.
+                </div>
+            </div>
+
+            <div class="pv-panel">
+                <h2>Preview gerado</h2>
+                <div class="pv-preview-box" id="pvPreviewBox">
+                    <div class="pv-placeholder" id="pvPlaceholder">
+                        O preview aparecerá aqui depois que a geração for concluída.
+                    </div>
+                    <img id="pvResultImage" class="pv-hidden" alt="Preview gerado" />
+                </div>
+                <div class="pv-meta" id="pvResultMeta">
+                    <strong>Status:</strong> aguardando geração
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const API_BASE = 'http://localhost:8080';
+        const FIXED_CONTENT_TYPE_FALLBACK = 'image/jpeg';
+
+        const elements = {
+            sofaFile: document.getElementById('pvSofaFile'),
+            pillowsUrl: document.getElementById('pvPillowsUrl'),
+            aspectRatio: document.getElementById('pvAspectRatio'),
+            generateButton: document.getElementById('pvGenerateButton'),
+            autoFillButton: document.getElementById('pvAutoFillButton'),
+            resetButton: document.getElementById('pvResetButton'),
+            status: document.getElementById('pvStatus'),
+            resultImage: document.getElementById('pvResultImage'),
+            placeholder: document.getElementById('pvPlaceholder'),
+            resultMeta: document.getElementById('pvResultMeta')
+        };
+
+        function setStatus(type, message) {
+            elements.status.className = 'pv-status';
+            if (!message) {
+                elements.status.textContent = '';
+                return;
+            }
+            elements.status.classList.add(type);
+            elements.status.textContent = message;
+        }
+
+        function setLoading(isLoading) {
+            elements.generateButton.disabled = isLoading;
+            elements.generateButton.textContent = isLoading ? 'Gerando preview...' : 'Gerar preview';
+        }
+
+        function resetPreview() {
+            elements.resultImage.src = '';
+            elements.resultImage.classList.add('pv-hidden');
+            elements.placeholder.classList.remove('pv-hidden');
+            elements.resultMeta.innerHTML = '<strong>Status:</strong> aguardando geração';
+        }
+
+        function showPreview(url, generatedImageKey) {
+            elements.resultImage.src = url;
+            elements.resultImage.classList.remove('pv-hidden');
+            elements.placeholder.classList.add('pv-hidden');
+            elements.resultMeta.innerHTML = '<strong>Status:</strong> imagem gerada com sucesso<br><strong>Key:</strong> ' + generatedImageKey;
+        }
+
+        function getSelectedFile() {
+            return elements.sofaFile.files && elements.sofaFile.files[0] ? elements.sofaFile.files[0] : null;
+        }
+
+        function guessContentType(file) {
+            if (file && file.type) return file.type;
+            return FIXED_CONTENT_TYPE_FALLBACK;
+        }
+
+        async function requestUploadUrl(file) {
+            const params = new URLSearchParams({
+                fileName: file.name,
+                contentType: guessContentType(file)
+            });
+
+            const response = await fetch(`${API_BASE}/s3/upload-url?${params.toString()}`, {
+                method: 'POST'
+            });
+
+            if (!response.ok) {
+                throw new Error('Não foi possível gerar a URL de upload.');
+            }
+
+            return response.json();
+        }
+
+        async function uploadFileToS3(uploadUrl, file) {
+            const response = await fetch(uploadUrl, {
+                method: 'PUT',
+                body: file
+            });
+
+            if (!response.ok) {
+                throw new Error('Falha ao enviar a imagem para a S3.');
+            }
+        }
+
+        async function generatePreview(sofaImageKey, pillowsImageUrl, aspectRatio) {
+            const response = await fetch(`${API_BASE}/virtual-tryon/generate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    sofaImageKey,
+                    pillowsImageUrl,
+                    aspectRatio
+                })
+            });
+
+            const contentType = response.headers.get('content-type') || '';
+            const data = contentType.includes('application/json') ? await response.json() : await response.text();
+
+            if (!response.ok) {
+                const message = typeof data === 'string' ? data : (data.message || 'Erro ao gerar preview.');
+                throw new Error(message);
+            }
+
+            return data;
+        }
+
+        function findPillowsImageFromPage() {
+            const selectors = [
+                '[data-pillows-image]',
+                '.imagem-almofada img',
+                '.pillows-image img',
+                '.product-image-pillows img',
+                'img[src*="almofad"]'
+            ];
+
+            for (const selector of selectors) {
+                const el = document.querySelector(selector);
+                if (el) {
+                    const url = el.getAttribute('data-pillows-image') || el.src || '';
+                    if (url) return url;
+                }
+            }
+
+            return '';
+        }
+
+        async function handleGenerate() {
+            try {
+                resetPreview();
+                setLoading(true);
+                setStatus('is-info', 'Enviando imagem do sofá e gerando preview...');
+
+                const file = getSelectedFile();
+                const pillowsImageUrl = elements.pillowsUrl.value.trim();
+                const aspectRatio = elements.aspectRatio.value;
+
+                if (!file) {
+                    throw new Error('Selecione a imagem do sofá antes de gerar o preview.');
+                }
+
+                if (!pillowsImageUrl) {
+                    throw new Error('Informe a URL da imagem das almofadas.');
+                }
+
+                const uploadData = await requestUploadUrl(file);
+                await uploadFileToS3(uploadData.url, file);
+
+                const result = await generatePreview(uploadData.key, pillowsImageUrl, aspectRatio);
+
+                if (!result.previewUrl) {
+                    throw new Error('A API não retornou a URL de preview.');
+                }
+
+                showPreview(result.previewUrl, result.generatedImageKey || '-');
+                setStatus('is-success', 'Preview gerado com sucesso.');
+            } catch (error) {
+                console.error('Erro ao gerar preview:', error);
+                setStatus('is-error', error.message || 'Erro inesperado ao gerar preview.');
+                elements.resultMeta.innerHTML = '<strong>Status:</strong> erro na geração';
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function handleAutoFill() {
+            const url = findPillowsImageFromPage();
+            if (!url) {
+                setStatus('is-error', 'Não encontrei automaticamente a imagem das almofadas na página.');
+                return;
+            }
+            elements.pillowsUrl.value = url;
+            setStatus('is-success', 'URL da imagem das almofadas preenchida com sucesso.');
+        }
+
+        function handleReset() {
+            elements.sofaFile.value = '';
+            elements.pillowsUrl.value = '';
+            elements.aspectRatio.value = '1:1';
+            setStatus('', '');
+            resetPreview();
+        }
+
+        elements.generateButton.addEventListener('click', handleGenerate);
+        elements.autoFillButton.addEventListener('click', handleAutoFill);
+        elements.resetButton.addEventListener('click', handleReset);
+    })();
+</script>
+</body>
+</html>

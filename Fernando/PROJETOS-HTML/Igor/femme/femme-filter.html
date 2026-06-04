@@ -1,0 +1,191 @@
+<style>
+    /* DESKTOP */
+    .color-filter {
+      max-width: 1200px;
+      margin: 30px auto;
+      text-align: center;
+    }
+  
+    .color-filter h3 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  
+    .color-options {
+      display: flex;
+      width: 100%;
+      height: 100px;
+      overflow: hidden;
+    }
+  
+    .color-box {
+      flex: 1;
+      transition: all 0.8s ease;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-decoration: none;
+      color: #fff;
+    }
+  
+    .color-box .overlay {
+      opacity: 0;
+      transition: opacity 0.6s;
+      text-align: center;
+    }
+  
+    .color-box:hover {
+      flex: 4;
+    }
+  
+    .color-box:hover .overlay {
+      opacity: 1;
+    }
+  
+    .overlay p {
+      margin: 5px 0;
+      font-weight: bold;
+    }
+  
+    .overlay .btn {
+      background: rgba(255, 255, 255, 0);
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      border-radius: 3px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+  
+    .overlay .btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  
+    /* MOBILE / TABLET */
+    .color-filter-mobile {
+      display: none;
+      max-width: 400px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  
+    .color-filter-mobile h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  
+    .color-option-mobile {
+      display: block;
+      text-decoration: none;
+      color: #fff;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+  
+    .color-option-mobile:hover {
+      transform: scale(1.05);
+    }
+  
+    /* Color classes */
+    .bg-azul { background: #009BFF; }
+    .bg-rosa { background: #ec5ea5; }
+    .bg-vermelho { background: #e6203b; }
+    .bg-amarelo { background: #f7ba16; color: #333; }
+    .bg-verde { background: #00cc00; }
+    .bg-branco { background: #f6f6f6; color: #333; }
+    .bg-cinza { background: #999; }
+    .bg-preto { background: #222; }
+  
+    @media screen and (max-width: 1000px) {
+      .color-filter {
+        display: none;
+      }
+      .color-filter-mobile {
+        display: block;
+      }
+    }
+  </style>
+  
+  <!-- DESKTOP -->
+  <div class="color-filter">
+    <h3>Sua Cor Preferida?</h3>
+    <div class="color-options">
+      <a href="/busca?q=&derivacao=11" class="color-box" style="background: #009BFF;">
+        <div class="overlay">
+          <p>Azul</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/rosa" class="color-box" style="background: #ec5ea5;">
+        <div class="overlay">
+          <p>Rosa</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/vermelho" class="color-box" style="background: #e6203b;">
+        <div class="overlay">
+          <p>Vermelho</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/amarelo" class="color-box" style="background: #f7ba16;">
+        <div class="overlay">
+          <p>Amarelo</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/verde" class="color-box" style="background: #00cc00;">
+        <div class="overlay">
+          <p>Verde</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/branco" class="color-box" style="background: #f6f6f6; color: #333;">
+        <div class="overlay">
+          <p style="color:#333;">Branco</p>
+          <span class="btn" style="border-color: #333; color: #333;">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/cinza" class="color-box" style="background: #999;">
+        <div class="overlay">
+          <p>Cinza</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+      <a href="/produto/preto" class="color-box" style="background: #222;">
+        <div class="overlay">
+          <p>Preto</p>
+          <span class="btn">Comprar</span>
+        </div>
+      </a>
+    </div>
+  </div>
+  
+  <!-- MOBILE / TABLET -->
+  <div class="color-filter-mobile">
+    <h3>Sua Cor Preferida?</h3>
+    <a href="/busca?q=&derivacao=11" class="color-option-mobile bg-azul">Azul</a>
+    <a href="/produto/rosa" class="color-option-mobile bg-rosa">Rosa</a>
+    <a href="/produto/vermelho" class="color-option-mobile bg-vermelho">Vermelho</a>
+    <a href="/produto/amarelo" class="color-option-mobile bg-amarelo">Amarelo</a>
+    <a href="/produto/verde" class="color-option-mobile bg-verde">Verde</a>
+    <a href="/produto/branco" class="color-option-mobile bg-branco">Branco</a>
+    <a href="/produto/cinza" class="color-option-mobile bg-cinza">Cinza</a>
+    <a href="/produto/preto" class="color-option-mobile bg-preto">Preto</a>
+  </div>
+  

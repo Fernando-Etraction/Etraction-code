@@ -1,0 +1,299 @@
+<style>
+    .coupon-container {
+        position: relative;
+        width: 430px;
+        height: 130px;
+        display: flex;
+        background: #ffffff;
+        border-radius: 8px;
+        overflow: visible;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin: 10px;
+    }
+
+    .coupon-container:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .coupon-left {
+        flex: 1;
+        padding: 25px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        background: #ffffff;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .coupon-left::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+        border-radius: 50%;
+        opacity: 0.6;
+    }
+
+    .coupon-right {
+        width: 140px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #fafafa;
+        position: relative;
+        border-radius: 0 8px 8px 0;
+        border-left: 2px dashed #e0e0e0;
+    }
+
+    /* Efeito de rasgado - múltiplos círculos nas bordas */
+    .circle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #f5f5f5;
+        border-radius: 50%;
+        left: 280px;
+        z-index: 10;
+    }
+
+    .circle-top {
+        top: -10px;
+    }
+
+    .circle-middle-top {
+        top: 25px;
+    }
+
+    .circle-middle-bottom {
+        bottom: 25px;
+    }
+
+    .circle-bottom {
+        bottom: -10px;
+    }
+
+    .discount-badge {
+        position: absolute;
+        top: -8px;
+        right: 30px;
+        background: #000000;
+        color: #ffffff;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .discount-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #888888;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .discount-value {
+        font-size: 27px;
+        font-weight: 700;
+        color: #000000;
+        line-height: 1;
+        margin-bottom: 8px;
+        letter-spacing: -2px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .discount-description {
+        font-size: 13px;
+        color: #666666;
+        font-weight: 500;
+        position: relative;
+        z-index: 1;
+    }
+
+    .code-label {
+        font-size: 9px;
+        font-weight: 600;
+        color: #999999;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+    }
+
+    .code-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .code-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        background: #ffffff;
+        padding: 12px 14px;
+        border-radius: 4px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #d8d8d8;
+        cursor: pointer;
+        user-select: all;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+
+    .code-value:hover {
+        background: #000000;
+        color: #ffffff;
+        border-color: #000000;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .code-value:active {
+        transform: scale(0.98);
+    }
+
+    .copy-hint {
+        font-size: 7px;
+        color: #aaaaaa;
+        text-align: center;
+        font-weight: 500;
+        margin-top: -6px;
+        margin-bottom: 6px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .code-wrapper:hover .copy-hint {
+        opacity: 1;
+    }
+
+    .valid-until {
+        font-size: 8px;
+        color: #aaaaaa;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    /* Decoração de canto */
+    .corner-decoration {
+        position: absolute;
+        bottom: 25px;
+        right: 25px;
+        width: 30px;
+        height: 30px;
+        border-bottom: 2px solid #f0f0f0;
+        border-right: 2px solid #f0f0f0;
+        border-radius: 0 0 4px 0;
+    }
+
+    /* Animação de sucesso ao copiar */
+    @keyframes copied {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(0.95);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .code-value.copied {
+        animation: copied 0.3s ease;
+        background: #000000;
+        color: #ffffff;
+        border-color: #000000;
+    }
+
+    /* Pontos decorativos */
+    .dots {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+
+    .dot {
+        width: 3px;
+        height: 3px;
+        background: #e0e0e0;
+        border-radius: 50%;
+    }
+</style>
+
+
+<script>
+
+    $(document).ready(function () {
+        const html = `<div class="coupon-container">
+        <div class="circle circle-top"></div>
+        <div class="circle circle-middle-top"></div>
+        <div class="circle circle-middle-bottom"></div>
+        <div class="circle circle-bottom"></div>
+
+
+        <div class="coupon-left">
+            <div class="discount-label">Desconto Especial</div>
+            <div class="discount-value">30% OFF</div>
+            <div class="discount-description">Em toda a coleção</div>
+            <div class="corner-decoration"></div>
+        </div>
+
+        <div class="coupon-right">
+            <div class="code-label">Código</div>
+            <div class="code-wrapper">
+                <div class="dots">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="code-value" onclick="copyCoupon(this)">PREMIUM30</div>
+                <div class="copy-hint">Clique para copiar</div>
+            </div>
+            <div class="valid-until">Válido até 31/12/2025</div>
+        </div>
+    </div>`;
+
+        $(html).insertAfter(".quantidade-comprar")
+    })
+
+    function copyCoupon(element) {
+        const code = element.textContent;
+
+        // Copiar para área de transferência
+        navigator.clipboard.writeText(code).then(() => {
+            // Feedback visual
+            element.classList.add('copied');
+            const originalText = element.textContent;
+            element.textContent = '✓ COPIADO';
+
+            setTimeout(() => {
+                element.classList.remove('copied');
+                element.textContent = originalText;
+            }, 1500);
+        }).catch(err => {
+            console.error('Erro ao copiar:', err);
+        });
+    }
+</script>

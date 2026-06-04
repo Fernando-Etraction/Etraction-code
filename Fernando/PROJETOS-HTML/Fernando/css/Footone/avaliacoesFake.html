@@ -1,0 +1,50 @@
+<style> 
+    span.average-rating, .star-back {
+    --percent:87% !important;
+    }
+</style>
+
+<script>
+(function () {
+  // ====== CONFIG ======
+  const NEW_COUNT = 213;           // novo número de avaliações
+  const NEW_STAR_COLOR = '#22c55e'; // cor das estrelas
+
+  const SEL = {
+    box: '.avaliacoes',
+    rating: '.average-rating, .star-back, .rating', // tente múltiplos
+    count: '.num-avaliacoes a, .num-avaliacoes'
+  };
+
+  function apply() {
+    const box = document.querySelector(SEL.box);
+    if (!box || box.dataset.starPainted === '1') return false;
+
+    // 1) Atualiza o número (ex.: (0) -> (213))
+    const countEl = box.querySelector(SEL.count);
+    if (countEl) countEl.textContent = `(${NEW_COUNT})`;
+
+    // 2) Muda a cor das estrelas SEM alterar o preenchimento/percentual
+    const ratingEl = box.querySelector(SEL.rating);
+    if (ratingEl) {
+      // tenta cobrir os padrões mais comuns de temas
+      ratingEl.style.setProperty('color', NEW_STAR_COLOR);           // ícones com currentColor
+      ratingEl.style.setProperty('fill', NEW_STAR_COLOR);            // SVGs
+      ratingEl.style.setProperty('--star-color', NEW_STAR_COLOR);    // temas com var
+      ratingEl.style.setProperty('--star-filled', NEW_STAR_COLOR);   // var alternativa
+      ratingEl.style.setProperty('--primary', NEW_STAR_COLOR);       // fallback comum
+    }
+
+    box.dataset.starPainted = '1';
+    return true;
+  }
+
+  if (apply()) return;
+
+  const obs = new MutationObserver(() => { if (apply()) obs.disconnect(); });
+  obs.observe(document.documentElement, { childList: true, subtree: true });
+
+  // failsafe: encerra observação após 8s
+  setTimeout(() => obs.disconnect(), 8000);
+})();
+</script>

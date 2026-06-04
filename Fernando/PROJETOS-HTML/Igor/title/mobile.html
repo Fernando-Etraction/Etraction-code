@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="pagina-conteudo-adicional conteudo-adicional-105"><style>
+    .container-menu {
+        z-index: 100;
+    }
+    
+    .promo-banner-unico {
+        background-color: black;
+        color: white;
+        padding: 10px 5%;
+        width: 100%;
+        z-index: 1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+      margin-bottom: -6px;
+    }
+
+    .promo-banner-fixo {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+    }
+
+    .promo-texto-unico {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+       
+    }
+
+    .timer-unico {
+      display:flex;
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .timer-unico span {
+        color: #45C403;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: green;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .promo-banner-unico {
+            font-size: 0.9em;
+            padding: 10px;
+            display: flex;
+        }
+
+        .timer-unico {
+            font-size: 1em;
+            margin-left: 5px;
+        }
+
+        .promo-texto-unico {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .promo-banner-unico {
+            font-size: 0.8em;
+            padding: 8px;
+        }
+
+        .timer-unico {
+            font-size: 0.9em;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(`<div class="promo-banner-unico">
+            <button class="close-btn">×</button>
+            <div class="promo-texto-unico">
+	
+                <span> Frete Fixo R$9, 90  + CashBack de 20%</span>
+                    <div class="timer-unico">
+
+                    <span id="countdown-unico"></span>
+                </div>
+            </div>
+        </div>`).insertAfter('.header-bottom');
+
+        function atualizarCronometro() {
+            const horaFinal = new Date();
+            horaFinal.setHours(23, 59, 59, 999);
+
+            const agora = new Date();
+            const tempoRestante = horaFinal - agora;
+
+            if (tempoRestante <= 0) {
+                document.getElementById('countdown-unico').textContent = "Promoção encerrada!";
+                clearInterval(intervaloCronometro);
+            } else {
+                const horas = Math.floor((tempoRestante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((tempoRestante % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((tempoRestante % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown-unico').textContent = `${horas}h ${minutos}m ${segundos}s`;
+            }
+        }
+
+        const intervaloCronometro = setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+
+        // Função para fechar o banner
+        $(".close-btn").click(function() {
+            $(".promo-banner-unico").fadeOut();
+        });
+    });
+
+    $(document).ready(function () {
+        let banner = $(".promo-banner-unico");
+
+        $(window).on("scroll", function () {
+            if ($(window).scrollTop() > 100) {
+                banner.addClass("promo-banner-fixo");
+            } else {
+                banner.removeClass("promo-banner-fixo");
+            } 
+        });
+    });
+     
+</script>
+</div>
+</body>
+</html>

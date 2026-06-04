@@ -1,0 +1,202 @@
+<!-- ==========================================================
+     Conteúdo Adicional unificado: Selos do rodapé (Chapa Moto Parts)
+     Substitui os antigos conteúdos 3 e 10
+     - Selos de reputação e segurança (.box-selos)
+     - Faixa de classificação A/B/C (#lista-selos-classificacao)
+     - Ajuste de gap do .footer-middle .container
+     ========================================================== -->
+
+<style>
+  /* ---------- Ajuste do footer-middle (antigo conteúdo 3) ---------- */
+  .footer-middle .container {
+    gap: 1rem;
+  }
+  @media (max-width: 768px) {
+    .footer-middle .container {
+      gap: 0;
+    }
+  }
+
+  /* ---------- Tabela de selos de reputação (.box-selos) ---------- */
+  .box-selos .cmp-selos-table {
+    border: 0;
+    width: 100%;
+    max-width: 285px;
+    border-collapse: collapse;
+  }
+  .box-selos .cmp-selos-table td {
+    vertical-align: top;
+  }
+  .box-selos .cmp-selo-item {
+    display: block;
+    margin: 0;
+    text-align: left;
+  }
+  .box-selos .cmp-selo-google img {
+    margin-left: 1px;
+    max-width: none;
+  }
+  .box-selos .cmp-selo-detran img {
+    max-width: none;
+  }
+
+  /* ---------- Faixa de classificação A/B/C (antigo conteúdo 10) ---------- */
+  .footer-top {
+    padding: 20px 0 2px;
+  }
+  footer #lista-selos-classificacao {
+    margin-top: 20px;
+    padding: 0 10px;
+    background: #e6e6e6;
+  }
+  footer #lista-selos-classificacao .container.flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  footer #lista-selos-classificacao .item-list {
+    align-self: center;
+    align-items: baseline;
+    padding: 20px 0 12px;
+    color: #101010;
+  }
+  footer #lista-selos-classificacao .item-list * {
+    color: inherit;
+  }
+  footer #lista-selos-classificacao .item-list--title {
+    width: 40%;
+    text-align: left;
+    padding-right: 20px;
+  }
+  footer #lista-selos-classificacao .item-list--selo {
+    width: 20%;
+    text-align: center;
+  }
+  footer #lista-selos-classificacao .item-list--selo a {
+    display: block;
+  }
+
+  @media (max-width: 1024px) {
+    footer #lista-selos-classificacao .item-list {
+      width: 100%;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+    footer #lista-selos-classificacao .item-list--title {
+      text-align: center;
+      padding: 5px 10px;
+    }
+  }
+  @media (max-width: 768px) {
+    footer #lista-selos-classificacao {
+      margin-top: 10px;
+      padding: 15px 10px;
+    }
+    footer #lista-selos-classificacao,
+    footer #lista-selos-classificacao .item-list,
+    footer #lista-selos-classificacao .container.flex {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+(function ($) {
+  'use strict';
+
+  // HTML da tabela de selos de reputação (substitui .box-selos)
+  var selosReputacaoHTML =
+    '<table class="cmp-selos-table">' +
+      '<tbody>' +
+        '<tr>' +
+          '<td>' +
+            '<div id="seloML" class="cmp-selo-item">' +
+              '<a href="https://www.mercadolivre.com.br/pagina/chapamotoparts" target="_blank" rel="nofollow noopener" title="Mercado Livre - Chapa Moto Parts">' +
+                '<img src="https://chapamoto.cdn.magazord.com.br/img/2025/07/banner/2495947/selo-rodape-do-site-2025.gif" alt="Mercado Livre - Chapa Moto Parts" loading="lazy">' +
+              '</a>' +
+            '</div>' +
+          '</td>' +
+          '<td>' +
+            '<div class="selo-ctn cmp-selo-item">' +
+              '<div class="selo-google selo-google-safe cmp-selo-google">' +
+                '<a href="https://transparencyreport.google.com/safe-browsing/search?url=//www.chapamotoparts.com.br/" target="_blank" rel="nofollow noopener" title="Google Safe Browsing">' +
+                  '<div class="selo-cert-ctn google-safe-browsing">' +
+                    '<img class="lazyloaded" src="https://public-resources.cdn.magazord.com.br/assets/global/footer/selo-google.svg" alt="Selo Google" width="79" height="84" loading="lazy">' +
+                  '</div>' +
+                '</a>' +
+              '</div>' +
+            '</div>' +
+          '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<td>' +
+            '<div class="selo-avaliacoes cmp-selo-item">' +
+              '<a title="Confira as avaliações dos nossos clientes no site" href="https://www.chapamotoparts.com.br/avaliacoes-de-clientes">' +
+                '<img src="https://chapamoto.cdn.magazord.com.br/img/2023/06/banner/1488770/selo-avaliacao2.gif" alt="Avaliações de clientes" loading="lazy">' +
+              '</a>' +
+            '</div>' +
+            '<div class="selo-avaliacoes cmp-selo-item">' +
+              '<a title="Faça uma avaliação da Chapa Moto Parts no Google" href="https://g.page/r/Cbrx_a5-fmpAEAI/review">' +
+                '<img src="https://chapamoto.cdn.magazord.com.br/img/2025/07/banner/2495946/selo-avaliacao-google.gif" alt="Avaliação no Google" loading="lazy">' +
+              '</a>' +
+            '</div>' +
+          '</td>' +
+          '<td>' +
+            '<div class="cmp-selo-detran">' +
+              '<a title="Empresa credenciada pelo Detran de SC" href="https://www.detran.sc.gov.br/desmontes/">' +
+                '<img src="https://chapamoto.cdn.magazord.com.br/img/2023/06/banner/1488771/selo-detran-sc2.gif" alt="Credenciada Detran SC" width="81" height="86" loading="lazy">' +
+              '</a>' +
+            '</div>' +
+          '</td>' +
+        '</tr>' +
+      '</tbody>' +
+    '</table>';
+
+  // HTML da faixa de classificação A/B/C (injetada no footer-top)
+  var classificacaoHTML =
+    '<div id="lista-selos-classificacao" class="space-between">' +
+      '<div class="container flex">' +
+        '<div class="item-list item-list--title">' +
+          '<div class="item-list_title">Entenda como classificamos os nossos produtos:</div>' +
+        '</div>' +
+        '<div class="item-list item-list--selo">' +
+          '<a href="https://www.chapamotoparts.com.br/blog/entenda-como-classificamos-os-nossos-produtos#classificacao-a" title="Ler explicação completa">' +
+            '<img src="https://chapamoto.cdn.magazord.com.br/img/2023/10/loja/1648916/a-rodape.gif" alt="Selo de qualidade A" loading="lazy">' +
+          '</a>' +
+        '</div>' +
+        '<div class="item-list item-list--selo">' +
+          '<a href="https://www.chapamotoparts.com.br/blog/entenda-como-classificamos-os-nossos-produtos#classificacao-b" title="Ler explicação completa">' +
+            '<img src="https://chapamoto.cdn.magazord.com.br/img/2023/10/loja/1648918/b-rodape.gif" alt="Selo de qualidade B" loading="lazy">' +
+          '</a>' +
+        '</div>' +
+        '<div class="item-list item-list--selo">' +
+          '<a href="https://www.chapamotoparts.com.br/blog/entenda-como-classificamos-os-nossos-produtos#classificacao-c" title="Ler explicação completa">' +
+            '<img src="https://chapamoto.cdn.magazord.com.br/img/2023/10/loja/1648920/c-rodape.gif" alt="Selo de qualidade C" loading="lazy">' +
+          '</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  function renderSelosRodape() {
+    // 1) Selos de reputação dentro de .box-selos (sobrescreve conteúdo padrão)
+    var $boxSelos = $('.box-selos');
+    if ($boxSelos.length && !$boxSelos.find('.cmp-selos-table').length) {
+      $boxSelos.html(selosReputacaoHTML);
+    }
+
+    // 2) Ajuste do título da seção (se existir)
+    var $titulo = $('footer .selos-seguranca .section-title span:nth-child(2)');
+    if ($titulo.length && $titulo.text().trim() !== 'Reputação e segurança') {
+      $titulo.text('Reputação e segurança');
+    }
+
+    // 3) Faixa de classificação A/B/C no footer-top (guard anti-duplicação)
+    var $footerTop = $('footer .footer-top');
+    if ($footerTop.length && !$('#lista-selos-classificacao').length) {
+      $footerTop.append(classificacaoHTML);
+    }
+  }
+
+  $(renderSelosRodape); // = $(document).ready(renderSelosRodape)
+})(jQuery);
+</script>

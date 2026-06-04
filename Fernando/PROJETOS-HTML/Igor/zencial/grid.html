@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <title>Document</title>
+    </head>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #464646;      
+            color: #ffffff;             
+            font-family: "Hanken Grotesk", sans-serif;
+            font-weight: 400;
+            font-size: 10px;
+            font-style: normal;
+            line-height: 1;           
+            padding: 6px 12px;
+            border-radius: 999px;     
+            z-index: 5;
+        }
+
+        /* Layout */
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 28px;
+            max-width: 1240px;
+            margin: auto;
+        }
+
+        .card {
+            position: relative;
+            display: flex !important;
+            border-radius: 24px;
+            justify-content: center;   
+            align-items: center;  
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            background: #f8f8f6;
+            box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            align-items: center !important;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Troca de imagem apenas no ÚLTIMO card */
+        .card--hover .img-hover {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+        .card--hover:hover .img-hover {
+            opacity: 1;
+        }
+        .card--hover:hover .img-default {
+            opacity: 0;
+        }
+
+        /* Estilos para o carrossel mobile */
+        .produtos-carrossel {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+            display: none;
+        }
+        
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Estilo personalizado para as bolinhas de paginação */
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            opacity: 0.7;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: #464646;
+            opacity: 1;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 900px) {
+            .produtos-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .produtos-grid {
+                display: none; /* Esconde o grid no mobile */
+            }
+            
+            .produtos-carrossel {
+                position: static;
+                width: 100%;
+                height: auto;
+                margin: 0;
+                padding-bottom: 40px; /* Espaço para paginação */
+                overflow: visible;
+                clip: auto;
+                white-space: normal;
+                border-width: initial;
+                display: block; /* Mostra o carrossel no mobile */
+            }
+            
+            .swiper-slide .card {
+                width: 100%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+    <body>
+        <!-- GRID DE PRODUTOS (Desktop) -->
+        <div class="produtos-grid">
+            <!-- Card 1 -->
+            <a
+                target="_self"
+                class="card"
+                href="https://zencial.com.br/products/envy-skin"
+                aria-label="Abrir produto 1"
+            >
+                <span class="badge">Mais Vendido</span>
+                <img
+                    style="
+                        margin: 0 auto;
+                        width: 50%;
+                        height: 75%;
+                        object-fit: contain;
+                        display: block;
+                        align-items: center;
+                    "
+                    src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/ed253457ed4c2803a52de1f854da44d342a95154_87c00c60-fe2f-4956-be3f-d82be11afae4.png?v=1759324434"
+                    alt="Produto 1"
+                />
+            </a>
+
+            <!-- Card 2 -->
+            <a
+                target="_self"
+                class="card"
+                href="https://zencial.com.br/products/envy-skin-tranexamico"
+                aria-label="Abrir produto 2"
+            >
+                <img
+                    style="
+                        margin: 0 auto;
+                        width: 50%;
+                        height: 75%;
+                        object-fit: contain;
+                        display: block;
+                        align-items: center;
+                    "
+                    src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/21c1c35361bb1f9fea51a1643e46ede50de79694.png?v=1759324435"
+                    alt="Produto 2"
+                />
+            </a>
+
+            <!-- Card 3 (com hover que troca a imagem) -->
+            <a
+                target="_self"
+                class="card card--hover"
+                href="https://zencial.com.br/products/stick-anti-frizz?_pos=1&_psq=Envy+Hair+Stick+Anti-Frizz&_ss=e&_v=1.0"
+                aria-label="Abrir produto 3"
+            >
+                <img
+                    class="img-default"
+                    src="https://zencial.com.br/cdn/shop/files/Prancheta_1_e27e0750-3364-4cdf-be81-1bbc1c4f2c1d.png?v=1750448943&width=1280"
+                    alt="Produto 3"
+                />
+                <img
+                    class="img-hover"
+                    src="https://zencial.com.br/cdn/shop/files/Prancheta_1_copiar_4.png?v=1750448943&width=1280"
+                    alt=""
+                    aria-hidden="true"
+                />
+            </a>
+        </div>
+        
+        <!-- CARROSSEL DE PRODUTOS (Mobile) -->
+        <div class="swiper produtos-carrossel">
+            <div class="swiper-wrapper">
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                    <a
+                        target="_self"
+                        class="card"
+                        href="https://zencial.com.br/products/envy-skin"
+                        aria-label="Abrir produto 1"
+                    >
+                        <span class="badge">Mais Vendido</span>
+                        <img
+                            style="
+                                margin: 0 auto;
+                                width: 50%;
+                                height: 75%;
+                                object-fit: contain;
+                                display: block;
+                                align-items: center;
+                            "
+                            src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/ed253457ed4c2803a52de1f854da44d342a95154_87c00c60-fe2f-4956-be3f-d82be11afae4.png?v=1759324434"
+                            alt="Produto 1"
+                        />
+                    </a>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                    <a
+                        target="_self"
+                        class="card"
+                        href="https://zencial.com.br/products/envy-skin-tranexamico"
+                        aria-label="Abrir produto 2"
+                    >
+                        <img
+                            style="
+                                margin: 0 auto;
+                                width: 50%;
+                                height: 75%;
+                                object-fit: contain;
+                                display: block;
+                                align-items: center;
+                            "
+                            src="https://cdn.shopify.com/s/files/1/0673/0950/2681/files/21c1c35361bb1f9fea51a1643e46ede50de79694.png?v=1759324435"
+                            alt="Produto 2"
+                        />
+                    </a>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                    <a
+                        target="_self"
+                        class="card card--hover"
+                        href="https://zencial.com.br/products/stick-anti-frizz?_pos=1&_psq=Envy+Hair+Stick+Anti-Frizz&_ss=e&_v=1.0"
+                        aria-label="Abrir produto 3"
+                    >
+                        <img
+                            class="img-default"
+                            src="https://zencial.com.br/cdn/shop/files/Prancheta_1_e27e0750-3364-4cdf-be81-1bbc1c4f2c1d.png?v=1750448943&width=1280"
+                            alt="Produto 3"
+                        />
+                        <img
+                            class="img-hover"
+                            src="https://zencial.com.br/cdn/shop/files/Prancheta_1_copiar_4.png?v=1750448943&width=1280"
+                            alt=""
+                            aria-hidden="true"
+                        />
+                    </a>
+                </div>
+            </div>
+            <!-- Adiciona paginação -->
+            <div class="swiper-pagination"></div>
+            <!-- Adiciona navegação
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div> -->
+        </div>
+        
+        <!-- Script do Swiper -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Inicializa o Swiper
+                const swiper = new Swiper('.produtos-carrossel', {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                    direction: 'horizontal',
+                    loop: true,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                        dynamicBullets: false,
+                    },
+                    autoplay: false, // Desativado para evitar problemas de rolagem
+                    effect: 'slide',
+                    speed: 300,
+                    grabCursor: true,
+                    preventClicks: true,
+                    preventClicksPropagation: true,
+                });
+            });
+        </script>
+    </body>
+    </html>
+   

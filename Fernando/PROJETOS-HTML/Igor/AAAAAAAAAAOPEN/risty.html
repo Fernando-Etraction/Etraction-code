@@ -1,0 +1,1293 @@
+<p>
+<script>// <![CDATA[
+document.addEventListener('DOMContentLoaded', function () {
+  const anchor = document.querySelector('.acoes-checkout');
+  if (!anchor) return;                                 // não achou o campo cupom
+  if (document.getElementById('faq-modal')) return;    // já existe modal
+
+  // 1) Injeta CSS (escopado em .faq-scope p/ não conflitar)
+  if (!document.getElementById('faq-modal-styles')) {
+    const style = document.createElement('style');
+    style.id = 'faq-modal-styles';
+    style.textContent = `
+.faq-scope :where(*) { box-sizing: border-box; }
+.faq-scope .btn-open-faq {
+  all: unset; appearance: none; -webkit-appearance: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 10px 14px; border-radius: 8px; line-height: 1; font-weight: 700;
+  border: 1px solid #ddd; background:#fff; cursor: pointer; 
+  font-size: 14px; letter-spacing:.2px; box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.faq-scope .btn-open-faq:hover { background:#f8f8f8; }
+.faq-scope .faq-inline {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* ====== Modal (fora do fluxo, mas estilos escopados) ====== */
+.faq-scope .faq-modal { position: fixed; inset: 0; display: none; z-index: 9999; }
+.faq-scope .faq-modal.is-open { display: block; }
+.faq-scope .faq-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); }
+.faq-scope .faq-dialog {
+  position: relative; max-width: 860px; width: calc(100% - 24px);
+  margin: 48px auto; background: #fff; border-radius: 12px; overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25); outline: 0;
+}
+.faq-scope .faq-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid #eee; }
+.faq-scope .faq-title { font-size: 16px; font-weight: 700; margin: 0; }
+.faq-scope .faq-close { all: unset; cursor: pointer; font-size: 28px; line-height: 1; padding: 6px; }
+.faq-scope .faq-body { padding: 0; max-height: min(78vh, 720px); overflow: auto; }
+
+/* ====== Acordeão ====== */
+.faq-scope #risty-benefits .rb-item { border-bottom: 1px solid #eee; margin: 8px 0; }
+.faq-scope #risty-benefits .rb-item summary {
+  display: flex; align-items: center; padding: 12px 0; cursor: pointer;
+  color: #000; font-weight: 700; pointer-events: auto; user-select: auto;
+}
+.faq-scope #risty-benefits .rb-item summary::-webkit-details-marker { display: none; }
+.faq-scope #risty-benefits .rb-item summary::before {
+  content: "+"; width: 20px; text-align: center; font-weight: 700; margin-right: 10px;
+}
+.faq-scope #risty-benefits .rb-item[open] summary::before { content: "–"; }
+.faq-scope #risty-benefits .rb-item p { margin: 0 0 12px 30px; }
+.faq-scope #risty-benefits > summary { display: none !important; }
+.faq-scope #risty-benefits::before, 
+.faq-scope #risty-benefits::after { content: none !important; }
+
+@media (max-width: 800px) {
+  .faq-scope .faq-dialog { margin: 16px auto; }
+}
+
+/* Bloqueio de rolagem quando modal abre */
+body.faq-open { overflow: hidden; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // 2) Cria um wrapper escopado e injeta HTML após o campo de cupom
+  const wrapper = document.createElement('div');
+  wrapper.className = 'faq-scope';
+  wrapper.innerHTML = `
+<div class="faq-inline">
+  <button id="open-faq" class="btn-open-faq" type="button"
+          aria-haspopup="dialog" aria-controls="faq-modal" aria-expanded="false">
+    Perguntas Frequentes
+  </button>
+</div>
+
+<div id="faq-modal" class="faq-modal" role="dialog" aria-modal="true" aria-labelledby="faq-title" aria-hidden="true">
+  <div class="faq-backdrop" data-close></div>
+  <section class="faq-dialog" tabindex="-1">
+    <header class="faq-header">
+      <h2 id="faq-title" class="faq-title">Perguntas Frequentes RISTY</h2>
+      <button class="faq-close" type="button" aria-label="Fechar FAQ" data-close>&times;</button>
+    </header>
+    <div class="faq-body">
+      <div class="container">
+        <div id="risty-wrap">
+          <details id="risty-benefits" open>
+            <summary hidden></summary>
+
+            <details class="rb-item">
+              <summary>Quais os tamanhos disponíveis e como acertar na escolha?</summary>
+              <p>Nossas peças estão disponíveis do P ao GG, com modelagens precisas e recortes estratégicos que valorizam diferentes tipos de corpo. Na página de cada produto, há uma tabela de medidas completa para facilitar a escolha. Se preferir, nossa equipe ajuda pelo WhatsApp com uma consultoria personalizada.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Quanto tempo demora para receber meu pedido?</summary>
+              <p>O faturamento é feito em até 48 horas úteis após a compra. O prazo de envio aparece na finalização do pedido e depende do frete e da região. Trabalhamos para que seu pedido seja enviado o mais rápido possível, com todo cuidado que merece.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Como acompanho o rastreio do meu pedido?</summary>
+              <p>Assim que o pedido for faturado, você recebe por e-mail o código de rastreio, detalhamento e informações da entrega. Verifique se o e-mail cadastrado na compra está correto para garantir que receba as notificações.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Não recebi meu código de rastreio, o que faço?</summary>
+              <p>Confira a caixa de spam ou lixo eletrônico. Se não encontrar, entre em contato pelo WhatsApp para que possamos enviar novamente e garantir que você acompanhe seu pedido sem atrasos.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Qual é o horário de atendimento da RISTY?</summary>
+              <p>Segunda a quinta: 9h às 12h e 13h30 às 17h. Sexta: 9h às 12h e 13h30 às 16h (exceto feriados). Nesse período, nossa equipe está à disposição para tirar dúvidas, auxiliar na escolha e resolver qualquer questão.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Posso trocar ou devolver se a peça não servir ou não agradar?</summary>
+              <p>Sim. Você pode solicitar em até 7 dias corridos após o recebimento, conforme o Código de Defesa do Consumidor. Basta abrir um chamado no site com o número do pedido e o motivo. O processo é rápido e simples.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Como vocês garantem a qualidade e o acabamento das peças?</summary>
+              <p>Cuidamos de todo o processo, do desenvolvimento ao acabamento final. Usamos tecidos premium, revisamos cada costura e embalamos com cuidado para oferecer qualidade, conforto e durabilidade.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>As peças têm transparência?</summary>
+              <p>Não. Selecionamos tecidos que garantem segurança e conforto, mesmo nas cores claras, e nossas modelagens evitam transparências indesejadas.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>As peças da RISTY possuem proteção UV?</summary>
+              <p>Sim. Muitos dos nossos tecidos contam com tecnologia SUN PRO UV, que oferece alta proteção contra os raios solares. Essas informações estão descritas na página de cada produto.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>As peças encolhem ou desbotam com o tempo?</summary>
+              <p>Com os cuidados adequados, não. Lave à mão ou no ciclo delicado, evite deixar de molho, não use alvejantes e não seque em secadora para manter cor, forma e textura por mais tempo.</p>
+            </details>
+
+            <details class="rb-item">
+              <summary>Por que escolher a RISTY?</summary>
+              <p>Cada peça une qualidade, conforto e versatilidade. Produzimos com tecidos de alta performance, modelagens que valorizam o corpo e acabamentos impecáveis. Mais do que roupas, entregamos confiança, autoestima e estilo.</p>
+            </details>
+
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+  `;
+  anchor.insertAdjacentElement('afterend', wrapper);
+
+  // 3) Lógica do modal (abre/fecha, focus trap, ESC e backdrop)
+  (function () {
+    const openBtn = wrapper.querySelector('#open-faq');
+    const modal = wrapper.querySelector('#faq-modal');
+    const dialog = modal.querySelector('.faq-dialog');
+    const closeEls = modal.querySelectorAll('[data-close]');
+    let lastFocused = null;
+
+    const focusableSelector = [
+      'a[href]', 'area[href]', 'input:not([disabled])',
+      'select:not([disabled])', 'textarea:not([disabled])',
+      'button:not([disabled])', 'details summary',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(',');
+
+    function openModal() {
+      if (modal.classList.contains('is-open')) return;
+      lastFocused = document.activeElement;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('faq-open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      setTimeout(() => {
+        const firstFocusable = dialog.querySelector(focusableSelector) || dialog;
+        (firstFocusable || dialog).focus();
+      }, 0);
+      document.addEventListener('keydown', trapTab);
+      document.addEventListener('keydown', onEsc);
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('faq-open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('keydown', trapTab);
+      document.removeEventListener('keydown', onEsc);
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+
+    function trapTab(e) {
+      if (e.key !== 'Tab') return;
+      const focusables = Array.from(dialog.querySelectorAll(focusableSelector))
+        .filter(el => el.offsetParent !== null || el === document.activeElement);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    function onEsc(e) { if (e.key === 'Escape') closeModal(); }
+
+    openBtn.addEventListener('click', openModal);
+    closeEls.forEach(el => el.addEventListener('click', closeModal));
+    modal.addEventListener('click', (e) => {
+      if (e.target.classList.contains('faq-backdrop')) closeModal();
+    });
+
+    modal.addEventListener('wheel', (e) => {
+      if (!modal.classList.contains('is-open')) return;
+      const el = e.target.closest('.faq-body');
+      if (!el) return;
+      const atTop = el.scrollTop === 0 && e.deltaY < 0;
+      const atBottom = Math.ceil(el.scrollTop + el.clientHeight) >= el.scrollHeight && e.deltaY > 0;
+      if (atTop || atBottom) e.preventDefault();
+    }, { passive: false });
+  })();
+});
+// ]]></script>
+</p>
+<style><!--
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+  .container-cupom{
+    font-family:"Rubik",sans-serif;
+    box-shadow:0 0 5px #cecece;border-radius:10px;
+    padding:15px;margin:20px auto;background:#fff;max-width:1240px;width:100%;
+  }
+  .content-cupom{
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+  }
+  .promo-description{font-size:14px;color:#333;line-height:1.3;}
+  .head-description{
+    font-size:18px;font-weight:700;
+    display:flex;align-items:center;column-gap:12px;row-gap:6px;flex-wrap:nowrap;
+    white-space:nowrap;
+  }
+
+  /* TIMER em linha e compacto */
+  #esquenta-cupom .timer-group{
+    display:inline-flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    gap:6px !important;
+    white-space:nowrap !important;
+    margin-left:0;
+  }
+  #esquenta-cupom .time-box{
+    display:inline-flex;flex-direction:column;justify-content:center;align-items:center;
+    width:42px;min-width:42px;
+    padding:6px 4px;border-radius:10px;background:#f7f9fc;border:1px solid #e3e7ee;
+    line-height:1.05;text-align:center;
+  }
+  #esquenta-cupom .time-box .time{font-weight:800;font-size:14px;color:#0f172a;letter-spacing:.3px;}
+  #esquenta-cupom .time-box .label{font-size:9px;color:#64748b;margin-top:2px;text-transform:lowercase;}
+  #esquenta-cupom .timer-group .sep{display:inline-block;font-weight:700;color:#0f172a;margin:0 2px;line-height:1;}
+
+  .cupom-area{display:flex;flex-direction:row;align-items:center;gap:16px;}
+  .cupom-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .copy-cupom{
+    background:#f2f2f2;color:#333;border:.5px dashed #333;padding:8px 14px;border-radius:6px;
+    cursor:pointer;width:144px;text-align:center;display:flex;align-items:center;justify-content:center;
+    font-weight:700;transition:background-color .2s ease;user-select:none;
+  }
+  .copy-cupom:hover{background:#e2e2e2}
+  .copy-message p{margin:0;font-size:12px;text-align:center;}
+
+  @media (max-width:768px){
+    .cupom-wrap{ margin: auto; }
+    .content-cupom{flex-direction:column;align-items:center;gap:12px;}
+    .head-description{font-size:16px;flex-wrap:wrap;}
+    .copy-cupom{width:100%;}
+    .cupom-area{justify-content:space-between;}
+    #esquenta-cupom .timer-group{gap:4px !important; margin: auto;}
+    #esquenta-cupom .timer-group .sep{margin:0 1px;}
+  }
+--></style>
+<!-- ===== QUEM COMPROU TAMBÉM LEVOU (CART/CHECKOUT) ===== -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<style><!--
+.titulo-prod {
+    max-width: 800px;
+    margin: 0 auto 12px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .texto-banner-wrap {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 620px;
+    overflow: visible;
+  }
+  .texto-banner.swiper {
+    width: 100%;
+    overflow: hidden;
+  }
+  .texto-banner .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    border: 1px solid var(--cor-bordas);
+    background: #fff;
+  }
+  .container-prod {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 180px;
+    height: 315px;
+    padding: 10px;
+    box-shadow: 0 0 5px #cecece;
+    background: #fff;
+  }
+  .img-prod {
+    max-width: 150px !important;
+    max-height: 95px !important;
+    object-fit: contain;
+  }
+  .text-prod {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+  .text-prod > p {
+    margin: 0;
+    line-height: 1.25;
+    max-width: 160px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .price-product {
+    font-size: 13px;
+  }
+  .primary-price {
+    font-size: 1em;
+    color: var(--color-dark-700);
+    line-height: 20px;
+  }
+  .price-boleto {
+    font-weight: bold;
+    color: #19c035;
+  }
+
+  .select-row {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .select-row label {
+    font-size: 12px;
+    color: #444;
+  }
+  .mz-select {
+    width: 118px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .botao-prod {
+    width: 158px !important;
+    height: 34px;
+    text-align: center;
+    color: #fff;
+    background: #00a441;
+    border: 0;
+    border-radius: 10px;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+  .botao-prod:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .botao-prod:hover {
+    cursor: pointer;
+    background: #00a441;
+  }
+
+  .texto-banner-wrap .swiper-button-prev,
+  .texto-banner-wrap .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #d2755e;
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  .texto-banner-wrap .swiper-button-prev {
+    left: -42px;
+  }
+  .texto-banner-wrap .swiper-button-next {
+    right: -42px;
+  }
+  @media (max-width: 800px) {
+    .select-row label {
+      font-size: 10px;
+    }
+    .mz-select {
+      font-size: 10px;
+    }
+    .container-prod {
+      width: 123px;
+    }
+    .botao-prod {
+      width: 104px !important;
+    }
+    .texto-banner-wrap {
+      max-width: 100%;
+    }
+    .texto-banner-wrap .swiper-button-prev {
+      left: 4px;
+      display: none;
+    }
+    .texto-banner-wrap .swiper-button-next {
+      right: 4px;
+      display: none;
+    }
+  }</style>
+<script>// <![CDATA[
+$(document).ready(function () {
+    initTopBannerEnch();
+
+    $(document).ajaxComplete(function (event, xhr, settings) {
+      if (
+        settings.url == "/checkout/cart?operation=deleteItem" ||
+        settings.url == "/checkout/cart?operation=adicionaItem" ||
+        settings.url == "/checkout/cart?operation=removeItem"
+      ) {
+        initTopBannerEnch();
+      }
+    });
+
+    function initTopBannerEnch() {
+      var html = `
+      <div class="titulo-prod"><p>Quem comprou, também levou!</p></div>
+
+      <div class="texto-banner-wrap">
+        <div class="swiper-button-prev"></div>
+
+        <div class="texto-banner swiper">
+          <div class="swiper-wrapper">
+
+            <!-- SLIDE 1 (Regata Celine) -->
+            <div class="swiper-slide">
+              <div class="item-slide" data-sku-base="14756">
+                <div class="container-prod">
+                  <img class="img-prod" src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1732/07-regata-celine-risty.jpeg?ims=726x1100" alt="Regata Celine RISTY" />
+                  <div class="text-prod">
+                    <p>Regata Celine RISTY</p>
+                    <div class="price-product"><span class="primary-price"><span id="price-14756" class="price-boleto">R$ 59,90</span> no PIX</span></div>
+
+                    <div class="select-row">
+                      <label for="size-14756">Tamanho</label>
+                      <select id="size-14756" class="size-select mz-select">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="P">P</option><option value="M">M</option>
+                        <option value="G">G</option><option value="GG">GG</option>
+                      </select>
+                    </div>
+
+                    <div class="select-row">
+                      <label for="color-14756">Cor</label>
+                      <select id="color-14756" class="color-select mz-select">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Preto">Preto</option>
+                        <option value="Cacau">Cacau</option>
+                        <option value="Verde Militar">Verde Militar</option>
+                        <option value="Branco">Branco</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="botao-prod" disabled>Adicionar</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 2 (Faixa de Cabelo) -->
+            <div class="swiper-slide">
+              <div class="item-slide" data-sku-base="001">
+                <div class="container-prod">
+                  <img class="img-prod" src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1821/07-faixa-de-cabelo-risty.jpeg?ims=726x1100" alt="Faixa de Cabelo RISTY" />
+                  <div class="text-prod">
+                    <p>Faixa de Cabelo RISTY</p>
+                    <div class="price-product"><span class="primary-price"><span id="price-001" class="price-boleto">R$ 19,90</span> no PIX</span></div>
+
+                    <div class="select-row">
+                      <label for="size-001">Tamanho</label>
+                      <select id="size-001" class="size-select mz-select">
+                        <option value="Único" selected>Único</option>
+                      </select>
+                    </div>
+
+                    <div class="select-row">
+                      <label for="color-001">Cor</label>
+                      <select id="color-001" class="color-select mz-select">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Preto">Preto</option>
+                        <option value="Cacau">Cacau</option>
+                        <option value="Verde Militar">Verde Militar</option>
+                        <option value="Preto Shine">Preto Shine</option>
+                        <option value="Cacau Shine">Cacau Shine</option>
+                        <option value="Verde Malva">Verde Malva</option>
+                        <option value="Cereja">Cereja</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="botao-prod" disabled>Adicionar</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3 (AJUSTADO: Jaqueta Yara RISTY - base 14575) -->
+            <div class="swiper-slide">
+              <div class="item-slide" data-sku-base="14575">
+                <div class="container-prod">
+                  <img class="img-prod" src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1751/10-jaqueta-yara-risty.jpeg?ims=726x1100" alt="Jaqueta Yara RISTY" />
+                  <div class="text-prod">
+                    <p>Jaqueta Yara RISTY</p>
+                    <div class="price-product"><span class="primary-price"><span id="price-14575" class="price-boleto">R$ 79,90</span> no PIX</span></div>
+
+                    <div class="select-row">
+                      <label for="size-14575">Tamanho</label>
+                      <select id="size-14575" class="size-select mz-select">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="P">P</option><option value="M">M</option>
+                        <option value="G">G</option><option value="GG">GG</option>
+                      </select>
+                    </div>
+
+                    <div class="select-row">
+                      <label for="color-14575">Cor</label>
+                      <select id="color-14575" class="color-select mz-select">
+                        <option value="" disabled selected>Selecione</option>
+                        <option value="Preto">Preto</option>
+                        <option value="Cacau">Cacau</option>
+                        <option value="Verde Militar">Verde Militar</option>
+                        <option value="Branco">Branco</option>
+                        <option value="Duna">Duna</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="botao-prod" disabled>Adicionar</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="swiper-button-next"></div>
+      </div>
+    `;
+
+      // remove anterior
+      $(".newBanner").remove();
+
+      // ancora preferida
+      var $anchor = $(".acoes-checkout").first();
+      if ($anchor.length) {
+        $anchor.after('<div class="newBanner"></div>');
+      } else if ($("#cart-area").length) {
+        $("#cart-area").prepend('<div class="newBanner"></div>');
+      } else {
+        $("body").prepend('<div class="newBanner"></div>');
+      }
+      $(".newBanner").append(html);
+
+      // ===== Preços por cor =====
+      const productPrices = {
+        14756: {
+          Preto: 59.9,
+          Cacau: 59.9,
+          "Verde Militar": 59.9,
+          Branco: 59.9,
+        },
+        "001": {
+          Preto: 19.9,
+          Cacau: 19.9,
+          "Verde Militar": 19.9,
+          "Preto Shine": 19.9,
+          "Cacau Shine": 19.9,
+          "Verde Malva": 19.9,
+          Cereja: 19.9,
+        },
+        14575: {
+          Preto: 79.9,
+          Cacau: 79.9,
+          "Verde Militar": 79.9,
+          Branco: 79.9,
+          Duna: 79.9,
+        },
+        "003": { Branco: 39.9 },
+      };
+
+      // ===== Mapas de variação =====
+      const variantMap = {
+        14756: {
+          colorBase: { Preto: 1, Cacau: 5, "Verde Militar": 9, Branco: 13 },
+          sizeOffset: { P: 0, M: 1, G: 2, GG: 3 },
+        },
+        // Jaqueta Yara RISTY (14575-01..19 conforme planilha)
+        14575: {
+          colorBase: {
+            Preto: 1,
+            Cacau: 5,
+            "Verde Militar": 9,
+            Branco: 13,
+            Duna: 17,
+          }, // Duna não tem GG
+          sizeOffset: { P: 0, M: 1, G: 2, GG: 3 },
+        },
+        "001": {
+          colorCode: {
+            Preto: "01",
+            Cacau: "02",
+            "Verde Militar": "03",
+            "Preto Shine": "04",
+            "Cacau Shine": "05",
+            "Verde Malva": "06",
+            Cereja: "07",
+          },
+        },
+        "003": { colorCode: { Branco: "01" } },
+      };
+
+      // utils
+      function formatBRL(n) {
+        return "R$ " + n.toFixed(2).replace(".", ",");
+      }
+
+      function computeVariantSku(base, size, color) {
+        // bases com colorBase + sizeOffset
+        if (variantMap[base] && variantMap[base].colorBase) {
+          const c = variantMap[base].colorBase[color];
+          const s = variantMap[base].sizeOffset[size];
+          if (c == null || s == null) return null;
+
+          // regra especial: 14575 Duna não tem GG (evita 20)
+          if (String(base) === "14575" && color === "Duna" && size === "GG")
+            return null;
+
+          const idx = c + s;
+          return `${base}-${String(idx).padStart(2, "0")}`;
+        }
+        // bases com colorCode fixo
+        const map = variantMap[base] && variantMap[base].colorCode;
+        if (!map) return null;
+        const code = map[color];
+        return code ? `${base}-${code}` : null;
+      }
+
+      function updatePrice(base, color) {
+        const el = document.getElementById(`price-${base}`);
+        if (!el) return;
+        const table = productPrices[base] || {};
+        if (color && table[color] != null)
+          el.textContent = formatBRL(table[color]);
+      }
+
+      // Habilita/Desabilita botão e atualiza rel
+      function updateButtonState(item) {
+        const base = item.getAttribute("data-sku-base");
+        const sizeSel = item.querySelector(".size-select");
+        const colorSel = item.querySelector(".color-select");
+        const btn = item.querySelector(".botao-prod");
+
+        const size = sizeSel ? sizeSel.value || "" : "";
+        const color = colorSel ? colorSel.value || "" : "";
+
+        // preço por cor
+        if (color) updatePrice(base, color);
+
+        // Regra dinâmica 14575: se Duna, remove opção GG
+        if (String(base) === "14575" && sizeSel) {
+          const hasGG = Array.from(sizeSel.options).some(
+            (o) => o.value === "GG"
+          );
+          if (color === "Duna" && hasGG) {
+            // se usuário estava em GG, volta para vazio
+            if (sizeSel.value === "GG") sizeSel.value = "";
+            // remove opção GG
+            Array.from(sizeSel.options).forEach((o) => {
+              if (o.value === "GG") o.remove();
+            });
+          } else if (color !== "Duna" && !hasGG) {
+            // recoloca GG quando sair de Duna
+            const opt = new Option("GG", "GG");
+            sizeSel.add(opt);
+          }
+        }
+
+        const needSize = !!sizeSel;
+        const needColor = !!colorSel;
+        const hasSize = !needSize || (size && size !== "Selecione");
+        const hasColor = !needColor || (color && color !== "Selecione");
+
+        if (hasSize && hasColor) {
+          const variant = computeVariantSku(base, size, color);
+          if (variant) {
+            btn.disabled = false;
+            btn.setAttribute("data-variant", variant);
+            btn.setAttribute("rel", variant);
+          } else {
+            btn.disabled = true;
+            btn.removeAttribute("data-variant");
+            btn.removeAttribute("rel");
+          }
+        } else {
+          btn.disabled = true;
+          btn.removeAttribute("data-variant");
+          btn.removeAttribute("rel");
+        }
+      }
+
+      // listeners
+      document
+        .querySelectorAll(".newBanner .item-slide")
+        .forEach(function (item) {
+          const selects = item.querySelectorAll(".size-select, .color-select");
+          selects.forEach(function (sel) {
+            sel.addEventListener("change", function () {
+              updateButtonState(item);
+            });
+          });
+          updateButtonState(item);
+        });
+
+      // Swiper
+      setTimeout(function () {
+        new Swiper(".texto-banner.swiper", {
+          slidesPerView: 3,
+          spaceBetween: 16,
+          loop: false,
+          rewind: false,
+          centeredSlides: false,
+          watchOverflow: true,
+          resistanceRatio: 0,
+          observer: true,
+          observeParents: true,
+          navigation: {
+            nextEl: ".texto-banner-wrap .swiper-button-next",
+            prevEl: ".texto-banner-wrap .swiper-button-prev",
+          },
+          breakpoints: {
+            0: { slidesPerView: 3 },
+            520: { slidesPerView: 3 },
+            700: { slidesPerView: 3 },
+          },
+        });
+      }, 30);
+
+      // Add to cart
+      $(".botao-prod")
+        .off("click")
+        .on("click", function (e) {
+          e.preventDefault();
+          const variant = $(this).attr("data-variant") || $(this).attr("rel");
+          if (!variant) return;
+          Zord.checkout.addCart(variant, 1, 1, 0, function () {
+            Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+          });
+        });
+    }
+  });
+// ]]></script>
+<!-- ===== FIM BLOCO ===== -->
+<p></p>
+
+
+
+
+
+
+
+/* ANTIGO
+
+<!-- ADICIONANDO O QUEM COMPROU TBM LEVOU NO CART / CHECKPUT -->
+<p></p>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<style><!--
+.titulo-prod {
+    max-width: 800px;
+    margin: 0 auto 12px;
+    font-size: 20px;
+    text-align: center;
+  }
+  .texto-banner-wrap {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 620px;
+    overflow: visible;
+  }
+  .texto-banner.swiper {
+    width: 100%;
+    overflow: hidden;
+  }
+  .texto-banner .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    border: 1px solid var(--cor-bordas);
+    background: #fff;
+  }
+  .container-prod {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 180px;
+    height: 315px;
+    padding: 10px;
+    box-shadow: 0 0 5px #cecece;
+    background: #fff;
+  }
+  .img-prod {
+    max-width: 150px !important;
+    max-height: 95px !important;
+    object-fit: contain;
+  }
+  .text-prod {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+  .text-prod > p {
+    margin: 0;
+    line-height: 1.25;
+    max-width: 160px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .price-product {
+    font-size: 13px;
+  }
+  .primary-price {
+    font-size: 1em;
+    color: var(--color-dark-700);
+    line-height: 20px;
+  }
+  .price-boleto {
+    font-weight: bold;
+    color: #19c035;
+  }
+
+  .select-row {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .select-row label {
+    font-size: 12px;
+    color: #444;
+  }
+  .mz-select {
+    width: 118px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .botao-prod {
+    width: 158px !important;
+    height: 34px;
+    text-align: center;
+    color: #fff;
+    background: #00a441;
+    border: 0;
+    border-radius: 10px;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+  .botao-prod:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .botao-prod:hover {
+    cursor: pointer;
+    background: #00a441;
+  }
+
+  .texto-banner-wrap .swiper-button-prev,
+  .texto-banner-wrap .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #D2755E;
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  .texto-banner-wrap .swiper-button-prev {
+    left: -42px;
+  }
+  .texto-banner-wrap .swiper-button-next {
+    right: -42px;
+  }
+
+  @media (max-width: 800px) {
+    .select-row label{
+      font-size: 10px;
+    }
+    .mz-select{
+      font-size: 10px;
+    }
+    .container-prod{
+      width: 123px;
+    }
+    .botao-prod{
+      width: 104px !important;
+    }
+    .texto-banner-wrap {
+      max-width: 100%;
+    }
+    .texto-banner-wrap .swiper-button-prev {
+      left: 4px;
+      display: none;
+    }
+    .texto-banner-wrap .swiper-button-next {
+      right: 4px;
+      display: none;
+    }
+  }
+--></style>
+<script>// <![CDATA[
+$(document).ready(function () {
+    initTopBannerEnch();
+
+    $(document).ajaxComplete(function (event, xhr, settings) {
+      if (
+        settings.url == "/checkout/cart?operation=deleteItem" ||
+        settings.url == "/checkout/cart?operation=adicionaItem" ||
+        settings.url == "/checkout/cart?operation=removeItem"
+      ) {
+        initTopBannerEnch();
+      }
+    });
+
+    function initTopBannerEnch() {
+      var html = `
+        <div class="titulo-prod"><p>Quem comprou, também levou!</p></div>
+
+        <div class="texto-banner-wrap">
+          <div class="swiper-button-prev"></div>
+
+          <div class="texto-banner swiper">
+            <div class="swiper-wrapper">
+
+              <!-- SLIDE 1 -->
+              <div class="swiper-slide">
+                <div class="item-slide" data-sku-base="14756">
+                  <div class="container-prod">
+                    <img class="img-prod" src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1732/07-regata-celine-risty.jpeg?ims=726x1100" alt="Regata Celine RISTY" />
+                    <div class="text-prod">
+                      <p>Regata Celine RISTY </p>
+                      <div class="price-product"><span class="primary-price"><span id="price-14756" class="price-boleto">R$ 59,90</span> no PIX</span></div>
+
+                      <div class="select-row">
+                        <label for="size-14756">Tamanho</label>
+                        <select id="size-14756" class="size-select mz-select">
+                          <option value="" disabled selected>Selecione</option>
+                          <option value="P">P</option>
+                          <option value="M">M</option>
+                          <option value="G">G</option>
+                          <option value="GG">GG</option>
+                        </select>
+                      </div>
+
+                      <div class="select-row">
+                        <label for="color-14756">Cor</label>
+                        <select id="color-14756" class="color-select mz-select">
+                          <option value="" disabled selected>Selecione</option>
+                          <option value="Preto">Preto</option>
+                          <option value="Cacau">Cacau</option>
+                          <option value="Verde Militar">Verde Militar</option>
+                          <option value="Branco">Branco</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button class="botao-prod" disabled>Adicionar</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 2 -->
+              <div class="swiper-slide">
+                <div class="item-slide" data-sku-base="001">
+                  <div class="container-prod">
+                    <img class="img-prod" src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1821/07-faixa-de-cabelo-risty.jpeg?ims=726x1100" alt="Faixa de Cabelo RISTY" />
+                    <div class="text-prod">
+                      <p>Faixa de Cabelo RISTY</p>
+                      <div class="price-product"><span class="primary-price"><span id="price-001" class="price-boleto">R$ 19,90</span> no PIX</span></div>
+
+                      <div class="select-row">
+                        <label for="size-001">Tamanho</label>
+                        <select id="size-001" class="size-select mz-select">
+                          <option value="Único" selected>Único</option>
+                        </select>
+                      </div>
+
+                      <div class="select-row">
+                        <label for="color-001">Cor</label>
+                        <select id="color-001" class="color-select mz-select">
+                          <option value="" disabled selected>Selecione</option>
+                          <option value="Preto">Preto</option>
+                          <option value="Cacau">Cacau</option>
+                          <option value="Verde Militar">Verde Militar</option>
+                          <option value="Preto Shine">Preto Shine</option>
+                          <option value="Cacau Shine">Cacau Shine</option>
+                          <option value="Verde Malva">Verde Malva</option>
+                          <option value="Cereja">Cereja</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button class="botao-prod" disabled>Adicionar</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 3 -->
+              <div class="swiper-slide">
+                <div class="item-slide" data-sku-base="003">
+                  <div class="container-prod">
+                    <img class="img-prod" src="https://risty.cdn.magazord.com.br/img/2025/06/produto/1806/02-meia-cano-alto-premium-risty.jpeg?ims=726x1100" alt="Meia Cano Alto Premium RISTY" />
+                    <div class="text-prod">
+                      <p>Meia Cano Alto Premium RISTY </p>
+                      <div class="price-product"><span class="primary-price"><span id="price-003" class="price-boleto">R$ 39,90</span> no PIX</span></div>
+
+                      <div class="select-row">
+                        <label for="size-003">Tamanho</label>
+                        <select id="size-003" class="size-select mz-select">
+                          <option value="Único" selected>Único</option>
+                        </select>
+                      </div>
+
+                      <div class="select-row">
+                        <label for="color-003">Cor</label>
+                        <select id="color-003" class="color-select mz-select">
+                          <option value="" disabled selected>Selecione</option>
+                          <option value="Branco">Branco</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button class="botao-prod" disabled>Adicionar</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="swiper-button-next"></div>
+        </div>
+      `;
+
+     // remove o anterior se existir
+$(".newBanner").remove();
+
+// tenta inserir logo DEPOIS do primeiro .acoes-checkout
+var $anchor = $(".acoes-checkout").first();
+if ($anchor.length) {
+  $anchor.after('<div class="newBanner"></div>');
+} else if ($("#cart-area").length) {
+  // fallback: se não tiver .acoes-checkout, mantém no cart-area
+  $("#cart-area").prepend('<div class="newBanner"></div>');
+} else {
+  // fallback final (evita perder o banner caso nada exista)
+  $("body").prepend('<div class="newBanner"></div>');
+}
+
+// injeta o HTML dentro do contêiner novo
+$(".newBanner").append(html);
+
+
+      // Preços por cor
+      const productPrices = {
+        14756: {
+          Preto: 59.9,
+          Cacau: 59.9,
+          "Verde Militar": 59.9,
+          Branco: 59.9,
+        },
+        "001": {
+          Preto: 19.9,
+          Cacau: 19.9,
+          "Verde Militar": 19.9,
+          "Preto Shine": 19.9,
+          "Cacau Shine": 19.9,
+          "Verde Malva": 19.9,
+          Cereja: 19.9,
+        },
+        "003": { Branco: 39.9 },
+      };
+
+      // Mapa de variações -> monta o sufixo da variação
+      const variantMap = {
+        14756: {
+          colorBase: { Preto: 1, Cacau: 5, "Verde Militar": 9, Branco: 13 },
+          sizeOffset: { P: 0, M: 1, G: 2, GG: 3 },
+        },
+        "001": {
+          colorCode: {
+            Preto: "01",
+            Cacau: "02",
+            "Verde Militar": "03",
+            "Preto Shine": "04",
+            "Cacau Shine": "05",
+            "Verde Malva": "06",
+            Cereja: "07",
+          },
+        },
+        "003": { colorCode: { Branco: "01" } },
+      };
+
+      // utils
+      function formatBRL(n) {
+        return "R$ " + n.toFixed(2).replace(".", ",");
+      }
+
+      function computeVariantSku(base, size, color) {
+        // 14756 => (colorBase + sizeOffset) com 2 dígitos
+        if (base === "14756") {
+          const c = variantMap["14756"].colorBase[color];
+          const s = variantMap["14756"].sizeOffset[size];
+          if (c == null || s == null) return null;
+          const idx = c + s;
+          return `${base}-${String(idx).padStart(2, "0")}`;
+        }
+        // 001, 003 => base + "-" + colorCode
+        const map = variantMap[base] && variantMap[base].colorCode;
+        if (!map) return null;
+        const code = map[color];
+        return code ? `${base}-${code}` : null;
+      }
+
+      function updatePrice(base, color) {
+        const el = document.getElementById(`price-${base}`);
+        if (!el) return;
+        const table = productPrices[base] || {};
+        if (color && table[color] != null) {
+          el.textContent = formatBRL(table[color]);
+        }
+      }
+
+      function updateButtonState(item) {
+        const base = item.getAttribute("data-sku-base");
+        const sizeSel = item.querySelector(".size-select");
+        const colorSel = item.querySelector(".color-select");
+        const btn = item.querySelector(".botao-prod");
+
+        const size = sizeSel ? sizeSel.value || "" : "";
+        const color = colorSel ? colorSel.value || "" : "";
+
+        // preço por cor (se já tiver escolhido)
+        if (color) updatePrice(base, color);
+
+        // requisitos: se existir size-select, precisa ter valor; se existir color-select, idem.
+        const needSize = !!sizeSel;
+        const needColor = !!colorSel;
+
+        const hasSize = !needSize || (size && size !== "Selecione");
+        const hasColor = !needColor || (color && color !== "Selecione");
+
+        if (hasSize && hasColor) {
+          const variant = computeVariantSku(base, size, color);
+          if (variant) {
+            btn.disabled = false;
+            btn.setAttribute("data-variant", variant);
+            // mantém a “mesma lógica”: também atualiza rel (antes era fixo no HTML)
+            btn.setAttribute("rel", variant);
+          } else {
+            btn.disabled = true;
+            btn.removeAttribute("data-variant");
+            btn.removeAttribute("rel");
+          }
+        } else {
+          btn.disabled = true;
+          btn.removeAttribute("data-variant");
+          btn.removeAttribute("rel");
+        }
+      }
+
+      // listeners de selects
+      document
+        .querySelectorAll(".newBanner .item-slide")
+        .forEach(function (item) {
+          const selects = item.querySelectorAll(".size-select, .color-select");
+          selects.forEach(function (sel) {
+            sel.addEventListener("change", function () {
+              updateButtonState(item);
+            });
+          });
+          // estado inicial
+          updateButtonState(item);
+        });
+
+      // Swiper
+      setTimeout(function () {
+        new Swiper(".texto-banner.swiper", {
+          slidesPerView: 3,
+          spaceBetween: 16,
+          loop: false,
+          rewind: false,
+          centeredSlides: false,
+          watchOverflow: true,
+          resistanceRatio: 0,
+          observer: true,
+          observeParents: true,
+          navigation: {
+            nextEl: ".texto-banner-wrap .swiper-button-next",
+            prevEl: ".texto-banner-wrap .swiper-button-prev",
+          },
+          breakpoints: {
+            0: { slidesPerView: 3 },
+            520: { slidesPerView: 3 },
+            700: { slidesPerView: 3 },
+          },
+        });
+      }, 30);
+
+      // Botão Adicionar — mantém a mesma lógica do addCart
+      $(".botao-prod")
+        .off("click")
+        .on("click", function (e) {
+          e.preventDefault();
+          const variant = $(this).attr("data-variant") || $(this).attr("rel");
+          if (!variant) {
+            return;
+          }
+
+          // quantidade = 1; flags iguais ao original
+          Zord.checkout.addCart(variant, 1, 1, 0, function () {
+            Zord.checkout.atualizaQuantidadeEspecificaCarrinho();
+          });
+        });
+    }
+  });
+// ]]></script>
+<!-- FIM DO QUEM COMPROU TBM LEVOU NO CART / CHECKPUT --> */

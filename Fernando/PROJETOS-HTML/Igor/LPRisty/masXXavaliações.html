@@ -1,0 +1,16 @@
+<script>
+    $(document).ready(function() {
+      let numAvaliacoes = parseInt($('.num-avaliacoes a').text().replace(/\D/g, ''), 10) || 0;
+  
+      if (numAvaliacoes === 0) {
+        $('.faca-avaliacao').remove();
+      } else if (numAvaliacoes < 10) {
+        // Altera o texto para "Ver Avaliações" caso o número seja menor que 10.
+        $('.faca-avaliacao').html('<span style="font-size:12px;">Ver Avaliações</span>');
+      } else {
+        // Remove o elemento de número de avaliações e altera o texto para "Mais de [número] avaliações!".
+        $('.faca-avaliacao').html('<span style="font-size:12px;">Mais de ' + numAvaliacoes + ' avaliações!</span>');
+      }
+    });
+  </script>
+  

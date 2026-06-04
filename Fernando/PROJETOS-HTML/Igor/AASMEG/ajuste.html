@@ -1,0 +1,126 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
+
+<style>
+  .ra-vitrine ul.product-list li .img-principal {
+    border-radius: 8px 8px 0 0 !important;
+  }
+
+  .container-landing-page .ra-vitrine ul.product-list li .product-name,
+  .container-landing-page .ra-vitrine ul.product-list li .average-rating,
+  .container-landing-page .ra-vitrine ul.product-list li .star-back,
+  .container-landing-page .ra-vitrine ul.product-list li .old-price,
+  .container-landing-page .ra-vitrine ul.product-list li .type-payment-condiction,
+  .container-landing-page .ra-vitrine ul.product-list li .secondary-price {
+    color: var(--w-color) !important;
+  }
+
+  .container-landing-page .ra-vitrine ul.product-list li .valor-big,
+  .container-landing-page .ra-vitrine ul.product-list li .pix {
+    color: var(--amber-400) !important;
+  }
+
+  .ra-vitrine ul.product-list li { background: transparent !important; }
+
+  .ra-vitrine ul.product-list li .swiper-slide {
+    background-color: var(--bg-primary) !important;
+    padding: 0 0 15px 0 !important;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine {
+    background-color: var(--amber-400) !important;
+    color: var(--bg-primary) !important;
+    border-color: transparent !important;
+  }
+
+  /* ===== Botão ===== */
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine {
+    width: 94% !important;
+    margin: 0 auto !important;
+    border-radius: 3px;
+    padding: 10px 20px;
+    position: relative;
+    overflow: hidden;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    line-height: 1;
+    white-space: nowrap;
+
+    backface-visibility: hidden;
+    transform: translateZ(0);
+
+    /* Garante que qualquer texto fora do <span> não apareça */
+    font-size: 0 !important;
+  }
+
+  /* Texto (único lugar onde o texto aparece) */
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine > span {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    will-change: transform, opacity;
+    transition: transform .3s ease, opacity .2s ease;
+    font-size: 14px !important; /* ajuste se usar outro tamanho */
+  }
+
+  /* Ícone centralizado absoluto (não ocupa layout) */
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine:before {
+    content: 'shopping_cart';
+    font-family: 'Material Icons';
+    font-size: 26px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, 100%) rotate(90deg);
+    transition: transform .4s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Spinner opcional (invisível por padrão) */
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine:after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 9px);
+    inset-inline-start: calc(50% - 9px);
+    width: 18px; height: 18px;
+    border: 1px solid transparent;
+    border-left-color: currentColor;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: transform .2s ease, opacity .2s ease;
+    pointer-events: none;
+  }
+
+  /* Hover: ícone entra; texto sobe e some */
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine:hover:before {
+    transform: translate(-50%, -50%) rotate(0deg) !important;
+  }
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine:hover:after {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+  }
+  .ra-vitrine ul.product-list li .btn-comprar-vitrine:hover > span {
+    transform: translateY(-220%) !important;
+    opacity: 0 !important;
+  }
+
+  .tipo-vitrine-17 .rating { color: #666; }
+</style>
+
+<script>
+  // Mantém só o texto dentro de <span>, sem apagar se já existir
+  $(function () {
+    $('.btn-comprar-vitrine').each(function () {
+      if ($(this).find('span').length === 0) {
+        var txt = $(this).text().trim();
+        $(this).empty().append($('<span>').text(txt));
+      }
+    });
+  });
+</script>

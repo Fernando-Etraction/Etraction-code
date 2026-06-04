@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupom Bolsas de Natal - Promoção Especial</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
+        }
+
+        .coupon-container {
+            position: relative;
+            width: 500px;
+            max-width: 95%;
+        }
+
+        .coupon-wrapper {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .coupon-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Card principal */
+        .coupon-card {
+            position: relative;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Header do cupom */
+        .coupon-header {
+            background: linear-gradient(135deg, #c94b4b 0%, #e74c3c 50%, #c0392b 100%);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Flocos decorativos no header */
+        .header-snowflake {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 40px;
+            animation: floatSnow 6s ease-in-out infinite;
+        }
+
+        .header-snowflake:nth-child(1) {
+            top: 10px;
+            left: 20px;
+            animation-delay: 0s;
+        }
+
+        .header-snowflake:nth-child(2) {
+            top: 40px;
+            right: 30px;
+            animation-delay: 2s;
+        }
+
+        .header-snowflake:nth-child(3) {
+            bottom: 15px;
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatSnow {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(10deg);
+            }
+        }
+
+        .header-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Corpo do cupom */
+        .coupon-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .bag-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        .code-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .coupon-code {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: #e74c3c;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .validity-info {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .validity-title {
+            font-size: 11px;
+            color: #95a5a6;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .validity-text {
+            font-size: 14px;
+            color: #2c3e50;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .validity-text strong {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+
+        /* Botão de copiar */
+        .copy-button {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(231, 76, 60, 0.5);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        /* Feedback de cópia */
+        .copy-feedback {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: #ffffff;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 15px 40px rgba(39, 174, 96, 0.5);
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .copy-feedback::before {
+            content: '✓';
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        /* Decoração de borda pontilhada */
+        .dotted-border {
+            position: absolute;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .dotted-border.left {
+            left: -10px;
+        }
+
+        .dotted-border.right {
+            right: -10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="coupon-container">
+        <div class="coupon-wrapper">
+            <div class="coupon-card">
+                <!-- Header -->
+                <div class="coupon-header">
+                    <div class="header-snowflake">❄</div>
+                    <div class="header-snowflake">❄</div>
+                    <div class="header-snowflake">❄</div>
+                    <div class="header-title">🎄 Promoção de Natal 🎄</div>
+                    <div class="header-subtitle">Exclusivo para Bolsas de Natal</div>
+                </div>
+
+                <!-- Corpo -->
+                <div class="coupon-body">
+                    <div class="bag-icon">👜</div>
+
+                    <div class="code-label">Seu código exclusivo</div>
+                    <div class="coupon-code">BOLSAS25</div>
+
+                    <div class="discount-badge">✨ 25% DE DESCONTO ✨</div>
+
+                    <div class="validity-info">
+                        <div class="validity-title">⚠️ Importante</div>
+                        <div class="validity-text">
+                            Válido apenas para produtos da categoria <strong>Bolsas de Natal</strong>
+                        </div>
+                    </div>
+
+                    <button class="copy-button" onclick="copyCoupon()">
+                        📋 Copiar Código
+                    </button>
+                </div>
+
+                <!-- Decoração lateral -->
+                <div class="dotted-border left"></div>
+                <div class="dotted-border right"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="copy-feedback" id="copyFeedback">
+        Código copiado com sucesso!
+    </div>
+
+    <script>
+        function copyCoupon() {
+            const couponCode = 'BOLSAS25';
+
+            navigator.clipboard.writeText(couponCode).then(() => {
+                const feedback = document.getElementById('copyFeedback');
+                feedback.classList.add('show');
+
+                setTimeout(() => {
+                    feedback.classList.remove('show');
+                }, 2500);
+            }).catch((err) => {
+                console.error('Erro ao copiar:', err);
+                alert('Código do cupom: ' + couponCode);
+            });
+        }
+    </script>
+</body>
+
+</html>

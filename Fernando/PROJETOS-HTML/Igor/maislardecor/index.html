@@ -1,0 +1,409 @@
+<!-- CUPOM DE DESCONTO NO CARRINHO DE COMPRAS ATT -->
+
+<style>
+  .cupom-content {
+    display: flex
+;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    padding: 15px -124px;
+    border-radius: 12px;
+    position: relative;
+    margin: auto;
+    width: 100% !important;
+    margin-top: 10px; 
+  }
+  body{
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  .dropbtn {
+    background-color: white;
+    border: 1px solid #A98958;
+    color: #A98958;
+    padding: 13px 18px;
+    font-size: 13px;
+    font-weight: bold;
+    /* border: none; */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dropbtn:hover {
+    background-color: #A98958;
+    color: white;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    width: 100%;
+    place-items: center;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 420px;
+    max-width: 95vw;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 9999;
+    padding: 15px;
+    border-radius: 10px;
+    top: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto;
+  }
+  
+  .dropdown-content.show {
+    display: block !important;
+  }
+
+  /* Removido hover para abrir. Agora abre por clique via JS */
+
+  .cupom-info {
+    background-color: #ecd3ad21;
+    border-left: 4px solid #A98958;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  .cupom-info p {
+    margin: 0 0 5px;
+    font-size: 14px;
+  }
+
+  .desconto-true {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #A98958;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .desconto-true:hover{
+      
+    background-color: #705936;
+  }
+
+  .desconto-true.copied {
+    background-color: #4CAF50 !important;
+    color: white !important;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  
+  .desconto-true.copied::after {
+    content: ' ✓';
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 5px;
+  }
+
+  .desconto-prev {
+    padding: 8px 14px;
+    background-color: #e6f0ff;
+    color: #007FFF;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+  }
+
+  .desconto-prev p {
+    margin: 0;
+  }
+
+  /* Responsividade */
+  @media screen and (max-width: 600px) {
+    .cupom-content {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .dropdown-content {
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      min-width: auto;
+      width: 95%;
+      transform: none;
+    }
+
+    .dropbtn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<!-- <div class="cupom-content"> -->
+  <div class="cupom-content">
+    <div class="dropbtn" onclick="abrirDropdown(this)">Cupons Disponiveis!</div>
+    <div class="dropdown-content">
+      <p><strong>Economize em suas compras com estes cupons especiais para você!</strong></p>
+      <p style="font-size: 12px; margin-top: 4px;">Utilize no Carrinho de Compras</p>
+      <div class="cupom-info">
+        <p>Ganhe R$ 50,00 de  <span style="color: #705936;">Desconto</span> em compras acima de R$ 600,00
+        </p>
+        <div class="desconto-true" onclick="copiarCupom('50', this)">GANHA R$ 50,00</div>
+      </div>
+      <div class="cupom-info">
+        <p>Ganhe R$ 120,00 de <span style="color: #705936;">Desconto </span>em Compras Acima de R$ 1300,00
+
+        </p>
+        <div class="desconto-true" onclick="copiarCupom('120', this)">GANHA R$ 120,00</div>
+      </div>
+        <div class="cupom-info">
+        <p>Ganhe R$ 220,00 de <span style="color: #705936;">Desconto </span> em Compras Acima de R$ 2300,00          </p>
+        <div class="desconto-true" onclick="copiarCupom('220', this)">GANHA R$ 220,00</div>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->
+
+<script>
+  $(document).ready(function () {
+    console.log('jQuery ready executado');
+    
+    // Tenta inserir após .acao-button, se não existir, insere após .lista-carrinho
+    if ($(".acao-button").length > 0) {
+      $(".cupom-content").insertAfter(".acao-button");
+      console.log('Cupom inserido após .acao-button');
+    } else if ($(".lista-carrinho").length > 0) {
+      $(".cupom-content").insertAfter(".lista-carrinho");
+      console.log('Cupom inserido após .lista-carrinho');
+    } else {
+      // Fallback: insere no final do body
+      $("body").append($(".cupom-content"));
+      console.log('Cupom inserido no final do body');
+    }
+    
+    // Aguarda um pouco e configura os event listeners
+    setTimeout(function() {
+      console.log('Configurando event listeners após inserção...');
+      
+      const dropbtn = document.querySelector('.dropbtn');
+      if (dropbtn) {
+        console.log('Adicionando event listener ao botão...');
+        dropbtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Click detectado!');
+          abrirDropdown(this);
+        });
+      } else {
+        console.error('Botão não encontrado após inserção');
+      }
+      
+      // Configura event listeners para os botões de copiar
+      const botoesCopiar = document.querySelectorAll('.desconto-true');
+      console.log('Encontrados', botoesCopiar.length, 'botões de copiar');
+      
+      // Debug: verifica todos os botões
+      botoesCopiar.forEach(function(botao, index) {
+        const onclick = botao.getAttribute('onclick');
+        const texto = botao.textContent;
+        console.log(`Botão ${index + 1}:`, {
+          onclick: onclick,
+          texto: texto,
+          elemento: botao
+        });
+      });
+      
+      botoesCopiar.forEach(function(botao, index) {
+        console.log('Configurando botão', index + 1);
+        botao.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Extrai o código do cupom do onclick
+          const onclickAttr = this.getAttribute('onclick');
+          console.log('Atributo onclick:', onclickAttr);
+          
+          let codigo = onclickAttr?.match(/'([^']*)'/)?.[1]; // Permite string vazia
+          console.log('Código extraído:', codigo);
+          
+          // Se o código estiver vazio, tenta extrair do texto do botão
+          if (!codigo || codigo.trim() === '') {
+            console.log('Código vazio, tentando extrair do texto do botão');
+            const textoBotao = this.textContent;
+            console.log('Texto do botão:', textoBotao);
+            
+            // Extrai o valor do texto "GANHA R$ 50,00" -> "50"
+            const match = textoBotao.match(/R\$\s*(\d+)/);
+            if (match) {
+              codigo = match[1];
+              console.log('Código extraído do texto:', codigo);
+            }
+          }
+          
+          if (!codigo || codigo.trim() === '') {
+            console.error('Não foi possível extrair o código do cupom');
+            mostrarFeedback(this, 'Erro: Código não encontrado');
+            return;
+          }
+          
+          console.log('Clicou no botão de copiar, código final:', codigo);
+          copiarCupom(codigo, this);
+        });
+      });
+    }, 500);
+  });
+
+  function copiarCupom(codigo, el) {
+    console.log('Tentando copiar cupom:', codigo, 'Tipo:', typeof codigo);
+    
+    // Garante que o código seja uma string e não esteja vazio
+    const codigoParaCopiar = String(codigo).trim();
+    console.log('Código final para copiar:', codigoParaCopiar);
+    
+    if (!codigoParaCopiar) {
+      console.error('Código vazio, não é possível copiar');
+      mostrarFeedback(el, 'Erro: Código vazio');
+      return;
+    }
+    
+    // Método 1: Clipboard API moderna
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(codigoParaCopiar).then(function () {
+        console.log('Cupom copiado com sucesso via Clipboard API:', codigoParaCopiar);
+        mostrarFeedback(el, 'Copiado!');
+      }).catch(function (err) {
+        console.error('Erro ao copiar via Clipboard API:', err);
+        copiarCupomFallback(codigoParaCopiar, el);
+      });
+    } else {
+      // Método 2: Fallback para navegadores mais antigos
+      console.log('Usando método fallback para copiar');
+      copiarCupomFallback(codigoParaCopiar, el);
+    }
+  }
+  
+  function copiarCupomFallback(codigo, el) {
+    console.log('Executando fallback para copiar:', codigo);
+    
+    // Cria um elemento temporário para copiar
+    const textArea = document.createElement('textarea');
+    textArea.value = String(codigo).trim();
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    
+    try {
+      textArea.focus();
+      textArea.select();
+      textArea.setSelectionRange(0, 99999); // Para dispositivos móveis
+      
+      const successful = document.execCommand('copy');
+      console.log('Resultado do execCommand:', successful);
+      
+      if (successful) {
+        console.log('Cupom copiado com sucesso via fallback:', codigo);
+        mostrarFeedback(el, 'Copiado!');
+      } else {
+        console.error('Falha ao copiar via fallback');
+        mostrarFeedback(el, 'Erro ao copiar');
+      }
+    } catch (err) {
+      console.error('Erro no método fallback:', err);
+      mostrarFeedback(el, 'Erro ao copiar');
+    } finally {
+      document.body.removeChild(textArea);
+    }
+  }
+  
+  function mostrarFeedback(el, mensagem) {
+    el.classList.add("copied");
+    el.setAttribute('data-original-text', el.textContent);
+    el.textContent = mensagem;
+    
+    setTimeout(() => {
+      el.classList.remove("copied");
+      el.textContent = el.getAttribute('data-original-text') || el.textContent;
+    }, 2000);
+  }
+
+  function abrirDropdown(el) {
+    console.log('Função abrirDropdown chamada!', el);
+    
+    const dropdown = el.parentElement.querySelector('.dropdown-content');
+    console.log('Dropdown encontrado:', dropdown);
+    
+    if (!dropdown) {
+      console.error('Dropdown não encontrado');
+      return;
+    }
+    
+    // Fecha outros dropdowns abertos
+    document.querySelectorAll('.dropdown-content').forEach(dd => {
+      if (dd !== dropdown) {
+        dd.classList.remove('show');
+        dd.style.display = 'none';
+      }
+    });
+    
+    // Toggle visibilidade
+    const isVisible = dropdown.classList.contains('show') || dropdown.style.display === 'block';
+    console.log('Dropdown está visível?', isVisible);
+    
+    if (isVisible) {
+      dropdown.classList.remove('show');
+      dropdown.style.display = 'none';
+      console.log('Dropdown fechado');
+    } else {
+      dropdown.classList.add('show');
+      dropdown.style.display = 'block';
+      console.log('Dropdown aberto');
+    }
+    
+    console.log('Estado final do dropdown:', dropdown.style.display);
+  }
+
+  // Não fechar ao clicar dentro do componente
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado, configurando event listeners...');
+    
+    const cupomContent = document.querySelector('.cupom-content');
+    
+    if (cupomContent) {
+      cupomContent.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    const container = document.querySelector('.cupom-content');
+    const dropdowns = document.querySelectorAll('.dropdown-content');
+    
+    if (container && !container.contains(event.target)) {
+      dropdowns.forEach(dropdown => {
+        dropdown.classList.remove('show');
+        dropdown.style.display = 'none';
+      });
+    }
+  });
+</script>

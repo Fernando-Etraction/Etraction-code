@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTN Shop - Baixe o App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #2d3436;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Main Container */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        /* Floating Background Elements */
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(99, 110, 114, 0.05);
+            backdrop-filter: blur(20px);
+        }
+
+        .bg-element-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+        }
+
+        .bg-element-2 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 15%;
+        }
+
+        .bg-element-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+        }
+
+        .bg-element-4 {
+            width: 120px;
+            height: 120px;
+            bottom: 30%;
+            right: 25%;
+        }
+
+        /* Title */
+        .title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3436;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 80px;
+            color: #636e72;
+            max-width: 600px;
+        }
+
+        /* Product Images */
+        .products-container {
+            display: flex;
+            gap: 70px;
+            margin-bottom: 100px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .product-wrapper {
+            position: relative;
+        }
+
+        .product-image {
+            width: 380px;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 30px;
+            padding: 25px;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(105, 111, 114, 0.1);
+        }
+
+        .product-wrapper:hover .product-image {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 80px rgba(45, 52, 54, 0.15);
+            
+        }
+
+        /* Download Section */
+        .download-section {
+            text-align: center;
+        }
+
+        .download-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #2d3436;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-block;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn img {
+            height: 80px;
+            width: auto;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            filter: grayscale(20%);
+        }
+
+        .download-btn:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+            box-shadow: 0 15px 40px rgba(45, 52, 54, 0.2);
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+            border-radius: 15px;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .products-container {
+                gap: 50px;
+                margin-bottom: 80px;
+            }
+
+            .product-image {
+                width: 1200px;
+                height: 1200px;
+            }
+
+            .download-buttons {
+                gap: 20px;
+            }
+
+            .download-btn img {
+                height: 70px;
+            }
+
+            .bg-element {
+                opacity: 0.5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .products-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .product-image {
+                width: 680px;
+                height: 680px;
+            }
+
+            .download-btn img {
+                height: 65px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-element bg-element-1"></div>
+    <div class="bg-element bg-element-2"></div>
+    <div class="bg-element bg-element-3"></div>
+    <div class="bg-element bg-element-4"></div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1 class="title">Baixe o App GTN Shop</h1>
+        <p class="subtitle">Sua experiência de compra digital na palma da sua mão</p>
+
+        <div class="products-container">
+            <div class="product-wrapper">
+                <img src="https://magazord-public.s3.amazonaws.com/gtnshop/img/2025/07/produto/11956/1-removebg-preview.png" alt="Produto GTN Shop" class="product-image">
+            </div>
+            <div class="product-wrapper">
+                <img src="https://magazord-public.s3.amazonaws.com/gtnshop/img/2025/07/produto/11957/2-removebg-preview.png" alt="Produto GTN Shop" class="product-image">
+            </div>
+        </div>
+
+        <div class="download-section">
+            <h2 class="download-title">Disponível para</h2>
+            <div class="download-buttons">
+                <a href="#" class="download-btn" aria-label="Baixar na App Store">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download na App Store">
+                </a>
+                <a href="#" class="download-btn" aria-label="Baixar no Google Play">
+                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Baixar no Google Play">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initial setup - hide elements
+        gsap.set(['.title', '.subtitle'], { y: 80, opacity: 0 });
+        gsap.set('.product-wrapper', { y: 100, opacity: 0, scale: 0.8 });
+        gsap.set(['.download-title', '.download-btn'], { y: 60, opacity: 0 });
+        gsap.set('.bg-element', { scale: 0, rotation: 180 });
+
+        // Main animation timeline
+        const mainTl = gsap.timeline({ delay: 0.3 });
+
+        // Background elements animation
+        mainTl.to('.bg-element', {
+            scale: 1,
+            rotation: 0,
+            duration: 1.5,
+            ease: "back.out(1.7)",
+            stagger: 0.2
+        })
+        // Title animations
+        .to('.title', {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out"
+        }, "-=1")
+        .to('.subtitle', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.8")
+        // Product images animation
+        .to('.product-wrapper', {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+            stagger: 0.3
+        }, "-=0.5")
+        // Download section animation
+        .to('.download-title', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.3")
+        .to('.download-btn', {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.2
+        }, "-=0.5");
+
+        // Continuous floating animation for background elements
+        gsap.to('.bg-element-1', {
+            y: -20,
+            x: 15,
+            rotation: 360,
+            duration: 15,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.bg-element-2', {
+            y: 25,
+            x: -20,
+            rotation: -360,
+            duration: 18,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.bg-element-3', {
+            y: -15,
+            x: 25,
+            rotation: 180,
+            duration: 12,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.bg-element-4', {
+            y: 30,
+            x: -15,
+            rotation: -180,
+            duration: 20,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        // Product image hover animations
+        document.querySelectorAll('.product-wrapper').forEach((wrapper, index) => {
+            const image = wrapper.querySelector('.product-image');
+            
+            wrapper.addEventListener('mouseenter', () => {
+                gsap.to(image, {
+                    y: -10,
+                    scale: 1.02,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(wrapper, {
+                    z: 100,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+            
+            wrapper.addEventListener('mouseleave', () => {
+                gsap.to(image, {
+                    y: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(wrapper, {
+                    z: 0,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+
+            // Add subtle continuous animation
+            gsap.to(image, {
+                y: index % 2 === 0 ? -5 : 5,
+                duration: 3 + index,
+                ease: "power1.inOut",
+                repeat: -1,
+                yoyo: true,
+                delay: index * 0.5
+            });
+        });
+
+        // Download button animations
+        document.querySelectorAll('.download-btn').forEach((btn, index) => {
+            btn.addEventListener('mouseenter', () => {
+                gsap.to(btn, {
+                    scale: 1.05,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, {
+                    scale: 1,
+                    duration: 0.4,
+                    ease: "power2.out"
+                });
+            });
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                gsap.to(btn, {
+                    scale: 0.95,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: "power2.inOut"
+                });
+            });
+        });
+
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) - 0.5;
+            const mouseY = (e.clientY / window.innerHeight) - 0.5;
+
+            gsap.to('.bg-element-1', {
+                x: mouseX * 30,
+                y: mouseY * 30,
+                duration: 1,
+                ease: "power2.out"
+            });
+
+            gsap.to('.bg-element-2', {
+                x: mouseX * -20,
+                y: mouseY * -20,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+
+            gsap.to('.bg-element-3', {
+                x: mouseX * 25,
+                y: mouseY * 25,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+
+            gsap.to('.bg-element-4', {
+                x: mouseX * -15,
+                y: mouseY * -15,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+
+            gsap.to('.product-wrapper', {
+                rotationY: mouseX * 10,
+                rotationX: mouseY * -10,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            gsap.from('body', {
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
+        });
+    </script>
+</body>
+</html>

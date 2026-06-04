@@ -1,0 +1,542 @@
+<div class="zus-reviews-coupon">
+  <div class="zus-reviews-coupon__content">
+    <div class="zus-reviews-coupon__left">
+      <span class="zus-reviews-coupon__eyebrow">Quem compra recomenda</span>
+
+      <h2 class="zus-reviews-coupon__title">
+        Mais de <strong>932 avaliações</strong> de clientes
+      </h2>
+
+      <div class="zus-reviews-coupon__rating">
+        <span class="zus-reviews-coupon__stars">★★★★★</span>
+        <span class="zus-reviews-coupon__score">5.0 de 5.0</span>
+      </div>
+
+      <p class="zus-reviews-coupon__text">
+        Clientes destacam conforto, entrega rápida, bom atendimento e ótima experiência de compra.
+      </p>
+    </div>
+
+    <div class="zus-reviews-coupon__center">
+      <div class="zus-reviews-slider">
+        <div class="zus-reviews-track">
+          <div class="zus-review-card">
+            <span class="zus-review-card__stars">★★★★★</span>
+            <p>“Produtos excelentes, chegou rápido e bem embalado.”</p>
+            <strong>Priscila Eler de Freitas</strong>
+            <small>Rio de Janeiro - RJ</small>
+          </div>
+
+          <div class="zus-review-card">
+            <span class="zus-review-card__stars">★★★★★</span>
+            <p>“Adorei meus produtos!!!! OBRIGADA!!!!”</p>
+            <strong>Solange Teixeira</strong>
+            <small>São Paulo - SP</small>
+          </div>
+
+          <div class="zus-review-card">
+            <span class="zus-review-card__stars">★★★★★</span>
+            <p>“Ótimo preço, atendimento e prazo de entrega.”</p>
+            <strong>Natalia F. Luna</strong>
+            <small>Ouro Verde - SP</small>
+          </div>
+
+          <div class="zus-review-card">
+            <span class="zus-review-card__stars">★★★★★</span>
+            <p>“Amei os pijamas, tecido confortável.”</p>
+            <strong>Marta Madalena</strong>
+            <small>Mateus Leme - MG</small>
+          </div>
+
+          <div class="zus-review-card">
+            <span class="zus-review-card__stars">★★★★★</span>
+            <p>“Produto de excelente qualidade.”</p>
+            <strong>Lucimar de Souza Roza</strong>
+            <small>Brasília - DF</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="zus-reviews-coupon__right">
+      <span class="zus-coupon-label">Cupom de primeira compra</span>
+
+      <div class="zus-coupon-box">
+        <input id="zus-coupon-code" readonly="readonly" type="text" value="LOJAZUS" />
+        <button id="zus-copy-btn" type="button">Copiar</button>
+      </div>
+
+      <p class="zus-coupon-subtitle">
+        Ganhe <strong>5% OFF</strong> usando o cupom.
+      </p>
+
+      <div id="zus-copied-msg" class="zus-copied-msg">Cupom copiado!</div>
+    </div>
+  </div>
+</div>
+
+<style>
+.zus-reviews-coupon {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 1240px;
+  box-sizing: border-box;
+  margin: 16px auto;
+  padding: 0 12px;
+}
+
+.zus-reviews-coupon * {
+  box-sizing: border-box;
+}
+
+.zus-reviews-coupon__content {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e5ded8;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.zus-reviews-coupon__content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(245, 228, 216, 0.36), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.zus-reviews-coupon__left,
+.zus-reviews-coupon__center,
+.zus-reviews-coupon__right {
+  position: relative;
+  z-index: 2;
+}
+
+.zus-reviews-coupon__left {
+  text-align: center;
+}
+
+.zus-reviews-coupon__center {
+  width: 100%;
+}
+
+.zus-reviews-coupon__eyebrow {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #9b6a54;
+  margin-bottom: 4px;
+}
+
+.zus-reviews-coupon__title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.15;
+  color: #222;
+  font-weight: 700;
+}
+
+.zus-reviews-coupon__title strong {
+  color: #9b6a54;
+}
+
+.zus-reviews-coupon__rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.zus-reviews-coupon__stars,
+.zus-review-card__stars {
+  color: #f5a623;
+  letter-spacing: 1px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.zus-reviews-coupon__score {
+  font-size: 11px;
+  font-weight: 700;
+  color: #333;
+}
+
+.zus-reviews-coupon__text {
+  margin: 5px 0 0;
+  font-size: 12px;
+  line-height: 1.3;
+  color: #555;
+}
+
+.zus-reviews-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.zus-reviews-slider::before,
+.zus-reviews-slider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 34px;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.zus-reviews-slider::before {
+  left: 0;
+  background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+}
+
+.zus-reviews-slider::after {
+  right: 0;
+  background: linear-gradient(to left, #fff, rgba(255, 255, 255, 0));
+}
+
+.zus-reviews-track {
+  display: flex;
+  gap: 10px;
+  width: max-content;
+  animation: zusReviewScroll 24s linear infinite;
+}
+
+.zus-reviews-slider:hover .zus-reviews-track {
+  animation-play-state: paused;
+}
+
+.zus-review-card {
+  width: 230px;
+  min-height: 98px;
+  background: #fcfaf8;
+  border: 1px solid #eaded6;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.04);
+}
+
+.zus-review-card p {
+  margin: 5px 0 7px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #333;
+}
+
+.zus-review-card strong {
+  display: block;
+  font-size: 11px;
+  color: #222;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.zus-review-card small {
+  display: block;
+  font-size: 10px;
+  color: #777;
+  line-height: 1.2;
+}
+
+.zus-reviews-coupon__right {
+  background: #2d2a28;
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(45, 42, 40, 0.14);
+  width: 100%;
+  max-width: 390px;
+}
+
+.zus-coupon-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 7px;
+  color: #f4ddd0;
+}
+
+.zus-coupon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.zus-coupon-box input {
+  width: 105px;
+  height: 34px;
+  border: 1px dashed #d8b7a3;
+  border-right: 0;
+  border-radius: 8px 0 0 8px;
+  background: #fff;
+  color: #222;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  cursor: pointer;
+}
+
+.zus-coupon-box button {
+  height: 34px;
+  border: 0;
+  border-radius: 0 8px 8px 0;
+  padding: 0 12px;
+  background: #d8a083;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.zus-coupon-box button:hover {
+  background: #bd8568;
+}
+
+.zus-coupon-subtitle {
+  margin: 7px 0 0;
+  font-size: 11px;
+  line-height: 1.25;
+  color: #f7f0eb;
+}
+
+.zus-coupon-subtitle strong {
+  color: #fff;
+}
+
+.zus-copied-msg {
+  display: none;
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4caf50;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+  animation: zusFadeInOut 2s forwards;
+  pointer-events: none;
+}
+
+@keyframes zusReviewScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-490px);
+  }
+}
+
+@keyframes zusFadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+}
+
+@media only screen and (min-width: 901px) {
+  .zus-reviews-coupon__content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .zus-reviews-coupon__left {
+    width: 28%;
+    min-width: 250px;
+    text-align: left;
+  }
+
+  .zus-reviews-coupon__rating {
+    justify-content: flex-start;
+  }
+
+  .zus-reviews-coupon__center {
+    width: 42%;
+    min-width: 320px;
+  }
+
+  .zus-reviews-coupon__right {
+    width: 26%;
+    min-width: 260px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .zus-reviews-coupon__content {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .zus-review-card {
+    width: 210px;
+    min-height: 96px;
+  }
+
+  .zus-reviews-track {
+    animation-duration: 22s;
+  }
+
+  .zus-reviews-coupon__right {
+    max-width: 360px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .zus-reviews-coupon {
+    margin: 10px auto;
+    padding: 0 8px;
+  }
+
+  .zus-reviews-coupon__content {
+    border-radius: 10px;
+    padding: 10px;
+    gap: 9px;
+  }
+
+  .zus-reviews-coupon__title {
+    font-size: 16px;
+  }
+
+  .zus-reviews-coupon__text {
+    font-size: 11px;
+  }
+
+  .zus-review-card {
+    width: 205px;
+    min-height: 94px;
+    padding: 9px 10px;
+  }
+
+  .zus-review-card p {
+    font-size: 11px;
+  }
+
+  .zus-coupon-box {
+    width: 100%;
+  }
+
+  .zus-coupon-box input {
+    width: 58%;
+    height: 32px;
+  }
+
+  .zus-coupon-box button {
+    width: 42%;
+    height: 32px;
+  }
+
+  .zus-reviews-coupon__right {
+    padding: 9px 12px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  function inserirBlocoAvaliacoesProduto() {
+    const bloco = $(".zus-reviews-coupon");
+    const destino = $(".topo-produto").first();
+
+    if (!bloco.length || !destino.length) return;
+
+    if (!$(".topo-produto").next(".zus-reviews-coupon").length) {
+      bloco.insertAfter(destino);
+    }
+  }
+
+  $(document).ready(function() {
+    inserirBlocoAvaliacoesProduto();
+  });
+
+  window.addEventListener("load", function() {
+    inserirBlocoAvaliacoesProduto();
+
+    const elem = document.querySelector("body");
+
+    if (elem) {
+      const observer = new MutationObserver(function() {
+        inserirBlocoAvaliacoesProduto();
+      });
+
+      observer.observe(elem, {
+        childList: true,
+        subtree: true
+      });
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const codeInput = document.getElementById("zus-coupon-code");
+    const copyBtn = document.getElementById("zus-copy-btn");
+    const copiedMsg = document.getElementById("zus-copied-msg");
+
+    function copyCode() {
+      if (!codeInput || !copiedMsg) return;
+
+      const couponCode = codeInput.value;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(couponCode).then(showCopiedMessage);
+      } else {
+        codeInput.select();
+        document.execCommand("copy");
+        showCopiedMessage();
+      }
+    }
+
+    function showCopiedMessage() {
+      copiedMsg.style.display = "block";
+
+      setTimeout(function() {
+        copiedMsg.style.display = "none";
+      }, 2000);
+    }
+
+    if (codeInput) {
+      codeInput.addEventListener("click", copyCode);
+    }
+
+    if (copyBtn) {
+      copyBtn.addEventListener("click", copyCode);
+    }
+  });
+})();
+</script>

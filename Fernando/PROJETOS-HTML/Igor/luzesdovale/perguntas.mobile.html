@@ -1,0 +1,257 @@
+<style>
+  :root {
+    --cor-destaque: #d2755e;
+  }
+
+  .lv-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 8px;
+  }
+  .title-ctn {
+    flex: 1;
+    text-align: center;
+  }
+  .title-ctn h2 {
+    font-weight: normal;
+    color: #000;
+    display: inline-block;
+    margin: 0;
+  }
+  .title-detail h2::after {
+    content: "";
+    display: block;
+    width: 30px;
+    height: 2px;
+    background: var(--cor-destaque);
+    margin: 9px auto 0;
+  }
+  /* Itens internos */
+  #lzvale-benefits .lv-item {
+    border-bottom: 1px solid #eee;
+    margin: 8px 0;
+  }
+  #lzvale-benefits .lv-item summary {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
+    color: #000;
+    font-weight: 500;
+    pointer-events: auto;
+    user-select: auto;
+  }
+  #lzvale-benefits .lv-item summary::-webkit-details-marker {
+    display: none;
+  }
+  #lzvale-benefits .lv-item summary::before {
+    content: "+";
+    width: 20px;
+    text-align: center;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  #lzvale-benefits .lv-item[open] summary::before {
+    content: "–";
+  }
+  #lzvale-benefits .lv-item p {
+    margin: 0 0 12px 30px;
+  }
+
+  #lzvale-benefits > summary {
+    display: none !important;
+  }
+  #lzvale-benefits::before,
+  #lzvale-benefits::after {
+    content: none !important;
+  }
+  .title-ctn {
+    margin-top: 0;
+  }
+
+  @media (max-width: 800px) {
+    h2.bg-title:last-of-type {
+      border-bottom: 1px solid var(--color-gray-100);
+    }
+    span {
+      font-weight: bold;
+      font-size: 13px;
+    }
+    .title-detail {
+      display: none;
+    }
+  }
+  .lv-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 41px;
+    float: right;
+    font-weight: bold;
+  }
+  .lv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* um elemento em cada lado */
+    background: var(--color-white);
+    height: 41px;
+    line-height: 40px;
+    padding: 0 12px;
+    margin: 0;
+  }
+  .title-ctn {
+    flex: 1;
+    text-align: left;
+    max-width: 1240px;
+    width: 100%;
+  }
+  .title-ctn h2 {
+    font-size: 0.8125em;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-black);
+  }
+  .title-ctn h2::after {
+    display: none;
+  }
+  .lv-toggle {
+    all: unset;
+    font-size: 27px;
+    cursor: pointer;
+    line-height: 1;
+    margin-right: 2px;
+    color: black;
+  }
+  .container {
+    max-width: 1240px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px solid var(--color-gray-100);
+  }
+  #lzvale-wrap {
+    margin-left: 0;
+    margin-right: 0;
+    border-bottom: 1px solid var(--color-gray-100);
+  }
+</style>
+<div class="container">
+  <div id="lzvale-wrap">
+    <div class="lv-header">
+      <div class="title-ctn">
+        <h2 style="margin-top: 20px;"><span>Dúvidas Frequentes</span></h2>
+      </div>
+      <button
+        type="button"
+        class="lv-toggle"
+        aria-controls="lzvale-benefits"
+        aria-expanded="true"
+      >
+        +
+      </button>
+    </div>
+
+    <details id="lzvale-benefits" open>
+      <summary hidden aria-hidden="true"></summary>
+      <details class="lv-item">
+        <summary>Como é feita a instalação? Pode ser utilizado em gesso ou laje?</summary>
+        <p>
+          De fácil instalação e prática, essa luminária de teto vai pronta para o uso, você pode instalar tanto no gesso quanto na laje, material leve e resistente. 
+        </p>
+      </details>
+      <details class="lv-item">
+        <summary>Vocês enviam para todo o Brasil?</summary>
+        <p>Sim, enviamos para todo o Brasil.</p>
+      </details>
+      <details class="lv-item">
+        <summary>Se o LED queimar, é possível fazer a manutenção?</summary>
+        <p>
+          A resposta é sim, possuímos garantia em todas as nossas peças, em caso de queima do LED ou da fonte, é possível facilmente fazer a troca apenas destes componentes, sem comprometer toda a estrutura da peça.
+        </p>
+      </details>
+      <details class="lv-item">
+        <summary>A pintura é resistente? Descasca? </summary>
+        <p>
+          Nossa pintura é feita com uma tinta especial importada italiana, feita a mão peça por peça em nossa fábrica, ela é a prova de ferrugens, corrosão ou até mesmo maresia, podendo ser utilizada em ambientes residênciais, industriais, litoral ou interior.
+        </p>
+      </details>
+    </details>
+  </div>
+</div>
+
+<script>
+   (function () {
+    const BP = 800;
+    const wrap = document.getElementById("lzvale-wrap");
+    const root = document.getElementById("lzvale-benefits");
+    const btn = wrap.querySelector(".lv-toggle");
+
+    function insertAfter(ref, node) {
+      ref.parentNode.insertBefore(node, ref.nextSibling);
+    }
+
+    function place() {
+      const isDesktop = window.innerWidth >= BP;
+      const mobileTarget = document.querySelector(".accordion");
+      const desktopTarget =
+        document.querySelector(".produto-acordeon") ||
+        document.querySelector(".product-accordion");
+
+      if (isDesktop && desktopTarget) {
+      } else if (mobileTarget) {
+        if (mobileTarget.nextSibling !== wrap) insertAfter(mobileTarget, wrap);
+      }
+    }
+
+    function syncBtn() {
+      const open = root.open;
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.textContent = open ? "–" : "+";
+      if (!open)
+        root
+          .querySelectorAll(".lv-item[open]")
+          .forEach((d) => (d.open = false));
+    }
+
+    btn.addEventListener("click", () => {
+      root.open = !root.open;
+      syncBtn();
+    });
+
+    document.addEventListener(
+      "click",
+      function (e) {
+        const sum = e.target.closest("#lzvale-benefits .lv-item summary");
+        if (!sum) return;
+        const det = sum.parentNode;
+        const wasOpen = det.open;
+        setTimeout(() => {
+          if (det.open === wasOpen) det.open = !wasOpen;
+        }, 0);
+      },
+      { passive: true }
+    );
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        place();
+        syncBtn();
+      });
+    } else {
+      place();
+      syncBtn();
+    }
+
+    let t;
+    window.addEventListener(
+      "resize",
+      () => {
+        clearTimeout(t);
+        t = setTimeout(place, 120);
+      },
+      { passive: true }
+    );
+  })();
+</script>

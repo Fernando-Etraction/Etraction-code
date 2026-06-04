@@ -1,0 +1,156 @@
+<style>
+  /* ===== Cartão 250 x 250 ===== */
+
+  .area-derivacoes{
+    display:flex;
+  }
+
+  .variacao-area{
+    margin-right:50px;
+    margin-bottom:10px;
+  }
+
+
+  .bloco-gift-cupom {
+    width: 100%;
+    height: 150px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 16px;
+    background: #F5F0EC;
+    color: #222;
+    border: 1px solid #e6dfd9;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .06);
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Inter", sans-serif;
+    margin-bottom:10px;
+  }
+
+  .gift-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    z-index: 1;
+  }
+
+  .gift-sub {
+    margin: 0;
+    color: #374151;
+    font-size: 15px;
+    line-height: 1.3;
+  }
+
+  .gift-sub strong { color: #0f766e; }
+
+  .gift-note {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  .gift-note strong { color: #1f2937; }
+
+  .codigo {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .08em;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #F5F0EC;
+    color: #111827;
+    border: 1px dashed #cfc7c0;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .copiado {
+    display: none;
+    font-size: 11px;
+    color: #0f766e;
+    font-weight: 700;
+    line-height: 1;
+    background: rgba(15, 118, 110, .08);
+    border: 1px solid rgba(15, 118, 110, .28);
+    padding: 5px 8px;
+    border-radius: 999px;
+    animation: pop .3s ease-out both;
+  }
+
+  @keyframes pop {
+    from { transform: translateY(4px) scale(.98); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  /* Opcional: limitar o texto para caber melhor nos 250px */
+  .gift-sub, .gift-note {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  .gift-sub { --webkit-line-clamp: 2; }
+  .gift-note { --webkit-line-clamp: 2; }
+</style>
+
+<!-- (não renderizamos a seção aqui para evitar IDs duplicados; ela será injetada via jQuery abaixo) -->
+
+<script>
+  $(document).ready(function () {
+    // Injeta o banner depois do .button-measure-table
+    const $card = $(`
+<section class="bloco-gift-cupom" id="gift-cupom-wrap">
+  <div class="gift-side">
+    <p class="gift-note">Use o cupom <strong>BEMVINDA</strong> em qualquer compra<strong></strong> da coleção primavera.</p>
+  </div>
+  <div id="cupom-container" class="cupom-lateral">
+    <div id="codigo-click" class="codigo-area" aria-live="polite">
+      <div class="codigo">BEMVINDA</div>
+      <div id="copiado-msg" class="copiado">✔ Copiado!</div>
+    </div>
+  </div>
+</section>`);
+
+    $card.insertAfter(".derivacoes-produto");
+
+    // ======== SOMENTE A FUNÇÃO COPIAR (com fallback) ========
+    const $btn = $card.find('#codigo-click');
+    const $msg = $card.find('#copiado-msg');
+
+    $btn.on('click', function () {
+      const codigo = $(this).find('.codigo').text().trim();
+      (async () => {
+        let ok = false;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(codigo);
+            ok = true;
+          }
+        } catch (e) { /* fallback abaixo */ }
+
+        if (!ok) {
+          try {
+            const ta = document.createElement('textarea');
+            ta.value = codigo;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+          } catch (e) {
+            ok = false;
+          }
+        }
+
+        $msg.text(ok ? '✔ Copiado!' : 'Copie manualmente')
+            .fadeIn(200).delay(1200).fadeOut(200);
+      })();
+    });
+  });
+</script>

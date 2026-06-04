@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flor de Lis - Get The Look</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            background: linear-gradient(to bottom, #e8eef5 0%, #f5f5f5 100%);
+            color: #333;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: none;
+            object-position: center;
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 8%;
+            transform: translateY(-50%);
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-text h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .squad-tag {
+            position: absolute;
+            top: 50%;
+            right: 8%;
+            transform: translateY(-50%);
+            text-align: right;
+            color: white;
+        }
+
+        .squad-tag p {
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+        }
+
+        .squad-tag h2 {
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            position: relative;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            background: #f8f8f8;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 24px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #2c2c2c;
+            margin-bottom: 8px;
+        }
+
+        .product-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .product-link:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .squad-tag h2 {
+                font-size: 1.5rem;
+            }
+
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+            }
+
+            .container {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45102/banner.jpg" alt="Squad Flor de Lis">
+        <div class="hero-text">
+            <h1>GET<br>THE<br>LOOK</h1>
+        </div>
+        <div class="squad-tag">
+            <p>COMPRE O LOOK DO NOSSO</p>
+            <h2>#SQUAD FLORDELIS</h2>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="grid">
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/mariana-rios', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45092/1-mari.png" alt="Mariana Rios">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Mariana Rios</h3>
+                    <a href="https://www.flordelis.com.br/mariana-rios" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/fernanda-motta', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45093/2-fe.png" alt="Fernanda Motta">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Fernanda Motta</h3>
+                    <a href="https://www.flordelis.com.br/fernanda-motta" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/camila-coutinho', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45094/3-camila-coutinho.png" alt="Camila Coutinho">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Camila Coutinho</h3>
+                    <a href="https://www.flordelis.com.br/camila-coutinho" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/jessica-cores', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45095/4-jessica.png" alt="Jéssica">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Jéssica Cores</h3>
+                    <a href="https://www.flordelis.com.br/jessica-cores" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/giovana-cordeiro', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45096/5-gi-cordeiro.png" alt="Giovana Cordeiro">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Giovana Cordeiro</h3>
+                    <a href="https://www.flordelis.com.br/giovana-cordeiro" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/ticiane-pinheiro', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45097/6-tici.png" alt="Ticiane Pinheiro">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Ticiane Pinheiro</h3>
+                    <a href="https://www.flordelis.com.br/ticiane-pinheiro" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/amanda-paggi', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45098/7-amanda.png" alt="Amanda">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Amanda Paggi</h3>
+                    <a href="https://www.flordelis.com.br/amanda-paggi" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/isabelle-nogueira', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45099/8-isabelle-2.png" alt="Isabelle Nogueira">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Isabelle Nogueira</h3>
+                    <a href="https://www.flordelis.com.br/isabelle-nogueira" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/flavia-pavanelli', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45100/9-flavia.png" alt="Flávia Pavanelli">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Flávia Pavanelli</h3>
+                    <a href="https://www.flordelis.com.br/flavia-pavanelli" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="window.open('https://www.flordelis.com.br/isabele-temoteo', '_blank')">
+                <div class="product-image">
+                    <img src="https://dlz.cdn.magazord.com.br/img/2025/12/produto/45101/10-isabele.png" alt="Isabele">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Isabele Temoteo</h3>
+                    <a href="https://www.flordelis.com.br/isabele-temoteo" class="product-link" target="_blank">Acesse</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

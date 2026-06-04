@@ -1,0 +1,75 @@
+<style>
+    /* TAG PROMOCIONAL */
+    .promo-tag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 6px 22px 14px;
+        background: #000;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        cursor: pointer;
+        clip-path: polygon(0 0, 100% 0, 100% 68%, 50% 100%, 0 68%);
+        transition: height 0.25s ease;
+        height: 32px;
+        /* altura base */
+        white-space: nowrap;
+    }
+
+    /* Conteúdo via data-attr */
+    .promo-tag::before {
+        content: attr(data-text);
+    }
+
+    /* Só aumenta a altura no hover */
+    .promo-tag:hover {
+        height: 40px;
+        /* ajuste o valor se quiser */
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        const zoomContainer =
+            document.querySelector('.gallery-main')
+            || document.querySelector('.container-swiper');
+
+        if (!zoomContainer) return;
+
+        if (getComputedStyle(zoomContainer).position === 'static') {
+            zoomContainer.style.position = 'relative';
+        }
+
+        /* --- CRIA TAG --- */
+        const promoTag = document.createElement('div');
+        promoTag.className = 'promo-tag';
+        promoTag.setAttribute('data-text', '3por99');
+
+
+        /* --- HOVER --- */
+        promoTag.addEventListener('mouseenter', () => {
+            promoTag.setAttribute('data-text', 'Promoção');
+
+            const rect = promoTag.getBoundingClientRect();
+            tooltip.style.left = (rect.left + rect.width + 5) + 'px';
+            tooltip.style.top = (rect.top + rect.height / 2 - tooltip.offsetHeight / 2) + 'px';
+            tooltip.style.opacity = '1';
+        });
+
+        promoTag.addEventListener('mouseleave', () => {
+            promoTag.setAttribute('data-text', '3por99');
+            tooltip.style.opacity = '0';
+        });
+
+        zoomContainer.appendChild(promoTag);
+    });
+
+
+
+</script>

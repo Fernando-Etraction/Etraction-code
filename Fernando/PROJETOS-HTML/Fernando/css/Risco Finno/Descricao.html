@@ -1,0 +1,878 @@
+<style>
+    .rf-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0;
+        color: #1a1a1a;
+        background: #ffffff;
+    }
+
+    .rf-hero {
+        position: relative;
+        padding: 45px 25px;
+        background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
+        border-bottom: 1px solid #e5e5e5;
+        text-align: center;
+    }
+
+    .rf-hero-title {
+        font-size: 42px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 15px 0;
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+    }
+
+    .rf-hero-subtitle {
+        font-size: 16px;
+        font-weight: 300;
+        color: #666;
+        margin: 0;
+        line-height: 1.6;
+        letter-spacing: 0.5px;
+    }
+
+    .rf-separator {
+        width: 60px;
+        height: 2px;
+        background: linear-gradient(90deg, #1a1a1a 0%, #666 100%);
+        margin: 30px auto 0;
+    }
+
+    .rf-gallery {
+        padding: 40px 25px;
+        background: #ffffff;
+    }
+
+    .rf-gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        max-width: 900px;
+        margin: 0 auto;
+        justify-items: center;
+    }
+
+    .rf-gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        cursor: pointer;
+        width: 100%;
+        max-width: 320px;
+        border: 1px solid #efefef;
+        transition: all 0.4s ease;
+    }
+
+    .rf-gallery-item:hover {
+        border-color: #1a1a1a;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .rf-gallery-item img {
+        width: 100%;
+        height: 380px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .rf-gallery-item:hover img {
+        transform: scale(1.06);
+    }
+
+    .rf-gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+        pointer-events: none;
+    }
+
+    .rf-gallery-item:hover .rf-gallery-overlay {
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    .rf-gallery-label {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 18px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.4s ease;
+    }
+
+    .rf-gallery-item:hover .rf-gallery-label {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .rf-lifestyle {
+        padding: 45px 25px;
+        background: #fafafa;
+    }
+
+    .rf-lifestyle-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 34px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 12px 0;
+        text-align: center;
+        letter-spacing: -0.5px;
+    }
+
+    .rf-lifestyle-subtitle {
+        font-size: 15px;
+        font-weight: 300;
+        color: #666;
+        text-align: center;
+        margin: 0 0 50px 0;
+        letter-spacing: 0.3px;
+    }
+
+    .rf-lifestyle-content {
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        max-width: 850px;
+        margin: 0 auto;
+    }
+
+    .rf-lifestyle-image {
+        flex: 0 0 auto;
+        width: 320px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .rf-lifestyle-image img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+
+    .rf-lifestyle-image:hover img {
+        transform: scale(1.05);
+    }
+
+    .rf-lifestyle-text {
+        flex: 1;
+    }
+
+    .rf-lifestyle-text h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 20px 0;
+        letter-spacing: -0.3px;
+    }
+
+    .rf-lifestyle-text p {
+        font-size: 15px;
+        font-weight: 400;
+        color: #555;
+        line-height: 1.8;
+        margin: 0 0 15px 0;
+        letter-spacing: 0.2px;
+    }
+
+    .rf-lifestyle-text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .rf-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 40px 25px;
+        background: #ffffff;
+    }
+
+    .rf-highlight-card {
+        padding: 35px 28px;
+        background: #fafafa;
+        border: 1px solid #efefef;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .rf-highlight-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
+        transition: left 0.6s ease;
+    }
+
+    .rf-highlight-card:hover::before {
+        left: 100%;
+    }
+
+    .rf-highlight-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        border-color: #1a1a1a;
+    }
+
+    .rf-highlight-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #1a1a1a;
+        border-radius: 50%;
+    }
+
+    .rf-highlight-icon svg {
+        width: 22px;
+        height: 22px;
+        stroke: #ffffff;
+        fill: none;
+        stroke-width: 2;
+    }
+
+    .rf-highlight-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 12px 0;
+        letter-spacing: -0.3px;
+    }
+
+    .rf-highlight-text {
+        font-size: 14px;
+        font-weight: 400;
+        color: #666;
+        line-height: 1.7;
+        margin: 0;
+        letter-spacing: 0.2px;
+    }
+
+    .rf-details {
+        padding: 40px 25px;
+        background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    }
+
+    .rf-details-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 34px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 40px 0;
+        text-align: center;
+        letter-spacing: -0.5px;
+    }
+
+    .rf-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 35px;
+        margin-top: 40px;
+    }
+
+    .rf-detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .rf-detail-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin: 0;
+    }
+
+    .rf-detail-value {
+        font-size: 16px;
+        font-weight: 500;
+        color: #1a1a1a;
+        margin: 0;
+        letter-spacing: 0.2px;
+    }
+
+    .rf-description {
+        padding: 40px 25px;
+        background: #ffffff;
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .rf-description-text {
+        font-size: 15px;
+        font-weight: 400;
+        color: #444;
+        line-height: 1.9;
+        margin: 0 0 20px 0;
+        letter-spacing: 0.2px;
+    }
+
+    .rf-description-text:last-child {
+        margin-bottom: 0;
+    }
+
+    .rf-features {
+        padding: 40px 25px;
+        background: #fafafa;
+    }
+
+    .rf-features-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 30px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin: 0 0 35px 0;
+        text-align: center;
+        letter-spacing: -0.5px;
+    }
+
+    .rf-features-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    .rf-feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 18px;
+        background: #ffffff;
+        border-left: 3px solid #1a1a1a;
+        transition: all 0.3s ease;
+    }
+
+    .rf-feature-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .rf-feature-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .rf-feature-icon svg {
+        width: 100%;
+        height: 100%;
+        stroke: #1a1a1a;
+        fill: none;
+        stroke-width: 2.5;
+    }
+
+    .rf-feature-text {
+        font-size: 14px;
+        font-weight: 400;
+        color: #444;
+        line-height: 1.6;
+        margin: 0;
+        letter-spacing: 0.2px;
+    }
+
+    .rf-cta {
+        padding: 100px 40px;
+        background: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .rf-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 80%, transparent 100%);
+        animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .rf-cta::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.1) 80%, transparent 100%);
+        animation: shimmer 3s ease-in-out infinite reverse;
+    }
+
+    @keyframes shimmer {
+
+        0%,
+        100% {
+            opacity: 0.5;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    .rf-cta-content {
+        max-width: 750px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .rf-cta-decorator {
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        margin: 0 auto 30px;
+        position: relative;
+        opacity: 0.9;
+    }
+
+    .rf-cta-decorator::before,
+    .rf-cta-decorator::after {
+        content: '◆';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 8px;
+    }
+
+    .rf-cta-decorator::before {
+        left: -20px;
+    }
+
+    .rf-cta-decorator::after {
+        right: -20px;
+    }
+
+    .rf-cta-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 600;
+        color: black;
+        margin: 0 0 25px 0;
+        letter-spacing: -0.5px;
+        line-height: 1.3;
+        text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .rf-cta-text {
+        font-size: 17px;
+        font-weight: 300;
+        color: black;
+        margin: 0 auto 45px;
+        line-height: 1.9;
+        letter-spacing: 0.4px;
+        max-width: 620px;
+        text-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .rf-cta-button {
+        display: inline-block;
+        padding: 20px 55px;
+        background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+        color: #1a1a1a;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2.5px;
+        border: 2px solid #ffffff;
+        border-radius: 2px;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .rf-cta-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(26, 26, 26, 0.15);
+        transform: translate(-50%, -50%);
+        transition: width 0.7s ease, height 0.7s ease;
+    }
+
+    .rf-cta-button::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
+
+    .rf-cta-button:hover::before {
+        width: 350px;
+        height: 350px;
+    }
+
+    .rf-cta-button:hover::after {
+        opacity: 1;
+    }
+
+    .rf-cta-button:hover {
+        background: transparent;
+        color: #ffffff;
+        transform: translateY(-5px);
+        box-shadow: 0 20px 50px rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.9);
+    }
+
+    .rf-cta-button:active {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .rf-lifestyle {
+            display: none;
+        }
+
+        .rf-hero {
+            padding: 50px 25px;
+        }
+
+        .rf-hero-title {
+            font-size: 30px;
+        }
+
+        .rf-hero-subtitle {
+            font-size: 14px;
+        }
+
+        .rf-gallery {
+            padding: 40px 25px;
+        }
+
+        .rf-gallery-grid {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .rf-gallery-item {
+            max-width: 100%;
+        }
+
+        .rf-gallery-item img {
+            height: 320px;
+        }
+
+        .rf-lifestyle {
+            display: none;
+        }
+
+        .rf-highlights {
+            grid-template-columns: 1fr;
+            padding: 40px 25px;
+            gap: 20px;
+        }
+
+        .rf-details {
+            padding: 40px 25px;
+        }
+
+        .rf-details-title {
+            font-size: 26px;
+        }
+
+        .rf-details-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .rf-description {
+            padding: 40px 25px;
+        }
+
+        .rf-features {
+            padding: 40px 25px;
+        }
+
+        .rf-features-title {
+            font-size: 24px;
+        }
+
+        .rf-features-list {
+            grid-template-columns: 1fr;
+        }
+
+        .rf-cta {
+            padding: 70px 25px;
+        }
+
+        .rf-cta-decorator {
+            width: 80px;
+        }
+
+        .rf-cta-title {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .rf-cta-text {
+            font-size: 15px;
+            margin-bottom: 35px;
+        }
+
+        .rf-cta-button {
+            padding: 18px 45px;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        /* Desabilitar hovers no mobile */
+        .rf-gallery-item:hover {
+            border-color: #efefef;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .rf-gallery-item:hover img {
+            transform: none;
+        }
+
+        .rf-gallery-item:hover .rf-gallery-overlay {
+            background: rgba(0, 0, 0, 0);
+        }
+
+        /* Label fixo no mobile com gradient apenas no texto */
+        .rf-gallery-label {
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            padding: 25px 18px 18px;
+        }
+
+        .rf-gallery-item:hover .rf-gallery-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rf-lifestyle-image:hover img {
+            transform: none;
+        }
+
+        .rf-highlight-card:hover::before {
+            left: -100%;
+        }
+
+        .rf-highlight-card:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: #efefef;
+        }
+
+        .rf-feature-item:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .rf-cta-button:hover::before {
+            width: 0;
+            height: 0;
+        }
+
+        .rf-cta-button:hover::after {
+            opacity: 0;
+        }
+
+        .rf-cta-button:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            color: #1a1a1a;
+            transform: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: #ffffff;
+        }
+    }
+</style>
+
+<div class="rf-container">
+    <!-- Hero Section -->
+    <section class="rf-hero">
+        <div class="rf-hero-title">Jaleco Feminino Elegante - Rose Melange</div>
+        <p class="rf-hero-subtitle">
+            Jaleco em alfaiataria melange com poliéster e elastano, caimento impecável e conforto o dia todo.
+            Ideal para profissionais que querem unir qualidade, durabilidade e um visual moderno e refinado.
+        </p>
+        <div class="rf-separator"></div>
+    </section>
+
+    <!-- Image Gallery Section - VOLTAMOS AO ORIGINAL -->
+    <section class="rf-gallery">
+        <div class="rf-gallery-grid">
+            <div class="rf-gallery-item">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2024/12/produto/1682/04-jaleco-feminino-elegante-rose-melange.png"
+                    alt="Vista Frontal">
+                <div class="rf-gallery-overlay"></div>
+                <div class="rf-gallery-label">Vista Frontal</div>
+            </div>
+            <div class="rf-gallery-item">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2024/12/produto/1683/05-jaleco-feminino-elegante-rose-melange.png"
+                    alt="Detalhe">
+                <div class="rf-gallery-overlay"></div>
+                <div class="rf-gallery-label">Detalhe</div>
+            </div>
+            <div class="rf-gallery-item">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2024/12/produto/1684/06-jaleco-feminino-elegante-rose-melange.png"
+                    alt="Acabamento">
+                <div class="rf-gallery-overlay"></div>
+                <div class="rf-gallery-label">Acabamento</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lifestyle Section -->
+    <section class="rf-lifestyle">
+        <div class="rf-lifestyle-title">Elegância que acompanha sua rotina</div>
+        <p class="rf-lifestyle-subtitle">Uma peça pensada para transformar a sua presença em qualquer ambiente
+            profissional</p>
+        <div class="rf-lifestyle-content">
+            <div class="rf-lifestyle-image">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2024/12/produto/1682/04-jaleco-feminino-elegante-rose-melange.png"
+                    alt="Jaleco Feminino Elegante Rose Melange em uso">
+            </div>
+            <div class="rf-lifestyle-text">
+                <div>Conforto e caimento impecável</div>
+                <p>
+                    O Jaleco Feminino Elegante é confeccionado em alfaiataria melange, que une a estrutura plana
+                    maquinetada à versatilidade do poliéster com elastano. O resultado é um tecido exclusivo, com
+                    caimento impecável e toque agradável, perfeito para quem passa o dia inteiro em atendimento.
+                </p>
+                <p>
+                    Gola clássica, recortes que modelam a silhueta, bolsos embutidos e botões forrados foram pensados
+                    para trazer praticidade e um visual refinado. É a peça ideal para quem deseja unir elegância,
+                    conforto e funcionalidade em um único jaleco.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="rf-highlights">
+        <div class="rf-highlight-card">
+            <div class="rf-highlight-icon">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2025/12/produto/2668/star.png" alt="Star icon"
+                    style="width: 22px; height: 22px;">
+            </div>
+            <div class="rf-highlight-title">Tecido em alfaiataria melange</div>
+            <p class="rf-highlight-text">
+                Combinação de poliéster e elastano que garante estrutura, elasticidade na medida certa e um caimento
+                sofisticado para o uso diário.
+            </p>
+        </div>
+
+        <div class="rf-highlight-card">
+            <div class="rf-highlight-icon">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2025/12/produto/2667/check-mark.png"
+                    alt="Check icon" style="width: 22px; height: 22px;">
+
+            </div>
+            <div class="rf-highlight-title">Detalhes que valorizam você</div>
+            <p class="rf-highlight-text">
+                Gola clássica, recortes que modelam a silhueta, bolsos funcionais e botões forrados criam um visual
+                elegante, prático e muito feminino.
+            </p>
+        </div>
+
+        <div class="rf-highlight-card">
+            <div class="rf-highlight-icon">
+                <img src="https://riscofinno.cdn.magazord.com.br/img/2025/12/produto/2666/clock.png" alt="Clock icon"
+                    style="width: 22px; height: 22px;">
+
+            </div>
+            <div class="rf-highlight-title">Imagem profissional elevada</div>
+            <p class="rf-highlight-text">
+                Ideal para consultório, o jaleco transmite credibilidade, cuidado e
+                sofisticação em cada atendimento.
+            </p>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Função para rolar até o topo da página
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'  // Rolagem suave até o topo
+        });
+    }
+
+    const moveTopButton = document.getElementById('moveTopButton');
+    document.addEventListener('DOMContentLoaded', function () {
+        moveTopButton.addEventListener('click', scrollToTop);  // Chama a função ao clicar
+    });
+
+    // Lógica para o clique nas imagens da galeria (a parte de borda)
+    const galleryItems = document.querySelectorAll('.rf-gallery-item');
+
+    galleryItems.forEach(item => {
+        item.addEventListener('click', function () {
+            galleryItems.forEach(i => i.style.borderColor = '#efefef'); // Restaura a borda para todas as imagens
+            this.style.borderColor = '#1a1a1a'; // Aplica a borda escura na imagem selecionada
+        });
+    });
+
+</script>

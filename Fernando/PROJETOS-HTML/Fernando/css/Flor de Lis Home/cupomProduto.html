@@ -1,0 +1,251 @@
+<style>
+    /* ===== Cupom estilo ticket — versão com nova paleta e mobile aprimorado ===== */
+    #tag-frete {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 16px 0;
+        --bg: #ffffff;
+        /* cor principal pedida */
+        --side: #C9B6A3;
+        /* lateral */
+        --border: #D9D3CB;
+        /* borda suave */
+        --ink: #4A3F36;
+        /* texto */
+        --accent: #9C8978;
+        /* detalhes (tracejado) */
+    }
+
+    #tag-frete .fdh-ticket {
+        display: flex;
+        align-items: stretch;
+        width: 920px;
+        max-width: 94vw;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
+        position: relative;
+        /* mobile-friendly */
+        min-height: 96px;
+        padding: 0;
+    }
+
+    #tag-frete .fdh-ticket__side {
+        width: 120px;
+        background: var(--side);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid rgba(0, 0, 0, .06);
+    }
+
+    #tag-frete .fdh-ticket__side small {
+        font-weight: 700;
+        font-size: 0.7rem;
+        line-height: 1.2;
+    }
+
+    #tag-frete .fdh-ticket__side .num {
+        margin-top: 5px;
+        font-weight: 700;
+    }
+
+    #tag-frete .fdh-ticket__main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    #tag-frete .fdh-ticket__inner {
+        text-align: center;
+        color: var(--ink);
+    }
+
+    /* (removido o coração) */
+
+    #tag-frete .fdh-title {
+        font-weight: 700;
+        letter-spacing: .02em;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* pode quebrar no mobile */
+        white-space: normal;
+        text-wrap: balance;
+        line-height: 1.2;
+    }
+
+    #tag-frete .fdh-title span {
+        font-size: clamp(14px, 2.6vw, 18px);
+    }
+
+    #tag-frete .fdh-title::before,
+    #tag-frete .fdh-title::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px dashed var(--accent);
+        transform: translateY(1px);
+    }
+
+    #tag-frete .fdh-sub {
+        margin-top: 6px;
+        font-size: clamp(11px, 2.2vw, 13px);
+        color: color-mix(in oklab, var(--ink) 70%, white);
+        letter-spacing: .01em;
+    }
+
+    /* Botão escondido de copiar */
+    #tag-frete .fdh-copy {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: #333;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12px;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
+        transition: opacity .2s, transform .2s, box-shadow .2s;
+        opacity: 0;
+        transform: translateY(-4px);
+        pointer-events: none;
+    }
+
+
+    #tag-frete .fdh-ticket:hover .fdh-copy,
+    #tag-frete .fdh-ticket:focus-within .fdh-copy {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    #tag-frete .fdh-copy:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    }
+
+    #tag-frete .fdh-toast {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: #111;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity .2s, transform .2s;
+        pointer-events: none;
+    }
+
+    #tag-frete .fdh-toast.--on {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ===== Mobile refinements ===== */
+    @media (max-width:520px) {
+        #tag-frete .fdh-ticket {
+            max-width: calc(100vw - 24px);
+            border-radius: 10px;
+        }
+
+        #tag-frete .fdh-ticket__side {
+            width: 72px;
+            letter-spacing: .16em;
+            padding: 8px 6px;
+        }
+
+        #tag-frete .fdh-ticket__main {
+            padding: 10px;
+        }
+
+        #tag-frete .fdh-title {
+            gap: 8px;
+        }
+
+        #tag-frete .fdh-copy {
+            top: 6px;
+            right: 6px;
+            padding: 6px 8px;
+            font-size: 11px
+        }
+    }
+</style>
+
+
+<script>
+    $(document).ready(function () {
+        // evita duplicar
+        if ($('#tag-frete').length) return;
+
+        // Conteúdo do cupom
+        const CUPOM_NUM = "BEMVINDA";
+        const TITULO = "Aproveite o desconto";
+        const SUBTITULO = "Ganhe 10% de desconto na sua primeira compra";
+        const TEXTO_COPIAR = CUPOM_NUM; // o que será copiado
+
+        // Componente (sem o coração)
+        const $tagFrete = $(`
+    <div id="tag-frete" role="group" aria-label="click e copie! ${CUPOM_NUM}">
+      <div class="fdh-ticket">
+        <aside class="fdh-ticket__side" aria-hidden="true">
+            <small>Use o cupom</small>
+            <div class="num">${CUPOM_NUM}</div>
+            <small>clique e copie!</small>
+        </aside>
+        <main class="fdh-ticket__main">
+          <div class="fdh-ticket__inner">
+            <div class="fdh-title"><span>${TITULO}</span></div>
+            <div class="fdh-sub">${SUBTITULO}</div>
+          </div>
+        </main>
+
+
+        <div class="fdh-toast" role="status" aria-live="polite">Copiado!</div>
+      </div>
+    </div>
+  `);
+
+        // Insere antes de .derivacoes-produto; se não existir, fallbacks
+        const anchorSelector = ".derivacoes-produto";
+        if ($(anchorSelector).length) {
+            $tagFrete.insertAfter(anchorSelector);
+        } else {
+            const fallback = $(".avaliacoes, .product__rating, .produto__rating").first();
+            if (fallback.length) fallback.after($tagFrete);
+            else $("main, .product-info, .produto").first().prepend($tagFrete);
+        }
+
+        // Copiar para área de transferência
+        $(document).on("click", "#tag-frete .fdh-copy", async function () {
+            const text = $(this).data("copy");
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const $ta = $("<textarea>").val(text).css({ position: "fixed", top: "-9999px" });
+                    $("body").append($ta); $ta[0].select(); document.execCommand("copy"); $ta.remove();
+                }
+                const $toast = $("#tag-frete .fdh-toast");
+                $toast.addClass("--on");
+                setTimeout(() => $toast.removeClass("--on"), 1400);
+            } catch (e) {
+                alert("Não foi possível copiar agora.");
+            }
+        });
+    });
+</script>

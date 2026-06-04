@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Swiper (usado apenas no mobile) -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@9/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@9/swiper-bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      .promo-banner-unico {
+        background-color: #000; /* fundo preto */
+        color: #fff;            /* textos brancos */
+        padding: 10px 5%;
+        width: 100%;
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        border-bottom: 0.2px solid white;
+      }
+
+      .promo-banner-fixo {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+      }
+
+      .promo-texto-unico {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        max-width: 1200px;
+        width: 100%;
+        text-align: center;
+        color: #fff; /* reforço */
+      }
+
+      .promo-info {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        font-weight: 600;
+        font-size: 1em;
+        justify-content: center;
+      }
+
+      .promo-cupom{
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      /* Link com visual de botão */
+      .coupon-link {
+        background-color: transparent;
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 6px 12px;
+        font-weight: 700;
+        border-radius: 4px;
+        font-size: 1em;
+        text-decoration: none;
+        transition: background-color 0.25s, color 0.25s, border-color 0.25s, transform 0.1s;
+        display: inline-block;
+      }
+      .coupon-link:hover {
+        background-color: #fff;
+        color: #000;
+        border-color: #fff;
+      }
+      .coupon-link:active { transform: scale(0.98); }
+
+      .timer-unico {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: 0.95em;
+        color: #fff;
+      }
+
+      .timer-block {
+        background-color: #1a1a1a; /* tom escuro para contraste */
+        color: #fff;
+        padding: 4px 6px;
+        min-width: 28px;
+        text-align: center;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 0.95em;
+        line-height: 1.2;
+        border: 1px solid #333;
+      }
+
+      .timer-label {
+        display: block;
+        font-size: 0.55em;
+        color: #bbb; /* sutil em branco acinzentado */
+        font-weight: normal;
+        margin-top: 2px;
+      }
+
+      /* Mobile */
+      @media (max-width: 480px) {
+        .promo-banner-unico {
+          font-size: 0.85em;
+          padding: 6px 5%;
+        }
+        .promo-texto-unico {
+          flex-direction: column;
+          gap: 4px;
+        }
+        .promo-info {
+          justify-content: center;
+          font-size: 0.9em;
+          gap: 4px;
+        }
+        .promo-cupom{ gap: 4px; }
+        .coupon-link {
+          padding: 5px 10px;
+          font-size: 0.95em;
+        }
+        .timer-unico {
+          justify-content: center;
+          gap: 3px;
+          font-size: 0.85em;
+        }
+        .timer-block {
+          min-width: 24px;
+          padding: 3px 5px;
+          font-size: 0.85em;
+        }
+        .timer-label { font-size: 0.5em; }
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 6px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        font-size: 1.3em;
+        cursor: pointer;
+      }
+      .close-btn:hover { color: #bbb; }
+
+      /* Controle de exibição desktop x mobile */
+      @media (max-width: 480px) {
+        .promo-texto-unico--desktop { display: none !important; }
+        .promo-texto-unico--mobile { display: block !important; padding: 10px; }
+      }
+      @media (min-width: 481px) {
+        .promo-texto-unico--desktop { display: flex !important; }
+        .promo-texto-unico--mobile { display: none !important; }
+      }
+
+      /* ===== Swiper com prefixo DUNA (equivalente ao CSS padrão do Swiper) ===== */
+      .DUNA-swiper { position: relative; overflow: hidden; width: 100%; }
+      .DUNA-swiper .DUNA-swiper-wrapper {
+        display: flex;
+        transition-property: transform;
+        box-sizing: content-box;
+      }
+      .DUNA-swiper .DUNA-swiper-slide {
+        flex-shrink: 0;
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 0 4px;
+        gap: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Conteúdo da sua página... -->
+
+    <script>
+      $(function () {
+        // Evita duplicar o banner
+        if ($(".promo-banner-unico").length === 0) {
+          const urlPromo = "https://www.blacktarg.com.br/Black%20Friday?amp%3Bamp%3Bamp%3Bordem=vendas&amp;amp;amp;amp;amp;zord=true";
+
+          const $banner = $(`
+            <div class="promo-banner-unico" role="region" aria-label="Oferta Black November">
+              <button class="close-btn" aria-label="Fechar banner" type="button">×</button>
+
+              <!-- DESKTOP -->
+              <div class="promo-texto-unico promo-texto-unico--desktop">
+                <div class="promo-info">
+                  <span><strong>Site</strong> Descontos de até 70% off |</span>
+                  <span class="promo-cupom">
+                    <span></span>
+                    <a class="coupon-link"
+                       href="${urlPromo}"
+                       target="_self"
+                       rel="nofollow noopener"
+                       aria-label="Ir para a página da promoção">
+                       Clique aqui e aproveite
+                    </a>
+                  </span>
+                  <span>| Expira em:</span>
+                </div>
+                <div class="timer-unico" aria-live="polite">
+                  <div class="timer-block">
+                    <span class="js-horas">00</span>
+                    <span class="timer-label">HRS</span>
+                  </div>
+                  <div class="timer-block">
+                    <span class="js-minutos">00</span>
+                    <span class="timer-label">MIN</span>
+                  </div>
+                  <div class="timer-block">
+                    <span class="js-segundos">00</span>
+                    <span class="timer-label">SEC</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MOBILE: Swiper com 2 slides -->
+              <div class="promo-texto-unico promo-texto-unico--mobile">
+                <div class="DUNA-swiper">
+                  <div class="DUNA-swiper-wrapper">
+                    <!-- Slide 1: chamada + link -->
+                    <div class="DUNA-swiper-slide">
+                      <div class="promo-info">
+                        <span><strong>Site</strong> com Até 75% OFF |</span>
+                        <span class="promo-cupom">
+                          <span>Veja a oferta</span>
+                          <a class="coupon-link"
+                             href="${urlPromo}"
+                             target="_self"
+                             rel="nofollow noopener"
+                             aria-label="Ir para a página da promoção">
+                             Acessar promo
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Slide 2: Expira em + timer -->
+                    <div class="DUNA-swiper-slide">
+                      <div class="promo-info"><span>Expira em:</span></div>
+                      <div class="timer-unico" aria-live="polite" style="margin-left:6px;">
+                        <div class="timer-block">
+                          <span class="js-horas">00</span>
+                          <span class="timer-label">HRS</span>
+                        </div>
+                        <div class="timer-block">
+                          <span class="js-minutos">00</span>
+                          <span class="timer-label">MIN</span>
+                        </div>
+                        <div class="timer-block">
+                          <span class="js-segundos">00</span>
+                          <span class="timer-label">SEC</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
+
+          // Insere antes do .header-middle (se existir) ou no topo do body
+          const $hdr = $("header");
+          if ($hdr.length) { $banner.insertBefore($hdr.first()); }
+          else { $("body").prepend($banner); }
+        }
+
+        // ===== Timer =====
+        function calcularRestanteHoje() {
+          const agora = new Date();
+          const fim = new Date();
+          fim.setHours(23, 59, 59, 999);
+          return Math.max(0, fim - agora);
+        }
+
+        function atualizarCronometro() {
+          const restante = calcularRestanteHoje();
+          const $h = $(".js-horas");
+          const $m = $(".js-minutos");
+          const $s = $(".js-segundos");
+
+          if (restante <= 0) {
+            $h.text("00"); $m.text("00"); $s.text("00");
+            clearInterval(intervaloCronometro);
+            return;
+          }
+
+          const horas   = Math.floor((restante % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutos = Math.floor((restante % (1000 * 60 * 60)) / (1000 * 60));
+          const segundos= Math.floor((restante % (1000 * 60)) / 1000);
+
+          $h.text(String(horas).padStart(2, "0"));
+          $m.text(String(minutos).padStart(2, "0"));
+          $s.text(String(segundos).padStart(2, "0"));
+        }
+        const intervaloCronometro = setInterval(atualizarCronometro, 1000);
+        atualizarCronometro();
+
+        // ===== Fechar banner =====
+        $(document).on("click", ".close-btn", function () {
+          $(".promo-banner-unico").fadeOut(200, function () {
+            if (window.__DUNA_swiper && typeof window.__DUNA_swiper.destroy === "function") {
+              window.__DUNA_swiper.destroy(true, true);
+              window.__DUNA_swiper = null;
+            }
+            $(this).remove();
+          });
+        });
+
+        // ===== Fixar no scroll =====
+        const $banner = $(".promo-banner-unico");
+        $(window).on("scroll", function () {
+          if ($(window).scrollTop() > 100) $banner.addClass("promo-banner-fixo");
+          else $banner.removeClass("promo-banner-fixo");
+        });
+
+        // ===== Swiper (mobile somente) =====
+        function initDunaSwiper() {
+          if (window.__DUNA_swiper) return;
+          const el = document.querySelector(".DUNA-swiper");
+          if (!el) return;
+
+          window.__DUNA_swiper = new Swiper(".DUNA-swiper", {
+            wrapperClass: "DUNA-swiper-wrapper",
+            slideClass: "DUNA-swiper-slide",
+            containerModifierClass: "DUNA-swiper-",
+            loop: true,
+            speed: 300,
+            allowTouchMove: true,
+            autoplay: {
+              delay: 2000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: false,
+            },
+          });
+        }
+
+        function destroyDunaSwiper() {
+          if (window.__DUNA_swiper && typeof window.__DUNA_swiper.destroy === "function") {
+            window.__DUNA_swiper.destroy(true, true);
+            window.__DUNA_swiper = null;
+          }
+        }
+
+        function ensureSwiperForViewport() {
+          const isMobile = window.matchMedia("(max-width: 480px)").matches;
+          if (isMobile) initDunaSwiper();
+          else destroyDunaSwiper();
+        }
+
+        ensureSwiperForViewport();
+        let resizeTO;
+        $(window).on("resize", function () {
+          clearTimeout(resizeTO);
+          resizeTO = setTimeout(ensureSwiperForViewport, 120);
+        });
+      });
+    </script>
+  </body>
+</html>

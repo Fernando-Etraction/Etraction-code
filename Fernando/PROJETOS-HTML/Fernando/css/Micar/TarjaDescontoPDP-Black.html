@@ -1,0 +1,254 @@
+<style>
+/* ===== Black Friday Card V2 - Estrutura e Estilo ===== */
+
+.bf-metric-chip svg path {
+  stroke: #000 !important;
+}
+
+.bf-card-v2 {
+  --color-primary: #10b981; /* Verde */
+  --color-secondary: #10b981; /* Vermelho para desconto */
+  --color-text: #1f2937; /* Cinza Escuro */
+  --color-muted: #6b7280; /* Cinza Médio */
+  --color-border: #e5e7eb; /* Cinza Claro */
+  --color-bg: #ffffff;
+  --color-bg-light: #f9fafb;
+
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  margin-top: 16px;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Bloco Principal */
+.bf-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.bf-title-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bf-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #000000;
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #FEC52D;
+}
+
+.bf-badge-pill .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #FEC52D;
+}
+
+/* Economia */
+.bf-saving-line {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.bf-saving-text {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.bf-saving-value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-secondary);
+  line-height: 1;
+}
+
+.bf-note-text {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-top: -8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Bloco de Métricas */
+.bf-metrics {
+  display: flex;
+  gap: 10px;
+  padding-top: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.bf-metric-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--color-bg-light);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  flex-grow: 1;
+  margin: 5px 0;
+}
+
+.bf-metric-chip svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+.bf-metric-chip.discount svg {
+  color: var(--color-secondary);
+}
+
+.bf-metric-chip .value {
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 600px) {
+  .bf-card-v2 {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .bf-title-badge {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bf-badge-pill {
+    margin-bottom: 8px;
+  }
+
+  .bf-metrics {
+    flex-direction: column;
+  }
+}
+</style>
+
+<script>
+// ===== Utilitários =====
+if (typeof Intl === 'undefined' || !Intl.NumberFormat) {
+  var Intl = {
+    NumberFormat: function () {
+      return {
+        format: function (n) {
+          return 'R$ ' + (n || 0).toFixed(2).replace('.', ',');
+        }
+      };
+    }
+  };
+}
+
+function parsePrice(t) {
+  return parseFloat(
+    String(t || '')
+      .replace(/[^\d,.\-]/g, '')
+      .replace(/\.(?=\d{3}(?:\D|$))/g, '')
+      .replace(',', '.')
+  );
+}
+
+function formatBRL(n) {
+  try {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(n);
+  } catch (e) {
+    return 'R$ ' + (n || 0).toFixed(2).replace('.', ',');
+  }
+}
+
+$(function () {
+  // ===== Coleta de preços =====
+  const deText = $('.line-through').text();
+  const porText = $('.price-big').text();
+  const deVal = parsePrice(deText);
+  const porVal = parsePrice(porText);
+
+  const precoDe = isFinite(deVal) && deVal > 0 ? deVal : 0;
+  const precoPor = isFinite(porVal) && porVal > 0 ? porVal : 0;
+
+  let economia = 0;
+  let pctDesconto = 0;
+
+  if (precoDe > precoPor && precoPor > 0) {
+    economia = precoDe - precoPor;
+    economia = Math.round(economia * 100) / 100;
+    pctDesconto = Math.round((economia / precoDe) * 100);
+  }
+
+  // ===== Criação do Card =====
+  const cardHtml = `
+    <div class="bf-card-v2" data-key="bf-card-v2">
+      <div class="bf-main-info">
+        <div class="bf-title-badge">
+          <div class="bf-badge-pill">
+            <span class="dot"></span>
+            BLACK NOVEMBER 🔥
+          </div>
+        </div>
+
+        <div class="bf-saving-line" ${economia > 0 ? '' : 'style="display:none"'}>
+          <span class="bf-saving-text">Você economiza</span>
+          <span class="bf-saving-value" id="bf-economia">${formatBRL(economia)}</span>
+        </div>
+      </div>
+
+      ${economia > 0 ? '<div class="bf-note-text">Comparado ao preço original</div>' : ''}
+
+      <div class="bf-metrics">
+        <div class="bf-metric-chip discount" data-block="desconto" style="${pctDesconto ? '' : 'display:none'}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="lucide lucide-tag">
+            <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8.704-8.704Z"/>
+            <line x1="18" x2="18" y1="6" y2="6.01"/>
+          </svg>
+          <span class="value">${pctDesconto}%</span>
+          <span>Desconto</span>
+        </div>
+
+        <div class="bf-metric-chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               class="lucide lucide-shield-check">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+          <span class="value">Preço Garantido</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // ===== Inserção =====
+  $('#content-price-product').after(cardHtml);
+});
+</script>

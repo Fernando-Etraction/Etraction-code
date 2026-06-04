@@ -1,0 +1,320 @@
+<style>
+    .promo-banner-custom {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        border: 2px solid #333;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+        margin: 15px 0;
+    }
+
+    .promo-banner-custom::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .promo-header {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        margin-bottom: 15px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #333;
+    }
+
+    .promo-main-title {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        line-height: 1.3;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .promo-subtitle {
+        color: #b8b8b8;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .promo-disclaimer {
+        color: #888;
+        font-size: 10px;
+        font-style: italic;
+        margin-top: 5px;
+    }
+
+    .coupons-container {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .coupon-card {
+        background: linear-gradient(145deg, #1f1f1f, #0a0a0a);
+        border: 1px solid #404040;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .coupon-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .coupon-card:hover::before {
+        left: 100%;
+    }
+
+    .coupon-card:hover {
+        transform: translateY(-5px);
+        border-color: #666;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .coupon-offer-badge {
+        background: #fff;
+        color: #000;
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 14px;
+        margin-bottom: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .coupon-price {
+        color: #ffffff;
+        font-size: 26px;
+        font-weight: 800;
+        margin: 8px 0;
+        line-height: 1;
+    }
+
+    .coupon-price-label {
+        color: #aaa;
+        font-size: 12px;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .coupon-extra {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        color: #4ade80;
+        font-size: 11px;
+        font-weight: 600;
+        margin: 8px 0;
+        min-height: 18px;
+    }
+
+    .coupon-extra svg {
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+    }
+
+    .coupon-code-label {
+        color: #999;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-top: 10px;
+        margin-bottom: 6px;
+    }
+
+    .coupon-code-box {
+        background: #fff;
+        color: #000;
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-family: 'Courier New', monospace;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        border: 2px dashed #ccc;
+        transition: all 0.3s ease;
+        user-select: all;
+        position: relative;
+    }
+
+    .coupon-card:hover .coupon-code-box {
+        background: #f0f0f0;
+        border-color: #888;
+        transform: scale(1.05);
+    }
+
+    .coupon-code-box:active {
+        transform: scale(0.95);
+    }
+
+    .coupon-click-hint {
+        color: #666;
+        font-size: 9px;
+        margin-top: 6px;
+        font-style: italic;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+        .promo-banner-custom {
+            padding: 15px;
+        }
+
+        .promo-main-title {
+            font-size: 16px;
+        }
+
+        .promo-subtitle {
+            font-size: 11px;
+        }
+
+        .coupons-container {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .coupon-price {
+            font-size: 22px;
+        }
+
+        .coupon-code-box {
+            font-size: 16px;
+            padding: 8px 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .promo-main-title {
+            font-size: 15px;
+        }
+
+        .coupon-price {
+            font-size: 20px;
+        }
+    }
+</style>
+
+
+<script>
+    $(document).ready(function () {
+        const html = `
+    <div class="promo-banner-custom">
+        <div class="promo-header">
+            <div class="promo-main-title">Compre 2 pares por R$199 ou 3 por R$279 + frete grátis</div>
+            <div class="promo-subtitle">Aplique um dos cupons no carrinho para obter o desconto.</div>
+            <div class="promo-disclaimer">Válido somente para produtos desta página</div>
+        </div>
+        
+        <div class="coupons-container">
+            <div class="coupon-card" onclick="copyCouponCode(this, '2por199')">
+                <div class="coupon-offer-badge">2 PARES</div>
+                <div class="coupon-price-label">por apenas</div>
+                <div class="coupon-price">R$ 199</div>
+                <div class="coupon-extra"></div>
+                <div class="coupon-code-label">cupom</div>
+                <div class="coupon-code-box">2por199</div>
+                <div class="coupon-click-hint">Clique para copiar</div>
+            </div>
+            
+            <div class="coupon-card" onclick="copyCouponCode(this, '3por279')">
+                <div class="coupon-offer-badge">3 PARES</div>
+                <div class="coupon-price-label">por apenas</div>
+                <div class="coupon-price">R$ 279</div>
+                <div class="coupon-extra">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+                    </svg>
+                    Frete Grátis
+                </div>
+                <div class="coupon-code-label">cupom</div>
+                <div class="coupon-code-box">3por279</div>
+                <div class="coupon-click-hint">Clique para copiar</div>
+            </div>
+        </div>
+    </div>`;
+
+        $(html).insertAfter(".title-pesquisa");
+    });
+
+    function copyCouponCode(cardElement, code) {
+        const codeBox = cardElement.querySelector('.coupon-code-box');
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(code).then(() => {
+                showCouponCopyFeedback(codeBox);
+            }).catch(err => {
+                fallbackCouponCopy(code, codeBox);
+            });
+        } else {
+            fallbackCouponCopy(code, codeBox);
+        }
+    }
+
+    function fallbackCouponCopy(text, element) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showCouponCopyFeedback(element);
+        } catch (err) {
+            console.error('Erro ao copiar:', err);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function showCouponCopyFeedback(element) {
+        const originalText = element.textContent;
+        const originalBg = element.style.background;
+
+        element.textContent = '✓ COPIADO!';
+        element.style.background = '#4ade80';
+        element.style.color = '#fff';
+
+        setTimeout(() => {
+            element.textContent = originalText;
+            element.style.background = originalBg;
+            element.style.color = '#000';
+        }, 2000);
+    }
+</script>

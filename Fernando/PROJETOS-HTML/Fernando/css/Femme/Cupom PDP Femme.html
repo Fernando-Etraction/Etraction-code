@@ -1,0 +1,112 @@
+ <style>
+  .cupom-lateral {
+    max-width: 380px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100px;
+    box-sizing: border-box;
+    gap: 12px;
+  }
+
+  .cupom-lateral .texto {
+    flex: 1;
+  }
+
+  .cupom-lateral .texto .kicker {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .cupom-lateral .texto .titulo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+  }
+
+  .cupom-lateral .texto .sub {
+    font-size: 0.85rem;
+    color: #444;
+  }
+
+  .cupom-lateral .codigo-area {
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .cupom-lateral .codigo {
+    background: #f4f4f4;
+    border: 1px dashed #aaa;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #333;
+    user-select: all;
+    transition: background 0.2s ease;
+  }
+
+  .cupom-lateral .codigo:hover {
+    background: #eee;
+  }
+
+  .cupom-lateral .copiado {
+    font-size: 0.7rem;
+    color: #28a745;
+    margin-top: 4px;
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .cupom-lateral {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .cupom-lateral .codigo-area {
+      align-self: flex-start;
+    }
+  }
+</style>
+
+<p>
+<script>
+  $(document).ready(function () {
+    // Adiciona o cupom antes do elemento com a classe .calculo-frete
+    $(`<div id="cupom-container" class="cupom-lateral">
+      <div class="texto">
+        <div class="kicker">CUPOM DE DESCONTO</div>
+        <div class="titulo">5%OFF em todo o site</div>
+        <div class="sub"></div>
+      </div>
+      <div id="codigo-click" class="codigo-area">
+        <div class="codigo">FEMME5</div>
+        <div id="copiado-msg" class="copiado">✔ Copiado!</div>
+      </div>
+    </div>`).insertBefore(".calculo-frete");
+
+    // Função para copiar o código do cupom para a área de transferência
+    $("#codigo-click").on("click", function () {
+      navigator.clipboard.writeText("BLACK5").then(() => {
+        $("#copiado-msg").fadeIn(200).delay(1200).fadeOut(200);
+      }).catch((err) => {
+        console.log("Erro ao copiar para a área de transferência: ", err);
+      });
+    });
+  });
+</script>
+</p>

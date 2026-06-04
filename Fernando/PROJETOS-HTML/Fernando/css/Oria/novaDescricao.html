@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vitrine de Produto – Card Único</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6f7fb;
+            --ink: #0f1222;
+            --muted: #6c7385;
+            --card: #ffffff;
+            --line: #e8ecf2;
+            --brand: #111827;
+            --radius: 18px;
+            --shadow: 0 10px 30px rgba(15, 18, 34, .07);
+            --accent: #0ea5b7;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+            color: var(--ink);
+            background: var(--bg)
+        }
+
+        .container {
+            max-width: 1420px;
+            margin: 0 auto;
+            padding: 28px 18px 96px
+        }
+
+        /* ===== Card Único (imagem + detalhes) ===== */
+        .details {
+            padding: 20px
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 28px;
+            align-items: start
+        }
+
+        /* Imagem principal (mantida como antes) */
+        .product-media {
+            aspect-ratio: 19/26;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid var(--line);
+            overflow: hidden;
+        }
+
+        .product-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* mantém full-bleed no card principal */
+            object-position: center;
+            display: block;
+        }
+
+        h1 {
+            font-size: 30px;
+            line-height: 1.2;
+            letter-spacing: .2px;
+            margin: 4px 0 14px;
+        }
+
+        .lead {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0 0 14px;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 0 0 16px
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            font-size: 12px;
+            color: #455065;
+            background: #fff
+        }
+
+        /* ===== Accordion ===== */
+        .accordion {
+            display: grid;
+            gap: 10px
+        }
+
+        .acc {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fff;
+            overflow: hidden
+        }
+
+        .acc-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 0;
+            background: #fff;
+            text-align: left;
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        .acc-btn:hover {
+            background: #fafbff
+        }
+
+        .acc-icon {
+            width: 28px;
+            height: 28px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            transition: transform .25s ease
+        }
+
+        .acc[aria-expanded="true"] .acc-icon {
+            transform: rotate(45deg)
+        }
+
+        .acc-panel {
+            grid-template-rows: 0fr;
+            display: grid;
+            transition: grid-template-rows .3s ease
+        }
+
+        .acc[aria-expanded="true"] .acc-panel {
+            grid-template-rows: 1fr
+        }
+
+        .acc-inner {
+            overflow: hidden
+        }
+
+        .acc-content {
+            padding: 0 16px 16px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7
+        }
+
+        /* ===== Bands (seções com imagem + texto) ===== */
+        .band {
+            margin-top: 36px;
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: #00000134 0 0 9px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 124px;
+            align-items: center
+        }
+
+        .band.reverse {
+            grid-template-columns: .95fr 1.05fr
+        }
+
+        .band h3 {
+            margin: 4px 10px 10px;
+            font-size: 22px;
+            line-height: 1.25;
+            letter-spacing: .2px;
+        }
+
+        .band p {
+            margin-left: 12px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75
+        }
+
+        /* === SOMENTE as imagens das bands: 400x400 fixo, coladas nas bordas === */
+        .band .img {
+            width: 300px;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #eef1f6;
+            justify-self: center;
+            /* centraliza o bloco de imagem dentro da grid */
+        }
+
+        .band .img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* preenche sem distorcer (corte elegante) */
+            object-position: center;
+            display: block;
+        }
+
+        /* ===== Listas (medidas) ===== */
+        .list-product {
+            margin-left: 12px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75
+        }
+
+        .list-product p {
+            position: relative;
+            padding-left: 28px;
+            font-size: 14px;
+            line-height: 1.65;
+            color: #2b3142;
+        }
+
+
+        /* Responsivo */
+        @media (max-width:980px) {
+            .details-grid {
+                grid-template-columns: 1fr
+            }
+
+            /* imagens das bands ocupam a largura, mantendo 400px de altura */
+            .band .img {
+                width: 100%;
+                height: 400px;
+            }
+        }
+
+        @media (max-width:760px) {
+            .container {
+                padding: 18px 14px 72px
+            }
+
+            .band,
+            .band.reverse {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- CARD ÚNICO -->
+        <section class="details">
+            <div class="details-grid">
+                <!-- Imagem principal -->
+                <figure class="product-media">
+                    <img src="https://oria.cdn.magazord.com.br/img/2025/05/produto/181/0297-oria.jpg"
+                        alt="Bermuda toque de linho com zíper e elástico traseiro" />
+                </figure>
+
+                <!-- Conteúdo -->
+                <div>
+                    <h1>Bermuda toque de linho — elegância e praticidade</h1>
+                    <p class="lead">Conforto leve para o dia a dia. Tecido com toque de linho, respirável, com ajuste
+                        confortável e funcionalidade.</p>
+
+                    <div class="badges">
+                        <span class="badge">Leve</span>
+                        <span class="badge">Fresca</span>
+                        <span class="badge">Ajuste confortável</span>
+                    </div>
+
+                    <!-- Acordeão -->
+                    <div class="accordion" id="accordion">
+                        <div class="acc" aria-expanded="true">
+                            <button class="acc-btn" aria-expanded="true" aria-controls="p1">
+                                <span>Leveza e frescor</span>
+                                <span class="acc-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="acc-panel" id="p1">
+                                <div class="acc-inner">
+                                    <div class="acc-content">
+                                        Tecido com toque de linho, ideal para quem busca uma peça leve e fresca no dia a
+                                        dia.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="acc">
+                            <button class="acc-btn" aria-expanded="false" aria-controls="p2">
+                                <span>Praticidade no uso</span>
+                                <span class="acc-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="acc-panel" id="p2">
+                                <div class="acc-inner">
+                                    <div class="acc-content">
+                                        Bolso funcional para pequenos itens • Fechamento com botão e zíper • Elástico
+                                        traseiro para conforto e ajuste perfeito.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="acc">
+                            <button class="acc-btn" aria-expanded="false" aria-controls="p3">
+                                <span>Medidas da modelo</span>
+                                <span class="acc-icon" aria-hidden="true">+</span>
+                            </button>
+                            <div class="acc-panel" id="p3">
+                                <div class="acc-inner">
+                                    <div class="acc-content">
+                                        <p>
+
+                                            Veste PP
+                                            Altura: 1,63 m
+                                            Busto: 87 cm
+                                            Cintura: 63 cm
+                                            Quadril: 92 cm
+                                            
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 1 — ELEGÂNCIA -->
+            <section class="band" aria-label="Elegância">
+                <div>
+                    <h3>ELEGÂNCIA</h3>
+                    <p>Esta bermuda é uma peça confortável e prática para o dia a dia. Feita com toque de linho, é ideal
+                        para quem busca uma roupa leve e fresca.</p>
+                </div>
+                <div class="img">
+                    <img src="https://oria.cdn.magazord.com.br/img/2025/05/produto/308/01-bermuda-toque-de-linho-com-ziper-e-elastico-traseiro-zoe-cru.jpeg"
+                        alt="Bermuda toque de linho — elegância" />
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2 — PRATICIDADE -->
+            <section class="band reverse" aria-label="Praticidade">
+                <div class="img">
+                    <img src="https://oria.cdn.magazord.com.br/img/2025/05/produto/309/02-bermuda-toque-de-linho-com-ziper-e-elastico-traseiro-zoe-cru.jpeg"
+                        alt="Bermuda toque de linho — praticidade" />
+                </div>
+                <div>
+                    <h3>PRATICIDADE</h3>
+                    <p>
+                        Tecido: toque de linho, proporcionando leveza e frescor.<br>
+                        Bolso: com bolso para carregar pequenos itens.<br>
+                        Botão e zíper: estilo e funcionalidade no fechamento.<br>
+                        Elástico traseiro: conforto e ajuste perfeito.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 3 — MEDIDAS DA MODELO -->
+            <section class="band" aria-label="Medidas da modelo">
+                <div>
+                    <h3>MEDIDAS DA MODELO</h3>
+                    <ul class="list-product">
+                        <li>Veste esta bermuda em tamanho PP</li>
+                        <li>Altura: 1,63 m</li>
+                        <li>Busto: 87 cm</li>
+                        <li>Cintura: 63 cm</li>
+                        <li>Quadril: 92 cm</li>
+                    </ul>
+                </div>
+                <div class="img">
+                    <img src="https://oria.cdn.magazord.com.br/img/2025/05/produto/183/0302-oria.jpg"
+                        alt="Modelo vestindo a bermuda — medidas" />
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <script>
+        // Acordeão: mantém apenas um aberto de cada vez
+        const accs = document.querySelectorAll('.acc');
+        accs.forEach(acc => {
+            const btn = acc.querySelector('.acc-btn');
+            btn.addEventListener('click', () => {
+                const isOpen = acc.getAttribute('aria-expanded') === 'true';
+                accs.forEach(a => {
+                    a.setAttribute('aria-expanded', 'false');
+                    a.querySelector('.acc-btn').setAttribute('aria-expanded', 'false');
+                });
+                if (!isOpen) {
+                    acc.setAttribute('aria-expanded', 'true');
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

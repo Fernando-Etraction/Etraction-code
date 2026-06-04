@@ -1,0 +1,460 @@
+<div id="modalLojista" class="dlz-modal">
+  <div class="dlz-modal-content">
+    <button class="dlz-fechar" onclick="fecharModal()">×</button>
+
+    <div class="dlz-modal-imagem">
+      <img src="https://dlz.cdn.magazord.com.br/img/2025/07/banner/41802/17.jpg" alt="Modelo DLZ">
+    </div>
+
+    <div class="dlz-modal-formulario">
+      <h2>Seja um de<br><strong>nossos lojistas</strong></h2>
+
+<form id="formLojista">
+  <input type="text" id="fdl_cnpj" name="cnpj" placeholder="CNPJ" required>
+
+  <div class="dlz-form-grid">
+    <input type="text" id="fdl_estado" name="estado" placeholder="Estado" required>
+    <input type="text" id="fdl_cidade" name="cidade" placeholder="Cidade" required>
+  </div>
+
+  <div class="dlz-form-grid">
+    <input type="text" id="fdl_nomeloja" name="nomeloja" placeholder="Nome da Loja" required>
+    <input type="text" id="fdl_instaloja" name="instaloja" placeholder="Insta da loja" required>
+  </div>
+
+  <div class="dlz-form-grid">
+    <input type="tel" id="fdl_phone" name="phone" placeholder="Telefone" required>
+
+    <div class="dlz-radio-group">
+      <span>Possui loja física?</span>
+      <label><input type="radio" name="lojaFisica" value="Sim" required> Sim</label>
+      <label><input type="radio" name="lojaFisica" value="Não"> Não</label>
+    </div>
+  </div>
+
+  <button type="submit" class="dlz-enviar">Enviar agora</button>
+</form>
+  
+    </div>
+  </div>
+</div>
+<!-- Modal de Confirmação -->
+<div id="modalConfirmacao" class="dlz-modal">
+  <div class="dlz-modal-confirm">
+    <div class="dlz-modal-confirm-img">
+      <img src="https://dlz.cdn.magazord.com.br/img/2025/07/banner/41802/17.jpg" alt="Obrigado">
+    </div>
+    <div class="dlz-modal-confirm-texto">
+      <img src="https://dlz.cdn.magazord.com.br/resources/logo-dlz.svg" alt="Logo DLZ" style="height: 50px; margin-bottom: 20px;">
+      <h2>Obrigado por<br><strong>enviar os dados.</strong></h2>
+      <p>Em breve nossa equipe comercial<br>entrará em contato.</p>
+      <a href="quem-somos" class="dlz-voltar-site">Voltar ao site</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.dlz-btn-lojista {
+  background-color: #001fff;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dlz-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.dlz-modal-content {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  max-width: 960px;
+  width: 90%;
+  overflow: hidden;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.dlz-fechar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dlz-modal-imagem {
+  flex: 1 1 50%;
+}
+.dlz-modal-imagem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dlz-modal-formulario {
+  flex: 1 1 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dlz-modal-formulario h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.dlz-modal-formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.dlz-form-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.dlz-form-grid input {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="tel"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.dlz-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.dlz-enviar {
+  background: #000;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .dlz-modal-content {
+    flex-direction: column;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .dlz-modal-imagem {
+    display: none;
+  }
+
+  .dlz-modal-formulario {
+    flex: 1 1 100%;
+  }
+}
+.dlz-modal-confirm {
+  display: flex;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 960px;
+  width: 90%;
+}
+
+.dlz-modal-confirm-img {
+  flex: 1 1 50%;
+}
+.dlz-modal-confirm-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dlz-modal-confirm-texto {
+  flex: 1 1 50%;
+  text-align: center;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dlz-modal-confirm-texto h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.dlz-modal-confirm-texto p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.dlz-voltar-site {
+  background: #000;
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 40px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .dlz-modal-confirm {
+    flex-direction: column;
+  }
+
+  .dlz-modal-confirm-img {
+    display: none;
+  }
+
+  .dlz-modal-confirm-texto {
+    flex: 1 1 100%;
+  }
+}
+
+/* Responsivo para telas até 1024px */
+@media (max-width: 1024px) {
+  .dlz-modal-content, .dlz-modal-confirm {
+    max-width: 95vw;
+    width: 95vw;
+    margin: 24px auto;
+    padding: 0;
+  }
+  .dlz-modal-formulario, .dlz-modal-confirm-texto {
+    padding: 20px 10px;
+    margin-bottom: 20px;
+  }
+  .dlz-modal-formulario h2, .dlz-modal-confirm-texto h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Responsivo para telas até 768px */
+@media (max-width: 768px) {
+  .dlz-modal-content, .dlz-modal-confirm {
+    flex-direction: column;
+    max-width: 100vw;
+    width: 90vw;
+    min-width: 0;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 18px auto;
+    padding: 0;
+  }
+  .dlz-modal-imagem, .dlz-modal-confirm-img {
+    display: none;
+  }
+  .dlz-modal-formulario, .dlz-modal-confirm-texto {
+    flex: 1 1 100%;
+    padding: 18px 5vw;
+    min-width: 0;
+  }
+  .dlz-modal-formulario h2, .dlz-modal-confirm-texto h2 {
+    font-size: 1.1rem;
+  }
+  .dlz-modal-formulario form {
+    gap: 10px;
+  }
+  .dlz-form-grid {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dlz-enviar, .dlz-voltar-site {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+}
+
+/* Responsivo para telas muito pequenas (até 400px) */
+@media (max-width: 400px) {
+  .dlz-modal-formulario, .dlz-modal-confirm-texto {
+    padding: 10px 2vw;
+  }
+  .dlz-modal-formulario h2, .dlz-modal-confirm-texto h2 {
+    font-size: 1rem;
+  }
+}
+
+/* Para telas grandes (min-width: 1024px) */
+@media (min-width: 1024px) {
+  .dlz-modal-content, .dlz-modal-confirm {
+    max-width: 940px;
+    width: 90vw;
+    margin: 40px auto;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  }
+  .dlz-modal-formulario, .dlz-modal-confirm-texto {
+    padding: 40px 30px;
+  }
+}
+</style>
+
+
+<script>
+
+  const modal = document.getElementById("modalLojista");
+  const btnAbrir = document.getElementById("abrirModal");
+
+  btnAbrir.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+
+  function fecharModal() {
+    modal.style.display = "none";
+  }
+
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      fecharModal();
+    }
+  }
+  
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("#formLojista");
+
+form.addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const enviarBtn = form.querySelector(".dlz-enviar");
+  enviarBtn.disabled = true;
+  enviarBtn.textContent = "Enviando...";
+
+const payload = {
+  cnpj: document.querySelector("#fdl_cnpj").value,
+  estado: document.querySelector("#fdl_estado").value,
+  cidade: document.querySelector("#fdl_cidade").value,
+  nomeloja: document.querySelector("#fdl_nomeloja").value,
+  instaloja: document.querySelector("#fdl_instaloja").value,
+  phone: document.querySelector("#fdl_phone").value,
+  lojaFisica: document.querySelector('input[name="lojaFisica"]:checked')?.value || ''
+};
+
+    try {
+console.log(payload);
+const response = await fetch("https://falling-scene-6adc.victor-dimbarre.workers.dev/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(payload)
+});
+
+      const result = await response.json();
+
+      if (result.success) {
+        form.reset();
+        document.getElementById("modalLojista").style.display = "none";
+        document.getElementById("modalConfirmacao").style.display = "flex";
+      } else {
+        alert("Erro ao enviar dados: " + result.error);
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao enviar dados.");
+    }
+  });
+});
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const differentialItems = document.querySelectorAll('.fdl-differential-item');
+            
+            differentialItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    differentialItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // CNPJ formatting
+            const cnpjInput = document.querySelector('[name="fdl_cnpj"]');
+            
+            if (cnpjInput) {
+                cnpjInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length <= 14) {
+                        value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+                        value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                        value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                        value = value.replace(/(\d{4})(\d)/, '$1-$2');
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+
+            // Phone formatting
+            const phoneInput = document.querySelector('[name="fdl_phone"]');
+            
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length <= 11) {
+                        if (value.length <= 10) {
+                            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+                            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+                        } else {
+                            value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+                            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                        }
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+        });
+ document.getElementById('scroll-to-contact').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const target = document.getElementById('fdl-contact-section-id');
+        const headerOffset = 100; // ajuste conforme a altura do seu header fixo
+        const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
+    });
+
+
+
+    const intervalo = setInterval(() => {
+    const alvo2 = document.querySelector('.add-to-bag');
+    const elemento2 = querySelector('.flex center');
+  
+  if (alvo2 && elemento2) {
+    alvo2.after(elemento2)
+    clearInterval(intervalo);
+  }
+}, 100);
+</script>
+
+

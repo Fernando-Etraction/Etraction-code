@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjunto Moving Pink - Savancini Fitness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff;
+            color: #2d2d2d;
+            line-height: 1.6;
+        }
+
+        .produto-descricao {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* ========== SEÇÃO 1: HERO COM IMPACTO ========== */
+        .secao-hero {
+            margin-bottom: 80px;
+            overflow: hidden;
+        }
+
+        .hero-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero-titulo {
+            font-size: 48px;
+            font-weight: 800;
+            color: #000000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitulo {
+            font-size: 20px;
+            font-weight: 300;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .hero-imagem {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            animation: fadeInLeft 1s ease-out;
+            transition: transform 0.4s ease;
+        }
+
+        .hero-imagem:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero-imagem img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-texto {
+            padding: 20px;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .destaque-tag {
+            display: inline-block;
+            background: #000000;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-descricao {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .hero-descricao strong {
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .beneficios-lista {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .beneficios-lista li {
+            font-size: 16px;
+            padding: 12px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+        .beneficios-lista li:hover {
+            color: #000000;
+            transform: translateX(5px);
+        }
+
+        .beneficios-lista li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #000000;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        /* ========== SEÇÃO 2: TECNOLOGIA E LIFESTYLE ========== */
+        .secao-tecnologia {
+            margin-bottom: 60px;
+        }
+
+        .tecnologia-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .tecnologia-titulo {
+            font-size: 40px;
+            font-weight: 700;
+            color: #2d2d2d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .tecnologia-subtitulo {
+            font-size: 18px;
+            font-weight: 300;
+            color: #666;
+        }
+
+        .tecnologia-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .tech-card {
+            background: #f9f9f9;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            border-color: #333;
+        }
+
+        .tech-icone {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .tech-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tech-card p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .lifestyle-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .lifestyle-imagens {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .lifestyle-img-wrapper {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .lifestyle-img-wrapper:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .lifestyle-img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .lifestyle-texto {
+            padding: 20px;
+        }
+
+        .lifestyle-texto h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .lifestyle-texto h3 span {
+            color: #000000;
+        }
+
+        .lifestyle-texto p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .composicao-box {
+            background: #000000;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .composicao-box h4 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .composicao-box p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* ========== ANIMAÇÕES ========== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ========== RESPONSIVIDADE ========== */
+        @media (max-width: 968px) {
+            .hero-titulo {
+                font-size: 36px;
+            }
+
+            .hero-content,
+            .lifestyle-showcase {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .tecnologia-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-imagem {
+                order: 1;
+            }
+
+            < !--==========SEÇÃO 1: HERO IMPACTANTE==========--><section class="secao-hero"><div class="hero-header"><h1 class="hero-titulo">Moving Pink</h1><p class="hero-subtitulo">Conforto,
+            estilo e liberdade em cada movimento</p></div><div class="hero-content"><div class="hero-imagem"><img src="https://savancini.cdn.magazord.com.br/img/2025/07/produto/13848/conjunto-shorts-saia-e-top-frente-unica-moving-pink-1.jpg"
+            alt="Conjunto Moving Pink Savancini"></div><div class="hero-texto"><span class="destaque-tag">🔥 Lançamento Savancini Moving</span><p class="hero-descricao">Ideal para treinos e momentos de lazer,
+            o <strong>Conjunto Shorts Saia e Top Frente Única Moving Pink Savancini</strong>combina conforto e liberdade de movimentos com um visual moderno e marcante. A modelagem valoriza o corpo sem abrir mão da praticidade,
+            oferecendo segurança e mobilidade para todas as atividades. </p><p class="hero-descricao">Confeccionado em <strong>tecido leve e respirável</strong>,
+            garante conforto térmico e sensação de bem-estar ao longo do dia. O shorts-saia proporciona cobertura segura nos exercícios,
+            enquanto o top frente única entrega <strong>sustentação na medida certa</strong>,
+            para você se sentir confiante dentro e fora da academia. </p><ul class="beneficios-lista"><li><strong>Modelagem com cintura alta</strong>que valoriza a silhueta e garante segurança</li><li><strong>Tecido leve e respirável</strong>que traz conforto térmico e bem-estar</li><li><strong>Proteção UV50+</strong>para treinos ao ar livre com mais segurança</li><li><strong>Ação antibacteriana</strong>que ajuda a manter a sensação de frescor</li><li><strong>Zero transparência</strong>– confiança total em qualquer movimento</li><li><strong>Tecnologia Easy Care</strong>– não precisa passar,
+            secagem rápida e prática</li></ul></div></div></section>< !--==========SEÇÃO 2: TECNOLOGIA E LIFESTYLE==========--><section class="secao-tecnologia"><div class="tecnologia-header"><h2 class="tecnologia-titulo">Tecnologias que Cuidam de Você</h2><p class="tecnologia-subtitulo">Conforto,
+            proteção e praticidade no seu dia a dia</p></div><div class="tecnologia-grid"><div class="tech-card"><div class="tech-icone">🌬️</div><h3>Respirabilidade e Conforto</h3><p>Tecido leve e respirável que ajuda a eliminar o suor rapidamente,
+            mantendo a pele seca e confortável durante todo o treino e nos momentos de lazer. </p></div><div class="tech-card"><div class="tech-icone">🛡️</div><h3>Proteção Inteligente</h3><p>Conta com <strong>proteção UV50+</strong>e <strong>ação antibacteriana</strong>integrada,
+            oferecendo segurança extra em ambientes externos e uso prolongado,
+            sem abrir mão do conforto. </p></div><div class="tech-card"><div class="tech-icone">💎</div><h3>Toque Macio e Ajuste Perfeito</h3><p>Composição de <strong>90% poliéster e 10% elastano</strong>,
+            que une elasticidade,
+            caimento firme e toque macio,
+            acompanhando seus movimentos com liberdade e sustentação. </p></div><div class="tech-card"><div class="tech-icone">⚡</div><h3>Praticidade Easy Care</h3><p>Tecnologia que dispensa o ferro de passar: lave,
+            centrifugue e estenda em seguida. Secagem rápida,
+            sem perder a forma,
+            a cor e o ajuste no corpo – mais praticidade na sua rotina. </p></div></div><div class="lifestyle-showcase"><div class="lifestyle-imagens"><div class="lifestyle-img-wrapper"><img src="https://savancini.cdn.magazord.com.br/img/2025/07/produto/13848/conjunto-shorts-saia-e-top-frente-unica-moving-pink-1.jpg"
+            alt="Detalhe do conjunto Moving Pink"></div><div class="lifestyle-img-wrapper"><img src="https://savancini.cdn.magazord.com.br/img/2025/07/produto/13848/conjunto-shorts-saia-e-top-frente-unica-moving-pink-1.jpg"
+            alt="Modelagem exclusiva Moving Pink"></div></div><div class="lifestyle-texto"><h3>Do treino ao <span>dia a dia</span></h3><p><strong>Versátil e cheio de atitude:</strong>use o Moving Pink na academia,
+            em corridas,
+            caminhadas,
+            aulas de dança ou em momentos de lazer. Um look que acompanha sua rotina com conforto e estilo marcante. </p><p>A modelagem com <strong>shorts-saia e top frente única</strong>foi pensada para entregar segurança e sustentação sem apertar,
+            garantindo <strong>liberdade total de movimento</strong>enquanto você se sente confiante em qualquer ocasião. </p><div class="composicao-box"><h4>📦 O que vem no conjunto?</h4><p>✓ 1 Shorts-Saia Moving Pink<br>✓ 1 Top Frente Única Moving Pink<br>✓ Composição: 90% Poliéster | 10% Elastano </p></div></div></div></section></div></body></html>

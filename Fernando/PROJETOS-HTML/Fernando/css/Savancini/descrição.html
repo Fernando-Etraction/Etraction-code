@@ -1,0 +1,457 @@
+<style>
+  <!--
+  @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .SAVA-container {
+    font-family: "Rubik", sans-serif;
+  }
+
+  .SAVA-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .SAVA-product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 213px;
+    align-items: center;
+    padding: 0px;
+  }
+
+  .SAVA-product-info {
+    font-family: "Rubik", sans-serif;
+    width: 141.5%;
+    padding: 0;
+  }
+
+  .SAVA-product-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 10px;
+  }
+
+  .SAVA-product-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+    width: 506px;
+    margin-top: 10px;
+    margin-left: 25px;
+  }
+
+  .SAVA-description-section {
+    font-family: "Rubik", sans-serif;
+    margin-bottom: 15px;
+    border: 1px solid gray;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+
+  h1 {
+    font-family: "Rubik", sans-serif;
+    font-size: 32px;
+    color: #2d3748;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .SAVA-subtitle {
+    font-family: "Rubik", sans-serif;
+    color: #718096;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+
+  .SAVA-description-text {
+    font-family: "Rubik", sans-serif;
+    color: #4a5568;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .SAVA-highlight {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    color: #202020;
+  }
+
+  .SAVA-features-grid {
+    font-family: "Rubik", sans-serif;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .SAVA-feature-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid gray;
+  }
+
+  .SAVA-feature-box h3 {
+    font-size: 20px;
+    color: #2d3748;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .SAVA-feature-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .SAVA-feature-item:last-child {
+    font-family: "Rubik", sans-serif;
+    border-bottom: none;
+  }
+
+  .SAVA-feature-left {
+    font-family: "Rubik", sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .SAVA-icon {
+    width: 24px;
+    height: 24px;
+    color: #667eea;
+  }
+
+  .SAVA-feature-name {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 15px;
+  }
+
+  .SAVA-feature-value {
+    color: #718096;
+    font-size: 14px;
+  }
+
+  .SAVA-technical-info {
+    font-family: "Rubik", sans-serif;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    margin: 15px auto 0;
+    max-width: 1240px;
+  }
+
+  /* Título */
+  .SAVA-technical-info h3 {
+    font-family: "Rubik", sans-serif;
+    color: #1d1d1d;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .SAVA-technical-info {
+    font-family: "Rubik", sans-serif;
+    background: #fff;
+    padding: 24px 30px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    margin: 15px auto 0;
+    max-width: 1240px;
+  }
+
+  .SAVA-technical-info h3 {
+    font-family: "Rubik", sans-serif;
+    margin: 0 0 12px;
+    font-size: 20px;
+    color: #2d3748;
+    font-weight: 600;
+  }
+
+  /* As colunas ficam só aqui dentro */
+  .SAVA-technical-info .cols {
+    font-family: "Rubik", sans-serif;
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid gray;
+  }
+
+  .SAVA-technical-info p {
+    font-family: "Rubik", sans-serif;
+    display: inline-block;
+    /* evita quebrar o mesmo <p> entre colunas */
+    width: 100%;
+    margin: 15px 0 20px;
+    font-weight: 500;
+    color: #1a1a1a;
+    font-size: 15px;
+    border-bottom: 1px solid gray;
+  }
+
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .SAVA-technical-info .cols {
+      column-count: 1;
+      column-rule: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .SAVA-product-grid {
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+
+    .SAVA-product-info {
+      padding: 30px;
+    }
+
+    .SAVA-features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .SAVA-product-image img {
+      margin-left: 0px;
+    }
+
+    body {
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+    }
+
+    .SAVA-product-info {
+      padding: 0;
+      width: 100%;
+    }
+  }
+
+  .SAVA-feature-left svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* === UX da seção técnica === */
+  .SAVA-technical-info {
+    padding: 20px 22px;
+  }
+
+  .SAVA-technical-info h3 {
+    margin-bottom: 12px;
+  }
+
+  .sava-tech-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .sava-tech-card {
+    border: 1px solid gray;
+    border-radius: 12px;
+    background: #fff;
+    padding: 14px 16px;
+  }
+
+  .sava-tech-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .sava-tech-header h4 {
+    font-size: 16px;
+    color: #1d1d1d;
+    font-weight: 700;
+  }
+
+  .sava-tech-header svg {
+    flex: 0 0 20px;
+    fill: currentColor;
+  }
+
+  .sava-tech-card.do .sava-tech-header {
+    color: #1a7f37;
+  }
+
+  /* verde discreto */
+  .sava-tech-card.dont .sava-tech-header {
+    color: #b42318;
+  }
+
+  /* vermelho discreto */
+
+  .sava-tech-list {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .sava-tech-list li {
+    font-size: 14px;
+    color: #1a1a1a;
+    line-height: 1.5;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 8px;
+  }
+
+  .sava-tech-list li:last-child {
+    border-bottom: 0;
+  }
+
+  .sava-tech-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #475569;
+  }
+
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .sava-tech-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sava-tech-card {
+      padding: 12px 14px;
+    }
+
+    .sava-tech-header h4 {
+      font-size: 15px;
+    }
+
+    .sava-tech-list li {
+      font-size: 14px;
+    }
+  }
+
+  -->
+</style>
+<div class="SAVA-container">
+  <div class="SAVA-product-grid">
+    <div class="SAVA-product-info">
+      <div class="SAVA-description-section">
+        <h1>Descri&ccedil;&atilde;o</h1>
+        <p class="SAVA-subtitle">Combo Macaquinho Ciclismo Feminino Savancini</p>
+        <p class="SAVA-description-text">Descubra o equil&iacute;brio perfeito entre estilo e desempenho com o&nbsp;
+          <span class="SAVA-highlight">Combo Macaquinho Ciclismo Feminino Savancini</span>, Projetado para ciclistas que
+          buscam conforto absoluto e performance sem abrir m&atilde;o da eleg&acirc;ncia, este modelo valoriza suas
+          curvas com um ajuste preciso e proporciona liberdade total de movimento a cada pedalada.</p>
+        <p class="SAVA-description-text">O tecido tecnol&oacute;gico garante prote&ccedil;&atilde;o UV50+,
+          a&ccedil;&atilde;o antibacteriana e o conforto t&eacute;rmico ideal para diferentes condi&ccedil;&otilde;es
+          clim&aacute;ticas, enquanto a estrutura n&atilde;o-transparente traz seguran&ccedil;a e confian&ccedil;a em
+          qualquer situa&ccedil;&atilde;o.</p>
+      </div>
+      <div class="SAVA-features-grid">
+        <div class="SAVA-feature-box">
+          <h3>Informa&ccedil;&otilde;es R&aacute;pidas</h3>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">Elasticidade</span></div>
+            <span class="SAVA-feature-value">leve</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">UV50+</span></div>
+            <span class="SAVA-feature-value">prote&ccedil;&atilde;o solar</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+              <!-- Created with Inkscape (http://www.inkscape.org/) --> <span class="SAVA-feature-name">Secagem
+                r&aacute;pida</span></div>
+            <span class="SAVA-feature-value">respir&aacute;vel</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">Zero transpar&ecirc;ncia</span></div>
+            <span class="SAVA-feature-value">vers&aacute;til</span>
+          </div>
+        </div>
+        <div class="SAVA-feature-box">
+          <h3>Almofada</h3>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">Savancini Ultraflex</span></div>
+            <span class="SAVA-feature-value">leve</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">Pedais de at&eacute; 8h</span></div>
+            <span class="SAVA-feature-value">conforto</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><!--?xml version="1.0" encoding="UTF-8" standalone="no"?-->
+              <!-- Created with Inkscape (http://www.inkscape.org/) --> <span
+                class="SAVA-feature-name">Anti-odor<br /></span></div>
+            <span class="SAVA-feature-value">respir&aacute;vel</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">Antiabrasivo</span></div>
+            <span class="SAVA-feature-value">sem atrito</span>
+          </div>
+          <div class="SAVA-feature-item">
+            <div class="SAVA-feature-left"><span class="SAVA-feature-name">Espuma</span></div>
+            <span class="SAVA-feature-value">Ergonômica</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="SAVA-product-image"><img
+        src="https://savancini.cdn.magazord.com.br/img/2025/10/produto/14179/gemini-go460-combo-2-pcs.png"
+        alt="Conjunto Feminino Legging + Top Nadador L&iacute;nea" /></div>
+  </div>
+</div>
+<div class="SAVA-technical-info">
+  <h3 id="tech-title">Informa&ccedil;&otilde;es T&eacute;cnicas</h3>
+  <div class="sava-tech-grid"><!-- FAÇA -->
+    <section class="sava-tech-card do">
+      <header class="sava-tech-header"><!-- check icon -->
+        <h4>Fa&ccedil;a ✅</h4>
+      </header>
+      <ul class="sava-tech-list">
+        <li>Lave no ciclo r&aacute;pido da m&aacute;quina.</li>
+        <li>Use sab&atilde;o em p&oacute;; vinagre &eacute; opcional como amaciante.</li>
+        <li>Centrifugue e estenda em seguida.</li>
+        <li>Estenda do avesso.</li>
+        <li>Seque na sombra.</li>
+      </ul>
+    </section>
+    <!-- EVITE -->
+    <section class="sava-tech-card dont">
+      <header class="sava-tech-header"><!-- x icon -->
+        <h4>Evite ❌</h4>
+      </header>
+      <ul class="sava-tech-list">
+        <li>Deixar de molho.</li>
+        <li>Lavar &agrave; m&atilde;o ou esfregar a pe&ccedil;a.</li>
+        <li>Usar alvejantes.</li>
+        <li>Usar secadora.</li>
+      </ul>
+    </section>
+  </div>
+  <!-- Observação curta e escaneável -->
+  <p class="sava-tech-note">Dica: para manter a cor, lave pe&ccedil;as similares juntas.</p>
+</div>
+<div class="combo-progress">
+  <div class="combo-progress-bar"></div>
+</div>

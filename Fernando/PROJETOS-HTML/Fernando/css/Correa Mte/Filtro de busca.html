@@ -1,0 +1,334 @@
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+  .pf-catcarousel {
+    padding: 32px 0 24px;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  
+  .pf-catcarousel__title {
+    margin: 0 0 32px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+  }
+  
+  .pf-catcarousel__wrap {
+    position: static;
+    padding: 0 20px;
+  }
+
+  /* ===== Swiper base ===== */
+  .pf-swiper {
+    padding: 12px 8px 24px;
+  }
+  
+  .pf-swiper .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .pf-swiper .swiper-slide {
+    width: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* Item */
+  .pf-catitem {
+    min-width: 140px;
+    display: inline-flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    user-select: none;
+    transition: transform 0.3s ease;
+  }
+  
+  .pf-catitem:hover {
+    transform: translateY(-6px);
+  }
+  
+  .pf-catitem__circle {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.04);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .pf-catitem:hover .pf-catitem__circle {
+    border-color: rgba(255, 0, 0, 0.3);
+    box-shadow: 
+      0 8px 24px rgba(255, 0, 0, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+  
+  .pf-catitem.is-active .pf-catitem__circle {
+    border-color: #ff0000;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+    box-shadow: 
+      0 8px 24px rgba(255, 0, 0, 0.2),
+      0 4px 8px rgba(255, 0, 0, 0.1);
+  }
+  
+  .pf-catitem__circle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), transparent);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  .pf-catitem__circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+  
+  .pf-catitem:hover .pf-catitem__circle img {
+    transform: scale(1.1);
+  }
+  
+  .pf-catitem__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    text-align: center;
+    max-width: 140px;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+  
+  .pf-catitem:hover .pf-catitem__label {
+    color: #ff0000;
+  }
+  
+  .pf-catitem.is-active .pf-catitem__label {
+    color: #ff0000;
+    font-weight: 700;
+  }
+
+  /* Cursor */
+  .pf-swiper {
+    cursor: grab;
+  }
+  
+  .pf-swiper:active {
+    cursor: grabbing;
+  }
+
+  /* ===== Setas ===== */
+  .pf-swiper-btn {
+    position: absolute;
+    top: 63%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    color: #ff0000;
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
+    transition: all 0.3s ease;
+  }
+  
+  .pf-swiper-prev {
+    left: -24px;
+  }
+  
+  .pf-swiper-next {
+    right: -24px;
+  }
+  
+  .pf-swiper-btn:hover {
+    background: #ff0000;
+    color: #fff;
+    border-color: #ff0000;
+    box-shadow: 
+      0 8px 20px rgba(255, 0, 0, 0.25),
+      0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%) scale(1.08);
+  }
+  
+  .pf-swiper-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+  
+  .pf-swiper-btn.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .pf-catcarousel {
+      padding: 24px 0 16px;
+    }
+    
+    .pf-catcarousel__title {
+      font-size: 22px;
+      margin: 0 0 24px;
+    }
+    
+    .pf-catcarousel__wrap {
+      padding: 0 12px;
+    }
+    
+    .pf-catitem {
+      min-width: 110px;
+    }
+    
+    .pf-catitem__circle {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .pf-catitem__label {
+      font-size: 12px;
+      max-width: 110px;
+    }
+    
+    .pf-swiper-btn {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .pf-catitem {
+      min-width: 95px;
+    }
+    
+    .pf-catitem__circle {
+      width: 85px;
+      height: 85px;
+    }
+  }
+</style>
+
+<section class="pf-catcarousel" aria-label="Filtros de Categoria">
+  <h2 class="pf-catcarousel__title">Escolha uma categoria</h2>
+
+  <div class="pf-catcarousel__wrap">
+    <div class="swiper pf-swiper" id="pf-cat-swiper">
+      <div class="swiper-wrapper" id="pf-cat-wrapper"></div>
+    </div>
+
+    <button class="pf-swiper-btn pf-swiper-prev" type="button" aria-label="Anterior">‹</button>
+    <button class="pf-swiper-btn pf-swiper-next" type="button" aria-label="Próximo">›</button>
+  </div>
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const wrapper = document.getElementById("pf-cat-wrapper");
+  if (!wrapper) return;
+
+  const ITEMS = [
+    { label: "Cabeceira de cama", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/06/produto/895/queen-cama.png", href: "https://www.pontaodasfabricas.com.br/cama/cabeceira" },
+    { label: "Cobertor", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2025/07/produto/14176/lilas.png", href: "https://www.pontaodasfabricas.com.br/cama/cobertor" },
+    { label: "Edredom", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2025/06/produto/13002/78.png", href: "https://www.pontaodasfabricas.com.br/cama/edredom-coberdrom" },
+    { label: "Jogo de Cama", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/06/produto/1478/cinza5.png", href: "https://www.pontaodasfabricas.com.br/cama/jogo-de-cama" },
+    { label: "Porta Travesseiro", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/09/produto/4824/rosa-claro.png", href: "https://www.pontaodasfabricas.com.br/cama/porta-travesseiro" },
+    { label: "Capa para Colchão", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/06/produto/903/protetor-jolitex-impermeavel.png", href: "https://www.pontaodasfabricas.com.br/cama/capas/colchao" },
+    { label: "Cobre Leito", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/07/produto/2353/marrom-1.png", href: "https://www.pontaodasfabricas.com.br/cama/cobre-leito" },
+    { label: "Fronhas", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/06/produto/955/fronha-impermeavel.png", href: "https://www.pontaodasfabricas.com.br/cama/fronhas" },
+    { label: "Lençol", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/09/produto/4111/elastico.png", href: "https://www.pontaodasfabricas.com.br/cama/lencol-avulso" },
+    { label: "Travesseiro", img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2025/05/produto/12782/02-travesseiro-elite-rafbru-supreme-soft.png", href: "https://www.pontaodasfabricas.com.br/cama/travesseiros" }
+  ];
+
+  function normalize(u) {
+    const url = new URL(u, window.location.origin);
+    const params = new URLSearchParams(url.search);
+    const sorted = new URLSearchParams();
+    Array.from(params.keys()).sort().forEach(k => sorted.set(k, params.get(k)));
+    const path = url.pathname.replace(/\/+$/, '') || "/";
+    const query = sorted.toString();
+    return query ? (path + "?" + query) : path;
+  }
+
+  const current = normalize(window.location.href);
+
+  ITEMS.forEach((item) => {
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+
+    const active = normalize(item.href) === current;
+
+    slide.innerHTML = `
+      <a class="pf-catitem ${active ? "is-active" : ""}" href="${item.href}">
+        <span class="pf-catitem__circle">
+          <img src="${item.img}" alt="${item.label}" loading="lazy">
+        </span>
+        <span class="pf-catitem__label">${item.label}</span>
+      </a>
+    `;
+    wrapper.appendChild(slide);
+  });
+
+  new Swiper("#pf-cat-swiper", {
+    slidesPerView: "auto",
+    spaceBetween: 28,
+    loop: true,
+    speed: 500,
+    grabCursor: true,
+
+    freeMode: {
+      enabled: true,
+      momentum: true,
+      momentumRatio: 0.85,
+      momentumBounce: false
+    },
+
+    preventClicks: true,
+    preventClicksPropagation: true,
+
+    navigation: {
+      nextEl: ".pf-swiper-next",
+      prevEl: ".pf-swiper-prev"
+    },
+
+    breakpoints: {
+      0: { spaceBetween: 16 },
+      481: { spaceBetween: 20 },
+      769: { spaceBetween: 28 }
+    }
+  });
+})();
+</script>

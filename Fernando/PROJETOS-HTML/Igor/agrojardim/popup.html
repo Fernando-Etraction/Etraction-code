@@ -1,0 +1,190 @@
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  console.log(' Script de frete iniciado.');
+
+  const TARGET_SEL = '.titulo-prod';     // Onde inserir o banner
+  const PARENT_HINTS = [
+    '.item-resumo.resumo-valores',       // bloco do print
+    '#resumo-compra',                    // fallback comum
+  ];
+  const SELECTOR_TOTAL_STRICT = '.value.cb-div.cb-div-131';
+  const SELECTOR_TOTAL_FALLBACK = '.value-content .value';
+
+  const THRESHOLD_MIN = 170;   // mostra a partir daqui
+  const THRESHOLD_MAX = 200;   // desconto a partir daqui
+  const DESCONTO_FRETE = 15;
+
+  if (document.querySelector('#info-frete-banner')) {
+    console.log(' Banner já existe, abortando.');
+    return;
+  }
+
+  const target = document.querySelector(TARGET_SEL);
+  if (!target) {
+    console.log(` Elemento alvo (${TARGET_SEL}) não encontrado.`);
+    return;
+  }
+
+  // --- Utils ---
+  function parseBRL(txt) {
+    if (!txt) return 0;
+    const only = String(txt).replace(/[^\d.,-]/g, '');
+    // remove milhares e troca vírgula por ponto
+    const normalized = only.includes(',') && only.includes('.')
+      ? only.replace(/\./g, '').replace(',', '.')
+      : only.replace(',', '.');
+    const n = parseFloat(normalized);
+    return isNaN(n) ? 0 : n;
+  }
+  function formatBRL(v) {
+    return Number(v).toLocaleString('pt-BR',{style:'currency',currency:'BRL', minimumFractionDigits:2});
+  }
+  function findSubtotalEl() {
+    // tenta estrito primeiro
+    let el = document.querySelector(SELECTOR_TOTAL_STRICT);
+    if (el) { console.log(' Subtotal encontrado (estrito):', SELECTOR_TOTAL_STRICT, '=>', el.textContent.trim()); return el; }
+
+    // tenta por pais sugeridos
+    for (const p of PARENT_HINTS) {
+      const parent = document.querySelector(p);
+      if (parent) {
+        el = parent.querySelector(SELECTOR_TOTAL_STRICT) || parent.querySelector(SELECTOR_TOTAL_FALLBACK);
+        if (el) { console.log(' Subtotal encontrado dentro de', p, '=>', el.textContent.trim()); return el; }
+      }
+    }
+
+    // fallback global
+    el = document.querySelector(SELECTOR_TOTAL_FALLBACK);
+    if (el) { console.log('🔎 Subtotal encontrado (fallback):', SELECTOR_TOTAL_FALLBACK, '=>', el.textContent.trim()); return el; }
+
+    return null;
+  }
+  function waitForSubtotal(timeoutMs=10000, intervalMs=200) {
+    return new Promise((resolve) => {
+      const t0 = Date.now();
+      const tick = () => {
+        const el = findSubtotalEl();
+        if (el) return resolve(el);
+        if (Date.now() - t0 >= timeoutMs) {
+          console.log(' Timeout aguardando subtotal.');
+          return resolve(null);
+        }
+        setTimeout(tick, intervalMs);
+      };
+      tick();
+    });
+  }
+
+  // --- Banner ---
+  function ensureBanner(total) {
+    const exists = document.querySelector('#info-frete-banner');
+    const show = total >= THRESHOLD_MIN && total < THRESHOLD_MAX;
+
+    if (!show && exists) {
+      console.log('Removendo banner (fora da faixa). Total:', total);
+      exists.remove();
+      return;
+    }
+    if (!show && !exists) {
+      console.log(' Fora da faixa, nada a exibir. Total:', total);
+      return;
+    }
+
+    const falta = Math.max(0, THRESHOLD_MAX - total);
+   const headline = `Adicione mais ${formatBRL(falta)} em produtos no carrinho e ganhe ${formatBRL(DESCONTO_FRETE)} em desconto no Frete! <span class="info-frete__note">*Desconto aplicado automaticamente.</span>`;
+
+
+    if (exists) {
+      const h = exists.querySelector('.info-frete__headline');
+      if (h) h.textContent = headline;
+      console.log(' Atualizado banner. Falta:', formatBRL(falta), 'Total:', formatBRL(total));
+      return;
+    }
+
+    const banner = document.createElement('div');
+    banner.id = 'info-frete-banner';
+    banner.className = 'info-frete is-entering';
+    banner.innerHTML = `
+      <div class="info-frete__inner" role="status" aria-live="polite">
+        <div class="info-frete__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M3 6h13v9H3z" stroke="#122d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 10h3l2 3v2h-5V10z" stroke="#122d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="7.5" cy="17.5" r="1.5" stroke="#122d47" stroke-width="2"/>
+            <circle cx="17.5" cy="17.5" r="1.5" stroke="#122d47" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="info-frete__text">
+          <strong class="info-frete__headline">${headline}</strong>
+        </div>
+        <button class="info-frete__close" type="button" aria-label="Fechar aviso">×</button>
+      </div>
+    `;
+    target.insertAdjacentElement('beforebegin', banner);
+    banner.querySelector('.info-frete__close')?.addEventListener('click', () => {
+      console.log(' Banner fechado manualmente.');
+      banner.remove();
+    });
+    console.log(' Banner inserido. Falta:', formatBRL(falta), 'Total:', formatBRL(total));
+  }
+
+  // --- Fluxo principal ---
+  (async () => {
+    console.log(' Aguardando subtotal aparecer no DOM…');
+    const subtotalEl = await waitForSubtotal();
+    if (!subtotalEl) {
+      console.log(` Elemento subtotal não encontrado após aguardar. Verifique o seletor.`);
+      return;
+    }
+
+    const readTotal = () => {
+      const val = parseBRL(subtotalEl.textContent || '');
+      console.log(' Subtotal lido:', formatBRL(val));
+      return val;
+    };
+
+    ensureBanner(readTotal());
+
+    // Observa mudanças no subtotal e atualiza banner
+    const observerRoot = subtotalEl.closest(PARENT_HINTS.map(s => s).join(',')) || subtotalEl.parentElement;
+    const obs = new MutationObserver(() => {
+      const total = readTotal();
+      ensureBanner(total);
+    });
+    obs.observe(observerRoot || subtotalEl, { subtree: true, characterData: true, childList: true });
+
+    console.log('MutationObserver ativo em:', observerRoot || subtotalEl);
+  })();
+});
+</script>
+
+<style>
+#info-frete-banner{
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  margin: 12px auto 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff9f0;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  font-family: inherit; color: #122d47;
+}
+#info-frete-banner.is-entering{ transform: translateY(0); opacity:1; }
+.info-frete__inner{ display:grid; grid-template-columns:24px 1fr auto; gap:12px; align-items:center; }
+.info-frete__headline{ font-weight:700; font-size:14px; line-height:1.4; }
+.info-frete__icon svg{ display:block; }
+.info-frete__close{ appearance:none; border:none; background:transparent; font-size:20px; line-height:1; cursor:pointer; opacity:.6; padding:2px 6px; transition:opacity .2s; }
+.info-frete__close:hover{ opacity:1; }
+@media (max-width:768px){ #info-frete-banner{ margin: 10px auto;max-width: 95%; } .info-frete__headline{ font-size:13.5px; } }
+.info-frete__note {
+  font-weight: 400;
+  display: inline;
+}
+
+</style>

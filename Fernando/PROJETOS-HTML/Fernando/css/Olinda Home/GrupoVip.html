@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo VIP - Olinda Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow: none;
+            max-width: 100%;
+            width: 100%;
+            min-height: 100vh;
+            padding: 80px 40px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 30px;
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 20px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            display:flex;
+            align-items:center;
+                justify-content: center;
+
+        }
+
+        .logo img {
+            max-width: 280px;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .logo img {
+                max-width: 220px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                max-width: 150px;
+            }
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666666;
+            font-weight: 600;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .subtitle {
+                font-size: 14px;
+                margin-bottom: 40px;
+                letter-spacing: 1.5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .subtitle {
+                font-size: 12px;
+                margin-bottom: 30px;
+                letter-spacing: 1px;
+            }
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #000000;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            font-weight: 800;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+                margin-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .highlight {
+            color: #000000;
+            border-bottom: 4px solid #000000;
+        }
+
+        p {
+            font-size: 20px;
+            color: #333333;
+            margin-bottom: 60px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            p {
+                font-size: 18px;
+                margin-bottom: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            p {
+                font-size: 16px;
+                margin-bottom: 40px;
+            }
+        }
+
+        .whatsapp-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 50px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-icon {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .whatsapp-icon {
+                width: 70px;
+                height: 70px;
+                margin: 0 auto 30px;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .whatsapp-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-icon svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .whatsapp-icon svg {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        .cta-button {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 22px 60px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .cta-button {
+                padding: 18px 50px;
+                font-size: 16px;
+                margin-bottom: 35px;
+                letter-spacing: 1.5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cta-button {
+                padding: 16px 40px;
+                font-size: 14px;
+                margin-bottom: 30px;
+                letter-spacing: 1px;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            background: #1a1a1a;
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        .benefits {
+            margin-top: 80px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: left;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .benefits {
+                margin-top: 60px;
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefits {
+                margin-top: 50px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        @media (max-width: 768px) {
+            .benefit-item {
+                padding: 18px;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefit-item {
+                padding: 16px;
+                gap: 12px;
+            }
+        }
+
+        .benefit-item:hover {
+            background: #000000;
+            border-color: #000000;
+        }
+
+        .benefit-item:hover .benefit-text {
+            color: #ffffff;
+        }
+
+        .benefit-item:hover .benefit-icon svg {
+            fill: #ffffff;
+        }
+
+        .benefit-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .benefit-icon svg {
+            fill: #000000;
+            transition: fill 0.3s ease;
+        }
+
+        .benefit-text {
+            color: #000000;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .benefit-text {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefit-text {
+                font-size: 14px;
+            }
+        }
+
+        .footer-link {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 2px solid #000000;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            .footer-link {
+                margin-top: 60px;
+                padding-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-link {
+                margin-top: 50px;
+                padding-top: 25px;
+            }
+        }
+
+        .footer-link a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-link a {
+                font-size: 14px;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-link a {
+                font-size: 12px;
+                letter-spacing: 0.5px;
+            }
+        }
+
+        .footer-link a:hover {
+            color: #666666;
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://olindahome.cdn.magazord.com.br/resources/logo1.svg" alt="Olinda Home">
+            </div>
+        <div class="subtitle">Grupo VIP Exclusivo</div>
+        
+        <div class="whatsapp-icon">
+            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+            </svg>
+        </div>
+
+        <h1>Entre para o nosso <span class="highlight">Grupo VIP</span> no WhatsApp!</h1>
+        
+        <p>Fique por dentro de <strong>ofertas exclusivas</strong> e <strong>cupons imperdíveis</strong> antes de todo mundo!</p>
+
+        <button class="cta-button" onclick="joinWhatsApp()">
+            ACESSAR GRUPO VIP
+        </button>
+
+        <div class="benefits">
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <div class="benefit-text">Ofertas exclusivas do grupo</div>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <div class="benefit-text">Cupons de desconto imperdíveis</div>
+            </div>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                </div>
+                <div class="benefit-text">Novidades em primeira mão</div>
+            </div>
+        </div>
+
+        <div class="footer-link">
+            <a href="https://www.olindahome.com.br/" target="_blank">Visite nosso site →</a>
+        </div>
+    </div>
+
+    <script>
+        function joinWhatsApp() {
+            // Substitua o link abaixo pelo link do grupo do WhatsApp quando estiver pronto
+            const whatsappLink = "https://chat.whatsapp.com/SEU_LINK_DO_GRUPO";
+            
+            // Por enquanto, mostra um alerta
+            alert("Em breve você será direcionado ao grupo VIP!\n\nAdicione aqui o link do seu grupo do WhatsApp.");
+            
+            // Quando tiver o link, descomente a linha abaixo e remova o alert
+            // window.open(whatsappLink, '_blank');
+        }
+    </script>
+</body>
+</html>

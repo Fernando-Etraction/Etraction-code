@@ -1,0 +1,514 @@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    // <![CDATA[
+    $(function () {
+
+        /* ========================
+         * 1) ORDENAÇÃO DE TAMANHOS
+         * ======================== */
+        const SIZE_ORDER = ["P", "M", "G", "GG", "G1", "G2", "G3", "G4", "PP", "TP", "TM", "TG", "Único"];
+
+        /* ========================
+         * 2) CATEGORIAS + ATRIBUTOS
+         * ======================== */
+        const CATEGORY_ATTRS = {
+            "Camiseta MC (CAMC)": ["Comprimento", "Torax", "Cintura", "Quadril", "Manga/bolso", "Boca da Manga", "Peso"],
+            "Camiseta ML (CAML)": ["Comprimento", "Torax", "Cintura", "Quadril", "Manga/bolso", "Boca da Manga", "Peso"],
+            "Calção Tactel (CTEL)": ["Comprimento", "Cintura", "Quadril", "Manga/bolso", "Boca da Coxa", "Peso"],
+            "Shorts 2 em 1 (SH21)": ["Comprimento", "Cintura", "Quadril", "Manga/bolso", "Boca da Coxa", "Peso"],
+            "Calça Jogger (CJGG)": ["Comprimento", "Cintura", "Quadril", "Boca do Tornozelo", "Peso"],
+            "Jaqueta Impermeável (JQCI)": ["Comprimento", "Torax", "Cintura", "Quadril", "Manga/bolso", "Capuz Largura", "Capuz Altura", "Peso"],
+            "Jaqueta Forrada (JQCF)": ["Comprimento", "Torax", "Cintura", "Quadril", "Manga/bolso", "Capuz Largura", "Capuz Altura", "Peso"],
+            "Jaqueta Corta Vento (JQCV)": ["Comprimento", "Torax", "Cintura", "Quadril", "Manga/bolso", "Capuz Largura", "Capuz Altura", "Peso"],
+        };
+
+        const UNIT = {
+            "Comprimento": "cm", "Torax": "cm", "Cintura": "cm", "Quadril": "cm",
+            "Manga/bolso": "cm", "Boca da Manga": "cm", "Boca da Coxa": "cm", "Boca do Tornozelo": "cm",
+            "Capuz Largura": "cm", "Capuz Altura": "cm", "Peso": "g"
+        };
+
+        /* ========================
+         * 3) TABELA DE MEDIDAS
+         * ======================== */
+        const MEASURES = {
+            "Camiseta MC (CAMC)": {
+                sizes: ["P", "M", "G", "GG"],
+                rows: {
+                    "Comprimento": { P: "64", M: "67", G: "68", GG: "70" },
+                    "Torax": { P: "50", M: "52", G: "54", GG: "57" },
+                    "Cintura": { P: "", M: "", G: "", GG: "" },
+                    "Quadril": { P: "", M: "", G: "", GG: "" },
+                    "Manga/bolso": { P: "20", M: "21", G: "23", GG: "24" },
+                    "Boca da Manga": { P: "", M: "", G: "", GG: "" },
+                    "Peso": { P: "160", M: "160", G: "180", GG: "200" }
+                }
+            },
+            "Camiseta ML (CAML)": {
+                sizes: ["P", "M", "G", "GG"],
+                rows: {
+                    "Comprimento": { P: "67", M: "70", G: "72", GG: "74" },
+                    "Torax": { P: "50", M: "52", G: "54", GG: "57" },
+                    "Cintura": { P: "", M: "", G: "", GG: "" },
+                    "Quadril": { P: "", M: "", G: "", GG: "" },
+                    "Manga/bolso": { P: "63", M: "64", G: "66", GG: "68" },
+                    "Boca da Manga": { P: "12", M: "12", G: "12", GG: "13" },
+                    "Peso": { P: "200", M: "200", G: "220", GG: "240" }
+                }
+            },
+            "Calção Tactel (CTEL)": {
+                sizes: ["P", "M", "G", "GG"],
+                rows: {
+                    "Comprimento": { P: "43", M: "44", G: "46", GG: "47" },
+                    "Cintura": { P: "36", M: "38", G: "40", GG: "42" },
+                    "Quadril": { P: "50", M: "54", G: "56", GG: "58" },
+                    "Manga/bolso": { P: "15", M: "15", G: "15", GG: "15" },
+                    "Boca da Coxa": { P: "28", M: "29", G: "30", GG: "31" },
+                    "Peso": { P: "130", M: "140", G: "160", GG: "160" }
+                }
+            },
+            "Shorts 2 em 1 (SH21)": {
+                sizes: ["P", "M", "G", "GG", "G1", "G2", "G3"],
+                rows: {
+                    "Comprimento": { P: "40", M: "42", G: "44", GG: "46", G1: "48", G2: "50", G3: "52" },
+                    "Cintura": { P: "38", M: "39", G: "42", GG: "42", G1: "44", G2: "46", G3: "48" },
+                    "Quadril": { P: "54", M: "56", G: "58", GG: "60", G1: "64", G2: "64", G3: "66" },
+                    "Manga/bolso": { P: "13", M: "13", G: "13", GG: "14", G1: "14", G2: "14", G3: "14" },
+                    "Boca da Coxa": { P: "29", M: "30", G: "32", GG: "34", G1: "36", G2: "38", G3: "40" },
+                    "Peso": { P: "180", M: "220", G: "230", GG: "240", G1: "240", G2: "240", G3: "280" }
+                }
+            },
+            "Calça Jogger (CJGG)": {
+                sizes: ["P", "M", "G", "GG"],
+                rows: {
+                    "Comprimento": { P: "94", M: "96", G: "98", GG: "100" },
+                    "Cintura": { P: "36", M: "38", G: "40", GG: "42" },
+                    "Quadril": { P: "50", M: "54", G: "56", GG: "58" },
+                    "Boca do Tornozelo": { P: "15", M: "15", G: "17", GG: "18" },
+                    "Peso": { P: "180", M: "200", G: "220", GG: "240" }
+                }
+            },
+            "Jaqueta Impermeável (JQCI)": {
+                sizes: ["P", "M", "G", "GG"],
+                rows: {
+                    "Comprimento": { P: "73", M: "75", G: "76", GG: "77" },
+                    "Torax": { P: "58", M: "60", G: "62", GG: "63" },
+                    "Cintura": { P: "56", M: "58", G: "60", GG: "61" },
+                    "Quadril": { P: "56", M: "58", G: "60", GG: "61" },
+                    "Manga/bolso": { P: "56", M: "58", G: "60", GG: "61" },
+                    "Capuz Largura": { P: "40", M: "42", G: "46", GG: "48" },
+                    "Capuz Altura": { P: "30", M: "30", G: "30", GG: "30" },
+                    "Peso": { P: "160", M: "160", G: "160", GG: "180" }
+                }
+            },
+            "Jaqueta Forrada (JQCF)": { sizes: ["P", "M", "G", "GG"], rows: {} },
+            "Jaqueta Corta Vento (JQCV)": { sizes: ["P", "M", "G", "GG"], rows: {} },
+        };
+
+        /* ========================
+         * 4) DETECÇÃO DE CATEGORIA
+         * ======================== */
+        const PRODUCT_TITLE_SELECTORS = [
+            ".informacoes-compra-produto > h1", ".informacoes-compra-produto h1", ".product-title h1",
+            "h1.product-title", "h1.product-name", ".product-name", ".prd-title", "h1.titulo", "h1"
+        ];
+        const PRODUCT_SKU_SELECTORS = [
+            ".codigo-produto", ".product-sku", ".sku", ".ref", "[data-sku]", ".sku-produto"
+        ];
+
+        const stripAcc = s => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const norm = s => stripAcc(String(s || "").toLowerCase().trim());
+        const isMobile = () => window.matchMedia("(max-width:768px)").matches;
+
+        function getProductTitle() {
+            for (const sel of PRODUCT_TITLE_SELECTORS) {
+                const t = $(sel).first().text().trim();
+                if (t) return t;
+            }
+            return $('meta[property="og:title"]').attr("content") || "";
+        }
+        function getProductSKU() {
+            for (const sel of PRODUCT_SKU_SELECTORS) {
+                const el = $(sel).first();
+                if (!el.length) continue;
+                const t = (el.text() || el.val() || el.attr("content") || el.attr("data-sku") || "").trim();
+                if (t) return t;
+            }
+            const title = getProductTitle();
+            const m = title.match(/\b([A-Z]{3,4})[-\s]?([PTG][PMG]?|GG|G[1-4]|PP)\b/i);
+            return m ? m[1].toUpperCase() : "";
+        }
+
+        function skuToCategory(sku) {
+            const s = String(sku || "").toUpperCase();
+            if (s.startsWith("CAMC")) return "Camiseta MC (CAMC)";
+            if (s.startsWith("CAML")) return "Camiseta ML (CAML)";
+            if (s.startsWith("CTEL")) return "Calção Tactel (CTEL)";
+            if (s.startsWith("SH21")) return "Shorts 2 em 1 (SH21)";
+            if (s.startsWith("CJGG")) return "Calça Jogger (CJGG)";
+            if (s.startsWith("JQCI")) return "Jaqueta Impermeável (JQCI)";
+            if (s.startsWith("JQCF")) return "Jaqueta Forrada (JQCF)";
+            if (s.startsWith("JQCV")) return "Jaqueta Corta Vento (JQCV)";
+            return "";
+        }
+
+        function detectCategories() {
+            const sku = getProductSKU();
+            const cat = skuToCategory(sku);
+            if (cat && MEASURES[cat]) return [cat];
+
+            const name = norm(getProductTitle());
+            const allow = [];
+            if (/\b(manga\s*curta|camiseta\b.*?curta|camc)\b/.test(name)) allow.push("Camiseta MC (CAMC)");
+            if (/\b(manga\s*longa|camiseta\b.*?longa|caml)\b/.test(name)) allow.push("Camiseta ML (CAML)");
+            if (/\b(tactel|ctel|calc[aã]o)\b/.test(name)) allow.push("Calção Tactel (CTEL)");
+            if (/\bshorts?\b|\bsh21\b/.test(name)) allow.push("Shorts 2 em 1 (SH21)");
+            if (/\b(jogger|cjgg|cal[cç]a)\b/.test(name)) allow.push("Calça Jogger (CJGG)");
+            if (/\bjqci|imperme[aá]vel|jaqueta\b/.test(name)) allow.push("Jaqueta Impermeável (JQCI)");
+            if (/\bjqcf|forrada\b/.test(name)) allow.push("Jaqueta Forrada (JQCF)");
+            if (/\bjqcv|corta\s*vento\b/.test(name)) allow.push("Jaqueta Corta Vento (JQCV)");
+            return allow.length ? allow : Object.keys(MEASURES);
+        }
+
+        /* ========================
+         * 5) RENDERIZAÇÃO
+         * ======================== */
+        function renderHeroWrap() {
+            const $img = $(".gallery-main img").first();
+            const src = $img.attr("data-src") || $img.attr("src") || "";
+            let lis = "";
+            $(".medidas-modelo .infoModelo > div").each(function () {
+                lis += `<li class="mm-modelo-item"><span class="k">${($(this).data("atributo") || "").toUpperCase()}</span><span class="v">${$(this).text()}</span></li>`;
+            });
+            return `
+      <div class="mm-hero-wrap">
+        <div class="mm-hero">${src ? `<img src="${src}" alt="Modelo">` : ``}</div>
+        <div class="mm-modelo-float">
+          <div class="mm-modelo-title"></div>
+          <ul class="mm-modelo-list">${lis}</ul>
+        </div>
+      </div>`;
+        }
+
+        function tabs(categorias, atual) {
+            if (categorias.length <= 1) return "";
+            return `<div class="mm-tabs">
+      ${categorias.map(c => `<button class="mm-tab ${c === atual ? 'is-active' : ''}" data-tab="${c}">${c}</button>`).join("")}
+    </div>`;
+        }
+
+        function renderCards(cat) {
+            const data = MEASURES[cat];
+            if (!data) return "";
+            const attrs = CATEGORY_ATTRS[cat] || Object.keys(data.rows);
+            const sizes = (data.sizes || []).slice().sort((a, b) => SIZE_ORDER.indexOf(a) - SIZE_ORDER.indexOf(b));
+            let html = '<div class="cards-grid">';
+            sizes.forEach(tam => {
+                html += `<div class="mm-card"><h4>Tamanho ${tam}</h4><div class="mm-dl">`;
+                attrs.forEach(attr => {
+                    const val = (data.rows[attr] || {})[tam];
+                    if (val === "" || val === undefined || val === null) return;
+                    const unit = UNIT[attr] ? ` ${UNIT[attr]}` : "";
+                    html += `<div class="row"><span class="k">${attr}</span><span class="v">${val}${unit}</span></div>`;
+                });
+                html += `</div></div>`;
+            });
+            html += "</div>";
+            return html;
+        }
+
+        function openMeasureModal() {
+            const categorias = detectCategories().filter(c => MEASURES[c]);
+            const cats = categorias.length ? categorias : Object.keys(MEASURES);
+            let catAtual = cats[0];
+
+            function layout() {
+                const hero = renderHeroWrap();
+                const tbs = tabs(cats, catAtual);
+                const cards = renderCards(catAtual);
+                return isMobile() ? `${hero}${tbs}${cards}` : `<div class="mm-grid"><div class="mm-col">${hero}</div><div class="mm-col">${tbs}${cards}</div></div>`;
+            }
+
+            Swal.fire({
+                html: layout(),
+                showCloseButton: true,
+                showConfirmButton: false,
+                width: "min(92vw, 1000px)",
+                background: "#fff",
+                customClass: { popup: "modal-medidas" },
+                didOpen: () => {
+                    $(".mm-tab").off("click").on("click", function () {
+                        catAtual = $(this).data("tab");
+                        $(".swal2-html-container").html(layout());
+                        $(".mm-tab").off("click").on("click", arguments.callee);
+                    });
+                }
+            });
+        }
+
+        /* ========================
+         * 6) BOTÃO + EVENTOS (robusto p/ mobile)
+         * ======================== */
+        function addSwalCssOnce() {
+            if (!document.querySelector('link[href*="sweetalert2.min.css"]')) {
+                const l = document.createElement("link");
+                l.rel = "stylesheet";
+                l.href = "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css";
+                document.head.appendChild(l);
+            }
+        }
+
+        function buildMeasureBtnHtml() {
+            return `
+      <div id="button-measure-table" class="mt-space-16">
+        <div class="mt-space-20 flex items-center p-[6px]">
+          <button type="button" role="button" tabindex="0"
+            class="ver-tabela-de-medidas flex w-fit items-center gap-space-8 rounded-sm border border-solid border-secondary-100 p-space-8"
+            style="cursor:pointer; pointer-events:auto;">
+            <img src="https://public-resources.cdn.magazord.com.br/assets/global/common-icons/commerce/icon-ruler.svg" width="18" height="17" alt="Tabela de medidas" title="Tabela de medidas">
+            <span class="text text-xs text-secondary-800">Tabela de medidas</span>
+          </button>
+        </div>
+      </div>`;
+        }
+
+        function findVisibleTarget() {
+            const selectors = [".area-derivacoes", "#content-price-product", ".informacoes-compra-produto"];
+            const $targets = $(selectors.join(",")).filter(":visible");
+            if ($targets.length) return $targets.last();
+            return $("body");
+        }
+
+        function ensureButtonVisible() {
+            const hasVisible = $(".ver-tabela-de-medidas:visible").length > 0;
+            if (hasVisible) return;
+
+            const $existing = $(".ver-tabela-de-medidas").first();
+            const $target = findVisibleTarget();
+
+            if ($existing.length && $existing.is(":hidden")) {
+                const outer = $existing.closest("#button-measure-table");
+                const html = outer.length ? outer.prop("outerHTML") : buildMeasureBtnHtml();
+                $target.after(html);
+            } else {
+                $target.after(buildMeasureBtnHtml());
+            }
+        }
+
+        const mo = new MutationObserver(() => { ensureButtonVisible(); });
+        mo.observe(document.body, { childList: true, subtree: true });
+
+        $(window).on("resize orientationchange", ensureButtonVisible);
+
+        function bindMeasureButton() {
+            $(document)
+                .off("click touchend keydown", ".ver-tabela-de-medidas")
+                .on("click touchend keydown", ".ver-tabela-de-medidas", function (e) {
+                    if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+                    e.preventDefault(); e.stopPropagation();
+
+                    if (typeof Swal === "undefined") {
+                        addSwalCssOnce();
+                        $.getScript("https://cdn.jsdelivr.net/npm/sweetalert2@11")
+                            .done(() => openMeasureModal());
+                    } else {
+                        openMeasureModal();
+                    }
+                });
+        }
+
+        addSwalCssOnce();
+        ensureButtonVisible();
+        bindMeasureButton();
+
+    });
+    // ]]>
+</script>
+
+<!-- ===== Estilo ===== -->
+<style>
+    .modal-medidas {
+        text-align: left;
+    }
+
+    .modal-medidas .swal2-title {
+        display: none !important;
+    }
+
+    .modal-medidas .swal2-html-container {
+        margin: 0 !important;
+        padding: 10px !important;
+    }
+
+    .mm-grid {
+        display: grid;
+        gap: 16px;
+        align-items: start;
+        grid-template-columns: 1fr 1.2fr;
+        padding: 0 10px 10px;
+    }
+
+    @media (max-width:768px) {
+        .mm-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .mm-hero-wrap {
+        border: 1px solid gray;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f7f7f7;
+    }
+
+    .mm-hero {
+        width: 100%;
+        aspect-ratio: 3/4;
+        display: block;
+        overflow: hidden;
+    }
+
+    .mm-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .mm-modelo-float {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        width: auto;
+        max-width: 45%;
+        color: #fff;
+        text-align: right;
+        pointer-events: none;
+    }
+
+    .mm-modelo-title {
+        margin: 0 0 6px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .55), 0 0 1px rgba(0, 0, 0, .35);
+    }
+
+    .mm-modelo-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 6px;
+    }
+
+    .mm-modelo-item {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        font-size: 13px;
+        line-height: 1.2;
+    }
+
+    .mm-modelo-item .k {
+        font-weight: 700;
+    }
+
+    .mm-modelo-item .v {
+        opacity: .95;
+    }
+
+    .mm-modelo-item .k,
+    .mm-modelo-item .v {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, .55), 0 0 1px rgba(0, 0, 0, .35);
+    }
+
+    .mm-tabs {
+        display: flex;
+        gap: 8px;
+        padding: 10px 0;
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 2;
+        border-bottom: 1px solid #eee;
+    }
+
+    .mm-tab {
+        appearance: none;
+        border: 1px solid #e6e6e6;
+        background: #fff;
+        padding: 10px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .mm-tab.is-active {
+        border-color: #222;
+        font-weight: 600;
+    }
+
+    .cards-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    @media (min-width:1024px) {
+        .cards-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    .mm-card {
+        border: 1px solid gray;
+        border-radius: 14px;
+        padding: 12px;
+        background: #fff;
+    }
+
+    .mm-card h4 {
+        margin: 0 0 8px;
+        font-size: 15px;
+    }
+
+    .mm-dl {
+        margin: 0;
+    }
+
+    .mm-dl .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 8px 0;
+        border-bottom: 1px dashed #f0f0f0;
+        font-size: 14px;
+    }
+
+    .mm-dl .row:last-child {
+        border-bottom: none;
+    }
+
+    .mm-dl .k {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .mm-dl .v {
+        color: #555;
+    }
+
+    /* garante que o Swal fique acima de overlays/headers móveis */
+    .swal2-container {
+        z-index: 2147483647 !important;
+    }
+</style>

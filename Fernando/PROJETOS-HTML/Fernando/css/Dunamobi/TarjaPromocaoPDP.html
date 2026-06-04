@@ -1,0 +1,212 @@
+
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+
+  // Executa apenas se o body tiver a classe 'taxon-exclusive'
+  if (!body.classList.contains("taxon-exclusive")) return;
+
+  console.log("Classe 'taxon-exclusive' detectada. Inicializando o script.");
+
+  // === CSS ===
+  const style = document.createElement("style");
+  style.textContent = `
+  .descricao-pesquisa h1 { display: none !important; }
+
+  .blh-promos {
+    --bg: #000;
+    --ink: #fff;
+    --muted: rgba(255, 255, 255, .72);
+    --card: rgba(255, 255, 255, .06);
+    --line: rgba(255, 255, 255, .14);
+    --radius: 14px;
+    --yellow: #FFD400;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    background: var(--bg);
+    color: var(--ink);
+    border-radius: var(--radius);
+    padding: 16px;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+    display: flex;
+    max-width: 1400px;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    transition: all 0.4s ease;
+  }
+
+  .blh-promos__grid-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .blh-promos__grid {
+    display: flex;
+    gap: 14px;
+    flex: 1 1 auto;
+  }
+
+  .blh-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 14px 30px;
+    flex: 1;
+    text-align: center;
+  }
+
+  .blh-card__title {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+
+  .blh-card__lead {
+    font-size: 20px;
+    display: block;
+    font-weigth:700;
+  }
+
+  .blh-highlight {
+    color: var(--yellow);
+  }
+
+  .blh-card__sub {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .blh-copy {
+    background: var(--yellow);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 90px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+
+  .blh-copy:hover { background: #fbff05; }
+
+  .blh-timer {
+    text-align: center;
+    border-radius: 12px;
+    min-width: 260px;
+  }
+
+  .blh-timer__label { color: var(--muted); font-size: 14px; margin-bottom: 4px; }
+  .blh-timer__count { font-size: 22px; font-weight: 700; color: var(--yellow); }
+
+  .blh-note { font-size: 12px; }
+  .blh-note--strong { margin-top: 10px; text-transform: uppercase; font-weight: 700; }
+  .blh-promos__foot { text-align: center; margin-top: 20px; }
+
+  @media (max-width: 768px) {
+    .blh-promos__grid-wrap { flex-direction: column; }
+    .blh-promos__grid { flex-direction: column; }
+    .blh-copy { padding: 10px 40px; }
+  }`;
+  document.head.appendChild(style);
+
+  // === HTML ===
+  const html = `
+  <section class="blh-promos" role="region" aria-labelledby="blh-promos-title" id="blh-promos">
+    <h2 id="blh-promos-title" class="sr-only">Black Friday Maloa</h2>
+
+    <div class="blh-promos__grid-wrap">
+      <div class="blh-promos__grid">
+        <article class="blh-card" aria-label="Ganhe R$80 de desconto acima de R$1000">
+          <h3 class="blh-card__title">
+            <span class="blh-card__lead">
+              GANHE <span class="blh-highlight">R$80 OFF</span> ACIMA DE R$1000
+            </span>
+          </h3>
+          <p class="blh-card__sub">Use o cupom abaixo:</p>
+          <button class="blh-copy" data-cupom="BLACK80">BLACK80</button>
+        </article>
+
+        <article class="blh-card" aria-label="Ganhe R$120 de desconto acima de R$1500">
+          <h3 class="blh-card__title">
+            <span class="blh-card__lead">
+              GANHE <span class="blh-highlight">R$120 OFF</span> ACIMA DE R$1500
+            </span>
+          </h3>
+          <p class="blh-card__sub">Use o cupom abaixo:</p>
+          <button class="blh-copy" data-cupom="BLACK120">BLACK120</button>
+        </article>
+
+        <article class="blh-card" aria-label="Ganhe R$200 de desconto acima de R$1800">
+          <h3 class="blh-card__title">
+            <span class="blh-card__lead">
+              GANHE <span class="blh-highlight">R$200 OFF</span> ACIMA DE R$1800
+            </span>
+          </h3>
+          <p class="blh-card__sub">Use o cupom abaixo:</p>
+          <button class="blh-copy" data-cupom="BLACK200">BLACK200</button>
+        </article>
+      </div>
+
+      <footer class="blh-promos__foot">
+        <div class="blh-timer">
+          <p class="blh-timer__label">Oferta acaba em:</p>
+          <div id="blh-timer-countdown" class="blh-timer__count">--d --h --m --s</div>
+        </div>
+        <p class="blh-note blh-note--strong">EXCLUSIVO PARA OS ITENS DESSA CATEGORIA</p>
+        <p class="blh-note">Frete grátis para Sul, Sudeste e Centro-Oeste acima de R$999.</p>
+      </footer>
+    </div>
+  </section>`;
+
+  // === Inserção após o container de produtos ===
+  const target = document.querySelector(".product-details-components");
+  if (target) {
+    target.insertAdjacentHTML("beforebegin", html);
+    console.log("HTML da promoção inserido com sucesso após .product-details-components.");
+  } else {
+    console.error("Elemento .product-details-components não encontrado.");
+  }
+
+  // === Timer ===
+  const timerEl = document.getElementById("blh-timer-countdown");
+  if (timerEl) {
+    const endDate = new Date("2025-11-28T23:59:59").getTime();
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const dist = endDate - now;
+      if (dist <= 0) {
+        timerEl.textContent = "Encerrado";
+        clearInterval(interval);
+        console.log("Timer encerrado.");
+        return;
+      }
+      const d = Math.floor(dist / (1000 * 60 * 60 * 24));
+      const h = Math.floor((dist / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((dist / (1000 * 60)) % 60);
+      const s = Math.floor((dist / 1000) % 60);
+      timerEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    }, 1000);
+  } else {
+    console.error("Elemento do timer não encontrado.");
+  }
+
+  // === Copiar cupom ===
+  document.querySelectorAll(".blh-copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      navigator.clipboard.writeText(btn.dataset.cupom);
+      console.log(`Cupom ${btn.dataset.cupom} copiado!`);
+      btn.textContent = "Copiado!";
+      setTimeout(() => {
+        btn.textContent = btn.dataset.cupom;
+      }, 1500);
+    });
+  });
+});

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTN Shop - Baixe o App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #2d3436;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Baú Principal */
+        .bau {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            position: relative;
+        }
+
+        /* Elementos Flutuantes de Fundo */
+        .elemento-fundo {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(99, 110, 114, 0.05);
+            backdrop-filter: blur(20px);
+        }
+
+        .elemento-fundo-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+        }
+
+        .elemento-fundo-2 {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            right: 15%;
+        }
+
+        .elemento-fundo-3 {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+        }
+
+        .elemento-fundo-4 {
+            width: 120px;
+            height: 120px;
+            bottom: 30%;
+            right: 25%;
+        }
+
+        /* Título */
+        .titulo {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3436;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitulo {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #636e72;
+            max-width: 600px;
+        }
+
+        /* Imagens dos Produtos */
+        .caixa-produtos {
+            display: flex;
+            gap: 50px;
+            margin-bottom: 70px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .envelope-produto {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 35px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(45, 52, 54, 0.08);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .imagem-produto {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 25px;
+            margin-bottom: 25px;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            display: block;
+        }
+
+        .envelope-produto:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(45, 52, 54, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .envelope-produto:hover .imagem-produto {
+            transform: scale(1.05);
+            border-radius: 20px;
+        }
+
+        /* Link de Download dentro do Container */
+        .link-download {
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(45, 52, 54, 0.08);
+            text-decoration: none;
+        }
+
+        .link-download img {
+            height: 50px;
+            width: auto;
+            border-radius: 12px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+            display: block;
+        }
+
+        .link-download:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(45, 52, 54, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .link-download:hover img {
+            transform: scale(1.02);
+        }
+
+        .link-download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.8s ease;
+            border-radius: 20px;
+        }
+
+        .link-download:hover::before {
+            left: 100%;
+        }
+
+        /* Seção de Download */
+        .titulo-download {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            color: #2d3436;
+            text-align: center;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .caixa-produtos {
+                gap: 40px;
+                margin-bottom: 60px;
+            }
+
+            .envelope-produto {
+                padding: 25px;
+            }
+
+            .imagem-produto {
+                width: 350px;
+                height: 350px;
+            }
+
+            .link-download {
+                padding: 12px 15px;
+            }
+
+            .link-download img {
+                height: 45px;
+            }
+
+            .elemento-fundo {
+                opacity: 0.5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bau {
+                padding: 30px 15px;
+            }
+
+            .caixa-produtos {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .envelope-produto {
+                padding: 20px;
+            }
+
+            .imagem-produto {
+                width: 300px;
+                height: 300px;
+            }
+
+            .link-download img {
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Elementos de Fundo -->
+    <div class="elemento-fundo elemento-fundo-1"></div>
+    <div class="elemento-fundo elemento-fundo-2"></div>
+    <div class="elemento-fundo elemento-fundo-3"></div>
+    <div class="elemento-fundo elemento-fundo-4"></div>
+
+    <!-- Baú Principal -->
+    <div class="bau">
+        <h1 class="titulo" style="color: black;">Baixe o App <span style="color: #00AEEF;">GTN</span> Shop</h1>
+        <p class="subtitulo" style="color: black;">Sua experiência de <span style="color: #00AEEF;">compra digital</span> na palma da sua mão</p>
+        
+        <h2 class="titulo-download" style="color: black;">Disponível para</h2>
+        
+        <div class="caixa-produtos">
+            <div class="envelope-produto">
+                <img src="https://magazord-public.s3.amazonaws.com/gtnshop/img/2025/07/produto/11956/1-removebg-preview.png" alt="Produto GTN Shop" class="imagem-produto">
+                <a class="link-download" href="https://play.google.com/store/apps/details?id=com.magazord.site.gtnshop" target="_blank" rel="nofollow noreferrer" title="Google Play Store">
+                    <img loading="lazy" src="https://public-resources.zordcdn.com.br/assets/global/footer/android.png" alt="Baixar no Google Play" height="50" width="148">
+                </a>
+            </div>
+            
+            <div class="envelope-produto">
+                <img src="https://magazord-public.s3.amazonaws.com/gtnshop/img/2025/07/produto/11957/2-removebg-preview.png" alt="Produto GTN Shop" class="imagem-produto">
+                <a class="link-download" href="https://apps.apple.com/us/app/gtn-shop/id6747768380" target="_blank" rel="nofollow noreferrer" title="Apple App Store">
+                    <img loading="lazy" src="https://public-resources.zordcdn.com.br/assets/global/footer/apple.png" alt="Baixar na App Store" height="50" width="148">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Registrar plugins do GSAP
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Configuração inicial - esconder elementos
+        gsap.set(['.titulo', '.subtitulo'], { y: 80, opacity: 0 });
+        gsap.set('.envelope-produto', { y: 100, opacity: 0, scale: 0.8 });
+        gsap.set('.titulo-download', { y: 60, opacity: 0 });
+        gsap.set('.elemento-fundo', { scale: 0, rotation: 180 });
+
+        // Linha do tempo principal de animação
+        const linhaTempoPrincipal = gsap.timeline({ delay: 0.3 });
+
+        // Animação dos elementos de fundo
+        linhaTempoPrincipal.to('.elemento-fundo', {
+            scale: 1,
+            rotation: 0,
+            duration: 1.5,
+            ease: "back.out(1.7)",
+            stagger: 0.2
+        })
+        // Animações do título
+        .to('.titulo', {
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out"
+        }, "-=1")
+        .to('.subtitulo', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.8")
+        // Animação do título de download
+        .to('.titulo-download', {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.6")
+        // Animação das imagens dos produtos
+        .to('.envelope-produto', {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 1.2,
+            ease: "back.out(1.7)",
+            stagger: 0.3
+        }, "-=0.5");
+
+        // Animação flutuante contínua para elementos de fundo
+        gsap.to('.elemento-fundo-1', {
+            y: -20,
+            x: 15,
+            rotation: 360,
+            duration: 15,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.elemento-fundo-2', {
+            y: 25,
+            x: -20,
+            rotation: -360,
+            duration: 18,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.elemento-fundo-3', {
+            y: -15,
+            x: 25,
+            rotation: 180,
+            duration: 12,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        gsap.to('.elemento-fundo-4', {
+            y: 30,
+            x: -15,
+            rotation: -180,
+            duration: 20,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+        // Animações de hover das imagens dos produtos
+        document.querySelectorAll('.envelope-produto').forEach((envelope, indice) => {
+            const imagem = envelope.querySelector('.imagem-produto');
+            const linkDownload = envelope.querySelector('.link-download');
+            
+            envelope.addEventListener('mouseenter', () => {
+                gsap.to(envelope, {
+                    y: -15,
+                    scale: 1.02,
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(imagem, {
+                    scale: 1.05,
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+
+                gsap.to(linkDownload, {
+                    y: -5,
+                    scale: 1.05,
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+            });
+            
+            envelope.addEventListener('mouseleave', () => {
+                gsap.to(envelope, {
+                    y: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+                
+                gsap.to(imagem, {
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+
+                gsap.to(linkDownload, {
+                    y: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "power2.out"
+                });
+            });
+
+            // Adicionar animação contínua sutil
+            gsap.to(envelope, {
+                y: indice % 2 === 0 ? -8 : 8,
+                duration: 4 + indice * 0.5,
+                ease: "power1.inOut",
+                repeat: -1,
+                yoyo: true,
+                delay: indice * 0.3
+            });
+        });
+
+        // Animações específicas dos links de download
+        document.querySelectorAll('.link-download').forEach((link, indice) => {
+            link.addEventListener('click', (e) => {
+                gsap.to(link, {
+                    scale: 0.95,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: "power2.inOut"
+                });
+            });
+
+            // Animação sutil de respiração
+            gsap.to(link, {
+                scale: 1.02,
+                duration: 3 + indice * 0.5,
+                ease: "power1.inOut",
+                repeat: -1,
+                yoyo: true,
+                delay: indice * 0.5
+            });
+        });
+
+        // Efeito parallax no movimento do mouse
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) - 0.5;
+            const mouseY = (e.clientY / window.innerHeight) - 0.5;
+
+            gsap.to('.elemento-fundo-1', {
+                x: mouseX * 30,
+                y: mouseY * 30,
+                duration: 1,
+                ease: "power2.out"
+            });
+
+            gsap.to('.elemento-fundo-2', {
+                x: mouseX * -20,
+                y: mouseY * -20,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+
+            gsap.to('.elemento-fundo-3', {
+                x: mouseX * 25,
+                y: mouseY * 25,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+
+            gsap.to('.elemento-fundo-4', {
+                x: mouseX * -15,
+                y: mouseY * -15,
+                duration: 1.5,
+                ease: "power2.out"
+            });
+
+            gsap.to('.envelope-produto', {
+                rotationY: mouseX * 8,
+                rotationX: mouseY * -5,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        });
+
+        // Animação de carregamento
+        window.addEventListener('load', () => {
+            gsap.from('body', {
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        // Manipulador de redimensionamento
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
+        });
+    </script>
+</body>
+</html>

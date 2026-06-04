@@ -1,0 +1,135 @@
+
+(function () {
+  let inited = false;
+  const REQUIRED_CLASS = "tag-linha-exclusive";
+
+  const init = () => {
+    if (inited) return;
+    inited = true;
+
+    // === CSS idêntico ao modal Black Friday ===
+    const style = document.createElement("style");
+    style.textContent = `
+      .blh-promos__section {
+        background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+        border: 1px solid rgba(255, 255, 255, .1);
+        color: #fff;
+        font-family: system-ui, sans-serif;
+        text-align: center;
+      }
+
+      .blh-promos__foot {
+        text-align: center;
+        margin-top: 10px;
+        color: #fff;
+      }
+
+      .blh-timer {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .blh-timer__label {
+        color: rgba(255, 255, 255, .6);
+        font-size: 13px;
+        margin-bottom: 4px;
+      }
+
+      .blh-timer__count {
+        font-size: 20px;
+        color: #F6ED39;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+
+      .blh-note {
+        font-size: 11px;
+        text-align: center;
+        margin-top: 6px;
+        color: rgba(255, 255, 255, .7);
+      }
+
+      .blh-note--strong{
+        font-size:22px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+      }
+
+      
+    `;
+    document.head.appendChild(style);
+
+    // === HTML (estrutura completa com gradiente e conteúdo do rodapé) ===
+    const html = `
+      <section class="blh-promos__section">
+        <footer class="blh-promos__foot">
+          <div class="blh-timer">
+              <p class="blh-note--strong">BLACK MALOA</p>
+            <p class="blh-timer__label">Oferta acaba em:</p>
+            <div id="blh-timer-countdown" class="blh-timer__count">--d --h --m --s</div>
+          </div>
+          <p class="blh-note">Frete grátis para Sul, Sudeste e Centro-Oeste acima de R$999.</p>
+        </footer>
+      </section>
+    `;
+
+    // === Insere antes do bloco de detalhes do produto ===
+    const target = document.querySelector(".product-details-components");
+    if (target) {
+      target.insertAdjacentHTML("beforebegin", html);
+      console.log("✅ Bloco Black Friday com gradiente inserido antes de .product-details-components");
+    } else {
+      document.body.insertAdjacentHTML("beforeend", html);
+      console.warn("⚠️ .product-details-components não encontrado. Inserido no final do body.");
+    }
+
+    // === Lógica do timer ===
+    const timerEl = document.getElementById("blh-timer-countdown");
+    const endDate = new Date("2025-11-28T23:59:59").getTime();
+
+    function updateTimer() {
+      const now = Date.now();
+      const diff = endDate - now;
+
+      if (diff <= 0) {
+        timerEl.textContent = "Encerrado";
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      timerEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    console.log("✅ Timer e bloco Black Friday ativos em tag-linha-exclusive");
+  };
+
+  // === Ativação condicional ===
+  const hasRequired = () => document.body.classList.contains(REQUIRED_CLASS);
+  if (hasRequired()) { init(); return; }
+
+  const obs = new MutationObserver(() => {
+    if (hasRequired()) {
+      obs.disconnect();
+      init();
+    }
+  });
+  obs.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+
+  let tries = 0;
+  const iv = setInterval(() => {
+    if (hasRequired()) {
+      clearInterval(iv);
+      obs.disconnect();
+      init();
+    }
+    if (++tries > 40) clearInterval(iv);
+  }, 500);
+})();

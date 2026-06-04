@@ -1,0 +1,332 @@
+<style>
+    /* Garante que o container da imagem permita elementos absolutos por cima */
+    .container-swiper .swiper-zoom-container {
+        position: relative;
+    }
+
+    /* Tooltip que sai do botão com liquid glass effect (iPhone style) */
+    .container-swiper .btn-tooltip {
+        position: absolute;
+        left: -20px;
+        top: 50%;
+        transform: translate(-100%, -50%) scale(0.8);
+        max-width: 280px;
+        min-width: 200px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #1a1a2e;
+        padding: 14px 20px;
+        border-radius: 20px;
+        box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.12),
+            0 2px 8px rgba(0, 0, 0, 0.08),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+        font-size: 13px;
+        line-height: 1.5;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 10;
+        pointer-events: none;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    /* Seta do tooltip */
+    .container-swiper .btn-tooltip::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 8px 0 8px 8px;
+        border-color: transparent transparent transparent rgba(255, 255, 255, 0.15);
+        filter: drop-shadow(2px 0 4px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Gradiente de fundo sutil */
+    .container-swiper .btn-tooltip::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+        z-index: -1;
+    }
+
+    .container-swiper .btn-tooltip.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-100%, -50%) scale(1);
+    }
+
+    /* Animação de saída com blur */
+    .container-swiper .btn-tooltip.is-hiding {
+        opacity: 0;
+        filter: blur(8px);
+        transform: translate(-100%, -50%) scale(0.9);
+    }
+
+    /* Grupo dos botões redondos à direita da imagem */
+    .container-swiper .gallery-info-icons {
+        position: absolute;
+        top: 25%;
+        right: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        z-index: 6;
+    }
+
+    .container-swiper .gallery-info-btn {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        border: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow:
+            0 10px 30px rgba(102, 126, 234, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        overflow: visible;
+    }
+
+    /* Efeito de brilho animado */
+    .container-swiper .gallery-info-btn::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.3) 50%,
+                transparent 70%);
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
+        opacity: 0;
+    }
+
+    .container-swiper .gallery-info-btn:hover::before {
+        opacity: 1;
+        animation: shine 1.5s infinite;
+    }
+
+    @keyframes shine {
+        0% {
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+
+        100% {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+    }
+
+    /* Diferentes gradientes para cada botão */
+    .container-swiper .gallery-info-btn:nth-child(1) {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow:
+            0 10px 30px rgba(102, 126, 234, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(2) {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        box-shadow:
+            0 10px 30px rgba(240, 147, 251, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(3) {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        box-shadow:
+            0 10px 30px rgba(79, 172, 254, 0.4),
+            0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container-swiper .gallery-info-btn:hover {
+        transform: translateY(-4px) scale(1.08);
+        box-shadow:
+            0 15px 40px rgba(102, 126, 234, 0.5),
+            0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(2):hover {
+        box-shadow:
+            0 15px 40px rgba(240, 147, 251, 0.5),
+            0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(3):hover {
+        box-shadow:
+            0 15px 40px rgba(79, 172, 254, 0.5),
+            0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .container-swiper .gallery-info-btn:active {
+        transform: translateY(-1px) scale(1.02);
+        box-shadow:
+            0 8px 20px rgba(102, 126, 234, 0.3),
+            0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ícone SVG dentro do botão */
+    .container-swiper .gallery-info-btn svg {
+        width: 24px;
+        height: 24px;
+        stroke: #ffffff;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+        z-index: 1;
+    }
+
+    .container-swiper .gallery-info-btn:hover svg {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    /* Texto do tooltip */
+    .container-swiper .btn-tooltip {
+        font-weight: 500;
+        color: #2d3748;
+    }
+
+    /* Animação de entrada dos botões */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .container-swiper .gallery-info-btn {
+        animation: fadeInUp 0.6s ease backwards;
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .container-swiper .gallery-info-btn:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    /* Efeito de pulso sutil */
+    @keyframes pulse {
+
+        0%,
+        100% {
+            box-shadow:
+                0 10px 30px rgba(102, 126, 234, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        50% {
+            box-shadow:
+                0 10px 35px rgba(102, 126, 234, 0.5),
+                0 2px 10px rgba(0, 0, 0, 0.12);
+        }
+    }
+
+    .container-swiper .gallery-info-btn {
+        animation: fadeInUp 0.6s ease backwards, pulse 3s ease-in-out infinite;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Pega o container específico do produto único usando a classe 'container-swiper'
+        const zoomContainer = document.querySelector('.container-swiper ');
+
+        if (!zoomContainer) return;
+
+        // Garante que o container seja relative (caso o CSS ainda não tenha aplicado)
+        if (getComputedStyle(zoomContainer).position === 'static') {
+            zoomContainer.style.position = 'relative';
+        }
+
+        // Cria o grupo de botões (à direita do container da imagem)
+        const iconsWrapper = document.createElement('div');
+        iconsWrapper.className = 'gallery-info-icons';
+
+        // Criação de 3 botões com ícones SVG e tooltips
+        iconsWrapper.innerHTML = `
+      <button type="button" class="gallery-info-btn" data-text="Produto zero transparência garantida ou seu dinheiro de volta.">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <div class="btn-tooltip"></div>
+      </button>
+
+    `;
+
+        // Injeta os elementos dentro do container da imagem
+        zoomContainer.appendChild(iconsWrapper);
+
+        // Variável para armazenar o timeout de auto-hide
+        let hideTimeout = null;
+
+        // Delegação de eventos: clique nos botões para mostrar tooltip
+        document.addEventListener('click', function (event) {
+            const btn = event.target.closest('.gallery-info-btn');
+            if (!btn) return;
+
+            // Esconde todos os outros tooltips primeiro
+            const allTooltips = zoomContainer.querySelectorAll('.btn-tooltip');
+            allTooltips.forEach(tooltip => {
+                tooltip.classList.remove('is-visible');
+                tooltip.classList.add('is-hiding');
+                setTimeout(() => tooltip.classList.remove('is-hiding'), 400);
+            });
+
+            // Limpa o timeout anterior se existir
+            if (hideTimeout) {
+                clearTimeout(hideTimeout);
+            }
+
+            // Pega o tooltip deste botão
+            const tooltip = btn.querySelector('.btn-tooltip');
+            const text = btn.getAttribute('data-text');
+
+            if (text && tooltip) {
+                tooltip.textContent = text;
+                tooltip.classList.remove('is-hiding');
+                tooltip.classList.add('is-visible');
+
+                // Auto-hide após 5 segundos
+                hideTimeout = setTimeout(() => {
+                    tooltip.classList.add('is-hiding');
+                    setTimeout(() => {
+                        tooltip.classList.remove('is-visible', 'is-hiding');
+                    }, 400);
+                }, 5000);
+            }
+        });
+    });
+</script>

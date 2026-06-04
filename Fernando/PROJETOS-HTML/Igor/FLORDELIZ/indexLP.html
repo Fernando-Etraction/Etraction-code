@@ -1,0 +1,158 @@
+<style>
+/* ====== CATEGORIAS (Swiper) ====== */
+.descricao-pesquisa .container { padding-bottom: 10px; }
+#main-area .container { background: transparent; }
+
+
+/* Wrapper do Swiper */
+.swiper-container05 { position: relative; }
+
+/* Slides */
+.btns-categorias05 { display: flex; align-items: stretch; }
+.btn-categoria05 { 
+  margin: 20px 4px 0; 
+  text-align: center; 
+  padding: 5px; 
+}
+
+/* Card da imagem */
+.btn-categoria05 .img-001{
+  display: grid;
+  place-items: center;
+  height: clamp(140px, 18vw, 200px);
+  background: #f3f3f3;
+  border-radius: 8px;
+  padding: 15px 20px;
+  overflow: hidden;
+}
+
+/* Imagem sempre centralizada e contida */
+.btn-categoria05 .img-001 img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform .4s ease;
+  transform: translateZ(0);
+}
+
+/* Hover suave */
+.btn-categoria05:hover .img-001 img{ transform: scale(1.04); }
+
+/* Título/link da categoria */
+.btns-categorias05 a[class^="link-"]{
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 400;
+}
+
+/* Navegação */
+.swiper-button-prev, .swiper-button-next{
+  color: #000;
+}
+
+/* ======== DESKTOP SEM SWIPER ======== */
+@media (min-width: 801px) {
+
+  /* Remove comportamento do swiper */
+  .swiper-container05,
+  .swiper-container05 .swiper-wrapper,
+  .swiper-container05 .swiper-slide {
+    width: auto !important;
+    height: auto !important;
+    transform: none !important;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+  }
+
+  .btns-categorias05 {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 14px;
+  }
+
+  .btn-categoria05 {
+    flex: 1;
+    max-width: 300px;
+  }
+}
+</style>
+
+<div class="swiper swiper-container05 container">
+  <div class="btns-categorias05 swiper-wrapper">
+
+    <div class="btn-categoria05 categoria-001 swiper-slide">
+      <div class="img-001"><a href="/botas"><img src="https://magazord-public.s3.amazonaws.com/giuliabardo/img/2025/08/banner/5899/03.png" alt="Botas" /></a></div>
+      <a class="link-001" href="/botas">Botas</a>
+    </div>
+
+    <div class="btn-categoria05 categoria-002 swiper-slide">
+      <div class="img-001"><a href="/sapatos"><img src="https://magazord-public.s3.amazonaws.com/giuliabardo/img/2025/08/banner/5900/04.png" alt="Sapatos" /></a></div>
+      <a class="link-002" href="/sapatos">Sapatos</a>
+    </div>
+
+    <div class="btn-categoria05 categoria-003 swiper-slide">
+      <div class="img-001"><a href="/Salto"><img src="https://magazord-public.s3.amazonaws.com/giuliabardo/img/2025/08/banner/5901/05.png" alt="Sandálias de Salto" /></a></div>
+      <a class="link-003" href="/Salto">Sandálias de Salto</a>
+    </div>
+
+    <div class="btn-categoria05 categoria-004 swiper-slide">
+      <div class="img-001"><a href="/plataformas"><img src="https://magazord-public.s3.amazonaws.com/giuliabardo/img/2025/08/banner/5897/01.png" alt="Plataformas" /></a></div>
+      <a class="link-004" href="/plataformas">Plataformas</a>
+    </div>
+
+    <div class="btn-categoria05 categoria-005 swiper-slide">
+      <div class="img-001"><a href="/papetes"><img src="https://magazord-public.s3.amazonaws.com/giuliabardo/img/2025/08/banner/5898/02.png" alt="Papetes" /></a></div>
+      <a class="link-005" href="/papetes">Papetes</a>
+    </div>
+
+    <div class="btn-categoria05 categoria-006 swiper-slide">
+      <div class="img-001"><a href="/flat"><img src="https://magazord-public.s3.amazonaws.com/giuliabardo/img/2025/10/produto/6373/83-5.jpg" alt="Flat" /></a></div>
+      <a class="link-006" href="/flat">Flat</a>
+    </div>
+
+  </div>
+
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>
+
+<script>
+const isMobile = window.matchMedia("(max-width: 800px)").matches;
+
+if (isMobile) {
+  // Mantém o Swiper no mobile
+  new Swiper('.swiper-container05', {
+    slidesPerView: 2,
+    spaceBetween: 8,
+    breakpoints: {
+      520: { slidesPerView: 3, spaceBetween: 10 },
+      700: { slidesPerView: 4, spaceBetween: 12 }
+    },
+    rewind: true,
+    autoplay: {
+      delay: 2000,
+      pauseOnMouseEnter: true,
+      disableOnInteraction: false
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    },
+    speed: 700,
+  });
+} else {
+  // Remove classes do Swiper para desktop (vira grid normal)
+  const wrapper = document.querySelector('.btns-categorias05');
+  wrapper.classList.remove('swiper-wrapper');
+
+  document.querySelectorAll('.swiper-slide').forEach(item => {
+    item.classList.remove('swiper-slide');
+  });
+}
+</script>

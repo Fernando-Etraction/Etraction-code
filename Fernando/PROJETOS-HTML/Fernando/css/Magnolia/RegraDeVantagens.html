@@ -1,0 +1,325 @@
+<style>
+  .dr-benefits-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 15px 25px;
+    border-bottom: 1px solid #ebebeb;
+    border-top: 1px solid #ebebeb;
+  }
+
+  /* trilho (desktop) */
+  .dr-benefits-track {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 10px 0;
+    justify-content: space-between;
+  }
+
+  /* card */
+  .dr-benefits-card {
+    flex: 1 1 calc(25% - 16px);
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .dr-benefits-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .dr-benefits-track svg {
+    max-width: 32px;
+    height: 32px;
+    stroke: #000;
+    color: #000;
+  }
+
+  .dr-benefits-track svg path,
+  .dr-benefits-track svg rect,
+  .dr-benefits-track svg circle,
+  .dr-benefits-track svg polygon,
+  .dr-benefits-track svg polyline,
+  .dr-benefits-track svg line {
+    stroke: inherit;
+  }
+
+  .dr-benefits-text {
+    flex: 1;
+  }
+
+  .dr-benefits-text h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 2px;
+  }
+
+  .dr-benefits-text p {
+    margin: 0;
+    text-align: left;
+    color: #000;
+    font-size: 13px;
+    line-height: 15px;
+  }
+
+  /* wrap + setas */
+  .dr-benefits-carousel {
+    position: relative;
+  }
+
+  .dr-benefits-arrow {
+    display: none;
+    /* só mobile */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    padding: 0;
+  }
+
+  .dr-benefits-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .dr-benefits-arrow:disabled {
+    opacity: .35;
+    cursor: default;
+    box-shadow: none;
+  }
+
+  .dr-benefits-prev {
+    left: -6px;
+  }
+
+  .dr-benefits-next {
+    right: -6px;
+  }
+
+  @media (max-width: 800px) {
+    .dr-benefits-container {
+      border-radius: 0;
+      padding: 10px 15px;
+      margin: 0 auto 20px;
+      border-top: 0;
+      overflow: hidden;
+    }
+
+    /* carrossel horizontal */
+    .dr-benefits-carousel {
+      padding: 0 22px;
+    }
+
+    .dr-benefits-track {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 10px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding: 10px 0 12px;
+      scrollbar-width: none;
+    }
+
+    .dr-benefits-track::-webkit-scrollbar {
+      height: 0;
+    }
+
+    .dr-benefits-card {
+      flex: 0 0 calc(88% - 10px);
+      min-width: 240px;
+      padding: 10px 12px;
+      scroll-snap-align: start;
+    }
+
+    .dr-benefits-text p {
+      font-size: 12px;
+    }
+
+    .dr-benefits-arrow {
+      display: inline-flex;
+    }
+  }
+</style>
+<div class="dr-benefits-container">
+  <div class="dr-benefits-carousel">
+
+    <button class="dr-benefits-arrow dr-benefits-prev" type="button" aria-label="Anterior" disabled>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 18l-6-6 6-6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <button class="dr-benefits-arrow dr-benefits-next" type="button" aria-label="Próximo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 6l6 6-6 6" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="dr-benefits-track" aria-label="Benefícios">
+      <div class="dr-benefits-card dr-benefits-item1">
+        <div class="dr-benefits-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="9" r="2" />
+            <circle cx="15" cy="15" r="2" />
+            <line x1="5" y1="19" x2="19" y2="5" />
+          </svg>
+        </div>
+        <div class="dr-benefits-text">
+          <h3>5% de desconto</h3>
+          <p>Em pagamentos no pix</p>
+        </div>
+      </div>
+
+      <div class="dr-benefits-card dr-benefits-item2">
+        <div class="dr-benefits-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+            <line x1="1" y1="10" x2="23" y2="10" />
+          </svg>
+        </div>
+        <div class="dr-benefits-text">
+          <h3>Parcelamento</h3>
+          <p>Em até 4x sem juros!</p>
+        </div>
+      </div>
+
+      <div class="dr-benefits-card dr-benefits-item3">
+        <div class="dr-benefits-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="1" y="3" width="15" height="13" />
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+            <circle cx="5.5" cy="18.5" r="2.5" />
+            <circle cx="18.5" cy="18.5" r="2.5" />
+          </svg>
+        </div>
+        <div class="dr-benefits-text">
+          <h3>Entrega em todo Brasil</h3>
+          <p>Envio seguro e garantido</p>
+        </div>
+      </div>
+
+      <div class="dr-benefits-card dr-benefits-item4">
+        <div class="dr-benefits-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+          </svg>
+        </div>
+        <div class="dr-benefits-text">
+          <h3>Site Confiável</h3>
+          <p>Compre com segurança</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (function ($) {
+
+
+
+    const $track = $('.dr-benefits-track');
+    const $prev = $('.dr-benefits-prev');
+    const $next = $('.dr-benefits-next');
+
+    function isMobile() {
+      return window.matchMedia('(max-width: 800px)').matches;
+    }
+
+    function step() {
+      const $card = $track.find('.dr-benefits-card').first();
+      return ($card.outerWidth(true) || 260) + 10;
+    }
+
+    function updateArrows() {
+      const el = $track.get(0);
+      if (!el || !isMobile()) return;
+      const max = el.scrollWidth - el.clientWidth - 2;
+      const x = el.scrollLeft;
+      $prev.prop('disabled', x <= 2);
+      $next.prop('disabled', x >= max);
+    }
+
+    function scrollByStep(dir) {
+      const el = $track.get(0);
+      if (!el) return;
+      const amount = step() * dir;
+      try { el.scrollBy({ left: amount, behavior: 'smooth' }); }
+      catch (e) { $track.stop().animate({ scrollLeft: el.scrollLeft + amount }, 250); }
+    }
+
+    $prev.on('click', function () { scrollByStep(-1); });
+    $next.on('click', function () { scrollByStep(1); });
+
+    $track.on('scroll', function () { window.requestAnimationFrame(updateArrows); });
+    $(window).on('resize', function () { updateArrows(); });
+
+    // ===== autoplay (mobile) =====
+    let drAutoTimer = null;
+
+    function startAutoplay() {
+      stopAutoplay();
+      if (!isMobile()) return;
+
+      drAutoTimer = window.setInterval(function () {
+        const el = $track.get(0);
+        if (!el) return;
+
+        const max = el.scrollWidth - el.clientWidth - 2;
+        const x = el.scrollLeft;
+
+        // se chegou no fim, volta pro começo; senão avança 1 card
+        if (x >= max) {
+          try { el.scrollTo({ left: 0, behavior: 'smooth' }); }
+          catch (e) { $track.stop().animate({ scrollLeft: 0 }, 250); }
+        } else {
+          scrollByStep(1);
+        }
+      }, 2500);
+    }
+
+    function stopAutoplay() {
+      if (drAutoTimer) {
+        clearInterval(drAutoTimer);
+        drAutoTimer = null;
+      }
+    }
+
+    // pausa autoplay quando o usuário interage
+    $track.on('touchstart mousedown', stopAutoplay);
+    $track.on('touchend mouseup mouseleave', function () {
+      // volta após um respiro
+      setTimeout(startAutoplay, 900);
+    });
+
+    startAutoplay();
+    updateArrows();
+  });
+</script>

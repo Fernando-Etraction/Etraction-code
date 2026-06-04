@@ -1,0 +1,125 @@
+Modelo 1
+
+<style>
+    .promo-banner-unico {
+        background-color: #F6F6F6;
+        color: white;
+        padding: 10px 5%;
+        width: 100%;
+        z-index: 999;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .promo-banner-fixo {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+    }
+
+    .promo-texto-unico {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        color: black;
+    }
+
+    .timer-unico {
+        margin-left: 10px;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .timer-unico span {
+        color: #d2755e;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: transparent;
+        border: none;
+        color: black;
+        font-size: 1.5em;
+        cursor: pointer;
+        z-index: 99999;
+    }
+
+    .close-btn:hover {
+        color: yellow;
+    }
+
+    @media (max-width: 768px) {
+        .promo-banner-unico {
+            font-size: 0.9em;
+            padding: 10px;
+        }
+
+        .timer-unico {
+            font-size: 1em;
+            margin-left: 5px;
+        }
+
+        .promo-texto-unico {
+            flex-direction: column;
+            gap: 5px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .promo-banner-unico {
+            font-size: 0.8em;
+            padding: 8px;
+        }
+
+        .timer-unico {
+            font-size: 0.9em;
+        }
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        const horaFinal = new Date(Date.now() + 10 * 60 * 60 * 1000); // 10 horas a partir do carregamento
+
+        const bannerHTML = `
+        <a href="https://www.risty.com.br/combo-conjuntos-299" target="_blank" class="promo-banner-unico">
+            <button class="close-btn" type="button">×</button>
+            <div class="promo-texto-unico">
+                <strong>Esquenta Black | </strong> 
+                <span>Produtos com até 50% de desconto! |
+                     Começou! Os melhores descontos do ano já estão no ar 👇</span>
+            </div>
+        </a>`;
+
+        $('header').prepend(bannerHTML);
+
+        $('.close-btn').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $('.promo-banner-unico').fadeOut();
+        });
+
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > 100) {
+                $('.promo-banner-unico').addClass('promo-banner-fixo');
+            } else {
+                $('.promo-banner-unico').removeClass('promo-banner-fixo');
+            }
+        });
+    });
+</script>

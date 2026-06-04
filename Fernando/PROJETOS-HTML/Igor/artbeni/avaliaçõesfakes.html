@@ -1,0 +1,1563 @@
+<div class="pagina-conteudo-adicional conteudo-adicional-64"><script>
+$(document).ready(function () {
+
+
+    $('.avaliacoes').hide();
+var idProduto = $('#prod-codigo').val();
+var infosProdutos = window.localStorage.getItem('infosprod2');
+var infosProdutosObj = infosProdutos ? JSON.parse(infosProdutos) : [];
+
+// verifica se o produto já existe no localStorage
+var produtoEncontrado = infosProdutosObj.find(function (produto) {
+  return produto.id == idProduto;
+});
+
+if (!produtoEncontrado) {
+  var novoProduto = {
+    id: idProduto,
+    comentarios: randomIntFromInterval(50, 90),
+    estrelas: randomIntFromInterval(5, 5)
+  };
+  infosProdutosObj.push(novoProduto);
+  window.localStorage.setItem('infosprod2', JSON.stringify(infosProdutosObj));
+  console.log('produto adicionado');
+  layoutStar(novoProduto.estrelas, novoProduto.comentarios, idProduto);
+} else {
+  console.log('produto já existe');
+  layoutStar(produtoEncontrado.estrelas, produtoEncontrado.comentarios, idProduto);
+}
+
+});
+
+function randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function layoutStar(estrelas, comentarios, idProduto){
+  var style = `
+    <style>
+      .star-image {
+        width: 16px; /* Ajuste o tamanho conforme necessário */
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 2px;
+      }
+    </style>
+  `;
+
+  $('body').append(style);
+
+  var starsLayout = '';
+  var starImage = '<img src="https://casalinda.cdn.magazord.com.br/img/2023/05/templateproduto/5955/star.png" alt="Estrela" class="star-image">';
+  for (var i = 0; i < estrelas; i++) {
+    starsLayout += starImage;
+  }
+
+
+  if ($(window).width() < 768) { // Considera telas menores que 768px como dispositivos móveis
+        // Código para dispositivos móveis
+    	$('.informacoes-compra-produto h1').after(`<div class="layoutcontagem" style="margin-top:-1px;
+        margin-bottom: 15px;" id="produto-${idProduto}">
+            <div>${starsLayout} (<span class="qtAvaliacoes">${comentarios}</span>) - mais de ${comentarios} avaliações!
+        </div>`);
+    } else {
+        $('.informacoes-compra-produto h1').after(`<div class="layoutcontagem" style="margin-top:-7px;  margin-bottom: 13px;text-align:left; " id="produto-${idProduto}">
+    <div>${starsLayout} (<span class="qtAvaliacoes">${comentarios}</span>) - mais de ${comentarios} avaliações! 
+  </div>`);
+    }
+
+}
+
+
+  </script>
+
+  <script>
+
+var nomes = [
+    "Ana",
+    "João",
+    "Maria",
+    "Pedro", 
+    "Lucas",
+    "Fernanda",
+    "Gabriela",
+    "Marcelo",
+    "Carla",
+    "Maurício",
+    "Beatriz",
+    "Guilherme",
+    "Eduardo",
+    "Larissa",
+    "Camila",
+    "Roberto",
+    "Tatiana",
+    "Daniel",
+    "Mariana",
+    "Sérgio",
+    "Aline",
+    "Rodrigo",
+    "Bruna",
+    "Rafael",
+    "Letícia",
+    "Cláudio",
+    "Viviane",
+    "Leonardo",
+    "Amanda",
+    "Antônio",
+    "Isabela",
+    "Paulo",
+    "Rita",
+    "Alexandre",
+    "Luana",
+    "Juliana",
+    "André",
+    "Cristina",
+    "Júlio",
+    "Elisa",
+    "Vanessa",
+    "Renato",
+    "Patrícia",
+    "Gustavo",
+    "Clarice",
+    "Fábio",
+    "Francine",
+    "Ricardo",
+    "Laura",
+    "Diego",
+    "Nathalia",
+    "Vitor",
+    "Simone",
+    "Thiago",
+    "Rebeca",
+    "César",
+    "Regina",
+    "Caio",
+    "Débora",
+    "Helena", 
+    "Matheus", 
+    "Sofia", 
+    "Felipe", 
+    "Alice", 
+    "Bruno", 
+    "Júlia", 
+    "Marcos", 
+    "Lívia",
+    "Henrique", 
+    "Isadora", 
+    "Tiago", 
+    "Lorena", 
+    "Fernando",
+     "Manuela", 
+     "Giovanni", 
+     "Elis", 
+     "Igor", 
+     "Cecília", 
+     "Luciano", 
+     "Flávia", "Marcela", "Otávio", "Paola", "Samuel", "Caroline", "Luis", "Fátima", "Raul", "Silvia", "Enzo", "Tânia", "Yuri", "Sandra", 
+     "Pablo", "Eliane", "Artur", "Rosana", "Nicolas", "Daniela", "Cássio", "Priscila", "Leon", "Fabiana", "Miguel", "Lílian", "Victor", 
+     "Bianca", "Jonas", "Raquel", "Lucas", "Marta", "Adriano", "Soraia", "Felipe", "Renata", "Marlon", "Ivana", "Gilberto", "Carmen", 
+     "Elias", "Tamires", "Davi", "Solange", "Rômulo", "Lúcia", "Kevin", "Angélica", "Breno", "Elaine", "Carlos", "Pâmela", "José", 
+     "Fernanda", "Marcel", "Gisele", "Hugo", "Sabrina", "Ítalo", "Jaqueline", "Leandro", "Natália", "Geraldo", "Verônica", "Heitor", 
+     "Teresa", "Luan", "Adriana", "Ícaro", "Michele", "Eduardo", "Sílvia", "Rodolfo", "Olívia", "Gael", "Larissa", "Sérgio", "Kátia", 
+     "Rogério", "Jéssica", "Wesley", "Norma", "Lucas", "Elisângela", "Oscar", "Fabíola", "Samuel", "Diana", "Ivan", "Lorena", "Jorge", 
+     "Cláudia", "Marcelo", "Ester", "Ricardo", "Alice", "Otávio", "Melissa", "Caio", "Patrícia", "Lauro", "Francisca", "Hélder", "Carla", 
+     "Afonso", "Bárbara", "Gustavo", "Lívia", "Danilo", "Rosângela", "Estevão", "Vânia", "Lucas", "Débora", "Jerônimo", "Talita", "Matias", 
+     "Cristiane", "Vinícius", "Larissa", "Pedro", "Fabiola", "Alex", "Vivian", "Rafael", "Denise", "Leon", "Márcia", "Bruno", "Elisa", "Cleiton", 
+     "Raíssa", "Marcel", "Andressa", "Fabrício", "Ariane", "Lucas", "Fernanda", "Otto", "Carolina", "Joaquim", "Julia", "Enrico", "Patrícia", "Mário", 
+     "Leticia", "Heitor", "Ana Paula", "Giovani", "Carina", "Luiz", "Danielle", "Marco", "Priscila", "Ivo", "Suzana", "Erick", "Larissa", "Nelson", "Bianca", 
+     "Caíque", "Tatiane", "Luciano", "Fernanda", "Dante", "Mariana", "Alan", "Rosana", "Flávio", "Cecília", "Raul", "Sônia", "Ítalo", "Karina", "Leonardo", "Alessandra", 
+     "Mauro", "Lívia", "Hélio", "Renata", "Gilmar", "Vera", "Dário", "Larissa", "Nícolas", "Fernanda", "Evandro", "Talita", "Lucas", "Carolina", "Júlio", "Aline", "Vitor", "Sandra", 
+     "Rafael", "Juliana", "Breno", "Larissa", "Gustavo", "Fernanda", "Hugo", "Aline", "Ítalo", "Carolina", "Leonardo", "Fernanda", "Mauro", "Aline", "Hélio", "Carolina", "Gilmar", 
+     "Fernanda", "Dário", "Aline", "Nícolas", "Carolina", "Evandro", "Fernanda", "Lucas", "Carolina", "Júlio", "Aline", "Vitor", "Sandra", "Rafael", "Juliana", "Breno", "Larissa", 
+     "Gustavo", "Fernanda", "Hugo", "Aline", "Ítalo", "Carolina", "Leonardo", "Fernanda", "Mauro", "Aline", "Hélio", "Carolina", "Gilmar", "Fernanda", "Dário", "Aline", "Nícolas", 
+     "Carolina", "Evandro", "Fernanda", "Lucas", "Carolina", "Júlio", "Aline", "Vitor", "Sandra", "Rafael", "Juliana", "Breno", "Larissa", "Gustavo", "Fernanda", "Hugo", "Aline", "Ítalo", 
+     "Carolina", "Leonardo", "Fernanda", "Mauro", "Aline", "Hélio", "Carolina", "Gilmar", "Fernanda",
+    
+    ];
+    var sobrenomes = [
+    "Silva",
+    "Santos",
+    "Oliveira",
+    "Pereira",
+    "Costa",
+    "Ribeiro",
+    "Almeida",
+    "Machado",
+    "Gomes",
+    "Ferreira",
+    "Lima",
+    "Rodrigues",
+    "Souza",
+    "Carvalho",
+    "Melo",
+    "Lopes",
+    "Martins",
+    "Moreira",
+    "Araújo",
+    "Nascimento",
+    "Barros",
+    "Castro",
+    "Cardoso",
+    "Cunha",
+    "Marques",
+    "Monteiro",
+    "Moura",
+    "Pinto",
+    "Teixeira",
+    "Freitas",
+    "Barbosa",
+    "Vieira",
+    "Andrade",
+    "Medeiros",
+    "Fonseca",
+    "Dias",
+    "Sampaio",
+    "Soares",
+    "Correia",
+    "Reis",
+    "Cavalcante",
+    "Campos",
+    "Borges",
+    "Batista",
+    "Figueiredo",
+    "Nunes",
+    "Matos",
+    "Guimarães",
+    "Miranda",
+    "Bezerra",
+    "Coelho",
+    "Pinheiro",
+    "Fernandes",
+    "Mendes",
+    "Azevedo",
+    "Menezes",
+    "Viana",
+    "Xavier",
+    "Schneider", "Weber", "Ferrari", "Romano", "Silva", "Costa", "Martinez", "Garcia", "Dubois", "Leroux", "O'Connor", "Murphy", "Ivanov", "Petrov", "Takahashi", "Nakamura", "Johansson", "Lindberg", "Papadopoulos", "Angelopoulos", "Kim", "Park", "Smith", "Brown", "Bianchi", "Moretti", "Santos", "Oliveira", "Hernández", "López", "Bernard", "Blanchet", "Rossi", "Russo", "Fernandes", "Pereira", "Gomez", "Diaz", "Moreau", "Fontaine", "O'Reilly", "Walsh", "Smirnov", "Kuznetsov", "Sato", "Suzuki", "Andersson", "Svensson", "Georgiou", "Nikolaidis", "Lee", "Choi", "Taylor", "Evans", "Rizzo", "Lombardi", "Machado", "Neto", "Vargas", "Torres", "Martin", "Petit", 
+    "Castro", "Costa", "Dias", "Duarte", "Ferreira", "Figueiredo", "Fonseca", "Freitas", "Fernandes", "Garcia", "Gomes", "Gonçalves", "Lima", "Lopes", "Machado", "Marques", "Martins", "Medeiros", "Melo", "Mendes", "Miranda", "Monteiro", "Moraes", "Moreira", "Moura", "Nascimento", "Nunes", "Oliveira", "Pereira", "Ramos", "Reis", "Ribeiro", "Rocha", "Rodrigues", 
+    ];
+    var cidades = [
+      "São Paulo - SP",
+      "Rio de Janeiro - RJ",
+      "Belo Horizonte - MG",
+      "Porto Alegre - RS",
+      "Curitiba - PR",
+      "Salvador - BA",
+      "Recife - PE",
+      "Fortaleza - CE",
+      "Manaus - AM",
+      "Brasília - DF",
+      "Florianópolis - SC",
+      "Goiânia - GO",
+      "Vitória - ES",
+      "Natal - RN",
+      "João Pessoa - PB",
+      "Maceió - AL",
+      "Aracaju - SE",
+      "Belém - PA",
+      "Teresina - PI",
+      "São Luís - MA",
+      "Campo Grande - MS",
+      "Cuiabá - MT",
+      "Palmas - TO",
+      "Porto Velho - RO",
+      "Boa Vista - RR",
+      "Rio Branco - AC",
+      "Santos - SP",
+      "São José dos Campos - SP",
+      "Ribeirão Preto - SP",
+      "Londrina - PR",
+      "Maringá - PR",
+      "Joinville - SC",
+      "Blumenau - SC",
+      "Caxias do Sul - RS",
+      "Pelotas - RS",
+      "Campinas - SP",
+      "Piracicaba - SP",
+      "Sorocaba - SP",
+      "Uberlândia - MG",
+      "Juiz de Fora - MG",
+      "Canoas - RS",
+      "Santa Maria - RS",
+      "Niterói - RJ",
+      "Nova Iguaçu - RJ",
+      "Serra - ES",
+      "Vila Velha - ES",
+      "Jundiaí - SP",
+      "Guarulhos - SP",
+      "Osasco - SP",
+      "Duque de Caxias - RJ",
+      "São Gonçalo - RJ",
+      "Bauru - SP",
+      "Franca - SP",
+      "São Vicente - SP",
+      "Barueri - SP",
+      "Carapicuíba - SP",
+      "Diadema - SP",
+      "Mogi das Cruzes - SP",
+      "São José do Rio Preto - SP",
+      "São Bernardo do Campo - SP",
+      "Taboão da Serra - SP",
+      "Taubaté - SP",
+      "Volta Redonda - RJ",
+      "Petrolina - PE",
+      "Campina Grande - PB",
+      "Macapá - AP",
+      "Dourados - MS",
+      "Chapecó - SC",
+      "Itajaí - SC",
+      "Passo Fundo - RS",
+      "Santa Cruz do Sul - RS",
+      "Foz do Iguaçu - PR",
+      "Ponta Grossa - PR",
+      "Anápolis - GO",
+      "Feira de Santana - BA",
+      "Vitória da Conquista - BA",
+      "Montes Claros - MG",
+      "Ipatinga - MG",
+      "Uberaba - MG",
+      "Americana - SP",
+      "Marília - SP",
+      "Jacareí - SP",
+      "Presidente Prudente - SP",
+      "Rio Claro - SP",
+      "Marabá - PA",
+      "Santarém - PA",
+      "Castanhal - PA",
+      "Imperatriz - MA",
+      "Caxias - MA",
+      "Parnaíba - PI",
+      "Crato - CE",
+      "Juazeiro do Norte - CE",
+      "Itabuna - BA",
+      "Lauro de Freitas - BA",
+      "Jequié - BA",
+      "Teixeira de Freitas - BA",
+      "Barreiras - BA",
+      "Sinop - MT",
+      "Rondonópolis - MT",
+      "Araras - SP",
+      "Sumaré - SP",
+      "Catanduva - SP",
+      "Votorantim - SP",
+      "Indaiatuba - SP",
+      "Hortolândia - SP",
+      "São Caetano do Sul - SP",
+      "Itapevi - SP",
+      "Jaboatão dos Guararapes - PE",
+      "Olinda - PE",
+      "Caruaru - PE",
+      "Paulista - PE",
+      "Cabo de Santo Agostinho - PE",
+      "Campos dos Goytacazes - RJ",
+      "Macapá - AP",
+      "Rio Grande - RS",
+      "Alvorada - RS",
+      "Novo Hamburgo - RS",
+      "São Leopoldo - RS",
+      "Gravataí - RS",
+      "Cachoeirinha - RS",
+      "Bagé - RS",
+      "Uruguaiana - RS",
+      "São José - SC",
+      "Itapema - SC",
+      "Balneário Camboriú - SC",
+      "Brusque - SC",
+      "Lages - SC",
+      "Aracaju - SE",
+      "Lagarto - SE",
+      "Itabaiana - SE",
+      "Estância - SE",
+      "Propriá - SE",
+      "Palhoça - SC",
+      "Jaraguá do Sul - SC",
+      "Águas Lindas de Goiás - GO",
+      "Valparaíso de Goiás - GO",
+      "Luziânia - GO",
+      "Águas Lindas de Goiás - GO",
+      "Formosa - GO",
+      "Trindade - GO",
+      "Senador Canedo - GO",
+      "Jataí - GO",
+      "Catalão - GO",
+      "Rio Verde - GO",
+      "Caldas Novas - GO",
+      "Anápolis - GO",
+      "Aparecida de Goiânia - GO",
+      "Três Lagoas - MS",
+      "Corumbá - MS",
+      "Ponta Porã - MS",
+      "Sidrolândia - MS",
+    ];
+    var mensagens = [
+        "Os quadros são incríveis! Qualidade impecável e entrega dentro do prazo. Recomendo!",
+            "Adorei os quadros! Design excelente, qualidade excepcional e entrega rápida. Comprarei mais!",
+            "Estou muito satisfeita com os quadros! A qualidade é surpreendente e a entrega foi pontual. Super recomendo!",
+            "Os quadros são maravilhosos! A qualidade é impressionante e a entrega ocorreu dentro do prazo. Vou comprar mais!",
+            "Amei os quadros! Alta qualidade, lindos designs e entrega no prazo. Já estou recomendando para amigos!",
+            "Impressionada com a qualidade dos quadros! Entrega rápida e ótimo atendimento ao cliente. Recomendo!",
+            "Os quadros superaram minhas expectativas! Excelente qualidade e entrega pontual. Já quero mais!",
+            "Comprei alguns quadros e estou encantada! Qualidade incrível e chegaram antes do prazo. Vou indicar para todos!",
+            "Simplesmente apaixonada pelos quadros! Lindos, de alta qualidade e chegaram rapidinho. Recomendadíssimo!",
+            "Quadros de excelente qualidade e com um design único. Entrega rápida e sem problemas. Vou comprar novamente!",
+            "Os quadros são perfeitos! Excelente acabamento e entrega dentro do prazo. Já quero mais!",
+            "Comprei os quadros e não me arrependo! Qualidade impressionante e entrega super rápida. Vou recomendar!",
+            "Estou maravilhada com a qualidade dos quadros! Entrega no prazo e ótimo atendimento. Já quero mais!",
+            "Quadros lindos e de ótima qualidade! Entrega rápida e sem complicações. Vou indicar para os amigos!",
+            "A qualidade dos quadros é excepcional! Entrega no prazo e ótimo atendimento. Recomendo a todos!",
+            "Os quadros são fantásticos! Acabamento perfeito e entrega no prazo. Valeu a pena!",
+            "Quadros maravilhosos e de ótima qualidade! Entrega rápida e ótimo atendimento. Comprarei novamente!",
+            "Os quadros são de altíssima qualidade! Entrega no prazo e atendimento excelente. Super recomendo!",
+            "Quadros lindos e de qualidade impecável! Entrega rápida e sem problemas. Já estou indicando!",
+            "Amei os quadros! São lindos, de ótima qualidade e chegaram antes do prazo. Recomendo!",
+            "Os quadros são perfeitos! Excelente qualidade e entrega no prazo. Não vejo a hora de comprar mais!",
+            "Quadros lindíssimos e de alta qualidade! Entrega rápida e atendimento impecável. Vou recomendar!",
+            "Estou encantada com os quadros! São lindos, de excelente qualidade e a entrega foi rápida. Super recomendo!",
+            "Quadros incríveis e de ótima qualidade! Entrega no prazo e atendimento maravilhoso. Já quero mais!",
+            "Os quadros são espetaculares! Alta qualidade e entrega super rápida. Vale a pena!",
+            "Os quadros são deslumbrantes! Qualidade excepcional e entrega pontual. Já estou indicando para familiares!",
+            "Quadros belíssimos e de qualidade superior! Entrega ágil e atendimento incrível. Com certeza, comprarei de novo!",
+            "Estou encantado com os quadros! Acabamento impecável e entrega dentro do prazo estipulado. Altamente recomendado!",
+            "Os quadros são fabulosos! Qualidade incrível e entrega eficiente. Mal posso esperar para adquirir mais!",
+            "Quadros esplêndidos! Excelente qualidade e entrega no tempo certo. Sem dúvidas, farei mais compras!",
+            "Os quadros são magníficos! Acabamento de primeira e entrega no prazo. Muito satisfeito!",
+            "Quadros deslumbrantes e de alta qualidade! Entrega super rápida e atendimento perfeito. Já quero colecionar!",
+            "Os quadros são sensacionais! Qualidade surpreendente e entrega eficiente. Não vejo a hora de adquirir mais!",
+            "Quadros impressionantes e de qualidade inigualável! Entrega ágil e atendimento impecável. Vou indicar para todos!",
+            "Estou apaixonado pelos quadros! Acabamento perfeito e entrega pontual. Altamente recomendado!",
+            "Os quadros são espetaculares! Qualidade inacreditável e entrega no prazo estipulado. Super satisfeito!",
+            "Quadros maravilhosos e de qualidade superior! Entrega eficiente e atendimento incrível. Comprarei mais em breve!",
+            "Os quadros são deslumbrantes! Acabamento impecável e entrega ágil. Muito feliz com a compra!",
+            "Quadros incríveis e de qualidade insuperável! Entrega pontual e atendimento excelente. Vou colecionar!",
+            "Estou fascinado pelos quadros! Design incrível e qualidade excelente. Entrega no prazo. Já estou recomendando!",
+            "Os quadros são soberbos! Acabamento de primeira e entrega eficiente. Com certeza, adquirirei mais!",
+            "Quadros elegantes e de alta qualidade! Entrega super rápida e atendimento perfeito. Vou indicar a todos!",
+            "Os quadros são surpreendentes! Qualidade excepcional e entrega ágil. Mal posso esperar para comprar mais!",
+            "Quadros formidáveis e de qualidade incomparável! Entrega pontual e atendimento impecável. Altamente recomendado!",
+            "Estou arrebatado pelos quadros! Acabamento perfeito e entrega no prazo. Com certeza, farei mais compras!",
+            "Os quadros são estonteantes! Qualidade superior e entrega eficiente. Não vejo a hora de aumentar minha coleção!",
+            "Quadros primorosos e de qualidade inigualável! Entrega ágil e atendimento incrível. Vou recomendar a todos!",
+            "Os quadros são magníficos! Acabamento impecável e entrega pontual. Muito contente com a aquisição!",
+            "Quadros belíssimos e de alta qualidade! Entrega super rápida e atendimento perfeito. Já quero mais!",
+            "Quadros incríveis! Entrega rápida. Amei!",
+            "Qualidade top! Entrega pontual. Recomendo!",
+            "Quadros lindos! Chegaram no prazo. Adorei!",
+            "Excelente qualidade! Entrega ágil. Satisfeito!",
+            "Maravilhosos! Entrega no prazo. Quero mais!",
+            "Impressionado! Entrega rápida. Recomendo!",
+            "Perfeitos! Chegaram no prazo. Encantado!",
+            "Alta qualidade! Entrega eficiente. Aprovado!",
+            "Quadros fabulosos! Entrega pontual. Feliz!",
+            "Design incrível! Entrega ágil. Indico!",
+            "Ótima qualidade! Entrega no prazo. Curti!",
+            "Lindos quadros! Entrega rápida. 5 estrelas!",
+            "Surpreendente! Entrega pontual. Satisfeita!",
+            "Belíssimos! Entrega eficiente. Recomendadíssimo!",
+            "Encantador! Entrega no prazo. Quero mais!",
+            "Quadros perfeitos! Entrega rápida. Amei!",
+            "Acabamento impecável! Entrega pontual. Uau!",
+            "Design único! Entrega ágil. Muito bom!",
+            "Excelentes quadros! Entrega no prazo. Adorei!",
+            "Qualidade surpreendente! Entrega rápida. Top!",
+            "Os quadros chegaram e são estonteantes! Qualidade de galeria e entrega antes do esperado. Recomendo fortemente!",
+            "Incrivelmente satisfeito com os quadros! O detalhe é minucioso e a entrega foi antes do prazo. Vou indicar para todos!",
+            "Os quadros adicionaram um charme único ao meu espaço. Qualidade superior e entrega eficaz. Muito obrigado!",
+            "Cada quadro é uma obra-prima! Estou impressionado com a qualidade e a entrega foi super rápida. Recomendo vivamente!",
+            "Os quadros são uma festa para os sentidos! Qualidade que se vê e entrega que se aprecia. Recomendo com carinho!",
+            "A arte dos quadros é de tirar o fôlego, e a entrega foi mais rápida do que eu imaginava. Muito satisfeito!",
+            "Cada quadro é uma peça única de decoração, e a rapidez na entrega me surpreendeu positivamente.",
+            "Os detalhes dos quadros são minuciosos, e eles chegaram bem antes do prazo estabelecido.",
+            "Estou admirado com a vivacidade das cores e a eficiência no serviço de entrega dos quadros.",
+            "Os quadros trouxeram vida nova ao meu ambiente, e a entrega foi incrivelmente ágil.",
+            "A qualidade dos quadros é notável, e eles foram entregues com grande cuidado e rapidez.",
+            "Os quadros excederam minhas expectativas em todos os aspectos, inclusive na entrega antecipada.",
+            "Fiquei impressionado com a textura e o acabamento dos quadros, além da entrega ser extremamente rápida.",
+            "Os quadros são verdadeiras obras de arte, e o serviço de entrega foi exemplar.",
+            "A qualidade dos quadros é digna de uma galeria de arte, e a entrega foi surpreendentemente pontual.",
+            "Os quadros são mais bonitos pessoalmente, e a entrega foi realizada com eficácia e sem demora.",
+            "Fiquei encantado com a beleza dos quadros e com a rapidez com que foram entregues.",
+            "Os quadros têm uma qualidade excepcional, e a entrega foi feita com grande profissionalismo.",
+            "A riqueza de detalhes nos quadros é impressionante, e a entrega foi mais rápida do que o esperado.",
+            "Os quadros são de uma beleza estonteante, e a entrega foi realizada sem nenhum contratempo.",
+            "A precisão artística dos quadros é incrível, e a entrega foi feita antes do tempo previsto.",
+            "Os quadros são um verdadeiro destaque na decoração, e a entrega não poderia ter sido mais eficiente.",
+            "Estou encantado com os quadros, que são de alta qualidade, e a entrega foi realizada com sucesso e rapidez.",
+            "Os quadros possuem uma qualidade superior, e a entrega foi feita de maneira impecável.",
+            "A qualidade dos quadros é inquestionável, e a entrega foi feita com uma rapidez impressionante.",
+            "Os quadros são obras-primas em cada detalhe, e a entrega foi realizada com perfeição.",
+            "Fiquei maravilhado com a qualidade dos quadros e com a entrega que foi mais eficiente do que eu poderia imaginar.",
+            "Os quadros são de uma qualidade excepcional, e a entrega foi feita de forma rápida e segura.",
+            "A beleza dos quadros é incomparável, e a entrega foi realizada de forma muito profissional.",
+            "Os quadros são um verdadeiro luxo, e a entrega foi feita com uma agilidade notável.",
+            "A qualidade dos quadros é espetacular, e a entrega foi realizada com grande competência.",
+            "Os quadros são um toque de classe para qualquer ambiente, e a entrega foi mais eficaz do que eu esperava.",
+            "Estou impressionado com a qualidade premium dos quadros e com a entrega que foi excepcionalmente rápida.",
+            "Os quadros são um verdadeiro tesouro artístico, e a entrega foi realizada com grande zelo e rapidez.",
+            "A qualidade dos quadros é de primeira classe, e a entrega foi feita com uma eficiência admirável.",
+            "Os quadros são deslumbrantes, e a entrega foi realizada com uma rapidez que me deixou muito satisfeito.",
+            "A qualidade dos quadros é de alto padrão, e a entrega foi realizada com uma precisão impecável.",
+            "Os quadros são um espetáculo visual, e a entrega foi feita de maneira rápida e sem complicações.",
+            "A qualidade dos quadros é absolutamente incrível, e a entrega foi realizada com uma eficiência notável.",
+            "Os quadros são perfeitos em cada pincelada, e a entrega foi feita de forma rápida e cuidadosa.",
+            "Estou encantado com a qualidade artística dos quadros e com a entrega que foi surpreendentemente eficiente.",
+            "Os quadros são de uma beleza única, e a entrega foi realizada de forma rápida e profissional.",
+            "A qualidade dos quadros é simplesmente magnífica, e a entrega foi realizada sem nenhum atraso.",
+            "Os quadros são um verdadeiro encanto para os olhos, e a entrega foi mais ágil do que eu poderia esperar.",
+            "A qualidade dos quadros é soberba, e a entrega foi realizada de maneira exemplar e pontual.",
+            "Os quadros são visualmente impactantes, e a entrega foi feita de forma rápida e eficiente.",
+            "A qualidade dos quadros é impressionante, e a entrega foi realizada com uma rapidez excepcional.",
+            "Os quadros são uma adição luxuosa para qualquer espaço, e a entrega foi feita com perfeição e agilidade.",
+            "A qualidade dos quadros é de tirar o fôlego, e a entrega foi realizada de forma impecável e rápida.",
+            "Os quadros são uma expressão de arte pura, e a entrega foi feita de maneira eficiente e pontual.",
+            "A qualidade dos quadros é indiscutível, e a entrega foi realizada com uma rapidez que excedeu minhas expectativas.",
+            "Os quadros são uma verdadeira manifestação de beleza, e a entrega foi feita de forma rápida e sem problemas.",
+            "A qualidade dos quadros é extraordinária, e a entrega foi realizada com uma agilidade que me impressionou.",
+            "Os quadros são um espetáculo para qualquer ambiente, e a entrega foi feita de forma eficiente e rápida.",
+            "A qualidade dos quadros é incomparável, e a entrega foi realizada com uma precisão e rapidez que me deixaram muito contente.",
+            "Recebi hoje e estou absolutamente encantado, a textura e o brilho são incríveis, e chegou bem antes do previsto!",
+            "Que agradável surpresa ao abrir a embalagem, cada detalhe é perfeito e a entrega foi super rápida!",
+            "Não esperava que fossem tão bonitos pessoalmente, e ainda por cima chegaram dois dias antes!",
+            "Simplesmente perfeitos para a minha sala de estar, e o serviço de entrega foi impecável.",
+            "Estou impressionada com a vivacidade das cores, e eles ainda chegaram antes da data prometida!",
+            "Cada um é uma obra de arte em si, e o cuidado na entrega foi evidente.",
+            "Adorei o acabamento fino, e eles foram entregues com tanta rapidez que fiquei surpreso.",
+            "São ainda mais impressionantes ao vivo, e o tempo de entrega foi excepcionalmente curto.",
+            "Estou maravilhada, são verdadeiramente dignos de uma galeria e chegaram bem antes do que eu esperava.",
+            "A precisão dos detalhes é notável, e a rapidez da entrega foi um bônus inesperado.",
+            "Eles adicionaram um toque de elegância ao meu escritório, e a entrega foi mais rápida do que qualquer outra compra online que já fiz.",
+            "Cada quadro conta uma história, e estou impressionado com a velocidade da entrega.",
+            "Estes são, de longe, os melhores quadros que já comprei online, e a entrega foi surpreendentemente rápida.",
+            "A arte é tão cativante que não consigo parar de olhar, e a entrega foi antes do tempo!",
+            "Estes quadros são o centro das atenções agora, e a entrega foi tão rápida quanto um raio.",
+            "Fiquei emocionado com a beleza desses quadros, e eles chegaram muito antes do que eu esperava.",
+            "São a adição perfeita para a minha coleção, e o serviço de entrega foi notavelmente eficiente.",
+            "Estou apaixonado por esses quadros, e eles chegaram tão rápido que mal pude acreditar!",
+            "A arte é de tirar o fôlego, e a entrega foi tão ágil que me deixou extremamente feliz.",
+            "Estes quadros são um verdadeiro tesouro, e a entrega foi mais rápida do que qualquer outra coisa que já pedi online.",
+            "Estou encantado com a qualidade e o serviço, chegaram em tempo recorde!",
+            "São a definição de beleza, e o tempo de entrega foi inacreditavelmente rápido.",
+            "Cada quadro é uma peça única, e a entrega foi tão eficiente que estou impressionado.",
+            "Estou admirado com a arte que agora embeleza minha casa, e a entrega foi tão rápida quanto prometida.",
+            "Eles trouxeram um novo nível de sofisticação para o meu espaço, e a entrega foi mais rápida do que eu poderia imaginar.",
+            "A riqueza visual destes quadros é inigualável, e a entrega foi incrivelmente ágil.",
+            "Estes quadros são o toque final perfeito para o meu novo apartamento, e a entrega foi mais rápida do que o esperado.",
+            "Estou em êxtase com a minha compra, a arte é espetacular e a entrega foi rapidíssima.",
+            "Não posso recomendar o suficiente, cada quadro é um deleite e a entrega foi surpreendentemente rápida.",
+            "Estes quadros são a estrela do meu escritório agora, e a entrega foi feita com uma eficiência impressionante.",
+            "A arte é absolutamente deslumbrante, e a entrega foi feita antes do prazo, o que é sempre um plus!",
+            "Estou muito satisfeito com a compra, os quadros são lindos e a entrega foi mais rápida do que eu esperava.",
+            "Cada quadro é uma expressão de arte fina, e a entrega foi tão rápida que me deixou boquiaberto.",
+            "Estou encantado com a minha nova decoração, e a entrega foi tão eficiente que merece elogios.",
+            "Estes quadros são um verdadeiro achado, e a entrega foi tão rápida que fiquei espantado.",
+            "A qualidade superou todas as minhas expectativas, e a entrega foi feita com grande rapidez.",
+            "Estou impressionado com o impacto visual destes quadros, e a entrega foi mais rápida do que qualquer outra compra que já fiz.",
+            "Estes quadros são o ponto alto da minha sala, e a entrega foi excepcionalmente rápida.",
+            "A arte é de primeira linha, e a entrega foi tão rápida que estou ainda mais impressionado.",
+            "Estou muito contente com estes quadros, são perfeitos e a entrega foi feita antes do tempo.",
+            "Estes quadros são um verdadeiro espetáculo, e a entrega foi tão rápida que superou todas as minhas expectativas.",
+            "A qualidade é indiscutível, e a entrega foi tão eficiente que estou recomendando para todos os meus amigos.",
+            "Estou maravilhado com a minha compra, os quadros são magníficos e a entrega foi incrivelmente rápida.",
+            "Estes quadros são a definição de arte moderna, e a entrega foi mais rápida do que eu poderia pedir.",
+            "Estou muito feliz com estes quadros, eles são deslumbrantes e a entrega foi feita com uma rapidez excepcional.",
+            "Estes quadros são um verdadeiro destaque, e a entrega foi realizada com uma eficiência que é digna de nota.",
+            "A arte é de uma qualidade que eu nunca vi antes, e a entrega foi mais rápida do que eu imaginava.",
+            "Estou encantado com a minha compra, os quadros são lindos e a entrega foi surpreendentemente rápida.",
+            "Estes quadros são uma visão para olhos cansados, e a entrega foi mais rápida do que eu esperava.",
+            "A qualidade é excepcional, e a entrega foi tão rápida que estou absolutamente satisfeito.",
+            "Incrível como a arte pode transformar um espaço; estes quadros fizeram exatamente isso, e ainda chegaram antes do previsto!",
+            "Que felicidade abrir a caixa e encontrar tamanha beleza, com a entrega batendo recordes de velocidade.",
+            "Nunca imaginei que compras online pudessem ser tão satisfatórias; os quadros são prova disso, e a entrega foi relâmpago.",
+            "Cada detalhe é um encanto, e o serviço de entrega foi tão cuidadoso quanto eficiente.",
+            "Fiquei boquiaberto com a qualidade e o brilho; além disso, a entrega foi mais rápida do que qualquer outra coisa que já pedi.",
+            "A embalagem já indicava o cuidado, mas os quadros lá dentro? Simplesmente espetaculares, e a entrega, um piscar de olhos.",
+            "Minha sala ganhou uma nova vida com estas peças; são lindas e foram entregues num instante.",
+            "A espera valeu cada segundo, embora não tenha sido longa – os quadros são divinos e a entrega, surpreendentemente rápida.",
+            "Estas peças são o toque de mestre que meu escritório precisava, e a entrega foi tão ágil quanto um serviço expresso.",
+            "Cores vibrantes, acabamento perfeito, e uma entrega que definiu um novo padrão de rapidez para mim.",
+            "A arte chegou e trouxe um sorriso ao meu rosto, não só pela beleza, mas pela entrega quase instantânea.",
+            "Estes quadros são a definição de elegância, e o tempo de entrega foi um verdadeiro presente.",
+            "Agora entendo o que é ser cativado pela arte; estes quadros são magníficos, e a entrega foi incrivelmente rápida.",
+            "O pacote chegou e com ele uma explosão de cores e emoção, além de uma entrega que foi um verdadeiro flash.",
+            "Estou maravilhado com a qualidade e o serviço; cada quadro é uma obra-prima e a entrega foi excepcionalmente rápida.",
+            "A beleza destes quadros é indescritível, e a entrega foi tão rápida quanto uma corrida contra o tempo.",
+            "Estes quadros são a personificação da arte moderna, e a entrega foi tão eficiente quanto um serviço de primeira classe.",
+            "A alegria de receber esses quadros foi imensa, e a entrega foi tão rápida que me deixou sem palavras.",
+            "Estou impressionado com a rapidez da entrega, mas ainda mais com a arte que agora adorna minhas paredes.",
+            "Estes quadros são um deleite para os sentidos, e a entrega foi tão rápida que parecia que eles tinham asas.",
+            "A qualidade me deixou estupefato, e a entrega foi tão ágil que mal pude acreditar quando chegaram.",
+            "Estes quadros são a nova joia da minha casa, e a entrega foi tão rápida quanto prometida.",
+            "A arte chegou e superou todas as minhas expectativas, não só pela beleza, mas pela entrega que foi um piscar de olhos.",
+            "Estou encantado com a rapidez da entrega, mas ainda mais com os quadros que agora são o ponto central da minha sala.",
+            "Estes quadros são um espetáculo à parte, e a entrega foi tão rápida que me deixou admirado.",
+            "A qualidade é de cair o queixo, e a entrega foi tão ágil que estou recomendando para todos.",
+            "Estou em êxtase com a minha nova decoração, os quadros são deslumbrantes e a entrega foi rapidíssima.",
+            "Estes quadros são a definição de arte, e a entrega foi mais rápida do que eu poderia pedir.",
+    
+    ];
+    
+    function gerarDataAleatoria() {
+      var start = new Date(2023, 0, 1);
+      var end = new Date();
+      return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    }
+    
+    // Função para gerar um comentário aleatório
+    function gerarComentarioAleatorio() {
+      var autor = nomes[Math.floor(Math.random() * nomes.length)] + " " + sobrenomes[Math.floor(Math.random() * sobrenomes.length)];
+      var data = gerarDataAleatoria().toLocaleDateString("pt-BR");
+      var local = cidades[Math.floor(Math.random() * cidades.length)];
+      var mensagem = mensagens[Math.floor(Math.random() * mensagens.length)];
+    
+      return {
+        autor: autor,
+        data: data,
+        local: local,
+        mensagem: mensagem
+      };
+    }
+    
+    var listaComentarios = [];
+    for (var i = 0; i < 50; i++) {
+      listaComentarios.push(gerarComentarioAleatorio());
+    }
+    
+    console.log(listaComentarios);
+    
+    $(document).ready(function() {
+      var comentariosAleatorios = selecionarComentariosAleatorios(listaComentarios, 10);
+      var comentariosHtml = gerarHtmlComentarios(comentariosAleatorios);
+    
+      var comentariosLayout = `
+
+
+
+<div class="title-ctn" style="line-height: 0px; display: flex; flex-direction: column; align-items: center;">
+    <h2 class="bg-title" style="border: none;"><span>Últimas Avaliações:</span></h2>
+</div>
+<hr style="border-bottom: 1px solid var(--color-gray-100); border-top: 0;" />
+<div class="avaliacoes-carousel owl-carousel owl-theme" style="opacity: 1; display: block;">
+    <div class="owl-wrapper-outer">
+        <div class="owl-wrapper avaliacoesslide">
+            ${comentariosHtml}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+      `;
+
+
+
+    
+      $('.descricao-produto').prepend(comentariosLayout);
+    
+      $(".sem-avaliacoes h2").remove();
+    
+    
+    
+      $(".avaliacoesslide").owlCarousel({
+        loop: true,
+        margin: 30,
+        nav: true,
+        dots: false,
+        stopOnHover: true,
+        autoPlay: true,
+        items: 3,
+        navigation: true,
+        navigationText: ['<div class="arrow prev"><div class="icon icon-arrow"></div></div>', '<div class="arrow next"><div class="icon icon-arrow"></div></div>'],
+        responsive: {
+          0: {
+            items: 1
+          },
+          768: {
+            items: 2
+          },
+          1024: {
+            items: 3
+          },
+          1200: {
+            items: 4
+          }
+        }
+      });
+    
+    
+      var divSetas = `
+      <style>
+    
+    @media (max-width: 767px) {
+      .avaliacoes-carousel .avaliacoes-carousel-each {
+        width: 240px !important;
+      }
+      .avaliacoes-carousel .owl-item {
+        display: flex;
+        justify-content: center;
+      }
+    }
+    
+    .avaliacoesslide {
+border-bottom: 1px solid #e6e6e6;
+}
+    
+    .avaliacoes-carousel .owl-prev, .owl-next {
+        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        color: white;
+        font-size: 20px;
+        border-radius: 50%;
+        z-index: 100;
+      }
+    
+     .avaliacoes-carousel .owl-controls {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .avaliacoes-carousel .owl-buttons .owl-prev, .avaliacoes-carousel .owl-buttons .owl-next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 37px;
+        height: 37px;
+        background: #f1f1f1;
+        opacity: 0.5;
+        transition: background 0.2s linear;
+    }
+    
+    .avaliacoes-carousel .owl-buttons .owl-prev {
+        left: -0px !important;
+    }
+    
+    .avaliacoes-carousel .owl-buttons .owl-next {
+        right: -0px !important;
+    }
+    
+    
+    
+    .avaliacoes-carousel .owl-carousel .owl-prev, .vitrine .owl-carousel .owl-next {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        width: 40px;
+        height: 40px;
+        background: rgba(208,208,208,0.4);
+    }
+    
+    .avaliacoes-carousel .owl-carousel .owl-prev .icon-arrow {
+        width: 13px;
+        height: 13px;
+        border-right: 2.6px solid var(--cor-texto-secundario);
+        border-bottom: 2.6px solid var(--cor-texto-secundario);
+        -moz-transform: translateX(20%) rotate(135deg);
+        -ms-transform: translateX(20%) rotate(135deg);
+        -webkit-transform: translateX(20%) rotate(135deg);
+        transform: translateX(20%) rotate(135deg);
+    }
+    
+    .avaliacoes-carousel .owl-carousel .owl-next .icon-arrow {
+        width: 13px;
+        height: 13px;
+        border-right: 2.6px solid var(--cor-texto-secundario);
+        border-bottom: 2.6px solid var(--cor-texto-secundario);
+        -moz-transform: translateX(-20%) rotate(-45deg);
+        -ms-transform: translateX(-20%) rotate(-45deg);
+        -webkit-transform: translateX(-20%) rotate(-45deg);
+        transform: translateX(-20%) rotate(-45deg);
+    }
+    
+    
+    .avaliacoes-carousel .owl-carousel .icon-arrow {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    }
+    
+    
+    
+      </style>
+      `
+      $('body').append(divSetas);
+    
+      $('.owl-prev').click(function() {
+      $('.avaliacoesslide').trigger('prev.owl.carousel');
+    });
+    
+    $('.owl-next').click(function() {
+      $('.avaliacoesslide').trigger('next.owl.carousel');
+    });
+
+    
+    $('.avaliacoesslide').after(`
+      <div class="caseselora" style="
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 10px;
+   color: #8f8f8f;
+   white-space: nowrap; 
+   transform: scale(0.7);
+    flex-direction: row-reverse;
+   ">
+   <img src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" style="
+      margin-top: -6px;
+      margin-left: 7px;
+      width: 100px;
+      height: 20px;
+      ">
+   <span style="margin: 0 5px;">Avaliações reais, auditadas por</span>
+   <img src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" style="
+      transform: scale(0.7);
+      margin-left: 5px;
+      "> 
+</div>
+        
+        `);
+    });
+    
+    function selecionarComentariosAleatorios(lista, quantidade) {
+        var comentariosSelecionados = [];
+    
+        for (var i = 0; i < quantidade; i++) {
+            var indexAleatorio = Math.floor(Math.random() * lista.length);
+            comentariosSelecionados.push(lista.splice(indexAleatorio, 1)[0]);
+        }
+    
+        return comentariosSelecionados;
+    }
+    
+    function gerarHtmlComentarios(comentarios) {
+        var html = '';
+    
+        comentarios.forEach(function(comentario) {
+            html += `
+            <div class="owl-item" style="width: 310px;padding-right: 32px;">
+                <div class="avaliacoes-carousel-each" style="font-size: 13px;padding-bottom: 15px;padding-top: 15px;">
+                    <div class="autor"><strong>${comentario.autor}</strong></div>
+                    <div class="local">${comentario.local} | ${comentario.data}</div>
+                    <div class="titulo"></div>
+                    <div class="nota">
+                        <span class="star-back" title="4.92 de 5">                    
+                    		<span class="average-rating" data-value="4.92" title="4.92 de 5" style="--size: 23px;--percent: 98.4%"></span>
+                   		</span>
+                    </div>
+                    <div class="mensagem">${comentario.mensagem}</div>
+                </div>
+            </div>
+            `;
+        });
+    
+        return html;
+    }
+  
+    </script>
+
+
+    <script>
+
+    var nomes = [
+    "Ana", "João", "Maria", "Pedro", "Sofia", "Lucas", "Laura", "Gabriel", "Manuela", "Matheus",
+    "Beatriz", "Davi", "Júlia", "Enzo", "Valentina", "Miguel", "Isabela", "Rafael", "Alice", "Guilherme",
+    "Helena", "Gustavo", "Laura", "Samuel", "Gabriela", "Felipe", "Luiza", "Vinícius", "Letícia", "Eduardo",
+    "Clara", "Leonardo", "Giovanna", "Daniel", "Sophia", "Henrique", "Camila", "Murilo", "Isabella", "Pedro Henrique",
+    "Luana", "Rafaela", "Cauã", "Ana Clara", "Igor", "Eduarda", "Matias", "Lívia", "Vitor", "Mariana",
+    "Thiago", "Melissa", "Felipe", "Lara", "Joaquim", "Bruna", "Augusto", "Sofia", "Bruno", "Fernanda",
+    "André", "Cecília", "Renato", "Amanda", "Lorenzo", "Gabrielle", "Rodrigo", "Natália", "Guilherme", "Isabel",
+    "João Pedro", "Laís", "Antônio", "Marcela", "Diego", "Ana Júlia", "Arthur", "Lorena", "Arthur", "Carolina",
+    "Calebe", "Maria Eduarda", "Victor", "Ana Luiza", "Eduardo", "Aline", "Davi Lucca", "Rebeca", "Otávio", "Isadora",
+    "Carlos", "Milena", "Yuri", "Sarah", "Ryan", "Mariana", "Felipe", "Brenda", "Heitor", "Vanessa"
+  ];
+      var sobrenomes = [
+    "Silva", "Santos", "Oliveira", "Souza", "Rodrigues", "Almeida", "Lima", "Ferreira", "Pereira", "Carvalho",
+    "Gomes", "Martins", "Rocha", "Ribeiro", "Alves", "Monteiro", "Mendes", "Costa", "Sousa", "Freitas",
+    "Barbosa", "Pinto", "Araújo", "Fernandes", "Nascimento", "Coelho", "Neves", "Cavalcanti", "Moura", "Moreira",
+    "Cardoso", "Teixeira", "Correia", "Machado", "Dias", "Castro", "Cunha", "Campos", "Lopes", "Batista",
+    "Andrade", "Santana", "Ramos", "Nunes", "Schmidt", "Peixoto", "Borges", "Correa", "Vieira", "Fogaça",
+    "Santiago", "Melo", "Fonseca", "Viana", "Marques", "Dantas", "Gonçalves", "Franco", "Braga", "Bezerra",
+    "Guimarães", "Reis", "Lira", "Pontes", "Garcia", "Aragão", "Guerreiro", "Sales", "Rocha", "Furtado",
+    "Macedo", "Barros", "Rezende", "Freire", "Mota", "Bastos", "Coutinho", "Silveira", "Paiva", "Valente",
+    "Pacheco", "Vargas", "Xavier", "Pires", "Miranda", "Farias", "Aquino", "Moraes", "Leite", "Barros",
+    "Mourão", "Peixoto", "Arruda", "Bittencourt", "Leal", "Aguiar", "Goulart", "Lacerda", "Cruz", "Luz",
+    "Rizzo", "Rossi", "Conti", "Marino", "Costa", "Romano", "Ferrari", "Bruno", "Colombo", "Galli",
+    "Kaiser", "Weber", "Schneider", "Fischer", "Müller", "Becker", "Schulz", "Hoffmann", "Schmidt", "Bauer"
+  ];
+      var cidades = [
+    "São Paulo - SP", "Rio de Janeiro - RJ", "Belo Horizonte - MG", "Salvador - BA", "Brasília - DF",
+    "Fortaleza - CE", "Manaus - AM", "Curitiba - PR", "Recife - PE", "Porto Alegre - RS",
+    "Belém - PA", "Goiânia - GO", "Guarulhos - SP", "Campinas - SP", "São Luís - MA",
+    "São Gonçalo - RJ", "Maceió - AL", "Duque de Caxias - RJ", "Nova Iguaçu - RJ", "São Bernardo do Campo - SP",
+    "Teresina - PI", "Natal - RN", "Campo Grande - MS", "Osasco - SP", "Santo André - SP",
+    "João Pessoa - PB", "Jaboatão dos Guararapes - PE", "Contagem - MG", "São José dos Campos - SP", "Uberlândia - MG",
+    "Ribeirão Preto - SP", "Feira de Santana - BA", "Sorocaba - SP", "Niterói - RJ", "Cuiabá - MT",
+    "Aracaju - SE", "Juiz de Fora - MG", "Londrina - PR", "Ananindeua - PA", "Porto Velho - RO",
+    "Belford Roxo - RJ", "Serra - ES", "Caxias do Sul - RS", "Campos dos Goytacazes - RJ", "Macapá - AP",
+    "Florianópolis - SC", "Vila Velha - ES", "São João de Meriti - RJ", "Mauá - SP", "São José do Rio Preto - SP",
+    "Santos - SP", "Mogi das Cruzes - SP", "Betim - MG", "Diadema - SP", "Campina Grande - PB",
+    "Jundiaí - SP", "Carapicuíba - SP", "Piracicaba - SP", "Montes Claros - MG", "Olinda - PE",
+    "Anápolis - GO", "Itaquaquecetuba - SP", "Canoas - RS", "Boa Vista - RR", "Maringá - PR",
+    "Rio Branco - AC", "Volta Redonda - RJ", "Foz do Iguaçu - PR", "Vitória - ES", "Petrolina - PE",
+    "Cascavel - PR", "Ponta Grossa - PR", "Uberaba - MG", "Santa Maria - RS", "Gravataí - RS",
+    "Governador Valadares - MG", "Caucaia - CE", "Viamão - RS", "Ipatinga - MG", "Novo Hamburgo - RS",
+    "Franca - SP", "Barueri - SP", "Magé - RJ", "São José dos Pinhais - PR", "Juazeiro do Norte - CE",
+    "Taboão da Serra - SP", "São Vicente - SP", "Santarém - PA", "Embu das Artes - SP", "Colombo - PR",
+    "Itabuna - BA", "Petrópolis - RJ", "Marabá - PA", "Várzea Grande - MT", "Rio Grande - RS"
+  ];
+      var mensagens = [
+        "Os quadros são incríveis! Qualidade impecável e entrega dentro do prazo. Recomendo!",
+            "Adorei os quadros! Design excelente, qualidade excepcional e entrega rápida. Comprarei mais!",
+            "Estou muito satisfeita com os quadros! A qualidade é surpreendente e a entrega foi pontual. Super recomendo!",
+            "Os quadros são maravilhosos! A qualidade é impressionante e a entrega ocorreu dentro do prazo. Vou comprar mais!",
+            "Amei os quadros! Alta qualidade, lindos designs e entrega no prazo. Já estou recomendando para amigos!",
+            "Impressionada com a qualidade dos quadros! Entrega rápida e ótimo atendimento ao cliente. Recomendo!",
+            "Os quadros superaram minhas expectativas! Excelente qualidade e entrega pontual. Já quero mais!",
+            "Comprei alguns quadros e estou encantada! Qualidade incrível e chegaram antes do prazo. Vou indicar para todos!",
+            "Simplesmente apaixonada pelos quadros! Lindos, de alta qualidade e chegaram rapidinho. Recomendadíssimo!",
+            "Quadros de excelente qualidade e com um design único. Entrega rápida e sem problemas. Vou comprar novamente!",
+            "Os quadros são perfeitos! Excelente acabamento e entrega dentro do prazo. Já quero mais!",
+            "Comprei os quadros e não me arrependo! Qualidade impressionante e entrega super rápida. Vou recomendar!",
+            "Estou maravilhada com a qualidade dos quadros! Entrega no prazo e ótimo atendimento. Já quero mais!",
+            "Quadros lindos e de ótima qualidade! Entrega rápida e sem complicações. Vou indicar para os amigos!",
+            "A qualidade dos quadros é excepcional! Entrega no prazo e ótimo atendimento. Recomendo a todos!",
+            "Os quadros são fantásticos! Acabamento perfeito e entrega no prazo. Valeu a pena!",
+            "Quadros maravilhosos e de ótima qualidade! Entrega rápida e ótimo atendimento. Comprarei novamente!",
+            "Os quadros são de altíssima qualidade! Entrega no prazo e atendimento excelente. Super recomendo!",
+            "Quadros lindos e de qualidade impecável! Entrega rápida e sem problemas. Já estou indicando!",
+            "Amei os quadros! São lindos, de ótima qualidade e chegaram antes do prazo. Recomendo!",
+            "Os quadros são perfeitos! Excelente qualidade e entrega no prazo. Não vejo a hora de comprar mais!",
+            "Quadros lindíssimos e de alta qualidade! Entrega rápida e atendimento impecável. Vou recomendar!",
+            "Estou encantada com os quadros! São lindos, de excelente qualidade e a entrega foi rápida. Super recomendo!",
+            "Quadros incríveis e de ótima qualidade! Entrega no prazo e atendimento maravilhoso. Já quero mais!",
+            "Os quadros são espetaculares! Alta qualidade e entrega super rápida. Vale a pena!",
+            "Os quadros são deslumbrantes! Qualidade excepcional e entrega pontual. Já estou indicando para familiares!",
+            "Quadros belíssimos e de qualidade superior! Entrega ágil e atendimento incrível. Com certeza, comprarei de novo!",
+            "Estou encantado com os quadros! Acabamento impecável e entrega dentro do prazo estipulado. Altamente recomendado!",
+            "Os quadros são fabulosos! Qualidade incrível e entrega eficiente. Mal posso esperar para adquirir mais!",
+            "Quadros esplêndidos! Excelente qualidade e entrega no tempo certo. Sem dúvidas, farei mais compras!",
+            "Os quadros são magníficos! Acabamento de primeira e entrega no prazo. Muito satisfeito!",
+            "Quadros deslumbrantes e de alta qualidade! Entrega super rápida e atendimento perfeito. Já quero colecionar!",
+            "Os quadros são sensacionais! Qualidade surpreendente e entrega eficiente. Não vejo a hora de adquirir mais!",
+            "Quadros impressionantes e de qualidade inigualável! Entrega ágil e atendimento impecável. Vou indicar para todos!",
+            "Estou apaixonado pelos quadros! Acabamento perfeito e entrega pontual. Altamente recomendado!",
+            "Os quadros são espetaculares! Qualidade inacreditável e entrega no prazo estipulado. Super satisfeito!",
+            "Quadros maravilhosos e de qualidade superior! Entrega eficiente e atendimento incrível. Comprarei mais em breve!",
+            "Os quadros são deslumbrantes! Acabamento impecável e entrega ágil. Muito feliz com a compra!",
+            "Quadros incríveis e de qualidade insuperável! Entrega pontual e atendimento excelente. Vou colecionar!",
+            "Estou fascinado pelos quadros! Design incrível e qualidade excelente. Entrega no prazo. Já estou recomendando!",
+            "Os quadros são soberbos! Acabamento de primeira e entrega eficiente. Com certeza, adquirirei mais!",
+            "Quadros elegantes e de alta qualidade! Entrega super rápida e atendimento perfeito. Vou indicar a todos!",
+            "Os quadros são surpreendentes! Qualidade excepcional e entrega ágil. Mal posso esperar para comprar mais!",
+            "Quadros formidáveis e de qualidade incomparável! Entrega pontual e atendimento impecável. Altamente recomendado!",
+            "Estou arrebatado pelos quadros! Acabamento perfeito e entrega no prazo. Com certeza, farei mais compras!",
+            "Os quadros são estonteantes! Qualidade superior e entrega eficiente. Não vejo a hora de aumentar minha coleção!",
+            "Quadros primorosos e de qualidade inigualável! Entrega ágil e atendimento incrível. Vou recomendar a todos!",
+            "Os quadros são magníficos! Acabamento impecável e entrega pontual. Muito contente com a aquisição!",
+            "Quadros belíssimos e de alta qualidade! Entrega super rápida e atendimento perfeito. Já quero mais!",
+            "Quadros incríveis! Entrega rápida. Amei!",
+            "Qualidade top! Entrega pontual. Recomendo!",
+            "Quadros lindos! Chegaram no prazo. Adorei!",
+            "Excelente qualidade! Entrega ágil. Satisfeito!",
+            "Maravilhosos! Entrega no prazo. Quero mais!",
+            "Impressionado! Entrega rápida. Recomendo!",
+            "Perfeitos! Chegaram no prazo. Encantado!",
+            "Alta qualidade! Entrega eficiente. Aprovado!",
+            "Quadros fabulosos! Entrega pontual. Feliz!",
+            "Design incrível! Entrega ágil. Indico!",
+            "Ótima qualidade! Entrega no prazo. Curti!",
+            "Lindos quadros! Entrega rápida. 5 estrelas!",
+            "Surpreendente! Entrega pontual. Satisfeita!",
+            "Belíssimos! Entrega eficiente. Recomendadíssimo!",
+            "Encantador! Entrega no prazo. Quero mais!",
+            "Quadros perfeitos! Entrega rápida. Amei!",
+            "Acabamento impecável! Entrega pontual. Uau!",
+            "Design único! Entrega ágil. Muito bom!",
+            "Excelentes quadros! Entrega no prazo. Adorei!",
+            "Qualidade surpreendente! Entrega rápida. Top!",
+            "Os quadros chegaram e são estonteantes! Qualidade de galeria e entrega antes do esperado. Recomendo fortemente!",
+            "Incrivelmente satisfeito com os quadros! O detalhe é minucioso e a entrega foi antes do prazo. Vou indicar para todos!",
+            "Os quadros adicionaram um charme único ao meu espaço. Qualidade superior e entrega eficaz. Muito obrigado!",
+            "Cada quadro é uma obra-prima! Estou impressionado com a qualidade e a entrega foi super rápida. Recomendo vivamente!",
+            "Os quadros são uma festa para os sentidos! Qualidade que se vê e entrega que se aprecia. Recomendo com carinho!",
+            "A arte dos quadros é de tirar o fôlego, e a entrega foi mais rápida do que eu imaginava. Muito satisfeito!",
+            "Cada quadro é uma peça única de decoração, e a rapidez na entrega me surpreendeu positivamente.",
+            "Os detalhes dos quadros são minuciosos, e eles chegaram bem antes do prazo estabelecido.",
+            "Estou admirado com a vivacidade das cores e a eficiência no serviço de entrega dos quadros.",
+            "Os quadros trouxeram vida nova ao meu ambiente, e a entrega foi incrivelmente ágil.",
+            "A qualidade dos quadros é notável, e eles foram entregues com grande cuidado e rapidez.",
+            "Os quadros excederam minhas expectativas em todos os aspectos, inclusive na entrega antecipada.",
+            "Fiquei impressionado com a textura e o acabamento dos quadros, além da entrega ser extremamente rápida.",
+            "Os quadros são verdadeiras obras de arte, e o serviço de entrega foi exemplar.",
+            "A qualidade dos quadros é digna de uma galeria de arte, e a entrega foi surpreendentemente pontual.",
+            "Os quadros são mais bonitos pessoalmente, e a entrega foi realizada com eficácia e sem demora.",
+            "Fiquei encantado com a beleza dos quadros e com a rapidez com que foram entregues.",
+            "Os quadros têm uma qualidade excepcional, e a entrega foi feita com grande profissionalismo.",
+            "A riqueza de detalhes nos quadros é impressionante, e a entrega foi mais rápida do que o esperado.",
+            "Os quadros são de uma beleza estonteante, e a entrega foi realizada sem nenhum contratempo.",
+            "A precisão artística dos quadros é incrível, e a entrega foi feita antes do tempo previsto.",
+            "Os quadros são um verdadeiro destaque na decoração, e a entrega não poderia ter sido mais eficiente.",
+            "Estou encantado com os quadros, que são de alta qualidade, e a entrega foi realizada com sucesso e rapidez.",
+            "Os quadros possuem uma qualidade superior, e a entrega foi feita de maneira impecável.",
+            "A qualidade dos quadros é inquestionável, e a entrega foi feita com uma rapidez impressionante.",
+            "Os quadros são obras-primas em cada detalhe, e a entrega foi realizada com perfeição.",
+            "Fiquei maravilhado com a qualidade dos quadros e com a entrega que foi mais eficiente do que eu poderia imaginar.",
+            "Os quadros são de uma qualidade excepcional, e a entrega foi feita de forma rápida e segura.",
+            "A beleza dos quadros é incomparável, e a entrega foi realizada de forma muito profissional.",
+            "Os quadros são um verdadeiro luxo, e a entrega foi feita com uma agilidade notável.",
+            "A qualidade dos quadros é espetacular, e a entrega foi realizada com grande competência.",
+            "Os quadros são um toque de classe para qualquer ambiente, e a entrega foi mais eficaz do que eu esperava.",
+            "Estou impressionado com a qualidade premium dos quadros e com a entrega que foi excepcionalmente rápida.",
+            "Os quadros são um verdadeiro tesouro artístico, e a entrega foi realizada com grande zelo e rapidez.",
+            "A qualidade dos quadros é de primeira classe, e a entrega foi feita com uma eficiência admirável.",
+            "Os quadros são deslumbrantes, e a entrega foi realizada com uma rapidez que me deixou muito satisfeito.",
+            "A qualidade dos quadros é de alto padrão, e a entrega foi realizada com uma precisão impecável.",
+            "Os quadros são um espetáculo visual, e a entrega foi feita de maneira rápida e sem complicações.",
+            "A qualidade dos quadros é absolutamente incrível, e a entrega foi realizada com uma eficiência notável.",
+            "Os quadros são perfeitos em cada pincelada, e a entrega foi feita de forma rápida e cuidadosa.",
+            "Estou encantado com a qualidade artística dos quadros e com a entrega que foi surpreendentemente eficiente.",
+            "Os quadros são de uma beleza única, e a entrega foi realizada de forma rápida e profissional.",
+            "A qualidade dos quadros é simplesmente magnífica, e a entrega foi realizada sem nenhum atraso.",
+            "Os quadros são um verdadeiro encanto para os olhos, e a entrega foi mais ágil do que eu poderia esperar.",
+            "A qualidade dos quadros é soberba, e a entrega foi realizada de maneira exemplar e pontual.",
+            "Os quadros são visualmente impactantes, e a entrega foi feita de forma rápida e eficiente.",
+            "A qualidade dos quadros é impressionante, e a entrega foi realizada com uma rapidez excepcional.",
+            "Os quadros são uma adição luxuosa para qualquer espaço, e a entrega foi feita com perfeição e agilidade.",
+            "A qualidade dos quadros é de tirar o fôlego, e a entrega foi realizada de forma impecável e rápida.",
+            "Os quadros são uma expressão de arte pura, e a entrega foi feita de maneira eficiente e pontual.",
+            "A qualidade dos quadros é indiscutível, e a entrega foi realizada com uma rapidez que excedeu minhas expectativas.",
+            "Os quadros são uma verdadeira manifestação de beleza, e a entrega foi feita de forma rápida e sem problemas.",
+            "A qualidade dos quadros é extraordinária, e a entrega foi realizada com uma agilidade que me impressionou.",
+            "Os quadros são um espetáculo para qualquer ambiente, e a entrega foi feita de forma eficiente e rápida.",
+            "A qualidade dos quadros é incomparável, e a entrega foi realizada com uma precisão e rapidez que me deixaram muito contente.",
+            "Recebi hoje e estou absolutamente encantado, a textura e o brilho são incríveis, e chegou bem antes do previsto!",
+            "Que agradável surpresa ao abrir a embalagem, cada detalhe é perfeito e a entrega foi super rápida!",
+            "Não esperava que fossem tão bonitos pessoalmente, e ainda por cima chegaram dois dias antes!",
+            "Simplesmente perfeitos para a minha sala de estar, e o serviço de entrega foi impecável.",
+            "Estou impressionada com a vivacidade das cores, e eles ainda chegaram antes da data prometida!",
+            "Cada um é uma obra de arte em si, e o cuidado na entrega foi evidente.",
+            "Adorei o acabamento fino, e eles foram entregues com tanta rapidez que fiquei surpreso.",
+            "São ainda mais impressionantes ao vivo, e o tempo de entrega foi excepcionalmente curto.",
+            "Estou maravilhada, são verdadeiramente dignos de uma galeria e chegaram bem antes do que eu esperava.",
+            "A precisão dos detalhes é notável, e a rapidez da entrega foi um bônus inesperado.",
+            "Eles adicionaram um toque de elegância ao meu escritório, e a entrega foi mais rápida do que qualquer outra compra online que já fiz.",
+            "Cada quadro conta uma história, e estou impressionado com a velocidade da entrega.",
+            "Estes são, de longe, os melhores quadros que já comprei online, e a entrega foi surpreendentemente rápida.",
+            "A arte é tão cativante que não consigo parar de olhar, e a entrega foi antes do tempo!",
+            "Estes quadros são o centro das atenções agora, e a entrega foi tão rápida quanto um raio.",
+            "Fiquei emocionado com a beleza desses quadros, e eles chegaram muito antes do que eu esperava.",
+            "São a adição perfeita para a minha coleção, e o serviço de entrega foi notavelmente eficiente.",
+            "Estou apaixonado por esses quadros, e eles chegaram tão rápido que mal pude acreditar!",
+            "A arte é de tirar o fôlego, e a entrega foi tão ágil que me deixou extremamente feliz.",
+            "Estes quadros são um verdadeiro tesouro, e a entrega foi mais rápida do que qualquer outra coisa que já pedi online.",
+            "Estou encantado com a qualidade e o serviço, chegaram em tempo recorde!",
+            "São a definição de beleza, e o tempo de entrega foi inacreditavelmente rápido.",
+            "Cada quadro é uma peça única, e a entrega foi tão eficiente que estou impressionado.",
+            "Estou admirado com a arte que agora embeleza minha casa, e a entrega foi tão rápida quanto prometida.",
+            "Eles trouxeram um novo nível de sofisticação para o meu espaço, e a entrega foi mais rápida do que eu poderia imaginar.",
+            "A riqueza visual destes quadros é inigualável, e a entrega foi incrivelmente ágil.",
+            "Estes quadros são o toque final perfeito para o meu novo apartamento, e a entrega foi mais rápida do que o esperado.",
+            "Estou em êxtase com a minha compra, a arte é espetacular e a entrega foi rapidíssima.",
+            "Não posso recomendar o suficiente, cada quadro é um deleite e a entrega foi surpreendentemente rápida.",
+            "Estes quadros são a estrela do meu escritório agora, e a entrega foi feita com uma eficiência impressionante.",
+            "A arte é absolutamente deslumbrante, e a entrega foi feita antes do prazo, o que é sempre um plus!",
+            "Estou muito satisfeito com a compra, os quadros são lindos e a entrega foi mais rápida do que eu esperava.",
+            "Cada quadro é uma expressão de arte fina, e a entrega foi tão rápida que me deixou boquiaberto.",
+            "Estou encantado com a minha nova decoração, e a entrega foi tão eficiente que merece elogios.",
+            "Estes quadros são um verdadeiro achado, e a entrega foi tão rápida que fiquei espantado.",
+            "A qualidade superou todas as minhas expectativas, e a entrega foi feita com grande rapidez.",
+            "Estou impressionado com o impacto visual destes quadros, e a entrega foi mais rápida do que qualquer outra compra que já fiz.",
+            "Estes quadros são o ponto alto da minha sala, e a entrega foi excepcionalmente rápida.",
+            "A arte é de primeira linha, e a entrega foi tão rápida que estou ainda mais impressionado.",
+            "Estou muito contente com estes quadros, são perfeitos e a entrega foi feita antes do tempo.",
+            "Estes quadros são um verdadeiro espetáculo, e a entrega foi tão rápida que superou todas as minhas expectativas.",
+            "A qualidade é indiscutível, e a entrega foi tão eficiente que estou recomendando para todos os meus amigos.",
+            "Estou maravilhado com a minha compra, os quadros são magníficos e a entrega foi incrivelmente rápida.",
+            "Estes quadros são a definição de arte moderna, e a entrega foi mais rápida do que eu poderia pedir.",
+            "Estou muito feliz com estes quadros, eles são deslumbrantes e a entrega foi feita com uma rapidez excepcional.",
+            "Estes quadros são um verdadeiro destaque, e a entrega foi realizada com uma eficiência que é digna de nota.",
+            "A arte é de uma qualidade que eu nunca vi antes, e a entrega foi mais rápida do que eu imaginava.",
+            "Estou encantado com a minha compra, os quadros são lindos e a entrega foi surpreendentemente rápida.",
+            "Estes quadros são uma visão para olhos cansados, e a entrega foi mais rápida do que eu esperava.",
+            "A qualidade é excepcional, e a entrega foi tão rápida que estou absolutamente satisfeito.",
+            "Incrível como a arte pode transformar um espaço; estes quadros fizeram exatamente isso, e ainda chegaram antes do previsto!",
+            "Que felicidade abrir a caixa e encontrar tamanha beleza, com a entrega batendo recordes de velocidade.",
+            "Nunca imaginei que compras online pudessem ser tão satisfatórias; os quadros são prova disso, e a entrega foi relâmpago.",
+            "Cada detalhe é um encanto, e o serviço de entrega foi tão cuidadoso quanto eficiente.",
+            "Fiquei boquiaberto com a qualidade e o brilho; além disso, a entrega foi mais rápida do que qualquer outra coisa que já pedi.",
+            "A embalagem já indicava o cuidado, mas os quadros lá dentro? Simplesmente espetaculares, e a entrega, um piscar de olhos.",
+            "Minha sala ganhou uma nova vida com estas peças; são lindas e foram entregues num instante.",
+            "A espera valeu cada segundo, embora não tenha sido longa – os quadros são divinos e a entrega, surpreendentemente rápida.",
+            "Estas peças são o toque de mestre que meu escritório precisava, e a entrega foi tão ágil quanto um serviço expresso.",
+            "Cores vibrantes, acabamento perfeito, e uma entrega que definiu um novo padrão de rapidez para mim.",
+            "A arte chegou e trouxe um sorriso ao meu rosto, não só pela beleza, mas pela entrega quase instantânea.",
+            "Estes quadros são a definição de elegância, e o tempo de entrega foi um verdadeiro presente.",
+            "Agora entendo o que é ser cativado pela arte; estes quadros são magníficos, e a entrega foi incrivelmente rápida.",
+            "O pacote chegou e com ele uma explosão de cores e emoção, além de uma entrega que foi um verdadeiro flash.",
+            "Estou maravilhado com a qualidade e o serviço; cada quadro é uma obra-prima e a entrega foi excepcionalmente rápida.",
+            "A beleza destes quadros é indescritível, e a entrega foi tão rápida quanto uma corrida contra o tempo.",
+            "Estes quadros são a personificação da arte moderna, e a entrega foi tão eficiente quanto um serviço de primeira classe.",
+            "A alegria de receber esses quadros foi imensa, e a entrega foi tão rápida que me deixou sem palavras.",
+            "Estou impressionado com a rapidez da entrega, mas ainda mais com a arte que agora adorna minhas paredes.",
+            "Estes quadros são um deleite para os sentidos, e a entrega foi tão rápida que parecia que eles tinham asas.",
+            "A qualidade me deixou estupefato, e a entrega foi tão ágil que mal pude acreditar quando chegaram.",
+            "Estes quadros são a nova joia da minha casa, e a entrega foi tão rápida quanto prometida.",
+            "A arte chegou e superou todas as minhas expectativas, não só pela beleza, mas pela entrega que foi um piscar de olhos.",
+            "Estou encantado com a rapidez da entrega, mas ainda mais com os quadros que agora são o ponto central da minha sala.",
+            "Estes quadros são um espetáculo à parte, e a entrega foi tão rápida que me deixou admirado.",
+            "A qualidade é de cair o queixo, e a entrega foi tão ágil que estou recomendando para todos.",
+            "Estou em êxtase com a minha nova decoração, os quadros são deslumbrantes e a entrega foi rapidíssima.",
+            "Estes quadros são a definição de arte, e a entrega foi mais rápida do que eu poderia pedir.",
+  ];
+  
+
+$(document).ready(function () {
+    setTimeout(function () {
+
+        console.log('funcionou3')
+    // Criar o elemento SVG e adicionar ao DOM
+    var svgHTML = '<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">' +
+                  '<symbol id="star-icon" viewBox="0 0 24 24">' +
+                  '<path d="M12 .587l3.668 7.425 8.2.637-6 5.848 1.4 8.267L12 18.017l-7.268 3.747 1.4-8.267-6-5.848 8.2-.637L12 .587z"/>' +
+                  '</symbol>' +
+                  '</svg>';
+    $('body').prepend(svgHTML);
+
+    // Função para substituir números por ícones de estrela
+    
+
+        var finalComments = generateComments();
+
+        console.log(finalComments)
+        $('#avaliacoes').remove();
+
+        introduzirLayoutNovo();
+        addStyles();
+        addLoadMoreButton();
+
+
+
+        var ratingsCount = countRatings(finalComments);
+        console.log(ratingsCount);
+
+
+        $('[data-filter-star="5"] .count').text('(' + ratingsCount["5"] + ')');
+
+        $('[data-filter-star="4"] .count').text('(' + ratingsCount["4"] + ')');
+
+        // E então injetamos esses comentários no layout
+        finalComments.forEach(comment => {
+            var commentHTML = `
+<blockquote class="avaliacao-usuario" style="font-size:14px;">
+    <div class="info-usuario-avaliacao flex column space-between">
+        <div class="dados-usuario-avaliacao" style="
+    margin-bottom: 25px;
+">
+            <span class="nome-cliente-avaliacao"><span style="--tw-text-opacity: 1;
+    color: rgb(6 67 116 / var(--tw-text-opacity)); font-weight:700;">${comment.autor}</span></span>
+            <div class="flex center published-aval">
+                <span class="date-published-aval"><span class="date-aval" style="margin-bottom:15px;
+    font-size: 14px;
+">${convertDateFormat(comment.data)}</span></span>                
+                <span class="cidade-cliente">- ${comment.local}</span>
+            </div>
+        </div>
+        <div class="rating-stars-area flex center">
+            <span class="nota-aval"><span class="title" style="font-weight:700px; --tw-text-opacity: 1;
+    color: rgb(6 67 116 / var(--tw-text-opacity));>${comment.nota} Estrelas</span></span>
+
+
+            <span class="star-of-aval">
+                <span class="rating-stars" title="${comment.nota} de 5">
+                    <input type="hidden" name="ratingValue" value="${comment.nota}">                    
+                    <span class="average-rating" data-value="5" title="5 de 5" style="--size: 25px;--percent: 100%"></span>
+                </span>
+            </span>
+        </div>
+        <div class="info-produto-avaliado" style:"margin-top:15px; --tw-text-opacity: 1;
+    color: rgb(6 67 116 / var(--tw-text-opacity));">
+            <div class="descricao-avaliacao-usuario">
+                <div class="avaliacao-produto" style="margin-top: 15px;margin-bottom: -3px;font-weight: 700;--tw-text-opacity: 1;color: rgb(6 67 116 / var(--tw-text-opacity));"><span class="title">Avaliação do produto</span></div>
+                <div class="descricao-avaliacao" style="margin-bottom:15px; --tw-text-opacity: 1;color: rgb(6 67 116 / var(--tw-text-opacity));">
+                    <p>${comment.mensagem}</p>
+                </div>
+            </div>
+            <strong style="font-size:14px; --tw-text-opacity: 1;color: rgb(6 67 116 / var(--tw-text-opacity)); font-weight: 700;">Este usuário recomenda a compra deste item</strong>
+        </div>
+
+    </div>
+</blockquote>
+`;
+
+            $("#comentarios-area").append(commentHTML);
+        });
+
+        replaceStarNumbersWithIcons();
+    }, 3000);
+});
+
+function addStyles() {
+    $('head').append(`
+<style>
+    .avaliacao-usuario {
+        display: none;
+    }
+
+    
+
+    #load-more-comments
+    {
+    background: black;
+    color: white;
+    font-size: 13px;
+    border-radius: 5px;
+    margin-top: 15px;
+    padding: 7px 10px;
+    border: none;
+}
+    
+
+    .avaliacao-usuario:nth-child(-n+5) {
+        display: block;
+    }
+
+.avaliacao-usuario {
+ padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    --tw-border-opacity: 1;
+    border-color: rgb(232 234 237 / var(--tw-border-opacity));
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    margin-top: 16px;
+    }
+
+    .container-avaliacoes:not(.accordion){
+        padding: 15px 0px !important;
+    }
+
+    @media (max-width: 1024px) {
+        .seletrustbaixo {
+        align-items: center;
+        }
+
+
+    .avaliacao-geral .avaliacao-notas-produto .filter-star {
+
+        display: flex;
+        flex-direction: column;
+    }
+        .avaliacao-geral{
+        flex-direction: column !important;
+        }
+
+        .casebtnavaliar{
+        padding: 0px !important;
+        }
+
+        .button-avaliacao{
+        background: rgb(0, 0, 0);
+    width: 100%;
+    display: flex
+;
+    flex-direction: row;
+        }
+}
+
+.avaliacao-geral .avaliacao-notas-produto .filter-star .descricao-nota {
+    min-width: 10px;
+    display: flex;
+    justify-content: center;
+    color: #f2c832;
+}
+</style>
+`);
+}
+
+function addLoadMoreButton() {
+    $("#comentarios-area").after('<button id="load-more-comments" class="btn-load-more">Mostrar mais avaliações</button>');
+    bindLoadMoreEvent();
+}
+
+function showCommentsUpToLimit(limit, starRating = null) {
+    var visibleCount = 0;
+
+    $(".avaliacao-usuario").hide();
+
+    $(".avaliacao-usuario").each(function () {
+        var commentStar = $(this).find('.star-of-aval input[name="ratingValue"]').attr('value');
+        if (starRating === null || commentStar === starRating.toString()) {
+            if (visibleCount < limit) {
+                $(this).show();
+                visibleCount++;
+            }
+        }
+    });
+}
+
+function bindLoadMoreEvent() {
+    var commentsToShow = 5;
+    var currentStarFilter = null;
+
+    $("#load-more-comments").click(function () {
+        commentsToShow += 5;
+        showCommentsUpToLimit(commentsToShow, currentStarFilter);
+
+        if (allCommentsAreVisible()) {
+            $("#load-more-comments").hide();
+        }
+    });
+
+    $(".filter-star").click(function () {
+        var starSelected = $(this).data("filter-star");
+        currentStarFilter = starSelected;
+        commentsToShow = 5;
+
+        showCommentsUpToLimit(commentsToShow, currentStarFilter);
+        $("#load-more-comments").show();
+    });
+}
+
+
+
+function countRatings(comments) {
+    var count = {
+        "5": 0,
+        "4": 0
+    };
+
+    comments.forEach(comment => {
+        if (comment.nota === 5) {
+            count["5"]++;
+        } else if (comment.nota === 4) {
+            count["4"]++;
+        }
+    });
+
+    return count;
+}
+
+
+
+
+function introduzirLayoutNovo() {
+    $('.conteudo-produto').after(`<div class="container" style="padding: 15px;"><div class="container-avaliacoes content-pattern content-page-tab closed open" id="avaliacoes"> <div class="content"> <section class="row container avaliacoes"> <div class="avaliacao-geral flex"> <div class="nota-geral flex center justify-center"> <div class="rating-area"> <div class="rating-score flex column justify-center"> <strong>4.9/5.0</strong> <p>Baseado em 1 avaliação</p> </div> <div class="star-of-aval"> <span class="star-back"> <span class="average-rating" data-value="4.92" title="4.92 de 5" style="--size: 23px;--percent: 98.4%"></span> </span> </div> </div> </div> <div class="filter-container flex"> <div class="avaliacao-notas-produto"> <span class="filter-title">Ordenar por nota</span> <div class="cliente-recomendacoes-produto"> <div class="filter filter-star flex center" data-filter-type="ESTRELA" data-filter-star="5"> <span class="descricao-nota">5</span> <div class="barra-progresso"><span class="porcentagem flex" style="width: 80%"></span></div> <span class="count">(1)</span> </div> <div class="filter filter-star flex center" data-filter-type="ESTRELA" data-filter-star="4"> <span class="descricao-nota">4</span> <div class="barra-progresso"><span class="porcentagem flex" style="width: 20%"></span></div> <span class="count">(0)</span> </div> <div class="filter filter-star flex center" data-filter-type="ESTRELA" data-filter-star="3"> <span class="descricao-nota">3</span> <div class="barra-progresso"><span class="porcentagem flex" style="width: 0%"></span></div> <span class="count">(0)</span> </div> <div class="filter filter-star flex center" data-filter-type="ESTRELA" data-filter-star="2"> <span class="descricao-nota">2</span> <div class="barra-progresso"><span class="porcentagem flex" style="width: 0%"></span></div> <span class="count">(0)</span> </div> <div class="filter filter-star flex center" data-filter-type="ESTRELA" data-filter-star="1"> <span class="descricao-nota">1</span> <div class="barra-progresso"><span class="porcentagem flex" style="width: 0%"></span></div> <span class="count">(0)</span> </div> </div> </div> <div class="filter-area flex column"> <span class="filter-title">Filtrar avaliações</span> <div class="filter-type"> <div class="filter filter-comments" data-filter-type="COMENTARIO"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" fill="none" class=" lazyload-svg replaced-svg" viewBox="0 0 19 18"> <path d="m5.484 14.654-2.313 1.94a.563.563 0 0 1-.921-.428V5a.563.563 0 0 1 .563-.563h12.374A.562.562 0 0 1 15.75 5v9a.562.562 0 0 1-.563.563H5.745l-.26.09ZM6.75 8.375h4.5M6.75 10.625h4.5" stroke="#607A94" stroke-linecap="round" stroke-linejoin="round"></path> </svg> <span>Com comentários</span> </div> </div> </div> </div> </div> <div id="avaliacao-area"> <div id="comentarios-area" class="lazyload-area lazyloaded" data-lazy-callbacks="myfunction"> <div class="lazyload-area lazyloaded" data-lazy-callback="myfunction"></div> <div class="search-loading" style="display: none;"> <div class="loading"></div> </div> </div> </div> </section> </div></div></div>`);
+
+
+    $('.barra-progresso').hide();
+    $('.sem-avaliacoes').hide();
+
+    // Adicionar o evento de clique aos filtros de estrela
+    $(".filter-star").click(function () {
+        var starSelected = $(this).data("filter-star");
+
+        // Mostrar apenas os comentários que possuem a estrela selecionada
+        $(".avaliacao-usuario").each(function () {
+            var commentStar = $(this).find('.star-of-aval input[name="ratingValue"]').attr('value');
+            if (commentStar === starSelected.toString()) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    $('section.avaliacoes').prepend(`
+<div class="caseselora" style="
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 10px;
+   color: #8f8f8f;
+   white-space: nowrap; 
+   transform: scale(0.7);
+    flex-direction: row-reverse;
+   ">
+   <img src="https://static.trustvox.com.br/sincero/img/logo-reclameaqui.svg" style="
+      margin-top: -6px;
+      margin-left: 7px;
+      width: 100px;
+      height: 20px;
+      ">
+   <span style="margin: 0 5px;">Avaliações reais, auditadas por</span>
+   <img src="https://static.trustvox.com.br/sincero/img/ra-icon.svg" style="
+      transform: scale(0.7);
+      margin-left: 5px;
+      "> 
+</div>
+`);
+
+
+
+    //add botao avaliacao
+    $('.nota-geral').after(`<div class="casebtnavaliar" style=" width: 100%; background: white; border-radius: 12px; display: flex; align-content: center; justify-content: center; align-items: center; padding: 55px;"><button class="button-avaliacao flex center" onclick="modalAvaliar({ })"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" class=" lazyload-svg svg replaced-svg"> <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> <span>Fazer avaliação</span> </button></div>`)
+
+    $('.button-avaliacao').css('background', '#000')
+    $('.button-avaliacao').css('width', '100%')
+    $('.container-avaliacoes:not(.accordion)').css('padding', '2px 0;');
+    $('.filter-area').hide();
+
+    var totalComments = parseInt($('.qtAvaliacoes').text());
+    $('.rating-score p').text('Baseado em ' + totalComments + ' avaliações');
+}
+
+
+function convertDateFormat(dateStr) {
+    // Se a data já estiver no formato "DD/MM/YYYY", retorna a mesma data.
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateStr)) {
+        return dateStr;
+    }
+
+    var parts = dateStr.split('-');
+    if (parts.length === 3) {
+        return parts[2] + '/' + parts[1] + '/' + parts[0];
+    }
+
+    // Se não for nenhum dos dois formatos conhecidos, retorna a string original.
+    return dateStr;
+}
+
+
+//FUNCOES PARA GERAR OS COMENTARIOS
+function getRandomFromArray(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+
+
+function generateFakeComment(nota) {
+    return {
+        autor: getRandomFromArray(nomes) + ' ' + getRandomFromArray(sobrenomes),
+        data: generateRandomPastDate(),
+        local: getRandomFromArray(cidades),
+        mensagem: getRandomFromArray(mensagens),
+        nota: nota
+    };
+}
+
+function formatDate(dateObj) {
+    let day = ('0' + dateObj.getDate()).slice(-2);
+    let month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
+    let year = dateObj.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
+function generateRandomPastDate() {
+    let currentDate = new Date();
+    let pastDate = new Date(currentDate);
+    pastDate.setDate(currentDate.getDate() - Math.floor(Math.random() * 35));
+    return formatDate(pastDate);
+}
+
+
+
+function getExistingComments() {
+    var existingComments = [];
+
+    $('#comentarios-area blockquote.avaliacao-usuario').each(function () {
+        // Extrair o nome do autor
+        var autor = $(this).find('.nome-cliente-avaliacao').text().trim();
+
+        // Extrair a data da avaliação
+        var data = $(this).find('.date-aval').text().trim();
+
+        // Extrair a cidade do cliente
+        var local = $(this).find('.cidade-cliente').text().trim();
+
+        // Extrair a nota (estrelas)
+        var nota = parseInt($(this).find('.star-of-aval .rating-stars').attr('data-value'));
+
+        // Extrair a mensagem da avaliação
+        var mensagem = $(this).find('.descricao-avaliacao').text().trim();
+
+        // Adicionar o comentário extraído ao array de comentários
+        existingComments.push({
+            autor: autor,
+            data: data,
+            local: local,
+            mensagem: mensagem,
+            nota: nota
+        });
+    });
+
+    return existingComments;
+}
+
+
+function generateComments() {
+    var totalComments = parseInt($('.qtAvaliacoes').text());
+
+    // limnita 
+    var maxComments = 100;
+    if (totalComments > maxComments) {
+        totalComments = maxComments;
+    }
+
+    var existingComments = getExistingComments();
+    var remainingComments = totalComments - existingComments.length;
+
+    var total5Star = Math.floor(0.8 * remainingComments);
+    var total4Star = remainingComments - total5Star;
+
+    for (var i = 0; i < total5Star; i++) {
+        existingComments.push(generateFakeComment(5));
+    }
+
+    for (var j = 0; j < total4Star; j++) {
+        existingComments.push(generateFakeComment(4));
+    }
+
+    return existingComments;
+}
+
+
+
+    
+
+
+function replaceStarNumbersWithIcons() {
+    $(".filter-star").each(function() {
+        var starCount = parseInt($(this).data("filter-star"), 10);
+        var starHtml = '';
+        for (var i = 0; i < starCount; i++) {
+            starHtml += '<svg class="star-icon" width="16" height="16" fill="currentColor"><use xlink:href="#star-icon"></use></svg>'; 
+        }
+        $(this).find('.descricao-nota').html(starHtml);
+    });
+}
+
+
+
+
+
+</script></div>
+
+<style>
+.conteudo-produto .title-ctn:before, .compre-junto .title-ctn:before{
+    content: "" !important; 
+}
+.owl-carousel .owl-item{
+    margin-top: 25px;
+    
+}
+.owl-carousel {
+    height: 270px;
+}
+
+    </style>

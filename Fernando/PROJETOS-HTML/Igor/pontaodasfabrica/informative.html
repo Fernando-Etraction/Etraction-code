@@ -1,0 +1,230 @@
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Rubik:wght@300..900&display=swap"
+  rel="stylesheet"
+/>
+
+<script>
+  (function () {
+    if (window.__wholesaleInfoInit) return;
+    window.__wholesaleInfoInit = true;
+
+    const css = `
+    .info-container { 
+      max-width: 800px; margin: 20px auto; font-family: "Rubik", sans-serif; 
+      position: relative; width: 100%;
+    }
+    .wholesale-info-btn {
+      background: #fff; color: #375694; border: 0.5px solid #375694; padding: 11.5px 10px;
+      font-size: 1.1rem; font-weight: 600; border-radius: 0; cursor: pointer;
+      box-shadow: 0 2px 2px rgba(102,126,234,.3);
+      width: 100%; text-align: center; transition: box-shadow .2s ease;
+      margin-bottom: 0;
+    }
+    .accordion-content {
+      display: none; background: #fff; border-radius: 0 0 12px 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.1); 
+      width: 100%; padding: 2rem; position: relative;
+      border: 1px solid #e0e0e0; border-top: none;
+    }
+    .accordion-content.active { display: block; }
+    .accordion-body { color: #555; }
+    .wholesale-step {
+      margin-bottom: 1.5rem; padding: 1rem; background:#f8f9fa;
+      border-radius: 8px; border-left: 4px solid #375694;
+    }
+    .step-number {
+      display:inline-block; background:#667eea; color:#fff; width:24px; height:24px;
+      border-radius:50%; text-align:center; font-weight:700; font-size:.9rem;
+      line-height:24px; margin-right:.5rem;
+    }
+    .step-title { font-weight:600; color:#333; margin-bottom:.5rem; }
+    .contact-info { background:#e8f4fd; padding:1rem; border-radius:8px; margin-top:1.5rem; text-align:center; }
+    .contact-info h4 { color:#2c5aa0; margin-bottom:.5rem; }
+    @media (max-width: 780px) {
+      .accordion-content { padding: 1.5rem; }
+      .wholesale-info-btn { padding: .8rem 1.5rem; font-size: 1rem; }
+      .info-container { margin: 15px auto; }
+      .step-title{
+      font-size: 13px !important;
+      }
+       .step-title, p{
+       font-size: 12px !important;}
+    }
+  `;
+    const styleEl = document.createElement("style");
+    styleEl.textContent = css;
+    document.head.appendChild(styleEl);
+
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = `
+    <div class="info-container" data-wholesale-info="1">
+      <button class="wholesale-info-btn" type="button">Como Comprar no Atacado</button>
+      <div class="accordion-content">
+        <div class="accordion-body">
+          <div class="wholesale-step">
+            <div class="step-title"><span class="step-number">1</span>Crie sua Conta de Atacado</div>
+            <p>Cadastre-se em nosso site informando seus dados de empresa (CNPJ, razão social e contato). Apenas pessoas jurídicas podem comprar no atacado.</p>
+          </div>
+          <div class="wholesale-step">
+            <div class="step-title"><span class="step-number">2</span>Envie a Documentação</div>
+            <p>Após o cadastro, envie os documentos necessários para validação: CNPJ, inscrição estadual e comprovante de endereço comercial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  `.trim();
+    const bloco = wrapper.firstElementChild;
+
+    function bindToggle(root) {
+      const btn = root.querySelector(".wholesale-info-btn");
+      const content = root.querySelector(".accordion-content");
+      if (btn && content) {
+        btn.addEventListener("click", () => {
+          content.classList.toggle("active");
+        });
+      }
+    }
+
+    function insertAfter(target, node) {
+      if (document.querySelector('[data-wholesale-info="1"]')) {
+        return false;
+      }
+
+      target.parentNode.insertBefore(node, target.nextSibling);
+      bindToggle(node);
+      return true;
+    }
+
+    function fallbackToBody(node) {
+      if (document.querySelector('[data-wholesale-info="1"]')) {
+        return false;
+      }
+
+      document.body.appendChild(node);
+      bindToggle(node);
+      return true;
+    }
+
+    const possiveisAlvos = [
+      ".acoes-produto",
+      ".product-actions",
+      ".actions-produto",
+      ".produto-acoes",
+      "#acoes-produto",
+      ".calculo-frete",
+      ".frete-calculator",
+      ".shipping-calculator",
+      ".calculadora-frete",
+      "#calculo-frete",
+      '[class*="acoes"]',
+      '[class*="actions"]',
+      '[class*="frete"]',
+      '[class*="shipping"]',
+    ];
+
+    function waitFor(selectors, opts = {}) {
+      const { timeout = 10000, interval = 500 } = opts;
+
+      return new Promise((resolve) => {
+        let attempts = 0;
+        const maxAttempts = timeout / interval;
+
+        const tryFind = () => {
+          attempts++;
+
+          for (const selector of selectors) {
+            const el = document.querySelector(selector);
+            if (el) {
+              return resolve({ element: el, selector });
+            }
+          }
+
+          if (attempts >= maxAttempts) {
+            return resolve(null);
+          }
+
+          setTimeout(tryFind, interval);
+        };
+
+        tryFind();
+      });
+    }
+
+    function setupDOMObserver() {
+      const observer = new MutationObserver((mutations) => {
+        let shouldCheck = false;
+
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) {
+              for (const selector of possiveisAlvos) {
+                if (node.matches && node.matches(selector)) {
+                  shouldCheck = true;
+                  break;
+                }
+                if (node.querySelector && node.querySelector(selector)) {
+                  shouldCheck = true;
+                  break;
+                }
+              }
+            }
+          });
+        });
+
+        if (shouldCheck) {
+          setTimeout(tentarInserir, 100);
+        }
+      });
+
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+
+      return observer;
+    }
+
+    async function tentarInserir() {
+      if (document.querySelector('[data-wholesale-info="1"]')) {
+        return;
+      }
+
+      for (const selector of possiveisAlvos) {
+        const elemento = document.querySelector(selector);
+        if (elemento) {
+          if (insertAfter(elemento, bloco.cloneNode(true))) {
+            return;
+          }
+        }
+      }
+
+      const resultado = await waitFor(possiveisAlvos, {
+        timeout: 10000,
+        interval: 500,
+      });
+
+      if (resultado) {
+        if (insertAfter(resultado.element, bloco.cloneNode(true))) {
+          return;
+        }
+      }
+
+      fallbackToBody(bloco.cloneNode(true));
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        tentarInserir();
+        setupDOMObserver();
+      });
+    } else {
+      tentarInserir();
+      setupDOMObserver();
+    }
+
+    setTimeout(() => {
+      tentarInserir();
+    }, 3000);
+  })();
+</script>

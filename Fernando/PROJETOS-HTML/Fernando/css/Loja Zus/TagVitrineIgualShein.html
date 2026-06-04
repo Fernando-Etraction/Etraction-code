@@ -1,0 +1,280 @@
+<!-- TARJA DIA DOS NAMORADOS -->
+<style>
+  .dn-tarja-wrapper {
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    bottom: 0px;
+    z-index: 8;
+    pointer-events: none;
+    box-sizing: border-box;
+  }
+
+  .dn-tarja {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .dn-tarja-selo {
+    width: 54px;
+    height: 46px;
+    flex: 0 0 54px;
+    background: linear-gradient(135deg, #c7662b 0%, #9c321a 100%);
+    color: #fff;
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 7px;
+    line-height: 1.05;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15px;
+    padding: 5px;
+    box-sizing: border-box;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dn-tarja-selo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0) 50%
+    );
+    pointer-events: none;
+  }
+
+  .dn-tarja-selo span {
+    position: relative;
+    z-index: 2;
+  }
+
+  .dn-tarja-retangulo {
+    flex: 1;
+    min-width: 0;
+    height: 31px;
+    background: linear-gradient(90deg, #a84620 0%, #8f2c18 50%, #6f1d13 100%);
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dn-tarja-retangulo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0) 45%
+    );
+    pointer-events: none;
+  }
+
+  .dn-tarja-tag {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    background: #fff;
+    color: #9c321a;
+    border-radius: 999px;
+    padding: 2px 6px;
+    margin-bottom: 2px;
+    font-size: 6.2px;
+    line-height: 1;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .dn-tarja-economia {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    font-size: 10.5px;
+    line-height: 1;
+    font-weight: 500;
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dn-tarja-economia strong {
+    font-size: 11.5px;
+    font-weight: 900;
+  }
+
+  .dn-tarja-pulse {
+    animation: dnPulse 1.7s ease-in-out infinite;
+  }
+
+  @keyframes dnPulse {
+    0% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+
+    50% {
+      transform: scale(1.012);
+      filter: brightness(1.08);
+    }
+
+    100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dn-tarja-wrapper {
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+    }
+
+    .dn-tarja {
+      height: 42px;
+    }
+
+    .dn-tarja-selo {
+      width: 50px;
+      height: 42px;
+      flex-basis: 50px;
+      font-size: 6.3px;
+      padding: 4px;
+    }
+
+    .dn-tarja-retangulo {
+      height: 29px;
+      padding: 3px 6px;
+    }
+
+    .dn-tarja-tag {
+      font-size: 5.8px;
+      padding: 2px 5px;
+      margin-bottom: 2px;
+    }
+
+    .dn-tarja-economia {
+      font-size: 9.4px;
+    }
+
+    .dn-tarja-economia strong {
+      font-size: 10.4px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .dn-tarja {
+      height: 40px;
+    }
+
+    .dn-tarja-selo {
+      width: 47px;
+      height: 40px;
+      flex-basis: 47px;
+      font-size: 5.9px;
+    }
+
+    .dn-tarja-retangulo {
+      height: 28px;
+      padding: 3px 5px;
+    }
+
+    .dn-tarja-tag {
+      font-size: 5.5px;
+    }
+
+    .dn-tarja-economia {
+      font-size: 8.8px;
+    }
+
+    .dn-tarja-economia strong {
+      font-size: 9.6px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function aplicarTarjaDiaDosNamorados() {
+      const produtos = document.querySelectorAll(
+        ".product-list > li, .produto, .item-produto, .product-item"
+      );
+
+      produtos.forEach(function (produto) {
+        if (produto.querySelector(".dn-tarja-wrapper")) return;
+
+        const imagemBox =
+          produto.querySelector("figure") ||
+          produto.querySelector(".image") ||
+          produto.querySelector(".produto-imagem") ||
+          produto.querySelector(".product-image") ||
+          produto;
+
+        if (!imagemBox) return;
+
+        const position = window.getComputedStyle(imagemBox).position;
+
+        if (position === "static") {
+          imagemBox.style.position = "relative";
+        }
+
+        imagemBox.style.overflow = "hidden";
+
+        const tarja = document.createElement("div");
+        tarja.className = "dn-tarja-wrapper";
+
+        tarja.innerHTML = `
+          <div class="dn-tarja dn-tarja-pulse">
+            <div class="dn-tarja-selo">
+              <span>Dia dos<br>Namorados</span>
+            </div>
+
+            <div class="dn-tarja-retangulo">
+              <span class="dn-tarja-tag">Top Ofertas</span>
+
+              <span class="dn-tarja-economia">
+                Economize <strong>R$34,51</strong>
+              </span>
+            </div>
+          </div>
+        `;
+
+        imagemBox.appendChild(tarja);
+      });
+    }
+
+    aplicarTarjaDiaDosNamorados();
+
+    const observer = new MutationObserver(function () {
+      aplicarTarjaDiaDosNamorados();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  });
+</script>

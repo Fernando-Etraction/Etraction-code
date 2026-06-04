@@ -1,0 +1,327 @@
+<style>
+  <!-- #pf-cat-swiper {
+    width: fit-content;
+  }
+
+  .pf-catcarousel {
+    padding: 32px 0 24px;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .pf-catcarousel__title {
+    margin: 0 0 32px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+  }
+
+  .pf-catcarousel__wrap {
+    position: relative;
+    padding: 0 20px;
+  }
+
+  /* ===== Swiper base ===== */
+  .pf-swiper {
+    padding: 12px 8px 24px;
+  }
+
+  .pf-swiper .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .pf-swiper .swiper-slide {
+    width: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* Item */
+  .pf-catitem {
+    min-width: 140px;
+    display: inline-flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    user-select: none;
+    transition: transform 0.3s ease;
+  }
+
+  .pf-catitem:hover {
+    transform: translateY(-6px);
+  }
+
+  .pf-catitem__circle {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.04);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .pf-catitem:hover .pf-catitem__circle {
+    border-color: rgba(255, 0, 0, 0.3);
+    box-shadow:
+      0 8px 24px rgba(255, 0, 0, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+
+  .pf-catitem.is-active .pf-catitem__circle {
+    border-color: #ff0000;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+    box-shadow:
+      0 8px 24px rgba(255, 0, 0, 0.2),
+      0 4px 8px rgba(255, 0, 0, 0.1);
+  }
+
+  .pf-catitem__circle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.8),
+      transparent
+    );
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .pf-catitem__circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+
+  .pf-catitem:hover .pf-catitem__circle img {
+    transform: scale(1.1);
+  }
+
+  .pf-catitem__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    text-align: center;
+    max-width: 140px;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+  }
+
+  .pf-catitem:hover .pf-catitem__label {
+    color: #ff0000;
+  }
+
+  .pf-catitem.is-active .pf-catitem__label {
+    color: #ff0000;
+    font-weight: 700;
+  }
+
+  /* Cursor */
+  .pf-swiper {
+    cursor: grab;
+  }
+
+  .pf-swiper:active {
+    cursor: grabbing;
+  }
+
+  /* ===== Setas ===== */
+  .pf-swiper-btn {
+    position: absolute;
+    top: 63%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1;
+    color: #ff0000;
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
+    transition: all 0.3s ease;
+  }
+
+  .pf-swiper-prev {
+    left: 0;
+  }
+
+  .pf-swiper-next {
+    right: 0;
+  }
+
+  .pf-swiper-btn:hover {
+    background: #ff0000;
+    color: #fff;
+    border-color: #ff0000;
+    box-shadow:
+      0 8px 20px rgba(255, 0, 0, 0.25),
+      0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .pf-swiper-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .pf-swiper-btn.swiper-button-disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .pf-catcarousel {
+      padding: 24px 0 16px;
+    }
+
+    .pf-catcarousel__title {
+      font-size: 22px;
+      margin: 0 0 24px;
+    }
+
+    .pf-catcarousel__wrap {
+      padding: 0 12px;
+    }
+
+    .pf-catitem {
+      min-width: 110px;
+    }
+
+    .pf-catitem__circle {
+      width: 100px;
+      height: 100px;
+    }
+
+    .pf-catitem__label {
+      font-size: 12px;
+      max-width: 110px;
+    }
+
+    .pf-swiper-btn {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pf-catitem {
+      min-width: 95px;
+    }
+
+    .pf-catitem__circle {
+      width: 85px;
+      height: 85px;
+    }
+  }
+</style>
+<section class="pf-catcarousel">
+  <h2 class="pf-catcarousel__title">Escolha uma categoria</h2>
+  <div class="pf-catcarousel__wrap">
+    <div id="pf-cat-swiper" class="swiper pf-swiper">
+      <div id="pf-cat-wrapper" class="swiper-wrapper"></div>
+    </div>
+    <button class="pf-swiper-btn pf-swiper-prev" type="button">&lsaquo;</button
+    ><button class="pf-swiper-btn pf-swiper-next" type="button">
+      &rsaquo;
+    </button>
+  </div>
+</section>
+< !-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+<script>
+  (function () {
+    "use strict";
+
+    const wrapper = document.getElementById("pf-cat-wrapper");
+    if (!wrapper) return;
+
+    const ITEMS = [
+      {
+        label: "Cobertor de Solteiro",
+        img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2025/10/produto/16898/01-cobertor-kids-raschel-plus-charme-de-princesas-jolitex.png",
+        href: "https://www.pontaodasfabricas.com.br/cama/cobertor?derivacao=84",
+      },
+      {
+        label: "Cobertor de Casal",
+        img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/07/produto/2299/dyuri-com-sherpa-new-khaki.png",
+        href: "https://www.pontaodasfabricas.com.br/cama/cobertor?derivacao=87",
+      },
+      {
+        label: "Cobertor Queen",
+        img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2025/05/produto/12811/chatgpt-image-28-05-2025-09-36-33.png",
+        href: "https://www.pontaodasfabricas.com.br/cama/cobertor?derivacao=85",
+      },
+      {
+        label: "Cobertor King",
+        img: "https://pontaodasfabricas.cdn.magazord.com.br/img/2024/06/produto/656/cobertor-dupla-face-dots-zinco-detalhe-2.png",
+        href: "https://www.pontaodasfabricas.com.br/cama/cobertor?derivacao=86",
+      },
+    ];
+
+    ITEMS.forEach((item) => {
+      const slide = document.createElement("div");
+      slide.className = "swiper-slide";
+
+      const active = normalize(item.href) === current;
+
+      slide.innerHTML = `
+      <a class="pf-catitem ${active ? "is-active" : ""}" href="${item.href}">
+        <span class="pf-catitem__circle">
+          <img src="${item.img}" alt="${item.label}" loading="lazy">
+        </span>
+        <span class="pf-catitem__label">${item.label}</span>
+      </a>
+    `;
+      wrapper.appendChild(slide);
+    });
+
+    new Swiper("#pf-cat-swiper", {
+      slidesPerView: "auto",
+      spaceBetween: 28,
+      speed: 500,
+      grabCursor: true,
+      loop: true,
+
+      preventClicks: true,
+      preventClicksPropagation: true,
+
+      navigation: {
+        nextEl: ".pf-swiper-next",
+        prevEl: ".pf-swiper-prev",
+      },
+
+      breakpoints: {
+        0: { spaceBetween: 16 },
+        481: { spaceBetween: 20 },
+        769: { spaceBetween: 28 },
+      },
+    });
+  })();
+</script>

@@ -1,0 +1,38 @@
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Cria o elemento
+  const promoBox = document.createElement("div");
+  promoBox.className = "promo-oferta";
+  promoBox.innerHTML = `
+    <div style="text-align:center; margin:20px 0;">
+      <h2 style="font-weight:700; font-size:22px; color:#3c4a57; margin-bottom:5px;">
+        Black October
+      </h2>
+      <h3 style="font-weight:600; font-size:18px; color:#e63946; margin-bottom:5px;">
+        Até 50% desconto
+      </h3>
+      <p style="font-size:14px; color:#555; max-width:800px; margin:0 auto;">
+        Peças selecionadas
+      </p>
+    </div>
+  `;
+
+  // Insere abaixo do breadcrumb
+  const breadcrumb = document.querySelector(".area-breadcrumb, .breadcrumb-area");
+  if (breadcrumb) {
+    breadcrumb.insertAdjacentElement("afterend", promoBox);
+  }
+});
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="area-breadcrumb">teste</div>
+</body>
+</html>

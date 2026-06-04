@@ -1,0 +1,81 @@
+<style>
+  .pricing-info {
+    background: #fff;
+    color: #222;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #e6e6e6;
+  }
+
+  .price-option {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 8px;
+    position: relative;
+    transition: 0.2s ease;
+  }
+  
+
+  .price-option .tag {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background: #666;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .price-option .tag.orange { background: #f39c12; }
+
+  .price-option p { margin: 0; }
+  .price-option .value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #27ae60;
+  }
+  .price-option .save {
+    font-size: 12px;
+    color: #888;
+    display: block;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .pricing-info { font-size: 13px; padding: 12px; }
+    .price-option .value { font-size: 15px; }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const promoBox = document.createElement('section');
+  promoBox.className = 'pricing-info';
+  promoBox.innerHTML = `
+    <div class="price-option">
+      <p><b>Compre 2</b> por <span class="value">R$ 150</span><br>
+      <small class="save">Economize R$48</small></p>
+    </div>
+    <div class="price-option">
+      <p><b>Compre 3</b> por <span class="value">R$ 210</span><br>
+      <small class="save">Economize R$87</small></p>
+    </div>
+    <div class="price-option">
+      <span class="tag orange">Mais Vendido</span>
+      <p><b>Compre 4</b> por <span class="value">R$ 259 + Frete Grátis</span><br>
+      <small class="save">Pague 3 e leve 4</small></p>
+    </div>
+  `;
+
+  document.querySelector('.sugestoes-cores')?.before(promoBox);
+});
+</script>

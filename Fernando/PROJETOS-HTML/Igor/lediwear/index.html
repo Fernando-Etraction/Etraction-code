@@ -1,0 +1,253 @@
+<!--  SURVEY NA PAGINA DE CARRINHO  -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Survey</title>
+    <style>
+      .survey-fab {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 1000;
+        padding: 12px 16px;
+        border: none;
+        border-radius: 999px;
+        background: #00A441;
+        color: #fff;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: opacity 0.15s ease;
+        touch-action: manipulation;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      body.no-scroll .survey-fab {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+
+      .survey-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        z-index: 2147483000;
+        pointer-events: auto !important;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      .survey-overlay.open { display: flex; }
+
+      .survey-modal {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: transform 0.18s, opacity 0.18s;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+        z-index: 2147483647;
+        pointer-events: auto !important;
+      }
+      .survey-overlay.open .survey-modal { transform: translateY(0); opacity: 1; }
+
+      .survey-modal, .survey-modal * {
+        pointer-events: auto !important;
+        touch-action: manipulation;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+
+      .survey-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 18px;
+        background: #f7f7f7;
+        border-bottom: 1px solid #eee;
+      }
+      .survey-modal-title { margin: 0; font-size: 18px; color: #333; }
+      .survey-close {
+        background: transparent; border: none; cursor: pointer;
+        font-size: 20px; padding: 6px; color: #333;
+      }
+
+      .survey-container { padding: 22px; }
+      .question { margin-bottom: 12px; font-weight: 700; }
+
+      .survey-option {
+        display: flex; align-items: center; gap: 12px;
+        margin: 12px 0; cursor: pointer; user-select: none;
+      }
+      .survey-option input[type="radio"] {
+        width: 20px; height: 20px; cursor: pointer; flex: 0 0 auto;
+      }
+      .survey-option span { line-height: 1.3; }
+
+      .survey-container button[type="submit"] {
+        width: 100%; padding: 12px; margin-top: 16px; border-radius: 8px; border: none;
+        background: #4caf50; color: #fff; font-size: 16px; cursor: pointer;
+      }
+      .survey-container button[type="submit"]:hover { background: #00A441; }
+
+      .thank-you {
+        display: none; text-align: center; font-size: 18px; font-weight: bold;
+        color: #4caf50; padding: 30px 10px;
+      }
+      .no-scroll { overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <button id="survey-open-btn" class="survey-fab">Pesquisa</button>
+
+    <div id="survey-overlay" class="survey-overlay" aria-modal="true" role="dialog">
+      <div class="survey-modal" role="document">
+        <div class="survey-modal-header">
+          <h3 class="survey-modal-title">Pesquisa de Satisfação</h3>
+          <button class="survey-close" id="survey-close-btn" aria-label="Fechar">✕</button>
+        </div>
+
+        <div class="survey-container">
+          <!-- Iframe oculto: recebe a resposta sem sair da página -->
+          <iframe name="survey-iframe" id="survey-iframe" style="display:none"></iframe>
+
+          <form
+            id="survey-form"
+            method="POST"
+            target="survey-iframe"
+            action="https://docs.google.com/forms/d/e/1FAIpQLSe8Xs8IAyD2CUylGgQTP5A7OJKQJoR0Yc7hYiV7y-cGBWoB-Q/formResponse"
+          >
+            <p class="question">O que faltou para você finalizar sua compra?</p>
+
+            <!-- ID CORRETO: entry.1147305051 -->
+            <label class="survey-option">
+              <input
+                type="radio"
+                name="entry.1147305051"
+                value="Informação sobre o produto"
+                required
+              />
+              <span>Informação sobre o produto</span>
+            </label>
+
+            <label class="survey-option">
+              <input
+                type="radio"
+                name="entry.1147305051"
+                value="Preço muito alto"
+              />
+              <span>Preço muito alto</span>
+            </label>
+
+            <label class="survey-option">
+              <input
+                id="opt-outro"
+                type="radio"
+                name="entry.1147305051"
+                value="__other_option__"
+              />
+              <input
+                id="outro-texto"
+                type="text"
+                name="entry.1147305051.other_option_response"
+                placeholder="Outro"
+                autocomplete="off"
+                aria-label="Digite outra resposta"
+              />
+            </label>
+
+            <!-- Ajuda a manter o comportamento do pp_url -->
+            <input type="hidden" name="usp" value="pp_url" />
+
+            <button type="submit" id="survey-submit">Enviar</button>
+          </form>
+
+          <div id="thank-you" class="thank-you">
+            Obrigado por participar da pesquisa!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const openBtn = document.getElementById("survey-open-btn");
+        const overlay = document.getElementById("survey-overlay");
+        const closeBtn = document.getElementById("survey-close-btn");
+        const form = document.getElementById("survey-form");
+        const thankYou = document.getElementById("thank-you");
+        const submitBtn = document.getElementById("survey-submit");
+        const iframe = document.getElementById("survey-iframe");
+        const outroTexto = document.getElementById("outro-texto");
+        const optOutro = document.getElementById("opt-outro");
+
+        function openModal() {
+          overlay.classList.add("open");
+          document.body.classList.add("no-scroll");
+        }
+        function closeModal() {
+          overlay.classList.remove("open");
+          document.body.classList.remove("no-scroll");
+        }
+
+        openBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+        overlay.addEventListener("click", (e) => {
+          if (e.target === overlay) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeModal();
+        });
+
+        // Seleciona automaticamente "Outro" ao digitar
+        outroTexto.addEventListener("input", () => {
+          if (outroTexto.value.trim().length > 0) optOutro.checked = true;
+        });
+
+        // UI "Obrigado" imediato; envio é nativo via target=iframe
+        form.addEventListener("submit", function () {
+          // garante que alguma opção foi escolhida mesmo se removerem o required
+          const escolhido = document.querySelector('input[name="entry.1147305051"]:checked');
+          if (!escolhido) { alert("Selecione uma opção."); return; }
+
+          form.style.display = "none";
+          thankYou.style.display = "block";
+          submitBtn.disabled = true;
+        });
+
+        // Fecha quando o Forms responde no iframe (com fallback)
+        let timeoutId;
+        const done = () => {
+          clearTimeout(timeoutId);
+          setTimeout(() => {
+            closeModal();
+            form.reset();
+            thankYou.style.display = "none";
+            form.style.display = "block";
+            submitBtn.disabled = false;
+          }, 700);
+        };
+
+        iframe.addEventListener("load", done);
+        timeoutId = setTimeout(done, 3500); // fallback
+      })();
+    </script>
+  </body>
+</html>

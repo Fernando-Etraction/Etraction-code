@@ -1,0 +1,402 @@
+<p><span style="font-size: 12pt;">Desenvolvido em uma camada &uacute;nica de tecido knit com tecnologia Hypersox, 130G
+        &eacute; o t&ecirc;nis mais leve da Olympikus. Como o nome j&aacute; diz, pesa apenas 130 gramas. Al&eacute;m da
+        leveza, cada detalhe foi pensado para trazer o maior conforto: do cabedal sem costuras e com alta
+        respirabilidade at&eacute; o solado em Evasense, que proporciona maciez e flexibilidade nas pisadas.</span></p>
+<!-- ===== BLOCO ESCONDIDO: MEDIDAS DA MODELO (CALÇADOS) ===== -->
+<div class="medidas-modelo" style="display: none;">
+    <div class="infoModelo">
+        <div data-atributo="Produto">T&ecirc;nis Olympikus Ultraleve 156g (Feminino)</div>
+        <div data-atributo="N&uacute;mero que cal&ccedil;a">37</div>
+        <div data-atributo="Comprimento do p&eacute;">24 cm</div>
+    </div>
+</div>
+<!-- ===== BLOCO ESCONDIDO: TABELA DE MEDIDAS (BR FEMININO 33–41) ===== -->
+<div class="tabela-medidas" style="display: none;">
+    <div class="medida" data-tamanho="33">
+        <div data-atributo="Comprimento do p&eacute;">22 cm</div>
+    </div>
+    <div class="medida" data-tamanho="34">
+        <div data-atributo="Comprimento do p&eacute;">22 cm</div>
+    </div>
+    <div class="medida" data-tamanho="35">
+        <div data-atributo="Comprimento do p&eacute;">23 cm</div>
+    </div>
+    <div class="medida" data-tamanho="36">
+        <div data-atributo="Comprimento do p&eacute;">24 cm</div>
+    </div>
+    <div class="medida" data-tamanho="37">
+        <div data-atributo="Comprimento do p&eacute;">24 cm</div>
+    </div>
+    <div class="medida" data-tamanho="38">
+        <div data-atributo="Comprimento do p&eacute;">25 cm</div>
+    </div>
+    <div class="medida" data-tamanho="39">
+        <div data-atributo="Comprimento do p&eacute;">26 cm</div>
+    </div>
+    <div class="medida" data-tamanho="40">
+        <div data-atributo="Comprimento do p&eacute;">26 cm</div>
+    </div>
+    <div class="medida" data-tamanho="41">
+        <div data-atributo="Comprimento do p&eacute;">27 cm</div>
+    </div>
+</div>
+<!-- ===== ESTILOS (PRETO + #D4DC23) ===== -->
+<style>
+    <!--
+    :root {
+        --black: #000;
+        --accent: #D4DC23;
+        --bg: #f6f7f8;
+        --txt: #1f2937;
+    }
+
+    /* ===== SWEETALERT POPUP ===== */
+    .swal2-popup.modal-medidas {
+        max-width: 96vw !important;
+        padding: 0 !important;
+        border-radius: 18px !important;
+        overflow: hidden;
+        background: var(--bg) !important;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, .25);
+    }
+
+    /* ===== BOTÃO FECHAR ===== */
+    .modal-medidas .swal2-close {
+        width: 36px !important;
+        height: 36px !important;
+        top: 10px !important;
+        right: 10px !important;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, .45) !important;
+        color: var(--accent) !important;
+        border: 1px solid rgba(212, 220, 35, .6);
+        backdrop-filter: blur(8px);
+        transition: all .25s ease;
+    }
+
+    .modal-medidas .swal2-close:hover {
+        transform: rotate(90deg) scale(1.1);
+        background: #0e0e0e !important;
+    }
+
+    /* ===== HEADER ===== */
+    .modal-medidas .mm-header {
+        color: #fff;
+        padding: 22px;
+        background: linear-gradient(120deg, var(--black), #111 45%, var(--accent));
+        border-bottom: 1px solid rgba(212, 220, 35, .25);
+        text-shadow: 0 1px 0 rgba(0, 0, 0, .45);
+    }
+
+    .modal-medidas .mm-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font: 800 18px/1.1 system-ui;
+    }
+
+    .modal-medidas .mm-title svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* ===== GRID PRINCIPAL ===== */
+    .modal-medidas .mm-content {
+        display: grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 18px;
+        padding: 18px;
+    }
+
+    @media (max-width: 900px) {
+        .modal-medidas .mm-content {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 14px;
+        }
+    }
+
+    /* ===== TABELA ===== */
+    .modal-medidas .mm-table-card {
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid rgba(0, 0, 0, .08);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, .16);
+        overflow: hidden;
+    }
+
+    .modal-medidas .mm-table-head {
+        background: linear-gradient(120deg, var(--black), #111 50%, var(--accent));
+        color: #fff;
+        padding: 12px 16px;
+        font-weight: 600;
+    }
+
+    .modal-medidas .tabela-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-medidas table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 480px;
+    }
+
+    .modal-medidas th,
+    .modal-medidas td {
+        padding: 10px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .modal-medidas td:first-child {
+        text-align: left;
+        font-weight: 700;
+        color: var(--black);
+        border-left: 4px solid var(--accent);
+        background: rgba(212, 220, 35, .08);
+        align-items: center;
+    }
+
+    .modal-medidas tbody tr:hover td {
+        background: rgba(212, 220, 35, .12);
+        transform: translateX(2px);
+        transition: all .2s ease;
+    }
+
+    /* ===== COLUNA MODELO ===== */
+    .modal-medidas .modelo-col {
+        position: relative;
+    }
+
+    .modal-medidas .imagem-modelo {
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+    }
+
+    .modal-medidas .imagem-modelo img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .modal-medidas .card-modelo {
+        padding: 12px;
+        background: rgba(255, 255, 255, .65);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        margin-top: 10px;
+    }
+
+    .modal-medidas .card-modelo .title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 700;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .modal-medidas .info-line {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        margin-bottom: 6px;
+        border: 1px solid rgba(212, 220, 35, .55);
+        border-radius: 8px;
+        font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .modal-medidas .mm-header {
+            padding: 16px;
+            text-align: center;
+        }
+
+        .modal-medidas .mm-title {
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .modal-medidas table {
+            font-size: 13px;
+            min-width: 100%;
+        }
+
+        .modal-medidas th,
+        .modal-medidas td {
+            padding: 8px;
+        }
+
+        .modal-medidas .card-modelo {
+            font-size: 12px;
+        }
+
+        .modal-medidas .info-line {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
+        .btn-tabela-medidas {
+            width: 100%;
+            justify-content: center;
+            padding: 12px 0;
+            font-size: 14px;
+        }
+    }
+
+    /* ===== BOTÃO GATILHO ===== */
+    .btn-tabela-medidas {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 14px;
+        border: 1px solid var(--accent);
+        border-radius: 8px;
+        background: var(--black);
+        color: var(--accent);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .2s ease;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, .18);
+    }
+
+    .btn-tabela-medidas:hover {
+        background: var(--accent);
+        color: var(--black);
+        transform: translateY(-1px);
+    }
+    -->
+</style>
+<!-- ===== DEPENDÊNCIAS ===== -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer="defer"></script>
+<!-- ===== SCRIPT PRINCIPAL ===== -->
+<script>// <![CDATA[
+    (function ($) {
+        const BUTTON_HTML = `
+    <button type="button" aria-label="Abrir tabela de medidas" class="ver-tabela-de-medidas btn-tabela-medidas">
+      <span>📏</span><span>Tabela de medidas</span>
+    </button>`;
+
+        const HOST_SELECTORS = '.content-price-product, .derivacoes-produto';
+
+        function openModal(options) {
+            try {
+                if (typeof zrd === 'function') { zrd('swal', sw => sw.fire(options)); return; }
+                if (window.Swal && typeof Swal.fire === 'function') { Swal.fire(options); return; }
+                alert('Não foi possível abrir a Tabela de Medidas no momento.');
+            } catch (e) { console.error('[TabelaMedidas] Falha ao abrir modal', e); }
+        }
+
+        function montarHeader() {
+            return `
+      <div class="mm-header">
+        <div class="mm-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 21"/><path d="M14 3l7 7M16 7l1 1M13 10l1 1M10 13l1 1M7 16l1 1"/></svg>
+          <span>Tabela de Medidas</span>
+        </div>
+      </div>`;
+        }
+
+        function montarTabelaMedidas() {
+            const $linhas = $('.tabela-medidas .medida');
+            if (!$linhas.length) return '<p style="padding:16px">Sem dados de medidas.</p>';
+            const colunas = [];
+            $linhas.each(function () {
+                $(this).children('div').each(function () {
+                    const a = $(this).data('atributo');
+                    if (a && !colunas.includes(a)) colunas.push(a);
+                });
+            });
+            let thead = '<thead><tr><th>Tamanho</th>';
+            colunas.forEach(a => thead += `<th>${a}</th>`);
+            thead += '</tr></thead>';
+            let tbody = '<tbody>';
+            $linhas.each(function () {
+                const tamanho = $(this).data('tamanho') || '';
+                const valores = {};
+                $(this).children('div').each(function () {
+                    valores[$(this).data('atributo')] = $(this).text().trim();
+                });
+                tbody += `<tr><td>${tamanho}</td>`;
+                colunas.forEach(a => tbody += `<td>${valores[a] || '–'}</td>`);
+                tbody += '</tr>';
+            });
+            tbody += '</tbody>';
+            return `
+      <div class="mm-table-card">
+        <div class="mm-table-head">Guia de tamanhos (BR Feminino)</div>
+        <div class="tabela-wrapper"><table>${thead}${tbody}</table></div>
+      </div>`;
+        }
+
+        function montarInfoModelo() {
+            const $img = $('.gallery-main img').first();
+            const src = $img.attr('data-src') || $img.attr('src') ||
+                'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="560"><rect width="100%" height="100%" fill="#111"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="#D4DC23">Imagem indisponível</text></svg>');
+            let chips = '';
+            $('.medidas-modelo .infoModelo > div').each(function () {
+                const atributo = $(this).data('atributo');
+                const valor = $(this).text().trim();
+                chips += `<div class="info-line"><strong>${atributo}</strong><span>${valor}</span></div>`;
+            });
+            return `
+      <div class="modelo-col">
+        <div class="imagem-modelo"><img src="${src}" alt="Modelo / Produto"></div>
+        <div class="card-modelo">
+          <div class="title">
+            <img src="https://footone.cdn.magazord.com.br/img/2025/11/produto/20093/guia-de-comprimento-1.png" alt="Ícone de informação"/>
+            <span>Info da modelo / produto</span>
+          </div>
+          ${chips}
+        </div>
+      </div>`;
+        }
+
+        function ensureButtonsOnce() {
+            const $hosts = $(HOST_SELECTORS);
+            if (!$hosts.length) return;
+            $hosts.each(function () {
+                const $host = $(this);
+                if ($host.attr('data-tabela-btn') === '1') {
+                    if (!$host.find('.ver-tabela-de-medidas').length) $host.append(BUTTON_HTML);
+                    return;
+                }
+                if ($host.find('.ver-tabela-de-medidas').length) {
+                    $host.attr('data-tabela-btn', '1'); return;
+                }
+                $host.append(BUTTON_HTML);
+                $host.attr('data-tabela-btn', '1');
+            });
+        }
+
+        $(document).ready(function () {
+            ensureButtonsOnce();
+            setTimeout(ensureButtonsOnce, 400);
+            setTimeout(ensureButtonsOnce, 1200);
+            const mo = new MutationObserver(() => ensureButtonsOnce());
+            mo.observe(document.body, { childList: true, subtree: true });
+
+            $(document).off('click.tabelaMedidas', '.ver-tabela-de-medidas').on('click.tabelaMedidas', '.ver-tabela-de-medidas', function (e) {
+                e.preventDefault(); e.stopPropagation();
+                const header = montarHeader();
+                const tabela = montarTabelaMedidas();
+                const modelo = montarInfoModelo();
+                const html = `<div class="mm-wrap">${header}<div class="mm-content">${tabela}${modelo}</div></div>`;
+                openModal({
+                    html: html,
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    width: '920px',
+                    background: '#f7f7fb',
+                    customClass: { popup: 'modal-medidas' }
+                });
+            });
+        });
+    })(jQuery);
+// ]]></script>

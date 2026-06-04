@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vestido Feminino Midi - Preto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Minimalista */
+        .header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .collection-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #888;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 200;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        /* Layout Assimétrico com Imagem Grande */
+        .showcase {
+            display: flex;
+            gap: 0;
+            margin: 60px 0;
+            min-height: 75vh;
+        }
+
+        .image-main {
+            flex: 1.2;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 8s ease;
+        }
+
+        .image-main:hover img {
+            transform: scale(1.05);
+        }
+
+        .content-side {
+            flex: 0.8;
+            background: #fff;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: -20px 0 60px rgba(0,0,0,0.03);
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .content-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            line-height: 1.3;
+            color: #000;
+        }
+
+        .content-text {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .spec-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .spec-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            font-weight: 600;
+        }
+
+        .spec-value {
+            font-size: 1.05rem;
+            color: #222;
+            font-weight: 400;
+        }
+
+        /* Seção Split com Detalhes */
+        .details-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            margin: 80px 0;
+            background: #fff;
+        }
+
+        .detail-content {
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .detail-number {
+            font-size: 5rem;
+            font-weight: 100;
+            color: #f0f0f0;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .detail-heading {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 25px;
+            color: #000;
+        }
+
+        .detail-description {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .highlight-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .highlight-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95rem;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .highlight-list li:before {
+            content: "—";
+            color: #000;
+            font-weight: 300;
+        }
+
+        .detail-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            min-height: 500px;
+        }
+
+        /* Galeria Final */
+        .final-gallery {
+            display: flex;
+            gap: 30px;
+            margin: 80px 20px;
+            max-width: 1400px;
+        }
+
+        .gallery-item {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: grayscale(20%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            padding: 40px 30px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .overlay-text {
+            color: white;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .showcase {
+                flex-direction: column;
+            }
+
+            .image-main {
+                height: 60vh;
+            }
+
+            .content-side {
+                padding: 60px 40px;
+            }
+
+            .details-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-content {
+                padding: 60px 40px;
+            }
+
+            .final-gallery {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .content-title {
+                font-size: 1.5rem;
+            }
+
+            .detail-heading {
+                font-size: 1.8rem;
+            }
+
+            .detail-number {
+                font-size: 3rem;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-side {
+                padding: 40px 25px;
+            }
+
+            .detail-content {
+                padding: 40px 25px;
+            }
+
+            .gallery-item img {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header -->
+        <header class="header">
+            <span class="collection-tag">Nova Coleção</span>
+            <h1 class="main-title">Vestido Midi Preto</h1>
+            <p class="subtitle">A essência da elegância moderna</p>
+        </header>
+
+        <!-- Showcase Principal -->
+        <section class="showcase">
+            <div class="image-main">
+                <img src="https://amoracafe.cdn.magazord.com.br/img/2025/11/produto/3147/07-vestido-feminino-midi-preto.png" 
+                     alt="Vestido Midi Preto">
+            </div>
+            <div class="content-side">
+                <span class="section-label">Sobre a Peça</span>
+                <h2 class="content-title">Alfaiataria que abraça, elegância que permanece</h2>
+                <p class="content-text">
+                    Cada linha deste vestido conta uma história de sofisticação. O tecido Alfaiataria Crepe Viena 
+                    foi cuidadosamente selecionado para oferecer o caimento perfeito — estruturado o suficiente 
+                    para valorizar a silhueta, flexível o bastante para acompanhar cada movimento com naturalidade.
+                </p>
+                <p class="content-text">
+                    O design assimétrico não é apenas uma escolha estética, é um statement. As alças duplas 
+                    criam um jogo visual intrigante, enquanto os recortes estratégicos esculpem a forma 
+                    com precisão artesanal.
+                </p>
+
+                <div class="specs-grid">
+                    <div class="spec-item">
+                        <span class="spec-label">Tecido</span>
+                        <span class="spec-value">Crepe Viena</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Composição</span>
+                        <span class="spec-value">94% Poliéster / 6% Elastano</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Modelagem</span>
+                        <span class="spec-value">Ajustada Midi</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Acabamento</span>
+                        <span class="spec-value">Zíper Lateral</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detalhes em Split -->
+        <section class="details-showcase">
+            <div class="detail-content">
+                <div class="detail-number">01</div>
+                <h3 class="detail-heading">Design Contemporâneo</h3>
+                <p class="detail-description">
+                    O decote assimétrico com alças duplas é o protagonista visual desta peça. 
+                    Cada detalhe foi meticulosamente posicionado para criar harmonia entre ousadia 
+                    e refinamento. O detalhe vazado adiciona uma dose de modernidade sem comprometer 
+                    a elegância atemporal.
+                </p>
+                <ul class="highlight-list">
+                    <li>Decote assimétrico com alças duplas</li>
+                    <li>Detalhes vazados estratégicos</li>
+                    <li>Recortes que valorizam a silhueta</li>
+                    <li>Fenda lateral para movimento fluido</li>
+                </ul>
+            </div>
+            <div class="detail-image">
+                <img src="https://amoracafe.cdn.magazord.com.br/img/2025/11/produto/3147/07-vestido-feminino-midi-preto.png" 
+                     alt="Detalhe do vestido">
+            </div>
+        </section>
+
+        <section class="details-showcase">
+            <div class="detail-image">
+                <img src="https://amoracafe.cdn.magazord.com.br/img/2025/11/produto/3147/07-vestido-feminino-midi-preto.png" 
+                     alt="Vista completa do vestido">
+            </div>
+            <div class="detail-content">
+                <div class="detail-number">02</div>
+                <h3 class="detail-heading">Versatilidade Premium</h3>
+                <p class="detail-description">
+                    Um vestido que transita com naturalidade entre diferentes ocasiões. 
+                    Do ambiente corporativo mais refinado aos eventos noturnos de gala, 
+                    esta peça se adapta com a mesma elegância, sempre impecável.
+                </p>
+                <p class="detail-description">
+                    O comprimento midi alonga a silhueta enquanto mantém a sofisticação, 
+                    e o zíper lateral invisível garante praticidade sem comprometer a estética. 
+                    É a escolha perfeita para a mulher que não abre mão de estilo e conforto.
+                </p>
+            </div>
+        </section>
+
+        <!-- Galeria Final -->
+        <section class="final-gallery">
+            <div class="gallery-item">
+                <img src="https://amoracafe.cdn.magazord.com.br/img/2025/11/produto/3147/07-vestido-feminino-midi-preto.png" 
+                     alt="Galeria 1">
+                <div class="gallery-overlay">
+                    <p class="overlay-text">Elegância Atemporal</p>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://amoracafe.cdn.magazord.com.br/img/2025/11/produto/3147/07-vestido-feminino-midi-preto.png" 
+                     alt="Galeria 2">
+                <div class="gallery-overlay">
+                    <p class="overlay-text">Design Impecável</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

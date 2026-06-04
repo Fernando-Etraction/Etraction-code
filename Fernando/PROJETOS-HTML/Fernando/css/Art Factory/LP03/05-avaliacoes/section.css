@@ -1,0 +1,618 @@
+/* =========================================================
+   ARTFACTORY — LANDING PAGE
+   Tudo escopado dentro de .fernando-cro-artfactory-lp
+   ========================================================= */
+
+.fernando-cro-artfactory-lp {
+  /* Tokens / variáveis */
+  --fernando-cro-orange: #FF712D;
+  --fernando-cro-orange-deep: #E85F1E;
+  --fernando-cro-white: #FFFFFF;
+  --fernando-cro-off: #F7F4EF;
+  --fernando-cro-cream: #EFEAE2;
+  --fernando-cro-soft: #E8E2DA;
+  --fernando-cro-line: #1111111A;
+  --fernando-cro-line-strong: #11111133;
+  --fernando-cro-ink: #111111;
+  --fernando-cro-graphite: #181818;
+  --fernando-cro-mute: #5A5A5A;
+  --fernando-cro-mute-2: #8A8A8A;
+
+  --fernando-cro-radius-sm: 4px;
+  --fernando-cro-radius: 8px;
+  --fernando-cro-radius-lg: 18px;
+
+  --fernando-cro-ease: cubic-bezier(.2, .7, .2, 1);
+
+  --fernando-cro-font-display: 'Fraunces', 'Georgia', 'Times New Roman', serif;
+  --fernando-cro-font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Reset escopado */
+  font-family: var(--fernando-cro-font-body);
+  color: var(--fernando-cro-ink);
+  background: var(--fernando-cro-white);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "ss02", "kern";
+  display: block;
+  position: relative;
+  overflow-x: clip;
+}
+
+/* Reset interno seguro */
+.fernando-cro-artfactory-lp,
+.fernando-cro-artfactory-lp *,
+.fernando-cro-artfactory-lp *::before,
+.fernando-cro-artfactory-lp *::after {
+  box-sizing: border-box;
+}
+
+.fernando-cro-artfactory-lp h1,
+.fernando-cro-artfactory-lp h2,
+.fernando-cro-artfactory-lp h3,
+.fernando-cro-artfactory-lp h4,
+.fernando-cro-artfactory-lp p,
+.fernando-cro-artfactory-lp ul,
+.fernando-cro-artfactory-lp ol,
+.fernando-cro-artfactory-lp figure {
+  margin: 0;
+  padding: 0;
+}
+
+.fernando-cro-artfactory-lp ul,
+.fernando-cro-artfactory-lp ol {
+  list-style: none;
+}
+
+.fernando-cro-artfactory-lp img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.fernando-cro-artfactory-lp a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fernando-cro-artfactory-lp button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+/* Container */
+.fernando-cro-artfactory-lp .fernando-cro-container {
+  width: min(100% - 32px, 1240px);
+  margin-inline: auto;
+}
+
+/* Reveal */
+.fernando-cro-artfactory-lp .fernando-cro-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s var(--fernando-cro-ease), transform .9s var(--fernando-cro-ease);
+  will-change: opacity, transform;
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-reveal.fernando-cro-is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================
+   TIPOGRAFIA — TÍTULOS
+   ========================================================= */
+.fernando-cro-artfactory-lp .fernando-cro-hero-title,
+.fernando-cro-artfactory-lp .fernando-cro-sm-title,
+.fernando-cro-artfactory-lp .fernando-cro-processo-title,
+.fernando-cro-artfactory-lp .fernando-cro-projetos-title,
+.fernando-cro-artfactory-lp .fernando-cro-sobre-title,
+.fernando-cro-artfactory-lp .fernando-cro-avaliacoes-title,
+.fernando-cro-artfactory-lp .fernando-cro-faq-title,
+.fernando-cro-artfactory-lp .fernando-cro-cta-final-title {
+  font-family: var(--fernando-cro-font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  font-feature-settings: "ss01";
+}
+
+.fernando-cro-artfactory-lp em {
+  font-style: italic;
+  color: var(--fernando-cro-orange);
+  font-weight: 500;
+}
+
+/* Tag de seção (etiqueta superior) */
+.fernando-cro-artfactory-lp .fernando-cro-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--fernando-cro-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fernando-cro-ink);
+  padding: 7px 12px 7px 0;
+  position: relative;
+}
+.fernando-cro-artfactory-lp .fernando-cro-section-tag::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--fernando-cro-orange);
+}
+.fernando-cro-artfactory-lp .fernando-cro-section-tag-light {
+  color: var(--fernando-cro-white);
+}
+.fernando-cro-artfactory-lp .fernando-cro-section-tag-onorange {
+  color: var(--fernando-cro-white);
+}
+.fernando-cro-artfactory-lp .fernando-cro-section-tag-onorange::before {
+  background: var(--fernando-cro-white);
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary,
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 26px;
+  min-height: 54px;
+  border-radius: 999px;
+  font-family: var(--fernando-cro-font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  position: relative;
+  transition:
+    transform .35s var(--fernando-cro-ease),
+    background-color .35s var(--fernando-cro-ease),
+    color .35s var(--fernando-cro-ease),
+    border-color .35s var(--fernando-cro-ease),
+    box-shadow .35s var(--fernando-cro-ease);
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1;
+  border: 1px solid transparent;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary {
+  background: var(--fernando-cro-orange);
+  color: var(--fernando-cro-white);
+  box-shadow: 0 8px 28px -10px rgba(255, 113, 45, .55);
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary:hover {
+  background: var(--fernando-cro-orange-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px -12px rgba(255, 113, 45, .65);
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary:active {
+  transform: translateY(0);
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary-dark {
+  background: var(--fernando-cro-ink);
+  color: var(--fernando-cro-white);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .55);
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary-dark:hover {
+  background: #000;
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary {
+  background: transparent;
+  color: var(--fernando-cro-white);
+  border-color: rgba(255, 255, 255, .55);
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary:hover {
+  background: var(--fernando-cro-white);
+  color: var(--fernando-cro-ink);
+  transform: translateY(-1px);
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary-dark {
+  color: var(--fernando-cro-ink);
+  border-color: var(--fernando-cro-line-strong);
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary-dark:hover {
+  background: var(--fernando-cro-ink);
+  color: var(--fernando-cro-white);
+  border-color: var(--fernando-cro-ink);
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary-onorange {
+  color: var(--fernando-cro-white);
+  border-color: rgba(255, 255, 255, .65);
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-secondary-onorange:hover {
+  background: var(--fernando-cro-white);
+  color: var(--fernando-cro-orange);
+  border-color: var(--fernando-cro-white);
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-btn-arrow {
+  display: inline-block;
+  transition: transform .35s var(--fernando-cro-ease);
+  font-size: 16px;
+}
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary:hover .fernando-cro-btn-arrow,
+.fernando-cro-artfactory-lp .fernando-cro-btn-primary-dark:hover .fernando-cro-btn-arrow {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   ACESSIBILIDADE — REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .fernando-cro-artfactory-lp,
+  .fernando-cro-artfactory-lp * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Foco visível para acessibilidade */
+.fernando-cro-artfactory-lp a:focus-visible,
+.fernando-cro-artfactory-lp button:focus-visible,
+.fernando-cro-artfactory-lp summary:focus-visible {
+  outline: 2px solid var(--fernando-cro-orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   AVALIAÇÕES
+   ========================================================= */
+.fernando-cro-artfactory-lp .fernando-cro-avaliacoes {
+  background: var(--fernando-cro-white);
+  padding: clamp(72px, 10vw, 130px) 0;
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-avaliacoes-head {
+  text-align: center;
+  margin-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fernando-cro-artfactory-lp .fernando-cro-avaliacoes-title {
+  font-size: clamp(32px, 4.2vw, 54px);
+  margin-top: 18px;
+  margin-bottom: 18px;
+  max-width: 18ch;
+}
+.fernando-cro-artfactory-lp .fernando-cro-avaliacoes-sub {
+  max-width: 56ch;
+  font-size: 15px;
+  color: var(--fernando-cro-mute);
+  line-height: 1.6;
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-aval-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-item {
+  background: var(--fernando-cro-off);
+  padding: 32px 28px;
+  border-radius: var(--fernando-cro-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  border: 1px solid transparent;
+  transition: border-color .35s var(--fernando-cro-ease), transform .35s var(--fernando-cro-ease), background-color .35s var(--fernando-cro-ease);
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-item:hover {
+  border-color: var(--fernando-cro-line);
+  transform: translateY(-2px);
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-featured {
+  grid-row: span 2;
+  background: var(--fernando-cro-ink);
+  color: var(--fernando-cro-white);
+  padding: 40px 36px;
+  position: relative;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-featured::before {
+  content: "“";
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  font-family: var(--fernando-cro-font-display);
+  font-size: 90px;
+  line-height: 1;
+  color: var(--fernando-cro-orange);
+  opacity: .9;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-stars {
+  color: var(--fernando-cro-orange);
+  font-size: 14px;
+  letter-spacing: 4px;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-quote {
+  font-family: var(--fernando-cro-font-display);
+  font-weight: 400;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: inherit;
+  flex: 1;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-featured .fernando-cro-aval-quote {
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.35;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--fernando-cro-line);
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-featured .fernando-cro-aval-foot {
+  border-top-color: rgba(255, 255, 255, .15);
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-author {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-author strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-author span {
+  font-size: 12px;
+  color: var(--fernando-cro-mute);
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-featured .fernando-cro-aval-author span {
+  color: rgba(255, 255, 255, .65);
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  background: var(--fernando-cro-white);
+  color: var(--fernando-cro-ink);
+  border-radius: 999px;
+  border: 1px solid var(--fernando-cro-line);
+  white-space: nowrap;
+}
+.fernando-cro-artfactory-lp .fernando-cro-aval-featured .fernando-cro-aval-tag {
+  background: var(--fernando-cro-orange);
+  color: var(--fernando-cro-white);
+  border-color: var(--fernando-cro-orange);
+}
+
+.fernando-cro-artfactory-lp .fernando-cro-aval-cta {
+  margin-top: 44px;
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================================================
+   RESPONSIVO — TABLET
+   ========================================================= */
+@media (max-width: 1080px) {
+  .fernando-cro-artfactory-lp .fernando-cro-nav-links {
+    display: none;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-sm-grid {
+    grid-template-columns: 1fr;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-sm-figure {
+    position: static;
+    order: -1;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-sm-figure img {
+    aspect-ratio: 16 / 10;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-processo-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-step {
+    border-bottom: 1px solid var(--fernando-cro-line);
+    padding: 32px 24px !important;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-step:nth-child(2) {
+    border-right: 0;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-step:nth-child(3),
+  .fernando-cro-artfactory-lp .fernando-cro-step:nth-child(4) {
+    border-bottom: 0;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-projetos-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-projetos-sub {
+    grid-column: 1;
+    grid-row: 3;
+    text-align: left;
+    margin-top: 4px;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-sobre-grid {
+    grid-template-columns: 1fr;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-sobre-figure img {
+    aspect-ratio: 16 / 10;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-aval-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-aval-featured {
+    grid-row: auto;
+    grid-column: span 2;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-faq-grid {
+    grid-template-columns: 1fr;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-faq-head {
+    position: static;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-foot-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-foot-brand,
+  .fernando-cro-artfactory-lp .fernando-cro-foot-info,
+  .fernando-cro-artfactory-lp .fernando-cro-foot-copy {
+    justify-self: center;
+    text-align: center;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-mvv {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-mvv-item {
+    padding: 0 0 22px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-mvv-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero {
+    min-height: clamp(560px, 78vh, 680px);
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(0, 0, 0, .35) 0%,
+        rgba(0, 0, 0, .55) 50%,
+        rgba(0, 0, 0, .85) 100%
+      );
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-slide-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-slide-figure {
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-slide-content::before {
+    top: 0;
+    left: clamp(28px, 4vw, 56px);
+  }
+}
+
+/* =========================================================
+   RESPONSIVO — MOBILE
+   ========================================================= */
+@media (max-width: 720px) {
+  .fernando-cro-artfactory-lp .fernando-cro-topbar-cta {
+    display: none;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-topbar {
+    padding: 18px 0;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero {
+    min-height: clamp(520px, 86vh, 620px);
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-content {
+    padding-block: 32px 56px;
+    justify-content: flex-end;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(0, 0, 0, .25) 0%,
+        rgba(0, 0, 0, .55) 45%,
+        rgba(0, 0, 0, .9) 100%
+      );
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-title {
+    font-size: clamp(32px, 9vw, 44px);
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-actions {
+    margin-bottom: 32px;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-actions .fernando-cro-btn-primary,
+  .fernando-cro-artfactory-lp .fernando-cro-hero-actions .fernando-cro-btn-secondary {
+    width: 100%;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-proofs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    padding-top: 22px;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-hero-scrollhint {
+    display: none;
+  }
+
+  .fernando-cro-artfactory-lp .fernando-cro-processo-steps {
+    grid-template-columns: 1fr;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-step {
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--fernando-cro-line);
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-step:last-child {
+    border-bottom: 0;
+  }
+
+  .fernando-cro-artfactory-lp .fernando-cro-aval-grid {
+    grid-template-columns: 1fr;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-aval-featured {
+    grid-column: auto;
+  }
+
+  .fernando-cro-artfactory-lp .fernando-cro-carousel-controls {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    text-align: center;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-carousel-counter {
+    justify-content: center;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-carousel-arrows {
+    justify-content: center;
+  }
+
+  .fernando-cro-artfactory-lp .fernando-cro-cta-final-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-cta-final-actions a {
+    width: 100%;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-cta-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .fernando-cro-artfactory-lp .fernando-cro-cta-meta li::before {
+    display: none;
+  }
+}

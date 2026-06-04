@@ -1,0 +1,150 @@
+<script>
+  (function () {
+    let inited = false;
+    const REQUIRED_CLASS = "tag-linha-exclusive";
+
+    const init = () => {
+      if (inited) return;
+      inited = true;
+
+      // === CSS ORIGINAL (sem qualquer modificação de tamanho ou layout) ===
+      const style = document.createElement("style");
+      style.textContent = `
+    .blh-modal{position:fixed;inset:0;backdrop-filter:blur(10px);background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:99999;opacity:0;visibility:hidden;transition:all .4s ease;}
+    .blh-modal.active{opacity:1;visibility:visible;}
+    .blh-modal-content{background:linear-gradient(180deg,#0a0a0a 0%,#111 100%);border:1px solid rgba(255,255,255,.1);box-shadow:0 8px 40px rgba(0,0,0,.6),inset 0 0 30px rgba(255,255,255,.05);border-radius:20px;padding:24px 20px 30px;width:92%;max-width:420px;color:#fff;position:relative;animation:modalIn .45s ease;}
+    @keyframes modalIn{from{transform:translateY(40px) scale(.96);opacity:0;}to{transform:translateY(0) scale(1);opacity:1;}}
+    .blh-modal-close{position:absolute;top:12px;right:16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:all .3s ease;}
+    .blh-modal-close:hover{background:rgba(255,255,255,.2);transform:rotate(90deg);}
+    .blh-promos{background:transparent;padding:0;color:#fff;display:flex;flex-direction:column;align-items:center;font-family:system-ui,sans-serif;}
+    .blh-promos__grid{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;}
+    .blh-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.4);padding:16px 20px;text-align:center;transition:all .3s ease;margin:6px;min-width:240px;}
+    .blh-card:hover{background:rgba(255,255,255,.08);transform:translateY(-3px);}
+    .blh-card__lead{font-size:17px;color:#f1f1f1;display:block;margin-bottom:3px;}
+    .blh-card__price{color:#F6ED39;font-size:20px;font-weight:800;}
+    .blh-card__sub{color:rgba(255,255,255,.8);font-size:13px;margin:6px 0 0;}
+    .blh-copy{background:#F6ED39;color:#000;border:none;border-radius:6px;padding:8px 70px;font-weight:700;cursor:pointer;transition:all .3s ease;margin-top:8px;}
+    .blh-copy:hover{background:#fff159;transform:scale(1.05);}
+    .blh-promos__foot{text-align:center;margin-top:10px;}
+    .blh-note{font-size:11px;text-align:center;margin-top:6px;color:rgba(255,255,255,.7);}
+    .blh-note--strong{font-weight:700;color:#fff;}
+    .blh-floating-btn{position:fixed;bottom:20px;left:20px;background:#F6ED39;color:#000;font-weight:700;border:none;border-radius:50px;padding:12px 20px;box-shadow:0 4px 10px rgba(0,0,0,.4);cursor:pointer;z-index:9999;opacity:0;visibility:hidden;transition:all .3s ease;}
+    .blh-floating-btn.visible{opacity:1;visibility:visible;}
+    .blh-floating-btn:hover{background:#fff159;transform:scale(1.05);}
+    @media (min-width:769px){.blh-floating-btn,.blh-modal{display:none!important;}}
+    `;
+      document.head.appendChild(style);
+
+      // === HTML (somente o texto dos títulos foi alterado) ===
+      const html = `
+      <div id="blh-modal" class="blh-modal">
+        <div class="blh-modal-content">
+          <button class="blh-modal-close">✕</button>
+          <section class="blh-promos" role="region" aria-labelledby="blh-promos-title">
+            <h2 id="blh-promos-title" class="sr-only">Black Friday Maloa</h2>
+            <div class="blh-promos__grid">
+
+              <article class="blh-card">
+                <h3 class="blh-card__title">
+                  <span class="blh-card__lead">GANHE</span>
+                  <span class="blh-card__price">R$ 80 OFF</span>
+                  <span class="blh-card__lead">ACIMA DE R$1000</span>
+                </h3>
+                <p class="blh-card__sub">Use o cupom abaixo:</p>
+                <button class="blh-copy" data-cupom="BLACK80">BLACK80</button>
+              </article>
+
+              <article class="blh-card">
+                <h3 class="blh-card__title">
+                  <span class="blh-card__lead">GANHE</span>
+                  <span class="blh-card__price">R$ 120 OFF</span>
+                  <span class="blh-card__lead">ACIMA DE R$1500</span>
+                </h3>
+                <p class="blh-card__sub">Use o cupom abaixo:</p>
+                <button class="blh-copy" data-cupom="BLACK120">BLACK120</button>
+              </article>
+
+              <article class="blh-card">
+                <h3 class="blh-card__title">
+                  <span class="blh-card__lead">GANHE</span>
+                  <span class="blh-card__price">R$ 200 OFF</span>
+                  <span class="blh-card__lead">ACIMA DE R$1800</span>
+                </h3>
+                <p class="blh-card__sub">Use o cupom abaixo:</p>
+                <button class="blh-copy" data-cupom="BLACK200">BLACK200</button>
+              </article>
+
+            </div>
+            <footer class="blh-promos__foot">
+              <p class="blh-note blh-note--strong">EXCLUSIVO PARA OS ITENS DESSA CATEGORIA</p>
+              <p class="blh-note">Frete grátis para Sul, Sudeste e Centro-Oeste acima de R$999.</p>
+            </footer>
+          </section>
+        </div>
+      </div>
+      <button id="blh-floating-btn" class="blh-floating-btn">🎁 BLACK FRIDAY</button>
+    `;
+      document.body.insertAdjacentHTML("beforeend", html);
+
+      // === Lógica padrão ===
+      const modal = document.getElementById("blh-modal");
+      const closeBtn = modal.querySelector(".blh-modal-close");
+      const floatBtn = document.getElementById("blh-floating-btn");
+
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest(".blh-copy");
+        if (!btn) return;
+        const code = btn.dataset.cupom || "";
+        navigator.clipboard.writeText(code).catch(() => {});
+        const original = btn.textContent;
+        btn.textContent = "Copiado!";
+        setTimeout(() => (btn.textContent = original), 1200);
+      });
+
+      setTimeout(() => floatBtn.classList.add("visible"), 500);
+
+      const openModal = () => {
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      };
+      const closeModal = () => {
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+      };
+
+      floatBtn.addEventListener("click", openModal);
+      closeBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+    };
+
+    // === Ativação ===
+    const hasRequired = () => document.body.classList.contains(REQUIRED_CLASS);
+    if (hasRequired()) {
+      init();
+      return;
+    }
+
+    const obs = new MutationObserver(() => {
+      if (hasRequired()) {
+        obs.disconnect();
+        init();
+      }
+    });
+    obs.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    let tries = 0;
+    const iv = setInterval(() => {
+      if (hasRequired()) {
+        clearInterval(iv);
+        obs.disconnect();
+        init();
+      }
+      if (++tries > 40) clearInterval(iv);
+    }, 500);
+  })();
+</script>

@@ -1,0 +1,136 @@
+<div class="dlz-filtros-tamanho">
+  <span class="dlz-filtros-label">Tamanhos</span><br />
+  <div class="dlz-filtros-lista">
+    <!-- Letras -->
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=3">PP</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=4">P</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=5">M</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=6">G</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=7">GG</a>
+    <!-- Numéricos -->
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=80">34</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=81">36</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=82">38</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=83">40</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=84">42</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=85">44</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=86">46</a>
+    <a class="dlz-filtro-pill" href="https://www.flordelis.com.br/outlet?derivacao=87">48</a>
+  </div>
+</div>
+
+<style>
+/* Container geral */
+.dlz-filtros-tamanho{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  margin:16px 0;
+  flex-direction:column;
+}
+
+/* Texto “Tamanhos” */
+.dlz-filtros-label{
+  font-size:36px;
+  font-weight:800;
+  border-bottom:3px solid black;
+}
+
+/* Lista de pills */
+.dlz-filtros-lista{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+/* Botões/pills individuais */
+.dlz-filtro-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:80px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid #383838;
+  background:#fff;
+  color:#111;
+  font-size:17px;
+  text-decoration:none;
+  line-height:1;
+  transition:all .2s ease;
+  font-weight:700;
+}
+
+/* Hover */
+.dlz-filtro-pill:hover{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+/* Estado ativo (quando o filtro estiver selecionado) */
+.dlz-filtro-pill.is-active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+/* Responsivo – mobile */
+@media (max-width:768px){
+  .dlz-filtros-tamanho{
+    flex-direction:column;
+    align-items:flex-start;
+    padding:0 12px;
+  }
+
+  .dlz-filtros-label{
+    font-size:24px;
+    border-bottom-width:2px;
+  }
+
+  .dlz-filtros-lista{
+    gap:6px;
+  }
+
+  .dlz-filtro-pill{
+    width:auto;
+    min-width:56px;
+    padding:6px 12px;
+    font-size:14px;
+  }
+}
+</style>
+
+<script>
+// <![CDATA[
+document.addEventListener("DOMContentLoaded", function () {
+  var params = new URLSearchParams(window.location.search);
+  var derivacaoAtual = params.get("derivacao");
+
+  var pills = document.querySelectorAll(".dlz-filtro-pill");
+
+  if (derivacaoAtual) {
+    Array.prototype.forEach.call(pills, function (pill) {
+      try {
+        var url = new URL(pill.getAttribute("href"), window.location.origin);
+        var derivacaoDoBotao = url.searchParams.get("derivacao");
+
+        if (derivacaoDoBotao === derivacaoAtual) {
+          pill.classList.add("is-active");
+        }
+      } catch (e) {}
+    });
+  }
+
+  // opcional: logar qual filtro foi clicado
+  Array.prototype.forEach.call(pills, function (pill) {
+    pill.addEventListener("click", function () {
+      var url = new URL(this.getAttribute("href"), window.location.origin);
+      var derivacaoClicada = url.searchParams.get("derivacao");
+      console.log("Filtro clicado:", derivacaoClicada, this.textContent.trim());
+    });
+  });
+});
+// ]]>
+</script>
