@@ -1,0 +1,1491 @@
+<style>
+    .uj-lp {
+        --bege: #F8F3DD;
+        --marrom: #413729;
+        --verde: #457457;
+        --dourado: #DC9B51;
+        --creme: #FFF9EC;
+        --branco: #FFFFFF;
+        --linha: rgba(65, 55, 41, .14);
+        --texto: rgba(65, 55, 41, .76);
+        --suave: rgba(65, 55, 41, .56);
+        --sombra: 0 18px 46px rgba(65, 55, 41, .10);
+
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: var(--creme);
+        color: var(--marrom);
+        font-family: Montserrat, Helvetica, Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    .uj-lp * {
+        box-sizing: border-box;
+    }
+
+    .uj-lp img,
+    .uj-lp video {
+        display: block;
+        max-width: 100%;
+    }
+
+    .uj-lp a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .uj-lp button {
+        font-family: inherit;
+    }
+
+    .uj-wrap {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+    }
+
+    .uj-lp h1,
+    .uj-lp h2,
+    .uj-lp h3 {
+        margin: 0;
+        color: var(--marrom);
+        font-family: "Utile Display", Georgia, serif;
+        letter-spacing: -.035em;
+    }
+
+.uj-topbar {
+        background: var(--dourado);
+        color: var(--marrom);
+        text-align: center;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .uj-header {
+        background: var(--marrom);
+        color: var(--bege);
+    }
+
+    .uj-header-inner {
+        min-height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+    }
+
+    .uj-logo {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 9px;
+        font-size: 30px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: -.04em;
+    }
+
+    .uj-nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        color: rgba(248, 243, 221, .72);
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .uj-nav a:hover {
+        color: var(--bege);
+    }
+
+    .uj-hero {
+        position: relative;
+        padding: 56px 0 60px;
+        background:
+            radial-gradient(circle at 10% 10%, rgba(220, 155, 81, .18), transparent 28%),
+            linear-gradient(180deg, var(--bege) 0%, var(--creme) 100%);
+    }
+
+    .uj-hero-grid {
+        display: grid;
+        grid-template-columns: 1.02fr .98fr;
+        gap: 48px;
+        align-items: center;
+    }
+
+    .uj-hero-copy h1 {
+        max-width: 660px;
+        font-size: clamp(44px, 5.6vw, 78px);
+        line-height: .9;
+        font-weight: 900;
+    }
+
+    .uj-hero-copy p {
+        max-width: 610px;
+        margin: 22px 0 0;
+        color: var(--texto);
+        font-size: 18px;
+        line-height: 1.62;
+    }
+
+    .uj-hero-points {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 620px;
+        margin-top: 26px;
+    }
+
+    .uj-point {
+        min-height: 86px;
+        padding: 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .54);
+        border: 1px solid var(--linha);
+    }
+
+    .uj-point strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+
+    .uj-point span {
+        display: block;
+        color: var(--texto);
+        font-size: 12px;
+        line-height: 1.35;
+    }
+
+    .uj-hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
+    }
+
+    .uj-cta,
+    .uj-ghost {
+        min-height: 50px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 0 24px;
+        font-size: 14px;
+        font-weight: 900;
+        transition: .2s ease;
+    }
+
+    .uj-cta {
+        background: var(--marrom);
+        color: var(--bege) !important;
+    }
+
+    .uj-ghost {
+        background: rgba(255, 255, 255, .48);
+        border: 1px solid rgba(65, 55, 41, .18);
+        color: var(--marrom);
+    }
+
+    .uj-cta:hover,
+    .uj-ghost:hover {
+        transform: translateY(-2px);
+    }
+
+    .uj-hero-media {
+        position: relative;
+    }
+
+    .uj-product-frame {
+        position: relative;
+        overflow: hidden;
+        border-radius: 34px;
+        background: rgba(255, 255, 255, .58);
+        border: 1px solid var(--linha);
+        box-shadow: var(--sombra);
+        padding: 14px;
+    }
+
+    .uj-product-frame img {
+        width: 100%;
+        aspect-ratio: 1 / 1.14;
+        object-fit: cover;
+        border-radius: 24px;
+        background: #fff;
+    }
+
+    .uj-floating-note {
+        position: absolute;
+        left: 28px;
+        bottom: 28px;
+        max-width: 310px;
+        padding: 15px 17px;
+        border-radius: 18px;
+        background: rgba(248, 243, 221, .94);
+        border: 1px solid rgba(65, 55, 41, .14);
+        backdrop-filter: blur(10px);
+    }
+
+    .uj-floating-note strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+
+    .uj-floating-note span {
+        display: block;
+        color: var(--texto);
+        font-size: 12px;
+        line-height: 1.38;
+    }
+
+    .uj-section {
+        padding: 64px 0;
+    }
+
+    .uj-section.white {
+        background: #fff;
+    }
+
+    .uj-section.bege {
+        background: var(--bege);
+    }
+
+    .uj-head {
+        max-width: 760px;
+        margin: 0 auto 34px;
+        text-align: center;
+    }
+
+.uj-head h2 {
+        font-size: clamp(34px, 4vw, 56px);
+        line-height: .98;
+    }
+
+    .uj-head p {
+        max-width: 670px;
+        margin: 14px auto 0;
+        color: var(--texto);
+        font-size: 16px;
+        line-height: 1.58;
+    }
+
+    .uj-about {
+        display: grid;
+        grid-template-columns: .95fr 1.05fr;
+        gap: 36px;
+        align-items: center;
+    }
+
+    .uj-about-img {
+        overflow: hidden;
+        border-radius: 30px;
+        background: #fff;
+        border: 1px solid var(--linha);
+        box-shadow: var(--sombra);
+    }
+
+    .uj-about-img img,
+    .uj-about-img video {
+        width: 100%;
+        aspect-ratio: 1 / .92;
+        object-fit: cover;
+    }
+
+    .uj-about-copy {
+        display: grid;
+        gap: 14px;
+    }
+
+    .uj-about-line {
+        padding: 18px 20px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, .62);
+        border: 1px solid var(--linha);
+    }
+
+    .uj-about-line h3 {
+        margin-bottom: 6px;
+        font-size: 23px;
+        line-height: 1.08;
+    }
+
+    .uj-about-line p {
+        margin: 0;
+        color: var(--texto);
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    .uj-social {
+        display: grid;
+        grid-template-columns: .86fr 1.14fr;
+        gap: 34px;
+        align-items: center;
+    }
+
+    .uj-social-copy h2 {
+        font-size: clamp(34px, 4vw, 56px);
+        line-height: 1;
+    }
+
+    .uj-social-copy p {
+        margin: 16px 0 0;
+        color: var(--texto);
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .uj-social-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .uj-stat {
+        padding: 16px;
+        border-radius: 20px;
+        background: #fff;
+        border: 1px solid var(--linha);
+    }
+
+    .uj-stat strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--marrom);
+        font-size: 22px;
+        letter-spacing: -.04em;
+    }
+
+    .uj-stat span {
+        color: var(--texto);
+        font-size: 12px;
+        line-height: 1.35;
+    }
+
+    .uj-social-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .uj-proof-card {
+        overflow: hidden;
+        border-radius: 24px;
+        background: #fff;
+        border: 1px solid var(--linha);
+        box-shadow: 0 12px 30px rgba(65, 55, 41, .08);
+    }
+
+    .uj-proof-card img {
+        width: 100%;
+        aspect-ratio: 1 / 1.14;
+        object-fit: cover;
+    }
+
+    .uj-proof-card figcaption {
+        padding: 12px 14px 14px;
+        color: var(--texto);
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .uj-offer {
+        background:
+            radial-gradient(circle at 90% 8%, rgba(220, 155, 81, .20), transparent 28%),
+            var(--creme);
+    }
+
+    .uj-offer-grid {
+        display: grid;
+        grid-template-columns: .9fr 1.1fr;
+        gap: 34px;
+        align-items: start;
+    }
+
+    .uj-offer-copy {
+        position: sticky;
+        top: 20px;
+    }
+
+    .uj-offer-copy h2 {
+        font-size: clamp(34px, 4vw, 56px);
+        line-height: 1;
+    }
+
+    .uj-offer-copy p {
+        margin: 16px 0 0;
+        color: var(--texto);
+        font-size: 16px;
+        line-height: 1.62;
+    }
+
+    .uj-offer-mini {
+        display: grid;
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .uj-offer-mini div {
+        padding: 14px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .62);
+        border: 1px solid var(--linha);
+        color: var(--texto);
+        font-size: 14px;
+        line-height: 1.42;
+    }
+
+    .uj-buy {
+        padding: 18px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, .72);
+        border: 1px solid var(--linha);
+        box-shadow: var(--sombra);
+    }
+
+    .uj-buy-title {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 14px;
+    }
+
+    .uj-buy-title strong {
+        font-size: 17px;
+    }
+
+    .uj-unit-label {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(220, 155, 81, .16);
+        border: 1px solid rgba(220, 155, 81, .35);
+        font-size: 12px;
+        font-weight: 900;
+    }
+
+    .uj-kits {
+        display: grid;
+        gap: 10px;
+    }
+
+    .uj-kit {
+        position: relative;
+        width: 100%;
+        min-height: 112px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: center;
+        padding: 16px 16px 16px 42px;
+        border: 1px solid rgba(65, 55, 41, .16);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .58);
+        color: var(--marrom);
+        cursor: pointer;
+        text-align: left;
+        transition: .2s ease;
+    }
+
+    .uj-kit:hover {
+        transform: translateY(-1px);
+        border-color: rgba(220, 155, 81, .72);
+    }
+
+    .uj-kit.is-active {
+        background: rgba(220, 155, 81, .15);
+        border-color: #f0b333;
+        box-shadow: inset 0 0 0 1px rgba(240, 179, 51, .38);
+    }
+
+    .uj-radio {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        border: 2px solid rgba(65, 55, 41, .45);
+        transform: translateY(-50%);
+    }
+
+    .uj-kit.is-active .uj-radio {
+        border-color: var(--marrom);
+        background:
+            radial-gradient(circle, var(--marrom) 0 38%, transparent 42%),
+            #f0b333;
+    }
+
+    .uj-kit-name {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 5px;
+        font-size: 18px;
+        font-weight: 900;
+    }
+
+    .uj-most {
+        display: inline-flex;
+        align-items: center;
+        min-height: 21px;
+        padding: 0 8px;
+        border-radius: 999px;
+        background: #f0b333;
+        color: var(--marrom);
+        font-size: 10px;
+        font-weight: 1000;
+    }
+
+    .uj-kit-desc {
+        display: block;
+        color: rgba(65, 55, 41, .66);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.42;
+    }
+
+    .uj-kit-price {
+        min-width: 205px;
+        text-align: right;
+    }
+
+    .uj-kit-price del {
+        display: block;
+        color: var(--suave);
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .uj-kit-price small {
+        display: block;
+        margin-top: 3px;
+        color: rgba(65, 55, 41, .68);
+        font-size: 12px;
+        font-weight: 900;
+    }
+
+    .uj-kit-price strong {
+        display: block;
+        margin-top: 3px;
+        font-size: 24px;
+        line-height: 1;
+        letter-spacing: -.04em;
+    }
+
+    .uj-kit-price span {
+        display: block;
+        margin-top: 5px;
+        color: var(--texto);
+        font-size: 12px;
+        font-weight: 900;
+    }
+
+    .uj-save {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        min-height: 27px;
+        margin-top: 8px !important;
+        padding: 0 11px;
+        border-radius: 999px;
+        background: rgba(248, 243, 221, .95);
+        color: var(--marrom) !important;
+        font-size: 11px !important;
+        font-weight: 1000 !important;
+    }
+
+    .uj-selected {
+        display: none;
+        min-height: 27px;
+        margin-top: 8px !important;
+        padding: 0 11px;
+        border-radius: 999px;
+        background: var(--marrom);
+        color: var(--bege) !important;
+        font-size: 11px !important;
+        font-weight: 1000 !important;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .uj-kit.is-active .uj-selected {
+        display: inline-flex;
+    }
+
+    .uj-note {
+        margin-top: 10px;
+        padding: 13px 15px;
+        border-radius: 15px;
+        background: rgba(248, 243, 221, .7);
+        border: 1px solid rgba(220, 155, 81, .34);
+        color: var(--texto);
+        font-size: 13px;
+        font-weight: 800;
+        line-height: 1.45;
+        text-align: center;
+    }
+
+    .uj-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .uj-actions .uj-cta {
+        flex: 1;
+    }
+
+    .uj-science {
+        display: grid;
+        grid-template-columns: 1fr .92fr;
+        gap: 34px;
+        align-items: center;
+    }
+
+    .uj-science-copy {
+        padding: 34px;
+        border-radius: 30px;
+        background: var(--marrom);
+        color: var(--bege);
+    }
+
+    .uj-science-copy h2 {
+        color: var(--bege);
+        font-size: clamp(34px, 4vw, 54px);
+        line-height: 1;
+    }
+
+    .uj-science-copy p {
+        margin: 16px 0 0;
+        color: rgba(248, 243, 221, .74);
+        font-size: 16px;
+        line-height: 1.62;
+    }
+
+    .uj-laudo {
+        padding: 14px;
+        border-radius: 30px;
+        background: #fff;
+        border: 1px solid var(--linha);
+        box-shadow: var(--sombra);
+    }
+
+    .uj-laudo img {
+        width: 100%;
+        border-radius: 22px;
+    }
+
+    .uj-benefits {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+    }
+
+    .uj-benefit {
+        min-height: 176px;
+        padding: 22px;
+        border-radius: 24px;
+        background: #fff;
+        border: 1px solid var(--linha);
+    }
+
+    .uj-benefit small {
+        display: block;
+        margin-bottom: 24px;
+        color: var(--dourado);
+        font-size: 13px;
+    }
+
+    .uj-benefit h3 {
+        margin-bottom: 8px;
+        font-size: 22px;
+        line-height: 1.05;
+    }
+
+    .uj-benefit p {
+        margin: 0;
+        color: var(--texto);
+        font-size: 14px;
+        line-height: 1.52;
+    }
+
+    .uj-faq {
+        max-width: 880px;
+        margin: 0 auto;
+        display: grid;
+        gap: 9px;
+    }
+
+    .uj-faq-item {
+        overflow: hidden;
+        border-radius: 18px;
+        background: #fff;
+        border: 1px solid var(--linha);
+    }
+
+    .uj-faq-q {
+        width: 100%;
+        min-height: 58px;
+        padding: 16px 20px;
+        border: 0;
+        background: transparent;
+        color: var(--marrom);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        text-align: left;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 900;
+    }
+
+    .uj-faq-q span {
+        width: 28px;
+        height: 28px;
+        flex: 0 0 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(220, 155, 81, .18);
+    }
+
+    .uj-faq-a {
+        display: none;
+        padding: 0 20px 18px;
+        color: var(--texto);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .uj-faq-item.is-open .uj-faq-a {
+        display: block;
+    }
+
+    .uj-final {
+        padding: 62px 0;
+        background: var(--marrom);
+        color: var(--bege);
+        text-align: center;
+    }
+
+    .uj-final h2 {
+        max-width: 760px;
+        margin: 0 auto;
+        color: var(--bege);
+        font-size: clamp(34px, 5vw, 60px);
+        line-height: .98;
+    }
+
+    .uj-final p {
+        max-width: 620px;
+        margin: 16px auto 0;
+        color: rgba(248, 243, 221, .72);
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .uj-final .uj-cta {
+        margin-top: 26px;
+        background: var(--dourado);
+        color: var(--marrom) !important;
+    }
+
+    @media (max-width: 1024px) {
+
+        .uj-hero-grid,
+        .uj-about,
+        .uj-social,
+        .uj-offer-grid,
+        .uj-science {
+            grid-template-columns: 1fr;
+        }
+
+        .uj-hero-copy {
+            order: -1;
+        }
+
+        .uj-offer-copy {
+            position: static;
+        }
+
+        .uj-benefits {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* Limita largura das imagens quando o grid vira 1 coluna */
+        .uj-hero-media,
+        .uj-about-img {
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .uj-laudo {
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .uj-wrap {
+            width: min(100% - 28px, 1180px);
+        }
+
+        .uj-header-inner {
+            min-height: 64px;
+            justify-content: center;
+        }
+
+        .uj-nav {
+            display: none;
+        }
+
+        .uj-logo {
+            font-size: 27px;
+        }
+
+        .uj-hero,
+        .uj-section {
+            padding: 48px 0;
+        }
+
+        .uj-hero-copy h1 {
+            font-size: 36px;
+            line-height: 1;
+        }
+
+        .uj-hero-copy p,
+        .uj-head p {
+            font-size: 15px;
+        }
+
+        /* Hero points e benefits colapsam; stats e social-grid mantêm colunas */
+        .uj-hero-points,
+        .uj-benefits {
+            grid-template-columns: 1fr;
+        }
+
+        .uj-social-stats {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .uj-stat strong {
+            font-size: 18px;
+        }
+
+        .uj-stat span {
+            font-size: 11px;
+        }
+
+        /* Grade de prova social: mantém 2 colunas no mobile */
+        .uj-social-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        /* Todas as fotos da prova social com a mesma proporção fixa */
+        .uj-proof-card img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .uj-proof-card figcaption {
+            font-size: 11px;
+            padding: 8px 10px 10px;
+        }
+
+        .uj-product-frame {
+            border-radius: 24px;
+            padding: 10px;
+        }
+
+        .uj-product-frame img {
+            border-radius: 18px;
+            aspect-ratio: 4 / 5;
+        }
+
+        .uj-floating-note {
+            position: relative;
+            left: auto;
+            bottom: auto;
+            max-width: none;
+            border-radius: 0 0 18px 18px;
+        }
+
+        .uj-head {
+            margin-bottom: 26px;
+        }
+
+        .uj-head h2,
+        .uj-social-copy h2,
+        .uj-offer-copy h2,
+        .uj-science-copy h2 {
+            font-size: 30px;
+            line-height: 1.05;
+        }
+
+        .uj-about-img img,
+        .uj-about-img video {
+            aspect-ratio: 4 / 3;
+        }
+
+        .uj-kit {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            padding: 16px 16px 16px 42px;
+        }
+
+        .uj-kit-price {
+            min-width: 0;
+            text-align: left;
+        }
+
+        .uj-actions {
+            flex-direction: column;
+        }
+
+        .uj-science-copy {
+            padding: 26px;
+            border-radius: 24px;
+        }
+
+        .uj-laudo {
+            border-radius: 24px;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .uj-final {
+            padding: 54px 0;
+        }
+
+        .uj-final h2 {
+            font-size: 28px;
+        }
+    }
+</style>
+
+<section class="uj-lp" data-uj-root>
+    <div class="uj-topbar">
+        Geleia Real Pura Liofilizada · 9.000mg por frasco · 100% natural
+    </div>
+
+    <header class="uj-header">
+        <div class="uj-wrap uj-header-inner">
+            <a href="/" class="uj-logo" aria-label="Ultramel">Ultramel</a>
+
+            <nav class="uj-nav" aria-label="Navegação da página">
+                <a href="#uj-produto">Produto</a>
+                <a href="#uj-prova">Prova social</a>
+                <a href="#uj-oferta">Kits</a>
+                <a href="#uj-10hda">10-HDA</a>
+                <a href="#uj-faq">Dúvidas</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="uj-hero" id="uj-topo">
+            <div class="uj-wrap uj-hero-grid">
+                <div class="uj-hero-copy">
+                    <h1>Geleia real pura para uma rotina com mais vitalidade.</h1>
+
+                    <p>
+                        Um alimento raro da natureza, produzido pelas abelhas e preservado em cápsulas liofilizadas.
+                        Criado para quem busca energia, equilíbrio e bem-estar com uma composição limpa.
+                    </p>
+
+                    <div class="uj-hero-points">
+                        <div class="uj-point">
+                            <strong>100% natural</strong>
+                            <span>Exclusivamente geleia real liofilizada.</span>
+                        </div>
+
+                        <div class="uj-point">
+                            <strong>Sem aditivos</strong>
+                            <span>Sem conservantes, corantes ou excipientes.</span>
+                        </div>
+
+                        <div class="uj-point">
+                            <strong>9.000mg</strong>
+                            <span>30 cápsulas de 300mg por embalagem.</span>
+                        </div>
+                    </div>
+
+                    <div class="uj-hero-actions">
+                        <a href="#uj-produto" class="uj-cta">Conhecer o produto</a>
+                        <a href="#uj-prova" class="uj-ghost">Ver relatos reais</a>
+                    </div>
+                </div>
+
+                <div class="uj-hero-media">
+                    <div class="uj-product-frame">
+                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/34/06/cd/38837f783a0512bd20c85b0c6e.jpg"
+                            alt="Geleia Real Pura Liofilizada Ultramel" loading="eager">
+
+                        <div class="uj-floating-note">
+                            <strong>Pureza em cápsulas</strong>
+                            <span>Geleia real liofilizada, estável e prática para o consumo diário.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section white" id="uj-produto">
+            <div class="uj-wrap uj-about">
+                <div class="uj-about-img">
+
+                <video controls autoplay muted loop playsinline>
+                    <source src="https://cdn.uoouvideo.com.br/ik-seo/tr:w-593,h-889,fo-center,bg-FFFFFF,q-70,f-mp4/a22571-ogxytxlxut0/pv/09/48/13/234a50c8c65b30e6521db8d27a/geleia-real-pura-liofilizada-9-000mg-2.mov"
+                        type="video/mp4">
+                </video>
+                </div>
+
+                <div class="uj-about-copy">
+                    <div class="uj-about-line">
+                        <h3>O alimento da abelha rainha.</h3>
+                        <p>
+                            A geleia real é produzida pelas abelhas e conhecida por alimentar a abelha rainha durante
+                            toda a sua vida.
+                            É uma substância naturalmente rica e complexa.
+                        </p>
+                    </div>
+
+                    <div class="uj-about-line">
+                        <h3>Liofilizada para preservar.</h3>
+                        <p>
+                            A Ultramel utiliza a liofilização, processo que remove a umidade em baixas temperaturas e
+                            ajuda a preservar as características naturais da matéria-prima.
+                        </p>
+                    </div>
+
+                    <div class="uj-about-line">
+                        <h3>Composição limpa.</h3>
+                        <p>
+                            Cada cápsula contém exclusivamente geleia real liofilizada. Sem adição de vitaminas
+                            sintéticas, conservantes, corantes, maltodextrina ou outros aditivos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section bege" id="uj-prova">
+            <div class="uj-wrap uj-social">
+                <div class="uj-social-copy">
+                    <h2>Relatos reais de quem incluiu a geleia real na rotina.</h2>
+
+                    <p>
+                        A Geleia Real Pura Liofilizada Ultramel reúne avaliações de clientes que associam o uso contínuo
+                        à disposição, bem-estar e equilíbrio no dia a dia.
+                    </p>
+
+                    <div class="uj-social-stats">
+                        <div class="uj-stat">
+                            <strong>166</strong>
+                            <span>avaliações registradas no produto.</span>
+                        </div>
+
+                        <div class="uj-stat">
+                            <strong>5/5</strong>
+                            <span>nota média nas avaliações.</span>
+                        </div>
+
+                        <div class="uj-stat">
+                            <strong>100%</strong>
+                            <span>dos avaliadores recomendam.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uj-social-grid">
+                    <figure class="uj-proof-card">
+                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia.png"
+                            alt="Prova social Geleia Real Ultramel" loading="lazy">
+                        <figcaption>Relato sobre disposição e rotina.</figcaption>
+                    </figure>
+
+                    <figure class="uj-proof-card">
+                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia-1.png"
+                            alt="Prova social Geleia Real Ultramel" loading="lazy">
+                        <figcaption>Experiência real com o produto.</figcaption>
+                    </figure>
+
+                    <figure class="uj-proof-card">
+                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia-estrogenio.jpg"
+                            alt="Prova social Geleia Real Ultramel" loading="lazy">
+                        <figcaption>Relato relacionado a equilíbrio.</figcaption>
+                    </figure>
+
+                    <figure class="uj-proof-card">
+                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia-testo.png"
+                            alt="Prova social Geleia Real Ultramel" loading="lazy">
+                        <figcaption>Relato relacionado à vitalidade.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section uj-offer" id="uj-oferta">
+            <div class="uj-wrap uj-offer-grid">
+                <div class="uj-offer-copy">
+                    <h2>Comece com 1 mês ou mantenha o uso contínuo.</h2>
+
+                    <p>
+                        Cada embalagem contém 30 cápsulas de 300mg. Para uma rotina natural, a constância é o melhor
+                        caminho.
+                    </p>
+
+                    <div class="uj-offer-mini">
+                        <div><b>1 cápsula por dia</b><br>Uso simples para inserir na rotina.</div>
+                        <div><b>Sem refrigeração</b><br>Guardar em local seco, fresco e protegido da luz.</div>
+                        <div><b>Laudo técnico</b><br>Produto com controle de qualidade e conformidade.</div>
+                    </div>
+                </div>
+
+                <div class="uj-buy">
+                    <div class="uj-buy-title">
+                        <strong>Opções disponíveis</strong>
+                        <span class="uj-unit-label">Preço por unidade</span>
+                    </div>
+
+                    <div class="uj-kits">
+                        <button type="button" class="uj-kit" data-months="3 Meses" data-units="3 unidades"
+                            data-capsules="90 cápsulas" data-price="R$ 193,88" data-total="R$ 581,64"
+                            data-save="R$ 232,08">
+                            <span class="uj-radio"></span>
+
+                            <span>
+                                <span class="uj-kit-name">
+                                    3 Meses
+                                    <span class="uj-most">MAIS VENDIDO</span>
+                                </span>
+                                <span class="uj-kit-desc">3 unidades · 90 cápsulas<br>Tratamento mais completo</span>
+                            </span>
+
+                            <span class="uj-kit-price">
+                                <del>De R$ 813,72</del>
+                                <small>Por apenas</small>
+                                <strong>R$ 193,88</strong>
+                                <small>por unidade</small>
+                                <span>Total: R$ 581,64</span>
+                                <span class="uj-save">Economize R$ 232,08</span>
+                                <span class="uj-selected">Selecionado</span>
+                            </span>
+                        </button>
+
+                        <button type="button" class="uj-kit" data-months="2 Meses" data-units="2 unidades"
+                            data-capsules="60 cápsulas" data-price="R$ 228,88" data-total="R$ 457,76"
+                            data-save="R$ 84,72">
+                            <span class="uj-radio"></span>
+
+                            <span>
+                                <span class="uj-kit-name">2 Meses</span>
+                                <span class="uj-kit-desc">2 unidades · 60 cápsulas<br>Mais constância no uso</span>
+                            </span>
+
+                            <span class="uj-kit-price">
+                                <del>De R$ 542,48</del>
+                                <small>Por apenas</small>
+                                <strong>R$ 228,88</strong>
+                                <small>por unidade</small>
+                                <span>Total: R$ 457,76</span>
+                                <span class="uj-save">Economize R$ 84,72</span>
+                                <span class="uj-selected">Selecionado</span>
+                            </span>
+                        </button>
+
+                        <button type="button" class="uj-kit is-active" data-months="1 Mês" data-units="1 unidade"
+                            data-capsules="30 cápsulas" data-price="R$ 248,88" data-total="R$ 248,88"
+                            data-save="R$ 22,36">
+                            <span class="uj-radio"></span>
+
+                            <span>
+                                <span class="uj-kit-name">1 Mês</span>
+                                <span class="uj-kit-desc">1 unidade · 30 cápsulas<br>Ideal para começar</span>
+                            </span>
+
+                            <span class="uj-kit-price">
+                                <del>De R$ 271,24</del>
+                                <small>Por apenas</small>
+                                <strong>R$ 248,88</strong>
+                                <small>por unidade</small>
+                                <span>Total: R$ 248,88</span>
+                                <span class="uj-save">Economize R$ 22,36</span>
+                                <span class="uj-selected">Selecionado</span>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="uj-note" data-uj-note>
+                        Você selecionou <b>1 unidade</b> com <b>30 cápsulas</b>. Você paga <b>R$ 248,88</b> por unidade
+                        e economiza <b>R$ 22,36</b> no kit.
+                    </div>
+
+                    <div class="uj-actions">
+                        <a class="uj-cta" href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg">
+                            Comprar agora
+                        </a>
+                        <a class="uj-ghost" href="#uj-faq">Tirar dúvidas</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section white" id="uj-10hda">
+            <div class="uj-wrap uj-science">
+                <div class="uj-science-copy">
+                    <h2>O 10-HDA é um dos grandes diferenciais da geleia real.</h2>
+
+                    <p>
+                        O 10-HDA, ácido 10-hidroxidecenoico, é um composto bioativo exclusivo da geleia real.
+                        Ele é utilizado como indicador de autenticidade e qualidade da matéria-prima.
+                    </p>
+
+                    <p>
+                        No laudo técnico do lote, o dosamento de 10-HDA apresenta resultado de <b>5,10</b>, acima da
+                        especificação técnica mínima de <b>5,00</b>.
+                    </p>
+                </div>
+
+                <div class="uj-laudo">
+                    <img src="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/e1/11/6a/6fd65bdd7d3053669bdcbc29d8.jpg"
+                        alt="Certificado de análise Geleia Real Ultramel" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section bege">
+            <div class="uj-wrap">
+                <div class="uj-head">
+                    <h2>Um cuidado diário, direto e natural.</h2>
+                    <p>
+                        A geleia real é tradicionalmente associada à vitalidade, disposição e equilíbrio quando usada
+                        com constância.
+                    </p>
+                </div>
+
+                <div class="uj-benefits">
+                    <article class="uj-benefit">
+                        <small>01</small>
+                        <h3>Energia</h3>
+                        <p>Apoia uma rotina com mais disposição física e mental.</p>
+                    </article>
+
+                    <article class="uj-benefit">
+                        <small>02</small>
+                        <h3>Equilíbrio</h3>
+                        <p>Contribui para sensação geral de bem-estar no dia a dia.</p>
+                    </article>
+
+                    <article class="uj-benefit">
+                        <small>03</small>
+                        <h3>Foco</h3>
+                        <p>Estudos investigam sua relação com clareza mental e produtividade.</p>
+                    </article>
+
+                    <article class="uj-benefit">
+                        <small>04</small>
+                        <h3>Vitalidade</h3>
+                        <p>Ajuda a sustentar uma rotina ativa e mais constante.</p>
+                    </article>
+
+                    <article class="uj-benefit">
+                        <small>05</small>
+                        <h3>Antioxidantes</h3>
+                        <p>Contém compostos naturais estudados por seu potencial antioxidante.</p>
+                    </article>
+
+                    <article class="uj-benefit">
+                        <small>06</small>
+                        <h3>Pureza</h3>
+                        <p>Composição limpa, sem misturas desnecessárias.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section white" id="uj-faq">
+            <div class="uj-wrap">
+                <div class="uj-head">
+                    <h2>Dúvidas comuns sobre a Geleia Real Ultramel.</h2>
+                </div>
+
+                <div class="uj-faq">
+                    <div class="uj-faq-item is-open">
+                        <button class="uj-faq-q" type="button" aria-expanded="true">
+                            O que é a geleia real?
+                            <span>−</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            A geleia real é uma substância naturalmente produzida pelas abelhas para alimentar a abelha
+                            rainha. É considerada um dos alimentos mais complexos produzidos na natureza.
+                        </div>
+                    </div>
+
+                    <div class="uj-faq-item">
+                        <button class="uj-faq-q" type="button" aria-expanded="false">
+                            O que significa liofilizada?
+                            <span>+</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            A liofilização remove a umidade em baixas temperaturas, contribuindo para preservar as
+                            características naturais da geleia real.
+                        </div>
+                    </div>
+
+                    <div class="uj-faq-item">
+                        <button class="uj-faq-q" type="button" aria-expanded="false">
+                            Precisa ficar na geladeira?
+                            <span>+</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            Não. A geleia real Ultramel é liofilizada, o que favorece estabilidade e conservação fora da
+                            geladeira. Guarde em local seco, fresco e protegido da luz.
+                        </div>
+                    </div>
+
+                    <div class="uj-faq-item">
+                        <button class="uj-faq-q" type="button" aria-expanded="false">
+                            Como consumir?
+                            <span>+</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            Uma cápsula por dia ou conforme orientação de um profissional de saúde.
+                        </div>
+                    </div>
+
+                    <div class="uj-faq-item">
+                        <button class="uj-faq-q" type="button" aria-expanded="false">
+                            Quanto tempo dura uma embalagem?
+                            <span>+</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            Cada embalagem contém 30 cápsulas de 300mg. Considerando o uso diário de 1 cápsula, rende
+                            aproximadamente 1 mês.
+                        </div>
+                    </div>
+
+                    <div class="uj-faq-item">
+                        <button class="uj-faq-q" type="button" aria-expanded="false">
+                            Possui aditivos?
+                            <span>+</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            Não. O produto é composto exclusivamente por geleia real liofilizada, sem vitaminas
+                            sintéticas, conservantes, corantes ou outros aditivos.
+                        </div>
+                    </div>
+
+                    <div class="uj-faq-item">
+                        <button class="uj-faq-q" type="button" aria-expanded="false">
+                            Quem não deve consumir?
+                            <span>+</span>
+                        </button>
+                        <div class="uj-faq-a">
+                            Pessoas alérgicas a produtos apícolas devem evitar o consumo. Gestantes, lactantes, crianças
+                            ou pessoas com condições específicas devem consultar um profissional de saúde.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-final">
+            <div class="uj-wrap">
+                <h2>Geleia real pura, preservada com cuidado e pronta para a sua rotina.</h2>
+                <p>
+                    Uma escolha natural para quem valoriza pureza, vitalidade, curadoria de origem e composição limpa.
+                </p>
+                <a class="uj-cta" href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg">
+                    Comprar agora
+                </a>
+            </div>
+        </section>
+    </main>
+</section>
+
+<script>
+    (function () {
+        var root = document.querySelector("[data-uj-root]");
+        if (!root) return;
+
+        var kits = root.querySelectorAll(".uj-kit");
+        var note = root.querySelector("[data-uj-note]");
+
+        kits.forEach(function (kit) {
+            kit.addEventListener("click", function () {
+                kits.forEach(function (item) {
+                    item.classList.remove("is-active");
+                });
+
+                kit.classList.add("is-active");
+
+                var units = kit.getAttribute("data-units");
+                var capsules = kit.getAttribute("data-capsules");
+                var price = kit.getAttribute("data-price");
+                var save = kit.getAttribute("data-save");
+
+                if (note) {
+                    note.innerHTML =
+                        "Você selecionou <b>" + units + "</b> com <b>" + capsules + "</b>. Você paga <b>" +
+                        price + "</b> por unidade e economiza <b>" + save + "</b> no kit.";
+                }
+            });
+        });
+
+        var faqItems = root.querySelectorAll(".uj-faq-item");
+
+        faqItems.forEach(function (item) {
+            var button = item.querySelector(".uj-faq-q");
+            var symbol = button ? button.querySelector("span") : null;
+
+            if (!button) return;
+
+            button.addEventListener("click", function () {
+                var isOpen = item.classList.contains("is-open");
+
+                item.classList.toggle("is-open", !isOpen);
+                button.setAttribute("aria-expanded", String(!isOpen));
+
+                if (symbol) {
+                    symbol.textContent = isOpen ? "+" : "−";
+                }
+            });
+        });
+
+        var links = root.querySelectorAll('a[href^="#"]');
+
+        links.forEach(function (link) {
+            link.addEventListener("click", function (event) {
+                var target = root.querySelector(link.getAttribute("href"));
+
+                if (!target) return;
+
+                event.preventDefault();
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            });
+        });
+    })();
+</script>

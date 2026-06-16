@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tabela de Preços · Farmácias · Barba de Respeito</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red:    #E8381A;
+      --black:  #111111;
+      --bg:     #F2F2F7;
+      --card:   #FFFFFF;
+      --card2:  #F2F2F7;
+      --line:   #E5E5EA;
+      --mid:    #555555;
+      --muted:  #999999;
+      --peptide-bg:     #0A1628;
+      --peptide-accent: #3B82F6;
+      --peptide-line:   #1E3A5F;
+    }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HERO ── */
+    header {
+      background: var(--black);
+      padding: 32px 20px 28px;
+    }
+    .header-inner { max-width: 680px; margin: 0 auto; }
+    .channel-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--red); color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 4px; margin-bottom: 14px;
+    }
+    header h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 42px;
+      text-transform: uppercase; color: #fff;
+      line-height: 0.95; letter-spacing: -0.01em;
+    }
+    header h1 em { font-style: normal; color: var(--red); }
+    .periodo {
+      margin-top: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #666;
+    }
+
+    /* ── MAIN ── */
+    main { max-width: 680px; margin: 0 auto; padding: 32px 16px 64px; }
+
+    /* ── SECTION HEADER ── */
+    .section { margin-top: 40px; }
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 12px; padding: 0 4px;
+    }
+    .section-header-line { flex: 1; height: 1px; background: var(--line); }
+    .section-header-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 14px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mid); white-space: nowrap;
+    }
+
+    /* ── CARD LIST padrão ── */
+    .card-list {
+      background: var(--card); border-radius: 14px;
+      overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px; border-bottom: 1px solid var(--line);
+    }
+    .row:last-child { border-bottom: none; }
+    .prod-thumb {
+      width: 60px; height: 60px; border-radius: 10px;
+      object-fit: cover; flex-shrink: 0; background: var(--card2);
+    }
+    .prod-info { flex: 1; min-width: 0; }
+    .prod-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 700;
+      line-height: 1.15; color: var(--black);
+    }
+    .prod-meta {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 3px; flex-wrap: wrap;
+    }
+    .prod-vol { font-size: 13px; color: var(--muted); }
+    .prod-sku {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 0.06em;
+      color: #aaa; background: var(--card2);
+      padding: 1px 6px; border-radius: 4px;
+    }
+    .prod-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px; font-weight: 800;
+      color: var(--black); white-space: nowrap; flex-shrink: 0;
+    }
+
+    /* ══ BLOCO CRESCIMENTO UNIFICADO ══ */
+    .growth-block {
+      background: var(--card);
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+
+    /* faixa de destaque peptídeos — fundo branco */
+    .peptide-banner {
+      background: #F7F7F7;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .peptide-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: #3B82F6;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .peptide-text-wrap {}
+    .peptide-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 15px;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #111;
+    }
+    .peptide-sub { font-size: 11px; color: #888; margin-top: 1px; }
+    .peptide-pill {
+      margin-left: auto; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      color: #3B82F6;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 20px;
+    }
+
+    /* rows peptídeos — fundo branco normal */
+    .peptide-row {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+    }
+    .peptide-row .prod-name  { color: #111; }
+    .peptide-row .prod-vol   { color: #999; }
+    .peptide-row .prod-sku   { background: #F2F2F7; color: #aaa; }
+    .peptide-row .prod-price { color: #111; }
+    .peptide-row .prod-thumb { background: #F2F2F7; }
+
+    /* faixa blend original — fundo branco, estilo limpo */
+    .blend-banner {
+      background: #F7F7F7;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .blend-icon {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: #111;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .blend-text-wrap {}
+    .blend-banner-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800; font-size: 15px;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #111;
+    }
+    .blend-banner-sub { font-size: 11px; color: #888; margin-top: 1px; }
+
+    /* rows blend — fundo branco normal */
+    .blend-row { background: #fff; border-bottom: 1px solid var(--line); }
+    .blend-row .prod-name  { color: #111; }
+    .blend-row .prod-vol   { color: #999; }
+    .blend-row .prod-sku   { background: #F2F2F7; color: #aaa; }
+    .blend-row .prod-price { color: #111; }
+    .blend-row .prod-thumb { background: #F2F2F7; }
+
+    /* ── CONDIÇÕES ── */
+    .conditions { margin-top: 40px; }
+    .conditions-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mid); padding: 0 6px; margin-bottom: 12px;
+    }
+    .cond-list {
+      background: var(--card); border-radius: 14px;
+      overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    }
+    .cond-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 18px; border-bottom: 1px solid var(--line); gap: 12px;
+    }
+    .cond-item:last-child { border-bottom: none; }
+    .cond-left { display: flex; flex-direction: column; gap: 2px; }
+    .cond-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 17px; font-weight: 700; color: var(--black);
+    }
+    .cond-sub { font-size: 12px; color: var(--muted); }
+    .cond-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--red); text-align: right;
+    }
+
+    /* ── WHATSAPP ── */
+    .wa-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-top: 20px; background: #25D366; color: #fff;
+      border-radius: 14px; padding: 16px; text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    .footer-note { margin-top: 28px; padding: 0 4px; }
+    .footer-note p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+    .footer-note a { color: var(--red); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="channel-badge">💊 Farmácias</div>
+    <h1>Tabela<br>de <em>Preços</em></h1>
+    <p class="periodo">Válido para Revendedores</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══ LINHA CRESCIMENTO ══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-line"></div>
+      <div class="section-header-label">Linha Crescimento</div>
+      <div class="section-header-line"></div>
+    </div>
+
+    <div class="growth-block">
+
+      <!-- faixa peptídeos -->
+      <div class="peptide-banner">
+        <div class="peptide-icon">
+          <svg width="18" height="18" viewBox="0 0 502 502.16887" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="m479.390625 22.65625c-29.367187-29.363281-81.3125-30.210938-146.261719-2.378906-28.800781 12.683594-56.289062 28.152344-82.082031 46.179687-25.789063-18.027343-53.28125-33.496093-82.078125-46.179687-64.945312-27.832032-116.894531-26.988282-146.261719 2.378906-42.605469 42.609375-22.988281 131.824219 43.519531 228.347656-66.507812 96.519532-86.125 185.734375-43.519531 228.339844 15.097657 15.097656 36.160157 22.65625 61.890625 22.65625 24.320313 0 52.816406-6.757812 84.371094-20.277344 28.796875-12.683594 56.289062-28.152344 82.078125-46.179687 25.792969 18.027343 53.28125 33.496093 82.082031 46.179687 31.558594 13.519532 60.046875 20.277344 84.367188 20.277344 25.722656 0 46.796875-7.558594 61.894531-22.660156 42.597656-42.601563 22.984375-131.820313-43.523437-228.339844 66.511718-96.519531 86.125-185.734375 43.523437-228.34375zm-129.460937 36.828125c26.199218-11.230469 49.4375-16.917969 67.542968-16.917969 13.976563 0 24.898438 3.394532 31.757813 10.253906 22.679687 22.679688 7.503906 86.875-40.65625 161.488282-17.851563-22.269532-36.929688-43.539063-57.140625-63.691406-20.242188-20.269532-41.625-39.371094-64.035156-57.21875 19.847656-13.046876 40.765624-24.394532 62.53125-33.914063zm32.824218 191.519531c-18.890625 24.761719-39.429687 48.222656-61.480468 70.21875-22.019532 22.085938-45.480469 42.6875-70.226563 61.664063-24.742187-18.976563-48.203125-39.578125-70.222656-61.664063-22.050781-21.996094-42.589844-45.457031-61.480469-70.21875 18.890625-24.769531 39.429688-48.230468 61.480469-70.226562 22.019531-22.082032 45.480469-42.6875 70.222656-61.664063 24.746094 18.976563 48.207031 39.582031 70.226563 61.664063 22.050781 21.996094 42.589843 45.457031 61.480468 70.226562zm-329.886718-198.183594c6.855468-6.859374 17.769531-10.253906 31.757812-10.253906 18.101562 0 41.34375 5.6875 67.539062 16.917969 21.769532 9.519531 42.6875 20.863281 62.539063 33.914063-22.414063 17.84375-43.792969 36.945312-64.039063 57.214843-20.214843 20.15625-39.289062 41.421875-57.140624 63.695313-48.160157-74.613282-63.335938-138.808594-40.65625-161.488282zm99.296874 389.695313c-46.441406 19.90625-83.5625 22.394531-99.296874 6.664063-22.679688-22.679688-7.507813-86.875 40.652343-161.488282 17.855469 22.269532 36.929688 43.539063 57.144531 63.691406 20.242188 20.269532 41.621094 39.371094 64.035157 57.21875-19.847657 13.046876-40.765625 24.394532-62.535157 33.914063zm297.066407 6.664063c-15.730469 15.730468-52.855469 13.242187-99.300781-6.664063-21.765626-9.519531-42.683594-20.863281-62.53125-33.914063 22.410156-17.84375 43.792968-36.945312 64.035156-57.214843 20.210937-20.15625 39.289062-41.421875 57.140625-63.695313 48.160156 74.613282 63.335937 138.808594 40.65625 161.488282zm0 0"/><path d="m251.046875 187.023438c-35.332031 0-63.980469 28.644531-63.980469 63.980468 0 35.328125 28.648438 63.976563 63.980469 63.976563 35.335937 0 63.976563-28.648438 63.976563-63.976563-.039063-35.320312-28.65625-63.941406-63.976563-63.980468zm21.328125 63.980468c-11.78125 0-21.328125-9.554687-21.328125-21.332031s9.546875-21.324219 21.328125-21.324219c11.777344 0 21.324219 9.546875 21.324219 21.324219s-9.546875 21.332031-21.324219 21.332031zm0 0"/></svg>
+        </div>
+        <div class="peptide-text-wrap">
+          <div class="peptide-title">Peptídeos</div>
+          <div class="peptide-sub">Ciência peptídica aplicada ao crescimento de cabelo e barba</div>
+        </div>
+        <div class="peptide-pill">
+          <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          Lançamento
+        </div>
+      </div>
+
+      <!-- Cooper Beard -->
+      <div class="row peptide-row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/cooperbeard6.png?v=1780442320&width=120" alt="Cooper Beard" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Cooper Beard</div>
+          <div class="prod-meta"><span class="prod-vol">15 ml</span><span class="prod-sku">COOPER-B</span></div>
+        </div>
+        <div class="prod-price">R$ 98,90</div>
+      </div>
+
+      <!-- Cooper Hair -->
+      <div class="row peptide-row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/cooperhair1.png?v=1780445567&width=120" alt="Cooper Hair" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Cooper Hair</div>
+          <div class="prod-meta"><span class="prod-vol">30 ml</span><span class="prod-sku">COOPER-H</span></div>
+        </div>
+        <div class="prod-price">R$ 141,90</div>
+      </div>
+
+      <!-- faixa blend original -->
+      <div class="blend-banner">
+        <div class="blend-icon">
+          <svg width="18" height="18" viewBox="0 0 192 192" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="m177.856 16.177a7.951 7.951 0 0 0 -8.973 4.171 14.361 14.361 0 0 1 -3.977 4.465c-1.827 1.273-4.537 2.428-9.292.051a37.529 37.529 0 0 1 -4.6-4.618c-6.871-7.572-18.371-20.246-39.014-20.246-7.012 0-12.241 2.28-16 5.629-3.759-3.349-8.988-5.629-16-5.629-20.643 0-32.143 12.674-39.014 20.246a38.554 38.554 0 0 1 -4.564 4.6c-4.791 2.4-7.5 1.24-9.328-.032a14.4 14.4 0 0 1 -3.939-4.391 8 8 0 0 0 -15.155 3.577c0 10.3 6.159 31.819 29.47 39.59a48.36 48.36 0 0 0 14.934 2.1c11.85 0 25.658-3.236 35.684-10.464a39.915 39.915 0 0 0 7.912-7.483 39.915 39.915 0 0 0 7.912 7.487c10.027 7.228 23.834 10.464 35.684 10.464a48.365 48.365 0 0 0 14.934-2.1c23.311-7.775 29.47-29.294 29.47-39.594a8.025 8.025 0 0 0 -6.144-7.823z"/><path d="m157.061 71.18a55.93 55.93 0 0 1 -17 2.506c-11.968 8.564-30.525 14.314-44.061 14.314s-32.092-5.75-44.065-14.314a55.907 55.907 0 0 1 -16.994-2.506 50.938 50.938 0 0 1 -17.235-9.634c-7.082 11.208-15.076 29.954-9.467 52.394a8 8 0 0 0 10.291 5.65l7.686-2.563a49.29 49.29 0 0 0 7.128 39.411 8 8 0 0 0 12.313 1.219l8.189-8.189a45.6 45.6 0 0 0 3.85 13.525c6.07 13.086 18.106 22.707 35.774 28.6a8.011 8.011 0 0 0 5.06 0c17.668-5.89 29.7-15.511 35.774-28.6a45.6 45.6 0 0 0 3.85-13.525l8.189 8.189a8 8 0 0 0 12.313-1.219 49.29 49.29 0 0 0 7.128-39.411l7.686 2.563a8 8 0 0 0 10.291-5.65c5.609-22.436-2.385-41.185-9.467-52.393a50.927 50.927 0 0 1 -17.233 9.633z"/></svg>
+        </div>
+        <div class="blend-text-wrap">
+          <div class="blend-banner-title">Blend Original</div>
+          <div class="blend-banner-sub">Crescimento da barba sem minoxidil</div>
+        </div>
+      </div>
+
+      <!-- Blend 30ml -->
+      <div class="row blend-row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/blend_original_novo.png?v=1778943812&width=120" alt="Blend Original 30ml" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Blend Original</div>
+          <div class="prod-meta"><span class="prod-vol">30 ml</span><span class="prod-sku">BLE001</span></div>
+        </div>
+        <div class="prod-price">R$ 41,90</div>
+      </div>
+
+      <!-- Blend 100ml -->
+      <div class="row blend-row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/blend_original_novo.png?v=1778943812&width=120" alt="Blend Original 100ml" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Blend Original</div>
+          <div class="prod-meta"><span class="prod-vol">100 ml</span><span class="prod-sku">BLE001-100</span></div>
+        </div>
+        <div class="prod-price">R$ 79,90</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ LINHA ESSENCIAL ══ -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-header-line"></div>
+      <div class="section-header-label">Linha Essencial</div>
+      <div class="section-header-line"></div>
+    </div>
+    <div class="card-list">
+      <div class="row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/34_561cfe85-4712-4321-bc59-bbfc6d14aa32.png?v=1744980564&width=120" alt="Balm Essencial" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Balm para Barba</div>
+          <div class="prod-meta"><span class="prod-vol">55 g</span><span class="prod-sku">4P1BAL001</span></div>
+        </div>
+        <div class="prod-price">R$ 24,90</div>
+      </div>
+      <div class="row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/3_8a97e1e4-5de1-4cdf-acc6-cee8ad95f0fd.png?v=1756498169&width=120" alt="Shampoo Essencial" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Shampoo de Barba</div>
+          <div class="prod-meta"><span class="prod-vol">200 ml</span><span class="prod-sku">4P1SH001</span></div>
+        </div>
+        <div class="prod-price">R$ 24,90</div>
+      </div>
+      <div class="row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/oleo-para-barba-4-por-1-barba-de-respeito.png?v=1749298738&width=120" alt="Óleo Essencial" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Óleo de Barba</div>
+          <div class="prod-meta"><span class="prod-vol">30 ml</span><span class="prod-sku">4P1OLE001</span></div>
+        </div>
+        <div class="prod-price">R$ 24,90</div>
+      </div>
+      <div class="row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/45.png?v=1761852498&width=120" alt="Cera Molhado Essencial" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Cera Modeladora Efeito Molhado</div>
+          <div class="prod-meta"><span class="prod-vol">55 g</span><span class="prod-sku">4P1POM001</span></div>
+        </div>
+        <div class="prod-price">R$ 24,90</div>
+      </div>
+      <div class="row">
+        <img class="prod-thumb" src="https://barbaderespeito.com.br/cdn/shop/files/cera_efeito_seco_linha_essencial_barba_de_respeito.png?v=1780833973&width=120" alt="Cera Seco Essencial" loading="lazy"/>
+        <div class="prod-info">
+          <div class="prod-name">Cera Modeladora Efeito Seco</div>
+          <div class="prod-meta"><span class="prod-vol">55 g</span><span class="prod-sku">4P1POM003</span></div>
+        </div>
+        <div class="prod-price">R$ 24,90</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONDIÇÕES ══ -->
+  <div class="conditions">
+    <div class="conditions-label">Condições de Pagamento</div>
+    <div class="cond-list">
+      <div class="cond-item">
+        <div class="cond-left">
+          <div class="cond-name">PIX</div>
+          <div class="cond-sub">Pagamento instantâneo</div>
+        </div>
+        <div class="cond-badge">5% OFF</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-left">
+          <div class="cond-name">Cartão de Crédito</div>
+          <div class="cond-sub">Parcelamento disponível</div>
+        </div>
+        <div class="cond-badge">3× sem juros</div>
+      </div>
+      <div class="cond-item">
+        <div class="cond-left">
+          <div class="cond-name">Boleto Bancário</div>
+          <div class="cond-sub">Sujeito a análise de crédito</div>
+        </div>
+        <div class="cond-badge">28 / 56 dd</div>
+      </div>
+    </div>
+  </div>
+
+  <a class="wa-btn" href="https://wa.me/554796427687" target="_blank">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M20.52 3.48A11.93 11.93 0 0 0 12 0C5.37 0 0 5.37 0 12c0 2.11.55 4.16 1.6 5.97L0 24l6.18-1.62A11.95 11.95 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52ZM12 22c-1.85 0-3.66-.5-5.24-1.44l-.38-.22-3.67.96.98-3.58-.24-.38A9.95 9.95 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10Zm5.44-7.34c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.58-.49-.5-.67-.51H6.6c-.2 0-.52.07-.79.37-.27.3-1.03 1-1.03 2.44s1.06 2.83 1.2 3.02c.15.2 2.08 3.18 5.04 4.46.7.3 1.25.49 1.68.62.7.22 1.34.19 1.84.12.56-.08 1.76-.72 2-1.41.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35Z"/></svg>
+    Falar com Representante
+  </a>
+
+  <div class="footer-note">
+    <p>
+      Preços unitários para o canal de farmácias.<br>
+      Tabela sujeita a atualização com aviso prévio.<br>
+      <a href="mailto:vendas@barbaderespeito.com.br">vendas@barbaderespeito.com.br</a>
+    </p>
+  </div>
+
+</main>
+</body>
+</html>

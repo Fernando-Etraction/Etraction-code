@@ -9,29 +9,30 @@
   }
 
   .etc-sizebay {
-    --etc-bg: #f7f2ee;
-    --etc-white: #ffffff;
-    --etc-text: #1d1d1b;
-    --etc-muted: #5f5b57;
-    --etc-soft: #eef3ea;
-    --etc-border: #d9d4ce;
-    --etc-green: #627b53;
-    --etc-green-dark: #49663d;
-    --etc-black: #1d1d1b;
+    --bb-white: #ffffff;
+    --bb-bg: #f7f2ee;
+    --bb-bg-soft: #fbfaf8;
+    --bb-green: #627b53;
+    --bb-green-dark: #49663d;
+    --bb-black: #1d1d1b;
+    --bb-muted: rgba(29, 29, 27, 0.64);
+    --bb-border: rgba(29, 29, 27, 0.13);
+    --bb-shadow: 0 18px 50px rgba(29, 29, 27, 0.16);
+    font-family: Roboto, Montserrat, sans-serif;
   }
 
   .etc-sizebay__trigger {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 9px;
     width: fit-content;
-    min-height: 38px;
-    margin: 18px 0;
-    padding: 10px 15px;
-    background: var(--etc-white);
-    color: var(--etc-black);
-    border: 1px solid var(--etc-border);
+    min-height: 42px;
+    margin: 16px 0;
+    padding: 11px 17px;
+    background: var(--bb-white);
+    color: var(--bb-green-dark);
+    border: 1px solid var(--bb-border);
     border-radius: 999px;
     font-family: inherit;
     font-size: 13px;
@@ -42,9 +43,9 @@
   }
 
   .etc-sizebay__trigger:hover {
-    border-color: var(--etc-green);
-    background: var(--etc-soft);
-    color: var(--etc-green-dark);
+    background: var(--bb-bg);
+    border-color: var(--bb-green);
+    transform: translateY(-1px);
   }
 
   .etc-sizebay__trigger svg {
@@ -54,29 +55,31 @@
   }
 
   .etc-sizebay__dialog {
-    width: min(1040px, calc(100vw - 28px));
-    max-height: min(850px, calc(100vh - 36px));
+    width: min(960px, calc(100vw - 28px));
+    max-height: min(820px, calc(100vh - 34px));
     padding: 0;
     border: 0;
-    border-radius: 24px;
-    background: var(--etc-bg);
-    color: var(--etc-text);
+    border-radius: 26px;
+    background: var(--bb-bg);
+    color: var(--bb-black);
     overflow: hidden;
+    box-shadow: var(--bb-shadow);
     font-family: inherit;
   }
 
   .etc-sizebay__dialog::backdrop {
-    background: rgba(29, 29, 27, 0.56);
+    background: rgba(29, 29, 27, 0.55);
+    backdrop-filter: blur(3px);
   }
 
   .etc-sizebay__content {
     position: relative;
     display: grid;
-    grid-template-columns: 39% 61%;
-    min-height: 650px;
-    max-height: min(850px, calc(100vh - 36px));
+    grid-template-columns: 36% 64%;
+    min-height: 620px;
+    max-height: min(820px, calc(100vh - 34px));
     overflow: hidden;
-    background: var(--etc-bg);
+    background: var(--bb-bg);
   }
 
   .etc-sizebay__content.is-without-image {
@@ -85,19 +88,19 @@
   }
 
   .etc-sizebay__content.is-without-image .etc-sizebay__main {
-    max-width: 720px;
-    margin: 0 auto;
+    max-width: 780px;
     width: 100%;
+    margin: 0 auto;
   }
 
   .etc-sizebay__media {
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 650px;
-    background: #ebe6df;
-    overflow: hidden;
+    min-height: 620px;
     display: none;
+    overflow: hidden;
+    background: #ebe6df;
   }
 
   .etc-sizebay__media.is-visible {
@@ -116,20 +119,16 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.02),
-      rgba(73, 102, 61, 0.14)
-    );
+    background: linear-gradient(180deg, rgba(255,255,255,0), rgba(73,102,61,.22));
     pointer-events: none;
   }
 
   .etc-sizebay__main {
     position: relative;
-    padding: 34px 34px 28px;
+    padding: 32px;
+    max-height: min(820px, calc(100vh - 34px));
     overflow-y: auto;
-    max-height: min(850px, calc(100vh - 36px));
-    background: var(--etc-bg);
+    background: var(--bb-bg);
   }
 
   .etc-sizebay__close {
@@ -138,37 +137,36 @@
     right: 14px;
     width: 34px;
     height: 34px;
-    border: 1px solid var(--etc-border);
+    border: 1px solid var(--bb-border);
     border-radius: 50%;
-    background: var(--etc-white);
-    color: var(--etc-black);
-    font-size: 20px;
+    background: var(--bb-white);
+    color: var(--bb-black);
+    font-size: 22px;
     line-height: 1;
     cursor: pointer;
-    z-index: 4;
+    z-index: 5;
   }
 
   .etc-sizebay__close:hover {
-    border-color: var(--etc-green);
-    color: var(--etc-green-dark);
+    color: var(--bb-white);
+    background: var(--bb-green-dark);
+    border-color: var(--bb-green-dark);
   }
 
   .etc-sizebay__header {
-    margin: 0 44px 22px 0;
-    text-align: left;
+    margin: 0 42px 20px 0;
   }
 
   .etc-sizebay__eyebrow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    padding: 6px 12px;
-    border: 1px solid rgba(98, 123, 83, 0.25);
+    margin-bottom: 9px;
+    padding: 6px 11px;
     border-radius: 999px;
-    background: var(--etc-white);
-    color: var(--etc-green-dark);
-    font-size: 11px;
+    background: var(--bb-white);
+    color: var(--bb-green-dark);
+    border: 1px solid rgba(98, 123, 83, 0.22);
+    font-size: 10px;
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -177,37 +175,43 @@
   .etc-sizebay__title {
     display: block;
     margin: 0 0 8px;
-    color: var(--etc-green);
-    font-size: 31px;
+    color: var(--bb-green);
+    font-family: Rubrik, Montserrat, Roboto, sans-serif;
+    font-size: 34px;
     font-weight: 900;
-    line-height: 1.08;
-    letter-spacing: -0.02em;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
   }
 
   .etc-sizebay__subtitle {
     display: block;
-    max-width: 500px;
+    max-width: 520px;
     margin: 0;
-    color: var(--etc-muted);
+    color: var(--bb-muted);
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .etc-sizebay__tabs {
     display: flex;
-    justify-content: flex-start;
     gap: 8px;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
+    padding: 5px;
+    border: 1px solid var(--bb-border);
+    border-radius: 999px;
+    background: rgba(255,255,255,.55);
+    width: fit-content;
+    max-width: 100%;
     flex-wrap: wrap;
   }
 
   .etc-sizebay__tab {
-    min-height: 36px;
-    padding: 9px 14px;
-    border: 1px solid var(--etc-border);
+    min-height: 34px;
+    padding: 8px 13px;
+    border: 0;
     border-radius: 999px;
-    background: var(--etc-white);
-    color: var(--etc-black);
+    background: transparent;
+    color: var(--bb-black);
     font-size: 12px;
     font-weight: 900;
     cursor: pointer;
@@ -215,14 +219,12 @@
   }
 
   .etc-sizebay__tab:hover {
-    border-color: var(--etc-green);
-    color: var(--etc-green-dark);
+    color: var(--bb-green-dark);
   }
 
   .etc-sizebay__tab.is-active {
-    background: var(--etc-green);
-    color: var(--etc-white);
-    border-color: var(--etc-green);
+    background: var(--bb-green);
+    color: var(--bb-white);
   }
 
   .etc-sizebay__panel {
@@ -235,22 +237,22 @@
 
   .etc-sizebay__finder {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    align-items: start;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 14px;
+    align-items: stretch;
   }
 
   .etc-sizebay__card {
-    border: 1px solid var(--etc-border);
-    border-radius: 20px;
     padding: 18px;
-    background: var(--etc-white);
+    border: 1px solid var(--bb-border);
+    border-radius: 22px;
+    background: var(--bb-white);
   }
 
   .etc-sizebay__card-title {
     display: block;
     margin-bottom: 14px;
-    color: var(--etc-black);
+    color: var(--bb-black);
     font-size: 15px;
     font-weight: 900;
     letter-spacing: -0.01em;
@@ -267,32 +269,33 @@
   }
 
   .etc-sizebay__field label {
-    color: var(--etc-black);
+    color: var(--bb-black);
     font-size: 12px;
     font-weight: 900;
   }
 
   .etc-sizebay__field input {
     width: 100%;
-    min-height: 42px;
-    padding: 10px 12px;
-    border: 1px solid var(--etc-border);
-    border-radius: 12px;
-    background: #fbfaf8;
-    color: var(--etc-black);
+    min-height: 44px;
+    padding: 11px 12px;
+    border: 1px solid var(--bb-border);
+    border-radius: 14px;
+    background: var(--bb-bg-soft);
+    color: var(--bb-black);
     font-size: 14px;
     outline: none;
+    transition: 0.2s ease;
   }
 
   .etc-sizebay__field input:focus {
-    border-color: var(--etc-green);
-    background: var(--etc-white);
+    border-color: var(--bb-green);
+    background: var(--bb-white);
   }
 
   .etc-sizebay__helper {
     display: block;
-    margin-top: 9px;
-    color: var(--etc-muted);
+    margin-top: 10px;
+    color: var(--bb-muted);
     font-size: 11px;
     line-height: 1.45;
   }
@@ -303,33 +306,29 @@
     margin-top: 14px;
     border: 0;
     border-radius: 999px;
-    background: var(--etc-green-dark);
-    color: var(--etc-white);
-    font-size: 14px;
+    background: var(--bb-green-dark);
+    color: var(--bb-white);
+    font-size: 13px;
     font-weight: 900;
     cursor: pointer;
     transition: 0.2s ease;
   }
 
   .etc-sizebay__button:hover {
-    background: var(--etc-black);
-  }
-
-  .etc-sizebay__result {
-    display: grid;
-    gap: 12px;
+    background: var(--bb-black);
+    transform: translateY(-1px);
   }
 
   .etc-sizebay__result-empty {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 220px;
-    padding: 18px;
-    border: 1px dashed var(--etc-border);
-    border-radius: 16px;
-    background: #fbfaf8;
-    color: var(--etc-muted);
+    min-height: 244px;
+    padding: 20px;
+    border: 1px dashed var(--bb-border);
+    border-radius: 18px;
+    background: var(--bb-bg-soft);
+    color: var(--bb-muted);
     text-align: center;
     font-size: 13px;
     line-height: 1.5;
@@ -337,23 +336,23 @@
 
   .etc-sizebay__result-box {
     display: none;
-    border: 1px solid var(--etc-border);
-    border-radius: 20px;
     overflow: hidden;
-    background: var(--etc-white);
+    border: 1px solid var(--bb-border);
+    border-radius: 22px;
+    background: var(--bb-white);
   }
 
   .etc-sizebay__result-head {
-    padding: 20px 18px;
-    background: var(--etc-soft);
-    color: var(--etc-black);
+    padding: 22px 18px;
+    background: #eef3ea;
+    color: var(--bb-black);
     text-align: center;
-    border-bottom: 1px solid var(--etc-border);
+    border-bottom: 1px solid var(--bb-border);
   }
 
   .etc-sizebay__result-label {
     display: block;
-    color: var(--etc-muted);
+    color: var(--bb-muted);
     font-size: 12px;
     font-weight: 800;
   }
@@ -361,8 +360,9 @@
   .etc-sizebay__result-size {
     display: block;
     margin-top: 4px;
-    color: var(--etc-green-dark);
-    font-size: 48px;
+    color: var(--bb-green-dark);
+    font-family: Rubrik, Montserrat, Roboto, sans-serif;
+    font-size: 58px;
     font-weight: 900;
     line-height: 1;
   }
@@ -373,10 +373,10 @@
 
   .etc-sizebay__result-text {
     display: block;
-    margin-bottom: 12px;
-    color: #333;
+    margin-bottom: 13px;
+    color: var(--bb-black);
     font-size: 13px;
-    line-height: 1.45;
+    line-height: 1.5;
     text-align: center;
   }
 
@@ -392,53 +392,53 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    padding: 9px 0;
-    border-top: 1px solid #ece7df;
-    color: #444;
+    padding: 10px 0;
+    border-top: 1px solid rgba(29,29,27,.09);
+    color: var(--bb-muted);
     font-size: 12px;
   }
 
   .etc-sizebay__score-list strong {
-    color: var(--etc-green-dark);
+    color: var(--bb-green-dark);
+    text-align: right;
   }
 
   .etc-sizebay__table-wrap {
     width: 100%;
     overflow-x: auto;
-    padding: 4px;
-    border: 1px solid var(--etc-border);
-    border-radius: 20px;
-    background: var(--etc-white);
+    padding: 6px;
+    border: 1px solid var(--bb-border);
+    border-radius: 22px;
+    background: var(--bb-white);
   }
 
   .etc-sizebay__table {
     width: 100%;
+    min-width: 620px;
     border-collapse: collapse;
-    min-width: 560px;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .etc-sizebay__table th,
   .etc-sizebay__table td {
     padding: 13px 10px;
-    border: 0;
-    border-bottom: 1px solid #ece7df;
+    border-bottom: 1px solid rgba(29,29,27,.08);
     text-align: center;
   }
 
   .etc-sizebay__table th {
-    background: transparent;
-    color: var(--etc-black);
+    color: var(--bb-black);
+    font-size: 12px;
     font-weight: 900;
-    font-size: 13px;
   }
 
   .etc-sizebay__table td {
-    color: var(--etc-black);
+    color: var(--bb-black);
     font-weight: 500;
   }
 
   .etc-sizebay__table td:first-child {
+    color: var(--bb-green-dark);
     font-weight: 900;
   }
 
@@ -449,64 +449,248 @@
   .etc-sizebay__note {
     display: block;
     margin-top: 12px;
-    color: var(--etc-muted);
+    color: var(--bb-muted);
     font-size: 11px;
+    line-height: 1.45;
     text-align: center;
   }
 
-  .etc-sizebay__models {
+  .etc-sizebay__catalog {
+    display: grid;
+    gap: 18px;
+  }
+
+  .etc-sizebay__catalog-intro {
+    display: block;
+    padding: 14px 16px;
+    border: 1px solid var(--bb-border);
+    border-radius: 18px;
+    background: var(--bb-white);
+    color: var(--bb-muted);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .etc-sizebay__catalog-title {
+    display: block;
+    margin: 0 0 12px;
+    color: var(--bb-green);
+    font-family: Rubrik, Montserrat, Roboto, sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+
+  .etc-sizebay__section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .etc-sizebay__section-subtitle {
+    display: block;
+    color: var(--bb-muted);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .etc-sizebay__compact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .etc-sizebay__legend-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .etc-sizebay__legend-chip,
+  .etc-sizebay__model-chip {
+    position: relative;
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    align-items: center;
+    gap: 9px;
+    min-height: 58px;
+    padding: 10px;
+    border: 1px solid var(--bb-border);
+    border-radius: 14px;
+    background: var(--bb-white);
+  }
+
+  .etc-sizebay__model-chip {
+    min-height: 66px;
+  }
+
+  .etc-sizebay__legend-chip .etc-sizebay__bugbee-icon,
+  .etc-sizebay__model-chip .etc-sizebay__model-icon {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+  }
+
+  .etc-sizebay__legend-chip .etc-sizebay__bugbee-icon img,
+  .etc-sizebay__model-chip .etc-sizebay__model-icon img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .etc-sizebay__legend-chip strong,
+  .etc-sizebay__model-chip strong {
+    display: block;
+    color: var(--bb-black);
+    font-size: 11.5px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .etc-sizebay__legend-chip .etc-sizebay__code,
+  .etc-sizebay__model-chip .etc-sizebay__code {
+    margin-top: 5px;
+    padding: 3px 6px;
+    font-size: 9px !important;
+  }
+
+  .etc-sizebay__models-compact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .etc-sizebay__model-group {
+    padding: 14px;
+    border: 1px solid var(--bb-border);
+    border-radius: 20px;
+    background: rgba(255,255,255,.46);
+  }
+
+  .etc-sizebay__model-group-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--bb-green-dark);
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .etc-sizebay__model-group-title span {
+    color: var(--bb-muted);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .etc-sizebay__benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .etc-sizebay__models-split {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 14px;
   }
 
-  .etc-sizebay__model {
-    display: flex;
-    gap: 12px;
-    padding: 14px;
-    border: 1px solid var(--etc-border);
-    border-radius: 18px;
-    background: var(--etc-white);
-  }
-
-  .etc-sizebay__model-icon {
-    flex: 0 0 38px;
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(98, 123, 83, 0.25);
-    border-radius: 999px;
-    background: var(--etc-soft);
+  .etc-sizebay__models-column {
     display: grid;
-    place-items: center;
-    color: var(--etc-green-dark);
-    font-size: 16px;
+    gap: 10px;
+  }
+
+  .etc-sizebay__models-column-title {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--bb-green-dark);
+    font-size: 15px;
     font-weight: 900;
   }
 
-  .etc-sizebay__model strong {
-    display: block;
-    margin-bottom: 4px;
-    color: var(--etc-black);
-    font-size: 13px;
-    line-height: 1.2;
+  .etc-sizebay__benefit-card,
+  .etc-sizebay__model-card {
+    display: flex;
+    gap: 12px;
+    padding: 13px;
+    border: 1px solid var(--bb-border);
+    border-radius: 16px;
+    background: var(--bb-white);
   }
 
-  .etc-sizebay__model span {
+  .etc-sizebay__bugbee-icon,
+  .etc-sizebay__model-icon {
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #eef3ea;
+    color: var(--bb-green-dark);
+    overflow: hidden;
+  }
+
+  .etc-sizebay__bugbee-icon img,
+  .etc-sizebay__model-icon img {
+    width: 38px;
+    height: 38px;
     display: block;
-    color: var(--etc-muted);
-    font-size: 12px;
-    line-height: 1.4;
+    object-fit: contain;
+    object-position: center;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .etc-sizebay__benefit-card strong,
+  .etc-sizebay__model-card strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--bb-black);
+    font-size: 12.5px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .etc-sizebay__benefit-card span:not(.etc-sizebay__bugbee-icon),
+  .etc-sizebay__model-card span:not(.etc-sizebay__model-icon) {
+    display: block;
+    color: var(--bb-muted);
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+
+  .etc-sizebay__code {
+    display: inline-flex !important;
+    width: fit-content;
+    margin-top: 7px;
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: var(--bb-bg);
+    color: var(--bb-green-dark) !important;
+    font-size: 10px !important;
+    font-weight: 900;
+    line-height: 1 !important;
   }
 
   .etc-sizebay__whatsapp {
     display: block;
-    margin-top: 18px;
+    margin-top: 16px;
     padding: 14px;
+    border: 1px solid var(--bb-border);
     border-radius: 18px;
-    background: var(--etc-white);
-    border: 1px solid var(--etc-border);
+    background: var(--bb-white);
     text-align: center;
-    color: var(--etc-black);
+    color: var(--bb-black);
     font-size: 13px;
     line-height: 1.45;
   }
@@ -514,115 +698,433 @@
   .etc-sizebay__whatsapp strong {
     display: block;
     margin-bottom: 3px;
-    color: var(--etc-black);
+    color: var(--bb-black);
     font-size: 14px;
     font-weight: 900;
   }
 
   .etc-sizebay__whatsapp span {
-    color: var(--etc-green);
+    color: var(--bb-green);
     font-weight: 900;
+  }
+
+
+  .etc-sizebay__modelagem-showcase {
+    display: grid;
+    gap: 18px;
+    padding: 18px 18px 20px;
+    border: 1px solid var(--bb-border);
+    border-radius: 22px;
+    background: rgba(255,255,255,.58);
+  }
+
+  .etc-sizebay__modelagem-head {
+    display: grid;
+    gap: 6px;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .etc-sizebay__modelagem-title {
+    margin: 0;
+    color: #49663d;
+    font-family: Rubrik, Montserrat, Roboto, sans-serif;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .etc-sizebay__modelagem-subtitle {
+    max-width: 560px;
+    color: var(--bb-muted);
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .etc-sizebay__modelagem-section {
+    display: grid;
+    gap: 12px;
+  }
+
+  .etc-sizebay__modelagem-section-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 7px 12px;
+    border: 1px solid rgba(98, 123, 83, 0.18);
+    border-radius: 999px;
+    background: var(--bb-white);
+    color: var(--bb-green-dark);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .etc-sizebay__modelagem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 22px;
+  }
+
+  .etc-sizebay__modelagem-item {
+    display: grid;
+    grid-template-columns: 78px 1fr;
+    align-items: start;
+    gap: 12px;
+  }
+
+  .etc-sizebay__modelagem-figure {
+    width: 78px;
+    min-width: 78px;
+    height: 78px;
+    display: grid;
+    place-items: center;
+  }
+
+  .etc-sizebay__modelagem-figure .etc-sizebay__model-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .etc-sizebay__modelagem-figure .etc-sizebay__model-icon img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+  }
+
+  .etc-sizebay__modelagem-copy {
+    display: grid;
+    gap: 4px;
+    padding-top: 4px;
+  }
+
+  .etc-sizebay__modelagem-copy strong {
+    display: block;
+    color: var(--bb-black);
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .etc-sizebay__modelagem-copy span {
+    display: block;
+    color: var(--bb-muted);
+    font-size: 11.5px;
+    line-height: 1.35;
   }
 
   @media (max-width: 980px) {
     .etc-sizebay__content {
-      grid-template-columns: 35% 65%;
+      grid-template-columns: 34% 66%;
     }
 
     .etc-sizebay__finder {
+      grid-template-columns: 1fr;
+    }
+
+    .etc-sizebay__result-empty {
+      min-height: 140px;
+    }
+
+    .etc-sizebay__benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .etc-sizebay__models-split {
       grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 768px) {
     .etc-sizebay__dialog {
-      width: calc(100vw - 18px);
-      border-radius: 18px;
+      width: calc(100vw - 12px) !important;
+      max-height: calc(100dvh - 16px) !important;
+      border-radius: 18px !important;
+      overflow: hidden !important;
     }
 
     .etc-sizebay__content {
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-      max-height: min(850px, calc(100vh - 36px));
-      overflow-y: auto;
+      display: block !important;
+      min-height: 0 !important;
+      height: auto !important;
+      max-height: calc(100dvh - 16px) !important;
+      overflow: hidden !important;
     }
 
-    .etc-sizebay__media {
-      width: 100%;
-      height: 265px;
-      min-height: 265px;
-      flex: 0 0 265px;
-    }
-
-    .etc-sizebay__media img {
-      object-fit: cover;
-      object-position: center top;
+    .etc-sizebay__media,
+    .etc-sizebay__media.is-visible {
+      display: none !important;
     }
 
     .etc-sizebay__main {
-      padding: 24px 14px 18px;
-      max-height: none;
-      overflow: visible;
+      max-height: calc(100dvh - 16px) !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      padding: 18px 12px 14px !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .etc-sizebay__close {
+      top: 10px !important;
+      right: 10px !important;
+      width: 30px !important;
+      height: 30px !important;
+      font-size: 18px !important;
     }
 
     .etc-sizebay__header {
-      margin: 0 36px 17px 0;
-      text-align: left;
+      margin: 0 34px 12px 0 !important;
     }
 
     .etc-sizebay__eyebrow {
-      font-size: 10px;
-      padding: 5px 10px;
+      margin-bottom: 6px !important;
+      padding: 4px 8px !important;
+      font-size: 9px !important;
     }
 
     .etc-sizebay__title {
-      font-size: 23px;
+      font-size: 22px !important;
+      line-height: 1.05 !important;
+      margin-bottom: 5px !important;
+      letter-spacing: -0.03em !important;
     }
 
     .etc-sizebay__subtitle {
-      font-size: 12px;
-      margin: 0;
+      font-size: 11.5px !important;
+      line-height: 1.35 !important;
     }
 
     .etc-sizebay__tabs {
-      justify-content: flex-start;
-      gap: 6px;
-      margin-bottom: 16px;
+      width: 100% !important;
+      margin-bottom: 12px !important;
+      padding: 4px !important;
+      gap: 4px !important;
+      border-radius: 14px !important;
     }
 
     .etc-sizebay__tab {
-      min-height: 34px;
-      padding: 8px 11px;
-      font-size: 11px;
+      flex: 1 !important;
+      min-height: 30px !important;
+      padding: 6px 6px !important;
+      font-size: 10px !important;
     }
 
     .etc-sizebay__finder {
-      grid-template-columns: 1fr;
-      gap: 12px;
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
     }
 
     .etc-sizebay__card {
-      padding: 14px;
-      border-radius: 16px;
+      padding: 12px !important;
+      border-radius: 14px !important;
+    }
+
+    .etc-sizebay__card-title {
+      margin-bottom: 10px !important;
+      font-size: 13px !important;
+    }
+
+    .etc-sizebay__fields {
+      gap: 8px !important;
+    }
+
+    .etc-sizebay__field {
+      gap: 4px !important;
+    }
+
+    .etc-sizebay__field label {
+      font-size: 11px !important;
+    }
+
+    .etc-sizebay__field input {
+      min-height: 38px !important;
+      padding: 8px 10px !important;
+      border-radius: 10px !important;
+      font-size: 13px !important;
+    }
+
+    .etc-sizebay__helper {
+      margin-top: 8px !important;
+      font-size: 10.5px !important;
+      line-height: 1.35 !important;
+    }
+
+    .etc-sizebay__button {
+      min-height: 38px !important;
+      margin-top: 10px !important;
+      font-size: 12px !important;
     }
 
     .etc-sizebay__result-empty {
-      min-height: 120px;
+      min-height: 90px !important;
+      padding: 14px !important;
+      font-size: 12px !important;
     }
 
-    .etc-sizebay__models {
-      grid-template-columns: 1fr;
-      gap: 10px;
+    .etc-sizebay__result-head {
+      padding: 14px 12px !important;
+    }
+
+    .etc-sizebay__result-size {
+      font-size: 38px !important;
+    }
+
+    .etc-sizebay__result-body {
+      padding: 12px !important;
+    }
+
+    .etc-sizebay__result-text {
+      margin-bottom: 8px !important;
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+    }
+
+    .etc-sizebay__score-list li {
+      padding: 7px 0 !important;
+      font-size: 11px !important;
+    }
+
+    .etc-sizebay__table-wrap {
+      border-radius: 14px !important;
+      padding: 4px !important;
     }
 
     .etc-sizebay__table {
-      font-size: 13px;
+      min-width: 520px !important;
+      font-size: 11.5px !important;
     }
 
     .etc-sizebay__table th,
     .etc-sizebay__table td {
-      padding: 10px 8px;
+      padding: 8px 6px !important;
+    }
+
+    .etc-sizebay__catalog {
+      gap: 12px !important;
+    }
+
+    .etc-sizebay__catalog-title {
+      font-size: 18px !important;
+      margin-bottom: 8px !important;
+    }
+
+    .etc-sizebay__catalog-intro {
+      padding: 11px !important;
+      border-radius: 14px !important;
+      font-size: 11px !important;
+    }
+
+    .etc-sizebay__benefits-grid,
+    .etc-sizebay__models-split {
+      grid-template-columns: 1fr !important;
+      gap: 8px !important;
+    }
+
+    .etc-sizebay__benefit-card,
+    .etc-sizebay__model-card {
+      padding: 10px !important;
+      border-radius: 13px !important;
+      gap: 10px !important;
+    }
+
+    .etc-sizebay__bugbee-icon,
+    .etc-sizebay__model-icon {
+      flex-basis: 34px !important;
+      width: 34px !important;
+      height: 34px !important;
+      border-radius: 10px !important;
+    }
+
+    .etc-sizebay__bugbee-icon img,
+    .etc-sizebay__model-icon img {
+      width: 30px !important;
+      height: 30px !important;
+    }
+
+    .etc-sizebay__benefit-card strong,
+    .etc-sizebay__model-card strong {
+      font-size: 12px !important;
+    }
+
+    .etc-sizebay__benefit-card span:not(.etc-sizebay__bugbee-icon),
+    .etc-sizebay__model-card span:not(.etc-sizebay__model-icon) {
+      font-size: 10.5px !important;
+    }
+
+    .etc-sizebay__section-head {
+      display: block !important;
+      margin-bottom: 8px !important;
+    }
+
+    .etc-sizebay__section-subtitle {
+      margin-top: 3px !important;
+      font-size: 10px !important;
+    }
+
+    .etc-sizebay__legend-grid,
+    .etc-sizebay__compact-grid {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 7px !important;
+    }
+
+    .etc-sizebay__legend-chip,
+    .etc-sizebay__model-chip {
+      grid-template-columns: 30px 1fr !important;
+      min-height: 54px !important;
+      padding: 8px !important;
+      gap: 7px !important;
+      border-radius: 12px !important;
+    }
+
+    .etc-sizebay__model-chip {
+      min-height: 58px !important;
+    }
+
+    .etc-sizebay__legend-chip .etc-sizebay__bugbee-icon,
+    .etc-sizebay__model-chip .etc-sizebay__model-icon {
+      flex-basis: 30px !important;
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 9px !important;
+    }
+
+    .etc-sizebay__legend-chip .etc-sizebay__bugbee-icon img,
+    .etc-sizebay__model-chip .etc-sizebay__model-icon img {
+      width: 26px !important;
+      height: 26px !important;
+    }
+
+    .etc-sizebay__legend-chip strong,
+    .etc-sizebay__model-chip strong {
+      font-size: 10.5px !important;
+    }
+
+    .etc-sizebay__model-group {
+      padding: 10px !important;
+      border-radius: 14px !important;
+    }
+
+    .etc-sizebay__model-group-title {
+      margin-bottom: 8px !important;
+      font-size: 12.5px !important;
+    }
+
+    .etc-sizebay__model-group-title span {
+      font-size: 9px !important;
+    }
+
+    .etc-sizebay__whatsapp {
+      margin-top: 10px !important;
+      padding: 11px !important;
+      border-radius: 14px !important;
+      font-size: 11.5px !important;
     }
   }
 </style>
@@ -636,34 +1138,48 @@
     const PRODUCT_IMAGE_SELECTOR =
       "#container-swiper > div > div.relative.flex.items-center.justify-center.px-space-8.group.gallery-main.swiper-container.w-\\[calc\\(100\\%-106px\\)\\] > div.swiper.swiper-initialized.swiper-horizontal.h-full.select-none.\\!overflow-hidden.w-full.swiper-backface-hidden > div.swiper-wrapper > div.swiper-slide.\\!flex.h-auto.items-center.\\!justify-center.overflow-hidden.swiper-slide-active > span > img";
 
-    const SIZE_CHART = [
-      { size: "1", height: 82, chest: 50, waist: 50, hip: 52 },
-      { size: "2", height: 88, chest: 52, waist: 52, hip: 54 },
-      { size: "3", height: 98, chest: 54, waist: 54, hip: 56 },
-      { size: "4", height: 105, chest: 56, waist: 56, hip: 61 },
-      { size: "6", height: 117, chest: 61, waist: 58, hip: 65 },
-      { size: "8", height: 128, chest: 66, waist: 60, hip: 70 },
-      { size: "10", height: 137, chest: 70, waist: 62, hip: 76 },
-      { size: "12", height: 150, chest: 75, waist: 64, hip: 82 },
-      { size: "14", height: 156, chest: 78, waist: 66, hip: 87 },
-      { size: "16", height: 160, chest: 81, waist: 68, hip: 93 }
+    const BENEFIT_ICONS = {
+      "cos": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20206/cos-ajus.svg",
+      "genderless": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20207/gen.svg",
+      "modular": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20208/mod-design.svg",
+      "termica": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20209/protecao-termica.svg",
+      "uv": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20216/uv.svg",
+      "rebugbee": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20210/rebugbee.svg",
+      "responsavel": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20211/responsavell.svg",
+      "reversible": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20212/rev.svg",
+      "secagem": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20213/secagem-rapida.svg",
+      "algodao": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20214/soa.svg",
+      "conforto": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20215/supc.svg"
+    };
+
+const SIZE_CHART = [
+      { size: "1", tableHeight: 82, heightMin: 78, heightMax: 85, weightMin: 9, weightMax: 12 },
+      { size: "2", tableHeight: 88, heightMin: 86, heightMax: 93, weightMin: 11, weightMax: 14 },
+      { size: "3", tableHeight: 98, heightMin: 94, heightMax: 101, weightMin: 13, weightMax: 16 },
+      { size: "4", tableHeight: 105, heightMin: 102, heightMax: 111, weightMin: 15, weightMax: 19 },
+      { size: "6", tableHeight: 117, heightMin: 112, heightMax: 122, weightMin: 18, weightMax: 24 },
+      { size: "8", tableHeight: 128, heightMin: 123, heightMax: 132, weightMin: 23, weightMax: 30 },
+      { size: "10", tableHeight: 137, heightMin: 133, heightMax: 143, weightMin: 29, weightMax: 38 },
+      { size: "12", tableHeight: 150, heightMin: 144, heightMax: 153, weightMin: 37, weightMax: 48 },
+      { size: "14", tableHeight: 156, heightMin: 154, heightMax: 158, weightMin: 45, weightMax: 58 },
+      { size: "16", tableHeight: 160, heightMin: 159, heightMax: 164, weightMin: 52, weightMax: 68 }
     ];
 
-    const MEASURE_LABELS = {
-      height: "Altura",
-      chest: "Tórax",
-      waist: "Cintura",
-      hip: "Quadril"
+        const MODEL_ICONS = {
+      "femCamiseta": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20189/fem-camiseta.svg",
+      "femBox": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20188/fem-box.svg",
+      "femCiclistaCurta": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20190/fem-ciclista-curta.svg",
+      "femCiclistaLonga": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20191/fem-ciclista-longa.svg",
+      "femRegular": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20192/fem-regular.svg",
+      "femShortCinturaAlta": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20193/fem-shorts-cintura-alta.svg",
+      "femShortRegular": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20194/fem-shorts-regular.svg",
+      "femSlim": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20196/fem-slim.svg",
+      "mascBermudaRegular": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20201/masc-bermuda-regular.svg",
+      "mascRegular": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20202/masc-regular.svg",
+      "mascSlim": "https://bugbee.cdn.magazord.com.br/img/2026/06/produto/20205/masc-slim.svg"
     };
 
-    const MEASURE_WEIGHTS = {
-      height: 1,
-      chest: 1.2,
-      waist: 1.2,
-      hip: 1.3
-    };
-
-    const rulerIcon = `
+const rulerIcon = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M15.2169 2.77888L2.7807 15.2151C2.4878 15.508 2.4878 15.9829 2.7807 16.2758L7.72006 21.2151C8.01295 21.508 8.48783 21.508 8.78072 21.2151L21.217 8.7789C21.5099 8.48601 21.5099 8.01114 21.217 7.71824L16.2776 2.77888C15.9847 2.48599 15.5098 2.48599 15.2169 2.77888Z" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M12.375 5.625L15.375 8.625" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -671,6 +1187,30 @@
         <path d="M5.625 12.375L8.625 15.375" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
     `;
+
+    const benefitIcon = (type) => {
+      const src = BENEFIT_ICONS[type];
+
+      if (!src) return "";
+
+      return `
+        <span class="etc-sizebay__bugbee-icon">
+          <img src="${src}" alt="" loading="lazy">
+        </span>
+      `;
+    };
+
+    const modelIcon = (type) => {
+      const src = MODEL_ICONS[type] || MODEL_ICONS.femRegular;
+
+      if (!src) return "";
+
+      return `
+        <span class="etc-sizebay__model-icon">
+          <img src="${src}" alt="" loading="lazy">
+        </span>
+      `;
+    };
 
     const getProductImageSrc = () => {
       const selectors = [
@@ -740,15 +1280,16 @@
 
             <div class="etc-sizebay__main">
               <div class="etc-sizebay__header">
-                <span class="etc-sizebay__eyebrow">Medidas em centímetros</span>
-                <span class="etc-sizebay__title" id="etc-sizebay-title">Medidas Infantil</span>
+                <span class="etc-sizebay__eyebrow">Guia infantil</span>
+                <span class="etc-sizebay__title" id="etc-sizebay-title">Encontre o tamanho ideal</span>
                 <span class="etc-sizebay__subtitle">
-                  Adicione as medidas da criança para encontrar o tamanho mais indicado.
+                  Informe altura e peso da criança para receber uma recomendação rápida.
+                  Para caimento mais soltinho, considere um tamanho acima.
                 </span>
               </div>
 
               <div class="etc-sizebay__tabs" role="tablist" aria-label="Guia de tamanho">
-                <button class="etc-sizebay__tab is-active" type="button" data-sizebay-tab="finder">Descobrir tamanho</button>
+                <button class="etc-sizebay__tab is-active" type="button" data-sizebay-tab="finder">Descobrir</button>
                 <button class="etc-sizebay__tab" type="button" data-sizebay-tab="table">Tabela</button>
                 <button class="etc-sizebay__tab" type="button" data-sizebay-tab="models">Modelagem</button>
               </div>
@@ -756,32 +1297,22 @@
               <div class="etc-sizebay__panel is-active" data-sizebay-panel="finder">
                 <div class="etc-sizebay__finder">
                   <div class="etc-sizebay__card">
-                    <span class="etc-sizebay__card-title">Adicionar medidas</span>
+                    <span class="etc-sizebay__card-title">Medidas da criança</span>
 
                     <div class="etc-sizebay__fields">
                       <div class="etc-sizebay__field">
                         <label for="etc-sizebay-height">Altura</label>
-                        <input id="etc-sizebay-height" type="number" inputmode="decimal" min="40" max="190" placeholder="Ex: 128" data-sizebay-input="height">
+                        <input id="etc-sizebay-height" type="number" inputmode="decimal" min="40" max="190" placeholder="Ex: 126 cm" data-sizebay-input="height">
                       </div>
 
                       <div class="etc-sizebay__field">
-                        <label for="etc-sizebay-chest">Tórax</label>
-                        <input id="etc-sizebay-chest" type="number" inputmode="decimal" min="30" max="130" placeholder="Ex: 66" data-sizebay-input="chest">
-                      </div>
-
-                      <div class="etc-sizebay__field">
-                        <label for="etc-sizebay-waist">Cintura</label>
-                        <input id="etc-sizebay-waist" type="number" inputmode="decimal" min="30" max="130" placeholder="Ex: 60" data-sizebay-input="waist">
-                      </div>
-
-                      <div class="etc-sizebay__field">
-                        <label for="etc-sizebay-hip">Quadril</label>
-                        <input id="etc-sizebay-hip" type="number" inputmode="decimal" min="30" max="140" placeholder="Ex: 70" data-sizebay-input="hip">
+                        <label for="etc-sizebay-weight">Peso</label>
+                        <input id="etc-sizebay-weight" type="number" inputmode="decimal" min="3" max="90" placeholder="Ex: 27 kg" data-sizebay-input="weight">
                       </div>
                     </div>
 
                     <span class="etc-sizebay__helper">
-                      Se não souber todas as medidas, informe pelo menos altura e mais uma medida corporal.
+                      Exemplo: 126 cm e 27 kg recomenda tamanho 8.
                     </span>
 
                     <button class="etc-sizebay__button" type="button" data-sizebay-calculate>
@@ -793,7 +1324,7 @@
                     <span class="etc-sizebay__card-title">Resultado</span>
 
                     <div class="etc-sizebay__result-empty" data-sizebay-empty>
-                      Preencha as medidas para ver o tamanho recomendado.
+                      Preencha altura e peso para ver a recomendação.
                     </div>
 
                     <div class="etc-sizebay__result-box" data-sizebay-result>
@@ -817,20 +1348,18 @@
                     <thead>
                       <tr>
                         <th>Tamanho</th>
-                        <th>Altura</th>
-                        <th>Tórax</th>
-                        <th>Cintura</th>
-                        <th>Quadril</th>
+                        <th>Altura da tabela</th>
+                        <th>Faixa de altura</th>
+                        <th>Peso aproximado</th>
                       </tr>
                     </thead>
                     <tbody>
                       ${SIZE_CHART.map((item) => `
                         <tr>
                           <td>${item.size}</td>
-                          <td>${item.height}</td>
-                          <td>${item.chest}</td>
-                          <td>${item.waist}</td>
-                          <td>${item.hip}</td>
+                          <td>${item.tableHeight} cm</td>
+                          <td>${item.heightMin} a ${item.heightMax} cm</td>
+                          <td>${item.weightMin} a ${item.weightMax} kg</td>
                         </tr>
                       `).join("")}
                     </tbody>
@@ -838,69 +1367,135 @@
                 </div>
 
                 <span class="etc-sizebay__note">
-                  Medidas em centímetros. Margem de tolerância: +/- 1 cm.
+                  A recomendação considera altura e peso aproximados. Para caimento mais folgado, escolha um tamanho acima.
                 </span>
 
                 <div class="etc-sizebay__whatsapp">
-                  <strong>Ficou na dúvida sobre o tamanho?</strong>
+                  <strong>Ainda ficou em dúvida?</strong>
                   Chama a gente no WhatsApp, vamos adorar te ajudar! <span>♥</span>
                 </div>
               </div>
 
               <div class="etc-sizebay__panel" data-sizebay-panel="models">
-                <div class="etc-sizebay__models">
-                  <div class="etc-sizebay__model">
-                    <div class="etc-sizebay__model-icon">R</div>
-                    <div>
-                      <strong>Blusa/Camiseta Regular</strong>
-                      <span>Shape tradicional com corte reto.</span>
+                <div class="etc-sizebay__catalog">
+                  <span class="etc-sizebay__catalog-intro">
+                    Consulte os ícones e códigos de forma rápida. Quando a peça não tiver indicação, considere modelagem regular.
+                  </span>
+
+                  <div class="etc-sizebay__modelagem-showcase">
+                    <div class="etc-sizebay__modelagem-head">
+                      <h3 class="etc-sizebay__modelagem-title">Modelagem</h3>
+                      <span class="etc-sizebay__modelagem-subtitle">
+                        Consulte o formato de cada peça de forma visual e rápida para entender melhor o caimento.
+                      </span>
+                    </div>
+
+                    <div class="etc-sizebay__modelagem-section">
+                      <span class="etc-sizebay__modelagem-section-label">Feminino</span>
+
+                      <div class="etc-sizebay__modelagem-grid">
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femRegular")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Blusa/Camiseta Regular</strong>
+                            <span>Shape tradicional e corte reto.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femSlim")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Blusa/Camiseta Slim Fit</strong>
+                            <span>Levemente ajustada ao corpo com comprimento regular.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femCamiseta")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Blusa/Camiseta Oversized</strong>
+                            <span>Ombros deslocados e caimento mais amplo que a regular.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femBox")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Blusa Box</strong>
+                            <span>Shape tradicional, corte reto e um pouco mais curta.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femCiclistaCurta")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Bermuda Ciclista Curta</strong>
+                            <span>Modelagem ajustada com comprimento mais curto.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femCiclistaLonga")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Bermuda Ciclista Longa</strong>
+                            <span>Modelagem ajustada com comprimento mais alongado.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femShortCinturaAlta")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Shorts Cintura Alta</strong>
+                            <span>Cintura mais alta e caimento soltinho nas pernas.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("femShortRegular")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Shorts Regular</strong>
+                            <span>Cintura tradicional e comprimento regular.</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="etc-sizebay__modelagem-section">
+                      <span class="etc-sizebay__modelagem-section-label">Masculino</span>
+
+                      <div class="etc-sizebay__modelagem-grid">
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("mascRegular")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Camiseta Regular</strong>
+                            <span>Shape tradicional e corte reto.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("mascSlim")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Camiseta Slim Fit</strong>
+                            <span>Levemente ajustada ao corpo com comprimento regular.</span>
+                          </div>
+                        </div>
+
+                        <div class="etc-sizebay__modelagem-item">
+                          <div class="etc-sizebay__modelagem-figure">${modelIcon("mascBermudaRegular")}</div>
+                          <div class="etc-sizebay__modelagem-copy">
+                            <strong>Bermuda Regular</strong>
+                            <span>Modelagem tradicional reta, acima dos joelhos.</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div class="etc-sizebay__model">
-                    <div class="etc-sizebay__model-icon">S</div>
-                    <div>
-                      <strong>Blusa/Camiseta Slim Fit</strong>
-                      <span>Levemente ajustada ao corpo, com comprimento regular.</span>
-                    </div>
-                  </div>
 
-                  <div class="etc-sizebay__model">
-                    <div class="etc-sizebay__model-icon">O</div>
-                    <div>
-                      <strong>Blusa/Camiseta Oversized</strong>
-                      <span>Ombros deslocados e caimento mais largo que a regular.</span>
-                    </div>
+                  <div class="etc-sizebay__whatsapp">
+                    <strong>Ainda ficou em dúvida?</strong>
+                    Chama a gente no WhatsApp, vamos adorar te ajudar! <span>♥</span>
                   </div>
-
-                  <div class="etc-sizebay__model">
-                    <div class="etc-sizebay__model-icon">B</div>
-                    <div>
-                      <strong>Blusa Box</strong>
-                      <span>Corte reto e mais curto que a blusa regular.</span>
-                    </div>
-                  </div>
-
-                  <div class="etc-sizebay__model">
-                    <div class="etc-sizebay__model-icon">R</div>
-                    <div>
-                      <strong>Bermuda Regular</strong>
-                      <span>Modelagem tradicional reta, com comprimento acima dos joelhos.</span>
-                    </div>
-                  </div>
-
-                  <div class="etc-sizebay__model">
-                    <div class="etc-sizebay__model-icon">S</div>
-                    <div>
-                      <strong>Bermuda Short</strong>
-                      <span>Shape reto, mais curto que a bermuda regular.</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="etc-sizebay__whatsapp">
-                  <strong>Ficou na dúvida sobre o tamanho?</strong>
-                  Chama a gente no WhatsApp, vamos adorar te ajudar! <span>♥</span>
                 </div>
               </div>
             </div>
@@ -911,10 +1506,13 @@
 
     const normalizeNumber = (value) => {
       if (!value) return null;
-
       const number = Number(String(value).replace(",", "."));
-
       return Number.isFinite(number) && number > 0 ? number : null;
+    };
+
+    const formatNumber = (value) => {
+      if (Number.isInteger(value)) return String(value);
+      return String(value).replace(".", ",");
     };
 
     const getInputs = (root) => {
@@ -924,57 +1522,48 @@
         const key = input.dataset.sizebayInput;
         const value = normalizeNumber(input.value);
 
-        if (value !== null) {
-          values[key] = value;
-        }
+        if (value !== null) values[key] = value;
       });
 
       return values;
     };
 
-    const calculateBestSize = (values) => {
-      const filledKeys = Object.keys(values);
+    const getDistanceFromRange = (value, min, max) => {
+      if (value < min) return min - value;
+      if (value > max) return value - max;
+      return 0;
+    };
 
-      if (filledKeys.length < 2) {
+    const calculateBestSize = (values) => {
+      if (!values.height || !values.weight) {
         return {
-          error: "Informe pelo menos 2 medidas para calcular com mais segurança."
+          error: "Informe a altura e o peso da criança para calcular o tamanho."
         };
       }
 
       const ranked = SIZE_CHART.map((item) => {
-        let total = 0;
-        const details = [];
+        const heightDistance = getDistanceFromRange(values.height, item.heightMin, item.heightMax);
+        const weightDistance = getDistanceFromRange(values.weight, item.weightMin, item.weightMax);
+        const tableHeightDistance = Math.abs(values.height - item.tableHeight);
 
-        filledKeys.forEach((key) => {
-          const diff = Math.abs(values[key] - item[key]);
-          const weightedDiff = diff * (MEASURE_WEIGHTS[key] || 1);
-
-          total += weightedDiff;
-
-          details.push({
-            key,
-            label: MEASURE_LABELS[key],
-            diff
-          });
-        });
+        const score =
+          heightDistance * 2 +
+          weightDistance * 3 +
+          tableHeightDistance * 0.01;
 
         return {
           ...item,
-          score: total,
-          details
+          score,
+          heightDistance,
+          weightDistance,
+          tableHeightDistance
         };
       }).sort((a, b) => a.score - b.score);
 
       return {
         best: ranked[0],
-        second: ranked[1],
         ranked
       };
-    };
-
-    const formatDiff = (diff) => {
-      if (diff === 0) return "exata";
-      return `diferença de ${diff} cm`;
     };
 
     const renderResult = (root) => {
@@ -997,33 +1586,35 @@
       }
 
       const best = result.best;
-      const second = result.second;
       const sizeIndex = SIZE_CHART.findIndex((item) => item.size === best.size);
       const nextSize = SIZE_CHART[sizeIndex + 1];
 
       empty.style.display = "none";
       box.style.display = "block";
-
       size.textContent = best.size;
 
-      const closeToNext =
-        second &&
-        nextSize &&
-        second.size === nextSize.size &&
-        Math.abs(second.score - best.score) <= 5;
+      text.textContent = nextSize
+        ? `Recomendamos o tamanho ${best.size}. Para um caimento mais folgado, escolha o tamanho ${nextSize.size}.`
+        : `Recomendamos o tamanho ${best.size}.`;
 
-      text.textContent = closeToNext
-        ? `O tamanho ${best.size} é o mais próximo das medidas informadas. Para uma peça mais folgada, considere também o tamanho ${nextSize.size}.`
-        : `O tamanho ${best.size} é o mais próximo das medidas informadas.`;
-
-      details.innerHTML = best.details
-        .map((item) => `
-          <li>
-            <span>${item.label}</span>
-            <strong>${formatDiff(item.diff)}</strong>
-          </li>
-        `)
-        .join("");
+      details.innerHTML = `
+        <li>
+          <span>Altura informada</span>
+          <strong>${formatNumber(values.height)} cm</strong>
+        </li>
+        <li>
+          <span>Peso informado</span>
+          <strong>${formatNumber(values.weight)} kg</strong>
+        </li>
+        <li>
+          <span>Altura indicada</span>
+          <strong>${best.heightMin} a ${best.heightMax} cm</strong>
+        </li>
+        <li>
+          <span>Peso aproximado</span>
+          <strong>${best.weightMin} a ${best.weightMax} kg</strong>
+        </li>
+      `;
     };
 
     const setActiveTab = (root, tabName) => {
@@ -1108,9 +1699,7 @@
 
         const input = event.target.closest("[data-sizebay-input]");
 
-        if (input) {
-          renderResult(root);
-        }
+        if (input) renderResult(root);
       });
 
       dialog.addEventListener("click", (event) => {
@@ -1122,9 +1711,7 @@
           event.clientY < rect.top ||
           event.clientY > rect.bottom;
 
-        if (clickedOutside) {
-          closeDialog(dialog);
-        }
+        if (clickedOutside) closeDialog(dialog);
       });
 
       const gallery = document.querySelector("#container-swiper");
@@ -1158,9 +1745,7 @@
         requestAnimationFrame(() => {
           scheduled = false;
 
-          if (injectSizeBayGuide()) {
-            observer.disconnect();
-          }
+          if (injectSizeBayGuide()) observer.disconnect();
         });
       });
 

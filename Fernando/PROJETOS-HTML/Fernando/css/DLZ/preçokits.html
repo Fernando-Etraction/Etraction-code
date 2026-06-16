@@ -1,0 +1,299 @@
+<style>
+    .preco-principal .preco-pix .text-heading-md {
+        font-size: 24px !important;
+        font-weight: 600 !important;
+        color: #302e2e !important;
+    }
+
+    .kme-box {
+        width: 360px !important;
+        max-width: 100% !important;
+        height: 96px !important;
+        max-height: 96px !important;
+        margin: 10px 0 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        font-family: inherit !important;
+        color: #111 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        overflow: visible !important;
+    }
+
+    .kme-box * {
+        box-sizing: border-box !important;
+    }
+
+    .kme-top {
+        width: 100% !important;
+        height: 66px !important;
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 7px !important;
+    }
+
+    .kme-card {
+        width: 100% !important;
+        height: 66px !important;
+        border: 1px solid rgba(17, 17, 17, 0.16) !important;
+        border-radius: 5px !important;
+        background: #fff !important;
+        padding: 9px 10px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .kme-name {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 0 7px 0 !important;
+        padding: 0 !important;
+        font-size: clamp(12px, 3vw, 14px) !important;
+        line-height: 1 !important;
+        font-weight: 700 !important;
+        color: #111 !important;
+        letter-spacing: -0.02em !important;
+        white-space: nowrap !important;
+    }
+
+    .kme-prices {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+        line-height: 1 !important;
+    }
+
+    .kme-line {
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 5px !important;
+        width: 100% !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+    }
+
+    .kme-line small {
+        display: inline-block !important;
+        min-width: 20px !important;
+        font-size: clamp(9px, 2.3vw, 10px) !important;
+        line-height: 1 !important;
+        font-weight: 600 !important;
+        color: rgba(17, 17, 17, 0.52) !important;
+        text-transform: lowercase !important;
+    }
+
+    .kme-de {
+        display: inline-block !important;
+        font-size: clamp(9px, 2.4vw, 10px) !important;
+        line-height: 1 !important;
+        font-weight: 500 !important;
+        color: rgba(17, 17, 17, 0.42) !important;
+        text-decoration: line-through !important;
+        text-decoration-thickness: 1px !important;
+    }
+
+    .kme-line-por small {
+        color: rgba(17, 17, 17, 0.72) !important;
+    }
+
+    .kme-por {
+        display: inline-block !important;
+        margin: 0 !important;
+        font-size: clamp(14px, 3.8vw, 15px) !important;
+        line-height: 1 !important;
+        font-weight: 650 !important;
+        color: #111 !important;
+        letter-spacing: -0.04em !important;
+    }
+
+    .kme-bottom {
+        width: 100% !important;
+        height: 24px !important;
+        border: 1px solid rgba(17, 17, 17, 0.12) !important;
+        border-radius: 5px !important;
+        background: #f7f7f7 !important;
+        color: #111 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0 10px !important;
+        text-align: center !important;
+        overflow: hidden !important;
+    }
+
+    .kme-kit-text {
+        display: block !important;
+        width: 100% !important;
+        font-size: clamp(10px, 2.8vw, 12px) !important;
+        line-height: 1 !important;
+        font-weight: 650 !important;
+        letter-spacing: -0.02em !important;
+        color: #111 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    @media (max-width: 380px) {
+        .kme-box {
+            width: 100% !important;
+            height: 94px !important;
+            max-height: 94px !important;
+            gap: 5px !important;
+        }
+
+        .kme-top {
+            height: 65px !important;
+            gap: 6px !important;
+        }
+
+        .kme-card {
+            height: 65px !important;
+            padding: 8px 8px !important;
+        }
+
+        .kme-name {
+            font-size: 12px !important;
+            margin-bottom: 6px !important;
+        }
+
+        .kme-line small {
+            min-width: 18px !important;
+            font-size: 9px !important;
+        }
+
+        .kme-de {
+            font-size: 9px !important;
+        }
+
+        .kme-por {
+            font-size: 14px !important;
+        }
+
+        .kme-bottom {
+            height: 24px !important;
+            padding: 0 8px !important;
+        }
+
+        .kme-kit-text {
+            font-size: 10px !important;
+        }
+    }
+</style>
+
+<script>
+    (function () {
+    function moeda(valor) {
+      return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function preencherPreco(widget, tipo, de, por) {
+      var box = widget.querySelector('[data-field="' + tipo + '"]');
+      if (!box) return;
+
+      var deEl = box.querySelector(".kme-de");
+      var porEl = box.querySelector(".kme-por");
+
+      if (deEl) deEl.textContent = moeda(de);
+      if (porEl) porEl.textContent = moeda(por);
+    }
+
+    function iniciarKitEconomia() {
+      if (document.getElementById("kit-mini-economia")) return;
+
+      var alvo = document.querySelector("#content-price-product");
+      if (!alvo) return;
+
+      var html =
+        '<div' +
+          ' id="kit-mini-economia"' +
+          ' class="kme-box"' +
+          ' data-kit="408.41"' +
+          ' data-camiseta-de="149.90"' +
+          ' data-camiseta-por="89.90"' +
+          ' data-calca-de="419.90"' +
+          ' data-calca-por="309.99"' +
+        '>' +
+          '<div class="kme-top">' +
+            '<div class="kme-card">' +
+              '<span class="kme-name">Camiseta Slim</span>' +
+              '<div class="kme-prices" data-field="camiseta">' +
+                '<span class="kme-line kme-line-de">' +
+                  '<small>de</small>' +
+                  '<span class="kme-de"></span>' +
+                '</span>' +
+                '<span class="kme-line kme-line-por">' +
+                  '<small>por</small>' +
+                  '<strong class="kme-por"></strong>' +
+                '</span>' +
+              '</div>' +
+            '</div>' +
+
+            '<div class="kme-card">' +
+              '<span class="kme-name">Calça Jogger</span>' +
+              '<div class="kme-prices" data-field="calca">' +
+                '<span class="kme-line kme-line-de">' +
+                  '<small>de</small>' +
+                  '<span class="kme-de"></span>' +
+                '</span>' +
+                '<span class="kme-line kme-line-por">' +
+                  '<small>por</small>' +
+                  '<strong class="kme-por"></strong>' +
+                '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+
+          '<div class="kme-bottom">' +
+            '<span class="kme-kit-text"></span>' +
+          '</div>' +
+        '</div>';
+
+      alvo.insertAdjacentHTML("afterend", html);
+
+      var widget = document.getElementById("kit-mini-economia");
+      if (!widget) return;
+
+      var kit = Number(widget.getAttribute("data-kit"));
+
+      var camisetaDe = Number(widget.getAttribute("data-camiseta-de"));
+      var camisetaPor = Number(widget.getAttribute("data-camiseta-por"));
+
+      var calcaDe = Number(widget.getAttribute("data-calca-de"));
+      var calcaPor = Number(widget.getAttribute("data-calca-por"));
+
+      var totalOriginal = camisetaDe + calcaDe;
+      var economiaKit = totalOriginal - kit;
+
+      preencherPreco(widget, "camiseta", camisetaDe, camisetaPor);
+      preencherPreco(widget, "calca", calcaDe, calcaPor);
+
+      var kitTextEl = widget.querySelector(".kme-kit-text");
+
+      if (kitTextEl) {
+        kitTextEl.textContent =
+          "Economize " + moeda(economiaKit) + " comprando o kit";
+      }
+    }
+
+    var tentativas = 0;
+    var intervalo = setInterval(function () {
+      tentativas++;
+      iniciarKitEconomia();
+
+      if (document.getElementById("kit-mini-economia") || tentativas >= 40) {
+        clearInterval(intervalo);
+      }
+    }, 250);
+  })();
+</script>

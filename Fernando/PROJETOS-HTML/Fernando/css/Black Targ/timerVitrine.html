@@ -1,6 +1,11 @@
 <style>
+  .product-list figure,
+  .swiper-slide figure {
+    position: relative;
+  }
+
   .ra-vitrine .bottom-0 {
-    bottom: 25px !important;
+    bottom: 42px !important;
   }
 
   .timer-container-ectraction {
@@ -10,7 +15,8 @@
     z-index: 8;
 
     width: 100%;
-    padding: 6px 8px;
+    height: 38px;
+    padding: 0 8px;
 
     color: #fff;
     background: rgba(0, 0, 0, 0.82);
@@ -18,102 +24,183 @@
     box-sizing: border-box;
 
     pointer-events: none;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .timer-container-ectraction .timer-budget {
-    margin: 0;
+  .timer-slider-ectraction {
+    width: 100%;
+    height: 38px;
+    overflow: hidden;
+  }
+
+  .timer-track-ectraction {
+    display: flex;
+    flex-direction: column;
+    animation: timerSlideEctraction 5s infinite;
+  }
+
+  .timer-slide-ectraction {
+    height: 38px;
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
     font-size: 12px;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0.2px;
+    text-transform: uppercase;
   }
 
-  .timer-container-ectraction .timer-budget strong {
+  .timer-slide-ectraction strong,
+  .timer-slide-ectraction .cupom-ectraction {
     color: #ffdd75;
     font-weight: 800;
   }
 
-  .product-list figure,
-  .swiper-slide figure {
-    position: relative;
+  .timer-slide-ectraction .cupom-ectraction {
+    background: rgba(255, 221, 117, 0.14);
+    border: 1px solid rgba(255, 221, 117, 0.45);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: #ffdd75;
+  }
+
+  @keyframes timerSlideEctraction {
+    0%, 42% {
+      transform: translateY(0);
+    }
+
+    50%, 92% {
+      transform: translateY(-38px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ra-vitrine .bottom-0 {
+      bottom: 38px !important;
+    }
+
+    .timer-container-ectraction {
+      height: 34px;
+      padding: 0 6px;
+    }
+
+    .timer-slider-ectraction,
+    .timer-slide-ectraction {
+      height: 34px;
+      min-height: 34px;
+    }
+
+    .timer-slide-ectraction {
+      font-size: 10px;
+    }
+
+    @keyframes timerSlideEctraction {
+      0%, 42% {
+        transform: translateY(0);
+      }
+
+      50%, 92% {
+        transform: translateY(-34px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
   }
 </style>
 
 <script>
-  $(document).ready(function () {
-    function inserirTimers() {
-      $(".img-principal").each(function () {
-        const $imagem = $(this);
-        const $figure = $imagem.closest("figure");
+  (function () {
+    const CUPOM_ECTRACTION = "AMOLOJAZUS";
 
-        if (!$figure.length) {
-          return;
+    function inserirTimersEctraction() {
+      const imagens = document.querySelectorAll(".img-principal");
+
+      imagens.forEach(function (imagem) {
+        const figure = imagem.closest("figure");
+
+        if (!figure) return;
+
+        if (figure.querySelector(".timer-container-ectraction")) return;
+
+        if (getComputedStyle(figure).position === "static") {
+          figure.style.position = "relative";
         }
 
-        if ($figure.find(".timer-container-ectraction").length) {
-          return;
-        }
+        const timer = document.createElement("div");
+        timer.className = "timer-container-ectraction";
 
-        const html = `
-        <div class="swiper">
-            div class="swiper-wrapper">
-              <div class="swiper-slide">
-                Cupom:<div> black5 </div>
+        timer.innerHTML = `
+          <div class="timer-slider-ectraction">
+            <div class="timer-track-ectraction">
+              <div class="timer-slide-ectraction">
+                Cupom: <span class="cupom-ectraction">${CUPOM_ECTRACTION}</span>
               </div>
-              <div class="timer-container-ectraction">
-                <p class="timer-budget">
-                    Termina em <strong class="timer-ectraction">00:00:00</strong>
-                    </p>
-                </div>
-                </div>
+
+              <div class="timer-slide-ectraction">
+                Termina em <strong class="timer-ectraction">00:00:00</strong>
+              </div>
             </div>
+          </div>
         `;
 
-        $figure.append(html);
+        figure.appendChild(timer);
       });
     }
 
-    function atualizarTimers() {
+    function atualizarTimersEctraction() {
       const agora = new Date();
 
       const fimDia = new Date();
       fimDia.setHours(23, 59, 59, 999);
 
-      const diferenca = Math.max(fimDia - agora, 0);
+      const diferenca = Math.max(fimDia.getTime() - agora.getTime(), 0);
 
-      const tempo = new Date(diferenca).toISOString().substring(11, 19);
+      const horas = String(Math.floor(diferenca / 1000 / 60 / 60)).padStart(2, "0");
+      const minutos = String(Math.floor((diferenca / 1000 / 60) % 60)).padStart(2, "0");
+      const segundos = String(Math.floor((diferenca / 1000) % 60)).padStart(2, "0");
 
-      $(".timer-ectraction").text(tempo);
+      const tempo = `${horas}:${minutos}:${segundos}`;
+
+      document.querySelectorAll(".timer-ectraction").forEach(function (timer) {
+        timer.textContent = tempo;
+      });
     }
 
-    const swiper = new Swiper(".swiper", {
-      // Optional parameters
-      direction: "vertical",
-      loop: true,
+    function iniciarTimerEctraction() {
+      inserirTimersEctraction();
+      atualizarTimersEctraction();
 
-      // If we need pagination
-      pagination: {
-        el: ".swiper-pagination",
-      },
+      setInterval(atualizarTimersEctraction, 1000);
 
-      // Navigation arrows
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
+      const observer = new MutationObserver(function () {
+        inserirTimersEctraction();
+      });
 
-      // And if we need scrollbar
-      scrollbar: {
-        el: ".swiper-scrollbar",
-      },
-    });
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }
 
-    inserirTimers();
-    atualizarTimers();
-
-    setInterval(function () {
-      inserirTimers();
-      atualizarTimers();
-    }, 1000);
-  });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", iniciarTimerEctraction);
+    } else {
+      iniciarTimerEctraction();
+    }
+  })();
 </script>

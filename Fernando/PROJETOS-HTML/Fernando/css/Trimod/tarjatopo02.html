@@ -1,0 +1,337 @@
+<section class="alerta-topo alerta-topo-tarja">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="tarja-min">
+          <header class="tarja-min__header">
+            <span class="tarja-min__eyebrow">Oferta automática</span>
+            <h2 class="tarja-min__titulo">Leve mais, pague menos</h2>
+            <p class="tarja-min__sub">Quanto mais pares, menor o preço por par. <strong>
+              Desconto aplicado automaticamente no carrinho, sem cupom.
+            </strong></p>
+            
+          </header>
+
+          <div class="tarja-min__grid">
+            <!-- 3 pares -->
+            <div class="tarja-min__col">
+              <span class="tarja-min__flag"></span>
+              <span class="tarja-min__qtd">3 pares</span>
+              <span class="tarja-min__preco">R$99</span>
+              <span class="tarja-min__unit">R$33,00 / par</span>
+              <span class="tarja-min__frete tarja-min__frete--neutro">Frete padrão</span>
+            </div>
+
+            <!-- 4 pares -->
+            <div class="tarja-min__col">
+              <span class="tarja-min__flag"></span>
+              <span class="tarja-min__qtd">4 pares</span>
+              <span class="tarja-min__preco">R$129</span>
+              <span class="tarja-min__unit">R$32,25 / par</span>
+              <span class="tarja-min__frete">Frete grátis Sul</span>
+            </div>
+
+            <!-- 6 pares -->
+            <div class="tarja-min__col">
+              <span class="tarja-min__flag"></span>
+              <span class="tarja-min__qtd">6 pares</span>
+              <span class="tarja-min__preco">R$186</span>
+              <span class="tarja-min__unit">R$31,00 / par</span>
+              <span class="tarja-min__frete">Frete grátis Sul e Sudeste</span>
+            </div>
+
+            <!-- 9 pares (destaque) -->
+            <div class="tarja-min__col tarja-min__col--destaque">
+              <span class="tarja-min__flag">Melhor preço</span>
+              <span class="tarja-min__qtd">9 pares</span>
+              <span class="tarja-min__preco">R$269</span>
+              <span class="tarja-min__unit">R$29,89 / par</span>
+              <span class="tarja-min__frete">Frete grátis todo o Brasil</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Manrope:wght@500;600;700&display=swap");
+
+  .alerta-topo-tarja *,
+  .alerta-topo-tarja *::before,
+  .alerta-topo-tarja *::after {
+    box-sizing: border-box;
+  }
+
+  .alerta-topo-tarja {
+    background: transparent;
+    padding: 12px 0;
+  }
+
+  .tarja-min {
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f8f8f6;
+    border: 1px solid #e7e7e3;
+    border-radius: 12px;
+    padding: 22px 28px;
+    color: #001f47;
+    animation: tarja-min-in 0.5s ease both;
+  }
+
+  /* Cabeçalho */
+  .tarja-min__header {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .tarja-min__eyebrow {
+    display: inline-block;
+    margin-bottom: 7px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #8a93a0;
+  }
+
+  .tarja-min__titulo {
+    margin: 0 0 7px;
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: #001f47;
+  }
+
+  .tarja-min__sub {
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #5b6677;
+  }
+
+  .tarja-min__sub strong {
+    color: #48505e;
+    font-weight: 700;
+  }
+
+
+
+
+  /* Grade de níveis */
+  .tarja-min__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tarja-min__col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 7px;
+    padding: 4px 14px;
+    border-left: 1px solid #e7e7e3;
+  }
+
+  .tarja-min__col:first-child {
+    border-left: 0;
+  }
+
+  /* Slot do selo (reserva espaço em todas as colunas p/ alinhar) */
+  .tarja-min__flag {
+    display: block;
+    height: 21px;
+  }
+
+  /* Selo "Melhor preço" — versão elegante */
+  .tarja-min__col--destaque .tarja-min__flag {
+    display: inline-flex;
+    align-items: center;
+    height: auto;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #22a45f, #1a7a48);
+    color: #ffffff;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 10px rgba(26, 122, 72, 0.28);
+  }
+
+
+
+  /* Chip da quantidade de pares (destaque navy) */
+  .tarja-min__qtd {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 8px;
+    color: #001f47;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tarja-min__preco {
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    color: #001f47;
+  }
+
+  .tarja-min__unit {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #8a93a0;
+  }
+
+  /* Chip de frete (igual à referência) */
+  .tarja-min__frete {
+    display: inline-block;
+    margin-top: auto;
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: #eaf6ee;
+    border: 1px solid #b8e0c6;
+    color: #1a7a48;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .tarja-min__frete--neutro {
+    background: #f1f2f3;
+    border-color: #e2e4e6;
+    color: #5f666d;
+  }
+
+  @keyframes tarja-min-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsivo */
+  @media (max-width: 991px) {
+    .tarja-min {
+      padding: 20px 22px;
+    }
+
+    .tarja-min__titulo {
+      font-size: 24px;
+    }
+
+    .tarja-min__preco {
+      font-size: 27px;
+    }
+
+    .tarja-min__col {
+      padding: 4px 10px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .tarja-min {
+      padding: 16px 16px;
+    }
+
+    .tarja-min__header {
+      margin-bottom: 14px;
+    }
+
+    .tarja-min__eyebrow {
+      margin-bottom: 5px;
+      font-size: 9.5px;
+    }
+
+    .tarja-min__titulo {
+      font-size: 21px;
+    }
+
+    .tarja-min__sub {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .tarja-min__selo-auto {
+      margin-top: 10px;
+      padding: 6px 11px;
+      font-size: 11.5px;
+      text-align: left;
+    }
+
+    .tarja-min__grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Cada nível vira uma linha compacta: chip+preço em cima, por par+frete embaixo */
+    .tarja-min__col {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      text-align: left;
+      gap: 4px 10px;
+      padding: 9px 0;
+      border-left: 0;
+      border-top: 1px solid #e7e7e3;
+    }
+
+    .tarja-min__col:first-child {
+      border-top: 0;
+    }
+
+    .tarja-min__flag {
+      display: none;
+    }
+
+    .tarja-min__col--destaque .tarja-min__flag {
+      display: inline-flex;
+      order: 0;
+      flex-basis: 100%;
+      width: fit-content;
+      margin-bottom: 3px;
+      font-size: 9px;
+    }
+
+    .tarja-min__qtd {
+      order: 1;
+    }
+
+    .tarja-min__preco {
+      order: 2;
+      margin-left: auto;
+      font-size: 23px;
+    }
+
+    .tarja-min__unit {
+      order: 3;
+      flex-basis: 100%;
+      margin-top: 1px;
+    }
+
+    .tarja-min__frete {
+      order: 4;
+      margin: 0 0 0 auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .alerta-topo-tarja * {
+      animation: none !important;
+    }
+  }
+</style>

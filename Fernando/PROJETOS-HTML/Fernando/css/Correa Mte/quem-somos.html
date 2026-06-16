@@ -1,0 +1,1267 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        padding: 0;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    .correa-page {
+        --correa-red: #DE4038;
+        --correa-dark: #080808;
+        --correa-text: #ffffff;
+        --correa-muted: rgba(255, 255, 255, 0.72);
+        --correa-border: rgba(255, 255, 255, 0.16);
+        --correa-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+    }
+
+    .container-hero {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        width: 100%;
+        min-height: clamp(680px, 86vh, 860px);
+        display: flex;
+        align-items: center;
+        padding: 90px 20px 140px;
+        background-image:
+            linear-gradient(90deg,
+                rgba(0, 0, 0, 0.92) 0%,
+                rgba(0, 0, 0, 0.84) 24%,
+                rgba(0, 0, 0, 0.58) 48%,
+                rgba(0, 0, 0, 0.18) 78%,
+                rgba(0, 0, 0, 0.08) 100%),
+            url('https://correamateriais.cdn.magazord.com.br/img/2026/06/produto/15126/faixadacorrea.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+
+    .container-hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 170px;
+        z-index: -1;
+        background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.72));
+        pointer-events: none;
+    }
+
+    .container-hero-content {
+        width: min(100%, 1280px);
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .hero-eyebrow {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .hero-eyebrow::before {
+        content: "";
+        width: 42px;
+        height: 2px;
+        background: var(--correa-red);
+        display: inline-block;
+    }
+
+    .container-hero-content h1 {
+        max-width: 850px;
+        margin: 0;
+        color: var(--correa-text);
+        font-size: clamp(2.7rem, 6vw, 5.1rem);
+        font-weight: 500;
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+    }
+
+    .highlight {
+        position: relative;
+        color: var(--correa-red);
+        font-weight: 800;
+        display: inline-block;
+        min-width: 2ch;
+        opacity: 1;
+        transform: translateY(0);
+        transition:
+            opacity 0.35s ease,
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: opacity, transform;
+    }
+
+    .highlight::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.02em;
+        height: 0.08em;
+        background: currentColor;
+        opacity: 0.9;
+    }
+
+    .highlight.word-out {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
+
+    .highlight.word-prepare {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: none;
+    }
+
+    .container-hero-content p {
+        max-width: 650px;
+        margin: 28px 0 0;
+        color: var(--correa-muted);
+        font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+        line-height: 1.55;
+    }
+
+    .container-botoes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 38px;
+    }
+
+    .botao {
+        min-height: 56px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 28px;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 800;
+        text-decoration: none;
+        line-height: 1;
+        transition:
+            transform 0.25s ease,
+            background 0.25s ease,
+            border-color 0.25s ease,
+            color 0.25s ease;
+    }
+
+    .botao:hover {
+        transform: translateY(-2px);
+    }
+
+    .botao-solicitar {
+        color: #fff;
+        background: var(--correa-red);
+        border: 1px solid var(--correa-red);
+        box-shadow: 0 18px 40px rgba(222, 64, 56, 0.24);
+    }
+
+    .botao-solicitar:hover {
+        background: #c9342d;
+        border-color: #c9342d;
+    }
+
+    .conhecer-loja {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--correa-border);
+        backdrop-filter: blur(10px);
+    }
+
+    .conhecer-loja:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.30);
+    }
+
+    .hero-indicadores {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+        margin-top: 52px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        max-width: 820px;
+    }
+
+    .hero-indicador {
+        min-width: 150px;
+    }
+
+    .hero-indicador strong {
+        display: block;
+        color: #fff;
+        font-size: clamp(1.25rem, 2vw, 1.7rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+    }
+
+    .hero-indicador span {
+        display: block;
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 0.92rem;
+        line-height: 1.35;
+    }
+
+    .container-vantagens {
+        position: relative;
+        z-index: 3;
+        width: min(calc(100% - 40px), 1280px);
+        margin: -82px auto 70px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: var(--correa-shadow);
+        overflow: hidden;
+    }
+
+    .vantagens-item {
+        position: relative;
+        padding: 36px 34px 34px;
+        min-height: 220px;
+        background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+        border-right: 1px solid #eeeeee;
+    }
+
+    .vantagens-item:last-child {
+        border-right: 0;
+    }
+
+    .vantagens-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: #e9e9e9;
+    }
+
+    .vantagens-item:hover::before {
+        background: var(--correa-red);
+    }
+
+    .vantagem-numero {
+        display: block;
+        margin-bottom: 24px;
+        color: var(--correa-red);
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .container-vantagens h2 {
+        margin: 0 0 14px;
+        color: #151515;
+        font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 1.08;
+    }
+
+    .container-vantagens p {
+        margin: 0;
+        color: #555;
+        font-size: 1rem;
+        line-height: 1.55;
+        max-width: 330px;
+    }
+
+    .container-vantagens small {
+        display: block;
+        margin-top: 22px;
+        color: #888;
+        font-size: 0.86rem;
+        line-height: 1.4;
+    }
+
+    .correa-section {
+        width: 100%;
+        padding: 90px 20px;
+    }
+
+    .correa-wrap {
+        width: min(100%, 1280px);
+        margin: 0 auto;
+    }
+
+    .correa-section h2 {
+        margin: 0;
+        color: #151515;
+        font-size: clamp(2rem, 4vw, 3.8rem);
+        font-weight: 500;
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+    }
+
+    .correa-section h2 strong {
+        color: #DE4038;
+        font-weight: 800;
+    }
+
+    .correa-section p {
+        color: #555;
+        font-size: 1.05rem;
+        line-height: 1.65;
+    }
+
+    .correa-sobre {
+        background: #f5f5f5;
+        padding-top: 40px;
+    }
+
+    .correa-sobre-grid {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 70px;
+        align-items: center;
+    }
+
+    .correa-sobre-texto p {
+        max-width: 620px;
+        margin: 24px 0 0;
+    }
+
+    .correa-sobre-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .correa-sobre-card {
+        min-height: 210px;
+        padding: 28px;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.06);
+        border: 1px solid #ececec;
+    }
+
+    .correa-sobre-card:nth-child(1) {
+        background: #111;
+        color: #fff;
+    }
+
+    .correa-sobre-card:nth-child(1) p,
+    .correa-sobre-card:nth-child(1) span {
+        color: rgba(255, 255, 255, 0.72);
+    }
+
+    .correa-sobre-card span {
+        display: block;
+        margin-bottom: 26px;
+        color: #999;
+        font-size: 0.75rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    .correa-sobre-card strong {
+        display: block;
+        color: inherit;
+        font-size: clamp(1.6rem, 3vw, 2.35rem);
+        line-height: 1;
+        letter-spacing: -0.05em;
+    }
+
+    .correa-sobre-card p {
+        margin: 16px 0 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .correa-solucoes {
+        background: #fff;
+    }
+
+    .correa-topo-duplo {
+        display: grid;
+        grid-template-columns: 0.9fr 1fr;
+        gap: 60px;
+        align-items: end;
+        margin-bottom: 46px;
+    }
+
+    .correa-topo-duplo p {
+        margin: 0;
+        max-width: 620px;
+    }
+
+    .correa-solucoes-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1px solid #e7e7e7;
+        border-left: 1px solid #e7e7e7;
+    }
+
+    .correa-solucao-card {
+        position: relative;
+        min-height: 280px;
+        padding: 30px;
+        background: #fff;
+        border-right: 1px solid #e7e7e7;
+        border-bottom: 1px solid #e7e7e7;
+        overflow: hidden;
+        transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .correa-solucao-card::after {
+        content: "";
+        position: absolute;
+        right: -60px;
+        bottom: -60px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: rgba(222, 64, 56, 0.08);
+        transition: transform 0.25s ease;
+    }
+
+    .correa-solucao-card:hover {
+        background: #fafafa;
+        transform: translateY(-4px);
+    }
+
+    .correa-solucao-card:hover::after {
+        transform: scale(1.35);
+    }
+
+    .correa-solucao-card small {
+        display: block;
+        margin-bottom: 60px;
+        color: #DE4038;
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    .correa-solucao-card h3 {
+        margin: 0 0 14px;
+        color: #151515;
+        font-size: 1.45rem;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+    }
+
+    .correa-solucao-card p {
+        margin: 0;
+        max-width: 250px;
+        font-size: 0.96rem;
+        line-height: 1.55;
+    }
+
+    .correa-estrutura {
+        position: relative;
+        overflow: hidden;
+        background: #0d0d0d;
+        color: #fff;
+    }
+
+    .correa-estrutura::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 78% 20%, rgba(222, 64, 56, 0.22), transparent 28%),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.05), transparent);
+        pointer-events: none;
+    }
+
+    .correa-estrutura .correa-wrap {
+        position: relative;
+        z-index: 2;
+    }
+
+    .correa-estrutura h2 {
+        color: #fff;
+        max-width: 780px;
+    }
+
+    .correa-estrutura p {
+        color: rgba(255, 255, 255, 0.68);
+    }
+
+    .correa-estrutura-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 70px;
+        align-items: center;
+    }
+
+    .correa-estrutura-texto p {
+        max-width: 620px;
+        margin: 26px 0 0;
+    }
+
+    .correa-estrutura-lista {
+        display: grid;
+        gap: 14px;
+    }
+
+    .correa-estrutura-item {
+        display: grid;
+        grid-template-columns: 82px 1fr;
+        gap: 22px;
+        align-items: center;
+        padding: 24px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        backdrop-filter: blur(10px);
+    }
+
+    .correa-estrutura-numero {
+        width: 82px;
+        height: 82px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: #DE4038;
+        color: #fff;
+        font-size: 1.7rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+    }
+
+    .correa-estrutura-item h3 {
+        margin: 0 0 8px;
+        color: #fff;
+        font-size: 1.25rem;
+        letter-spacing: -0.03em;
+    }
+
+    .correa-estrutura-item p {
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .correa-processo {
+        background: #f5f5f5;
+    }
+
+    .correa-processo-header {
+        max-width: 780px;
+        margin-bottom: 48px;
+    }
+
+    .correa-processo-header p {
+        margin: 24px 0 0;
+    }
+
+    .correa-processo-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    .correa-processo-card {
+        position: relative;
+        min-height: 310px;
+        padding: 34px;
+        border-radius: 8px;
+        background: #fff;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.05);
+    }
+
+    .correa-processo-card::before {
+        content: attr(data-step);
+        position: absolute;
+        top: 28px;
+        right: 30px;
+        color: rgba(222, 64, 56, 0.14);
+        font-size: 4rem;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.08em;
+    }
+
+    .correa-processo-card h3 {
+        position: relative;
+        margin: 90px 0 16px;
+        color: #151515;
+        font-size: 1.55rem;
+        line-height: 1.1;
+        letter-spacing: -0.045em;
+        z-index: 2;
+    }
+
+    .correa-processo-card p {
+        position: relative;
+        margin: 0;
+        font-size: 0.98rem;
+        line-height: 1.58;
+        z-index: 2;
+    }
+
+    .correa-cta-final {
+        padding: 0;
+        background: #fff;
+    }
+
+    .correa-cta-box {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        padding: 40px;
+        border-radius: 0;
+        background:
+            linear-gradient(90deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.78)),
+            url('https://correamateriais.cdn.magazord.com.br/img/2026/06/produto/15126/faixadacorrea.png');
+        background-size: cover;
+        background-position: center;
+        color: #fff;
+    }
+
+    .correa-cta-box::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        top: -80px;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: rgba(222, 64, 56, 0.30);
+        filter: blur(6px);
+    }
+
+    .correa-cta-conteudo {
+        position: relative;
+        z-index: 2;
+        max-width: 1280px;
+        margin:0 auto;
+    }
+
+    .correa-cta-box h2 {
+        margin: 0;
+        color: #fff;
+        font-size: clamp(2rem, 4.5vw, 4rem);
+        font-weight: 500;
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+    }
+
+    .correa-cta-box p {
+        margin: 22px 0 0;
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 1.08rem;
+        line-height: 1.6;
+        max-width: 620px;
+    }
+
+    .correa-cta-acoes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+    }
+
+    .correa-btn-final {
+        min-height: 56px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 28px;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 900;
+        text-decoration: none;
+        transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .correa-btn-final:hover {
+        transform: translateY(-2px);
+    }
+
+    .correa-btn-red {
+        color: #fff;
+        background: #DE4038;
+    }
+
+    .correa-btn-red:hover {
+        background: #c9342d;
+    }
+
+    .correa-btn-outline {
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .correa-btn-outline:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .correa-reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .correa-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+        .container-hero {
+            min-height: 740px;
+            padding: 80px 20px 130px;
+            background-position: center right;
+        }
+
+        .container-vantagens {
+            grid-template-columns: 1fr;
+            margin-top: -70px;
+        }
+
+        .vantagens-item {
+            min-height: auto;
+            border-right: 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .vantagens-item:last-child {
+            border-bottom: 0;
+        }
+
+        .container-vantagens p {
+            max-width: 100%;
+        }
+
+        .correa-section {
+            padding: 72px 20px;
+        }
+
+        .correa-sobre-grid,
+        .correa-topo-duplo,
+        .correa-estrutura-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .correa-solucoes-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .correa-processo-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .correa-processo-card {
+            min-height: 250px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container-hero {
+            min-height: 720px;
+            align-items: flex-end;
+            padding: 70px 18px 120px;
+            background-image:
+                linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.25) 0%,
+                    rgba(0, 0, 0, 0.70) 48%,
+                    rgba(0, 0, 0, 0.94) 100%),
+                url('https://correamateriais.cdn.magazord.com.br/img/2026/06/produto/15126/faixadacorrea.png');
+            background-position: center;
+        }
+
+        .hero-eyebrow {
+            margin-bottom: 18px;
+            font-size: 0.74rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-eyebrow::before {
+            width: 28px;
+        }
+
+        .container-hero-content h1 {
+            font-size: clamp(2.25rem, 11vw, 3.35rem);
+            line-height: 1.02;
+        }
+
+        .container-hero-content p {
+            margin-top: 22px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .container-botoes {
+            flex-direction: column;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .botao {
+            width: 100%;
+            min-height: 54px;
+            padding: 16px 20px;
+        }
+
+        .hero-indicadores {
+            gap: 18px;
+            margin-top: 36px;
+            padding-top: 24px;
+        }
+
+        .hero-indicador {
+            min-width: calc(50% - 12px);
+        }
+
+        .hero-indicador strong {
+            font-size: 1.25rem;
+        }
+
+        .hero-indicador span {
+            font-size: 0.82rem;
+        }
+
+        .container-vantagens {
+            width: calc(100% - 24px);
+            margin: -58px auto 46px;
+            border-radius: 8px;
+        }
+
+        .vantagens-item {
+            padding: 28px 24px;
+        }
+
+        .vantagem-numero {
+            margin-bottom: 18px;
+        }
+
+        .correa-section {
+            padding: 58px 16px;
+        }
+
+        .correa-sobre {
+            padding-top: 26px;
+        }
+
+        .correa-sobre-cards,
+        .correa-solucoes-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .correa-sobre-card {
+            min-height: auto;
+            padding: 24px;
+        }
+
+        .correa-solucao-card {
+            min-height: 230px;
+            padding: 26px;
+        }
+
+        .correa-solucao-card small {
+            margin-bottom: 46px;
+        }
+
+        .correa-estrutura-item {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 22px;
+        }
+
+        .correa-estrutura-numero {
+            width: 64px;
+            height: 64px;
+            font-size: 1.35rem;
+        }
+
+        .correa-processo-card {
+            padding: 28px;
+        }
+
+        .correa-processo-card h3 {
+            margin-top: 74px;
+        }
+
+        .correa-cta-final {
+            padding: 0;
+        }
+
+        .correa-cta-acoes {
+            flex-direction: column;
+        }
+
+        .correa-btn-final {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .hero-indicador {
+            min-width: 100%;
+        }
+
+        .container-hero {
+            min-height: 760px;
+        }
+    }
+</style>
+
+<div class="correa-page">
+
+    <section class="container-hero">
+        <div class="container-hero-content">
+
+
+            <h1>
+                Mais de 25 anos entregando
+                <span class="highlight">soluções</span>
+                em materiais elétricos
+            </h1>
+
+            <p>
+                Atendimento técnico, variedade em estoque e estrutura para atender profissionais,
+                empresas e obras com mais segurança na compra.
+            </p>
+
+            <div class="container-botoes">
+                <a href="#" class="botao botao-solicitar">Solicitar orçamento</a>
+                <a href="#" class="botao conhecer-loja">Conhecer a loja</a>
+            </div>
+
+            <div class="hero-indicadores">
+                <div class="hero-indicador">
+                    <strong>25+</strong>
+                    <span>Anos de mercado</span>
+                </div>
+
+                <div class="hero-indicador">
+                    <strong>2 lojas</strong>
+                    <span>Em Blumenau</span>
+                </div>
+
+                <div class="hero-indicador">
+                    <strong>Brasil</strong>
+                    <span>Atendimento nacional</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container-vantagens">
+
+        <div class="vantagens-item">
+            <span class="vantagem-numero">01 · Técnico</span>
+            <h2>Compra com orientação de quem entende</h2>
+            <p>
+                Suporte para escolher materiais elétricos com mais precisão,
+                evitando compras erradas e retrabalho na obra.
+            </p>
+            <small>Ideal para eletricistas, empresas, construtoras e manutenção.</small>
+        </div>
+
+        <div class="vantagens-item">
+            <span class="vantagem-numero">02 · Estoque</span>
+            <h2>Variedade para diferentes demandas</h2>
+            <p>
+                Produtos para instalações, reformas, obras, indústria e reposição,
+                com soluções para pedidos simples ou mais técnicos.
+            </p>
+            <small>Mais agilidade para encontrar o que o projeto precisa.</small>
+        </div>
+
+        <div class="vantagens-item">
+            <span class="vantagem-numero">03 · Estrutura</span>
+            <h2>Atendimento local e envio nacional</h2>
+            <p>
+                Duas lojas, centros de distribuição e canal online para atender
+                clientes de Blumenau e de outras regiões do Brasil.
+            </p>
+            <small>Mais praticidade para orçamentos, compras e entregas.</small>
+        </div>
+
+    </section>
+
+    <section class="correa-section correa-sobre">
+        <div class="correa-wrap correa-sobre-grid">
+
+            <div class="correa-sobre-texto correa-reveal">
+                <h2>
+                    Mais do que vender materiais.
+                    Ajudamos a resolver o que a obra precisa.
+                </h2>
+
+                <p>
+                    A Corrêa Materiais Elétricos nasceu em Blumenau com uma ideia simples:
+                    entregar produtos certos, atendimento próximo e soluções confiáveis para
+                    profissionais, empresas e obras.
+                </p>
+
+                <p>
+                    Ao longo dos anos, a empresa cresceu sem perder o foco no que sustenta
+                    uma boa relação comercial: conhecimento técnico, variedade, agilidade e
+                    compromisso com o cliente.
+                </p>
+            </div>
+
+            <div class="correa-sobre-cards correa-reveal">
+
+                <div class="correa-sobre-card">
+                    <span>Desde</span>
+                    <strong>1998</strong>
+                    <p>Uma trajetória construída com atendimento, relacionamento e evolução constante.</p>
+                </div>
+
+                <div class="correa-sobre-card">
+                    <span>Atuação</span>
+                    <strong>Nacional</strong>
+                    <p>Estrutura preparada para atender clientes de diferentes regiões do Brasil.</p>
+                </div>
+
+                <div class="correa-sobre-card">
+                    <span>Base</span>
+                    <strong>Blumenau</strong>
+                    <p>Duas lojas físicas para atendimento local, técnico e consultivo.</p>
+                </div>
+
+                <div class="correa-sobre-card">
+                    <span>Operação</span>
+                    <strong>Online</strong>
+                    <p>Canal digital para facilitar orçamentos, compras e atendimento.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="correa-section correa-solucoes">
+        <div class="correa-wrap">
+
+            <div class="correa-topo-duplo correa-reveal">
+                <div>
+                    <h2>
+                        Materiais elétricos para diferentes tipos de demanda.
+                    </h2>
+                </div>
+
+                <p>
+                    De compras pontuais a projetos mais técnicos, a Corrêa atende quem precisa
+                    de segurança na escolha, disponibilidade de produtos e suporte no orçamento.
+                </p>
+            </div>
+
+            <div class="correa-solucoes-grid correa-reveal">
+
+                <div class="correa-solucao-card">
+                    <small>Residencial</small>
+                    <h3>Instalações e reformas</h3>
+                    <p>Produtos para obras, manutenção, iluminação e melhorias no dia a dia.</p>
+                </div>
+
+                <div class="correa-solucao-card">
+                    <small>Profissional</small>
+                    <h3>Eletricistas e técnicos</h3>
+                    <p>Atendimento direto para quem precisa comprar com rapidez e precisão.</p>
+                </div>
+
+                <div class="correa-solucao-card">
+                    <small>Empresas</small>
+                    <h3>Reposição e manutenção</h3>
+                    <p>Materiais para rotinas operacionais, condomínios, comércios e indústrias.</p>
+                </div>
+
+                <div class="correa-solucao-card">
+                    <small>Obras</small>
+                    <h3>Projetos sob demanda</h3>
+                    <p>Suporte para orçamentos maiores, listas técnicas e compras recorrentes.</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="correa-section correa-estrutura">
+        <div class="correa-wrap correa-estrutura-grid">
+
+            <div class="correa-estrutura-texto correa-reveal">
+                <h2>
+                    Presença física, operação online e atendimento preparado.
+                </h2>
+
+                <p>
+                    A Corrêa combina loja, distribuição e canal digital para atender melhor
+                    quem compra pouco, quem compra sempre e quem precisa de suporte técnico
+                    antes de fechar o pedido.
+                </p>
+            </div>
+
+            <div class="correa-estrutura-lista correa-reveal">
+
+                <div class="correa-estrutura-item">
+                    <div class="correa-estrutura-numero">01</div>
+                    <div>
+                        <h3>Lojas em Blumenau</h3>
+                        <p>Atendimento presencial para clientes, profissionais e empresas da região.</p>
+                    </div>
+                </div>
+
+                <div class="correa-estrutura-item">
+                    <div class="correa-estrutura-numero">02</div>
+                    <div>
+                        <h3>Centros de distribuição</h3>
+                        <p>Mais capacidade para organizar estoque, pedidos e entregas.</p>
+                    </div>
+                </div>
+
+                <div class="correa-estrutura-item">
+                    <div class="correa-estrutura-numero">O3</div>
+                    <div>
+                        <h3>Canal de vendas online</h3>
+                        <p>Mais praticidade para cotar, comprar e ser atendido também pelo digital.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="correa-section correa-processo">
+        <div class="correa-wrap">
+
+            <div class="correa-processo-header correa-reveal">
+                <h2>
+                    Do orçamento à entrega, com menos complicação.
+                </h2>
+
+                <p>
+                    O processo foi pensado para facilitar a vida de quem precisa comprar certo,
+                    comparar opções e avançar com segurança.
+                </p>
+            </div>
+
+            <div class="correa-processo-grid correa-reveal">
+
+                <div class="correa-processo-card" data-step="01">
+                    <h3>Envie sua necessidade</h3>
+                    <p>
+                        Compartilhe a lista de materiais, o tipo de obra ou o produto que está buscando.
+                    </p>
+                </div>
+
+                <div class="correa-processo-card" data-step="02">
+                    <h3>Receba orientação</h3>
+                    <p>
+                        A equipe ajuda a avaliar opções, disponibilidade e alternativas para o seu pedido.
+                    </p>
+                </div>
+
+                <div class="correa-processo-card" data-step="03">
+                    <h3>Feche com segurança</h3>
+                    <p>
+                        Compre com suporte, estrutura de atendimento e envio conforme a sua demanda.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="correa-cta-final">
+        <div class="correa-cta-box correa-reveal">
+
+            <div class="correa-cta-conteudo">
+                <h2>
+                    Precisa de material elétrico para sua obra ou empresa?
+                </h2>
+
+                <p>
+                    Solicite um orçamento e conte com atendimento técnico para encontrar
+                    os produtos certos com mais agilidade.
+                </p>
+
+                <div class="correa-cta-acoes">
+                    <a href="#" class="correa-btn-final correa-btn-red">Solicitar orçamento</a>
+                    <a href="#" class="correa-btn-final correa-btn-outline">Ver produtos da loja</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const highlight = document.querySelector('.highlight');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (highlight && !reduceMotion) {
+            const words = ['soluções', 'confiança', 'qualidade', 'segurança'];
+            let index = 0;
+
+            function changeWord() {
+                highlight.classList.add('word-out');
+
+                setTimeout(() => {
+                    index = (index + 1) % words.length;
+                    highlight.textContent = words[index];
+
+                    highlight.classList.remove('word-out');
+                    highlight.classList.add('word-prepare');
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            highlight.classList.remove('word-prepare');
+                        });
+                    });
+                }, 450);
+            }
+
+            setInterval(changeWord, 2600);
+        }
+
+        const elements = document.querySelectorAll('.correa-reveal');
+
+        if (!elements.length) return;
+
+        if (reduceMotion) {
+            elements.forEach((el) => el.classList.add('is-visible'));
+            return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.16
+        });
+
+        elements.forEach((el) => observer.observe(el));
+    });
+</script>

@@ -1,0 +1,34 @@
+<div class="info-header">
+    <ul class="container owl-carousel">
+        <li>FRETE GRÁTIS ACIMA DE R$399</li>
+        <li>PARCELAMENTO ATÉ 6X SEM JUROS</li>
+        <li>10% DE CASHBACK ACIMA DE R$ 250</li>
+    </ul>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // adiciona as frases antes do header
+        $('.header-builder').before(`
+
+  `);
+
+        // inicializa o carousel corretamente
+        $('.info-header .owl-carousel').owlCarousel({
+            items: 1,               // mostra 1 frase por vez
+            loop: true,             // faz o loop infinito
+            margin: 10,
+            autoplay: true,         // ativa autoplay
+            autoplayTimeout: 3000,  // troca a cada 3 segundos
+            autoplayHoverPause: true, // pausa ao passar o mouse
+            animateOut: 'fadeOut',  // (opcional) efeito de transição
+            smartSpeed: 700,        // velocidade da transição
+            responsive: {
+                0: { items: 1 },
+                600: { items: 1 },
+                1000: { items: 1 }
+            }
+        });
+    });
+</script>

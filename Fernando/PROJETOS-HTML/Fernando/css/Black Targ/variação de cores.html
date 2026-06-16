@@ -1,0 +1,954 @@
+    <style>
+    .variacao-area-id-1 .variacao-lista,
+    .variacao-area-id-1 ul {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
+
+    .variacao-area-id-1 li[data-derivacao-item-id].lf-grade-card {
+        width: 72px !important;
+        min-width: 72px !important;
+        max-width: 72px !important;
+        height: auto !important;
+        min-height: 96px !important;
+        padding: 6px 4px 7px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 5px !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+        position: relative !important;
+    }
+
+    .variacao-area-id-1 li[data-derivacao-item-id].lf-grade-card img {
+        width: 58px !important;
+        height: 58px !important;
+        min-width: 34px !important;
+        min-height: 34px !important;
+        max-width: 58px !important;
+        max-height: 58px !important;
+        object-fit: cover !important;
+        border-radius: 4px !important;
+        display: block !important;
+    }
+
+    .variacao-area-id-1 li[data-derivacao-item-id].lf-grade-card .lf-grade-label {
+        width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+        font-size: 10px !important;
+        line-height: 1.1 !important;
+        font-weight: 500 !important;
+        color: #252525 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        text-transform: capitalize !important;
+        pointer-events: none !important;
+    }
+
+    .lf-grade-stepper {
+        width: 66px !important;
+        height: 28px !important;
+        min-height: 28px !important;
+        display: grid !important;
+        grid-template-columns: 20px 1fr 20px !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border: 1px solid #d6d6d6 !important;
+        background: #fff !important;
+        border-radius: 4px !important;
+        overflow: hidden !important;
+        position: relative !important;
+        z-index: 30 !important;
+        pointer-events: auto !important;
+    }
+
+    .lf-grade-stepper button {
+        width: 20px !important;
+        height: 28px !important;
+        min-width: 20px !important;
+        min-height: 28px !important;
+        border: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+        color: #252525 !important;
+        font-size: 15px !important;
+        line-height: 1 !important;
+        font-weight: 700 !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        pointer-events: auto !important;
+    }
+
+    .lf-grade-stepper button:disabled {
+        cursor: not-allowed !important;
+        opacity: .32 !important;
+    }
+
+    .lf-grade-stepper span {
+        width: 100% !important;
+        height: 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-left: 1px solid #eeeeee !important;
+        border-right: 1px solid #eeeeee !important;
+        color: #252525 !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        pointer-events: none !important;
+        user-select: none !important;
+    }
+
+    .lf-grade-card.lf-grade-active {
+        box-shadow: 0 0 0 2px #252525 !important;
+    }
+
+    .lf-grade-card.lf-grade-unavailable {
+        opacity: .52 !important;
+    }
+
+    .lf-grade-card.lf-grade-unavailable .lf-grade-label::after {
+        content: " indisponível" !important;
+        display: block !important;
+        font-size: 8px !important;
+        font-weight: 600 !important;
+        color: #9b1c1c !important;
+        text-transform: lowercase !important;
+    }
+
+    .lf-grade-loading {
+        opacity: .6 !important;
+        pointer-events: none !important;
+    }
+
+    .lf-grade-modal {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 999999 !important;
+        background: rgba(0, 0, 0, .46) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 18px !important;
+        box-sizing: border-box !important;
+    }
+
+
+
+    .lf-grade-modal-box h3 {
+        margin: 0 0 8px !important;
+        font-size: 18px !important;
+        line-height: 1.25 !important;
+        font-weight: 800 !important;
+        color: #252525 !important;
+    }
+
+    .lf-grade-modal-box p {
+        margin: 0 0 18px !important;
+        font-size: 13px !important;
+        line-height: 1.45 !important;
+        color: #555 !important;
+    }
+
+    .lf-grade-modal-actions {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+
+    .lf-grade-modal-actions a,
+    .lf-grade-modal-actions button {
+        width: 100% !important;
+        min-height: 42px !important;
+        border-radius: 4px !important;
+        border: 1px solid #252525 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 12px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        box-sizing: border-box !important;
+    }
+
+    .lf-grade-modal-actions a {
+        background: #252525 !important;
+        color: #fff !important;
+    }
+
+    .lf-grade-modal-actions button {
+        background: #fff !important;
+        color: #252525 !important;
+    }
+
+    @media (max-width: 768px) {
+        .variacao-area-id-1 .variacao-lista,
+        .variacao-area-id-1 ul {
+        gap: 8px !important;
+        }
+
+        .variacao-area-id-1 li[data-derivacao-item-id].lf-grade-card {
+        width: 68px !important;
+        min-width: 68px !important;
+        max-width: 68px !important;
+        min-height: 92px !important;
+        }
+
+        .lf-grade-stepper {
+        width: 62px !important;
+        grid-template-columns: 19px 1fr 19px !important;
+        }
+
+        .lf-grade-stepper button {
+        width: 19px !important;
+        min-width: 19px !important;
+        }
+    }
+    </style>
+
+    <script>
+    (function () {
+    var NS = '__lfMultiColorGradeV10';
+
+    [
+        '__lfMultiColorGradeV4',
+        '__lfMultiColorGradeV5',
+        '__lfMultiColorGradeV6',
+        '__lfMultiColorGradeV7',
+        '__lfMultiColorGradeV8',
+        '__lfMultiColorGradeV9',
+        '__lfMultiColorGradeV10'
+    ].forEach(function (key) {
+        if (window[key] && typeof window[key].destroy === 'function') {
+        try {
+            window[key].destroy();
+        } catch (e) {}
+        }
+    });
+
+    var api = {
+        observer: null,
+        destroyed: false,
+        clickHandler: null,
+        submitHandler: null,
+        sizeClickHandler: null,
+        lastSizeId: null
+    };
+
+    window[NS] = api;
+
+    var qtdPorCor = {};
+    var enviando = false;
+    var gradeCache = null;
+
+    function wait(ms) {
+        return new Promise(function (resolve) {
+        setTimeout(resolve, ms);
+        });
+    }
+
+    function normalizar(v) {
+        return String(v || '')
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function getReactFiber(el) {
+        var key = Object.keys(el || {}).find(function (k) {
+        return k.indexOf('__reactFiber') === 0;
+        });
+
+        return key ? el[key] : null;
+    }
+
+    function isProdutoObject(obj) {
+        return !!(
+        obj &&
+        typeof obj === 'object' &&
+        obj.produto_id &&
+        obj.codigo &&
+        (
+            Array.isArray(obj.derivacoes) ||
+            Array.isArray(obj.derivacoes_produto) ||
+            Array.isArray(obj.variacoes_produto)
+        )
+        );
+    }
+
+    function findProdutoDeep(root, maxDepth) {
+        var seen = new WeakSet();
+
+        function walk(value, depth) {
+        if (!value || depth > maxDepth) return null;
+
+        if (typeof value !== 'object' && typeof value !== 'function') return null;
+
+        if (seen.has(value)) return null;
+        seen.add(value);
+
+        if (isProdutoObject(value)) return value;
+
+        var keys;
+
+        try {
+            keys = Object.keys(value);
+        } catch (e) {
+            return null;
+        }
+
+        for (var i = 0; i < keys.length; i++) {
+            try {
+            var found = walk(value[keys[i]], depth + 1);
+            if (found) return found;
+            } catch (e) {}
+        }
+
+        return null;
+        }
+
+        return walk(root, 0);
+    }
+
+    function encontrarProdutoReact() {
+        var targets = [
+        document.querySelector('.variacao-area-id-1 li[data-derivacao-item-id]'),
+        document.querySelector('.variacao-area-id-2 li[data-derivacao-item-id]'),
+        document.querySelector('.button-buy'),
+        document.querySelector('#produto-react-app'),
+        document.querySelector('.informacoes-compra-produto'),
+        document.querySelector('.derivacoes-produto')
+        ].filter(Boolean);
+
+        for (var t = 0; t < targets.length; t++) {
+        var fiber = getReactFiber(targets[t]);
+        var index = 0;
+
+        while (fiber && index < 80) {
+            var stateProduto = findProdutoDeep(fiber.memoizedState, 8);
+            var propsProduto = findProdutoDeep(fiber.memoizedProps, 8);
+
+            if (stateProduto) return stateProduto;
+            if (propsProduto) return propsProduto;
+
+            fiber = fiber.return;
+            index++;
+        }
+        }
+
+        return null;
+    }
+
+    function arrayPareceGrade(arr) {
+        return Array.isArray(arr) && arr.some(function (item) {
+        return item &&
+            typeof item === 'object' &&
+            item.codigo &&
+            item.iteder_id != null &&
+            item.iteder2_id != null;
+        });
+    }
+
+    function procurarGrade(root) {
+        var seen = new WeakSet();
+        var melhor = [];
+
+        function walk(value, depth) {
+        if (!value || depth > 8) return;
+
+        if (Array.isArray(value)) {
+            if (arrayPareceGrade(value) && value.length > melhor.length) {
+            melhor = value;
+            }
+
+            value.forEach(function (item) {
+            walk(item, depth + 1);
+            });
+
+            return;
+        }
+
+        if (typeof value !== 'object') return;
+        if (seen.has(value)) return;
+
+        seen.add(value);
+
+        Object.keys(value).forEach(function (key) {
+            try {
+            walk(value[key], depth + 1);
+            } catch (e) {}
+        });
+        }
+
+        walk(root, 0);
+
+        return melhor;
+    }
+
+    function getGradeProduto() {
+        if (gradeCache && gradeCache.length) return gradeCache;
+
+        var produto = encontrarProdutoReact();
+
+        if (!produto) {
+        console.warn('[Grade] Produto React não encontrado.');
+        return [];
+        }
+
+        var grade = [];
+
+        if (arrayPareceGrade(produto.derivacoes)) {
+        grade = produto.derivacoes;
+        } else {
+        grade = procurarGrade(produto);
+        }
+
+        gradeCache = grade.filter(function (item) {
+        return item &&
+            item.codigo &&
+            item.iteder_id != null &&
+            item.iteder2_id != null;
+        });
+
+        console.log('[Grade] Matriz carregada:', gradeCache.map(function (item) {
+        return {
+            codigo: item.codigo,
+            corId: String(item.iteder_id),
+            cor: item.iteder_nome || item.derivacoes_produto && item.derivacoes_produto[0] && item.derivacoes_produto[0].derivacao,
+            tamanhoId: String(item.iteder2_id),
+            tamanho: item.iteder2_nome || item.derivacoes_produto && item.derivacoes_produto[1] && item.derivacoes_produto[1].derivacao,
+            estoque: item.qtde_estoque,
+            deposito: item.deposito
+        };
+        }));
+
+        return gradeCache;
+    }
+
+    function getCores() {
+        return Array.from(document.querySelectorAll('.variacao-area-id-1 li[data-derivacao-item-id]'));
+    }
+
+    function getTamanhos() {
+        return Array.from(document.querySelectorAll(
+        '.variacao-area-id-2 li[data-derivacao-item-id], .variacao-area-2 li[data-derivacao-item-id]'
+        ));
+    }
+
+    function tokenSelecionado(el) {
+        if (!el) return false;
+
+        return (
+        el.classList.contains('selected') ||
+        el.classList.contains('active') ||
+        el.classList.contains('selecionado') ||
+        Array.from(el.classList).indexOf('shadow-[0_0_0_2px_#252525]') !== -1
+        );
+    }
+
+    function getTamanhoSelecionado() {
+        var tamanhos = getTamanhos();
+
+        return tamanhos.find(function (el) {
+        return tokenSelecionado(el) && !el.classList.contains('out-of-stock');
+        }) || null;
+    }
+
+    function getTamanhoAtualId() {
+        var tam = getTamanhoSelecionado();
+        return tam ? String(tam.getAttribute('data-derivacao-item-id')) : null;
+    }
+
+    function getTamanhoAtualNome() {
+        var tam = getTamanhoSelecionado();
+        return tam ? String((tam.textContent || '').trim()) : null;
+    }
+
+    function getNomeCor(li) {
+        var img = li.querySelector('img');
+
+        return (
+        li.getAttribute('data-derivacao-item-name') ||
+        (img ? img.getAttribute('alt') || img.getAttribute('title') : '') ||
+        (li.textContent || '').trim()
+        );
+    }
+
+    function getVariant(corId, tamanhoId) {
+        if (!corId || !tamanhoId) return null;
+
+        var grade = getGradeProduto();
+
+        return grade.find(function (item) {
+        return String(item.iteder_id) === String(corId) &&
+            String(item.iteder2_id) === String(tamanhoId);
+        }) || null;
+    }
+
+    function getEstoque(item) {
+        var n = Number(item && item.qtde_estoque);
+
+        if (isNaN(n)) return 0;
+
+        return n;
+    }
+
+    function getQtd(corId) {
+        return Number(qtdPorCor[String(corId)] || 0);
+    }
+
+    function setQtd(corId, qtd) {
+        qtdPorCor[String(corId)] = Math.max(0, Number(qtd || 0));
+    }
+
+    function temQuantidadeSelecionada() {
+        return Object.keys(qtdPorCor).some(function (corId) {
+        return getQtd(corId) > 0;
+        });
+    }
+
+    function resetQuantidades() {
+        qtdPorCor = {};
+        syncUI();
+    }
+
+    function atualizarVisualCard(li) {
+        var corId = String(li.getAttribute('data-derivacao-item-id'));
+        var tamanhoId = getTamanhoAtualId();
+        var variant = getVariant(corId, tamanhoId);
+        var qtd = getQtd(corId);
+        var estoque = getEstoque(variant);
+        var indisponivel = !!tamanhoId && (!variant || estoque <= 0);
+        var stepper = li.querySelector('.lf-grade-stepper');
+        var qtdEl = li.querySelector('.lf-grade-qtd');
+        var plus = li.querySelector('.lf-grade-plus');
+        var minus = li.querySelector('.lf-grade-minus');
+
+        li.classList.toggle('lf-grade-active', qtd > 0);
+        li.classList.toggle('lf-grade-unavailable', indisponivel);
+
+        if (qtdEl) qtdEl.textContent = String(qtd);
+
+        if (plus) {
+        plus.disabled = indisponivel;
+        plus.setAttribute('aria-disabled', indisponivel ? 'true' : 'false');
+        }
+
+        if (minus) {
+        minus.disabled = qtd <= 0;
+        minus.setAttribute('aria-disabled', qtd <= 0 ? 'true' : 'false');
+        }
+    }
+
+    function criarStepper(li) {
+        if (li.querySelector('.lf-grade-stepper')) return;
+
+        li.classList.add('lf-grade-card');
+
+        if (!li.querySelector('.lf-grade-label')) {
+        var label = document.createElement('span');
+        label.className = 'lf-grade-label';
+        label.textContent = getNomeCor(li);
+        li.appendChild(label);
+        }
+
+        var stepper = document.createElement('div');
+        stepper.className = 'lf-grade-stepper';
+        stepper.setAttribute('role', 'group');
+        stepper.setAttribute('aria-label', 'Selecionar quantidahttps://www.amofadas.com/karende da cor ' + getNomeCor(li));
+
+        stepper.innerHTML =
+        '<button type="button" class="lf-grade-minus" aria-label="Diminuir quantidade">−</button>' +
+        '<span class="lf-grade-qtd">0</span>' +
+        '<button type="button" class="lf-grade-plus" aria-label="Aumentar quantidade">+</button>';
+
+        li.appendChild(stepper);
+    }
+
+    function syncUI() {
+        if (api.destroyed) return;
+
+        getGradeProduto();
+
+        getCores().forEach(function (li) {
+        criarStepper(li);
+        atualizarVisualCard(li);
+        });
+    }
+
+    function aviso(msg) {
+        if (window.zrd) {
+        try {
+            zrd('swal', function (sw) {
+            sw.fire({
+                text: msg,
+                icon: 'warning',
+                confirmButtonText: 'Entendi'
+            });
+            });
+            return;
+        } catch (e) {}
+        }
+
+        alert(msg);
+    }
+
+    function controlarStepper(e) {
+        var stepper = e.target.closest && e.target.closest('.lf-grade-stepper');
+        if (!stepper) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        var li = stepper.closest('li[data-derivacao-item-id]');
+        if (!li) return;
+
+        var corId = String(li.getAttribute('data-derivacao-item-id'));
+        var tamanhoId = getTamanhoAtualId();
+        var tamanhoNome = getTamanhoAtualNome();
+
+        if (!tamanhoId) {
+        aviso('Selecione um tamanho antes de escolher as quantidades por cor.');
+        return;
+        }
+
+        var variant = getVariant(corId, tamanhoId);
+
+        if (!variant) {
+        aviso('Esta cor não possui disponibilidade para o tamanho selecionado.');
+        return;
+        }
+
+        var estoque = getEstoque(variant);
+
+        if (estoque <= 0) {
+        aviso('Esta cor está indisponível no tamanho ' + tamanhoNome + '.');
+        return;
+        }
+
+        var qtd = getQtd(corId);
+
+        if (e.target.closest('.lf-grade-plus')) {
+        if (qtd >= estoque) {
+            aviso('Estoque disponível para esta combinação: ' + estoque + ' unidade(s).');
+            return;
+        }
+
+        setQtd(corId, qtd + 1);
+        }
+
+        if (e.target.closest('.lf-grade-minus')) {
+        setQtd(corId, qtd - 1);
+        }
+
+        atualizarVisualCard(li);
+    }
+
+    function montarItens() {
+        var tamanhoId = getTamanhoAtualId();
+        var itens = [];
+
+        if (!tamanhoId) return itens;
+
+        Object.keys(qtdPorCor).forEach(function (corId) {
+        var qtd = getQtd(corId);
+
+        if (qtd <= 0) return;
+
+        var variant = getVariant(corId, tamanhoId);
+
+        if (!variant) return;
+
+        var estoque = getEstoque(variant);
+
+        if (estoque <= 0) return;
+
+        var qtdFinal = Math.min(qtd, estoque);
+
+        for (var i = 0; i < qtdFinal; i++) {
+            itens.push({
+            codigo: String(variant.codigo),
+            quantidade: 1,
+            deposito: String(variant.deposito || 1),
+            corId: String(corId),
+            tamanhoId: String(tamanhoId),
+            nome: variant.derivacao_nome || ''
+            });
+        }
+        });
+
+        return itens;
+    }
+
+    function getSourceCarrinho() {
+        var params = new URLSearchParams(window.location.search);
+        var ref = params.get('ref') || '';
+
+        return {
+        source: ref || params.get('recommendation') ? 'Produto Recommender' : 'Produto',
+        codigoOrigem: ref
+        };
+    }
+
+    function montarBody(itens) {
+        var body = new URLSearchParams();
+
+        itens.forEach(function (item, index) {
+        body.append('produtos[' + index + '][codigo]', item.codigo);
+        body.append('produtos[' + index + '][quantidade]', String(item.quantidade || 1));
+        body.append('produtos[' + index + '][deposito]', String(item.deposito || 1));
+        });
+
+        var source = getSourceCarrinho();
+
+        body.append('source[source]', source.source);
+        body.append('source[codigoOrigem]', source.codigoOrigem);
+
+        return body;
+    }
+
+    function abrirModalSucesso(total, irCheckout) {
+        var antigo = document.querySelector('.lf-grade-modal');
+        if (antigo) antigo.remove();
+
+        var modal = document.createElement('div');
+        modal.className = 'lf-grade-modal';
+
+        modal.innerHTML =
+        '<div class="lf-grade-modal-box">' +
+            '<h3>Produto adicionado ao carrinho</h3>' +
+            '<p>' + total + ' unidade(s) foram adicionadas com sucesso.</p>' +
+            '<div class="lf-grade-modal-actions">' +
+            '<a href="/checkout/cart">Ver carrinho</a>' +
+            '<button type="button" class="lf-grade-close">Continuar comprando</button>' +
+            '</div>' +
+        '</div>';
+
+        document.body.appendChild(modal);
+
+        modal.addEventListener('click', function (e) {
+        if (
+            e.target.classList.contains('lf-grade-modal') ||
+            e.target.classList.contains('lf-grade-close')
+        ) {
+            modal.remove();
+        }
+        });
+
+        if (irCheckout) {
+        setTimeout(function () {
+            window.location.href = '/checkout/cart';
+        }, 350);
+        }
+    }
+
+    async function adicionarGrade(irCheckout) {
+        if (enviando) return;
+
+        var tamanhoId = getTamanhoAtualId();
+
+        if (!tamanhoId) {
+        aviso('Selecione um tamanho antes de adicionar ao carrinho.');
+        return;
+        }
+
+        var itens = montarItens();
+
+        if (!itens.length) {
+        aviso('Nenhuma cor com estoque foi selecionada para o tamanho atual.');
+        return;
+        }
+
+        enviando = true;
+        document.documentElement.classList.add('lf-grade-loading');
+
+        var body = montarBody(itens);
+
+        console.log('[Grade] Itens selecionados:', itens);
+        console.log('[Grade] Body:', body.toString());
+
+        try {
+        var response = await fetch('/checkout/cart?operation=AddMultiples', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: body.toString()
+        });
+
+        if (!response.ok) {
+            var txt = '';
+
+            try {
+            txt = await response.text();
+            } catch (e) {}
+
+            console.error('[Grade] Erro HTTP:', response.status, txt);
+            aviso('Não foi possível adicionar ao carrinho. Verifique o estoque das combinações selecionadas.');
+            return;
+        }
+
+        if (
+            window.Zord &&
+            window.Zord.checkout &&
+            typeof window.Zord.checkout.atualizaContadorCarrinho === 'function'
+        ) {
+            try {
+            window.Zord.checkout.atualizaContadorCarrinho();
+            } catch (e) {}
+        }
+
+        var total = itens.length;
+
+        resetQuantidades();
+        abrirModalSucesso(total, irCheckout);
+        } catch (err) {
+        console.error('[Grade] Erro ao adicionar itens ao carrinho:', err);
+        aviso('Erro ao adicionar ao carrinho. Tente novamente.');
+        } finally {
+        enviando = false;
+        document.documentElement.classList.remove('lf-grade-loading');
+        }
+    }
+
+    function interceptarCompra(e) {
+        var btn = e.target.closest && e.target.closest('.button-buy');
+        if (!btn) return;
+
+        if (!temQuantidadeSelecionada()) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        var texto = normalizar(btn.textContent || '');
+        var irCheckout = texto.indexOf('comprar agora') !== -1;
+
+        adicionarGrade(irCheckout);
+    }
+
+    function interceptarSubmit(e) {
+        if (!temQuantidadeSelecionada()) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        adicionarGrade(false);
+    }
+
+    function monitorarTamanho(e) {
+        var tam = e.target.closest && e.target.closest(
+        '.variacao-area-id-2 li[data-derivacao-item-id], .variacao-area-2 li[data-derivacao-item-id]'
+        );
+
+        if (!tam) return;
+
+        setTimeout(function () {
+        var novo = getTamanhoAtualId();
+
+        if (api.lastSizeId && novo && novo !== api.lastSizeId) {
+            resetQuantidades();
+        }
+
+        api.lastSizeId = novo;
+        syncUI();
+        }, 250);
+    }
+
+    function init() {
+        if (api.destroyed) return;
+
+        syncUI();
+        api.lastSizeId = getTamanhoAtualId();
+
+        api.clickHandler = function (e) {
+        if (e.target.closest && e.target.closest('.lf-grade-stepper')) {
+            controlarStepper(e);
+            return;
+        }
+
+        interceptarCompra(e);
+        };
+
+        api.submitHandler = interceptarSubmit;
+        api.sizeClickHandler = monitorarTamanho;
+
+        document.addEventListener('click', api.clickHandler, true);
+        document.addEventListener('submit', api.submitHandler, true);
+        document.addEventListener('click', api.sizeClickHandler, false);
+
+        api.observer = new MutationObserver(function () {
+        clearTimeout(api._syncTimer);
+        api._syncTimer = setTimeout(syncUI, 120);
+        });
+
+        api.observer.observe(document.body, {
+        childList: true,
+        subtree: true
+        });
+
+        console.log('[Grade] V10 ativa. Matriz por cor + tamanho carregada.');
+    }
+
+    api.destroy = function () {
+        api.destroyed = true;
+
+        if (api.observer) {
+        api.observer.disconnect();
+        }
+
+        if (api.clickHandler) {
+        document.removeEventListener('click', api.clickHandler, true);
+        }
+
+        if (api.submitHandler) {
+        document.removeEventListener('submit', api.submitHandler, true);
+        }
+
+        if (api.sizeClickHandler) {
+        document.removeEventListener('click', api.sizeClickHandler, false);
+        }
+
+        document.querySelectorAll('.lf-grade-stepper').forEach(function (el) {
+        el.remove();
+        });
+
+        document.querySelectorAll('.lf-grade-label').forEach(function (el) {
+        el.remove();
+        });
+
+        document.querySelectorAll('.lf-grade-card').forEach(function (el) {
+        el.classList.remove('lf-grade-card', 'lf-grade-active', 'lf-grade-unavailable');
+        });
+
+        document.querySelectorAll('.lf-grade-modal').forEach(function (el) {
+        el.remove();
+        });
+
+        document.documentElement.classList.remove('lf-grade-loading');
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    })();
+    </script>

@@ -1,0 +1,212 @@
+<style>
+  #produto-react-app > div.flex.topo-produto.mt-space-20.pt-space-10.relative.max-xl\:px-2 > div.informacoes-compra-produto.relative.min-w-\[450px\].w-\[450px\] > div.area-buy-product.flex.flex-col > div.derivacoes-produto.min-w-full.\[\&\>\.area-derivacoes\>\.deriva-lista-corrida\]\:my-space-20.\[\&\>\.area-derivacoes\>\.deriva-lista-corrida\]\:min-h-80.\[\&\>\.area-derivacoes\>\.deriva-lista-corrida\]\:justify-start > div > div.variacao-area.variacao-area-1.variacao-area-id-1.variacao-tipo-box.mb-space-8.mt-space-16 > div > ul > li:nth-child(1) > div.ng-stepper {
+    margin-top: 4px !important;
+  }
+
+  .variacao-area-id-1 ul.flex {
+    align-items: flex-start !important;
+    gap: 16px !important;
+  }
+
+  .variacao-area-id-1 li {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 54px !important;
+    min-width: 54px !important;
+  }
+
+  .ng-stepper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    margin-top: 15px !important;
+    border: 1px solid #ddd !important;
+    border-radius: 6px !important;
+    padding: 0 !important;
+    width: 52px !important;
+    max-width: 52px !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+  }
+
+  .ng-stepper button {
+    width: 15px !important;
+    min-width: 15px !important;
+    height: 20px !important;
+    flex: 0 0 15px !important;
+    border: none !important;
+    background: #f2f2f2 !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .ng-stepper button:hover {
+    background: #e6e6e6 !important;
+  }
+
+  .ng-stepper .ng-qtd {
+    flex: 1 1 auto !important;
+    text-align: center !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    padding: 0 !important;
+  }
+</style>
+
+<script>
+(function () {
+  var SKU_POR_COR = {
+    "109": 150862, // Marrom Escuro
+    "86":  150864, // Off White
+    "15":  150861, // Cinza
+    "19":  150863  // Preto
+  };
+
+  function criarSteppers() {
+    document.querySelectorAll('.variacao-area-id-1 li').forEach(function (li) {
+      li.querySelectorAll('.fvc-stepper, .ng-stepper').forEach(function (s) {
+        s.remove();
+      });
+
+      var w = document.createElement('div');
+      w.className = 'ng-stepper';
+
+      w.innerHTML =
+        '<button type="button" class="ng-minus">-</button>' +
+        '<span class="ng-qtd">0</span>' +
+        '<button type="button" class="ng-plus">+</button>';
+
+      w.addEventListener('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+
+      var q = w.querySelector('.ng-qtd');
+
+      w.querySelector('.ng-minus').addEventListener('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var v = parseInt(q.textContent, 10) || 0;
+
+        if (v > 0) {
+          q.textContent = v - 1;
+        }
+      });
+
+      w.querySelector('.ng-plus').addEventListener('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        q.textContent = (parseInt(q.textContent, 10) || 0) + 1;
+      });
+
+      li.appendChild(w);
+    });
+  }
+
+  function adicionarGrade(e) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    var itens = [];
+
+    document.querySelectorAll('.variacao-area-id-1 li').forEach(function (li) {
+      var qtdEl = li.querySelector('.ng-qtd');
+      var qtd = parseInt(qtdEl ? qtdEl.textContent : '0', 10) || 0;
+      var corId = li.getAttribute('data-derivacao-item-id');
+
+      if (qtd > 0 && SKU_POR_COR[corId]) {
+        itens.push({
+          codigo: SKU_POR_COR[corId],
+          qtd: qtd
+        });
+      }
+    });
+
+    if (!itens.length) {
+      if (window.Zord && Zord.msg) {
+        Zord.msg('Selecione a quantidade desejada em pelo menos uma cor.', 'warning');
+      } else {
+        alert('Selecione a quantidade.');
+      }
+
+      return;
+    }
+
+    var btn = document.querySelector('.button-buy');
+
+    if (btn) {
+      btn.disabled = true;
+      btn.style.pointerEvents = 'none';
+      btn.style.opacity = '0.7';
+    }
+
+    Promise.all(
+      itens.map(function (it) {
+        return Zord.checkout.adicionarCarrinho(it.codigo, it.qtd);
+      })
+    )
+    .then(function () {
+      if (
+        window.Zord &&
+        Zord.checkout &&
+        typeof Zord.checkout.atualizaContadorCarrinho === 'function'
+      ) {
+        Zord.checkout.atualizaContadorCarrinho();
+      }
+
+      setTimeout(function () {
+        window.location.reload();
+      }, 500);
+    })
+    .catch(function () {
+      if (window.Zord && Zord.msg) {
+        Zord.msg('Não foi possível adicionar os itens ao carrinho. Tente novamente.', 'error');
+      } else {
+        alert('Não foi possível adicionar os itens ao carrinho. Tente novamente.');
+      }
+
+      if (btn) {
+        btn.disabled = false;
+        btn.style.pointerEvents = '';
+        btn.style.opacity = '';
+      }
+    });
+  }
+
+  function init() {
+    if (!document.querySelector('.variacao-area-id-1 li')) {
+      return setTimeout(init, 300);
+    }
+
+    criarSteppers();
+
+    var btn = document.querySelector('.button-buy');
+
+    if (btn && !btn.classList.contains('ng-button-ready')) {
+      var novo = btn.cloneNode(true);
+
+      btn.parentNode.replaceChild(novo, btn);
+
+      novo.type = 'button';
+      novo.classList.add('ng-button-ready');
+      novo.addEventListener('click', adicionarGrade);
+    }
+  }
+
+  if (document.readyState !== 'loading') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
