@@ -1,0 +1,390 @@
+<style>
+  .femme-brinde-anchor {
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+  }
+
+  .femme-brinde-anchor > button {
+    order: 99 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  .femme-brinde-pdp {
+    order: 98 !important;
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    margin: 4px 0 10px !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    background: #fff !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    font-family: inherit !important;
+    color: #111 !important;
+  }
+
+  .femme-brinde-pdp * {
+    box-sizing: border-box !important;
+  }
+
+  .femme-brinde-img {
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px !important;
+    display: block !important;
+    object-fit: cover !important;
+    background: #f7f7f7 !important;
+  }
+
+  .femme-brinde-info {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  .femme-brinde-title {
+    margin: 0 !important;
+    font-size: 13px !important;
+    line-height: 1.25 !important;
+    font-weight: 700 !important;
+    color: #111 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .femme-brinde-text {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+    font-weight: 400 !important;
+    color: #555 !important;
+  }
+
+  .femme-brinde-text strong {
+    color: #111 !important;
+    font-weight: 700 !important;
+  }
+
+  .femme-brinde-progress-area {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+  }
+
+  .femme-brinde-progress-top {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+  }
+
+  .femme-brinde-progress-label,
+  .femme-brinde-progress-value {
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    color: #333 !important;
+    font-weight: 500 !important;
+  }
+
+  .femme-brinde-progress-value {
+    color: #111 !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+  }
+
+  .femme-brinde-progress-track {
+    width: 100% !important;
+    height: 6px !important;
+    overflow: hidden !important;
+    background: #eeeeee !important;
+    border-radius: 999px !important;
+  }
+
+  .femme-brinde-progress-fill {
+    width: 0%;
+    height: 100% !important;
+    display: block !important;
+    background: #111 !important;
+    border-radius: 999px !important;
+    transition: width 0.35s ease !important;
+  }
+
+  .femme-brinde-status {
+    margin: 0 !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    color: #555 !important;
+  }
+
+  .femme-brinde-status strong {
+    color: #111 !important;
+    font-weight: 700 !important;
+  }
+
+  @media (max-width: 767px) {
+    .femme-brinde-pdp {
+      margin: 4px 0 10px !important;
+      padding: 10px !important;
+      gap: 10px !important;
+    }
+
+    .femme-brinde-img {
+      width: 62px !important;
+      height: 62px !important;
+      min-width: 62px !important;
+    }
+
+    .femme-brinde-title {
+      font-size: 12px !important;
+    }
+
+    .femme-brinde-text,
+    .femme-brinde-status {
+      font-size: 11px !important;
+    }
+
+    .femme-brinde-progress-label,
+    .femme-brinde-progress-value {
+      font-size: 10px !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const BRINDE_ID = "femme-brinde-pdp";
+    const VALOR_BRINDE = 499;
+    const IMG_BRINDE = "https://femmeboutique.cdn.magazord.com.br/img/2026/05/produto/15722/01-t-shirt-basica-brasil.png";
+
+    let carregandoCarrinho = false;
+    let timerAtualizacao = null;
+
+    function formatarMoeda(valor) {
+      return Number(valor || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function criarAvisoBrinde() {
+      const aviso = document.createElement("div");
+      aviso.id = BRINDE_ID;
+      aviso.className = "femme-brinde-pdp";
+
+      aviso.innerHTML = `
+        <img
+          class="femme-brinde-img"
+          src="${IMG_BRINDE}"
+          alt="T-shirt Brasil"
+          loading="lazy"
+        >
+
+        <div class="femme-brinde-info">
+          <p class="femme-brinde-title">
+            Ganhe uma T-shirt Brasil
+          </p>
+
+          <p class="femme-brinde-text">
+            Compras acima de <strong>R$499</strong> ganham uma camisa do Brasil.
+          </p>
+
+          <div class="femme-brinde-progress-area">
+            <div class="femme-brinde-progress-top">
+              <p class="femme-brinde-progress-label">Progresso do carrinho</p>
+              <p class="femme-brinde-progress-value" data-femme-brinde-total>R$ 0,00</p>
+            </div>
+
+            <div class="femme-brinde-progress-track">
+              <span class="femme-brinde-progress-fill" data-femme-brinde-fill></span>
+            </div>
+
+            <p class="femme-brinde-status" data-femme-brinde-status>
+              Carregando progresso do brinde...
+            </p>
+          </div>
+        </div>
+      `;
+
+      return aviso;
+    }
+
+    function encontrarBotaoComprar() {
+      return document.querySelector(
+        "#produto-react-app .informacoes-compra-produto .area-buy-product .quantidade-comprar.area-comprar > button"
+      );
+    }
+
+    function inserirAvisoBrinde() {
+      const botaoComprar = encontrarBotaoComprar();
+
+      if (!botaoComprar) return false;
+
+      const areaComprar = botaoComprar.parentElement;
+
+      if (!areaComprar) return false;
+
+      areaComprar.classList.add("femme-brinde-anchor");
+
+      if (!document.getElementById(BRINDE_ID)) {
+        botaoComprar.insertAdjacentElement("beforebegin", criarAvisoBrinde());
+      }
+
+      return true;
+    }
+
+    function pegarValorCarrinho(data) {
+      if (!data) return 0;
+
+      if (
+        data.totalItens &&
+        data.totalItens.totalParcelado !== undefined &&
+        data.totalItens.totalParcelado !== null
+      ) {
+        return Number(data.totalItens.totalParcelado) || 0;
+      }
+
+      if (
+        data.totalItens &&
+        data.totalItens.totalPix !== undefined &&
+        data.totalItens.totalPix !== null
+      ) {
+        return Number(data.totalItens.totalPix) || 0;
+      }
+
+      if (Array.isArray(data.itens)) {
+        return data.itens.reduce(function (total, item) {
+          const itemBrinde =
+            item.tipo === 9 ||
+            item.source && String(item.source.source || "").toLowerCase() === "brinde";
+
+          if (itemBrinde) return total;
+
+          return total + (Number(item.valor_total_item || 0) || 0);
+        }, 0);
+      }
+
+      return 0;
+    }
+
+    function verificarBrindeNoCarrinho(data) {
+      if (!data || !Array.isArray(data.itens)) return false;
+
+      return data.itens.some(function (item) {
+        const nome = String(item.nome || item.titulo || "").toLowerCase();
+        const source = item.source && String(item.source.source || "").toLowerCase();
+
+        return (
+          item.tipo === 9 ||
+          source === "brinde" ||
+          nome.indexOf("t-shirt básica brasil") > -1 ||
+          nome.indexOf("t-shirt basica brasil") > -1
+        );
+      });
+    }
+
+    function atualizarBarra(valorCarrinho, temBrinde) {
+      const aviso = document.getElementById(BRINDE_ID);
+      if (!aviso) return;
+
+      const fill = aviso.querySelector("[data-femme-brinde-fill]");
+      const total = aviso.querySelector("[data-femme-brinde-total]");
+      const status = aviso.querySelector("[data-femme-brinde-status]");
+
+      const percentual = Math.min((valorCarrinho / VALOR_BRINDE) * 100, 100);
+      const faltante = Math.max(VALOR_BRINDE - valorCarrinho, 0);
+
+      if (fill) fill.style.width = percentual + "%";
+      if (total) total.textContent = formatarMoeda(valorCarrinho);
+
+      if (status) {
+        if (temBrinde || valorCarrinho >= VALOR_BRINDE) {
+          status.innerHTML = `<strong>Brinde liberado.</strong> Sua T-shirt Brasil já pode entrar no pedido.`;
+        } else {
+          status.innerHTML = `Faltam <strong>${formatarMoeda(faltante)}</strong> para ganhar sua T-shirt Brasil.`;
+        }
+      }
+    }
+
+    function buscarCarrinho() {
+      if (carregandoCarrinho) return;
+
+      carregandoCarrinho = true;
+
+      const formData = new FormData();
+      formData.append("preview", "true");
+      formData.append("renderAsJson", "true");
+
+      fetch("/cliente?operation=getInfoExtra", {
+        method: "POST",
+        body: formData,
+        credentials: "same-origin",
+        cache: "no-store"
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const valorCarrinho = pegarValorCarrinho(data);
+          const temBrinde = verificarBrindeNoCarrinho(data);
+
+          atualizarBarra(valorCarrinho, temBrinde);
+        })
+        .catch(function () {
+          atualizarBarra(0, false);
+        })
+        .finally(function () {
+          carregandoCarrinho = false;
+        });
+    }
+
+    function atualizarComDelay(delay) {
+      clearTimeout(timerAtualizacao);
+
+      timerAtualizacao = setTimeout(function () {
+        if (inserirAvisoBrinde()) {
+          buscarCarrinho();
+        }
+      }, delay || 300);
+    }
+
+    function observarCliquesCompra() {
+      document.addEventListener("click", function (event) {
+        const clicouComprar = event.target.closest(
+          "#produto-react-app .informacoes-compra-produto .area-buy-product .quantidade-comprar.area-comprar > button"
+        );
+
+        if (!clicouComprar) return;
+
+        atualizarComDelay(900);
+
+        setTimeout(function () {
+          atualizarComDelay(0);
+        }, 1800);
+      });
+    }
+
+    inserirAvisoBrinde();
+    buscarCarrinho();
+    observarCliquesCompra();
+
+    const observer = new MutationObserver(function () {
+      if (!document.getElementById(BRINDE_ID)) {
+        atualizarComDelay(300);
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  })();
+</script>

@@ -1,0 +1,180 @@
+<dialog id="modalBrinde">
+  <div class="modal-content">
+    <h2>Brindes</h2>
+
+    <p>
+      Nas compras acima de <strong>R$599</strong> você ganha uma manta.
+      Para adicioná-la ao seu pedido, basta clicar em <strong>“Resgatar”</strong> abaixo.
+      O brinde não é incluído automaticamente no carrinho.
+    </p>
+
+    <div class="modal-actions">
+      <button id="closeModal" type="button">Fechar</button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  #modalBrinde {
+    width: calc(100% - 32px);
+    max-width: 430px;
+    border: 0;
+    border-radius: 18px;
+    padding: 0;
+    overflow: hidden;
+    font-family: inherit;
+  }
+
+  #modalBrinde::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  #modalBrinde .modal-content {
+    padding: 28px 24px 24px;
+    background: #fff;
+    color: #222;
+    box-sizing: border-box;
+  }
+
+  #modalBrinde h2 {
+    margin: 0 0 12px;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  #modalBrinde p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #444;
+  }
+
+  #modalBrinde .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  #modalBrinde button {
+    width: 100%;
+    min-height: 44px;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  #resgatarBrinde {
+    background: #111;
+    color: #fff;
+  }
+
+  #closeModal {
+    background: #f1f1f1;
+    color: #222;
+  }
+
+  @media (max-width: 480px) {
+    #modalBrinde .modal-content {
+      padding: 24px 20px 22px;
+    }
+
+    #modalBrinde .modal-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const seletorPreco = "#resumo-compra > div.conteudo-resumo > div.item-resumo.resumo-valores > div > div.value-content > div.value";
+    const valorMinimo = 599;
+    const storageKey = "modal_brinde_manta_exibido";
+
+    const modal = document.querySelector("#modalBrinde");
+    const btnFechar = document.querySelector("#closeModal");
+
+    function converterPrecoParaNumero(texto) {
+      if (!texto) return 0;
+
+      return Number(
+        texto
+          .replace("R$", "")
+          .replace(/\s/g, "")
+          .replace(/\./g, "")
+          .replace(",", ".")
+          .replace(/[^\d.]/g, "")
+      );
+    }
+
+    function verificarValorCompra() {
+      const precoElemento = document.querySelector(seletorPreco);
+
+      if (!precoElemento || !modal) return;
+
+      const precoTexto = precoElemento.textContent;
+      const precoNumerico = converterPrecoParaNumero(precoTexto);
+
+      console.log("Texto do preço:", precoTexto);
+      console.log("Preço convertido:", precoNumerico);
+
+      if (
+        precoNumerico >= valorMinimo &&
+        !modal.open &&
+        sessionStorage.getItem(storageKey) !== "1"
+      ) {
+        modal.showModal();
+        sessionStorage.setItem(storageKey, "1");
+        console.log("Modal exibido");
+      }
+
+      if (precoNumerico < valorMinimo) {
+        sessionStorage.removeItem(storageKey);
+
+        if (modal.open) {
+          modal.close();
+        }
+      }
+    }
+
+    btnFechar.addEventListener("click", function () {
+      modal.close();
+    });
+
+    const observer = new MutationObserver(function () {
+      verificarValorCompra();
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+
+    verificarValorCompra();
+  })();
+
+
+
+  
+</script>
+
+
+<script>
+    const btnResgatar = document.querySelector("#area-brinde > div.overflow-brinde > div > div.box-brindes.flex > div > div.info-brinde.flex.column.space-between > div.box-btns > button");
+
+    btnResgatar.innerHTML = "Resgatar meu brinde";
+
+    MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+    const observer = new MutationObserver(function (mutations, observer) {
+      const btnResgatarAtual = document.querySelector("#area-brinde > div.overflow-brinde > div > div.box-brindes.flex > div > div.info-brinde.flex.column.space-between > div.box-btns > button");
+
+      if (btnResgatarAtual && btnResgatarAtual.innerHTML !== "Resgatar meu brinde") {
+        btnResgatarAtual.innerHTML = "Resgatar meu brinde";
+      }
+    });
+
+
+</script>

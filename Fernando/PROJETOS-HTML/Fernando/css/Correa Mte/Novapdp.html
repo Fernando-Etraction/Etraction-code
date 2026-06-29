@@ -1,0 +1,351 @@
+<style>
+    /* 1. Esconder elementos indesejados (usando seletores mais curtos e diretos) */
+    .product-description,
+    .product-sku,
+    .container-info-preco-exclusivo,
+    #content-price-product .price > img,
+    #content-price-product .icon-card,
+    .preco-de { /* Adicionado para esconder o 'De: R$...' se desejar */
+        display: none !important;
+    }
+
+    /* 2. Ajuste do Título do Produto */
+    .informacoes-compra-produto h1 {
+        line-height: 1.2 !important; /* Ajustado de 1.6rem para evitar muito espaço */
+        font-weight: 600 !important;
+        font-size: 22px !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* 3. Preço Principal (PIX) - Corrigido */
+    #content-price-product .price.pix .price-big {
+        color: var(--bg-base-color, #32BCAD) !important;
+        font-size: 28px !important;
+        font-weight: 700 !important;
+    }
+
+    /* 4. Preço Secundário (Cartão) - Corrigido */
+    #content-price-product .price.card .price-big {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #111 !important;
+    }
+    
+    /* Ajuste de espaçamento entre os preços */
+    .values-area.flex {
+        gap: 15px !important;
+        align-items: baseline !important;
+    }
+</style>
+
+<script>
+(function () {
+  const STORAGE_PREFIX = 'prod_vendas_';
+  const STYLE_ID = 'produto-top-rating-style';
+  const CUSTOM_CLASS = 'produto-top-rating-custom-content';
+  const SOURCE_CLASS = 'produto-top-rating-source';
+
+  function getProductKey() {
+    return STORAGE_PREFIX + window.location.pathname.replace(/\W+/g, '_');
+  }
+
+  function getCachedSoldNumber() {
+    const key = getProductKey();
+    const cached = localStorage.getItem(key);
+
+    if (cached && !isNaN(cached)) {
+      return Number(cached);
+    }
+
+    const number = Math.floor(Math.random() * (120 - 40 + 1)) + 40;
+    localStorage.setItem(key, String(number));
+
+    return number;
+  }
+
+  function injectStyle() {
+    if (document.getElementById(STYLE_ID)) return;
+
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.innerHTML = `
+      /* Esconder elementos indesejados */
+      .product-description,
+      .product-sku,
+      .container-info-preco-exclusivo,
+      #content-price-product .price > img,
+      #content-price-product .icon-card,
+      #content-price-product .preco-de,
+      #content-price-product .preco-de * {
+        display: none !important;
+      }
+
+      /* Título do produto */
+      .informacoes-compra-produto h1,
+      .product-title {
+        line-height: 1.2 !important;
+        font-weight: 600 !important;
+        font-size: 22px !important;
+        margin-bottom: 10px !important;
+      }
+
+      /* Área de preços */
+      #content-price-product .values-area,
+      #content-price-product .values-area.flex {
+        gap: 15px !important;
+        align-items: baseline !important;
+      }
+
+      /* Preço PIX */
+      #content-price-product .price.pix .price-big,
+      #content-price-product .price.pix .full-price span {
+        color: var(--bg-base-color, #32BCAD) !important;
+        font-size: 28px !important;
+        font-weight: 700 !important;
+        line-height: 1.1 !important;
+      }
+
+      /* Preço cartão */
+      #content-price-product .price.card .price-big,
+      #content-price-product .price.card .full-price > span {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #111111 !important;
+        line-height: 1.2 !important;
+      }
+
+      /* Wrapper da avaliação original */
+      .${SOURCE_CLASS} {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 0 !important;
+        margin: 8px 0 10px !important;
+        padding: 0 !important;
+      }
+
+      .${SOURCE_CLASS} > *:not(.${CUSTOM_CLASS}) {
+        display: none !important;
+      }
+
+      /* Nova avaliação */
+      .${CUSTOM_CLASS} {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: inherit !important;
+        line-height: 1 !important;
+        color: #111111 !important;
+      }
+
+      .produto-top-stars-red {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 1px !important;
+      }
+
+      .produto-top-stars-red svg {
+        width: 13px !important;
+        height: 13px !important;
+        display: block !important;
+        fill: #ff2020 !important;
+        stroke: #ff2020 !important;
+        stroke-width: 1.5 !important;
+      }
+
+      .produto-top-meta {
+        font-size: 11px !important;
+        font-weight: 600 !important;
+        color: #111111 !important;
+        white-space: nowrap !important;
+      }
+
+      .produto-top-sold {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        color: #128a36 !important;
+        white-space: nowrap !important;
+      }
+
+      .produto-top-separator {
+        width: 3px !important;
+        height: 3px !important;
+        display: inline-block !important;
+        border-radius: 999px !important;
+        background: #111111 !important;
+        opacity: .8 !important;
+        margin: 0 3px !important;
+      }
+
+      @media (max-width: 767px) {
+        .informacoes-compra-produto h1,
+        .product-title {
+          font-size: 20px !important;
+          line-height: 1.22 !important;
+        }
+
+        #content-price-product .price.pix .price-big,
+        #content-price-product .price.pix .full-price span {
+          font-size: 26px !important;
+        }
+
+        #content-price-product .price.card .price-big,
+        #content-price-product .price.card .full-price > span {
+          font-size: 17px !important;
+        }
+
+        .${CUSTOM_CLASS} {
+          gap: 5px !important;
+        }
+
+        .produto-top-stars-red svg {
+          width: 12px !important;
+          height: 12px !important;
+        }
+
+        .produto-top-meta,
+        .produto-top-sold {
+          font-size: 10.5px !important;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function formatRating(value) {
+    const number = parseFloat(String(value || '').replace(',', '.'));
+
+    if (isNaN(number)) return '5,0';
+
+    return number
+      .toFixed(2)
+      .replace('.', ',')
+      .replace(',00', ',0')
+      .replace(/,(\d)0$/, ',$1');
+  }
+
+  function getRating(wrapper) {
+    const ratingEl = wrapper.querySelector('.average-rating');
+
+    if (!ratingEl) return '5,0';
+
+    const dataValue = ratingEl.getAttribute('data-value');
+    const titleValue = ratingEl.getAttribute('title');
+    const rawValue = dataValue || titleValue || '5';
+
+    const match = String(rawValue).match(/\d+([.,]\d+)?/);
+
+    return formatRating(match ? match[0] : rawValue);
+  }
+
+  function getReviewCount(wrapper) {
+    const reviewEl =
+      wrapper.querySelector('.num-avaliacoes') ||
+      wrapper.querySelector('.num-avaliacao') ||
+      wrapper.querySelector('.avaliacoes-link');
+
+    const text = reviewEl ? reviewEl.textContent : wrapper.textContent;
+    const match = String(text || '').match(/\d+/);
+
+    return match ? match[0] : '0';
+  }
+
+  function renderStars() {
+    const star = `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.5 1.1 6.3L12 17.2 6.4 20.2l1.1-6.3-4.6-4.5 6.3-.9L12 2.8z"></path>
+      </svg>
+    `;
+
+    return Array(5).fill(star).join('');
+  }
+
+  function findRatingWrapper() {
+    return (
+      document.querySelector('.avaliacoes.flex.items-center') ||
+      document.querySelector('.avaliacao-holder.flex.items-center') ||
+      document.querySelector('.avaliacao-holder') ||
+      document.querySelector('.avaliacao-geral-topo')
+    );
+  }
+
+  function applyRatingLayout() {
+    const wrapper = findRatingWrapper();
+
+    if (!wrapper) return;
+    if (wrapper.querySelector('.' + CUSTOM_CLASS)) return;
+
+    const rating = getRating(wrapper);
+    const reviews = getReviewCount(wrapper);
+    const sold = getCachedSoldNumber();
+
+    wrapper.classList.add(SOURCE_CLASS);
+
+    const customContent = document.createElement('div');
+    customContent.className = CUSTOM_CLASS;
+
+    customContent.innerHTML = `
+      <span class="produto-top-stars-red">
+        ${renderStars()}
+      </span>
+
+      <span class="produto-top-meta">${rating}</span>
+      <span class="produto-top-meta">(${reviews} avaliações)</span>
+      <span class="produto-top-separator"></span>
+      <span class="produto-top-sold">+${sold} vendidos</span>
+    `;
+
+    wrapper.appendChild(customContent);
+  }
+
+  function init() {
+    injectStyle();
+    applyRatingLayout();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  let scheduled = false;
+
+  const observer = new MutationObserver(function () {
+    if (scheduled) return;
+
+    scheduled = true;
+
+    requestAnimationFrame(function () {
+      scheduled = false;
+      init();
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+  let attempts = 0;
+  const interval = setInterval(function () {
+    attempts++;
+    init();
+
+    if (attempts >= 20 || document.querySelector('.' + CUSTOM_CLASS)) {
+      clearInterval(interval);
+    }
+  }, 300);
+})();
+
+
+$(document).ready(function(){
+    const seletor = document.querySelector("#produto-react-app > div.flex.topo-produto.mt-space-20.pt-space-10.relative.max-xl\\:px-2 > div.informacoes-compra-produto.relative.min-w-\\[450px\\].w-\\[450px\\] > div.avaliacoes.flex.items-center.produto-top-rating-source");
+    $(seletor).insertAfter("h1");
+})
+</script>

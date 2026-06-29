@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aline 3 em 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1A1A;
+    --ink-soft:#7A746C;
+    --paper:#FFFFFF;
+    --paper-2:#FAF9F7;
+    --line:#E6E4DF;
+    --line-soft:#EFEDE9;
+    --accent:#1A1A1A;
+    --body:'Inter',system-ui,-apple-system,sans-serif;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  .aline{
+    font-family:var(--body);color:var(--ink);background:var(--paper);
+    line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .aline img{display:block;max-width:100%;height:auto}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .rule{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+  /* ===== SELECTOR ===== */
+  .selector{padding:36px 0 64px}
+  .sel{
+    display:grid;
+    grid-template-columns:1.25fr 1fr;
+    border:1px solid var(--line);
+  }
+  .sel-visual{
+    background:var(--paper-2);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+    min-height:520px;
+    border-right:1px solid var(--line);
+  }
+  .sel-visual .badge{
+    position:absolute;top:24px;left:24px;
+    font-size:11px;font-weight:600;letter-spacing:.14em;
+    color:var(--ink);background:var(--paper);
+    border:1px solid var(--line);padding:7px 12px;
+  }
+  .sel-visual .photo{
+    max-width:300px;width:100%;
+    transition:opacity .4s ease;
+  }
+  .sel-visual .footer-tag{
+    position:absolute;bottom:24px;left:24px;
+    font-size:12px;font-weight:500;color:var(--ink);
+    background:var(--paper);border:1px solid var(--line);
+    padding:9px 16px;
+  }
+  .sel-visual .nav{
+    position:absolute;bottom:24px;right:24px;display:flex;gap:8px;
+  }
+  .sel-visual .nav button{
+    width:38px;height:38px;
+    border:1px solid var(--line);background:var(--paper);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .2s,border-color .2s;
+  }
+  .sel-visual .nav button:hover{background:var(--ink);border-color:var(--ink)}
+  .sel-visual .nav button:hover svg{stroke:#fff}
+  .sel-visual .nav button svg{stroke:var(--ink);transition:stroke .2s}
+
+  .sel-panel{padding:44px 44px}
+  .sel-panel h2{
+    font-size:clamp(26px,3vw,34px);
+    font-weight:600;letter-spacing:-.02em;line-height:1.1;
+    margin-bottom:14px;
+  }
+  .sel-panel .intro{
+    font-size:14px;color:var(--ink-soft);font-weight:400;
+    line-height:1.6;margin-bottom:30px;max-width:38ch;
+  }
+  .opt{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:20px 18px;
+    border-top:1px solid var(--line-soft);
+    transition:background .25s;
+    display:block;
+  }
+  .opt:last-child{border-bottom:1px solid var(--line-soft)}
+  .opt.active{background:var(--paper-2)}
+  .opt h4{font-size:15px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px;transition:color .2s}
+  .opt p{font-size:13.5px;color:var(--ink-soft);font-weight:400;line-height:1.55;max-width:40ch}
+  .opt.active h4{color:var(--ink)}
+
+  /* ===== EDITORIAL PHOTOS (stacked large) ===== */
+  .editorial{padding:24px 0}
+  .editorial-open{padding-top:56px}
+  .ed-lead{
+    max-width:680px;
+    margin:28px auto 0;
+    font-size:16px;
+    color:var(--ink-soft);
+    font-weight:400;
+    line-height:1.7;
+    text-align:center;
+  }
+  .ed-block{
+    max-width:var(--maxw);margin:0 auto;
+    padding:40px 32px;
+  }
+  .ed-full{
+    position:relative;
+    background:var(--paper-2);
+    overflow:hidden;
+  }
+  .ed-full img{
+    width:100%;
+    height:clamp(420px,62vh,720px);
+    object-fit:cover;
+    object-position:center bottom;
+  }
+  .ed-full .caption{
+    position:absolute;left:0;bottom:0;
+    padding:26px 30px;
+  }
+  .ed-full .caption .tag{
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink);background:var(--paper);
+    padding:8px 14px;display:inline-block;
+  }
+  /* two-up row */
+  .ed-duo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    max-width:var(--maxw);margin:0 auto;
+    padding:16px 32px;
+  }
+  .ed-duo .ed-cell{background:var(--paper-2);overflow:hidden}
+  .ed-duo .ed-cell img{
+    width:100%;height:clamp(360px,52vh,560px);
+    object-fit:cover;object-position:center bottom;
+  }
+  /* split text + image */
+  .ed-split{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:stretch;
+    max-width:var(--maxw);margin:0 auto;
+    border:1px solid var(--line);
+  }
+  .ed-split.rev .ed-split-img{order:2}
+  .ed-split-img{background:var(--paper-2);overflow:hidden;min-height:480px;position:relative}
+  .ed-split-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom}
+  .ed-split-txt{
+    display:flex;flex-direction:column;justify-content:center;
+    padding:56px 60px;
+  }
+  .ed-split-txt .label{
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:18px;
+  }
+  .ed-split-txt h3{
+    font-size:clamp(24px,2.8vw,32px);font-weight:600;letter-spacing:-.02em;
+    line-height:1.15;margin-bottom:12px;
+  }
+  .ed-split-txt p{font-size:14px;color:var(--ink-soft);font-weight:400;line-height:1.65;max-width:38ch}
+
+  /* ===== INSPIRATION ===== */
+  .insp{padding:72px 0 64px;text-align:center}
+  .insp h2{font-size:clamp(26px,3vw,34px);font-weight:600;letter-spacing:-.02em;margin-bottom:14px}
+  .insp .sub{font-size:14px;color:var(--ink-soft);font-weight:400;max-width:48ch;margin:0 auto 44px}
+  .insp-row{
+    display:flex;justify-content:center;gap:clamp(20px,4vw,48px);flex-wrap:wrap;
+  }
+  .insp-item{display:flex;flex-direction:column;align-items:center;gap:12px}
+  .insp-item .av{
+    width:84px;height:84px;border-radius:50%;overflow:hidden;
+    border:1px solid var(--line);background:var(--paper-2);
+    transition:transform .3s ease;
+  }
+  .insp-item:hover .av{transform:scale(1.05)}
+  .insp-item .av img{width:100%;height:100%;object-fit:cover;object-position:center bottom}
+  .insp-item .handle{font-size:12.5px;color:var(--ink-soft);font-weight:400}
+
+  /* ===== FAQ ===== */
+  .faq{padding:60px 0 100px}
+  .faq h2{font-size:clamp(26px,3vw,34px);font-weight:600;letter-spacing:-.02em;margin-bottom:8px}
+  .faq .sub{font-size:14px;color:var(--ink-soft);font-weight:400;margin-bottom:36px}
+  .faq-list{border-top:1px solid var(--line)}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{
+    width:100%;background:none;border:none;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:24px;
+    padding:24px 0;text-align:left;
+    font-size:15.5px;font-weight:500;color:var(--ink);letter-spacing:-.01em;
+  }
+  .faq-q .ico{
+    flex-shrink:0;width:18px;height:18px;position:relative;
+  }
+  .faq-q .ico::before,.faq-q .ico::after{
+    content:"";position:absolute;background:var(--ink);
+    transition:transform .3s ease,opacity .3s ease;
+  }
+  .faq-q .ico::before{top:50%;left:0;right:0;height:1.5px;transform:translateY(-50%)}
+  .faq-q .ico::after{left:50%;top:0;bottom:0;width:1.5px;transform:translateX(-50%)}
+  .faq-item.open .faq-q .ico::after{transform:translateX(-50%) scaleY(0);opacity:0}
+  .faq-a{
+    max-height:0;overflow:hidden;
+    transition:max-height .35s ease,padding .35s ease;
+  }
+  .faq-a .inner{
+    font-size:14px;color:var(--ink-soft);font-weight:400;line-height:1.7;
+    max-width:60ch;padding-bottom:0;
+  }
+  .faq-item.open .faq-a{padding-bottom:24px}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:840px){
+    .sel{grid-template-columns:1fr}
+    .sel-visual{border-right:none;border-bottom:1px solid var(--line);min-height:420px}
+    .sel-panel{padding:32px 28px}
+    .insp-row{gap:18px}
+    .insp-item .av{width:68px;height:68px}
+    .faq{padding:48px 0 72px}
+    .editorial-open{padding-top:32px}
+    .ed-lead{font-size:15px;margin-top:22px}
+    .ed-block{padding:28px 22px}
+    .ed-duo{grid-template-columns:1fr;gap:16px;padding:12px 22px}
+    .ed-split{grid-template-columns:1fr}
+    .ed-split.rev .ed-split-img{order:0}
+    .ed-split-img{min-height:360px}
+    .ed-split-txt{padding:40px 28px}
+    .ed-full img{height:48vh}
+  }
+  @media(max-width:480px){
+    .wrap{padding:0 22px}
+    .rule{margin:0 22px}
+    .sel-visual .nav{position:static;justify-content:flex-end;margin-top:20px}
+    .insp-item .handle{font-size:11px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="aline">
+
+  <!-- EDITORIAL FULL 1 (abertura) -->
+  <section class="editorial editorial-open">
+    <div class="ed-block">
+      <div class="ed-full">
+        <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg" alt="Aline 3 em 1 em uso">
+        <div class="caption"><span class="tag">Aline · Preta</span></div>
+      </div>
+      <p class="ed-lead">A Aline 3 em 1 foi criada para se adaptar ao seu look pela altura do cano. A mesma bota pode ser usada em três versões: cano baixo, cano médio ou cano alto.</p>
+    </div>
+  </section>
+
+  <!-- SELECTOR -->
+  <section class="selector">
+    <div class="wrap">
+      <div class="sel">
+        <div class="sel-visual">
+          <span class="badge" id="selCount">01 / 03</span>
+          <img class="photo" id="selPhoto" src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-13-vlimchqsrq.jpg" alt="Aline cano baixo">
+          <span class="footer-tag" id="selTag">Cano baixo</span>
+          <div class="nav">
+            <button id="selPrev" aria-label="Anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button id="selNext" aria-label="Próximo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="sel-panel">
+          <h2>Escolha a altura do cano</h2>
+          <p class="intro">Alterne entre as três versões da Aline: cano baixo, cano médio e cano alto.</p>
+          <button class="opt active" data-i="0">
+            <h4>Cano baixo</h4>
+            <p>Mais leve, discreto e fácil de combinar em produções do dia a dia.</p>
+          </button>
+          <button class="opt" data-i="1">
+            <h4>Cano médio</h4>
+            <p>Altura intermediária para criar looks versáteis sem perder destaque.</p>
+          </button>
+          <button class="opt" data-i="2">
+            <h4>Cano alto</h4>
+            <p>Mais impacto visual, com a bota como ponto principal da composição.</p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="rule"></div>
+
+  <!-- EDITORIAL DUO -->
+  <section class="editorial">
+    <div class="ed-duo">
+      <div class="ed-cell">
+        <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-3-r9rnq3uhip.jpg" alt="Detalhe do salto da Aline">
+      </div>
+      <div class="ed-cell">
+        <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-12-fnsvmpi06r.jpg" alt="Detalhe da capa removível da Aline">
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL SPLIT -->
+  <section class="editorial">
+    <div class="ed-split">
+      <div class="ed-split-img">
+        <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-10-9g8apqtvml.jpg" alt="Aline cano médio">
+      </div>
+      <div class="ed-split-txt">
+        <span class="label">O detalhe</span>
+        <h3>Salto bloco de 10 cm</h3>
+        <p>Salto tratorado e bico quadrado. Estrutura firme e visual moderno em qualquer altura de cano.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL FULL 2 -->
+  <section class="editorial">
+    <div class="ed-block">
+      <div class="ed-full">
+        <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-11-0symgxvvrd.jpg" alt="Aline cano alto">
+        <div class="caption"><span class="tag">Cano alto</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="rule"></div>
+
+  <!-- INSPIRATION -->
+  <section class="insp">
+    <div class="wrap">
+      <h2>Inspirações de uso</h2>
+      <p class="sub">Veja combinações rápidas para visualizar a Aline nas versões cano baixo, médio e alto.</p>
+      <div class="insp-row">
+        <div class="insp-item">
+          <div class="av"><img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg" alt=""></div>
+          <span class="handle">@marina.alves</span>
+        </div>
+        <div class="insp-item">
+          <div class="av"><img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-11-0symgxvvrd.jpg" alt=""></div>
+          <span class="handle">@bia.figueire…</span>
+        </div>
+        <div class="insp-item">
+          <div class="av"><img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-12-fnsvmpi06r.jpg" alt=""></div>
+          <span class="handle">@luana.dias</span>
+        </div>
+        <div class="insp-item">
+          <div class="av"><img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-14-uaornp0x21.jpg" alt=""></div>
+          <span class="handle">@carol.mene…</span>
+        </div>
+        <div class="insp-item">
+          <div class="av"><img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-3-r9rnq3uhip.jpg" alt=""></div>
+          <span class="handle">@rafa.tavares</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="rule"></div>
+
+  <!-- EDITORIAL SPLIT REVERSE -->
+  <section class="editorial">
+    <div class="ed-split rev">
+      <div class="ed-split-img">
+        <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-14-uaornp0x21.jpg" alt="Aline em look casual">
+      </div>
+      <div class="ed-split-txt">
+        <span class="label">Versatilidade</span>
+        <h3>Uma bota, três alturas</h3>
+        <p>Do dia a dia à noite, a Aline se adapta ao seu look pela altura do cano. Três versões em um único par.</p>
+      </div>
+    </div>
+  </section>
+  <div class="rule"></div>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <h2>FAQ</h2>
+      <p class="sub">Dúvidas rápidas sobre a Aline 3 em 1.</p>
+      <div class="faq-list">
+        <div class="faq-item open">
+          <button class="faq-q">O que significa 3 em 1?<span class="ico"></span></button>
+          <div class="faq-a"><div class="inner">Significa que a mesma bota pode ser usada em três alturas de cano: baixo, médio e alto.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Qual versão é mais discreta?<span class="ico"></span></button>
+          <div class="faq-a"><div class="inner">A versão de cano baixo é a mais discreta, ideal para o dia a dia e fácil de combinar.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Qual versão tem altura intermediária?<span class="ico"></span></button>
+          <div class="faq-a"><div class="inner">O cano médio oferece a altura intermediária, equilibrando conforto e destaque.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Qual versão valoriza mais a bota?<span class="ico"></span></button>
+          <div class="faq-a"><div class="inner">O cano alto deixa a bota mais em evidência, como ponto principal do look.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Ela combina com quais cores?<span class="ico"></span></button>
+          <div class="faq-a"><div class="inner">Por ser preta, combina com praticamente todas as cores e estilos de roupa.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  // ----- Selector -----
+  var photos=[
+    'https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-13-vlimchqsrq.jpg',
+    'https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-10-9g8apqtvml.jpg',
+    'https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-4-qrwzfz243o.jpg'
+  ];
+  var names=['Cano baixo','Cano médio','Cano alto'];
+  var opts=document.querySelectorAll('.opt');
+  var photo=document.getElementById('selPhoto');
+  var tag=document.getElementById('selTag');
+  var count=document.getElementById('selCount');
+  var cur=0;
+
+  function show(i){
+    cur=(i+3)%3;
+    opts.forEach(function(o){o.classList.remove('active')});
+    opts[cur].classList.add('active');
+    photo.style.opacity='0';
+    setTimeout(function(){
+      photo.src=photos[cur];
+      photo.style.opacity='1';
+    },200);
+    tag.textContent=names[cur];
+    count.textContent='0'+(cur+1)+' / 03';
+  }
+  opts.forEach(function(o){o.addEventListener('click',function(){show(+o.dataset.i)})});
+  document.getElementById('selPrev').addEventListener('click',function(){show(cur-1)});
+  document.getElementById('selNext').addEventListener('click',function(){show(cur+1)});
+
+  // ----- FAQ -----
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement;
+      var a=item.querySelector('.faq-a');
+      var open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(it){
+        it.classList.remove('open');
+        it.querySelector('.faq-a').style.maxHeight='0';
+      });
+      if(!open){
+        item.classList.add('open');
+        a.style.maxHeight=a.scrollHeight+40+'px';
+      }
+    });
+  });
+  // open first by default
+  var first=document.querySelector('.faq-item.open .faq-a');
+  if(first){first.style.maxHeight=first.scrollHeight+40+'px';}
+})();
+</script>
+</body>
+</html>

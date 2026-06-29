@@ -1,0 +1,2530 @@
+<!-- =========================================================
+     CORREA MTE - CÓDIGO ORGANIZADO POR BLOCOS
+
+     BLOCO 01 - CSS base: layout, card promo e slider
+     BLOCO 02 - CSS base: ajustes internos do card promocional
+     BLOCO 03 - CSS base: home, cards e títulos
+     BLOCO 04 - CSS desktop: home acima de 1024px
+     BLOCO 05 - CSS base: vitrine 4 itens
+     BLOCO 06 - CSS base: header
+     BLOCO 07 - CSS base: footer
+     BLOCO 08 - Mobile: card promocional e layout da vitrine
+     BLOCO 09 - Mobile: cards da home
+     BLOCO 10 - Mobile: vitrine 4 / namorados
+     BLOCO 11 - Mobile: header
+     BLOCO 12 - JS: reordenação das vitrines SmartHint
+     BLOCO 13 - JS: vitrine nativa com card promocional
+     BLOCO 14 - JS: cronômetro promocional
+     ========================================================= -->
+<p></p>
+<!-- =========================================================
+     BLOCO 01 - CSS BASE / LAYOUT, CARD PROMO E SLIDER
+     ========================================================= -->
+<style><!--
+  /* =========================================================
+     CONFIGURAÇÕES GERAIS / CARD PROMOCIONAL E VITRINE SMART HINT
+     ========================================================= */
+
+  /* ========================================
+     BLOCO PROMOCIONAL - LADO ESQUERDO (FIXO)
+     ======================================== */
+  .container-row-vitrine-native {
+    --correamte-promo-width: 220px;
+    --correamte-vitrine-gap: 30px;
+  }
+
+  .container {
+    padding: 5px !important;
+  }
+
+  .correamte-promo-left {
+    flex: 0 0 var(--correamte-promo-width) !important;
+    width: var(--correamte-promo-width) !important;
+    max-width: var(--correamte-promo-width) !important;
+    min-width: var(--correamte-promo-width) !important;
+    display: flex !important;
+    align-items: stretch !important;
+    /* Esticar para igualar altura */
+    overflow: hidden !important;
+    max-height: none !important;
+    margin: auto;
+  }
+
+  .correamte-vitrine-layout {
+    display: grid !important;
+    grid-template-columns: var(--correamte-promo-width) minmax(0, 1fr);
+    gap: var(--correamte-vitrine-gap) !important;
+    align-items: stretch !important;
+    /* Esticar para igualar altura */
+    width: 100% !important;
+    height: 100% !important;
+    margin: 20px 0;
+  }
+
+  #correamtePromoCard {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: #07090c;
+    box-sizing: border-box !important;
+    font-family: "Montserrat", Arial, sans-serif;
+    isolation: isolate;
+  }
+
+  #correamtePromoCard::before {
+    content: "";
+    position: absolute;
+    inset: -16px;
+    background-image: url("https://correamateriais.cdn.magazord.com.br/img/2026/05/banner/15079/chatgpt-image-13-de-mai-de-2026-17-14-31.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(2px);
+    transform: scale(1.08);
+    opacity: 0.45;
+    z-index: -2;
+  }
+
+  /* ========================================
+     SLIDER SMARTHINT - LADO DIREITO (FLEXÍVEL)
+     ======================================== */
+  .correamte-slider-right {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    overflow: visible !important;
+    padding-right: 0 !important;
+    /* Sem padding - margens negativas do slick-list compensam */
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Vitrine - resetar margins e preencher altura */
+  .correamte-slider-right .smarthint {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .correamte-slider-right .smarthint.sh-home {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    height: 100% !important;
+  }
+
+  /* Containers internos do SmartHint - ocupar toda a largura e altura */
+  .correamte-slider-right .produtos-relacionados,
+  .correamte-slider-right #ofertas-relacionadas,
+  .correamte-slider-right #outras-ofertas-relacionadas,
+  .correamte-slider-right .vitrine,
+  .correamte-slider-right .ra-vitrine {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Modelo 4 - ocupar toda a largura e manter cards esticados */
+  .correamte-slider-right .macro-vitrine-4-itens-black,
+  .correamte-slider-right [class*="macro-vitrine-4"] {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .correamte-slider-right .macro-vitrine-4-itens-black .swiper,
+  .correamte-slider-right [class*="macro-vitrine-4"] .swiper {
+    overflow: hidden !important;
+  }
+
+  .correamte-slider-right .macro-vitrine-4-itens-black .swiper-wrapper,
+  .correamte-slider-right [class*="macro-vitrine-4"] .swiper-wrapper {
+    align-items: stretch !important;
+  }
+
+  .correamte-slider-right .macro-vitrine-4-itens-black .swiper-slide,
+  .correamte-slider-right [class*="macro-vitrine-4"] .swiper-slide,
+  .correamte-slider-right .macro-vitrine-4-itens-black .product-card,
+  .correamte-slider-right [class*="macro-vitrine-4"] .product-card {
+    height: auto !important;
+  }
+
+  .macro-vitrine-4-itens-black .correamte-promo-slide,
+  [class*="macro-vitrine-4"] .correamte-promo-slide {
+    display: block !important;
+    height: auto !important;
+  }
+
+  .macro-vitrine-4-itens-black .correamte-promo-slide #correamtePromoCard,
+  [class*="macro-vitrine-4"] .correamte-promo-slide #correamtePromoCard {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Slick slider - preencher altura */
+  .correamte-slider-right .slick-slider {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Slick dots - ocultar */
+  .correamte-slider-right .slick-dots {
+    display: none !important;
+  }
+
+  /* Navegação do SmartHint - ocultar se não necessária ou resetar espaço */
+  .correamte-slider-right .smarthint-nav,
+  .correamte-slider-right .nav-buttons {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Slick-list - ajustar overflow e manter margens negativas como outras vitrines */
+  .correamte-slider-right .slick-list {
+    overflow: hidden !important;
+    margin-right: -27px !important;
+    margin-left: -27px !important;
+    padding: 0 !important;
+    height: 100% !important;
+    flex: 1 !important;
+  }
+
+  /* Slick track - horizontal com altura uniforme */
+  .correamte-slider-right .slick-track {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    /* Cards com mesma altura */
+    margin: 0 !important;
+  }
+
+  /* Slides - altura uniforme */
+  .correamte-slider-right .slick-slide {
+    float: left !important;
+    height: auto !important;
+    display: flex !important;
+  }
+
+  /* Cards - garantir altura 100% */
+  .correamte-slider-right .slick-slide>div,
+  .correamte-slider-right .slick-slide .apoio-sh {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Seta DIREITA - visível e posicionada igual às outras vitrines SmartHint */
+  .container-row-smarthint .correamte-slider-right .button-next-7tgknk,
+  .container-row-smarthint .correamte-slider-right [class*="button-next"],
+  .container-row-smarthint .correamte-slider-right .slick-next,
+  .container-row-smarthint-1 .button-next-7tgknk,
+  .container-row-smarthint-1 [class*="button-next"],
+  .container-row-smarthint-1 .slick-next {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 100 !important;
+    right: -81px !important;
+    /* Mesmo valor das outras vitrines SmartHint */
+  }
+
+  /* Seta ESQUERDA - OCULTA (fica sobre o bloco promo) - APENAS SmartHint */
+  .container-row-smarthint .correamte-slider-right .button-prev-swomt,
+  .container-row-smarthint .correamte-slider-right [class*="button-prev"],
+  .container-row-smarthint .correamte-slider-right .slick-prev {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 02 - CSS BASE / AJUSTES INTERNOS DO CARD PROMOCIONAL
+     ========================================================= -->
+<style><!--
+  /* ========================================
+     BLOCO PROMOCIONAL - ESTILOS INTERNOS
+     ======================================== */
+
+  /* Animações */
+  @keyframes correamteDotPulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1.3);
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes correamteTimerPulse {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.03);
+    }
+  }
+
+  #correamtePromoCard *,
+  #correamtePromoCard *::before,
+  #correamtePromoCard *::after {
+    box-sizing: border-box !important;
+    font-family: "Montserrat", Arial, sans-serif;
+    max-width: 100%;
+  }
+
+  /* Título acima da vitrine */
+  .correamte-titulo-position1 {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+
+  /* Body do card */
+  #correamtePromoCard .correamte-body {
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+    overflow: hidden !important;
+    max-width: 100% !important;
+  }
+
+  /* Selo "POR TEMPO LIMITADO" */
+  #correamtePromoCard .correamte-kicker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 999px;
+    background: rgba(200, 16, 46, 0.12);
+    border: 1px solid rgba(200, 16, 46, 0.25);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #C8102E;
+    white-space: nowrap;
+    text-transform: uppercase;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  #correamtePromoCard .correamte-kicker .correamte-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #C8102E;
+    animation: correamteDotPulse 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  /* Título */
+  #correamtePromoCard .correamte-title {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    color: rgba(255, 255, 255, 0.94);
+    text-align: center;
+    max-width: 100% !important;
+    word-wrap: break-word !important;
+  }
+
+  /* Cronômetro */
+  #correamtePromoCard .correamte-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 100%;
+    animation: correamteTimerPulse 2s ease-in-out infinite;
+  }
+
+  #correamtePromoCard .correamte-timer-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 6px;
+    padding: 6px 2px;
+    min-width: 0;
+    flex: 1 1 0;
+    max-width: 25%;
+  }
+
+  #correamtePromoCard .correamte-timer-number {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #correamtePromoCard .correamte-timer-label {
+    font-size: 7px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.50);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+  }
+
+  #correamtePromoCard .correamte-timer-sep {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.30);
+    line-height: 1;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Subtexto */
+  #correamtePromoCard .correamte-sub {
+    margin: 0;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.60);
+    max-width: 100% !important;
+  }
+
+  /* Benefícios - preencher espaço restante */
+  #correamtePromoCard .correamte-benefits {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 10px;
+  }
+
+  #correamtePromoCard .correamte-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  #correamtePromoCard .correamte-benefit-item:last-child {
+    border-bottom: none;
+  }
+
+  #correamtePromoCard .correamte-benefit-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  #correamtePromoCard .correamte-benefit-text {
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  /* Botão CTA */
+  #correamtePromoCard .correamte-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100% !important;
+    height: 42px;
+    border-radius: 8px;
+    background: #C8102E;
+    border: none;
+    color: #ffffff !important;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+    box-sizing: border-box !important;
+  }
+
+  #correamtePromoCard .correamte-cta:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(200, 16, 46, 0.35);
+  }
+
+  #correamtePromoCard .correamte-cta:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+    box-shadow: none;
+  }
+
+
+  #correamtePromoCard .correamte-benefits-vantagens {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 10px;
+  }
+
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 6px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-icon {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text {
+    font-size: 9px;
+    line-height: 1.25;
+    color: rgba(255, 255, 255, 0.68);
+    text-align: left;
+  }
+
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text strong {
+    display: block;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  /* Ajuste de espaçamento interno do card promocional */
+  #correamtePromoCard .correamte-body {
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 14px 10px !important;
+  }
+
+  /* Remove o empurrão que joga as vantagens para o final */
+  #correamtePromoCard .correamte-benefits,
+  #correamtePromoCard .correamte-benefits-vantagens {
+    margin-top: 8px !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
+
+  /* Deixa as vantagens mais compactas */
+  #correamtePromoCard .correamte-benefits-vantagens {
+    gap: 5px !important;
+  }
+
+  /* Reduz altura dos cards de vantagem */
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-item {
+    padding: 6px 8px !important;
+    min-height: 44px !important;
+  }
+
+  /* Compacta texto */
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  #correamtePromoCard .correamte-benefits-vantagens .correamte-benefit-text strong {
+    font-size: 9px !important;
+    margin-bottom: 2px !important;
+  }
+
+  /* Compacta o botão */
+  #correamtePromoCard .correamte-cta {
+    height: 38px !important;
+    margin-top: 2px !important;
+  }
+
+  /* Compacta o timer */
+  #correamtePromoCard .correamte-timer-block {
+    padding: 5px 2px !important;
+  }
+
+  #correamtePromoCard .correamte-timer-number {
+    font-size: 16px !important;
+  }
+
+  #correamtePromoCard .correamte-title {
+    margin-bottom: 0 !important;
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 03 - CSS BASE / HOME, CARDS E TÍTULOS
+     ========================================================= -->
+<style><!--
+  /* =========================================================
+     NOVA HOME / CARDS E TÍTULOS
+     ========================================================= */
+
+  .product-list>li {
+    border-radius: 6px;
+    border: 1px solid #A00D25;
+  }
+
+  .title-ctn {
+    text-align: left !important;
+
+    width: 1240px;
+    max-width: 1240px;
+    margin: 10px auto;
+
+  }
+
+  .title-ctn .bg-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .title-ctn .bg-title::before,
+  .title-ctn .bg-title::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .title-ctn .bg-title span {
+    position: relative;
+    display: inline-block;
+    padding: 0 4px 4px 12px !important;
+    color: #111;
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 31.5px;
+    /* 150% */
+    letter-spacing: 0.42px;
+  }
+
+  .title-ctn .bg-title span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 6px;
+    height: 90%;
+    background: #C8102E;
+    border-radius: 2px;
+  }
+
+
+  .tag-economia-native {
+    display: none;
+  }
+
+  @media(max-width:478px) {
+    .title-ctn .bg-title span::before {
+      left: 5px !important;
+      top: 0px !important;
+    }
+      
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 04 - CSS DESKTOP / HOME ACIMA DE 1024PX
+     ========================================================= -->
+<style><!--
+  @media(min-width:1024px) {
+
+    body {
+      background: #F2F2EE;
+    }
+
+    .swiper-container .product-list>li {
+      display: flex !important;
+      justify-content: space-between;
+    }
+
+    .btn-comprar-vitrine {
+      background: #C8102E !important;
+    }
+
+    .product-name {
+      text-align: left;
+      font-size: 16px !important;
+      font-weight: 600;
+    }
+
+    .preco-produto-vitrine {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      align-items: baseline;
+      margin-left: 12px;
+      height: auto !important;
+    }
+
+    .percentual-off {
+      display: none;
+    }
+
+
+    .old-price span {
+      margin-top: 20px;
+      color: #999999;
+      font-size: 14px;
+    }
+
+    .primary-price .pix {
+      color: black;
+      font-size: 23px;
+      font-weight: bold;
+    }
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 05 - CSS BASE / VITRINE 4 ITENS
+     ========================================================= -->
+<style><!--
+  /* =========================================================
+     NOVA HOME / VITRINE 4 ITENS
+     ========================================================= */
+
+  .macro-vitrine-4-itens-black .product-image figure {
+    max-width: 100% !important;
+    margin: 10px;
+  }
+
+  .macro-vitrine-4-itens-black .product-info {
+    padding: 18px;
+  }
+
+  .macro-vitrine-4-itens-black .product-image figure img {
+    width: 100% !important;
+    background: #fff !important;
+  }
+
+  .macro-vitrine-4-itens-black .product-image {
+    background: #fff;
+  }
+
+  .macro-vitrine-4-itens-black .product-info {
+    background-color: #fff !important;
+    padding: 4px 18px 18px 18px;
+  }
+
+  .macro-vitrine-4-itens-black .buy-button {
+    background: #C8102E;
+  }
+
+  .macro-vitrine-4-itens-black .product-info .price-big {
+    color: #C8102E;
+  }
+
+  .macro-vitrine-4-itens-black {
+    margin-bottom: 0px;
+  }
+
+  .macro-vitrine-4-itens-black .product-info .product-name {
+    margin-bottom: 2px;
+    height: 66px !important;
+  }
+
+  .macro-vitrine-4-itens-black .product-image figure {
+    height: auto;
+
+  }
+
+
+  .namorados .macro-vitrine-4-itens-black .product-image figure {
+    max-width: 100% !important;
+    margin: 10px;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .product-info {
+    padding: 18px;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .product-image figure img {
+    width: 100% !important;
+    background: #f9efdf;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .product-image {
+    background: #f9efdf;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .product-info {
+    background-color: #f9efdf !important;
+    padding: 4px 18px 18px 18px;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .buy-button {
+    background: #AA0700;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .product-info .price-big {
+    color: #AA0700;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .buy-button:hover {
+    background: #790400;
+  }
+
+  .namorados .macro-vitrine-4-itens-black {
+    margin-bottom: 0px;
+  }
+
+  .namorados .macro-vitrine-4-itens-black .product-info .product-name {
+    margin-bottom: 2px;
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 06 - CSS BASE / HEADER
+     ========================================================= -->
+<style><!--
+  /* =========================================================
+     NOVA HEADER
+     ========================================================= */
+
+  .header-top {
+    background: black;
+  }
+
+  .header-middle {
+    background: #000;
+    border: none !important;
+  }
+
+  #frm-search,
+  .search-area {
+    background: white;
+    border-radius: 6px;
+    border: none !important;
+  }
+
+  #frm-search>button {
+    background: black;
+    height: 42px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  #frm-search>button>svg,
+  .icon-user>svg>g>path,
+  .link-cart>div>div>svg>g>path {
+    fill: white;
+  }
+
+  .login-area .text-cor-texto {
+    color: white;
+  }
+
+  .login-area {
+    /* border: 1px solid #ffffff8f; */
+  }
+
+  .login-area:hover {
+    background: none;
+  }
+
+  .carrinho-ctn:hover {
+    border: none;
+    background: #000;
+  }
+
+  .carrinho-ctn {
+    width: 130px;
+    height: 39px;
+    padding: 10px;
+    background: #000;
+  }
+
+  .carrinho-ctn>svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .item-ctn {
+    top: -7px;
+    bottom: none;
+    right: -7px;
+    background: white !important;
+    color: #c8102e;
+    font-weight: 600;
+  }
+
+  .carrinho-ctn::after {
+    content: "Carrinho";
+    color: white;
+    font-weight: 500;
+  }
+
+  .header-bottom {
+    color: white;
+    background: black;
+    border: none !important;
+  }
+
+  #nav-root>li>a>span,
+  #nav-root>li>a {
+    color: white;
+    background: none;
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 07 - CSS BASE / FOOTER
+     ========================================================= -->
+<style><!--
+  /* =========================================================
+     NOVO FOOTER
+     ========================================================= */
+
+  .footer-middle,
+  .download-app,
+  .footer-about,
+  .footer-bottom {
+    background: black !important;
+  }
+
+  .lista-contatos>li>a,
+  .institucional>h3>span,
+  #institucional>li>a,
+  .selos-formas>div>h3>span,
+  .download-app>div>h3 {
+    color: #fff !important;
+  }
+
+  .lista-contatos>li>a>svg,
+  .lista-contatos>li>a>svg>g>path,
+  .lista-contatos>li>a>svg>path {
+    fill: white;
+    fill-rule: white;
+  }
+
+  .selos-pagamento {
+    background: #fff;
+  }
+
+  #footer-react-app>div>div>div.footer-about.border-solid>div>div>span {
+    color: white;
+  }
+
+  .icon-social>svg>path {
+    fill: white;
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 08 - RESPONSIVIDADE MOBILE / CARD PROMOCIONAL E LAYOUT DA VITRINE
+     ========================================================= -->
+<style><!--
+  @media (max-width: 768px) {
+    .correamte-vitrine-layout {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+
+    .correamte-promo-left {
+      flex: 0 0 auto !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      min-width: unset !important;
+      max-height: none !important;
+      margin: 0 auto !important;
+    }
+
+    #correamtePromoCard {
+      height: auto !important;
+      min-height: auto !important;
+      max-width: 366px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+    }
+
+    #correamtePromoCard .correamte-body {
+      padding: 14px 12px !important;
+      gap: 10px !important;
+    }
+
+
+    #correamtePromoCard .correamte-kicker {
+      font-size: 8px !important;
+      padding: 4px 10px !important;
+    }
+
+    #correamtePromoCard .correamte-title {
+      font-size: 13px !important;
+    }
+
+    #correamtePromoCard .correamte-timer {
+      gap: 3px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-block {
+      min-width: 0 !important;
+      padding: 5px 2px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-number {
+      font-size: 16px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-label {
+      font-size: 6px !important;
+    }
+
+    #correamtePromoCard .correamte-timer-sep {
+      font-size: 12px !important;
+    }
+
+    #correamtePromoCard .correamte-sub {
+      font-size: 10px !important;
+    }
+
+    #correamtePromoCard .correamte-benefits {
+      display: none !important;
+    }
+
+    #correamtePromoCard .correamte-cta {
+      height: 38px !important;
+      font-size: 12px !important;
+    }
+
+    .correamte-slider-right {
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 09 - RESPONSIVIDADE MOBILE / CARDS DA HOME
+     ========================================================= -->
+<style><!--
+  @media(max-width:478px) {
+    .swiper-container .product-list>li {
+      display: flex !important;
+      justify-content: space-between;
+    }
+
+    .btn-comprar-vitrine {
+      background: #C8102E !important;
+      font-size: 10px !important;
+      font-weight: 600;
+
+    }
+
+    .product-name {
+      text-align: left;
+      font-size: 13px !important;
+      font-weight: 600;
+      height: 92px !important;
+    }
+
+    .preco-produto-vitrine {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      align-items: baseline;
+      height: auto !important;
+    }
+
+    .secondary-price {
+      display: flex;
+      justify-content: flex-start !important;
+    }
+
+    .percentual-off {
+      display: none;
+    }
+
+
+    .old-price span {
+      margin-top: 20px;
+      color: #999999;
+      font-size: 14px;
+    }
+
+    .primary-price .pix {
+      color: black;
+      font-size: 23px;
+      font-weight: bold;
+    }
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 10 - RESPONSIVIDADE MOBILE / VITRINE 4 E NAMORADOS
+     ========================================================= -->
+<style><!--
+  @media(max-width:767px) {
+    .namorados .macro-vitrine-4-itens-black .product-image figure {
+      height: auto;
+    }
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 11 - RESPONSIVIDADE MOBILE / HEADER
+     ========================================================= -->
+<style><!--
+  @media (max-width: 478px) {
+    .carrinho-ctn::after {
+      content: none;
+      color: white;
+      font-weight: 500;
+    }
+
+    .header-search-full {
+      background: black !important;
+    }
+
+    .menu-button>div>svg {
+      fill: white;
+    }
+
+    .carrinho-ctn {
+      width: 70px;
+      background: none;
+    }
+  }
+--></style>
+<!-- =========================================================
+     BLOCO 12 - JS / REORDENAÇÃO DAS VITRINES SMARTHINT
+     ========================================================= -->
+<style><!--
+  @media(max-width:478px) {
+    .macro-vitrine-4-itens-black .product-info .product-name {
+      height: auto !important;
+    }
+
+    .macro-vitrine-4-itens-black .product-info .price-product .primary-price,
+    .macro-vitrine-4-itens-black .product-info .price-product .secondary-price {
+      justify-content: left !Important;
+      flex-direction: row !important;
+    }
+
+    .macro-vitrine-4-itens-black .product-info .product-name {
+      text-align: left;
+    }
+
+  }
+--></style>
+<script>// <![CDATA[
+(function () {
+    "use strict";
+
+    console.log("🚀 Correa MTE: Iniciando reordenação das vitrines SmartHint");
+
+    let tentativas = 0;
+    const maxTentativas = 20;
+
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+
+    function moverEEnvolver(vitrine, componente, positionNumber) {
+      if (!vitrine) {
+        console.log(
+          "❌ Vitrine não encontrada para position-" + positionNumber,
+        );
+        return false;
+      }
+
+      if (vitrine.hasAttribute("data-movida")) {
+        console.log("⚠️ Vitrine já foi movida");
+        return false;
+      }
+
+      // Salvar posição original ANTES de mover (fallback se componente não existir)
+      var originalParent = vitrine.parentNode;
+      var originalNext = vitrine.nextSibling;
+
+      if (!componente) {
+        console.log(
+          "⚠️ Componente de referência não encontrado para position-" +
+            positionNumber +
+            ", usando posição original da vitrine",
+        );
+      }
+
+      vitrine.setAttribute("data-movida", "true");
+
+      var containerRow = document.createElement("div");
+      containerRow.className =
+        "container-row container-row-type-3 container-row-smarthint container-row-smarthint-" +
+        positionNumber;
+
+      var container = document.createElement("div");
+      container.className = "container";
+
+      // Se for position-1, criar layout flexbox com bloco promo + vitrine
+      if (positionNumber === 1) {
+        // Criar wrapper flexbox
+        var vitrineLayout = document.createElement("div");
+        vitrineLayout.className = "correamte-vitrine-layout";
+
+        // Criar container do bloco promocional (esquerda)
+        var promoLeft = document.createElement("div");
+        promoLeft.className = "correamte-promo-left";
+        var promoCard = criarBlocoPromocional();
+        promoLeft.appendChild(promoCard);
+        vitrineLayout.appendChild(promoLeft);
+
+        // Criar container do slider (direita)
+        var sliderRight = document.createElement("div");
+        sliderRight.className = "correamte-slider-right";
+
+        // MOVER a vitrine (sem título) para dentro do slider
+        sliderRight.appendChild(vitrine);
+
+        vitrineLayout.appendChild(sliderRight);
+        container.appendChild(vitrineLayout);
+      } else {
+        // Outras vitrines: mover normalmente
+        container.appendChild(vitrine);
+      }
+
+      containerRow.appendChild(container);
+
+      // Inserir após o componente de referência, ou na posição original como fallback
+      if (componente) {
+        componente.parentNode.insertBefore(
+          containerRow,
+          componente.nextSibling,
+        );
+      } else if (originalParent) {
+        originalParent.insertBefore(containerRow, originalNext);
+        console.log(
+          "✅ Card inserido na posição original da vitrine (fallback)",
+        );
+      }
+
+      return true;
+    }
+
+    // Função para criar o bloco promocional
+    function criarBlocoPromocional() {
+      var card = document.createElement("div");
+      card.id = "correamtePromoCard";
+
+      card.innerHTML = `
+            <div class="correamte-body">
+                <div class="correamte-kicker">
+                    <span class="correamte-dot"></span>
+                    Por tempo limitado
+                </div>
+                
+                <h2 class="correamte-title">
+                    Aproveite nossas principais ofertas
+                </h2>
+
+                <div class="correamte-timer" id="correamteTimer">
+                    <div class="correamte-timer-block">
+                        <span class="correamte-timer-number" data-timer="days">00</span>
+                        <span class="correamte-timer-label">Dias</span>
+                    </div>
+                    <span class="correamte-timer-sep">:</span>
+                    <div class="correamte-timer-block">
+                        <span class="correamte-timer-number" data-timer="hours">00</span>
+                        <span class="correamte-timer-label">Horas</span>
+                    </div>
+                    <span class="correamte-timer-sep">:</span>
+                    <div class="correamte-timer-block">
+                        <span class="correamte-timer-number" data-timer="minutes">00</span>
+                        <span class="correamte-timer-label">Min</span>
+                    </div>
+                    <span class="correamte-timer-sep">:</span>
+                    <div class="correamte-timer-block">
+                        <span class="correamte-timer-number" data-timer="seconds">00</span>
+                        <span class="correamte-timer-label">Seg</span>
+                    </div>
+                </div>
+                
+                <p class="correamte-sub">
+                    Melhores marcas em oferta
+                </p>
+                
+                <a class="correamte-cta" href="https://www.correamte.com.br/ofertas" target="_self">
+                    Ver Promoções
+                </a>
+
+                <div class="correamte-benefits">
+                    <div class="correamte-benefit-item">
+                        <span class="correamte-benefit-icon">📦</span>
+                        <span class="correamte-benefit-text">Enviamos para todo o Brasil</span>
+                    </div>
+                    <div class="correamte-benefit-item">
+                        <span class="correamte-benefit-icon">💳</span>
+                        <span class="correamte-benefit-text">Até 8x sem juros no cartão</span>
+                    </div>
+                    <div class="correamte-benefit-item">
+                        <span class="correamte-benefit-icon">🏷️</span>
+                        <span class="correamte-benefit-text">Desconto especial no PIX</span>
+                    </div>
+                    <div class="correamte-benefit-item">
+                        <span class="correamte-benefit-icon">🔒</span>
+                        <span class="correamte-benefit-text">Site 100% seguro — 26 anos no mercado</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+      return card;
+    }
+
+    function ajustarQuebraLinhaH2Position4() {
+      if (!isMobile()) {
+        console.log("⏭️ Desktop detectado, ignorando quebra de linha H2");
+        return;
+      }
+
+      console.log("📝 Ajustando quebra de linha do H2 da position-4...");
+
+      // Encontrar o H2 da position-4
+      var h2Position4 = document.querySelector(
+        ".container-row-smarthint-4 h2.bg-title span",
+      );
+
+      if (!h2Position4) {
+        console.log("❌ H2 da position-4 não encontrado");
+        return;
+      }
+
+      var textoOriginal = h2Position4.textContent.trim();
+      console.log("📌 Texto original:", textoOriginal);
+
+      // Verificar se o texto é o esperado
+      if (textoOriginal === "O que outros clientes estão comprando") {
+        // Inserir <br> após "clientes"
+        h2Position4.innerHTML = "O que outros clientes<br>estão comprando";
+        console.log("✅ Quebra de linha aplicada com sucesso!");
+      } else {
+        console.log("⚠️ Texto não corresponde ao esperado");
+      }
+    }
+
+    function moverVitrines() {
+      console.log("📍 Tentando mover vitrines...");
+      console.log("📱 Modo: " + (isMobile() ? "MOBILE" : "DESKTOP"));
+
+      let movidas = 0;
+
+      if (isMobile()) {
+        var vitrine1 = document.getElementById("smarthint-position-1");
+        var componenteMobile1 = document.getElementById(
+          "componente-id-vH0KvfBqTZ",
+        );
+        if (moverEEnvolver(vitrine1, componenteMobile1, 1)) {
+          console.log("✅ [MOBILE] Position 1 movida");
+          movidas++;
+        }
+
+        var vitrine2 = document.getElementById("smarthint-position-2");
+        var componenteMobile2 = document.getElementById(
+          "componente-id-3d8ff7a9-9b20-415f-8d96-10640389afd2",
+        );
+        if (moverEEnvolver(vitrine2, componenteMobile2, 2)) {
+          console.log("✅ [MOBILE] Position 2 movida");
+          movidas++;
+        }
+
+        var vitrine3 = document.getElementById("smarthint-position-3");
+        var componenteMobile3 = document.getElementById(
+          "componente-id-ZBDArM1Zco",
+        );
+        if (moverEEnvolver(vitrine3, componenteMobile3, 3)) {
+          console.log("✅ [MOBILE] Position 3 movida");
+          movidas++;
+        }
+
+        var vitrine4 = document.getElementById("smarthint-position-4");
+        var componenteMobile4 = document.getElementById(
+          "componente-id-3f9ad2fb-90f7-414a-ba0c-60cb10fd06b3",
+        );
+        if (moverEEnvolver(vitrine4, componenteMobile4, 4)) {
+          console.log("✅ [MOBILE] Position 4 movida");
+          movidas++;
+        }
+      } else {
+        var vitrine1 = document.getElementById("smarthint-position-1");
+        var componente1 = document.getElementById("componente-id-L9KAL1mFWF");
+        if (moverEEnvolver(vitrine1, componente1, 1)) {
+          console.log("✅ [DESKTOP] Position 1 movida");
+          movidas++;
+        }
+
+        var vitrine3 = document.getElementById("smarthint-position-3");
+        var avaliacoes = document.getElementById("componente-id-kJCnv9Xhhs");
+        if (moverEEnvolver(vitrine3, avaliacoes, 3)) {
+          console.log("✅ [DESKTOP] Position 3 movida");
+          movidas++;
+        }
+
+        var vitrine2 = document.getElementById("smarthint-position-2");
+        var banners = document.getElementById(
+          "componente-id-3a2258e1-a0e9-4e0f-9606-a934d252e3cf",
+        );
+        if (moverEEnvolver(vitrine2, banners, 2)) {
+          console.log("✅ [DESKTOP] Position 2 movida");
+          movidas++;
+        }
+
+        var vitrine4 = document.getElementById("smarthint-position-4");
+        var comp4 = document.getElementById(
+          "componente-id-8a2f0722-78b7-455f-a474-0774b902dc56",
+        );
+        if (moverEEnvolver(vitrine4, comp4, 4)) {
+          console.log("✅ [DESKTOP] Position 4 movida");
+          movidas++;
+        }
+
+        var vitrine5 = document.getElementById("smarthint-position-5");
+        var marcas = document.getElementById(
+          "componente-id-13906eb3-b66e-412a-9d89-718fa15cf54e",
+        );
+        if (moverEEnvolver(vitrine5, marcas, 5)) {
+          console.log("✅ [DESKTOP] Position 5 movida");
+          movidas++;
+        }
+      }
+
+      console.log("🎯 Total: " + movidas + " vitrines movidas com sucesso");
+
+      // Processar após mover
+      setTimeout(function () {
+        calcularEconomiaHome();
+        forcarCorPosition1();
+        ajustarQuebraLinhaH2Position4();
+
+        // PATCH: Reconfigurar Slick da position-1 para 4 cards
+        tentarReconfigurarSlick(1);
+      }, 1500);
+
+      return movidas;
+    }
+
+    // Função para igualar altura do promo com os cards (APENAS DESKTOP)
+    function ajustarAlturaPosition1() {
+      // Não executar no mobile - altura automática
+      if (isMobile()) {
+        console.log("📱 Mobile detectado - altura position-1 automática");
+        return true;
+      }
+
+      console.log("🔧 Ajustando altura position-1...");
+
+      try {
+        var sliderRight = document.querySelector(".correamte-slider-right");
+        var blocoPromo = document.getElementById("correamtePromoCard");
+        var promoLeft = document.querySelector(".correamte-promo-left");
+
+        if (!sliderRight || !blocoPromo || !promoLeft) {
+          console.log("❌ Elementos não encontrados");
+          return false;
+        }
+
+        // Encontrar um card para medir altura
+        var card = sliderRight.querySelector(
+          ".slick-slide:not(.slick-cloned) .apoio-sh",
+        );
+        if (!card) {
+          card = sliderRight.querySelector(".apoio-sh");
+        }
+        if (!card) {
+          console.log("❌ Nenhum card encontrado");
+          return false;
+        }
+
+        var cardRect = card.getBoundingClientRect();
+        var alturaCard = cardRect.height;
+
+        console.log("📐 Card altura: " + alturaCard.toFixed(0) + "px");
+
+        if (alturaCard < 100) {
+          console.log("⏳ Altura muito baixa, aguardando...");
+          return false;
+        }
+
+        // PROTEÇÃO: Altura máxima razoável (600px desktop)
+        // Cards SmartHint normais têm ~400-500px. Acima de 600px indica
+        // que o Slick ainda não reorganizou os cards em linha.
+        if (alturaCard > 600) {
+          console.log(
+            "⚠️ Altura excessiva (" +
+              alturaCard.toFixed(0) +
+              "px), aguardando Slick reorganizar...",
+          );
+          return false;
+        }
+
+        // Aplicar altura ao bloco promo
+        blocoPromo.style.height = alturaCard + "px";
+        blocoPromo.style.minHeight = alturaCard + "px";
+        promoLeft.style.height = alturaCard + "px";
+
+        console.log("✅ Bloco promo altura: " + alturaCard.toFixed(0) + "px");
+        return true;
+      } catch (e) {
+        console.log("❌ Erro:", e);
+        return false;
+      }
+    }
+
+    // PATCH: Forçar slidesToShow: 4 na position-1 (APENAS DESKTOP)
+    function reconfigurarSlickPosition1() {
+      // Não executar no mobile - CSS controla layout 2 por linha
+      if (isMobile()) {
+        console.log(
+          "📱 Mobile detectado - Slick position-1 não será reconfigurado",
+        );
+        return true;
+      }
+
+      console.log("🎠 Reconfigurando Slick position-1 para 4 cards...");
+
+      try {
+        var sliderRight = document.querySelector(".correamte-slider-right");
+        if (!sliderRight) {
+          console.log("❌ .correamte-slider-right não encontrado");
+          return false;
+        }
+
+        var slickElement = sliderRight.querySelector(".slick-slider");
+        if (!slickElement) {
+          console.log("❌ .slick-slider não encontrado");
+          return false;
+        }
+
+        // Verificar se jQuery e Slick estão disponíveis
+        if (
+          typeof jQuery === "undefined" ||
+          typeof jQuery.fn.slick === "undefined"
+        ) {
+          console.log("❌ jQuery ou Slick não disponível");
+          return false;
+        }
+
+        var $slider = jQuery(slickElement);
+
+        // Verificar se é um slider inicializado
+        if (!$slider.hasClass("slick-initialized")) {
+          console.log("❌ Slick não inicializado ainda");
+          return false;
+        }
+
+        // Destruir e reinicializar com novas configurações
+        console.log("🔄 Reinicializando Slick com slidesToShow: 4...");
+
+        // Pegar configurações atuais
+        var currentSettings = $slider.slick("getSlick").options;
+
+        // Salvar referência aos arrows existentes
+        var prevArrowHtml = currentSettings.prevArrow;
+        var nextArrowHtml = currentSettings.nextArrow;
+
+        // Se não encontrou, tentar pegar do DOM
+        var existingPrev = sliderRight.querySelector('[class*="button-prev"]');
+        var existingNext = sliderRight.querySelector('[class*="button-next"]');
+
+        if (existingPrev && !prevArrowHtml) {
+          prevArrowHtml = existingPrev.outerHTML;
+        }
+        if (existingNext && !nextArrowHtml) {
+          nextArrowHtml = existingNext.outerHTML;
+        }
+
+        // Destruir slider
+        $slider.slick("unslick");
+
+        // Reinicializar com 4 slides
+        $slider.slick({
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite:
+            currentSettings.infinite !== undefined
+              ? currentSettings.infinite
+              : true,
+          arrows: true,
+          dots: false,
+          autoplay: false,
+          prevArrow:
+            prevArrowHtml ||
+            '<button type="button" class="slick-prev button-prev-swomt">❮</button>',
+          nextArrow:
+            nextArrowHtml ||
+            '<button type="button" class="slick-next button-next-7tgknk">❯</button>',
+          responsive: [
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 992,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                centerMode: true,
+                centerPadding: "30px",
+              },
+            },
+          ],
+        });
+
+        // Forçar recálculo do layout
+        setTimeout(function () {
+          $slider.slick("setPosition");
+        }, 100);
+
+        console.log("✅ Slick reconfigurado para 4 cards!");
+        return true;
+      } catch (e) {
+        console.log("❌ Erro ao reconfigurar Slick:", e);
+        return false;
+      }
+    }
+
+    // Tentar ajustar múltiplas vezes
+    function tentarAjustarVitrine(tentativa) {
+      tentativa = tentativa || 1;
+      if (tentativa > 10) {
+        console.log("⚠️ Máximo de tentativas atingido");
+        return;
+      }
+
+      var sucesso = ajustarAlturaPosition1();
+      if (!sucesso) {
+        setTimeout(function () {
+          tentarAjustarVitrine(tentativa + 1);
+        }, 500);
+      } else {
+        // Repetir após sucesso para garantir (após imagens carregarem)
+        setTimeout(ajustarAlturaPosition1, 1500);
+      }
+    }
+
+    // Tentar reconfigurar Slick múltiplas vezes
+    function tentarReconfigurarSlick(tentativa) {
+      tentativa = tentativa || 1;
+      if (tentativa > 15) {
+        console.log("⚠️ Máximo de tentativas para Slick atingido");
+        return;
+      }
+
+      // No mobile, destruir Slick e converter para grid
+      if (isMobile()) {
+        var sucesso = destruirSlickMobile();
+        if (!sucesso) {
+          setTimeout(function () {
+            tentarReconfigurarSlick(tentativa + 1);
+          }, 400);
+        } else {
+          setTimeout(forcarCorPosition1, 500);
+          setTimeout(forcarCorPosition1, 1500);
+        }
+        return;
+      }
+
+      var sucesso = reconfigurarSlickPosition1();
+      if (!sucesso) {
+        setTimeout(function () {
+          tentarReconfigurarSlick(tentativa + 1);
+        }, 400);
+      } else {
+        // Ajustar altura e forçar cor após reconfigurar
+        setTimeout(ajustarAlturaPosition1, 300);
+        setTimeout(forcarCorPosition1, 500);
+        setTimeout(ajustarAlturaPosition1, 800);
+        setTimeout(forcarCorPosition1, 1000);
+        setTimeout(ajustarAlturaPosition1, 1500);
+        setTimeout(forcarCorPosition1, 2000);
+        setTimeout(forcarCorPosition1, 3000); // Garantia após imagens carregarem
+      }
+    }
+
+    // Destruir Slick no mobile e converter para grid 2 colunas
+    function destruirSlickMobile() {
+      console.log("📱 Reconfigurando Slick no mobile para 2 cards...");
+
+      try {
+        var sliderRight = document.querySelector(".correamte-slider-right");
+        if (!sliderRight) {
+          console.log("❌ .correamte-slider-right não encontrado");
+          return false;
+        }
+
+        var slickElement = sliderRight.querySelector(".slick-slider");
+        if (!slickElement) {
+          console.log("❌ .slick-slider não encontrado");
+          return false;
+        }
+
+        // Verificar se jQuery e Slick estão disponíveis
+        if (
+          typeof jQuery === "undefined" ||
+          typeof jQuery.fn.slick === "undefined"
+        ) {
+          console.log("❌ jQuery ou Slick não disponível");
+          return false;
+        }
+
+        var $slider = jQuery(slickElement);
+
+        // Verificar se é um slider inicializado
+        if (!$slider.hasClass("slick-initialized")) {
+          console.log("❌ Slick não inicializado ainda");
+          return false;
+        }
+
+        // Pegar referência aos arrows
+        var existingPrev = sliderRight.querySelector('[class*="button-prev"]');
+        var existingNext = sliderRight.querySelector('[class*="button-next"]');
+        var prevArrowHtml = existingPrev ? existingPrev.outerHTML : "";
+        var nextArrowHtml = existingNext ? existingNext.outerHTML : "";
+
+        // Destruir slider atual
+        console.log("🔄 Reinicializando Slick para 2 cards mobile...");
+        $slider.slick("unslick");
+
+        // Reinicializar com 2 slides para mobile
+        $slider.slick({
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          arrows: true,
+          dots: false,
+          autoplay: false,
+          prevArrow:
+            prevArrowHtml ||
+            '<button type="button" class="slick-prev">❮</button>',
+          nextArrow:
+            nextArrowHtml ||
+            '<button type="button" class="slick-next">❯</button>',
+        });
+
+        // Forçar recálculo do layout
+        setTimeout(function () {
+          $slider.slick("setPosition");
+        }, 100);
+
+        console.log("✅ Slick reconfigurado para 2 cards mobile!");
+        return true;
+      } catch (e) {
+        console.log("❌ Erro ao reconfigurar Slick mobile:", e);
+        return false;
+      }
+    }
+
+    function forcarCorPosition1() {
+      // Buscar tags em múltiplos seletores
+      var seletores = [
+        ".container-row-smarthint-1 .tag-economia",
+        ".correamte-slider-right .tag-economia",
+        '.container-row-smarthint-1 [class*="tag-economia"]',
+        '.correamte-slider-right [class*="tag-economia"]',
+      ];
+
+      var totalTags = 0;
+      seletores.forEach(function (seletor) {
+        var tags = document.querySelectorAll(seletor);
+        tags.forEach(function (tag) {
+          tag.style.setProperty("background", "#32bcad", "important");
+          tag.style.setProperty("box-shadow", "none", "important");
+          tag.style.setProperty("color", "#ffffff", "important");
+          tag.style.setProperty("border", "none", "important");
+        });
+        totalTags += tags.length;
+      });
+
+      console.log("✅ Tags economia coloridas: " + totalTags);
+    }
+
+    function calcularEconomiaHome() {
+      console.log("💰 Calculando economia nas vitrines da home...");
+
+      try {
+        var cards = document.querySelectorAll(".smarthint.sh-home .apoio-sh");
+        console.log("📦 Total de cards encontrados: " + cards.length);
+
+        cards.forEach(function (card) {
+          if (card.querySelector(".tag-economia")) {
+            return;
+          }
+
+          var precoPixElement =
+            card.querySelector(".smarthint-value") ||
+            card.querySelector(".price-pix") ||
+            card.querySelector(".value");
+          if (!precoPixElement) return;
+
+          var precoPixTexto = precoPixElement.textContent.trim();
+          var precoPix = parseFloat(
+            precoPixTexto
+              .replace("R$", "")
+              .replace(/\s/g, "")
+              .replace(/\./g, "")
+              .replace(",", "."),
+          );
+
+          var priceSecondary =
+            card.querySelector(".price-secondary .price-text") ||
+            card.querySelector(".price-secondary") ||
+            card.querySelector('[class*="parcel"]');
+          if (!priceSecondary) return;
+
+          var parcelasTexto = priceSecondary.textContent;
+          var matchParcelas = parcelasTexto.match(/(\d+)x/);
+          var matchValor = parcelasTexto.match(/R\$\s*([\d.,]+)/);
+
+          if (!matchParcelas || !matchValor) return;
+
+          var numParcelas = parseInt(matchParcelas[1]);
+          var valorParcela = parseFloat(
+            matchValor[1].replace(/\./g, "").replace(",", "."),
+          );
+
+          var totalParcelado = numParcelas * valorParcela;
+          var economia = totalParcelado - precoPix;
+
+          if (economia <= 0) return;
+
+          var productName =
+            card.querySelector(".product-name") ||
+            card.querySelector(".name") ||
+            card.querySelector("h3") ||
+            card.querySelector('[class*="title"]');
+          if (!productName) return;
+
+          var tagEconomia = document.createElement("div");
+          tagEconomia.className = "tag-economia";
+
+          var economiaFormatada = economia.toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+
+          tagEconomia.textContent = "Economize: R$ " + economiaFormatada;
+          productName.parentNode.insertBefore(tagEconomia, productName);
+        });
+
+        console.log("✨ Cálculo de economia concluído");
+      } catch (e) {
+        console.log("❌ Erro no cálculo de economia:", e);
+      }
+    }
+
+    function verificarEMover() {
+      tentativas++;
+
+      var vitrine1 = document.getElementById("smarthint-position-1");
+      var vitrine2 = document.getElementById("smarthint-position-2");
+
+      // Fallback: tentar encontrar vitrines SmartHint por seletores alternativos
+      if (!vitrine1) {
+        vitrine1 =
+          document.querySelector('.smarthint[id*="position-1"]') ||
+          document.querySelector(".smarthint.sh-home:not([data-movida])");
+      }
+      if (!vitrine2) {
+        vitrine2 = document.querySelector('.smarthint[id*="position-2"]');
+      }
+
+      console.log(
+        "Tentativa " +
+          tentativas +
+          ": vitrine1=" +
+          (vitrine1
+            ? "encontrada (" + (vitrine1.id || vitrine1.className) + ")"
+            : "não encontrada") +
+          ", vitrine2=" +
+          (vitrine2 ? "encontrada" : "não encontrada"),
+      );
+
+      if ((vitrine1 || vitrine2) && tentativas <= maxTentativas) {
+        console.log("✨ Vitrines encontradas na tentativa " + tentativas);
+        moverVitrines();
+      } else if (tentativas < maxTentativas) {
+        setTimeout(verificarEMover, 500);
+      } else {
+        console.log("⚠️ Timeout após " + maxTentativas + " tentativas");
+      }
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(verificarEMover, 1000);
+      });
+    } else {
+      setTimeout(verificarEMover, 1000);
+    }
+  })();
+// ]]></script>
+<!-- =========================================================
+     BLOCO 13 - JS / VITRINE NATIVA COM CARD PROMOCIONAL
+     ========================================================= -->
+<script>// <![CDATA[
+(function () {
+    "use strict";
+
+    var TAG = "Correa MTE v7";
+    var DONE = false;
+
+    /*
+      VITRINE ALVO
+      Esta é a vitrine correta que você selecionou no DevTools.
+
+      Pai identificado:
+      #componente-id-751cab68-1ec2-48c8-9607-e6960d079f81
+
+      Estrutura identificada:
+      .macro-vitrine-4-itens-black
+      .swiper
+      .swiper-wrapper
+      .swiper-slide
+      .product-card
+    */
+    var COMPONENTE_ALVO_ID = "componente-id-751cab68-1ec2-48c8-9607-e6960d079f81";
+
+    function log(msg) {
+      console.log(TAG + ": " + msg);
+    }
+
+    function getDomDocument() {
+      if (
+        typeof document !== "undefined" &&
+        document &&
+        typeof document.querySelector === "function" &&
+        typeof document.getElementById === "function"
+      ) {
+        return document;
+      }
+
+      if (typeof window !== "undefined" && window.frames && window.frames.length) {
+        for (var i = 0; i < window.frames.length; i++) {
+          try {
+            var frameDoc = window.frames[i].document;
+            if (
+              frameDoc &&
+              typeof frameDoc.querySelector === "function" &&
+              typeof frameDoc.getElementById === "function"
+            ) {
+              return frameDoc;
+            }
+          } catch (e) {}
+        }
+      }
+
+      return null;
+    }
+
+    function getView(el) {
+      if (el && el.ownerDocument && el.ownerDocument.defaultView) {
+        return el.ownerDocument.defaultView;
+      }
+      return window;
+    }
+
+    function criarBlocoPromocional(doc) {
+      var card = doc.createElement("div");
+      card.id = "correamtePromoCard";
+
+card.innerHTML = [
+        '<div class="correamte-body">',
+        '  <div class="correamte-kicker">',
+        '    <span class="correamte-dot"></span>',
+        '    Por tempo limitado',
+        '  </div>',
+        '  <h2 class="correamte-title">',
+        '    Aproveite nossas principais ofertas',
+        '  </h2>',
+        '  <div class="correamte-timer" id="correamteTimer">',
+        '    <div class="correamte-timer-block">',
+        '      <span class="correamte-timer-number" data-timer="days">00</span>',
+        '      <span class="correamte-timer-label">Dias</span>',
+        '    </div>',
+        '    <span class="correamte-timer-sep">:</span>',
+        '    <div class="correamte-timer-block">',
+        '      <span class="correamte-timer-number" data-timer="hours">00</span>',
+        '      <span class="correamte-timer-label">Horas</span>',
+        '    </div>',
+        '    <span class="correamte-timer-sep">:</span>',
+        '    <div class="correamte-timer-block">',
+        '      <span class="correamte-timer-number" data-timer="minutes">00</span>',
+        '      <span class="correamte-timer-label">Min</span>',
+        '    </div>',
+        '    <span class="correamte-timer-sep">:</span>',
+        '    <div class="correamte-timer-block">',
+        '      <span class="correamte-timer-number" data-timer="seconds">00</span>',
+        '      <span class="correamte-timer-label">Seg</span>',
+        '    </div>',
+        '  </div>',
+        '  <a class="correamte-cta" href="https://www.correamte.com.br/busca?q=&ordem=maioresdescontos" target="_self">',
+        '    Ver Promoções',
+        '  </a>',
+        '<div class="correamte-benefits correamte-benefits-vantagens">',
+'    <div class="correamte-benefit-item">',
+'      <span class="correamte-benefit-icon">🎟️</span>',
+'      <span class="correamte-benefit-text"><strong>Use BEMVINDO</strong><br>Ganhe 5% de desconto</span>',
+'    </div>',
+'    <div class="correamte-benefit-item">',
+'      <span class="correamte-benefit-icon">🏷️</span>',
+'      <span class="correamte-benefit-text"><strong>Desconto no PIX</strong><br>Pagamento com preço especial</span>',
+'    </div>',
+'    <div class="correamte-benefit-item">',
+'      <span class="correamte-benefit-icon">💳</span>',
+'      <span class="correamte-benefit-text"><strong>Parcelamento</strong><br>Em até 8x sem juros</span>',
+'    </div>',
+'  </div>',
+        '</div>'
+      ].join("\n");
+
+      return card;
+    }
+
+    function ajustarAlturaPromoNativa() {
+      var doc = getDomDocument();
+      if (!doc) return;
+      if (getView(doc.documentElement).innerWidth <= 768) return;
+
+      try {
+        var sr = doc.querySelector(
+          ".container-row-vitrine-native .correamte-slider-right",
+        );
+        var pc = doc.querySelector(
+          ".container-row-vitrine-native #correamtePromoCard",
+        );
+        var pl = doc.querySelector(
+          ".container-row-vitrine-native .correamte-promo-left",
+        );
+
+        if (!sr || !pc || !pl) return;
+
+        var card =
+          sr.querySelector(".swiper-slide:not(.swiper-slide-duplicate) .product-card") ||
+          sr.querySelector(".swiper-slide:not(.swiper-slide-duplicate)") ||
+          sr.querySelector(".product-card") ||
+          sr.querySelector("li");
+
+        if (!card) return;
+
+        var h = card.getBoundingClientRect().height;
+
+        if (h < 100 || h > 700) {
+          log("Altura ignorada: " + h.toFixed(0) + "px");
+          return;
+        }
+
+        pc.style.height = h + "px";
+        pc.style.minHeight = h + "px";
+        pl.style.height = h + "px";
+
+        log("Promo altura ajustada: " + h.toFixed(0) + "px");
+      } catch (e) {
+        log("Erro altura promo: " + e);
+      }
+    }
+
+    function encontrarVitrine() {
+      var doc = getDomDocument();
+
+      if (!doc) {
+        log("Documento real da página não encontrado");
+        return null;
+      }
+
+      var componente = doc.getElementById(COMPONENTE_ALVO_ID);
+
+      if (!componente) {
+        log("Componente alvo ainda não encontrado: #" + COMPONENTE_ALVO_ID);
+        return null;
+      }
+
+      if (componente.hasAttribute("data-vitrine-native-ok")) {
+        log("Componente alvo já foi processado");
+        return null;
+      }
+
+      if (componente.querySelector(".correamte-vitrine-layout")) {
+        log("Layout promocional já existe dentro do componente alvo");
+        return null;
+      }
+
+      var vitrine =
+        componente.querySelector(".macro-vitrine-4-itens-black") ||
+        componente.querySelector("[class*='macro-vitrine']") ||
+        componente.querySelector(".swiper[class*='swiper-vitrine']") ||
+        componente.querySelector(".swiper");
+
+      if (!vitrine) {
+        log("Componente encontrado, mas a vitrine Swiper ainda não carregou");
+        return null;
+      }
+
+      var produtos = vitrine.querySelectorAll(
+        ".swiper-slide:not(.swiper-slide-duplicate) .product-card, .swiper-slide:not(.swiper-slide-duplicate), .product-card",
+      );
+
+      if (produtos.length === 0) {
+        log("Vitrine encontrada, mas os produtos ainda não carregaram");
+        return null;
+      }
+
+      log("Vitrine alvo encontrada dentro de #" + COMPONENTE_ALVO_ID);
+      log("Produtos encontrados: " + produtos.length);
+
+      return {
+        componente: componente,
+        vitrine: vitrine,
+        macroVitrine: vitrine,
+        doc: doc
+      };
+    }
+
+    function atualizarSwiper(sliderRight) {
+      try {
+        var view = getView(sliderRight);
+        var swiperEl =
+          sliderRight.querySelector(".swiper[class*='swiper-vitrine']") ||
+          sliderRight.querySelector(".swiper") ||
+          sliderRight.querySelector(".swiper-container");
+
+        if (swiperEl && swiperEl.swiper) {
+          swiperEl.swiper.update();
+
+          if (swiperEl.swiper.navigation && swiperEl.swiper.navigation.update) {
+            swiperEl.swiper.navigation.update();
+          }
+
+          log("Swiper atualizado via instância");
+        } else {
+          view.dispatchEvent(new Event("resize"));
+          log("Resize disparado para recalcular Swiper");
+        }
+      } catch (e) {
+        log("Swiper update não crítico: " + e);
+
+        try {
+          getView(sliderRight).dispatchEvent(new Event("resize"));
+        } catch (err) {}
+      }
+    }
+
+    function marcar() {
+      if (DONE) return;
+
+      log("Tentando encontrar vitrine alvo...");
+      var resultado = encontrarVitrine();
+
+      if (!resultado) {
+        return;
+      }
+
+      var doc = resultado.doc;
+      var alvo = resultado.componente;
+      var vitrine = resultado.vitrine;
+
+      log(
+        "Container alvo: tag=" +
+          alvo.tagName +
+          " id=" +
+          (alvo.id || "none") +
+          " class=" +
+          (alvo.className || "none"),
+      );
+
+      alvo.setAttribute("data-vitrine-native-ok", "1");
+      alvo.classList.add("container-row-vitrine-native");
+
+      alvo.style.cssText +=
+        ";display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;overflow:visible!important;";
+
+      vitrine.style.cssText +=
+        ";display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;overflow:visible!important;";
+
+      var ancestor = alvo.parentElement;
+      while (ancestor && ancestor !== doc.body) {
+        try {
+          var cs = getView(ancestor).getComputedStyle(ancestor);
+          if (
+            cs.display === "none" ||
+            cs.visibility === "hidden" ||
+            cs.opacity === "0"
+          ) {
+            ancestor.style.cssText +=
+              ";display:block!important;visibility:visible!important;opacity:1!important;";
+          }
+        } catch (e) {}
+
+        ancestor = ancestor.parentElement;
+      }
+
+      var box = alvo.querySelector(".container") || alvo;
+
+      log(
+        "Box de conteúdo: tag=" +
+          box.tagName +
+          " id=" +
+          (box.id || "none") +
+          " children=" +
+          box.children.length,
+      );
+
+      var tituloOriginal = box.querySelector("h2, .vitrine-titulo, .titulo-vitrine");
+      if (tituloOriginal) {
+        log("Título original ocultado: " + tituloOriginal.textContent.substring(0, 40));
+        tituloOriginal.style.display = "none";
+      }
+
+      log("Criando layout flex com card promo...");
+
+      var vitrineLayout = doc.createElement("div");
+      vitrineLayout.className = "correamte-vitrine-layout";
+
+      var promoLeft = doc.createElement("div");
+      promoLeft.className = "correamte-promo-left";
+      promoLeft.appendChild(criarBlocoPromocional(doc));
+      vitrineLayout.appendChild(promoLeft);
+
+      var sliderRight = doc.createElement("div");
+      sliderRight.className = "correamte-slider-right";
+
+      var filhos = [];
+      for (var i = 0; i < box.children.length; i++) {
+        if (!box.children[i].classList.contains("correamte-vitrine-layout")) {
+          filhos.push(box.children[i]);
+        }
+      }
+
+      for (var j = 0; j < filhos.length; j++) {
+        sliderRight.appendChild(filhos[j]);
+      }
+
+      vitrineLayout.appendChild(sliderRight);
+      box.appendChild(vitrineLayout);
+
+      log("Layout flex criado na vitrine correta");
+
+      setTimeout(function () {
+        atualizarSwiper(sliderRight);
+      }, 500);
+
+      setTimeout(function () {
+        atualizarSwiper(sliderRight);
+      }, 1500);
+
+      setTimeout(function () {
+        atualizarSwiper(sliderRight);
+      }, 3000);
+
+      setTimeout(ajustarAlturaPromoNativa, 800);
+      setTimeout(ajustarAlturaPromoNativa, 1800);
+      setTimeout(ajustarAlturaPromoNativa, 3500);
+      setTimeout(ajustarAlturaPromoNativa, 5500);
+
+      DONE = true;
+      log("✅ Vitrine nativa com card promo aplicada no componente correto");
+    }
+
+    function iniciar() {
+      var doc = getDomDocument();
+
+      if (!doc) {
+        log("Documento real indisponível. Tentando novamente...");
+        setTimeout(iniciar, 500);
+        return;
+      }
+
+      log("Detecção iniciada no componente alvo...");
+
+      marcar();
+      if (DONE) return;
+
+      var obs = null;
+
+      try {
+        obs = new MutationObserver(function () {
+          if (!DONE) marcar();
+          if (DONE && obs) obs.disconnect();
+        });
+
+        obs.observe(doc.documentElement, {
+          childList: true,
+          subtree: true
+        });
+      } catch (e) {
+        log("MutationObserver indisponível: " + e);
+      }
+
+      var tentativas = 0;
+
+      (function loop() {
+        if (DONE) {
+          if (obs) obs.disconnect();
+          return;
+        }
+
+        tentativas++;
+        marcar();
+
+        if (DONE) {
+          if (obs) obs.disconnect();
+          return;
+        }
+
+        if (tentativas >= 80) {
+          if (obs) obs.disconnect();
+          log("TIMEOUT após " + tentativas + " tentativas.");
+          log("Verifique se o ID do componente ainda é: #" + COMPONENTE_ALVO_ID);
+          return;
+        }
+
+        setTimeout(loop, tentativas <= 30 ? 500 : 1000);
+      })();
+    }
+
+    var initialDoc = getDomDocument();
+
+    if (initialDoc && initialDoc.readyState === "loading") {
+      initialDoc.addEventListener("DOMContentLoaded", function () {
+        setTimeout(iniciar, 500);
+      });
+    } else {
+      setTimeout(iniciar, 500);
+    }
+  })();
+// ]]></script>
+<!-- =========================================================
+     BLOCO 14 - JS / CRONÔMETRO PROMOCIONAL
+     ========================================================= -->
+<script>// <![CDATA[
+(function () {
+    "use strict";
+
+    // Cronômetro: conta até o próximo domingo 23:59:59
+    function getNextSunday() {
+      var now = new Date();
+      var day = now.getDay();
+      var daysUntilSunday = (7 - day) % 7;
+      if (daysUntilSunday === 0) daysUntilSunday = 7;
+      var target = new Date(now);
+      target.setDate(target.getDate() + daysUntilSunday);
+      target.setHours(23, 59, 59, 0);
+      return target;
+    }
+
+    function pad(n) {
+      return n < 10 ? "0" + n : String(n);
+    }
+
+    function atualizarTimer() {
+      var timers = document.querySelectorAll(".correamte-timer");
+      if (timers.length === 0) return;
+
+      var now = new Date();
+      var target = getNextSunday();
+      var diff = target - now;
+
+      if (diff <= 0) {
+        target = getNextSunday();
+        diff = target - now;
+      }
+
+      var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      timers.forEach(function (timer) {
+        var dEl = timer.querySelector('[data-timer="days"]');
+        var hEl = timer.querySelector('[data-timer="hours"]');
+        var mEl = timer.querySelector('[data-timer="minutes"]');
+        var sEl = timer.querySelector('[data-timer="seconds"]');
+
+        if (dEl) dEl.textContent = pad(days);
+        if (hEl) hEl.textContent = pad(hours);
+        if (mEl) mEl.textContent = pad(minutes);
+        if (sEl) sEl.textContent = pad(seconds);
+      });
+    }
+
+    function iniciarTimer() {
+      var timers = document.querySelectorAll(".correamte-timer");
+      if (timers.length > 0) {
+        atualizarTimer();
+        setInterval(atualizarTimer, 1000);
+        return;
+      }
+      setTimeout(iniciarTimer, 1000);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(iniciarTimer, 1500);
+      });
+    } else {
+      setTimeout(iniciarTimer, 1500);
+    }
+  })();
+// ]]></script>
+<script>// <![CDATA[
+(function () {
+  const logoSvg = `
+    <?xml version="1.0" encoding="UTF-8"?>
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 708.17 144.2">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #bb1c1d;
+      }
+    </style>
+  </defs>
+  <g>
+    <path class="cls-1" d="M169.93,122.31c-1.39,1.4-3.09,2.1-5.09,2.1s-3.69-.7-5.08-2.1c-1.38-1.4-2.07-3.09-2.07-5.08s.69-3.7,2.07-5.09c1.38-1.39,3.08-2.09,5.08-2.09s3.7.7,5.09,2.09c1.39,1.39,2.08,3.09,2.08,5.09s-.7,3.68-2.08,5.08ZM161.04,121.05c1.02,1.03,2.29,1.55,3.8,1.55s2.78-.52,3.81-1.55c1.02-1.03,1.53-2.31,1.53-3.82s-.51-2.81-1.53-3.84c-1.02-1.03-2.29-1.55-3.81-1.55s-2.78.52-3.8,1.55c-1.02,1.03-1.53,2.32-1.53,3.84s.51,2.79,1.53,3.82Z"/>
+    <path class="cls-1" d="M181.47,124.4c-1.29,0-2.39-.3-3.31-.91-.92-.61-1.56-1.44-1.93-2.49l1.58-.91c.54,1.67,1.77,2.51,3.69,2.51.95,0,1.67-.19,2.17-.58.5-.39.75-.91.75-1.55s-.25-1.15-.75-1.48c-.5-.33-1.34-.68-2.51-1.05-.57-.2-1.01-.35-1.32-.45s-.69-.27-1.14-.5-.79-.47-1.02-.71-.43-.56-.6-.96c-.18-.39-.27-.84-.27-1.34,0-1.2.42-2.15,1.26-2.86.84-.7,1.87-1.06,3.08-1.06,1.09,0,2.04.28,2.86.83s1.42,1.28,1.83,2.19l-1.54.89c-.59-1.42-1.64-2.13-3.14-2.13-.75,0-1.36.18-1.82.55-.46.37-.69.87-.69,1.5s.22,1.07.65,1.38c.43.32,1.19.65,2.25.99.37.13.64.23.8.28.16.06.41.15.75.27s.58.22.74.3c.16.08.37.19.64.34.27.15.47.28.6.42s.29.29.46.49c.18.19.31.39.39.58s.15.43.21.68c.06.26.09.53.09.82,0,1.21-.44,2.18-1.33,2.89-.88.72-2.04,1.08-3.46,1.08Z"/>
+    <path class="cls-1" d="M189.17,122.41h6.42v1.74h-8.26v-13.83h8.16v1.74h-6.32v4.25h5.83v1.72h-5.83v4.39Z"/>
+    <path class="cls-1" d="M205.48,123.07c-.96.89-2.21,1.33-3.74,1.33s-2.78-.45-3.74-1.33c-.97-.89-1.45-2.08-1.45-3.57v-9.19h1.84v9.11c0,.98.29,1.75.87,2.32.58.57,1.41.86,2.49.86s1.91-.29,2.49-.86c.58-.57.87-1.35.87-2.32v-9.11h1.82v9.19c0,1.49-.48,2.68-1.44,3.57Z"/>
+    <path class="cls-1" d="M216.96,124.4c-1.29,0-2.39-.3-3.31-.91-.92-.61-1.56-1.44-1.93-2.49l1.58-.91c.54,1.67,1.77,2.51,3.69,2.51.95,0,1.67-.19,2.17-.58.5-.39.75-.91.75-1.55s-.25-1.15-.75-1.48c-.5-.33-1.34-.68-2.51-1.05-.57-.2-1.01-.35-1.32-.45s-.69-.27-1.14-.5-.79-.47-1.02-.71-.43-.56-.6-.96c-.18-.39-.27-.84-.27-1.34,0-1.2.42-2.15,1.26-2.86.84-.7,1.87-1.06,3.08-1.06,1.09,0,2.04.28,2.86.83s1.42,1.28,1.83,2.19l-1.54.89c-.59-1.42-1.64-2.13-3.14-2.13-.75,0-1.36.18-1.82.55-.46.37-.69.87-.69,1.5s.22,1.07.65,1.38c.43.32,1.19.65,2.25.99.37.13.64.23.8.28.16.06.41.15.75.27s.58.22.74.3c.16.08.37.19.64.34.27.15.47.28.6.42s.29.29.46.49c.18.19.31.39.39.58s.15.43.21.68c.06.26.09.53.09.82,0,1.21-.44,2.18-1.33,2.89-.88.72-2.04,1.08-3.46,1.08Z"/>
+    <path class="cls-1" d="M231.38,110.31h1.82v13.83h-1.82v-6.22h-6.72v6.22h-1.84v-13.83h1.84v5.87h6.72v-5.87Z"/>
+    <path class="cls-1" d="M246.59,122.31c-1.39,1.4-3.09,2.1-5.09,2.1s-3.69-.7-5.08-2.1c-1.38-1.4-2.07-3.09-2.07-5.08s.69-3.7,2.07-5.09c1.38-1.39,3.08-2.09,5.08-2.09s3.7.7,5.09,2.09c1.39,1.39,2.08,3.09,2.08,5.09s-.7,3.68-2.08,5.08ZM237.7,121.05c1.02,1.03,2.29,1.55,3.8,1.55s2.78-.52,3.81-1.55c1.02-1.03,1.53-2.31,1.53-3.82s-.51-2.81-1.53-3.84c-1.02-1.03-2.29-1.55-3.81-1.55s-2.78.52-3.8,1.55c-1.02,1.03-1.53,2.32-1.53,3.84s.51,2.79,1.53,3.82Z"/>
+    <path class="cls-1" d="M254.82,110.31c1.28,0,2.34.43,3.19,1.28.85.85,1.28,1.91,1.28,3.17s-.43,2.31-1.28,3.16-1.91,1.28-3.19,1.28h-3.18v4.94h-1.84v-13.83h5.02ZM254.82,117.49c.76,0,1.4-.26,1.9-.78.5-.52.75-1.17.75-1.95s-.25-1.44-.75-1.96-1.13-.77-1.9-.77h-3.18v5.45h3.18Z"/>
+    <path class="cls-1" d="M265.39,110.31c1.28,0,2.34.43,3.19,1.28.85.85,1.28,1.91,1.28,3.17s-.43,2.31-1.28,3.16-1.91,1.28-3.19,1.28h-3.18v4.94h-1.84v-13.83h5.02ZM265.39,117.49c.76,0,1.4-.26,1.9-.78.5-.52.75-1.17.75-1.95s-.25-1.44-.75-1.96-1.13-.77-1.9-.77h-3.18v5.45h3.18Z"/>
+    <path class="cls-1" d="M270.95,110.31h1.84v13.83h-1.84v-13.83Z"/>
+    <path class="cls-1" d="M283.26,110.31h1.84v13.83h-1.48l-7.11-10.34v10.34h-1.84v-13.83h1.42l7.17,10.39v-10.39Z"/>
+    <path class="cls-1" d="M300.32,117.29v.83c0,1.81-.62,3.3-1.86,4.5-1.24,1.19-2.88,1.79-4.92,1.79s-3.85-.7-5.23-2.09c-1.38-1.39-2.07-3.09-2.07-5.09s.69-3.7,2.07-5.09c1.38-1.39,3.1-2.09,5.19-2.09,1.28,0,2.45.31,3.52.92,1.07.61,1.89,1.42,2.47,2.42l-1.58.93c-.4-.75-.99-1.35-1.79-1.81-.8-.45-1.68-.68-2.64-.68-1.58,0-2.88.52-3.89,1.55-1.01,1.03-1.52,2.32-1.52,3.84s.51,2.81,1.53,3.83c1.02,1.03,2.34,1.54,3.96,1.54,1.38,0,2.5-.34,3.36-1.02s1.38-1.56,1.56-2.64h-5.08v-1.66h6.92Z"/>
+    <path class="cls-1" d="M310.71,110.31c1.88,0,3.45.67,4.69,2.01,1.24,1.34,1.87,2.97,1.87,4.91s-.62,3.57-1.87,4.91c-1.25,1.34-2.81,2.01-4.69,2.01h-5.4v-13.83h5.4ZM310.71,122.41c1.41,0,2.56-.49,3.46-1.48.89-.99,1.34-2.22,1.34-3.69s-.45-2.71-1.34-3.7c-.9-.99-2.05-1.48-3.46-1.48h-3.56v10.36h3.56Z"/>
+    <path class="cls-1" d="M320.25,122.41h6.42v1.74h-8.26v-13.83h8.16v1.74h-6.32v4.25h5.83v1.72h-5.83v4.39Z"/>
+    <path class="cls-1" d="M344.6,110.31v13.83h-1.82v-10.81l-4.52,7.53h-.23s-4.54-7.54-4.54-7.54v10.82h-1.84v-13.83h2.07l4.42,7.34,4.39-7.34h2.05Z"/>
+    <path class="cls-1" d="M355.59,124.15l-1.13-3.1h-6.22l-1.13,3.1h-1.96l5.16-13.83h2.07l5.16,13.83h-1.96ZM348.87,119.32h4.97l-2.49-6.83-2.48,6.83Z"/>
+    <path class="cls-1" d="M366.95,110.31v1.74h-4.09v12.1h-1.82v-12.1h-4.07v-1.74h9.98Z"/>
+    <path class="cls-1" d="M369.52,122.41h6.42v1.74h-8.26v-13.83h8.16v1.74h-6.32v4.25h5.83v1.72h-5.83v4.39Z"/>
+    <path class="cls-1" d="M385.27,124.15l-3.1-5.3h-3.26v5.3h-1.84v-13.83h5.53c1.19,0,2.2.42,3.04,1.25.85.84,1.26,1.85,1.26,3.03,0,.9-.27,1.71-.8,2.45-.54.74-1.22,1.26-2.07,1.56l3.26,5.53h-2.04ZM378.91,112.03v5.16h3.69c.68,0,1.27-.25,1.75-.76.48-.51.72-1.12.72-1.83s-.24-1.32-.72-1.82-1.07-.75-1.75-.75h-3.69Z"/>
+    <path class="cls-1" d="M388.06,110.31h1.84v13.83h-1.84v-13.83Z"/>
+    <path class="cls-1" d="M400.89,124.15l-1.13-3.1h-6.22l-1.13,3.1h-1.96l5.16-13.83h2.07l5.16,13.83h-1.96ZM394.16,119.32h4.97l-2.49-6.83-2.48,6.83Z"/>
+    <path class="cls-1" d="M403.4,110.31h1.84v13.83h-1.84v-13.83Z"/>
+    <path class="cls-1" d="M411.58,124.4c-1.29,0-2.39-.3-3.31-.91-.91-.61-1.56-1.44-1.93-2.49l1.58-.91c.54,1.67,1.77,2.51,3.69,2.51.95,0,1.67-.19,2.17-.58.5-.39.75-.91.75-1.55s-.25-1.15-.75-1.48c-.5-.33-1.34-.68-2.51-1.05-.57-.2-1.01-.35-1.32-.45-.31-.1-.69-.27-1.14-.5-.45-.23-.79-.47-1.02-.71-.23-.24-.43-.56-.6-.96-.18-.39-.27-.84-.27-1.34,0-1.2.42-2.15,1.26-2.86.85-.7,1.87-1.06,3.08-1.06,1.09,0,2.05.28,2.86.83.81.55,1.42,1.28,1.83,2.19l-1.54.89c-.59-1.42-1.64-2.13-3.14-2.13-.75,0-1.36.18-1.82.55s-.69.87-.69,1.5.22,1.07.65,1.38,1.19.65,2.25.99c.37.13.64.23.8.28.16.06.41.15.75.27s.58.22.74.3.37.19.64.34c.27.15.47.28.6.42.13.13.29.29.47.49.18.19.3.39.38.58s.15.43.21.68c.06.26.09.53.09.82,0,1.21-.44,2.18-1.32,2.89-.88.72-2.04,1.08-3.46,1.08Z"/>
+    <path class="cls-1" d="M423.14,122.41h6.42v1.74h-8.26v-13.83h8.16v1.74h-6.32v4.25h5.83v1.72h-5.83v4.39Z"/>
+    <path class="cls-1" d="M432.52,122.41h5.97v1.74h-7.8v-13.83h1.84v12.1Z"/>
+    <path class="cls-1" d="M441.08,122.41h6.42v1.74h-8.26v-13.83h8.16v1.74h-6.32v4.25h5.83v1.72h-5.83v4.39ZM445.8,106.36l-1.99,2.61h-1.66l1.58-2.61h2.07Z"/>
+    <path class="cls-1" d="M457.48,110.31v1.74h-4.09v12.1h-1.82v-12.1h-4.07v-1.74h9.98Z"/>
+    <path class="cls-1" d="M466.42,124.15l-3.1-5.3h-3.26v5.3h-1.84v-13.83h5.53c1.19,0,2.2.42,3.04,1.25.85.84,1.26,1.85,1.26,3.03,0,.9-.27,1.71-.8,2.45-.54.74-1.22,1.26-2.07,1.56l3.26,5.53h-2.04ZM460.05,112.03v5.16h3.69c.68,0,1.27-.25,1.75-.76.48-.51.72-1.12.72-1.83s-.24-1.32-.72-1.82-1.07-.75-1.75-.75h-3.69Z"/>
+    <path class="cls-1" d="M469.2,110.31h1.84v13.83h-1.84v-13.83Z"/>
+    <path class="cls-1" d="M479.42,124.4c-2.09,0-3.82-.69-5.19-2.08-1.36-1.38-2.05-3.08-2.05-5.1s.68-3.72,2.05-5.1c1.36-1.38,3.09-2.08,5.19-2.08,1.26,0,2.43.3,3.49.91,1.06.61,1.89,1.42,2.48,2.45l-1.6.93c-.4-.76-.99-1.37-1.77-1.83s-1.65-.68-2.6-.68c-1.6,0-2.9.51-3.9,1.54-1.01,1.03-1.51,2.31-1.51,3.85s.5,2.81,1.51,3.83c1.01,1.03,2.31,1.54,3.9,1.54.95,0,1.82-.23,2.6-.68.78-.46,1.37-1.06,1.77-1.81l1.6.91c-.58,1.03-1.4,1.85-2.47,2.46-1.07.61-2.23.92-3.5.92Z"/>
+    <path class="cls-1" d="M497.94,122.31c-1.39,1.4-3.09,2.1-5.09,2.1s-3.69-.7-5.08-2.1c-1.39-1.4-2.08-3.09-2.08-5.08s.69-3.7,2.08-5.09c1.38-1.39,3.08-2.09,5.08-2.09s3.7.7,5.09,2.09c1.39,1.39,2.09,3.09,2.09,5.09s-.7,3.68-2.09,5.08ZM489.05,121.05c1.02,1.03,2.29,1.55,3.81,1.55s2.78-.52,3.81-1.55c1.02-1.03,1.53-2.31,1.53-3.82s-.51-2.81-1.53-3.84c-1.02-1.03-2.29-1.55-3.81-1.55s-2.78.52-3.81,1.55c-1.02,1.03-1.53,2.32-1.53,3.84s.51,2.79,1.53,3.82Z"/>
+    <path class="cls-1" d="M505.62,124.4c-1.29,0-2.39-.3-3.31-.91-.91-.61-1.56-1.44-1.93-2.49l1.58-.91c.54,1.67,1.77,2.51,3.69,2.51.95,0,1.67-.19,2.17-.58.5-.39.75-.91.75-1.55s-.25-1.15-.75-1.48c-.5-.33-1.34-.68-2.51-1.05-.57-.2-1.01-.35-1.32-.45-.31-.1-.69-.27-1.14-.5-.45-.23-.79-.47-1.02-.71-.23-.24-.43-.56-.6-.96-.18-.39-.27-.84-.27-1.34,0-1.2.42-2.15,1.26-2.86.85-.7,1.87-1.06,3.08-1.06,1.09,0,2.05.28,2.86.83.81.55,1.42,1.28,1.83,2.19l-1.54.89c-.59-1.42-1.64-2.13-3.14-2.13-.75,0-1.36.18-1.82.55s-.69.87-.69,1.5.22,1.07.65,1.38,1.19.65,2.25.99c.37.13.64.23.8.28.16.06.41.15.75.27s.58.22.74.3.37.19.64.34c.27.15.47.28.6.42.13.13.29.29.47.49.18.19.3.39.38.58s.15.43.21.68c.06.26.09.53.09.82,0,1.21-.44,2.18-1.32,2.89-.88.72-2.04,1.08-3.46,1.08Z"/>
+    <path class="cls-1" d="M513.88,122.11l-1.29,4.8h-1.48l.79-4.8h1.98Z"/>
+    <path class="cls-1" d="M525.76,124.4c-2.09,0-3.82-.69-5.19-2.08-1.36-1.38-2.05-3.08-2.05-5.1s.68-3.72,2.05-5.1c1.36-1.38,3.09-2.08,5.19-2.08,1.26,0,2.43.3,3.49.91,1.06.61,1.89,1.42,2.48,2.45l-1.6.93c-.4-.76-.99-1.37-1.77-1.83s-1.65-.68-2.6-.68c-1.6,0-2.9.51-3.9,1.54-1.01,1.03-1.51,2.31-1.51,3.85s.5,2.81,1.51,3.83c1.01,1.03,2.31,1.54,3.9,1.54.95,0,1.82-.23,2.6-.68.78-.46,1.37-1.06,1.77-1.81l1.6.91c-.58,1.03-1.4,1.85-2.47,2.46-1.07.61-2.23.92-3.5.92Z"/>
+    <path class="cls-1" d="M541.89,124.15l-1.13-3.1h-6.22l-1.13,3.1h-1.96l5.16-13.83h2.07l5.16,13.83h-1.96ZM535.16,119.32h4.97l-2.49-6.83-2.48,6.83Z"/>
+    <path class="cls-1" d="M548.86,124.4c-1.29,0-2.39-.3-3.31-.91-.91-.61-1.56-1.44-1.93-2.49l1.58-.91c.54,1.67,1.77,2.51,3.69,2.51.95,0,1.67-.19,2.17-.58.5-.39.75-.91.75-1.55s-.25-1.15-.75-1.48c-.5-.33-1.34-.68-2.51-1.05-.57-.2-1.01-.35-1.32-.45-.31-.1-.69-.27-1.14-.5-.45-.23-.79-.47-1.02-.71-.23-.24-.43-.56-.6-.96-.18-.39-.27-.84-.27-1.34,0-1.2.42-2.15,1.26-2.86.85-.7,1.87-1.06,3.08-1.06,1.09,0,2.05.28,2.86.83.81.55,1.42,1.28,1.83,2.19l-1.54.89c-.59-1.42-1.64-2.13-3.14-2.13-.75,0-1.36.18-1.82.55s-.69.87-.69,1.5.22,1.07.65,1.38,1.19.65,2.25.99c.37.13.64.23.8.28.16.06.41.15.75.27s.58.22.74.3.37.19.64.34c.27.15.47.28.6.42.13.13.29.29.47.49.18.19.3.39.38.58s.15.43.21.68c.06.26.09.53.09.82,0,1.21-.44,2.18-1.32,2.89-.88.72-2.04,1.08-3.46,1.08Z"/>
+    <path class="cls-1" d="M563.84,124.15l-1.13-3.1h-6.22l-1.13,3.1h-1.96l5.16-13.83h2.07l5.16,13.83h-1.96ZM557.12,119.32h4.97l-2.49-6.83-2.48,6.83Z"/>
+    <path class="cls-1" d="M581.35,123.57l-1.54.89-1.4-1.5c-1.03.96-2.35,1.44-3.95,1.44-1.38,0-2.5-.36-3.36-1.08-.86-.72-1.29-1.69-1.29-2.91,0-.84.22-1.62.64-2.32.43-.7,1.06-1.26,1.89-1.67-.59-.75-.89-1.59-.89-2.51,0-1.15.4-2.07,1.2-2.79s1.76-1.07,2.88-1.07c.92,0,1.76.25,2.51.75s1.29,1.19,1.62,2.08l-1.54.89c-.2-.61-.52-1.08-.98-1.42-.46-.34-.98-.51-1.57-.51-.63,0-1.17.19-1.61.57-.44.38-.66.88-.66,1.48,0,.44.1.83.3,1.18.2.35.51.74.92,1.18l3.76,4.03c.33-.69.58-1.52.72-2.51l1.58.91c-.18,1.1-.53,2.08-1.05,2.95l1.82,1.95ZM574.5,122.66c1.1,0,2.01-.32,2.74-.96l-3.75-4.02c-.64.26-1.1.63-1.4,1.11-.3.47-.45.98-.45,1.5,0,.74.25,1.32.75,1.74.5.42,1.2.63,2.09.63Z"/>
+    <path class="cls-1" d="M592.56,124.4c-2.09,0-3.82-.69-5.19-2.08-1.36-1.38-2.05-3.08-2.05-5.1s.68-3.72,2.05-5.1c1.36-1.38,3.09-2.08,5.19-2.08,1.26,0,2.43.3,3.49.91,1.06.61,1.89,1.42,2.48,2.45l-1.6.93c-.4-.76-.99-1.37-1.77-1.83s-1.65-.68-2.6-.68c-1.6,0-2.9.51-3.9,1.54-1.01,1.03-1.51,2.31-1.51,3.85s.5,2.81,1.51,3.83c1.01,1.03,2.31,1.54,3.9,1.54.95,0,1.82-.23,2.6-.68.78-.46,1.37-1.06,1.77-1.81l1.6.91c-.58,1.03-1.4,1.85-2.47,2.46-1.07.61-2.23.92-3.5.92Z"/>
+    <path class="cls-1" d="M611.08,122.31c-1.39,1.4-3.09,2.1-5.09,2.1s-3.69-.7-5.08-2.1c-1.39-1.4-2.08-3.09-2.08-5.08s.69-3.7,2.08-5.09c1.38-1.39,3.08-2.09,5.08-2.09s3.7.7,5.09,2.09c1.39,1.39,2.09,3.09,2.09,5.09s-.7,3.68-2.09,5.08ZM602.19,121.05c1.02,1.03,2.29,1.55,3.81,1.55s2.78-.52,3.81-1.55c1.02-1.03,1.53-2.31,1.53-3.82s-.51-2.81-1.53-3.84c-1.02-1.03-2.29-1.55-3.81-1.55s-2.78.52-3.81,1.55c-1.02,1.03-1.53,2.32-1.53,3.84s.51,2.79,1.53,3.82Z"/>
+    <path class="cls-1" d="M622.89,110.31h1.84v13.83h-1.48l-7.11-10.34v10.34h-1.84v-13.83h1.42l7.17,10.39v-10.39Z"/>
+    <path class="cls-1" d="M631.07,124.4c-1.29,0-2.39-.3-3.31-.91-.91-.61-1.56-1.44-1.93-2.49l1.58-.91c.54,1.67,1.77,2.51,3.69,2.51.95,0,1.67-.19,2.17-.58.5-.39.75-.91.75-1.55s-.25-1.15-.75-1.48c-.5-.33-1.34-.68-2.51-1.05-.57-.2-1.01-.35-1.32-.45-.31-.1-.69-.27-1.14-.5-.45-.23-.79-.47-1.02-.71-.23-.24-.43-.56-.6-.96-.18-.39-.27-.84-.27-1.34,0-1.2.42-2.15,1.26-2.86.85-.7,1.87-1.06,3.08-1.06,1.09,0,2.05.28,2.86.83.81.55,1.42,1.28,1.83,2.19l-1.54.89c-.59-1.42-1.64-2.13-3.14-2.13-.75,0-1.36.18-1.82.55s-.69.87-.69,1.5.22,1.07.65,1.38,1.19.65,2.25.99c.37.13.64.23.8.28.16.06.41.15.75.27s.58.22.74.3.37.19.64.34c.27.15.47.28.6.42.13.13.29.29.47.49.18.19.3.39.38.58s.15.43.21.68c.06.26.09.53.09.82,0,1.21-.44,2.18-1.32,2.89-.88.72-2.04,1.08-3.46,1.08Z"/>
+    <path class="cls-1" d="M645.79,110.31v1.74h-4.09v12.1h-1.82v-12.1h-4.07v-1.74h9.98Z"/>
+    <path class="cls-1" d="M654.73,124.15l-3.1-5.3h-3.26v5.3h-1.84v-13.83h5.53c1.19,0,2.2.42,3.04,1.25.85.84,1.26,1.85,1.26,3.03,0,.9-.27,1.71-.8,2.45-.54.74-1.22,1.26-2.07,1.56l3.26,5.53h-2.04ZM648.37,112.03v5.16h3.69c.68,0,1.27-.25,1.75-.76.48-.51.72-1.12.72-1.83s-.24-1.32-.72-1.82-1.07-.75-1.75-.75h-3.69Z"/>
+    <path class="cls-1" d="M666.27,123.07c-.96.89-2.21,1.33-3.74,1.33s-2.78-.45-3.74-1.33c-.97-.89-1.45-2.08-1.45-3.57v-9.19h1.84v9.11c0,.98.29,1.75.87,2.32.58.57,1.41.86,2.49.86s1.91-.29,2.49-.86c.58-.57.87-1.35.87-2.32v-9.11h1.82v9.19c0,1.49-.48,2.68-1.44,3.57Z"/>
+    <path class="cls-1" d="M675.93,122.6c.95,0,1.82-.23,2.6-.68.78-.46,1.37-1.06,1.77-1.81l1.6.91c-.51.92-1.24,1.68-2.16,2.28-.93.6-1.95.95-3.07,1.06v.67c.5.1.9.3,1.21.57s.47.61.47,1.01c0,1.36-1.39,1.96-4.15,1.8v-1.3c1.76.13,2.65-.07,2.65-.61,0-.41-.55-.65-1.64-.71v-1.42c-1.89-.17-3.45-.93-4.67-2.28s-1.83-2.97-1.83-4.85c0-2.02.68-3.72,2.05-5.1,1.36-1.38,3.09-2.08,5.19-2.08,1.26,0,2.43.3,3.49.91,1.06.61,1.89,1.42,2.48,2.45l-1.6.93c-.4-.76-.99-1.37-1.77-1.83s-1.65-.68-2.6-.68c-1.6,0-2.9.51-3.9,1.54-1.01,1.03-1.51,2.31-1.51,3.85s.5,2.81,1.51,3.83c1.01,1.03,2.31,1.54,3.9,1.54Z"/>
+    <path class="cls-1" d="M692.06,124.15l-1.13-3.1h-6.22l-1.13,3.1h-1.96l5.16-13.83h2.07l5.16,13.83h-1.96ZM687.71,108.4c-.47-.4-.83-.58-1.07-.54-.24.03-.36.37-.36,1.02h-1.44c0-.84.15-1.48.46-1.91s.69-.63,1.15-.61c.45.02.93.21,1.43.56.49.4.85.58,1.08.54.23-.03.35-.37.35-1h1.44c0,.84-.15,1.48-.45,1.9-.3.42-.68.62-1.14.6-.45-.02-.94-.21-1.45-.56ZM685.34,119.32h4.97l-2.49-6.83-2.48,6.83Z"/>
+    <path class="cls-1" d="M706.08,122.31c-1.39,1.4-3.09,2.1-5.09,2.1s-3.69-.7-5.08-2.1c-1.39-1.4-2.08-3.09-2.08-5.08s.69-3.7,2.08-5.09c1.38-1.39,3.08-2.09,5.08-2.09s3.7.7,5.09,2.09c1.39,1.39,2.09,3.09,2.09,5.09s-.7,3.68-2.09,5.08ZM697.19,121.05c1.02,1.03,2.29,1.55,3.81,1.55s2.78-.52,3.81-1.55c1.02-1.03,1.53-2.31,1.53-3.82s-.51-2.81-1.53-3.84c-1.02-1.03-2.29-1.55-3.81-1.55s-2.78.52-3.81,1.55c-1.02,1.03-1.53,2.32-1.53,3.84s.51,2.79,1.53,3.82Z"/>
+  </g>
+  <ellipse class="cls-2" cx="71.02" cy="72.1" rx="71.02" ry="72.1"/>
+  <g>
+    <path class="cls-1" d="M303.84,102.58c-9.84-.11-18.41-2.26-25.69-6.43-7.29-4.17-12.43-9.59-15.41-16.26-2.99-6.67-3.65-13.77-1.98-21.31,2.55-11.54,9.21-21.18,19.98-28.93,10.77-7.74,23.76-11.52,38.99-11.35,14.76.17,26.2,4.61,34.32,13.3,8.11,8.7,10.94,18.85,8.49,30.47-2.55,11.7-9.14,21.41-19.77,29.16-10.63,7.74-23.6,11.53-38.92,11.35ZM289.18,76.03c3.9,4.13,9.61,6.24,17.13,6.33,7.52.09,14.3-1.89,20.33-5.95,6.04-4.05,9.74-9.28,11.12-15.66,1.47-6.38.18-11.66-3.86-15.84-4.04-4.17-9.81-6.3-17.33-6.39-7.52-.09-14.21,1.9-20.06,5.95-5.85,4.06-9.51,9.28-10.98,15.67-1.46,6.46-.25,11.76,3.64,15.89Z"/>
+    <path class="cls-1" d="M453.47,50.75c-1.18,5.16-3.62,9.64-7.33,13.45-3.71,3.82-8.41,6.73-14.1,8.75l13.02,29.54-25.07-.29-11.14-26.27-10.61-.2-5.86,26.15-24.89-.29,18.13-80.78,38.23.44c9.67.11,17.48,3.06,23.45,8.83,5.97,5.78,8.03,12.67,6.17,20.67ZM406.24,40.13l-4.08,18.19,14.33.17c3.06.07,5.69-.74,7.89-2.41,2.2-1.67,3.59-3.85,4.18-6.55.59-2.69.08-4.9-1.52-6.61-1.61-1.71-4.08-2.59-7.42-2.63l-13.37-.16Z"/>
+    <path class="cls-1" d="M542.05,51.78c-1.18,5.16-3.62,9.64-7.33,13.45-3.71,3.81-8.41,6.73-14.1,8.74l13.03,29.54-25.07-.29-11.14-26.27-10.61-.2-5.86,26.15-24.89-.29,18.13-80.78,38.23.45c9.67.11,17.48,3.06,23.45,8.83,5.97,5.78,8.03,12.67,6.17,20.67ZM494.81,41.16l-4.08,18.19,14.33.17c3.06.06,5.69-.74,7.89-2.41,2.2-1.67,3.59-3.85,4.18-6.55.59-2.69.08-4.9-1.52-6.61-1.61-1.71-4.08-2.59-7.42-2.63l-13.37-.15Z"/>
+    <path class="cls-1" d="M620.29,42.85l-36.9-.43-2.64,11.31,33.7.39-4.4,18.92-33.42-.39-2.65,11.89,37.6.44-4.27,19.39-62.67-.73,18.07-80.78,61.98.72-4.4,19.27ZM596,11.56l-7.04,6.4-21.03-.24,18.73-17.72,23.26.27,10.79,18.06-20.75-.24-3.96-6.53Z"/>
+    <path class="cls-1" d="M681.12,105.23l-1.4-11.7-32.45-.38-6.82,11.61-27.43-.32,50.24-80.41,30.36.35,14.1,81.16-26.6-.31ZM657.79,75.45l19.78.23-3.3-28.04-16.48,27.81Z"/>
+    <path class="cls-1" d="M229.75,46.72c8.48-.06,16.95-.13,25.43-.19-.69-3.5-2.2-8.59-5.86-13.52-10.3-13.87-28.74-14.43-35.15-14.68-3.8-.15-23.1-.5-39.27,13.83-4.08,3.62-14.63,12.96-16.73,28.66-.45,3.39-2.3,17.14,6.57,28.39,9.74,12.36,25.55,12.99,33.8,13.33,6.45.26,22.49-.18,37.27-11.59,10.49-8.1,15.43-17.92,17.51-22.85-9.7.09-19.4.17-29.1.26-1.06,2.02-2.7,4.49-5.21,6.76-7.55,6.8-17.13,6.53-19.7,6.37-.96.09-10.29.77-15.64-5.99-3.75-4.74-3.33-10.33-3.09-13.52.66-8.78,5.83-14.58,7.34-16.22,8.22-8.95,19.45-9.54,21.92-9.61,3.99-.11,10.86-.41,15.93,4.39,2.23,2.12,3.38,4.53,3.99,6.18Z"/>
+  </g>
+  <path class="cls-1" d="M129.3,58.8c0-8.46-3.72-16.58-10.39-21.77-.12-.1-.25-.19-.37-.29-5.11-3.89-9.75-5.64-12.94-6.82-9.38-3.46-20.92-3.75-23.55-3.83-6.29-.18-14.3-.4-24.12,2.03-7.11,1.76-19.53,4.84-30.1,15.54-3.7,3.75-16.04,16.23-15.01,35.03.12,2.16,1.22,17.76,13.9,29.05,11.91,10.61,26.25,10.54,37.31,10.4,6.96-.09,26.73-.62,44.66-15.07,9.42-7.59,14.77-16.14,17.58-21.52h-27.32c-1.66,2.89-5.09,7.94-11.24,12.02-6.31,4.18-12.23,5.17-13.63,5.38-3.51.53-6.42.36-8.31.24-2.37-.15-5.58-.37-9.33-1.61-2.99-.99-6.91-2.29-9.86-5.56-4.08-4.53-4.11-10.4-4.13-13.45-.06-11.02,6.62-18.98,8.92-21.46,0,0,10.39-11.22,25.94-11.06.07,0,.13,0,.2,0,4.77.06,8.85.86,12.02,1.76,2.83.81,5.36,2.41,7.28,4.64l.04.05c1.99,2.32,3.12,4.63,3.77,6.28h28.7Z"/>
+</svg>
+  `.trim();
+
+  function trocarLogoHeader() {
+    const logoImg =
+      document.querySelector("#header-react-app > div.header-middle.relative.w-full.border-b-\\[1px\\].border-solid.border-border-light-color.bg-bg-primary-color.py-space-10.dark\\:bg-dark-600 > div > div.logo.flex.max-w-\\[250px\\].items-center.justify-center > div > a > img") ||
+      document.querySelector("#header-react-app .logo a img");
+
+    if (!logoImg || logoImg.dataset.logoSvgAplicado === "true") return;
+
+    const svgDataUrl = "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(logoSvg);
+
+    logoImg.src = svgDataUrl;
+    logoImg.removeAttribute("srcset");
+    logoImg.alt = "Corrêa Materiais Elétricos";
+    logoImg.dataset.logoSvgAplicado = "true";
+
+    logoImg.style.width = "100%";
+    logoImg.style.maxWidth = "250px";
+    logoImg.style.height = "auto";
+    logoImg.style.objectFit = "contain";
+    logoImg.style.display = "block";
+  }
+
+  trocarLogoHeader();
+
+  const observer = new MutationObserver(trocarLogoHeader);
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+})();
+// ]]></script>

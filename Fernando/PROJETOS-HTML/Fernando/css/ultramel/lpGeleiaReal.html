@@ -1,20 +1,41 @@
-<style>
+<style type="text/css">
+    html,
+    body {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+        background: #F8F3DD;
+    }
+
+    body {
+        position: relative !important;
+    }
+
+    .container {
+        padding: 0 !important;
+    }
+
     .uj-lp {
         --bege: #F8F3DD;
+        --bege-2: #FFF7DE;
+        --bege-3: #F8F3DD;
         --marrom: #413729;
+        --marrom-2: #457457;
         --verde: #457457;
-        --dourado: #DC9B51;
+        --dourado: #F2C85D;
         --creme: #FFF9EC;
         --branco: #FFFFFF;
         --linha: rgba(65, 55, 41, .14);
-        --texto: rgba(65, 55, 41, .76);
-        --suave: rgba(65, 55, 41, .56);
-        --sombra: 0 18px 46px rgba(65, 55, 41, .10);
+        --texto: rgba(65, 55, 41, .78);
+        --suave: rgba(65, 55, 41, .58);
+        --sombra: 0 18px 40px rgba(65, 55, 41, .08);
 
         width: 100%;
         margin: 0;
         padding: 0;
-        background: var(--creme);
+        background: var(--bege-3);
         color: var(--marrom);
         font-family: Montserrat, Helvetica, Arial, sans-serif;
         overflow: hidden;
@@ -22,6 +43,7 @@
 
     .uj-lp * {
         box-sizing: border-box;
+        max-width: 100%;
     }
 
     .uj-lp img,
@@ -40,35 +62,40 @@
     }
 
     .uj-wrap {
-        width: min(1180px, calc(100% - 40px));
+        width: min(1180px, calc(100% - 32px));
         margin: 0 auto;
     }
 
     .uj-lp h1,
     .uj-lp h2,
-    .uj-lp h3 {
+    .uj-lp h3,
+    .uj-lp h4 {
         margin: 0;
         color: var(--marrom);
-        font-family: "Utile Display", Georgia, serif;
+        font-family: Montserrat, Helvetica, Arial, sans-serif;
         letter-spacing: -.035em;
     }
 
-.uj-topbar {
-        background: var(--dourado);
-        color: var(--marrom);
+    .uj-topbar {
+        background: #457457;
+        color: #F8F3DD;
         text-align: center;
-        padding: 8px 16px;
-        font-size: 13px;
+        padding: 7px 12px;
+        font-size: 11px;
         font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        white-space: nowrap;
     }
 
     .uj-header {
-        background: var(--marrom);
+        background: var(--verde);
         color: var(--bege);
+        border-bottom: 1px solid rgba(255, 255, 255, .08);
     }
 
     .uj-header-inner {
-        min-height: 70px;
+        min-height: 62px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -79,19 +106,20 @@
         min-height: 40px;
         display: inline-flex;
         align-items: center;
-        padding: 0 9px;
-        font-size: 30px;
+        padding: 0 4px;
+        font-size: 28px;
         line-height: 1;
         font-weight: 900;
-        letter-spacing: -.04em;
+        letter-spacing: -.05em;
+        color: var(--bege);
     }
 
     .uj-nav {
         display: flex;
         align-items: center;
         gap: 22px;
-        color: rgba(248, 243, 221, .72);
-        font-size: 13px;
+        color: rgba(248, 243, 221, .78);
+        font-size: 12px;
         font-weight: 700;
     }
 
@@ -99,216 +127,719 @@
         color: var(--bege);
     }
 
+
     .uj-hero {
+        padding: 64px 0 72px;
+        background: var(--bege-3);
         position: relative;
-        padding: 56px 0 60px;
-        background:
-            radial-gradient(circle at 10% 10%, rgba(220, 155, 81, .18), transparent 28%),
-            linear-gradient(180deg, var(--bege) 0%, var(--creme) 100%);
+        z-index: 2;
     }
 
     .uj-hero-grid {
-        display: grid;
-        grid-template-columns: 1.02fr .98fr;
-        gap: 48px;
+        display: grid !important;
+        grid-template-columns: minmax(0, .94fr) minmax(360px, 1.06fr) !important;
+        gap: 48px !important;
+        align-items: center !important;
+    }
+
+    .uj-hero-copy {
+        min-width: 0;
+        max-width: 560px;
+    }
+
+    .uj-hero-copy small {
+        display: inline-flex;
         align-items: center;
+        gap: 8px;
+        min-height: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #457457;
+        font-size: 13px;
+        line-height: 1.5;
+        font-weight: 800;
+        letter-spacing: .03em;
+        text-transform: none;
+    }
+
+    .uj-hero-copy small::before {
+        content: "★★★★★";
+        color: var(--marrom-2);
+        font-size: 15px;
+        letter-spacing: 1px;
     }
 
     .uj-hero-copy h1 {
-        max-width: 660px;
-        font-size: clamp(44px, 5.6vw, 78px);
-        line-height: .9;
+        margin-top: 18px;
+        max-width: 620px;
+        font-size: clamp(34px, 4.4vw, 58px);
+        line-height: 1.02;
         font-weight: 900;
+        letter-spacing: -.045em;
+    }
+
+    .uj-hero-copy h1 .is-green {
+        color: var(--verde);
+        display: block;
+    }
+
+    .uj-hero-copy h1 .is-brown {
+        color: #2f170e;
+        display: block;
+        margin-top: 2px;
     }
 
     .uj-hero-copy p {
-        max-width: 610px;
-        margin: 22px 0 0;
+        max-width: 560px;
+        margin: 14px 0 0;
         color: var(--texto);
-        font-size: 18px;
-        line-height: 1.62;
+        font-size: 17px;
+        line-height: 1.7;
     }
 
-    .uj-hero-points {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        max-width: 620px;
-        margin-top: 26px;
-    }
-
-    .uj-point {
-        min-height: 86px;
-        padding: 14px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, .54);
-        border: 1px solid var(--linha);
-    }
-
-    .uj-point strong {
-        display: block;
-        margin-bottom: 4px;
-        font-size: 14px;
-    }
-
-    .uj-point span {
-        display: block;
-        color: var(--texto);
-        font-size: 12px;
-        line-height: 1.35;
+    .uj-hero-list {
+        display: none;
     }
 
     .uj-hero-actions {
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 28px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-top: 22px;
+        max-width: 580px;
     }
 
-    .uj-cta,
-    .uj-ghost {
-        min-height: 50px;
-        display: inline-flex;
-        align-items: center;
+    .uj-hero .uj-cta {
+        width: min(100%, 580px);
         justify-content: center;
-        border-radius: 999px;
-        padding: 0 24px;
-        font-size: 14px;
+        border-radius: 10px;
+        padding: 10px;
+        background: var(--marrom-2);
+        color: #F8F3DD !important;
+        font-size: 18px;
         font-weight: 900;
-        transition: .2s ease;
+        box-shadow: 0 10px 20px rgba(142, 77, 31, .14);
+        text-align: center;
     }
 
-    .uj-cta {
-        background: var(--marrom);
-        color: var(--bege) !important;
+    .uj-hero .uj-ghost {
+        min-height: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #457457 !important;
+        font-size: 13px;
+        font-weight: 800;
     }
 
-    .uj-ghost {
-        background: rgba(255, 255, 255, .48);
-        border: 1px solid rgba(65, 55, 41, .18);
-        color: var(--marrom);
-    }
-
-    .uj-cta:hover,
-    .uj-ghost:hover {
-        transform: translateY(-2px);
+    .uj-hero .uj-ghost::before {
+        content: "✓";
+        margin-right: 6px;
     }
 
     .uj-hero-media {
         position: relative;
+        min-height: 0;
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        display: block;
+        padding: 0;
     }
 
-    .uj-product-frame {
-        position: relative;
-        overflow: hidden;
-        border-radius: 34px;
-        background: rgba(255, 255, 255, .58);
-        border: 1px solid var(--linha);
-        box-shadow: var(--sombra);
-        padding: 14px;
-    }
-
-    .uj-product-frame img {
+    .uj-hero-media img {
         width: 100%;
-        aspect-ratio: 1 / 1.14;
-        object-fit: cover;
-        border-radius: 24px;
-        background: #fff;
+        max-width: 760px;
+        height: auto;
+        object-fit: contain;
+        filter: none;
     }
 
-    .uj-floating-note {
-        position: absolute;
-        left: 28px;
-        bottom: 28px;
-        max-width: 310px;
-        padding: 15px 17px;
-        border-radius: 18px;
-        background: rgba(248, 243, 221, .94);
-        border: 1px solid rgba(65, 55, 41, .14);
-        backdrop-filter: blur(10px);
-    }
-
-    .uj-floating-note strong {
-        display: block;
-        margin-bottom: 4px;
-        font-size: 14px;
-    }
-
-    .uj-floating-note span {
-        display: block;
-        color: var(--texto);
-        font-size: 12px;
-        line-height: 1.38;
-    }
 
     .uj-section {
-        padding: 64px 0;
+        padding: 60px 0;
+    }
+
+    .uj-hero+.uj-section {
+        padding-top: 76px;
+        border-top: 12px solid #FFF9EC;
+    }
+
+    .uj-section.off {
+        background: var(--bege-3);
+    }
+
+    .uj-section.paper {
+        background: var(--bege-2);
     }
 
     .uj-section.white {
-        background: #fff;
-    }
-
-    .uj-section.bege {
-        background: var(--bege);
+        background: #FFF9EC;
     }
 
     .uj-head {
         max-width: 760px;
-        margin: 0 auto 34px;
+        margin: 0 auto 32px;
         text-align: center;
     }
 
-.uj-head h2 {
-        font-size: clamp(34px, 4vw, 56px);
+    .uj-head h2 {
+        font-size: clamp(28px, 3.2vw, 42px);
         line-height: .98;
     }
 
     .uj-head p {
-        max-width: 670px;
-        margin: 14px auto 0;
+        margin: 12px auto 0;
+        max-width: 660px;
         color: var(--texto);
         font-size: 16px;
         line-height: 1.58;
     }
 
+    /* ===== Seção resultado / testado ===== */
+    .uj-results {
+        display: grid;
+        grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr);
+        gap: 42px;
+        align-items: center;
+    }
+
+    .uj-results-media {
+        width: min(100%, 360px);
+        justify-self: end;
+        overflow: hidden;
+        border-radius: 20px;
+        border: 1px solid rgba(65, 55, 41, .14);
+        background: #d8bb90;
+        box-shadow: 0 14px 28px rgba(65, 55, 41, .08);
+    }
+
+    .uj-results-media img {
+        width: 100%;
+        aspect-ratio: 4 / 4.8;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .uj-results-copy h2 {
+        font-size: clamp(26px, 3vw, 38px);
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+
+    .uj-results-copy p {
+        margin: 0 0 18px;
+        color: var(--texto);
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .uj-results-stats {
+        display: grid;
+        gap: 2px;
+    }
+
+    .uj-results-stat {
+        display: grid;
+        grid-template-columns: 68px 1fr;
+        gap: 18px;
+        align-items: start;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(65, 55, 41, .12);
+    }
+
+    .uj-results-stat strong {
+        color: var(--marrom-2);
+        font-size: 30px;
+        line-height: .9;
+        font-weight: 900;
+        letter-spacing: -.04em;
+    }
+
+    .uj-results-stat span {
+        color: var(--texto);
+        font-size: 14px;
+        line-height: 1.45;
+        font-weight: 700;
+    }
+
+    /* ===== PDP inspirado na referência ===== */
+    .uj-buy {
+        background: #F8F3DD;
+        padding: 0 0 54px;
+    }
+
+    .uj-buy-bar {
+        background: var(--verde);
+        color: var(--bege);
+        padding: 9px 0;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: .06em;
+    }
+
+    .uj-shop-card {
+        margin: -1px auto 0;
+        padding: 28px;
+        border-radius: 0 0 28px 28px;
+        background: #FFF9EC;
+        border: 1px solid rgba(65, 55, 41, .10);
+        border-top: 0;
+        box-shadow: 0 18px 34px rgba(65, 55, 41, .06);
+    }
+
+    .uj-shop-grid {
+        display: grid;
+        grid-template-columns: 96px minmax(300px, .92fr) minmax(0, 1.08fr);
+        gap: 20px;
+        align-items: start;
+    }
+
+    .uj-gallery-thumbs {
+        display: grid;
+        gap: 8px;
+    }
+
+    .uj-gallery-thumbs img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 12px;
+        background: #fff;
+        border: 1px solid rgba(65, 55, 41, .10);
+    }
+
+    .uj-shop-visual {
+        overflow: hidden;
+        border-radius: 22px;
+        background: #f3efe2;
+        border: 1px solid rgba(65, 55, 41, .10);
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+    }
+
+    .uj-shop-visual img {
+        width: min(100%, 430px);
+        max-height: 420px;
+        object-fit: contain;
+    }
+
+    .uj-shop-summary {
+        min-width: 0;
+    }
+
+    .uj-shop-summary small {
+        display: block;
+        margin-bottom: 8px;
+        color: #457457;
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+    }
+
+    .uj-shop-summary h2 {
+        font-size: clamp(28px, 3vw, 42px);
+        line-height: .98;
+        letter-spacing: -.04em;
+    }
+
+    .uj-shop-summary p {
+        margin: 12px 0 0;
+        color: var(--texto);
+        font-size: 15px;
+        line-height: 1.56;
+    }
+
+    .uj-shop-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .uj-shop-badges span {
+        display: inline-flex;
+        align-items: center;
+        min-height: 32px;
+        padding: 0 12px;
+        border-radius: 999px;
+        background: rgba(242, 200, 93, .14);
+        border: 1px solid rgba(242, 200, 93, .30);
+        color: var(--marrom);
+        font-size: 12px;
+        font-weight: 850;
+        line-height: 1.2;
+    }
+
+    .uj-kits-wrap {
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    .uj-kits-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 14px;
+    }
+
+    .uj-kits-head h3 {
+        font-size: 24px;
+        line-height: 1.04;
+        font-weight: 900;
+        letter-spacing: -.03em;
+    }
+
+    .uj-kits-sub {
+        max-width: 460px;
+        margin: 5px 0 0;
+        color: var(--texto);
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 700;
+    }
+
+    .uj-kits-mode {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: rgba(242, 200, 93, .16);
+        border: 1px solid rgba(242, 200, 93, .40);
+        color: var(--marrom);
+        font-size: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+    }
+
+    .uj-kits {
+        display: grid;
+        gap: 12px;
+    }
+
+    .uj-kit {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 24px minmax(180px, .9fr) minmax(220px, .95fr) 170px;
+        gap: 18px;
+        align-items: center;
+        padding: 18px 18px;
+        border-radius: 20px;
+        background: #fffdfa;
+        border: 1px solid rgba(65, 55, 41, .12);
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .uj-kit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 24px rgba(65, 55, 41, .06);
+        border-color: rgba(242, 200, 93, .62);
+    }
+
+    .uj-kit.is-active {
+        background: #fff5da;
+        border-color: rgba(242, 200, 93, .95);
+        box-shadow: inset 0 0 0 1px rgba(242, 200, 93, .95);
+    }
+
+    .uj-radio {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid rgba(65, 55, 41, .35);
+        background: transparent;
+        flex: 0 0 18px;
+    }
+
+    .uj-kit.is-active .uj-radio {
+        border-color: #457457;
+        background: radial-gradient(circle, #2f2618 0 34%, transparent 38%), var(--dourado);
+    }
+
+    .uj-kit-main {
+        min-width: 0;
+        display: grid;
+        gap: 4px;
+    }
+
+    .uj-kit-topline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .uj-kit-name {
+        display: block;
+        color: var(--marrom);
+        font-size: 18px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: -.03em;
+    }
+
+    .uj-most {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 22px;
+        padding: 0 9px;
+        border-radius: 999px;
+        background: var(--dourado);
+        color: var(--marrom);
+        font-size: 10px;
+        line-height: 1;
+        font-weight: 1000;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .uj-kit-meta {
+        display: block;
+        color: rgba(65, 55, 41, .84);
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: 850;
+    }
+
+    .uj-kit-desc {
+        display: block;
+        color: #8c7338;
+        font-size: 13px;
+        line-height: 1.35;
+        font-weight: 800;
+    }
+
+    .uj-kit-price {
+        min-width: 0;
+        display: grid;
+        gap: 3px;
+    }
+
+    .uj-kit-price del {
+        color: rgba(65, 55, 41, .40);
+        font-size: 12px;
+        font-weight: 900;
+    }
+
+    .uj-kit-price small {
+        color: #7b6740;
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+    }
+
+    .uj-price-main {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .uj-price-main strong {
+        color: var(--marrom);
+        font-size: 24px;
+        line-height: .96;
+        letter-spacing: -.045em;
+        font-weight: 950;
+    }
+
+    .uj-price-main em {
+        color: #6e5e3a;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 850;
+    }
+
+    .uj-total-line {
+        display: block;
+        color: var(--marrom);
+        font-size: 13px;
+        font-weight: 900;
+    }
+
+    .uj-kit-side {
+        display: grid;
+        justify-items: end;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .uj-save {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        min-height: 28px;
+        padding: 0 11px;
+        border-radius: 999px;
+        background: rgba(242, 200, 93, .28);
+        color: #457457 !important;
+        font-size: 11px !important;
+        line-height: 1;
+        font-weight: 1000 !important;
+        white-space: nowrap;
+    }
+
+    .uj-selected {
+        display: none;
+        min-height: 28px;
+        padding: 0 11px;
+        border-radius: 999px;
+        background: var(--marrom);
+        color: var(--bege) !important;
+        font-size: 11px !important;
+        line-height: 1;
+        font-weight: 1000 !important;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .uj-kit.is-active .uj-selected {
+        display: inline-flex;
+    }
+
+    .uj-card-add {
+        width: 140px;
+        min-height: 42px;
+        border: 1px solid rgba(65, 55, 41, .14);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--marrom);
+        font-size: 13px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .uj-card-add:hover {
+        transform: translateY(-1px);
+        border-color: rgba(242, 200, 93, .72);
+    }
+
+    .uj-kit.is-active .uj-card-add {
+        background: var(--marrom-2);
+        border-color: var(--marrom-2);
+        color: #F8F3DD;
+    }
+
+    .uj-kit.is-active .uj-card-add:hover {
+        background: #365B44;
+        border-color: #365B44;
+    }
+
+    .uj-card-add[disabled] {
+        cursor: progress;
+        opacity: .74;
+        transform: none !important;
+    }
+
+    .uj-card-add.is-success {
+        background: var(--verde) !important;
+        border-color: var(--verde) !important;
+        color: var(--bege) !important;
+    }
+
+    .uj-card-add.is-error {
+        background: #b23b3b !important;
+        border-color: #b23b3b !important;
+        color: var(--bege) !important;
+    }
+
+    .uj-offer-footer {
+        margin-top: 14px;
+        display: grid;
+        gap: 10px;
+    }
+
+    .uj-note {
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, .82);
+        border: 1px solid rgba(242, 200, 93, .38);
+        color: var(--marrom);
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 850;
+        text-align: center;
+    }
+
+    .uj-add-status {
+        margin: 2px 0 0;
+        min-height: 1.1em;
+        text-align: center;
+        color: var(--texto);
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .uj-add-status.is-error {
+        color: #b23b3b;
+    }
+
+    /* Conteúdo */
     .uj-about {
         display: grid;
-        grid-template-columns: .95fr 1.05fr;
-        gap: 36px;
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
         align-items: center;
     }
 
     .uj-about-img {
         overflow: hidden;
-        border-radius: 30px;
-        background: #fff;
-        border: 1px solid var(--linha);
-        box-shadow: var(--sombra);
+        border-radius: 24px;
+        width: 500px;
+        max-width: 100%;
+        justify-self: center;
     }
 
-    .uj-about-img img,
-    .uj-about-img video {
+    .uj-about-img img {
         width: 100%;
-        aspect-ratio: 1 / .92;
+        aspect-ratio: 1 / .9;
         object-fit: cover;
+    }
+
+    .uj-about-img video {
+        width: 500px;
+        height: 500px;
+        max-width: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 
     .uj-about-copy {
         display: grid;
-        gap: 14px;
+        gap: 12px;
     }
 
     .uj-about-line {
         padding: 18px 20px;
-        border-radius: 22px;
-        background: rgba(255, 255, 255, .62);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, .54);
         border: 1px solid var(--linha);
     }
 
     .uj-about-line h3 {
         margin-bottom: 6px;
-        font-size: 23px;
+        font-size: 22px;
         line-height: 1.08;
     }
 
@@ -316,25 +847,26 @@
         margin: 0;
         color: var(--texto);
         font-size: 15px;
-        line-height: 1.55;
+        line-height: 1.56;
     }
 
+    /* prova social */
     .uj-social {
         display: grid;
         grid-template-columns: .86fr 1.14fr;
-        gap: 34px;
-        align-items: center;
+        gap: 28px;
+        align-items: start;
     }
 
     .uj-social-copy h2 {
-        font-size: clamp(34px, 4vw, 56px);
+        font-size: clamp(26px, 3vw, 38px);
         line-height: 1;
     }
 
     .uj-social-copy p {
-        margin: 16px 0 0;
+        margin: 14px 0 0;
         color: var(--texto);
-        font-size: 16px;
+        font-size: 15px;
         line-height: 1.6;
     }
 
@@ -342,21 +874,21 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
-        margin-top: 24px;
+        margin-top: 22px;
     }
 
     .uj-stat {
         padding: 16px;
         border-radius: 20px;
-        background: #fff;
+        background: rgba(255, 255, 255, .7);
         border: 1px solid var(--linha);
     }
 
     .uj-stat strong {
         display: block;
         margin-bottom: 4px;
-        color: var(--marrom);
-        font-size: 22px;
+        color: var(--marrom-2);
+        font-size: 24px;
         letter-spacing: -.04em;
     }
 
@@ -369,321 +901,88 @@
     .uj-social-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 12px;
+        align-items: start;
     }
 
     .uj-proof-card {
         overflow: hidden;
-        border-radius: 24px;
+        border-radius: 18px;
         background: #fff;
         border: 1px solid var(--linha);
-        box-shadow: 0 12px 30px rgba(65, 55, 41, .08);
+        box-shadow: 0 12px 28px rgba(65, 55, 41, .08);
+        display: flex;
+        flex-direction: column;
     }
 
     .uj-proof-card img {
         width: 100%;
-        aspect-ratio: 1 / 1.14;
-        object-fit: cover;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        background: #f5f5f5;
     }
 
     .uj-proof-card figcaption {
-        padding: 12px 14px 14px;
+        padding: 10px 14px 12px;
         color: var(--texto);
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1.4;
+        border-top: 1px solid var(--linha);
     }
 
-    .uj-offer {
-        background:
-            radial-gradient(circle at 90% 8%, rgba(220, 155, 81, .20), transparent 28%),
-            var(--creme);
-    }
-
-    .uj-offer-grid {
-        display: grid;
-        grid-template-columns: .9fr 1.1fr;
-        gap: 34px;
-        align-items: start;
-    }
-
-    .uj-offer-copy {
-        position: sticky;
-        top: 20px;
-    }
-
-    .uj-offer-copy h2 {
-        font-size: clamp(34px, 4vw, 56px);
-        line-height: 1;
-    }
-
-    .uj-offer-copy p {
-        margin: 16px 0 0;
-        color: var(--texto);
-        font-size: 16px;
-        line-height: 1.62;
-    }
-
-    .uj-offer-mini {
-        display: grid;
-        gap: 10px;
-        margin-top: 24px;
-    }
-
-    .uj-offer-mini div {
-        padding: 14px 16px;
-        border-radius: 18px;
-        background: rgba(255, 255, 255, .62);
-        border: 1px solid var(--linha);
-        color: var(--texto);
-        font-size: 14px;
-        line-height: 1.42;
-    }
-
-    .uj-buy {
-        padding: 18px;
-        border-radius: 28px;
-        background: rgba(255, 255, 255, .72);
-        border: 1px solid var(--linha);
-        box-shadow: var(--sombra);
-    }
-
-    .uj-buy-title {
-        display: flex;
-        justify-content: space-between;
-        gap: 14px;
-        align-items: center;
-        margin-bottom: 14px;
-    }
-
-    .uj-buy-title strong {
-        font-size: 17px;
-    }
-
-    .uj-unit-label {
-        display: inline-flex;
-        align-items: center;
-        min-height: 34px;
-        padding: 0 14px;
-        border-radius: 999px;
-        background: rgba(220, 155, 81, .16);
-        border: 1px solid rgba(220, 155, 81, .35);
-        font-size: 12px;
-        font-weight: 900;
-    }
-
-    .uj-kits {
-        display: grid;
-        gap: 10px;
-    }
-
-    .uj-kit {
-        position: relative;
-        width: 100%;
-        min-height: 112px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 18px;
-        align-items: center;
-        padding: 16px 16px 16px 42px;
-        border: 1px solid rgba(65, 55, 41, .16);
-        border-radius: 18px;
-        background: rgba(255, 255, 255, .58);
-        color: var(--marrom);
-        cursor: pointer;
-        text-align: left;
-        transition: .2s ease;
-    }
-
-    .uj-kit:hover {
-        transform: translateY(-1px);
-        border-color: rgba(220, 155, 81, .72);
-    }
-
-    .uj-kit.is-active {
-        background: rgba(220, 155, 81, .15);
-        border-color: #f0b333;
-        box-shadow: inset 0 0 0 1px rgba(240, 179, 51, .38);
-    }
-
-    .uj-radio {
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        width: 17px;
-        height: 17px;
-        border-radius: 50%;
-        border: 2px solid rgba(65, 55, 41, .45);
-        transform: translateY(-50%);
-    }
-
-    .uj-kit.is-active .uj-radio {
-        border-color: var(--marrom);
-        background:
-            radial-gradient(circle, var(--marrom) 0 38%, transparent 42%),
-            #f0b333;
-    }
-
-    .uj-kit-name {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 5px;
-        font-size: 18px;
-        font-weight: 900;
-    }
-
-    .uj-most {
-        display: inline-flex;
-        align-items: center;
-        min-height: 21px;
-        padding: 0 8px;
-        border-radius: 999px;
-        background: #f0b333;
-        color: var(--marrom);
-        font-size: 10px;
-        font-weight: 1000;
-    }
-
-    .uj-kit-desc {
-        display: block;
-        color: rgba(65, 55, 41, .66);
-        font-size: 13px;
-        font-weight: 800;
-        line-height: 1.42;
-    }
-
-    .uj-kit-price {
-        min-width: 205px;
-        text-align: right;
-    }
-
-    .uj-kit-price del {
-        display: block;
-        color: var(--suave);
-        font-size: 12px;
-        font-weight: 800;
-    }
-
-    .uj-kit-price small {
-        display: block;
-        margin-top: 3px;
-        color: rgba(65, 55, 41, .68);
-        font-size: 12px;
-        font-weight: 900;
-    }
-
-    .uj-kit-price strong {
-        display: block;
-        margin-top: 3px;
-        font-size: 24px;
-        line-height: 1;
-        letter-spacing: -.04em;
-    }
-
-    .uj-kit-price span {
-        display: block;
-        margin-top: 5px;
-        color: var(--texto);
-        font-size: 12px;
-        font-weight: 900;
-    }
-
-    .uj-save {
-        display: inline-flex !important;
-        align-items: center;
-        justify-content: center;
-        min-height: 27px;
-        margin-top: 8px !important;
-        padding: 0 11px;
-        border-radius: 999px;
-        background: rgba(248, 243, 221, .95);
-        color: var(--marrom) !important;
-        font-size: 11px !important;
-        font-weight: 1000 !important;
-    }
-
-    .uj-selected {
-        display: none;
-        min-height: 27px;
-        margin-top: 8px !important;
-        padding: 0 11px;
-        border-radius: 999px;
-        background: var(--marrom);
-        color: var(--bege) !important;
-        font-size: 11px !important;
-        font-weight: 1000 !important;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .uj-kit.is-active .uj-selected {
-        display: inline-flex;
-    }
-
-    .uj-note {
-        margin-top: 10px;
-        padding: 13px 15px;
-        border-radius: 15px;
-        background: rgba(248, 243, 221, .7);
-        border: 1px solid rgba(220, 155, 81, .34);
-        color: var(--texto);
-        font-size: 13px;
-        font-weight: 800;
-        line-height: 1.45;
-        text-align: center;
-    }
-
-    .uj-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 15px;
-    }
-
-    .uj-actions .uj-cta {
-        flex: 1;
-    }
-
+    /* ciência */
     .uj-science {
         display: grid;
-        grid-template-columns: 1fr .92fr;
-        gap: 34px;
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr) 330px;
+        gap: 24px;
+        align-items: stretch;
     }
 
     .uj-science-copy {
-        padding: 34px;
-        border-radius: 30px;
-        background: var(--marrom);
-        color: var(--bege);
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 28px;
+        border-radius: 24px;
+        background: var(--bege-3);
+        color: var(--marrom);
+        border: 1px solid rgba(65, 55, 41, .10);
     }
 
     .uj-science-copy h2 {
-        color: var(--bege);
-        font-size: clamp(34px, 4vw, 54px);
-        line-height: 1;
+        max-width: 520px;
+        font-size: clamp(26px, 2.8vw, 36px);
+        line-height: 1.04;
     }
 
     .uj-science-copy p {
-        margin: 16px 0 0;
-        color: rgba(248, 243, 221, .74);
-        font-size: 16px;
+        max-width: 560px;
+        margin: 14px 0 0;
+        color: var(--texto);
+        font-size: 14px;
         line-height: 1.62;
     }
 
     .uj-laudo {
-        padding: 14px;
-        border-radius: 30px;
+        min-height: 320px;
+        padding: 22px;
+        border-radius: 24px;
         background: #fff;
         border: 1px solid var(--linha);
-        box-shadow: var(--sombra);
+        box-shadow: 0 14px 34px rgba(65, 55, 41, .08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .uj-laudo img {
-        width: 100%;
-        border-radius: 22px;
+        width: min(88%, 250px);
+        border-radius: 14px;
     }
 
+    /* benefícios */
     .uj-benefits {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -691,24 +990,24 @@
     }
 
     .uj-benefit {
-        min-height: 176px;
+        min-height: 170px;
         padding: 22px;
-        border-radius: 24px;
-        background: #fff;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, .54);
         border: 1px solid var(--linha);
     }
 
     .uj-benefit small {
         display: block;
-        margin-bottom: 24px;
-        color: var(--dourado);
+        margin-bottom: 20px;
+        color: var(--marrom-2);
         font-size: 13px;
     }
 
     .uj-benefit h3 {
         margin-bottom: 8px;
-        font-size: 22px;
-        line-height: 1.05;
+        font-size: 20px;
+        line-height: 1.12;
     }
 
     .uj-benefit p {
@@ -718,9 +1017,15 @@
         line-height: 1.52;
     }
 
+    /* FAQ + Reviews */
+    .uj-lower-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+        gap: 28px;
+        align-items: start;
+    }
+
     .uj-faq {
-        max-width: 880px;
-        margin: 0 auto;
         display: grid;
         gap: 9px;
     }
@@ -728,7 +1033,7 @@
     .uj-faq-item {
         overflow: hidden;
         border-radius: 18px;
-        background: #fff;
+        background: rgba(255, 255, 255, .72);
         border: 1px solid var(--linha);
     }
 
@@ -756,7 +1061,7 @@
         display: grid;
         place-items: center;
         border-radius: 50%;
-        background: rgba(220, 155, 81, .18);
+        background: rgba(242, 200, 93, .20);
     }
 
     .uj-faq-a {
@@ -771,80 +1076,197 @@
         display: block;
     }
 
+    .uj-reviews-box {
+        padding: 22px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, .64);
+        border: 1px solid var(--linha);
+    }
+
+    .uj-reviews-box h3 {
+        font-size: 24px;
+        line-height: 1.04;
+    }
+
+    .uj-rating-top {
+        display: flex;
+        align-items: flex-end;
+        gap: 14px;
+        margin-top: 16px;
+    }
+
+    .uj-rating-top strong {
+        font-size: 48px;
+        line-height: .9;
+        color: var(--marrom-2);
+        letter-spacing: -.05em;
+    }
+
+    .uj-rating-top span {
+        color: var(--texto);
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: 700;
+    }
+
+    .uj-stars {
+        color: var(--marrom-2);
+        font-size: 18px;
+        letter-spacing: 2px;
+        margin-top: 8px;
+    }
+
+    .uj-rating-bars {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .uj-rating-row {
+        display: grid;
+        grid-template-columns: 18px 1fr 28px;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: var(--texto);
+        font-weight: 700;
+    }
+
+    .uj-bar {
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(65, 55, 41, .10);
+        overflow: hidden;
+    }
+
+    .uj-bar>span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--marrom-2);
+    }
+
+    .uj-review-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .uj-review-card {
+        padding: 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, .76);
+        border: 1px solid rgba(65, 55, 41, .10);
+    }
+
+    .uj-review-card strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+    }
+
+    .uj-review-card span {
+        display: block;
+        color: var(--marrom-2);
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 900;
+        margin-bottom: 8px;
+    }
+
+    .uj-review-card p {
+        margin: 0;
+        color: var(--texto);
+        font-size: 13px;
+        line-height: 1.55;
+    }
+
     .uj-final {
-        padding: 62px 0;
-        background: var(--marrom);
-        color: var(--bege);
+        padding: 58px 0;
+        background: var(--marrom-2);
+        color: #F8F3DD;
         text-align: center;
     }
 
     .uj-final h2 {
         max-width: 760px;
         margin: 0 auto;
-        color: var(--bege);
-        font-size: clamp(34px, 5vw, 60px);
+        color: #F8F3DD;
+        font-size: clamp(28px, 3.2vw, 44px);
         line-height: .98;
     }
 
     .uj-final p {
         max-width: 620px;
         margin: 16px auto 0;
-        color: rgba(248, 243, 221, .72);
+        color: rgba(255, 244, 229, .78);
         font-size: 16px;
         line-height: 1.6;
     }
 
     .uj-final .uj-cta {
-        margin-top: 26px;
+        margin-top: 24px;
         background: var(--dourado);
         color: var(--marrom) !important;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1060px) {
 
         .uj-hero-grid,
+        .uj-results,
         .uj-about,
         .uj-social,
-        .uj-offer-grid,
-        .uj-science {
+        .uj-science,
+        .uj-lower-grid {
             grid-template-columns: 1fr;
         }
 
-        .uj-hero-copy {
-            order: -1;
+        .uj-shop-grid {
+            grid-template-columns: 1fr;
         }
 
-        .uj-offer-copy {
-            position: static;
+        .uj-gallery-thumbs {
+            grid-template-columns: repeat(5, 64px);
+            overflow-x: auto;
         }
 
-        .uj-benefits {
-            grid-template-columns: repeat(2, 1fr);
+        .uj-gallery-thumbs img {
+            width: 64px;
+            min-width: 64px;
         }
 
-        /* Limita largura das imagens quando o grid vira 1 coluna */
-        .uj-hero-media,
-        .uj-about-img {
-            max-width: 540px;
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
+        .uj-shop-visual {
+            min-height: 380px;
         }
 
-        .uj-laudo {
-            max-width: 460px;
-            margin-left: auto;
-            margin-right: auto;
+        .uj-kit {
+            grid-template-columns: 24px minmax(0, 1fr);
+            gap: 12px;
+        }
+
+        .uj-kit-price,
+        .uj-kit-side {
+            text-align: left;
+            justify-items: start;
+            min-width: 0;
+        }
+
+        .uj-price-main {
+            justify-content: flex-start;
+        }
+
+        .uj-shop-card {
+            padding: 20px;
         }
     }
 
     @media (max-width: 760px) {
         .uj-wrap {
-            width: min(100% - 28px, 1180px);
+            width: min(100% - 24px, 1180px);
         }
 
         .uj-header-inner {
-            min-height: 64px;
+            min-height: 56px;
             justify-content: center;
         }
 
@@ -853,17 +1275,26 @@
         }
 
         .uj-logo {
-            font-size: 27px;
+            font-size: 26px;
         }
 
         .uj-hero,
         .uj-section {
-            padding: 48px 0;
+            padding: 44px 0;
+        }
+
+        .uj-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+        }
+
+        .uj-hero-copy {
+            max-width: none;
         }
 
         .uj-hero-copy h1 {
-            font-size: 36px;
-            line-height: 1;
+            font-size: 34px;
+            line-height: 1.02;
         }
 
         .uj-hero-copy p,
@@ -871,108 +1302,100 @@
             font-size: 15px;
         }
 
-        /* Hero points e benefits colapsam; stats e social-grid mantêm colunas */
-        .uj-hero-points,
+        .uj-hero .uj-cta {
+            width: 100%;
+            min-height: 50px;
+            font-size: 16px;
+        }
+
+        .uj-hero-media {
+            padding: 0;
+        }
+
+        .uj-results-stat {
+            grid-template-columns: 58px 1fr;
+            gap: 14px;
+        }
+
+        .uj-results-stat strong {
+            font-size: 26px;
+        }
+
+        .uj-social-stats,
         .uj-benefits {
             grid-template-columns: 1fr;
         }
 
-        .uj-social-stats {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .uj-stat strong {
-            font-size: 18px;
-        }
-
-        .uj-stat span {
-            font-size: 11px;
-        }
-
-        /* Grade de prova social: mantém 2 colunas no mobile */
         .uj-social-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
         }
 
-        /* Todas as fotos da prova social com a mesma proporção fixa */
-        .uj-proof-card img {
-            width: 100%;
-            aspect-ratio: 3 / 4;
-            object-fit: cover;
-            object-position: top;
+        .uj-shop-card {
+            padding: 16px;
+            border-radius: 0 0 22px 22px;
         }
 
-        .uj-proof-card figcaption {
-            font-size: 11px;
-            padding: 8px 10px 10px;
-        }
-
-        .uj-product-frame {
-            border-radius: 24px;
-            padding: 10px;
-        }
-
-        .uj-product-frame img {
+        .uj-shop-visual {
+            min-height: 300px;
+            padding: 16px;
             border-radius: 18px;
-            aspect-ratio: 4 / 5;
         }
 
-        .uj-floating-note {
-            position: relative;
-            left: auto;
-            bottom: auto;
-            max-width: none;
-            border-radius: 0 0 18px 18px;
+        .uj-shop-summary h2 {
+            font-size: 28px;
         }
 
-        .uj-head {
-            margin-bottom: 26px;
+        .uj-kits-head {
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        .uj-head h2,
-        .uj-social-copy h2,
-        .uj-offer-copy h2,
-        .uj-science-copy h2 {
-            font-size: 30px;
-            line-height: 1.05;
-        }
-
-        .uj-about-img img,
-        .uj-about-img video {
-            aspect-ratio: 4 / 3;
+        .uj-kits-head h3 {
+            font-size: 22px;
         }
 
         .uj-kit {
-            grid-template-columns: 1fr;
-            gap: 12px;
-            padding: 16px 16px 16px 42px;
+            padding: 14px;
+            border-radius: 16px;
         }
 
-        .uj-kit-price {
-            min-width: 0;
-            text-align: left;
+        .uj-kit-name {
+            font-size: 18px;
         }
 
-        .uj-actions {
-            flex-direction: column;
+        .uj-kit-main,
+        .uj-kit-price,
+        .uj-kit-side {
+            grid-column: 2 / -1;
         }
 
-        .uj-science-copy {
-            padding: 26px;
-            border-radius: 24px;
+        .uj-price-main strong {
+            font-size: 25px;
+        }
+
+        .uj-card-add {
+            width: 100%;
+        }
+
+        .uj-about-line h3,
+        .uj-head h2,
+        .uj-social-copy h2,
+        .uj-science-copy h2 {
+            font-size: 24px;
+            line-height: 1.08;
+        }
+
+        .uj-about-img img {
+            aspect-ratio: 4 / 3;
         }
 
         .uj-laudo {
-            border-radius: 24px;
-            max-width: 380px;
-            margin-left: auto;
-            margin-right: auto;
+            min-height: 260px;
         }
 
         .uj-final {
-            padding: 54px 0;
+            padding: 52px 0;
         }
 
         .uj-final h2 {
@@ -981,273 +1404,2156 @@
     }
 </style>
 
-<section class="uj-lp" data-uj-root>
-    <div class="uj-topbar">
-        Geleia Real Pura Liofilizada · 9.000mg por frasco · 100% natural
-    </div>
+<style type="text/css">
+    /* Redução geral de carga informativa */
+    .uj-lp .uj-kit-price del,
+    .uj-lp .uj-kit-price small,
+    .uj-lp .uj-total-line,
+    .uj-lp .uj-kit-desc {
+        display: none !important;
+    }
 
-    <header class="uj-header">
-        <div class="uj-wrap uj-header-inner">
-            <a href="/" class="uj-logo" aria-label="Ultramel">Ultramel</a>
+    .uj-lp .uj-kit {
+        grid-template-columns: 24px minmax(150px, .9fr) minmax(150px, .75fr) 128px !important;
+        gap: 14px !important;
+        padding: 14px 16px !important;
+    }
 
-            <nav class="uj-nav" aria-label="Navegação da página">
-                <a href="#uj-produto">Produto</a>
-                <a href="#uj-prova">Prova social</a>
-                <a href="#uj-oferta">Kits</a>
-                <a href="#uj-10hda">10-HDA</a>
-                <a href="#uj-faq">Dúvidas</a>
-            </nav>
-        </div>
-    </header>
+    .uj-lp .uj-price-main strong {
+        font-size: 22px !important;
+    }
 
+    .uj-lp .uj-card-add {
+        width: 118px !important;
+        min-height: 38px !important;
+    }
+
+    .uj-lp .uj-note {
+        padding: 10px 12px !important;
+        font-size: 12px !important;
+    }
+
+    .uj-lp .uj-shop-badges span,
+    .uj-lp .uj-save,
+    .uj-lp .uj-selected,
+    .uj-lp .uj-most {
+        min-height: 24px !important;
+        font-size: 10px !important;
+        padding: 0 9px !important;
+    }
+
+    .uj-lp .uj-hero-list div:nth-child(n+3),
+    .uj-lp .uj-proof-card:nth-child(n+3),
+    .uj-lp .uj-review-card:nth-child(n+3) {
+        display: none !important;
+    }
+
+    @media (max-width: 1060px) {
+        .uj-lp .uj-kit {
+            grid-template-columns: 24px minmax(0, 1fr) !important;
+        }
+
+        .uj-lp .uj-kit-main,
+        .uj-lp .uj-kit-price,
+        .uj-lp .uj-kit-side {
+            grid-column: 2 / -1 !important;
+        }
+
+        .uj-lp .uj-card-add {
+            width: 100% !important;
+        }
+    }
+</style>
+
+<style type="text/css">
+    /* Separação entre o primeiro e o segundo bloco */
+    .uj-hero {
+        padding-bottom: 72px !important;
+    }
+
+    .uj-hero+.uj-section {
+        margin-top: 0 !important;
+        padding-top: 76px !important;
+        border-top: 12px solid #FFF9EC !important;
+    }
+
+    /* Segunda imagem menor */
+    .uj-results {
+        grid-template-columns: minmax(260px, .72fr) minmax(0, 1.28fr) !important;
+        gap: 42px !important;
+    }
+
+    .uj-results-media {
+        width: min(100%, 360px) !important;
+        justify-self: end !important;
+        border-width: 1px !important;
+        box-shadow: 0 14px 28px rgba(65, 55, 41, .08) !important;
+    }
+
+    .uj-results-media img {
+        aspect-ratio: 4 / 4.8 !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+
+    /* Cards de promoção mais baixos e organizados */
+    .uj-lp .uj-kit {
+        grid-template-columns: 22px minmax(145px, .9fr) minmax(140px, .72fr) 118px !important;
+        gap: 12px !important;
+        padding: 12px 14px !important;
+        border-radius: 16px !important;
+    }
+
+    .uj-lp .uj-kit-name {
+        font-size: 17px !important;
+    }
+
+    .uj-lp .uj-kit-meta {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+    }
+
+    .uj-lp .uj-price-main strong {
+        font-size: 20px !important;
+    }
+
+    .uj-lp .uj-card-add {
+        width: 108px !important;
+        min-height: 36px !important;
+        font-size: 12px !important;
+    }
+
+    .uj-lp .uj-save,
+    .uj-lp .uj-selected,
+    .uj-lp .uj-most {
+        min-height: 24px !important;
+        font-size: 10px !important;
+        padding: 0 9px !important;
+    }
+
+    /* Ajuste geral das imagens da página */
+    .uj-hero-media {
+        max-width: 720px !important;
+        justify-self: center !important;
+    }
+
+    .uj-hero-media img {
+        width: min(100%, 700px) !important;
+        max-height: 520px !important;
+        object-fit: contain !important;
+    }
+
+    .uj-shop-visual {
+        min-height: 420px !important;
+        padding: 18px !important;
+    }
+
+    .uj-shop-visual img {
+        width: min(100%, 390px) !important;
+        max-height: 370px !important;
+        object-fit: contain !important;
+    }
+
+    .uj-gallery-thumbs img {
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+
+    .uj-about-img img {
+        aspect-ratio: 16 / 11 !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+
+    .uj-about-img {
+        width: auto !important;
+        max-width: 100% !important;
+        justify-self: stretch !important;
+    }
+
+    .uj-about-img video {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 593 / 650 !important;
+    }
+
+    .uj-proof-card img {
+        aspect-ratio: 4 / 5 !important;
+        object-fit: contain !important;
+        background: #FFF9EC !important;
+    }
+
+    .uj-laudo img {
+        width: min(78%, 220px) !important;
+        max-height: 280px !important;
+        object-fit: contain !important;
+    }
+
+    @media (max-width: 1060px) {
+        .uj-results {
+            grid-template-columns: 1fr !important;
+        }
+
+        .uj-results-media {
+            justify-self: center !important;
+            width: min(100%, 340px) !important;
+        }
+
+        .uj-shop-visual {
+            min-height: 340px !important;
+        }
+
+        .uj-shop-visual img {
+            max-height: 320px !important;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .uj-hero {
+            padding-bottom: 50px !important;
+        }
+
+        .uj-hero+.uj-section {
+            padding-top: 52px !important;
+            border-top-width: 8px !important;
+        }
+
+        .uj-hero-media img {
+            max-height: 360px !important;
+        }
+
+        .uj-results-media {
+            width: min(100%, 300px) !important;
+        }
+
+        .uj-shop-visual {
+            min-height: 280px !important;
+        }
+
+        .uj-shop-visual img {
+            width: min(100%, 300px) !important;
+            max-height: 260px !important;
+        }
+
+        .uj-lp .uj-kit {
+            grid-template-columns: 22px minmax(0, 1fr) !important;
+            gap: 10px !important;
+            padding: 12px !important;
+        }
+
+        .uj-lp .uj-kit-main,
+        .uj-lp .uj-kit-price,
+        .uj-lp .uj-kit-side {
+            grid-column: 2 / -1 !important;
+        }
+
+        .uj-lp .uj-card-add {
+            width: 100% !important;
+        }
+    }
+</style>
+
+<style type="text/css">
+    /* ===== Paleta principal Ultramel =====
+       Primárias: #F2C85D e #457457
+    */
+    .uj-lp {
+        --verde: #457457 !important;
+        --dourado: #F2C85D !important;
+        --marrom-2: #457457 !important;
+        --bege-3: #F8F3DD !important;
+        --bege-2: #FFF7DE !important;
+    }
+
+    .uj-topbar,
+    .uj-header,
+    .uj-buy-bar {
+        background: #457457 !important;
+        color: #F8F3DD !important;
+    }
+
+    .uj-cta,
+    .uj-final .uj-cta,
+    .uj-kit.is-active .uj-card-add,
+    .uj-hero .uj-cta {
+        background: #457457 !important;
+        border-color: #457457 !important;
+        color: #F8F3DD !important;
+    }
+
+    .uj-cta:hover,
+    .uj-kit.is-active .uj-card-add:hover,
+    .uj-hero .uj-cta:hover {
+        background: #365B44 !important;
+        border-color: #365B44 !important;
+    }
+
+    .uj-hero-copy small::before,
+    .uj-stars,
+    .uj-most,
+    .uj-save,
+    .uj-faq-q span,
+    .uj-shop-badges span,
+    .uj-kits-mode {
+        background-color: rgba(242, 200, 93, .24) !important;
+        border-color: rgba(242, 200, 93, .52) !important;
+        color: #457457 !important;
+    }
+
+    .uj-hero-copy small::before,
+    .uj-stars {
+        background: transparent !important;
+        border: 0 !important;
+        color: #F2C85D !important;
+    }
+
+    .uj-hero-copy h1 .is-green,
+    .uj-results-stat strong,
+    .uj-stat strong,
+    .uj-rating-top strong,
+    .uj-review-card span,
+    .uj-benefit small,
+    .uj-shop-summary small,
+    .uj-hero .uj-ghost {
+        color: #457457 !important;
+    }
+
+    .uj-kit.is-active,
+    .uj-note,
+    .uj-shop-badges span,
+    .uj-kits-mode {
+        border-color: rgba(242, 200, 93, .70) !important;
+    }
+
+    .uj-kit.is-active {
+        background: rgba(242, 200, 93, .18) !important;
+        box-shadow: inset 0 0 0 1px rgba(242, 200, 93, .82) !important;
+    }
+
+    .uj-kit.is-active .uj-radio {
+        border-color: #457457 !important;
+        background: radial-gradient(circle, #413729 0 34%, transparent 38%), #F2C85D !important;
+    }
+
+    .uj-bar>span {
+        background: #457457 !important;
+    }
+
+    .uj-final {
+        background: #457457 !important;
+        color: #F8F3DD !important;
+    }
+
+    .uj-final h2 {
+        color: #F8F3DD !important;
+    }
+
+    .uj-final p {
+        color: rgba(248, 243, 221, .82) !important;
+    }
+</style>
+
+
+<style type="text/css">
+    /* ===== Carrossel PDP ===== */
+    .uj-gallery-thumbs img {
+        cursor: pointer !important;
+        opacity: .68;
+        transition: opacity .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    .uj-gallery-thumbs img:hover,
+    .uj-gallery-thumbs img.is-active {
+        opacity: 1;
+        border-color: #457457 !important;
+        box-shadow: 0 0 0 2px rgba(242, 200, 93, .82);
+    }
+
+    .uj-gallery-thumbs img.is-active {
+        transform: translateY(-1px);
+    }
+
+    .uj-shop-visual {
+        position: relative !important;
+    }
+
+    .uj-shop-visual [data-uj-main-image] {
+        transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .uj-shop-visual.is-changing [data-uj-main-image] {
+        opacity: .35;
+        transform: scale(.985);
+    }
+
+    .uj-gallery-nav {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        z-index: 3;
+        display: flex;
+        gap: 8px;
+    }
+
+    .uj-gallery-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        border: 1px solid rgba(69, 116, 87, .22);
+        background: rgba(255, 249, 236, .92);
+        color: #457457;
+        font-size: 24px;
+        line-height: 1;
+        font-weight: 900;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: .2s ease;
+    }
+
+    .uj-gallery-btn:hover {
+        background: #F2C85D;
+        border-color: #F2C85D;
+        color: #413729;
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 760px) {
+        .uj-gallery-nav {
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .uj-gallery-btn {
+            width: 34px;
+            height: 34px;
+            font-size: 21px;
+        }
+    }
+</style>
+
+
+<style type="text/css">
+    /* ===== Kits em coluna: simples, minimalista e com valor direto ===== */
+    .uj-lp .uj-kits {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .uj-lp .uj-kit {
+        display: grid !important;
+        grid-template-columns: 20px minmax(0, 1fr) auto !important;
+        grid-template-areas:
+            "radio main button"
+            "radio price button" !important;
+        align-items: center !important;
+        gap: 8px 14px !important;
+        padding: 14px 16px !important;
+        border-radius: 16px !important;
+        background: rgba(255, 255, 255, .74) !important;
+        border: 1px solid rgba(65, 55, 41, .12) !important;
+        box-shadow: none !important;
+    }
+
+    .uj-lp .uj-kit:hover {
+        transform: none !important;
+        border-color: rgba(69, 116, 87, .24) !important;
+        box-shadow: 0 8px 20px rgba(65, 55, 41, .045) !important;
+    }
+
+    .uj-lp .uj-kit.is-active {
+        background: rgba(242, 200, 93, .18) !important;
+        border-color: rgba(242, 200, 93, .90) !important;
+        box-shadow: inset 0 0 0 1px rgba(242, 200, 93, .80) !important;
+    }
+
+    .uj-lp .uj-radio {
+        grid-area: radio !important;
+        align-self: start !important;
+        margin-top: 2px !important;
+        width: 17px !important;
+        height: 17px !important;
+    }
+
+    .uj-lp .uj-kit-main {
+        grid-area: main !important;
+        display: grid !important;
+        gap: 4px !important;
+        min-width: 0 !important;
+    }
+
+    .uj-lp .uj-kit-topline {
+        gap: 8px !important;
+    }
+
+    .uj-lp .uj-kit-name {
+        font-size: 17px !important;
+        line-height: 1.05 !important;
+        font-weight: 900 !important;
+        letter-spacing: -.02em !important;
+    }
+
+    .uj-lp .uj-kit-meta {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+        color: rgba(65, 55, 41, .70) !important;
+        font-weight: 750 !important;
+    }
+
+    .uj-lp .uj-kit-price {
+        grid-area: price !important;
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 8px !important;
+        min-width: 0 !important;
+        text-align: left !important;
+    }
+
+    .uj-lp .uj-kit-price del,
+    .uj-lp .uj-kit-price small,
+    .uj-lp .uj-total-line,
+    .uj-lp .uj-kit-desc,
+    .uj-lp .uj-save,
+    .uj-lp .uj-selected {
+        display: none !important;
+    }
+
+    .uj-lp .uj-price-main {
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 4px !important;
+    }
+
+    .uj-lp .uj-price-main strong {
+        font-size: 22px !important;
+        line-height: 1 !important;
+        color: #413729 !important;
+        letter-spacing: -.035em !important;
+        font-weight: 950 !important;
+    }
+
+    .uj-lp .uj-price-main strong::before {
+        content: "Total ";
+        font-size: 11px;
+        letter-spacing: 0;
+        font-weight: 850;
+        color: rgba(65, 55, 41, .58);
+    }
+
+    .uj-lp .uj-price-main em {
+        display: none !important;
+    }
+
+    .uj-lp .uj-kit-economy {
+        display: inline-flex !important;
+        align-items: center !important;
+        color: #457457 !important;
+        font-size: 11px !important;
+        font-weight: 850 !important;
+        line-height: 1.2 !important;
+    }
+
+    .uj-lp .uj-most {
+        min-height: 22px !important;
+        padding: 0 8px !important;
+        border-radius: 999px !important;
+        background: rgba(242, 200, 93, .42) !important;
+        color: #457457 !important;
+        font-size: 9px !important;
+        font-weight: 950 !important;
+    }
+
+    .uj-lp .uj-card-add {
+        grid-area: button !important;
+        width: 104px !important;
+        min-height: 38px !important;
+        padding: 0 12px !important;
+        border-radius: 999px !important;
+        font-size: 12px !important;
+        font-weight: 900 !important;
+        background: #fff !important;
+        color: #413729 !important;
+        border: 1px solid rgba(65, 55, 41, .14) !important;
+    }
+
+    .uj-lp .uj-kit.is-active .uj-card-add {
+        background: #457457 !important;
+        color: #F8F3DD !important;
+        border-color: #457457 !important;
+    }
+
+    .uj-lp .uj-note {
+        margin-top: 2px !important;
+        padding: 10px 12px !important;
+        border-radius: 12px !important;
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+        background: rgba(255, 255, 255, .62) !important;
+        border-color: rgba(242, 200, 93, .42) !important;
+    }
+
+    @media (max-width: 760px) {
+        .uj-lp .uj-kit {
+            grid-template-columns: 20px minmax(0, 1fr) !important;
+            grid-template-areas:
+                "radio main"
+                "radio price"
+                "radio button" !important;
+            padding: 14px !important;
+        }
+
+        .uj-lp .uj-card-add {
+            width: 100% !important;
+            margin-top: 4px !important;
+        }
+
+        .uj-lp .uj-kit-price {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 4px !important;
+        }
+    }
+</style>
+
+
+<style type="text/css">
+    /* ===== PDP: hierarquia reorganizada ===== */
+    .uj-buy {
+        background: #F8F3DD !important;
+        padding: 0 0 56px !important;
+    }
+
+    .uj-buy-bar {
+        min-height: 34px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 8px 14px !important;
+        background: #457457 !important;
+        color: #F8F3DD !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        letter-spacing: .08em !important;
+    }
+
+    .uj-shop-card-clean {
+        margin: 0 auto !important;
+        padding: 30px !important;
+        border-radius: 0 0 28px 28px !important;
+        background: #FFF9EC !important;
+        border: 1px solid rgba(65, 55, 41, .10) !important;
+        border-top: 0 !important;
+        box-shadow: 0 18px 34px rgba(65, 55, 41, .055) !important;
+    }
+
+    .uj-pdp-layout {
+        display: grid !important;
+        grid-template-columns: minmax(420px, .92fr) minmax(420px, 1.08fr) !important;
+        gap: 36px !important;
+        align-items: start !important;
+    }
+
+    .uj-pdp-media {
+        display: grid !important;
+        gap: 14px !important;
+        align-content: start !important;
+    }
+
+    .uj-pdp-media .uj-shop-visual {
+        width: 100% !important;
+        min-height: 440px !important;
+        padding: 24px !important;
+        border-radius: 24px !important;
+        background: #F8F3DD !important;
+        border: 1px solid rgba(65, 55, 41, .10) !important;
+        box-shadow: none !important;
+    }
+
+    .uj-pdp-media .uj-shop-visual img {
+        width: min(100%, 410px) !important;
+        max-height: 380px !important;
+        object-fit: contain !important;
+        margin: 0 auto !important;
+    }
+
+    .uj-pdp-media .uj-gallery-thumbs {
+        display: grid !important;
+        grid-template-columns: repeat(3, 72px) !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        overflow: visible !important;
+    }
+
+    .uj-pdp-media .uj-gallery-thumbs img {
+        width: 72px !important;
+        min-width: 72px !important;
+        height: 72px !important;
+        aspect-ratio: 1 / 1 !important;
+        border-radius: 14px !important;
+        object-fit: cover !important;
+        background: #fff !important;
+        border: 1px solid rgba(65, 55, 41, .12) !important;
+        opacity: .76 !important;
+    }
+
+    .uj-pdp-media .uj-gallery-thumbs img.is-active,
+    .uj-pdp-media .uj-gallery-thumbs img:hover {
+        opacity: 1 !important;
+        border-color: #F2C85D !important;
+        box-shadow: 0 0 0 2px rgba(242, 200, 93, .80) !important;
+    }
+
+    .uj-pdp-info {
+        display: grid !important;
+        align-content: start !important;
+        gap: 0 !important;
+        min-width: 0 !important;
+        padding-top: 4px !important;
+    }
+
+    .uj-product-kicker {
+        display: block !important;
+        margin: 0 0 8px !important;
+        color: #457457 !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        font-weight: 900 !important;
+        letter-spacing: .14em !important;
+        text-transform: uppercase !important;
+    }
+
+    .uj-pdp-info h2 {
+        max-width: 520px !important;
+        margin: 0 !important;
+        font-size: clamp(30px, 3vw, 44px) !important;
+        line-height: .98 !important;
+        letter-spacing: -.045em !important;
+        color: #413729 !important;
+    }
+
+    .uj-product-desc {
+        max-width: 500px !important;
+        margin: 14px 0 0 !important;
+        color: rgba(65, 55, 41, .72) !important;
+        font-size: 14px !important;
+        line-height: 1.55 !important;
+    }
+
+    .uj-product-meta {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        margin-top: 16px !important;
+    }
+
+    .uj-product-meta span {
+        display: inline-flex !important;
+        align-items: center !important;
+        min-height: 28px !important;
+        padding: 0 10px !important;
+        border-radius: 999px !important;
+        background: rgba(242, 200, 93, .16) !important;
+        border: 1px solid rgba(242, 200, 93, .48) !important;
+        color: #457457 !important;
+        font-size: 11px !important;
+        line-height: 1 !important;
+        font-weight: 850 !important;
+    }
+
+    .uj-pdp-info .uj-kits-wrap {
+        margin-top: 30px !important;
+    }
+
+    .uj-pdp-info .uj-kits-head {
+        display: grid !important;
+        grid-template-columns: 1fr auto !important;
+        align-items: end !important;
+        gap: 14px !important;
+        margin-bottom: 14px !important;
+    }
+
+    .uj-pdp-info .uj-kits-head h3 {
+        margin: 0 !important;
+        font-size: 26px !important;
+        line-height: 1 !important;
+        color: #413729 !important;
+    }
+
+    .uj-pdp-info .uj-kits-sub {
+        margin: 7px 0 0 !important;
+        color: rgba(65, 55, 41, .68) !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
+
+    .uj-pdp-info .uj-kits-mode {
+        min-height: 34px !important;
+        padding: 0 12px !important;
+        border-radius: 999px !important;
+        background: rgba(242, 200, 93, .18) !important;
+        border: 1px solid rgba(242, 200, 93, .62) !important;
+        color: #457457 !important;
+        font-size: 11px !important;
+        font-weight: 900 !important;
+        white-space: nowrap !important;
+    }
+
+    .uj-pdp-info .uj-kits {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .uj-pdp-info .uj-kit {
+        display: grid !important;
+        grid-template-columns: 20px minmax(145px, 1fr) minmax(130px, auto) 104px !important;
+        grid-template-areas: "radio main price button" !important;
+        align-items: center !important;
+        gap: 14px !important;
+        min-height: 74px !important;
+        padding: 14px 16px !important;
+        border-radius: 16px !important;
+        background: rgba(255, 255, 255, .68) !important;
+        border: 1px solid rgba(65, 55, 41, .12) !important;
+        box-shadow: none !important;
+    }
+
+    .uj-pdp-info .uj-kit:hover {
+        transform: none !important;
+        border-color: rgba(69, 116, 87, .28) !important;
+        box-shadow: 0 8px 20px rgba(65, 55, 41, .04) !important;
+    }
+
+    .uj-pdp-info .uj-kit.is-active {
+        background: rgba(242, 200, 93, .18) !important;
+        border-color: rgba(242, 200, 93, .88) !important;
+        box-shadow: inset 0 0 0 1px rgba(242, 200, 93, .72) !important;
+    }
+
+    .uj-pdp-info .uj-radio {
+        grid-area: radio !important;
+        width: 17px !important;
+        height: 17px !important;
+        margin: 0 !important;
+        border-color: rgba(65, 55, 41, .30) !important;
+    }
+
+    .uj-pdp-info .uj-kit-main {
+        grid-area: main !important;
+        display: grid !important;
+        gap: 5px !important;
+        min-width: 0 !important;
+    }
+
+    .uj-pdp-info .uj-kit-name {
+        font-size: 18px !important;
+        line-height: 1 !important;
+        color: #413729 !important;
+    }
+
+    .uj-pdp-info .uj-kit-meta {
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+        color: rgba(65, 55, 41, .66) !important;
+        font-weight: 750 !important;
+    }
+
+    .uj-pdp-info .uj-kit-price {
+        grid-area: price !important;
+        display: grid !important;
+        justify-items: start !important;
+        gap: 4px !important;
+        min-width: 130px !important;
+        text-align: left !important;
+    }
+
+    .uj-pdp-info .uj-price-main {
+        display: block !important;
+    }
+
+    .uj-pdp-info .uj-price-main strong {
+        display: block !important;
+        font-size: 22px !important;
+        line-height: 1 !important;
+        color: #413729 !important;
+        letter-spacing: -.035em !important;
+    }
+
+    .uj-pdp-info .uj-price-main strong::before {
+        content: "Total";
+        display: block;
+        margin-bottom: 3px;
+        color: rgba(65, 55, 41, .52);
+        font-size: 10px;
+        line-height: 1;
+        font-weight: 850;
+        letter-spacing: .02em;
+        text-transform: uppercase;
+    }
+
+    .uj-pdp-info .uj-kit-economy {
+        display: block !important;
+        color: #457457 !important;
+        font-size: 11px !important;
+        line-height: 1.2 !important;
+        font-weight: 850 !important;
+        white-space: nowrap !important;
+    }
+
+    .uj-pdp-info .uj-card-add {
+        grid-area: button !important;
+        width: 104px !important;
+        min-height: 38px !important;
+        padding: 0 10px !important;
+        border-radius: 999px !important;
+        background: #fff !important;
+        border: 1px solid rgba(65, 55, 41, .14) !important;
+        color: #413729 !important;
+        font-size: 12px !important;
+        line-height: 1.05 !important;
+        font-weight: 900 !important;
+    }
+
+    .uj-pdp-info .uj-kit.is-active .uj-card-add {
+        background: #457457 !important;
+        border-color: #457457 !important;
+        color: #F8F3DD !important;
+    }
+
+    .uj-pdp-info .uj-most {
+        min-height: 21px !important;
+        padding: 0 8px !important;
+        border-radius: 999px !important;
+        background: rgba(242, 200, 93, .40) !important;
+        color: #457457 !important;
+        font-size: 9px !important;
+        font-weight: 950 !important;
+    }
+
+    .uj-pdp-info .uj-offer-footer {
+        margin-top: 12px !important;
+    }
+
+    .uj-pdp-info .uj-note {
+        padding: 10px 12px !important;
+        border-radius: 12px !important;
+        background: rgba(255, 255, 255, .54) !important;
+        border: 1px solid rgba(242, 200, 93, .44) !important;
+        color: #413729 !important;
+        font-size: 12px !important;
+        line-height: 1.35 !important;
+        font-weight: 850 !important;
+        text-align: center !important;
+    }
+
+    .uj-pdp-info .uj-kit-price del,
+    .uj-pdp-info .uj-kit-price small,
+    .uj-pdp-info .uj-total-line,
+    .uj-pdp-info .uj-kit-desc,
+    .uj-pdp-info .uj-save,
+    .uj-pdp-info .uj-selected,
+    .uj-pdp-info .uj-price-main em,
+    .uj-pdp-info .uj-shop-badges {
+        display: none !important;
+    }
+
+    @media (max-width: 1060px) {
+        .uj-pdp-layout {
+            grid-template-columns: 1fr !important;
+            gap: 28px !important;
+        }
+
+        .uj-pdp-media .uj-shop-visual {
+            min-height: 340px !important;
+        }
+
+        .uj-pdp-media .uj-shop-visual img {
+            max-height: 300px !important;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .uj-shop-card-clean {
+            padding: 18px !important;
+            border-radius: 0 0 22px 22px !important;
+        }
+
+        .uj-pdp-media .uj-shop-visual {
+            min-height: 280px !important;
+            padding: 16px !important;
+            border-radius: 18px !important;
+        }
+
+        .uj-pdp-media .uj-gallery-thumbs {
+            grid-template-columns: repeat(3, 62px) !important;
+        }
+
+        .uj-pdp-media .uj-gallery-thumbs img {
+            width: 62px !important;
+            min-width: 62px !important;
+            height: 62px !important;
+        }
+
+        .uj-pdp-info h2 {
+            font-size: 29px !important;
+        }
+
+        .uj-pdp-info .uj-kits-head {
+            grid-template-columns: 1fr !important;
+            align-items: start !important;
+        }
+
+        .uj-pdp-info .uj-kit {
+            grid-template-columns: 20px minmax(0, 1fr) !important;
+            grid-template-areas:
+                "radio main"
+                "radio price"
+                "radio button" !important;
+            gap: 8px 12px !important;
+            min-height: 0 !important;
+            padding: 14px !important;
+        }
+
+        .uj-pdp-info .uj-card-add {
+            width: 100% !important;
+            margin-top: 2px !important;
+        }
+    }
+</style>
+
+
+<style type="text/css">
+    /* ===== Revisão: separação Hero / Segundo bloco + hierarquia PDP ===== */
+
+    .uj-hero {
+        padding: 72px 0 84px !important;
+        background:
+            radial-gradient(circle at 78% 24%, rgba(242, 200, 93, .24) 0, rgba(242, 200, 93, 0) 30%),
+            #F8F3DD !important;
+        border: 0 !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    .uj-hero::after {
+        display: none !important;
+    }
+
+    .uj-hero-grid {
+        gap: 56px !important;
+    }
+
+    .uj-trust-bridge {
+        background: #457457 !important;
+        color: #F8F3DD !important;
+        padding: 0 !important;
+        position: relative !important;
+        z-index: 3 !important;
+    }
+
+    .uj-trust-bridge::before,
+    .uj-trust-bridge::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: rgba(242, 200, 93, .42);
+        pointer-events: none;
+    }
+
+    .uj-trust-bridge::before {
+        top: 0;
+    }
+
+    .uj-trust-bridge::after {
+        bottom: 0;
+    }
+
+    .uj-trust-bridge-inner {
+        min-height: 88px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: center;
+        gap: 0;
+    }
+
+    .uj-trust-bridge-inner div {
+        min-height: 54px;
+        display: grid;
+        place-items: center;
+        gap: 5px;
+        text-align: center;
+        border-right: 1px solid rgba(248, 243, 221, .18);
+    }
+
+    .uj-trust-bridge-inner div:last-child {
+        border-right: 0;
+    }
+
+    .uj-trust-bridge-inner strong {
+        color: #F2C85D;
+        font-size: clamp(24px, 2.5vw, 34px);
+        line-height: .9;
+        font-weight: 950;
+        letter-spacing: -.04em;
+    }
+
+    .uj-trust-bridge-inner span {
+        color: rgba(248, 243, 221, .82);
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+
+    .uj-hero+.uj-trust-bridge+.uj-results-section {
+        margin: 0 !important;
+        padding: 72px 0 !important;
+        border: 0 !important;
+        background: #FFF9EC !important;
+        position: relative !important;
+    }
+
+    .uj-results-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(90deg, rgba(242, 200, 93, .12) 0 1px, transparent 1px),
+            linear-gradient(180deg, rgba(242, 200, 93, .12) 0 1px, transparent 1px);
+        background-size: 42px 42px;
+        opacity: .22;
+        pointer-events: none;
+    }
+
+    .uj-results-section .uj-wrap {
+        position: relative;
+        z-index: 2;
+    }
+
+    .uj-results-section .uj-results {
+        display: grid !important;
+        grid-template-columns: minmax(280px, .82fr) minmax(0, 1.18fr) !important;
+        gap: 54px !important;
+        align-items: center !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .uj-results-section .uj-results-media {
+        width: min(100%, 380px) !important;
+        justify-self: center !important;
+        border-radius: 26px !important;
+        border: 1px solid rgba(69, 116, 87, .16) !important;
+        background: #F8F3DD !important;
+        box-shadow: 0 18px 36px rgba(65, 55, 41, .07) !important;
+    }
+
+    .uj-results-section .uj-results-media img {
+        aspect-ratio: 4 / 4.65 !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+
+    .uj-section-kicker {
+        display: block;
+        margin: 0 0 10px;
+        color: #457457;
+        font-size: 12px;
+        line-height: 1;
+        font-weight: 950;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+    }
+
+    .uj-results-section .uj-results-copy h2 {
+        max-width: 620px !important;
+        margin: 0 !important;
+        color: #413729 !important;
+        font-size: clamp(30px, 3.2vw, 46px) !important;
+        line-height: .98 !important;
+        letter-spacing: -.045em !important;
+    }
+
+    .uj-results-section .uj-results-copy p {
+        max-width: 560px !important;
+        margin: 16px 0 0 !important;
+        color: rgba(65, 55, 41, .72) !important;
+        font-size: 16px !important;
+        line-height: 1.62 !important;
+    }
+
+    .uj-results-points {
+        display: grid;
+        gap: 0;
+        max-width: 620px;
+        margin-top: 26px;
+        border-top: 1px solid rgba(69, 116, 87, .16);
+    }
+
+    .uj-results-points div {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 20px;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(69, 116, 87, .16);
+    }
+
+    .uj-results-points strong {
+        color: #457457;
+        font-size: 14px;
+        line-height: 1.25;
+        font-weight: 950;
+    }
+
+    .uj-results-points span {
+        color: rgba(65, 55, 41, .70);
+        font-size: 14px;
+        line-height: 1.45;
+        font-weight: 700;
+    }
+
+    /* PDP mais calma depois do segundo bloco */
+    .uj-buy {
+        padding-top: 0 !important;
+        background: #F8F3DD !important;
+    }
+
+    .uj-shop-card-clean,
+    .uj-shop-card {
+        box-shadow: none !important;
+        border-color: rgba(69, 116, 87, .12) !important;
+    }
+
+    .uj-pdp-layout {
+        gap: 44px !important;
+    }
+
+    .uj-pdp-media .uj-shop-visual,
+    .uj-shop-visual {
+        background: #FFF9EC !important;
+        border-color: rgba(69, 116, 87, .12) !important;
+    }
+
+    .uj-pdp-info .uj-kit,
+    .uj-kit {
+        border-color: rgba(69, 116, 87, .12) !important;
+    }
+
+    .uj-pdp-info .uj-kit.is-active,
+    .uj-kit.is-active {
+        background: rgba(242, 200, 93, .20) !important;
+        border-color: rgba(242, 200, 93, .88) !important;
+        box-shadow: none !important;
+    }
+
+    @media (max-width: 1060px) {
+        .uj-hero {
+            padding: 54px 0 64px !important;
+        }
+
+        .uj-trust-bridge-inner {
+            min-height: 78px;
+        }
+
+        .uj-results-section .uj-results {
+            grid-template-columns: 1fr !important;
+            gap: 34px !important;
+        }
+
+        .uj-results-section .uj-results-media {
+            width: min(100%, 340px) !important;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .uj-hero {
+            padding: 42px 0 52px !important;
+        }
+
+        .uj-trust-bridge-inner {
+            grid-template-columns: 1fr;
+            min-height: 0;
+            padding: 12px 0;
+        }
+
+        .uj-trust-bridge-inner div {
+            min-height: 46px;
+            border-right: 0;
+            border-bottom: 1px solid rgba(248, 243, 221, .14);
+        }
+
+        .uj-trust-bridge-inner div:last-child {
+            border-bottom: 0;
+        }
+
+        .uj-hero+.uj-trust-bridge+.uj-results-section {
+            padding: 48px 0 !important;
+        }
+
+        .uj-results-points div {
+            grid-template-columns: 1fr;
+            gap: 5px;
+            padding: 14px 0;
+        }
+    }
+</style>
+
+
+<style type="text/css">
+    /* ===== Barra de vantagens entre Hero e Segundo bloco ===== */
+    .uj-trust-bridge {
+        display: none !important;
+    }
+
+    .uj-hero {
+        padding-bottom: 72px !important;
+    }
+
+    .uj-advantage-strip {
+        position: relative !important;
+        z-index: 5 !important;
+        background: #457457 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .uj-advantage-strip-inner {
+        width: 100%;
+        max-width: 1280px !important;
+        margin: 0 auto !important;
+        min-height: 86px !important;
+        gap: 0 !important;
+        overflow: hidden !important;
+        border-radius: 22px !important;
+        background: #457457 !important;
+        box-shadow: 0 18px 36px rgba(65, 55, 41, .10) !important;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .uj-advantage-item {
+        min-width: 0 !important;
+        min-height: 86px !important;
+        display: grid !important;
+        grid-template-columns: 34px minmax(0, 1fr) !important;
+        grid-template-areas:
+            "icon title"
+            "icon desc" !important;
+        align-content: center !important;
+        gap: 4px 12px !important;
+        padding: 18px 20px !important;
+        border-right: 1px solid rgba(248, 243, 221, .16) !important;
+        text-align: left !important;
+    }
+
+    .uj-advantage-item:last-child {
+        border-right: 0 !important;
+    }
+
+    .uj-advantage-icon {
+        grid-area: icon !important;
+        width: 34px !important;
+        height: 34px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 50% !important;
+        background: #F2C85D !important;
+        color: #413729 !important;
+        font-size: 11px !important;
+        line-height: 1 !important;
+        font-weight: 950 !important;
+        letter-spacing: -.02em !important;
+    }
+
+    .uj-advantage-item strong {
+        grid-area: title !important;
+        display: block !important;
+        color: #F8F3DD !important;
+        font-size: 14px !important;
+        line-height: 1.15 !important;
+        font-weight: 900 !important;
+        letter-spacing: -.01em !important;
+        white-space: normal !important;
+    }
+
+    .uj-advantage-item small {
+        grid-area: desc !important;
+        display: block !important;
+        color: rgba(248, 243, 221, .72) !important;
+        font-size: 12px !important;
+        line-height: 1.25 !important;
+        font-weight: 700 !important;
+        letter-spacing: .01em !important;
+        text-transform: none !important;
+    }
+
+    .uj-advantage-strip+.uj-results-section {
+        margin: 0 !important;
+        padding: 76px 0 72px !important;
+        border-top: 0 !important;
+        background: #FFF9EC !important;
+        position: relative !important;
+    }
+
+    .uj-advantage-strip+.uj-results-section::before {
+        content: "" !important;
+        position: absolute !important;
+        inset: 0 !important;
+        background:
+            linear-gradient(90deg, rgba(242, 200, 93, .12) 0 1px, transparent 1px),
+            linear-gradient(180deg, rgba(242, 200, 93, .12) 0 1px, transparent 1px) !important;
+        background-size: 42px 42px !important;
+        opacity: .14 !important;
+        pointer-events: none !important;
+    }
+
+    .uj-advantage-strip+.uj-results-section .uj-wrap {
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
+    @media (max-width: 1060px) {
+        .uj-advantage-strip-inner {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            min-height: 0 !important;
+        }
+
+        .uj-advantage-item {
+            min-height: 78px !important;
+            border-right: 1px solid rgba(248, 243, 221, .16) !important;
+            border-bottom: 1px solid rgba(248, 243, 221, .16) !important;
+        }
+
+        /* coluna direita sem divisória à direita */
+        .uj-advantage-item:nth-child(2n) {
+            border-right: 0 !important;
+        }
+
+        /* item ímpar final ocupa a linha inteira */
+        .uj-advantage-item:nth-child(5) {
+            grid-column: 1 / -1 !important;
+            border-right: 0 !important;
+        }
+
+        /* última linha sem divisória inferior */
+        .uj-advantage-item:nth-child(5),
+        .uj-advantage-item:last-child {
+            border-bottom: 0 !important;
+        }
+
+        .uj-advantage-strip+.uj-results-section {
+            padding-top: 62px !important;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .uj-hero {
+            padding-bottom: 52px !important;
+        }
+
+        .uj-advantage-strip {
+            background:
+                linear-gradient(180deg, #F8F3DD 0 34px, #FFF9EC 34px 100%) !important;
+        }
+
+        .uj-advantage-strip-inner {
+            display: grid !important;
+            width: min(100% - 24px, 1180px) !important;
+            grid-template-columns: 1fr !important;
+            border-radius: 18px !important;
+        }
+
+        .uj-advantage-item {
+            grid-template-columns: 32px minmax(0, 1fr) !important;
+            min-height: 68px !important;
+            padding: 14px 16px !important;
+            border-right: 0 !important;
+            border-bottom: 1px solid rgba(248, 243, 221, .16) !important;
+        }
+
+        .uj-advantage-item:last-child {
+            border-bottom: 0 !important;
+        }
+
+        .uj-advantage-icon {
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 10px !important;
+        }
+
+        .uj-advantage-strip+.uj-results-section {
+            padding: 46px 0 48px !important;
+        }
+    }
+</style>
+
+<style type="text/css">
+    /* ===== Avaliações em carrossel automático ===== */
+    .uj-lp .uj-review-carousel {
+        position: relative;
+        margin-top: 20px;
+        overflow: hidden;
+        min-width: 0;
+    }
+
+    /* Evita que a coluna 1fr infle pelo min-content do carrossel (estourava o FAQ no mobile) */
+    @media (max-width: 1060px) {
+        .uj-lp .uj-lower-grid {
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+
+        .uj-lp .uj-lower-grid>* {
+            min-width: 0 !important;
+        }
+    }
+
+    .uj-lp .uj-review-track {
+        display: flex;
+        align-items: stretch;
+        transition: transform .55s cubic-bezier(.4, 0, .2, 1);
+        will-change: transform;
+    }
+
+    /* Cada card ocupa o carrossel inteiro e sobrescreve o nth-child que os escondia */
+    .uj-lp .uj-review-carousel .uj-review-card {
+        display: block !important;
+        flex: 0 0 100%;
+        width: 100%;
+        margin: 0;
+    }
+
+    /* ===== Galeria de prints de avaliações (clicáveis) ===== */
+    .uj-lp .uj-photo-reviews {
+        margin-top: 22px;
+    }
+
+    .uj-lp .uj-photo-reviews-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        color: #457457;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: .02em;
+    }
+
+    .uj-lp .uj-photo-reviews-head::before {
+        content: "📷";
+        font-size: 15px;
+    }
+
+    /* Card combinado: foto clicável (à direita) + texto da avaliação */
+    .uj-lp .uj-review-carousel .uj-review-card--combo {
+        display: flex !important;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .uj-lp .uj-review-photo {
+        position: relative;
+        flex: 0 0 120px;
+        width: 120px;
+        aspect-ratio: 1;
+        align-self: center;
+        padding: 0;
+        border: 1px solid rgba(65, 55, 41, .12);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+        cursor: pointer;
+        box-shadow: 0 6px 16px rgba(65, 55, 41, .06);
+        transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .uj-lp .uj-review-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        display: block;
+    }
+
+    .uj-lp .uj-review-photo::after {
+        content: "🔍";
+        position: absolute;
+        right: 6px;
+        bottom: 6px;
+        width: 24px;
+        height: 24px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: rgba(255, 249, 236, .92);
+        border: 1px solid rgba(69, 116, 87, .26);
+        font-size: 12px;
+        opacity: .92;
+        transition: .2s ease;
+    }
+
+    .uj-lp .uj-review-photo:hover,
+    .uj-lp .uj-review-photo:focus-visible {
+        border-color: rgba(242, 200, 93, .85);
+        box-shadow: 0 12px 26px rgba(65, 55, 41, .12);
+        outline: none;
+    }
+
+    .uj-lp .uj-review-photo:hover::after {
+        background: #F2C85D;
+        opacity: 1;
+    }
+
+    .uj-lp .uj-review-body {
+        min-width: 0;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    @media (max-width: 400px) {
+        .uj-lp .uj-review-photo {
+            flex-basis: 96px;
+            width: 96px;
+        }
+    }
+
+    /* ===== Lightbox ===== */
+    .uj-photo-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(47, 39, 24, .82);
+        backdrop-filter: blur(2px);
+    }
+
+    .uj-photo-lightbox.is-open {
+        display: flex;
+    }
+
+    .uj-photo-lightbox-img {
+        max-width: min(92vw, 560px);
+        max-height: 84vh;
+        width: auto;
+        height: auto;
+        border-radius: 16px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, .45);
+        background: #fff;
+    }
+
+    .uj-photo-lightbox-btn {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 0;
+        background: rgba(255, 249, 236, .94);
+        color: #413729;
+        font-size: 26px;
+        line-height: 1;
+        font-weight: 900;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: .2s ease;
+    }
+
+    .uj-photo-lightbox-btn:hover {
+        background: #F2C85D;
+        transform: rotate(90deg);
+    }
+
+    .uj-photo-lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 48px;
+        height: 48px;
+        border-radius: 999px;
+        border: 0;
+        background: rgba(255, 249, 236, .92);
+        color: #413729;
+        font-size: 28px;
+        line-height: 1;
+        font-weight: 900;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: .2s ease;
+    }
+
+    .uj-photo-lightbox-nav:hover {
+        background: #F2C85D;
+    }
+
+    .uj-photo-lightbox-nav.is-prev {
+        left: 14px;
+    }
+
+    .uj-photo-lightbox-nav.is-next {
+        right: 14px;
+    }
+
+    @media (max-width: 760px) {
+        .uj-photo-lightbox-nav {
+            width: 42px;
+            height: 42px;
+            font-size: 24px;
+        }
+    }
+
+    .uj-lp .uj-review-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 14px;
+    }
+
+    .uj-lp .uj-review-controls .uj-review-dots {
+        margin-top: 0;
+    }
+
+    .uj-lp .uj-review-arrow {
+        flex: 0 0 auto;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid rgba(69, 116, 87, .24);
+        background: rgba(255, 249, 236, .95);
+        color: #457457;
+        font-size: 22px;
+        line-height: 1;
+        font-weight: 900;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: .2s ease;
+    }
+
+    .uj-lp .uj-review-arrow:hover {
+        background: #F2C85D;
+        border-color: #F2C85D;
+        color: #413729;
+        transform: translateY(-1px);
+    }
+
+    .uj-lp .uj-review-dots {
+        display: flex;
+        justify-content: center;
+        gap: 7px;
+        margin-top: 14px;
+    }
+
+    .uj-lp .uj-review-dot {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(65, 55, 41, .22);
+        cursor: pointer;
+        transition: width .25s ease, background .25s ease;
+    }
+
+    .uj-lp .uj-review-dot.is-active {
+        width: 22px;
+        background: #457457;
+    }
+
+    /* ===== Barras de avaliação preenchidas via gradiente (robusto a sanitização) ===== */
+    .uj-lp .uj-rating-bars .uj-bar {
+        background: rgba(65, 55, 41, .10);
+    }
+
+    .uj-lp .uj-bar-94 {
+        background: linear-gradient(90deg, #457457 0 94%, rgba(65, 55, 41, .10) 94%) !important;
+    }
+
+    .uj-lp .uj-bar-4 {
+        background: linear-gradient(90deg, #457457 0 4%, rgba(65, 55, 41, .10) 4%) !important;
+    }
+
+    .uj-lp .uj-bar-1 {
+        background: linear-gradient(90deg, #457457 0 1%, rgba(65, 55, 41, .10) 1%) !important;
+    }
+
+    .uj-lp .uj-bar-0 {
+        background: rgba(65, 55, 41, .10) !important;
+    }
+</style>
+
+<style type="text/css">
+    /* ===== Avaliações em carrossel vertical: 3 visíveis por vez ===== */
+    .uj-lp .uj-review-viewport {
+        overflow: hidden;
+    }
+
+    .uj-lp .uj-review-track {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        transform: translateY(0);
+    }
+
+    .uj-lp .uj-review-carousel .uj-review-card {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+</style>
+
+
+<style type="text/css">
+    /* ===== Ajuste final: carrossel de avaliações com 3 cards visíveis ===== */
+    .uj-lp .uj-review-carousel {
+        position: relative !important;
+        margin-top: 20px !important;
+        overflow: visible !important;
+        min-width: 0 !important;
+    }
+
+    .uj-lp .uj-review-viewport {
+        width: 100% !important;
+        overflow: hidden !important;
+        min-width: 0 !important;
+        position: relative !important;
+    }
+
+    .uj-lp .uj-review-track {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+        width: 100% !important;
+        transform: translateY(0);
+        transition: transform .55s cubic-bezier(.4, 0, .2, 1) !important;
+        will-change: transform;
+    }
+
+    .uj-lp .uj-review-carousel .uj-review-card,
+    .uj-lp .uj-review-carousel .uj-review-card:nth-child(n+3) {
+        display: flex !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .uj-lp .uj-review-carousel .uj-review-card--combo {
+        display: flex !important;
+        flex-direction: row-reverse !important;
+        align-items: center !important;
+        gap: 14px !important;
+    }
+
+    .uj-lp .uj-review-controls {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        margin-top: 14px !important;
+    }
+
+    @media (max-width: 400px) {
+        .uj-lp .uj-review-carousel .uj-review-card--combo {
+            gap: 10px !important;
+        }
+    }
+</style>
+
+<section class="uj-lp" data-uj-root="">
     <main>
+
         <section class="uj-hero" id="uj-topo">
             <div class="uj-wrap uj-hero-grid">
                 <div class="uj-hero-copy">
-                    <h1>Geleia real pura para uma rotina com mais vitalidade.</h1>
+                    <small>4.9 estrelas | +103 mil clientes</small>
 
-                    <p>
-                        Um alimento raro da natureza, produzido pelas abelhas e preservado em cápsulas liofilizadas.
-                        Criado para quem busca energia, equilíbrio e bem-estar com uma composição limpa.
-                    </p>
-
-                    <div class="uj-hero-points">
-                        <div class="uj-point">
-                            <strong>100% natural</strong>
-                            <span>Exclusivamente geleia real liofilizada.</span>
-                        </div>
-
-                        <div class="uj-point">
-                            <strong>Sem aditivos</strong>
-                            <span>Sem conservantes, corantes ou excipientes.</span>
-                        </div>
-
-                        <div class="uj-point">
-                            <strong>9.000mg</strong>
-                            <span>30 cápsulas de 300mg por embalagem.</span>
-                        </div>
-                    </div>
+                    <h1>
+                        <span class="is-green">Geleia Real Pura Liofilizada,</span>
+                        <span class="is-brown">Mais logentividade e vitalidade</span>
+                    </h1>
 
                     <div class="uj-hero-actions">
-                        <a href="#uj-produto" class="uj-cta">Conhecer o produto</a>
-                        <a href="#uj-prova" class="uj-ghost">Ver relatos reais</a>
+                        <a class="uj-cta" href="#uj-oferta">Quero viver mais e melhor</a>
                     </div>
+
+                    <p>
+                        Geleia real pura, um ingrediente e mais nada. A única com laudo de pureza e pote de
+                        vidro.
+                    </p>
+
                 </div>
 
                 <div class="uj-hero-media">
-                    <div class="uj-product-frame">
-                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/34/06/cd/38837f783a0512bd20c85b0c6e.jpg"
-                            alt="Geleia Real Pura Liofilizada Ultramel" loading="eager">
+                    <img alt="Hero Geleia Real Ultramel" loading="eager"
+                        src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/imagem-hero-2.jpg" />
+                </div>
+            </div>
+        </section>
 
-                        <div class="uj-floating-note">
-                            <strong>Pureza em cápsulas</strong>
-                            <span>Geleia real liofilizada, estável e prática para o consumo diário.</span>
+        <section class="uj-advantage-strip" aria-label="Vantagens Ultramel">
+            <div class="uj-wrap uj-advantage-strip-inner">
+                <div class="uj-advantage-item">
+                    <span class="uj-advantage-icon">01</span>
+                    <strong>Geleia real pura</strong>
+                    <small>sem misturas</small>
+                </div>
+
+                <div class="uj-advantage-item">
+                    <span class="uj-advantage-icon">02</span>
+                    <strong>Sem aditivos</strong>
+                    <small>composição limpa</small>
+                </div>
+
+                <div class="uj-advantage-item">
+                    <span class="uj-advantage-icon">03</span>
+                    <strong>Não precisa geladeira</strong>
+                    <small>uso mais prático</small>
+                </div>
+
+                <div class="uj-advantage-item">
+                    <span class="uj-advantage-icon">04</span>
+                    <strong>Com laudo de pureza</strong>
+                    <small>compra segura</small>
+                </div>
+
+                <div class="uj-advantage-item">
+                    <span class="uj-advantage-icon">05</span>
+                    <strong>Pote de vidro</strong>
+                    <small>Armazenagem segura e sem contaminaçao</small>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="uj-section off uj-results-section">
+            <div class="uj-wrap uj-results">
+                <div class="uj-results-media">
+                    <img alt="Resultado e aprovação de clientes Ultramel" loading="lazy"
+                        src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/img-7416.jpg" />
+                </div>
+
+                <div class="uj-results-copy">
+                    <span class="uj-section-kicker">Por que usar</span>
+                    <h2>Uma rotina simples começa pela composição.</h2>
+                    <p>
+                        Geleia real pura liofilizada, em cápsulas, sem aditivos e sem necessidade de refrigeração.
+                    </p>
+
+                    <div class="uj-results-points">
+                        <div>
+                            <strong>Composição limpa</strong>
+                            <span>Somente geleia real liofilizada.</span>
+                        </div>
+
+                        <div>
+                            <strong>Uso prático</strong>
+                            <span>Uma cápsula ao dia ou conforme orientação profissional.</span>
+                        </div>
+
+                        <div>
+                            <strong>Boa conservação</strong>
+                            <span>Produto estável, fácil de levar para qualquer lugar.</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="uj-section white" id="uj-produto">
+        <section class="uj-buy" id="uj-oferta">
+            <div class="uj-buy-bar">GELEIA REAL PURA LIOFILIZADA · ESCOLHA SEU KIT</div>
+
+            <div class="uj-wrap">
+                <div class="uj-shop-card uj-shop-card-clean">
+                    <div class="uj-pdp-layout">
+                        <div class="uj-pdp-media">
+                            <div class="uj-shop-visual">
+                                <img alt="Produto Geleia Real Pura Liofilizada Ultramel" loading="lazy"
+                                    data-uj-main-image=""
+                                    src="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/34/06/cd/38837f783a0512bd20c85b0c6e.jpg" />
+
+                                <div class="uj-gallery-nav" aria-label="Navegar imagens do produto">
+                                    <button class="uj-gallery-btn" type="button" data-uj-gallery-prev=""
+                                        aria-label="Imagem anterior">‹</button>
+                                    <button class="uj-gallery-btn" type="button" data-uj-gallery-next=""
+                                        aria-label="Próxima imagem">›</button>
+                                </div>
+                            </div>
+
+                            <div class="uj-gallery-thumbs" aria-label="Miniaturas do produto">
+                                <img class="is-active" alt="Produto Geleia Real Ultramel" loading="lazy"
+                                    data-full="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/34/06/cd/38837f783a0512bd20c85b0c6e.jpg"
+                                    src="https://adaptive-images.uooucdn.com.br/tr:w-240,h-240,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/34/06/cd/38837f783a0512bd20c85b0c6e.jpg" />
+                                <img alt="Laudo Geleia Real Ultramel" loading="lazy"
+                                    data-full="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/e1/11/6a/6fd65bdd7d3053669bdcbc29d8.jpg"
+                                    src="https://adaptive-images.uooucdn.com.br/tr:w-240,h-240,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/e1/11/6a/6fd65bdd7d3053669bdcbc29d8.jpg" />
+                                <img alt="Relato Geleia Real Ultramel" loading="lazy"
+                                    data-full="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia.png"
+                                    src="https://adaptive-images.uooucdn.com.br/tr:w-240,h-240,c-at_max,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia.png" />
+                            </div>
+                        </div>
+
+                        <div class="uj-pdp-info">
+                            <small class="uj-product-kicker">Geleia real liofilizada</small>
+
+                            <h2>Geleia Real Pura Liofilizada 9.000mg</h2>
+
+                            <p class="uj-product-desc">Geleia real pura em cápsulas, sem aditivos e sem necessidade de
+                                refrigeração.</p>
+
+                            <div class="uj-product-meta">
+                                <span>30 cápsulas</span>
+                                <span>300mg por cápsula</span>
+                                <span>Sem aditivos</span>
+                            </div>
+
+                            <div class="uj-kits-wrap">
+                                <div class="uj-kits-head">
+                                    <div>
+                                        <h3>Escolha seu kit</h3>
+                                        <p class="uj-kits-sub">Valores totais. Selecione e adicione ao carrinho.</p>
+                                    </div>
+                                    <span class="uj-kits-mode">Total do kit</span>
+                                </div>
+
+                                <div class="uj-kits" data-uj-kits="">
+                                    <div class="uj-kit" data-capsules="30 cápsulas" data-months="1 Mês"
+                                        data-price="R$ 248,88" data-save="R$ 22,36" data-total="R$ 248,88"
+                                        data-units="1 unidade" data-kit-option="1" data-qty="1" role="button"
+                                        tabindex="0">
+                                        <span class="uj-radio" aria-hidden="true"></span>
+
+                                        <div class="uj-kit-main">
+                                            <div class="uj-kit-topline">
+                                                <span class="uj-kit-name">1 Mês</span>
+                                            </div>
+                                            <span class="uj-kit-meta">1 unidade · 30 cápsulas</span>
+                                        </div>
+
+                                        <div class="uj-kit-price">
+                                            <span class="uj-price-main"><strong>R$ 248,88</strong></span>
+                                            <span class="uj-kit-economy">Economize R$ 22,36</span>
+                                        </div>
+
+                                        <button class="uj-card-add" type="button" data-uj-card-add="">Adicionar</button>
+                                    </div>
+
+                                    <div class="uj-kit is-active" data-capsules="90 cápsulas" data-months="3 Meses"
+                                        data-price="R$ 193,88" data-save="R$ 232,08" data-total="R$ 581,64"
+                                        data-units="3 unidades" data-kit-option="3" data-qty="3" role="button"
+                                        tabindex="0">
+                                        <span class="uj-radio" aria-hidden="true"></span>
+
+                                        <div class="uj-kit-main">
+                                            <div class="uj-kit-topline">
+                                                <span class="uj-kit-name">3 Meses</span>
+                                                <span class="uj-most">Melhor escolha</span>
+                                            </div>
+                                            <span class="uj-kit-meta">3 unidades · 90 cápsulas</span>
+                                        </div>
+
+                                        <div class="uj-kit-price">
+                                            <span class="uj-price-main"><strong>R$ 581,64</strong></span>
+                                            <span class="uj-kit-economy">Economize R$ 232,08</span>
+                                        </div>
+
+                                        <button class="uj-card-add" type="button" data-uj-card-add="">Adicionar</button>
+                                    </div>
+
+                                    <div class="uj-kit" data-capsules="180 cápsulas" data-months="6 Meses"
+                                        data-price="R$ 188,88" data-save="R$ 360,00" data-total="R$ 1.133,28"
+                                        data-units="6 unidades" data-kit-option="6" data-qty="6" role="button"
+                                        tabindex="0">
+                                        <span class="uj-radio" aria-hidden="true"></span>
+
+                                        <div class="uj-kit-main">
+                                            <div class="uj-kit-topline">
+                                                <span class="uj-kit-name">6 Meses</span>
+                                            </div>
+                                            <span class="uj-kit-meta">6 unidades · 180 cápsulas</span>
+                                        </div>
+
+                                        <div class="uj-kit-price">
+                                            <span class="uj-price-main"><strong>R$ 1.133,28</strong></span>
+                                            <span class="uj-kit-economy">Economize R$ 360,00</span>
+                                        </div>
+
+                                        <button class="uj-card-add" type="button" data-uj-card-add="">Adicionar</button>
+                                    </div>
+                                </div>
+
+                                <div class="uj-offer-footer">
+                                    <div class="uj-note" data-uj-note="">Kit selecionado: <b>3 Meses</b> · <b>R$
+                                            581,64</b>.</div>
+                                    <p class="uj-add-status" data-uj-status="" role="status" aria-live="polite"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="uj-section paper" id="uj-produto">
             <div class="uj-wrap uj-about">
                 <div class="uj-about-img">
-
-                <video controls autoplay muted loop playsinline>
-                    <source src="https://cdn.uoouvideo.com.br/ik-seo/tr:w-593,h-889,fo-center,bg-FFFFFF,q-70,f-mp4/a22571-ogxytxlxut0/pv/09/48/13/234a50c8c65b30e6521db8d27a/geleia-real-pura-liofilizada-9-000mg-2.mov"
-                        type="video/mp4">
-                </video>
+                    <video autoplay="" controls="" loop="" muted="" playsinline="">
+                        <source
+                            src="https://cdn.uoouvideo.com.br/ik-seo/tr:w-593,h-889,fo-center,bg-FFFFFF,q-70,f-mp4/a22571-ogxytxlxut0/pv/09/48/13/234a50c8c65b30e6521db8d27a/geleia-real-pura-liofilizada-9-000mg-2.mov"
+                            type="video/mp4" />
+                    </video>
                 </div>
 
                 <div class="uj-about-copy">
                     <div class="uj-about-line">
                         <h3>O alimento da abelha rainha.</h3>
                         <p>
-                            A geleia real é produzida pelas abelhas e conhecida por alimentar a abelha rainha durante
-                            toda a sua vida.
-                            É uma substância naturalmente rica e complexa.
+                            A abelha operária vive até 4 semanas. Já a abelha rainha vive até 6 anos pois é a unica que
+                            consome geleia real na colmeia
                         </p>
                     </div>
 
                     <div class="uj-about-line">
                         <h3>Liofilizada para preservar.</h3>
                         <p>
-                            A Ultramel utiliza a liofilização, processo que remove a umidade em baixas temperaturas e
-                            ajuda a preservar as características naturais da matéria-prima.
+                            A Ultramel utiliza a liofilização, processo que remove a umidade em baixas
+                            temperaturas e ajuda a preservar as características naturais da matéria-prima.
+                            Processo desenvolvido pela Nasa para levar alimentos em expedições espaciais.
+
                         </p>
                     </div>
 
                     <div class="uj-about-line">
-                        <h3>Composição limpa.</h3>
+                        <h3>Composição limpa com laudo de pureza </h3>
                         <p>
-                            Cada cápsula contém exclusivamente geleia real liofilizada. Sem adição de vitaminas
-                            sintéticas, conservantes, corantes, maltodextrina ou outros aditivos.
+                            Cada cápsula contém exclusivamente geleia real liofilizada, sem adição de vitaminas
+                            sintéticas, conservantes, corantes ou outros aditivos. Laudo disponível a cada lote.
                         </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="uj-section bege" id="uj-prova">
-            <div class="uj-wrap uj-social">
-                <div class="uj-social-copy">
-                    <h2>Relatos reais de quem incluiu a geleia real na rotina.</h2>
-
-                    <p>
-                        A Geleia Real Pura Liofilizada Ultramel reúne avaliações de clientes que associam o uso contínuo
-                        à disposição, bem-estar e equilíbrio no dia a dia.
-                    </p>
-
-                    <div class="uj-social-stats">
-                        <div class="uj-stat">
-                            <strong>166</strong>
-                            <span>avaliações registradas no produto.</span>
-                        </div>
-
-                        <div class="uj-stat">
-                            <strong>5/5</strong>
-                            <span>nota média nas avaliações.</span>
-                        </div>
-
-                        <div class="uj-stat">
-                            <strong>100%</strong>
-                            <span>dos avaliadores recomendam.</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="uj-social-grid">
-                    <figure class="uj-proof-card">
-                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia.png"
-                            alt="Prova social Geleia Real Ultramel" loading="lazy">
-                        <figcaption>Relato sobre disposição e rotina.</figcaption>
-                    </figure>
-
-                    <figure class="uj-proof-card">
-                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia-1.png"
-                            alt="Prova social Geleia Real Ultramel" loading="lazy">
-                        <figcaption>Experiência real com o produto.</figcaption>
-                    </figure>
-
-                    <figure class="uj-proof-card">
-                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia-estrogenio.jpg"
-                            alt="Prova social Geleia Real Ultramel" loading="lazy">
-                        <figcaption>Relato relacionado a equilíbrio.</figcaption>
-                    </figure>
-
-                    <figure class="uj-proof-card">
-                        <img src="https://adaptive-images.uooucdn.com.br/tr:w-500,h-0,pr-true,q-80/static/images/loja_virtual/ultra-mel/prova-social-geleia-testo.png"
-                            alt="Prova social Geleia Real Ultramel" loading="lazy">
-                        <figcaption>Relato relacionado à vitalidade.</figcaption>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <section class="uj-section uj-offer" id="uj-oferta">
-            <div class="uj-wrap uj-offer-grid">
-                <div class="uj-offer-copy">
-                    <h2>Comece com 1 mês ou mantenha o uso contínuo.</h2>
-
-                    <p>
-                        Cada embalagem contém 30 cápsulas de 300mg. Para uma rotina natural, a constância é o melhor
-                        caminho.
-                    </p>
-
-                    <div class="uj-offer-mini">
-                        <div><b>1 cápsula por dia</b><br>Uso simples para inserir na rotina.</div>
-                        <div><b>Sem refrigeração</b><br>Guardar em local seco, fresco e protegido da luz.</div>
-                        <div><b>Laudo técnico</b><br>Produto com controle de qualidade e conformidade.</div>
-                    </div>
-                </div>
-
-                <div class="uj-buy">
-                    <div class="uj-buy-title">
-                        <strong>Opções disponíveis</strong>
-                        <span class="uj-unit-label">Preço por unidade</span>
-                    </div>
-
-                    <div class="uj-kits">
-                        <button type="button" class="uj-kit" data-months="3 Meses" data-units="3 unidades"
-                            data-capsules="90 cápsulas" data-price="R$ 193,88" data-total="R$ 581,64"
-                            data-save="R$ 232,08">
-                            <span class="uj-radio"></span>
-
-                            <span>
-                                <span class="uj-kit-name">
-                                    3 Meses
-                                    <span class="uj-most">MAIS VENDIDO</span>
-                                </span>
-                                <span class="uj-kit-desc">3 unidades · 90 cápsulas<br>Tratamento mais completo</span>
-                            </span>
-
-                            <span class="uj-kit-price">
-                                <del>De R$ 813,72</del>
-                                <small>Por apenas</small>
-                                <strong>R$ 193,88</strong>
-                                <small>por unidade</small>
-                                <span>Total: R$ 581,64</span>
-                                <span class="uj-save">Economize R$ 232,08</span>
-                                <span class="uj-selected">Selecionado</span>
-                            </span>
-                        </button>
-
-                        <button type="button" class="uj-kit" data-months="2 Meses" data-units="2 unidades"
-                            data-capsules="60 cápsulas" data-price="R$ 228,88" data-total="R$ 457,76"
-                            data-save="R$ 84,72">
-                            <span class="uj-radio"></span>
-
-                            <span>
-                                <span class="uj-kit-name">2 Meses</span>
-                                <span class="uj-kit-desc">2 unidades · 60 cápsulas<br>Mais constância no uso</span>
-                            </span>
-
-                            <span class="uj-kit-price">
-                                <del>De R$ 542,48</del>
-                                <small>Por apenas</small>
-                                <strong>R$ 228,88</strong>
-                                <small>por unidade</small>
-                                <span>Total: R$ 457,76</span>
-                                <span class="uj-save">Economize R$ 84,72</span>
-                                <span class="uj-selected">Selecionado</span>
-                            </span>
-                        </button>
-
-                        <button type="button" class="uj-kit is-active" data-months="1 Mês" data-units="1 unidade"
-                            data-capsules="30 cápsulas" data-price="R$ 248,88" data-total="R$ 248,88"
-                            data-save="R$ 22,36">
-                            <span class="uj-radio"></span>
-
-                            <span>
-                                <span class="uj-kit-name">1 Mês</span>
-                                <span class="uj-kit-desc">1 unidade · 30 cápsulas<br>Ideal para começar</span>
-                            </span>
-
-                            <span class="uj-kit-price">
-                                <del>De R$ 271,24</del>
-                                <small>Por apenas</small>
-                                <strong>R$ 248,88</strong>
-                                <small>por unidade</small>
-                                <span>Total: R$ 248,88</span>
-                                <span class="uj-save">Economize R$ 22,36</span>
-                                <span class="uj-selected">Selecionado</span>
-                            </span>
-                        </button>
-                    </div>
-
-                    <div class="uj-note" data-uj-note>
-                        Você selecionou <b>1 unidade</b> com <b>30 cápsulas</b>. Você paga <b>R$ 248,88</b> por unidade
-                        e economiza <b>R$ 22,36</b> no kit.
-                    </div>
-
-                    <div class="uj-actions">
-                        <a class="uj-cta" href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg">
-                            Comprar agora
-                        </a>
-                        <a class="uj-ghost" href="#uj-faq">Tirar dúvidas</a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <section class="uj-section white" id="uj-10hda">
             <div class="uj-wrap uj-science">
@@ -1260,25 +3566,24 @@
                     </p>
 
                     <p>
-                        No laudo técnico do lote, o dosamento de 10-HDA apresenta resultado de <b>5,10</b>, acima da
-                        especificação técnica mínima de <b>5,00</b>.
+                        No laudo técnico do lote, comprova que cada cápsula contém 16,5mg de <b>10-HDA</b>.
                     </p>
                 </div>
 
                 <div class="uj-laudo">
-                    <img src="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/e1/11/6a/6fd65bdd7d3053669bdcbc29d8.jpg"
-                        alt="Certificado de análise Geleia Real Ultramel" loading="lazy">
+                    <img alt="Certificado de análise Geleia Real Ultramel" loading="lazy"
+                        src="https://adaptive-images.uooucdn.com.br/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/e1/11/6a/6fd65bdd7d3053669bdcbc29d8.jpg" />
                 </div>
             </div>
         </section>
 
-        <section class="uj-section bege">
+        <section class="uj-section off">
             <div class="uj-wrap">
                 <div class="uj-head">
                     <h2>Um cuidado diário, direto e natural.</h2>
                     <p>
-                        A geleia real é tradicionalmente associada à vitalidade, disposição e equilíbrio quando usada
-                        com constância.
+                        A geleia real é tradicionalmente associada à vitalidade, disposição e equilíbrio
+                        quando usada com constância.
                     </p>
                 </div>
 
@@ -1309,103 +3614,220 @@
 
                     <article class="uj-benefit">
                         <small>05</small>
-                        <h3>Antioxidantes</h3>
-                        <p>Contém compostos naturais estudados por seu potencial antioxidante.</p>
+                        <h3>Regulação hormonal</h3>
+                        <p>Estudos investigam sua relação com o equilíbrio e a atividade hormonal.</p>
                     </article>
 
                     <article class="uj-benefit">
                         <small>06</small>
-                        <h3>Pureza</h3>
-                        <p>Composição limpa, sem misturas desnecessárias.</p>
+                        <h3>Memória</h3>
+                        <p>Pode contribuir para a manutenção das funções cognitivas e da clareza mental.</p>
+                    </article>
+
+                    <article class="uj-benefit">
+                        <small>07</small>
+                        <h3>Testosterona</h3>
+                        <p>Pesquisas avaliam sua possível influência na produção natural de testosterona.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="uj-section white" id="uj-faq">
-            <div class="uj-wrap">
-                <div class="uj-head">
-                    <h2>Dúvidas comuns sobre a Geleia Real Ultramel.</h2>
-                </div>
-
-                <div class="uj-faq">
-                    <div class="uj-faq-item is-open">
-                        <button class="uj-faq-q" type="button" aria-expanded="true">
-                            O que é a geleia real?
-                            <span>−</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            A geleia real é uma substância naturalmente produzida pelas abelhas para alimentar a abelha
-                            rainha. É considerada um dos alimentos mais complexos produzidos na natureza.
-                        </div>
+        <section class="uj-section paper" id="uj-faq">
+            <div class="uj-wrap uj-lower-grid">
+                <div>
+                    <div class="uj-head" style="text-align:left; margin:0 0 22px;">
+                        <h2>Dúvidas comuns sobre a Geleia Real Ultramel.</h2>
                     </div>
 
-                    <div class="uj-faq-item">
-                        <button class="uj-faq-q" type="button" aria-expanded="false">
-                            O que significa liofilizada?
-                            <span>+</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            A liofilização remove a umidade em baixas temperaturas, contribuindo para preservar as
-                            características naturais da geleia real.
+                    <div class="uj-faq">
+                        <div class="uj-faq-item is-open">
+                            <button aria-expanded="true" class="uj-faq-q" type="button">O que é a geleia real?
+                                <span>−</span></button>
+                            <div class="uj-faq-a">
+                                A geleia real é uma substância naturalmente produzida pelas abelhas para
+                                alimentar a abelha rainha. É considerada um dos alimentos mais complexos produzidos
+                                na natureza.
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="uj-faq-item">
-                        <button class="uj-faq-q" type="button" aria-expanded="false">
-                            Precisa ficar na geladeira?
-                            <span>+</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            Não. A geleia real Ultramel é liofilizada, o que favorece estabilidade e conservação fora da
-                            geladeira. Guarde em local seco, fresco e protegido da luz.
+                        <div class="uj-faq-item">
+                            <button aria-expanded="false" class="uj-faq-q" type="button">O que significa liofilizada?
+                                <span>+</span></button>
+                            <div class="uj-faq-a">
+                                A liofilização remove a umidade em baixas temperaturas, contribuindo para preservar
+                                as características naturais da geleia real.
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="uj-faq-item">
-                        <button class="uj-faq-q" type="button" aria-expanded="false">
-                            Como consumir?
-                            <span>+</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            Uma cápsula por dia ou conforme orientação de um profissional de saúde.
+                        <div class="uj-faq-item">
+                            <button aria-expanded="false" class="uj-faq-q" type="button">Precisa ficar na geladeira?
+                                <span>+</span></button>
+                            <div class="uj-faq-a">
+                                Não. A geleia real Ultramel é liofilizada, o que favorece estabilidade e conservação
+                                fora da geladeira. Guarde em local seco, fresco e protegido da luz.
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="uj-faq-item">
-                        <button class="uj-faq-q" type="button" aria-expanded="false">
-                            Quanto tempo dura uma embalagem?
-                            <span>+</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            Cada embalagem contém 30 cápsulas de 300mg. Considerando o uso diário de 1 cápsula, rende
-                            aproximadamente 1 mês.
+                        <div class="uj-faq-item">
+                            <button aria-expanded="false" class="uj-faq-q" type="button">Como consumir?
+                                <span>+</span></button>
+                            <div class="uj-faq-a">
+                                Uma cápsula por dia ou conforme orientação de um profissional de saúde.
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="uj-faq-item">
-                        <button class="uj-faq-q" type="button" aria-expanded="false">
-                            Possui aditivos?
-                            <span>+</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            Não. O produto é composto exclusivamente por geleia real liofilizada, sem vitaminas
-                            sintéticas, conservantes, corantes ou outros aditivos.
-                        </div>
-                    </div>
-
-                    <div class="uj-faq-item">
-                        <button class="uj-faq-q" type="button" aria-expanded="false">
-                            Quem não deve consumir?
-                            <span>+</span>
-                        </button>
-                        <div class="uj-faq-a">
-                            Pessoas alérgicas a produtos apícolas devem evitar o consumo. Gestantes, lactantes, crianças
-                            ou pessoas com condições específicas devem consultar um profissional de saúde.
+                        <div class="uj-faq-item">
+                            <button aria-expanded="false" class="uj-faq-q" type="button">Possui aditivos?
+                                <span>+</span></button>
+                            <div class="uj-faq-a">
+                                Não. O produto é composto exclusivamente por geleia real liofilizada, sem vitaminas
+                                sintéticas, conservantes, corantes ou outros aditivos.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <div>
+                    <div class="uj-reviews-box">
+                        <h3>Avaliação do cliente</h3>
+
+                        <div class="uj-rating-top">
+                            <strong>4.9</strong>
+                            <span>Média geral<br>com base nas avaliações</span>
+                        </div>
+
+                        <div class="uj-stars">★★★★★</div>
+
+                        <div class="uj-rating-bars">
+                            <div class="uj-rating-row"><span>5</span>
+                                <div class="uj-bar uj-bar-94"></div><span>94%</span>
+                            </div>
+                            <div class="uj-rating-row"><span>4</span>
+                                <div class="uj-bar uj-bar-4"></div><span>4%</span>
+                            </div>
+                            <div class="uj-rating-row"><span>3</span>
+                                <div class="uj-bar uj-bar-1"></div><span>1%</span>
+                            </div>
+                            <div class="uj-rating-row"><span>2</span>
+                                <div class="uj-bar uj-bar-1"></div><span>1%</span>
+                            </div>
+                            <div class="uj-rating-row"><span>1</span>
+                                <div class="uj-bar uj-bar-0"></div><span>0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="uj-review-carousel" data-uj-review-carousel="">
+                        <div class="uj-photo-reviews-head">Avaliações com fotos · toque na imagem para ampliar</div>
+                        <div class="uj-review-viewport">
+                            <div class="uj-review-track" data-uj-review-track="">
+                                <article class="uj-review-card uj-review-card--combo">
+                                    <button type="button" class="uj-review-photo"
+                                        data-uj-photo="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/2b6369d2-b044-46f6-8e18-92d4d4e8a82d.jpg"
+                                        aria-label="Ampliar foto da avaliação de Vanessa">
+                                        <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/2b6369d2-b044-46f6-8e18-92d4d4e8a82d.jpg"
+                                            alt="Foto da avaliação de Vanessa" loading="lazy">
+                                    </button>
+                                    <div class="uj-review-body">
+                                        <strong>Excelente produto</strong>
+                                        <span>★★★★★ · Vanessa</span>
+                                        <p>Percebi mais constância na rotina e gostei muito da composição limpa. Uso
+                                            prático e
+                                            fácil de manter.</p>
+                                    </div>
+                                </article>
+
+                                <article class="uj-review-card uj-review-card--combo">
+                                    <button type="button" class="uj-review-photo"
+                                        data-uj-photo="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/5c70986b-8c5e-4604-aee4-ba1b92842147.jpg"
+                                        aria-label="Ampliar foto da avaliação de Renata">
+                                        <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/5c70986b-8c5e-4604-aee4-ba1b92842147.jpg"
+                                            alt="Foto da avaliação de Renata" loading="lazy">
+                                    </button>
+                                    <div class="uj-review-body">
+                                        <strong>Muito satisfeita</strong>
+                                        <span>★★★★★ · Renata</span>
+                                        <p>Chegou bem embalado e a proposta do produto faz sentido para quem busca algo
+                                            simples
+                                            e natural.</p>
+                                    </div>
+                                </article>
+
+                                <article class="uj-review-card uj-review-card--combo">
+                                    <button type="button" class="uj-review-photo"
+                                        data-uj-photo="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/24eb88d5-4f61-40e3-a44a-e97e10b650ed.jpg"
+                                        aria-label="Ampliar foto da avaliação de Juliana">
+                                        <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/24eb88d5-4f61-40e3-a44a-e97e10b650ed.jpg"
+                                            alt="Foto da avaliação de Juliana" loading="lazy">
+                                    </button>
+                                    <div class="uj-review-body">
+                                        <strong>Gostei da praticidade</strong>
+                                        <span>★★★★★ · Juliana</span>
+                                        <p>O fato de não precisar refrigerar ajuda muito. A cápsula é fácil de tomar e o
+                                            kit
+                                            compensa.</p>
+                                    </div>
+                                </article>
+
+                                <article class="uj-review-card uj-review-card--combo">
+                                    <button type="button" class="uj-review-photo"
+                                        data-uj-photo="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/33112926-ec83-4627-870c-8a46d4152e7e.jpg"
+                                        aria-label="Ampliar foto da avaliação de Marcos">
+                                        <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/33112926-ec83-4627-870c-8a46d4152e7e.jpg"
+                                            alt="Foto da avaliação de Marcos" loading="lazy">
+                                    </button>
+                                    <div class="uj-review-body">
+                                        <strong>Vale muito a pena</strong>
+                                        <span>★★★★★ · Marcos</span>
+                                        <p>Senti mais disposição no dia a dia depois de algumas semanas de uso.</p>
+                                    </div>
+                                </article>
+
+                                <article class="uj-review-card uj-review-card--combo">
+                                    <button type="button" class="uj-review-photo"
+                                        data-uj-photo="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/WhatsApp%20Image%202026-06-25%20at%2013.54.40.jpeg"
+                                        aria-label="Ampliar foto da avaliação de Patrícia">
+                                        <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/WhatsApp%20Image%202026-06-25%20at%2013.54.40.jpeg"
+                                            alt="Foto da avaliação de Patrícia" loading="lazy">
+                                    </button>
+                                    <div class="uj-review-body">
+                                        <strong>Produto de confiança</strong>
+                                        <span>★★★★★ · Patrícia</span>
+                                        <p>Gosto de saber que tem laudo de pureza e pote de vidro. Passa segurança e a
+                                            entrega
+                                            foi rápida.</p>
+                                    </div>
+                                </article>
+
+                                <article class="uj-review-card uj-review-card--combo">
+                                    <button type="button" class="uj-review-photo"
+                                        data-uj-photo="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/whatsapp-image-2026-06-25-at-13.jpeg"
+                                        aria-label="Ampliar foto da avaliação de Camila">
+                                        <img src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/ultra-mel/imagens-lp/whatsapp-image-2026-06-25-at-13.jpeg"
+                                            alt="Foto da avaliação de Camila" loading="lazy">
+                                    </button>
+                                    <div class="uj-review-body">
+                                        <strong>Recomendo demais</strong>
+                                        <span>★★★★★ · Camila</span>
+                                        <p>Produto de ótima qualidade, chegou rápido e bem embalado. Já estou no segundo
+                                            pote e
+                                            super indico.</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                        <div class="uj-review-controls">
+                            <button type="button" class="uj-review-arrow is-prev" data-uj-review-prev=""
+                                aria-label="Avaliação anterior">‹</button>
+                            <div class="uj-review-dots" data-uj-review-dots=""
+                                aria-label="Navegação das avaliações"></div>
+                            <button type="button" class="uj-review-arrow is-next" data-uj-review-next=""
+                                aria-label="Próxima avaliação">›</button>
+                        </div>
+                    </div>
+                </div>
         </section>
 
         <section class="uj-final">
@@ -1414,11 +3836,20 @@
                 <p>
                     Uma escolha natural para quem valoriza pureza, vitalidade, curadoria de origem e composição limpa.
                 </p>
-                <a class="uj-cta" href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg">
-                    Comprar agora
-                </a>
+                <a class="uj-cta" href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg">Comprar
+                    agora</a>
             </div>
         </section>
+
+        <div class="uj-photo-lightbox" data-uj-lightbox="" role="dialog" aria-modal="true"
+            aria-label="Avaliação ampliada">
+            <button type="button" class="uj-photo-lightbox-btn" data-uj-lightbox-close="" aria-label="Fechar">×</button>
+            <button type="button" class="uj-photo-lightbox-nav is-prev" data-uj-lightbox-prev=""
+                aria-label="Anterior">‹</button>
+            <img class="uj-photo-lightbox-img" data-uj-lightbox-img="" src="" alt="Avaliação de cliente ampliada">
+            <button type="button" class="uj-photo-lightbox-nav is-next" data-uj-lightbox-next=""
+                aria-label="Próxima">›</button>
+        </div>
     </main>
 </section>
 
@@ -1427,27 +3858,516 @@
         var root = document.querySelector("[data-uj-root]");
         if (!root) return;
 
-        var kits = root.querySelectorAll(".uj-kit");
-        var note = root.querySelector("[data-uj-note]");
 
-        kits.forEach(function (kit) {
-            kit.addEventListener("click", function () {
-                kits.forEach(function (item) {
-                    item.classList.remove("is-active");
+        function setupPdpGallery() {
+            var mainImage = root.querySelector("[data-uj-main-image]") || root.querySelector(".uj-shop-visual img");
+            var visual = root.querySelector(".uj-shop-visual");
+            var thumbs = Array.prototype.slice.call(root.querySelectorAll(".uj-gallery-thumbs img"));
+            var prevButton = root.querySelector("[data-uj-gallery-prev]");
+            var nextButton = root.querySelector("[data-uj-gallery-next]");
+            var activeIndex = 0;
+
+            if (!mainImage || !thumbs.length) return;
+
+            function getFullImage(thumb) {
+                return thumb.getAttribute("data-full") || thumb.getAttribute("src") || "";
+            }
+
+            function setActiveImage(index) {
+                if (!thumbs.length) return;
+
+                if (index < 0) index = thumbs.length - 1;
+                if (index >= thumbs.length) index = 0;
+
+                var thumb = thumbs[index];
+                var nextSrc = getFullImage(thumb);
+
+                if (!nextSrc) return;
+
+                activeIndex = index;
+
+                thumbs.forEach(function (item, itemIndex) {
+                    item.classList.toggle("is-active", itemIndex === activeIndex);
+                    item.setAttribute("aria-selected", itemIndex === activeIndex ? "true" : "false");
                 });
 
-                kit.classList.add("is-active");
+                if (visual) visual.classList.add("is-changing");
 
-                var units = kit.getAttribute("data-units");
-                var capsules = kit.getAttribute("data-capsules");
-                var price = kit.getAttribute("data-price");
-                var save = kit.getAttribute("data-save");
+                window.setTimeout(function () {
+                    mainImage.src = nextSrc;
+                    mainImage.alt = thumb.getAttribute("alt") || "Imagem do produto";
+                    if (visual) visual.classList.remove("is-changing");
+                }, 120);
+            }
 
-                if (note) {
-                    note.innerHTML =
-                        "Você selecionou <b>" + units + "</b> com <b>" + capsules + "</b>. Você paga <b>" +
-                        price + "</b> por unidade e economiza <b>" + save + "</b> no kit.";
+            thumbs.forEach(function (thumb, index) {
+                thumb.setAttribute("role", "button");
+                thumb.setAttribute("tabindex", "0");
+                thumb.setAttribute("aria-selected", "false");
+
+                thumb.addEventListener("click", function () {
+                    setActiveImage(index);
+                });
+
+                thumb.addEventListener("keydown", function (event) {
+                    if (event.key !== "Enter" && event.key !== " ") return;
+                    event.preventDefault();
+                    setActiveImage(index);
+                });
+            });
+
+            if (prevButton) {
+                prevButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    setActiveImage(activeIndex - 1);
+                });
+            }
+
+            if (nextButton) {
+                nextButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    setActiveImage(activeIndex + 1);
+                });
+            }
+
+            setActiveImage(0);
+        }
+
+        setupPdpGallery();
+
+        function setupReviewCarousel() {
+            var carousel = root.querySelector("[data-uj-review-carousel]");
+            if (!carousel) return;
+
+            var viewport = carousel.querySelector(".uj-review-viewport");
+            var track = carousel.querySelector("[data-uj-review-track]");
+            var cards = track ? Array.prototype.slice.call(track.querySelectorAll(".uj-review-card")) : [];
+            var dotsWrap = carousel.querySelector("[data-uj-review-dots]");
+            var prevArrow = carousel.querySelector("[data-uj-review-prev]");
+            var nextArrow = carousel.querySelector("[data-uj-review-next]");
+
+            if (!viewport || !track || !cards.length) return;
+
+            var index = 0;
+            var timer = null;
+            var VISIBLE = 3;
+            var INTERVAL = 4500;
+            var maxIndex = Math.max(0, Math.ceil(cards.length / VISIBLE) - 1);
+
+            function getGap() {
+                var styles = window.getComputedStyle(track);
+                return parseFloat(styles.rowGap || styles.gap || 0) || 0;
+            }
+
+            function updateViewportHeight() {
+                var gap = getGap();
+                var height = 0;
+                var visibleCards = cards.slice(0, Math.min(VISIBLE, cards.length));
+
+                visibleCards.forEach(function (card, i) {
+                    height += card.offsetHeight;
+                    if (i < visibleCards.length - 1) height += gap;
+                });
+
+                viewport.style.height = height + "px";
+            }
+
+            function getPageOffset(pageIndex) {
+                var gap = getGap();
+                var start = pageIndex * VISIBLE;
+                var offset = 0;
+
+                for (var i = 0; i < start; i++) {
+                    offset += cards[i].offsetHeight;
+                    if (i < cards.length - 1) offset += gap;
                 }
+
+                return offset;
+            }
+
+            function buildDots() {
+                if (!dotsWrap) return [];
+
+                dotsWrap.innerHTML = "";
+
+                var totalDots = maxIndex + 1;
+                var dots = [];
+
+                for (var i = 0; i < totalDots; i++) {
+                    var dot = document.createElement("button");
+                    dot.type = "button";
+                    dot.className = "uj-review-dot";
+                    dot.setAttribute("aria-label", "Grupo de avaliações " + (i + 1));
+
+                    (function (pageIndex) {
+                        dot.addEventListener("click", function () {
+                            goTo(pageIndex);
+                            start();
+                        });
+                    })(i);
+
+                    dotsWrap.appendChild(dot);
+                    dots.push(dot);
+                }
+
+                return dots;
+            }
+
+            var dots = buildDots();
+
+            function goTo(next) {
+                if (maxIndex <= 0) {
+                    index = 0;
+                } else if (next < 0) {
+                    index = maxIndex;
+                } else if (next > maxIndex) {
+                    index = 0;
+                } else {
+                    index = next;
+                }
+
+                updateViewportHeight();
+
+                track.style.transform = "translateY(-" + getPageOffset(index) + "px)";
+
+                dots.forEach(function (dot, i) {
+                    dot.classList.toggle("is-active", i === index);
+                });
+            }
+
+            function start() {
+                stop();
+
+                if (maxIndex <= 0) return;
+
+                timer = window.setInterval(function () {
+                    goTo(index + 1);
+                }, INTERVAL);
+            }
+
+            function stop() {
+                if (timer) {
+                    window.clearInterval(timer);
+                    timer = null;
+                }
+            }
+
+            if (prevArrow) {
+                prevArrow.addEventListener("click", function () {
+                    goTo(index - 1);
+                    start();
+                });
+            }
+
+            if (nextArrow) {
+                nextArrow.addEventListener("click", function () {
+                    goTo(index + 1);
+                    start();
+                });
+            }
+
+            carousel.addEventListener("mouseenter", stop);
+            carousel.addEventListener("mouseleave", start);
+
+            window.addEventListener("resize", function () {
+                goTo(index);
+            });
+
+            window.addEventListener("load", function () {
+                goTo(index);
+            });
+
+            goTo(0);
+            start();
+        }
+
+        setupReviewCarousel();
+
+        function setupPhotoReviews() {
+            var lightbox = root.querySelector("[data-uj-lightbox]");
+            var thumbs = Array.prototype.slice.call(root.querySelectorAll("[data-uj-photo]"));
+            if (!lightbox || !thumbs.length) return;
+
+            var lightboxImg = lightbox.querySelector("[data-uj-lightbox-img]");
+            var closeBtn = lightbox.querySelector("[data-uj-lightbox-close]");
+            var prevBtn = lightbox.querySelector("[data-uj-lightbox-prev]");
+            var nextBtn = lightbox.querySelector("[data-uj-lightbox-next]");
+            var sources = thumbs.map(function (thumb) {
+                return thumb.getAttribute("data-uj-photo");
+            });
+            var current = 0;
+
+            function show(index) {
+                current = (index + sources.length) % sources.length;
+                if (lightboxImg) lightboxImg.setAttribute("src", sources[current]);
+            }
+
+            function open(index) {
+                show(index);
+                lightbox.classList.add("is-open");
+                document.body.style.overflow = "hidden";
+            }
+
+            function close() {
+                lightbox.classList.remove("is-open");
+                document.body.style.overflow = "";
+            }
+
+            thumbs.forEach(function (thumb, i) {
+                thumb.addEventListener("click", function () {
+                    open(i);
+                });
+            });
+
+            if (closeBtn) closeBtn.addEventListener("click", close);
+            if (prevBtn) prevBtn.addEventListener("click", function () {
+                show(current - 1);
+            });
+            if (nextBtn) nextBtn.addEventListener("click", function () {
+                show(current + 1);
+            });
+
+            lightbox.addEventListener("click", function (event) {
+                if (event.target === lightbox) close();
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (!lightbox.classList.contains("is-open")) return;
+                if (event.key === "Escape") close();
+                else if (event.key === "ArrowLeft") show(current - 1);
+                else if (event.key === "ArrowRight") show(current + 1);
+            });
+        }
+
+        setupPhotoReviews();
+
+        var kitsArea = root.querySelector("[data-uj-kits]") || root.querySelector(".uj-kits");
+        var kits = kitsArea ? Array.prototype.slice.call(kitsArea.querySelectorAll(".uj-kit")) : [];
+        var cardAddButtons = kitsArea ? Array.prototype.slice.call(kitsArea.querySelectorAll("[data-uj-card-add]")) : [];
+        var note = root.querySelector("[data-uj-note]");
+        var addStatus = root.querySelector("[data-uj-status]");
+        var submitting = false;
+        var currentKit = kits.filter(function (kit) {
+            return kit.classList.contains("is-active");
+        })[0] || kits[0] || null;
+
+        function getKitData(kit) {
+            if (!kit) {
+                return {
+                    units: "",
+                    capsules: "",
+                    price: "",
+                    save: "",
+                    total: "",
+                    option: "1",
+                    qty: "1"
+                };
+            }
+
+            return {
+                units: kit.getAttribute("data-units") || "",
+                capsules: kit.getAttribute("data-capsules") || "",
+                price: kit.getAttribute("data-price") || "",
+                save: kit.getAttribute("data-save") || "",
+                total: kit.getAttribute("data-total") || "",
+                option: kit.getAttribute("data-kit-option") || "1",
+                qty: kit.getAttribute("data-qty") || "1"
+            };
+        }
+
+        function updateNote(kit) {
+            if (!note || !kit) return;
+
+            var data = getKitData(kit);
+
+            // Lê o nome e o preço diretamente do card visível para garantir
+            // que a nota sempre bata com o que está exibido no HTML, mesmo que
+            // os atributos data-* estejam dessincronizados.
+            var nameEl = kit.querySelector(".uj-kit-name");
+            var priceEl = kit.querySelector(".uj-price-main strong");
+
+            var name = nameEl ? nameEl.textContent.trim() : (kit.getAttribute("data-months") || data.units);
+            var price = priceEl ? priceEl.textContent.trim() : data.total;
+
+            note.innerHTML = "Kit selecionado: <b>" + name + "</b> · <b>" + price + "</b>.";
+        }
+
+        function updateCardButtons() {
+            if (submitting) return;
+
+            cardAddButtons.forEach(function (button) {
+                button.disabled = false;
+                button.classList.remove("is-error", "is-success");
+                button.textContent = "Adicionar";
+            });
+        }
+
+        function setActiveKit(kit) {
+            if (!kit) return;
+
+            kits.forEach(function (item) {
+                item.classList.remove("is-active");
+                item.setAttribute("aria-pressed", "false");
+            });
+
+            kit.classList.add("is-active");
+            kit.setAttribute("aria-pressed", "true");
+            currentKit = kit;
+
+            updateNote(kit);
+            updateCardButtons();
+        }
+
+        kits.forEach(function (kit) {
+            kit.setAttribute("aria-pressed", kit.classList.contains("is-active") ? "true" : "false");
+
+            kit.addEventListener("click", function (event) {
+                if (event.target.closest("[data-uj-card-add]")) return;
+                setActiveKit(kit);
+            });
+
+            kit.addEventListener("keydown", function (event) {
+                if (event.key !== "Enter" && event.key !== " ") return;
+                if (event.target.closest("[data-uj-card-add]")) return;
+
+                event.preventDefault();
+                setActiveKit(kit);
+            });
+        });
+
+        setActiveKit(currentKit);
+
+        /* ===== Adicionar ao carrinho =====
+           O kit é enviado pelo campo etc-kit-option.
+           A quantidade enviada em sylius_cart_item[quantity] acompanha o card selecionado.
+           etc-kit-option e quantidade sempre recebem o mesmo valor (nº de unidades).
+           Mapeamento atual:
+           Card 1 (1 Mês)  = etc-kit-option 1 / quantidade 1
+           Card 2 (3 Meses) = etc-kit-option 3 / quantidade 3
+           Card 3 (6 Meses) = etc-kit-option 6 / quantidade 6
+        */
+        var CART = {
+            store: "https://www.ultramel.com.br",
+            productId: "OFZqTXptRHprUT09",
+            redirectTo: "/cart",
+            postalCode: "88400-000",
+            openInNewTab: false
+        };
+
+        function resetAddState() {
+            submitting = false;
+
+            cardAddButtons.forEach(function (button) {
+                button.disabled = false;
+                button.classList.remove("is-error", "is-success");
+                button.textContent = "Adicionar";
+            });
+
+            if (addStatus) {
+                addStatus.classList.remove("is-error");
+                addStatus.textContent = "";
+            }
+        }
+
+        window.addEventListener("pageshow", function () {
+            resetAddState();
+        });
+
+        function submitToStore(kit) {
+            if (!kit) throw new Error("Nenhum kit selecionado.");
+
+            var data = getKitData(kit);
+            var form = document.createElement("form");
+
+            form.method = "POST";
+            form.acceptCharset = "UTF-8";
+            form.action = CART.store + "/cart/add?id=" + encodeURIComponent(CART.productId) +
+                "&_redirect_to=" + encodeURIComponent(CART.redirectTo);
+            form.style.display = "none";
+
+            if (CART.openInNewTab) form.target = "_blank";
+
+            var fields = {
+                "etc-kit-option": data.option,
+                "sylius_cart_item[quantity]": data.qty,
+                "postalCode": CART.postalCode
+            };
+
+            Object.keys(fields).forEach(function (name) {
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = name;
+                input.value = fields[name];
+                form.appendChild(input);
+            });
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function addKitToCart(kit, triggerButton) {
+            if (!kit || submitting) return;
+
+            setActiveKit(kit);
+            submitting = true;
+
+            cardAddButtons.forEach(function (button) {
+                button.disabled = true;
+                button.classList.remove("is-error", "is-success");
+            });
+
+            if (triggerButton) {
+                triggerButton.textContent = "Adicionando...";
+            }
+
+            if (addStatus) {
+                addStatus.classList.remove("is-error");
+                addStatus.textContent = "Levando você ao carrinho da loja…";
+            }
+
+            try {
+                submitToStore(kit);
+
+                if (CART.openInNewTab) {
+                    if (triggerButton) {
+                        triggerButton.classList.add("is-success");
+                        triggerButton.textContent = "Adicionado";
+                    }
+
+                    if (addStatus) addStatus.textContent = "Carrinho aberto em uma nova aba.";
+
+                    setTimeout(function () {
+                        resetAddState();
+                    }, 2500);
+                }
+            } catch (err) {
+                submitting = false;
+
+                cardAddButtons.forEach(function (button) {
+                    button.disabled = false;
+                });
+
+                if (triggerButton) {
+                    triggerButton.classList.add("is-error");
+                    triggerButton.textContent = "Tentar de novo";
+                }
+
+                if (addStatus) {
+                    addStatus.classList.add("is-error");
+                    addStatus.textContent = "Não foi possível abrir o carrinho. Tente de novo.";
+                }
+
+                console.error("[uj-cart]", err);
+            }
+        }
+
+        cardAddButtons.forEach(function (button) {
+            var kit = button.closest(".uj-kit");
+
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                addKitToCart(kit, button);
             });
         });
 

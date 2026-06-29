@@ -14,7 +14,6 @@
         font-family: Roboto, sans-serif;
         box-sizing: border-box;
         margin: 40px auto;
-
     }
 
     #bb-reviews-simple * {
@@ -106,7 +105,7 @@
 
     #bb-reviews-simple .bb-card {
         flex: 0 0 calc((100% - 32px) / 3);
-        min-height: 190px;
+        min-height: 210px;
         padding: 18px 16px;
         background: var(--bb-white);
         border: 1px solid var(--bb-border);
@@ -152,6 +151,13 @@
         color: var(--bb-green-dark);
         font-size: 12px;
         font-weight: 700;
+    }
+
+    #bb-reviews-simple .bb-date {
+        display: block;
+        margin-top: 2px;
+        color: var(--bb-muted);
+        font-size: 11px;
     }
 
     #bb-reviews-simple .bb-actions {
@@ -201,6 +207,10 @@
             background: var(--bb-bg) !important;
         }
 
+        #bb-reviews-simple .bb-wrap {
+            margin: 24px auto !important;
+        }
+
         #bb-reviews-simple .bb-top {
             display: block !important;
             margin-bottom: 14px !important;
@@ -240,7 +250,7 @@
 
         #bb-reviews-simple .bb-card {
             flex-basis: 82% !important;
-            min-height: 170px !important;
+            min-height: 190px !important;
             padding: 14px !important;
             border-radius: 8px !important;
         }
@@ -271,6 +281,10 @@
             font-size: 11.5px !important;
         }
 
+        #bb-reviews-simple .bb-date {
+            font-size: 10.5px !important;
+        }
+
         #bb-reviews-simple .bb-actions {
             margin-top: 12px !important;
         }
@@ -285,172 +299,373 @@
 
 <script>
     $(document).ready(function () {
-        const selector = document.querySelector("#descricao-produto");
+        const bbReviews = [
+            {
+                title: "Marca preferida",
+                text: "Conheci a Bugbee há cerca de 2 anos e já virou a nossa marca preferida. As peças são lindas, de qualidade impecável e confortáveis.",
+                author: "Flávia Simões Guimarães Defante",
+                location: "Divino - MG",
+                date: "10/06/2026"
+            },
+            {
+                title: "Comprarei novamente",
+                text: "Amei todas as peças que comprei da Bugbee. São roupas lindas, acabamento impecável e qualidade excelente.",
+                author: "Amanda Ribeiro",
+                location: "São Miguel do Guamá - PA",
+                date: "13/05/2026"
+            },
+            {
+                title: "Qualidade impressionante",
+                text: "Entrega rápida, bem embalada e cheia de carinho. A qualidade da marca é impressionante.",
+                author: "Isabelle Medeiros B Torres",
+                location: "São Paulo - SP",
+                date: "20/04/2026"
+            },
+            {
+                title: "Cliente há anos",
+                text: "Sou cliente há anos e os produtos são ótimos, materiais inquestionáveis, de excelente qualidade.",
+                author: "Camila Sarmento Duarte",
+                location: "Vila Velha - ES",
+                date: "31/05/2026"
+            },
+            {
+                title: "Apaixonada por tudo",
+                text: "As peças são perfeitas, vieram super embaladas com todo cuidado. Chegou super rápido. Apaixonada por tudo.",
+                author: "Monalise Gomes",
+                location: "Miguel Calmon - BA",
+                date: "29/05/2025"
+            },
+            {
+                title: "Excelente qualidade",
+                text: "Entrega dentro do prazo, atualizações constantes do pedido, embalagem cuidadosa e peças de excelente qualidade.",
+                author: "BRUNA GUIMARAES MOREIRA FIGUEIREDO",
+                location: "São Paulo - SP",
+                date: "11/11/2025"
+            },
+            {
+                title: "Peças lindas e duráveis",
+                text: "Amei a experiência de compra online. O envio foi bem rápido, boa embalagem e a qualidade das peças é excelente.",
+                author: "Maria Beatriz de Araujo Melo",
+                location: "Garanhuns - PE",
+                date: "17/04/2026"
+            },
+            {
+                title: "Envio super rápido",
+                text: "O site é muito fácil de navegar, os preços são ótimos e sempre tem desconto. O envio é super rápido.",
+                author: "Flávia Simões Guimarães Defante",
+                location: "Divino - MG",
+                date: "21/06/2026"
+            },
+            {
+                title: "Atendimento excelente",
+                text: "O pedido chegou no prazo. A equipe de vendas é ótima, muito solícita e fui muito bem atendida.",
+                author: "Tatiana Azevedo",
+                location: "Rio de Janeiro - RJ",
+                date: "28/04/2026"
+            },
+            {
+                title: "Chegou antes do prazo",
+                text: "As compras chegaram bem antes da data combinada. Vieram bem arrumadinhas, com carinho. Amei o brinde.",
+                author: "Giceli Neiva Machado",
+                location: "Petrópolis - RJ",
+                date: "11/06/2026"
+            },
+            {
+                title: "Apaixonada pela marca",
+                text: "Conheci a marca em uma loja multimarcas e fiquei apaixonada pela qualidade do tecido e pelas estampas.",
+                author: "Fernanda Ayumi Kawakami Bacchin",
+                location: "São Paulo - SP",
+                date: "23/04/2026"
+            },
+            {
+                title: "Muito bem embalado",
+                text: "Amei as peças. Recebi tudo certinho, tudo muito bem embalado e ainda ganhei brinde.",
+                author: "Joice Kátia de Medeiros Souza",
+                location: "Cerro Corá - RN",
+                date: "25/04/2026"
+            },
+            {
+                title: "Produtos excelentes",
+                text: "Ótimo trabalho. Chegou muito rápido, embalagem perfeita e produtos excelentes. Somente gratidão.",
+                author: "Lara Cristinne Nunes Vera",
+                location: "Vespasiano - MG",
+                date: "28/04/2026"
+            },
+            {
+                title: "Cuidado e capricho",
+                text: "Amei a experiência com a marca. Muito cuidado e capricho na embalagem, um encanto. As peças são lindas.",
+                author: "poliana franca lopes",
+                location: "Belo Campo - BA",
+                date: "29/04/2025"
+            },
+            {
+                title: "Feitas para criança",
+                text: "Adoro as roupas. São lindas, estilosas, os tecidos de ótima qualidade, não desbotam nem encolhem.",
+                author: "Letícia Oliveira Reis de Souza",
+                location: "Salvador - BA",
+                date: "18/03/2025"
+            },
+            {
+                title: "Entrega rápida",
+                text: "Maravilhosa! Fácil de comprar, entrega rápida, materiais de muito bom gosto e qualidade.",
+                author: "Ana Carolina Ribeiro Sandroni dos Santos",
+                location: "Guaxupé - MG",
+                date: "27/03/2026"
+            },
+            {
+                title: "Adoramos a marca",
+                text: "Muito fácil de comprar, entrega super rápida. Adoramos as roupas da marca.",
+                author: "Daiana Senger",
+                location: "Blumenau - SC",
+                date: "21/03/2026"
+            },
+            {
+                title: "Super recomendo",
+                text: "As peças são super bonitas, confortáveis e vestem bem. A compra chegou bem antes do prazo estimado.",
+                author: "Andreia Santana",
+                location: "Manaus - AM",
+                date: "05/03/2026"
+            },
+            {
+                title: "Site ótimo",
+                text: "Adoro comprar de vocês. O site é ótimo, a entrega é rápida e a qualidade é excelente.",
+                author: "Carolina Lima Agra dos Santos",
+                location: "Garanhuns - PE",
+                date: "11/04/2026"
+            },
+            {
+                title: "Super macio",
+                text: "Estampa linda, qualidade maravilhosa, 100% algodão, super macio e chegou bem rápido.",
+                author: "Jacqueline Sanossian",
+                location: "São Paulo - SP",
+                date: "14/06/2025"
+            },
+            {
+                title: "Toque de amor",
+                text: "Me surpreendi com cada peça, cada detalhe um verdadeiro toque de amor. Minha primeira compra de muitas.",
+                author: "Magna Muniz",
+                location: "Aracaju - SE",
+                date: "17/07/2025"
+            },
+            {
+                title: "Encantada",
+                text: "Foi a minha primeira compra pelo site e estou encantada com as peças e a agilidade na entrega.",
+                author: "Elenice Teixeira costa de Oliveira",
+                location: "Mucuri - BA",
+                date: "13/06/2025"
+            },
+            {
+                title: "Vestindo crianças como crianças",
+                text: "Ótimo como sempre. Qualidade e o mais importante para mim: vestindo crianças como crianças.",
+                author: "Jordânia Cortes de Souza",
+                location: "Volta Redonda - RJ",
+                date: "24/04/2026"
+            },
+            {
+                title: "Minha filha amou",
+                text: "Vestido extremamente lindo, minha filha amou. Comprem, não vão se arrepender.",
+                author: "Cintia Ribeiro da Silva",
+                location: "Hortolândia - SP",
+                date: "01/05/2026"
+            },
+            {
+                title: "Nunca mais parei",
+                text: "Conheci a Bugbee pelo Instagram. Comprei uma vez e nunca mais parei. As peças são lindas e a entrega é rápida.",
+                author: "Ana Paula maia",
+                location: "Sumaré - SP",
+                date: "19/03/2026"
+            },
+            {
+                title: "Respeito pelo cliente",
+                text: "Nunca nenhuma loja infantil me deixou tão apaixonada pela dinâmica e respeito pelo cliente como vocês.",
+                author: "Raquel Fraga",
+                location: "Vitória - ES",
+                date: "06/12/2025"
+            },
+            {
+                title: "Conforto e alegria",
+                text: "A BugBee traduz conforto, abraço, alegria e diversão em suas peças.",
+                author: "Camila Maia Yamashita",
+                location: "Itajaí - SC",
+                date: "21/05/2026"
+            },
+            {
+                title: "Compra organizada",
+                text: "Loja muito organizada, pensa em todos os detalhes da compra à entrega. Super recomendo.",
+                author: "Maira Camilo",
+                location: "Descalvado - SP",
+                date: "17/03/2026"
+            },
+            {
+                title: "Excelência",
+                text: "Excelência na qualidade, atendimento e logística de entrega.",
+                author: "WANDERLEIA TURCO BARBOSA MONTEIRO",
+                location: "Itabira - MG",
+                date: "14/06/2026"
+            },
+            {
+                title: "Alta qualidade",
+                text: "Produtos de alta qualidade, preço justo na promoção, pontualidade e entrega excelente.",
+                author: "Thais Campos Cerqueira",
+                location: "Feira de Santana - BA",
+                date: "23/11/2025"
+            }
+        ];
 
-        if (!selector) return;
-
-        $("#bb-reviews-simple").remove();
-
-        const html = `
-            <section id="bb-reviews-simple">
-                <div class="bb-wrap">
-                    <div class="bb-top">
-                        <div class="bb-title">
-                            <h2>Avaliações que encantam</h2>
-                            <p>Veja o que nossos clientes dizem sobre a Bugbee.</p>
-                        </div>
-
-                        <div class="bb-score">
-                            <strong><span class="bb-stars">★★★★★</span> 5.0</strong>
-                            <span>avaliações</span>
-                        </div>
-                    </div>
-
-                    <div class="bb-carousel">
-                        <div class="bb-track">
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Comprarei novamente</h3>
-                                <p>“Roupas lindas, acabamento impecável e qualidade excelente. Comprarei novamente com certeza!”</p>
-                                <div class="bb-author">
-                                    <strong>Amanda Ribeiro</strong>
-                                    São Miguel do Guamá - PA
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Qualidade impressionante</h3>
-                                <p>“Entrega rápida, bem embalada e cheia de carinho. A qualidade da marca é impressionante.”</p>
-                                <div class="bb-author">
-                                    <strong>Isabelle Medeiros B Torres</strong>
-                                    São Paulo - SP
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Grata surpresa</h3>
-                                <p>“Qualidade excelente, roupas macias e gostosas de usar. Espero voltar em breve!”</p>
-                                <div class="bb-author">
-                                    <strong>Lidiane Veloso</strong>
-                                    Goiânia - GO
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Cliente há anos</h3>
-                                <p>“Sou cliente há anos e os produtos são ótimos, materiais inquestionáveis, de excelente qualidade.”</p>
-                                <div class="bb-author">
-                                    <strong>Camila Sarmento Duarte</strong>
-                                    Vila Velha - ES
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Atendimento excelente</h3>
-                                <p>“O pedido chegou no prazo. A equipe de vendas é ótima e muito atenciosa.”</p>
-                                <div class="bb-author">
-                                    <strong>Tatiana Azevedo</strong>
-                                    Rio de Janeiro - RJ
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Bem embalado</h3>
-                                <p>“Amei as peças. Recebi tudo certinho, tudo muito bem embalado e ainda ganhei brinde!”</p>
-                                <div class="bb-author">
-                                    <strong>Joice Kátia de Medeiros Souza</strong>
-                                    Cerro Corá - RN
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Site e entrega ótimos</h3>
-                                <p>“O site é ótimo, a entrega é rápida e a qualidade é excelente.”</p>
-                                <div class="bb-author">
-                                    <strong>Carolina Lima Agra dos Santos</strong>
-                                    Garanhuns - PE
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Toque de amor</h3>
-                                <p>“Me surpreendi com cada peça, cada detalhe um verdadeiro toque de amor.”</p>
-                                <div class="bb-author">
-                                    <strong>Magna Muniz</strong>
-                                    Aracaju - SE
-                                </div>
-                            </article>
-
-                            <article class="bb-card">
-                                <div class="bb-stars">★★★★★</div>
-                                <h3>Super macio</h3>
-                                <p>“Estampa linda, qualidade maravilhosa, 100% algodão, super macio e chegou bem rápido!”</p>
-                                <div class="bb-author">
-                                    <strong>Jacqueline Sanossian</strong>
-                                    São Paulo - SP
-                                </div>
-                            </article>
-                        </div>
-
-                        <div class="bb-actions">
-                            <button class="bb-btn bb-prev" type="button" aria-label="Avaliação anterior">‹</button>
-                            <button class="bb-btn bb-next" type="button" aria-label="Próxima avaliação">›</button>
-                        </div>
-                    </div>
-
-                    <div class="bb-link">
-                        <a href="https://www.bugbee.com.br/avaliacoes-de-clientes">
-                            Ver todas as avaliações
-                        </a>
-                    </div>
-                </div>
-            </section>
-        `;
-
-        $(html).insertBefore(selector);
-
-        const section = document.querySelector("#bb-reviews-simple");
-        const track = section.querySelector(".bb-track");
-        const next = section.querySelector(".bb-next");
-        const prev = section.querySelector(".bb-prev");
-
-        function cardWidth() {
-            const card = track.querySelector(".bb-card");
-            const gap = window.innerWidth <= 768 ? 12 : 16;
-
-            return card.offsetWidth + gap;
+        function escapeHTML(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
-        next.addEventListener("click", function () {
-            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-                track.scrollTo({
-                    left: 0,
-                    behavior: "smooth"
-                });
-            } else {
+        function shuffleReviews(array) {
+            const shuffled = array.slice();
+
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = shuffled[i];
+                shuffled[i] = shuffled[j];
+                shuffled[j] = temp;
+            }
+
+            return shuffled;
+        }
+
+        function renderReviewCards() {
+            const selectedReviews = shuffleReviews(bbReviews).slice(0, 9);
+
+            return selectedReviews.map(function (review) {
+                return `
+                    <article class="bb-card">
+                        <div class="bb-stars">★★★★★</div>
+                        <h3>${escapeHTML(review.title)}</h3>
+                        <p>“${escapeHTML(review.text)}”</p>
+                        <div class="bb-author">
+                            <strong>${escapeHTML(review.author)}</strong>
+                            ${escapeHTML(review.location)}
+                            <span class="bb-date">${escapeHTML(review.date)}</span>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function initBBReviewsCarousel() {
+            const section = document.querySelector("#bb-reviews-simple");
+
+            if (!section) return;
+
+            const track = section.querySelector(".bb-track");
+            const next = section.querySelector(".bb-next");
+            const prev = section.querySelector(".bb-prev");
+
+            if (!track || !next || !prev) return;
+
+            function cardWidth() {
+                const card = track.querySelector(".bb-card");
+                const gap = window.innerWidth <= 768 ? 12 : 16;
+
+                if (!card) return 0;
+
+                return card.offsetWidth + gap;
+            }
+
+            function reviewsPerPage() {
+                return window.innerWidth <= 768 ? 1 : 3;
+            }
+
+            function scrollAmount() {
+                return cardWidth() * reviewsPerPage();
+            }
+
+            next.addEventListener("click", function () {
+                if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+                    track.scrollTo({
+                        left: 0,
+                        behavior: "smooth"
+                    });
+                } else {
+                    track.scrollBy({
+                        left: scrollAmount(),
+                        behavior: "smooth"
+                    });
+                }
+            });
+
+            prev.addEventListener("click", function () {
                 track.scrollBy({
-                    left: cardWidth(),
+                    left: -scrollAmount(),
                     behavior: "smooth"
                 });
+            });
+
+            setInterval(function () {
+                next.click();
+            }, 5000);
+        }
+
+        function insertBBReviews() {
+            const selector = document.querySelector("#descricao-produto");
+
+            if (!selector) return false;
+
+            if (document.querySelector("#bb-reviews-simple")) return true;
+
+            const html = `
+                <section id="bb-reviews-simple">
+                    <div class="bb-wrap">
+                        <div class="bb-top">
+                            <div class="bb-title">
+                                <h2>Avaliações que encantam</h2>
+                                <p>Veja o que nossos clientes dizem sobre a Bugbee.</p>
+                            </div>
+
+                            <div class="bb-score">
+                                <strong><span class="bb-stars">★★★★★</span> 5.0</strong>
+                                <span>avaliações</span>
+                            </div>
+                        </div>
+
+                        <div class="bb-carousel">
+                            <div class="bb-track">
+                                ${renderReviewCards()}
+                            </div>
+
+                            <div class="bb-actions">
+                                <button class="bb-btn bb-prev" type="button" aria-label="Avaliação anterior">‹</button>
+                                <button class="bb-btn bb-next" type="button" aria-label="Próxima avaliação">›</button>
+                            </div>
+                        </div>
+
+                        <div class="bb-link">
+                            <a href="https://www.bugbee.com.br/avaliacoes-de-clientes">
+                                Ver todas as avaliações
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            `;
+
+            $(html).insertBefore(selector);
+            initBBReviewsCarousel();
+
+            return true;
+        }
+
+        insertBBReviews();
+
+        const bbObserver = new MutationObserver(function () {
+            if (insertBBReviews()) {
+                bbObserver.disconnect();
             }
         });
 
-        prev.addEventListener("click", function () {
-            track.scrollBy({
-                left: -cardWidth(),
-                behavior: "smooth"
-            });
+        bbObserver.observe(document.body, {
+            childList: true,
+            subtree: true
         });
-
-        setInterval(function () {
-            next.click();
-        }, 5000);
     });
 </script>

@@ -1,0 +1,1318 @@
+<section class="hz-aline" data-hz-aline>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+    .hz-aline {
+      --hz-text: #151515;
+      --hz-muted: #6e6863;
+      --hz-soft: #f8f6f3;
+      --hz-line: #e7e0da;
+      --hz-dark: #171717;
+      --hz-accent: #7b6d64;
+
+      width: 100% !important;
+      max-width: 1180px !important;
+      margin: 48px auto !important;
+      padding: 0 20px !important;
+      box-sizing: border-box !important;
+      font-family: 'Roboto', Arial, sans-serif !important;
+      color: var(--hz-text) !important;
+      -webkit-font-smoothing: antialiased !important;
+      text-rendering: optimizeLegibility !important;
+    }
+
+    .hz-aline *,
+    .hz-aline *::before,
+    .hz-aline *::after {
+      box-sizing: border-box !important;
+      font-family: 'Roboto', Arial, sans-serif !important;
+    }
+
+    .hz-aline__wrap {
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 40px !important;
+    }
+
+    .hz-aline__hero {
+      display: grid !important;
+      grid-template-columns: 48% 52% !important;
+      gap: 46px !important;
+      align-items: end !important;
+      padding-bottom: 34px !important;
+      border-bottom: 1px solid var(--hz-line) !important;
+    }
+
+    .hz-aline__title {
+      margin: 0 !important;
+      max-width: 680px !important;
+      font-size: clamp(38px, 5vw, 64px) !important;
+      line-height: 1.03 !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.02em !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__title span {
+      display: block !important;
+      margin-top: 4px !important;
+      font-weight: 400 !important;
+      color: var(--hz-accent) !important;
+    }
+
+    .hz-aline__intro {
+      margin: 0 !important;
+      max-width: 540px !important;
+      font-size: 15px !important;
+      line-height: 1.65 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__summary {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      border: 1px solid var(--hz-line) !important;
+      background: #fff !important;
+    }
+
+    .hz-aline__summary-item {
+      padding: 24px 26px !important;
+      border-right: 1px solid var(--hz-line) !important;
+    }
+
+    .hz-aline__summary-item:last-child {
+      border-right: 0 !important;
+    }
+
+    .hz-aline__summary-item strong {
+      display: block !important;
+      margin: 0 0 7px !important;
+      font-size: 15px !important;
+      line-height: 1.3 !important;
+      font-weight: 500 !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__summary-item span {
+      display: block !important;
+      max-width: 290px !important;
+      font-size: 13px !important;
+      line-height: 1.5 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__product {
+      display: grid !important;
+      grid-template-columns: 58% 42% !important;
+      border: 1px solid var(--hz-line) !important;
+      background: #fff !important;
+      overflow: hidden !important;
+    }
+
+    .hz-aline__gallery {
+      position: relative !important;
+      min-height: 540px !important;
+      background: var(--hz-soft) !important;
+      overflow: hidden !important;
+    }
+
+    .hz-aline__track {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 540px !important;
+      display: flex !important;
+      transition: transform .42s ease !important;
+      will-change: transform !important;
+    }
+
+    .hz-aline__slide {
+      min-width: 100% !important;
+      min-height: 540px !important;
+      padding: 42px 34px 74px !important;
+      background: var(--hz-soft) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .hz-aline__slide img {
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 460px !important;
+      object-fit: contain !important;
+      object-position: center center !important;
+      display: block !important;
+      mix-blend-mode: multiply !important;
+    }
+
+    .hz-aline__count {
+      position: absolute !important;
+      top: 18px !important;
+      left: 18px !important;
+      z-index: 3 !important;
+      padding: 8px 10px !important;
+      background: rgba(255, 255, 255, .92) !important;
+      border: 1px solid rgba(0, 0, 0, .07) !important;
+      font-size: 12px !important;
+      line-height: 1 !important;
+      font-weight: 500 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__count b {
+      color: var(--hz-text) !important;
+      font-weight: 500 !important;
+    }
+
+    .hz-aline__caption {
+      position: absolute !important;
+      left: 18px !important;
+      bottom: 18px !important;
+      z-index: 3 !important;
+      padding: 9px 13px !important;
+      background: rgba(255, 255, 255, .92) !important;
+      border: 1px solid rgba(0, 0, 0, .07) !important;
+      font-size: 12.5px !important;
+      line-height: 1 !important;
+      font-weight: 500 !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__arrows {
+      position: absolute !important;
+      right: 18px !important;
+      bottom: 18px !important;
+      z-index: 4 !important;
+      display: flex !important;
+      gap: 8px !important;
+    }
+
+    .hz-aline__arrow {
+      width: 40px !important;
+      height: 40px !important;
+      padding: 0 !important;
+      border: 1px solid rgba(0, 0, 0, .1) !important;
+      background: rgba(255, 255, 255, .92) !important;
+      color: var(--hz-text) !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: background .2s ease, color .2s ease, border-color .2s ease !important;
+    }
+
+    .hz-aline__arrow:hover {
+      background: var(--hz-dark) !important;
+      color: #fff !important;
+      border-color: var(--hz-dark) !important;
+    }
+
+    .hz-aline__arrow svg {
+      width: 15px !important;
+      height: 15px !important;
+      stroke: currentColor !important;
+      stroke-width: 2 !important;
+      fill: none !important;
+    }
+
+    .hz-aline__product-info {
+      padding: 44px 40px !important;
+      border-left: 1px solid var(--hz-line) !important;
+      background: #fff !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+
+    .hz-aline__product-info h3 {
+      margin: 0 !important;
+      max-width: 360px !important;
+      font-size: clamp(25px, 3vw, 36px) !important;
+      line-height: 1.12 !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.012em !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__product-info > p {
+      margin: 12px 0 28px !important;
+      max-width: 370px !important;
+      font-size: 14px !important;
+      line-height: 1.58 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__mode-list {
+      border-top: 1px solid var(--hz-line) !important;
+    }
+
+    .hz-aline__mode {
+      position: relative !important;
+      width: 100% !important;
+      padding: 18px 0 18px 16px !important;
+      border: 0 !important;
+      border-bottom: 1px solid var(--hz-line) !important;
+      background: transparent !important;
+      text-align: left !important;
+      cursor: pointer !important;
+      transition: background .22s ease, padding-left .22s ease !important;
+    }
+
+    .hz-aline__mode::before {
+      content: "" !important;
+      position: absolute !important;
+      left: 0 !important;
+      top: 18px !important;
+      bottom: 18px !important;
+      width: 2px !important;
+      background: var(--hz-accent) !important;
+      transform: scaleY(0) !important;
+      transform-origin: top !important;
+      transition: transform .22s ease !important;
+    }
+
+    .hz-aline__mode:hover,
+    .hz-aline__mode.is-active {
+      background: var(--hz-soft) !important;
+      padding-left: 20px !important;
+    }
+
+    .hz-aline__mode.is-active::before {
+      transform: scaleY(1) !important;
+    }
+
+    .hz-aline__mode strong {
+      display: block !important;
+      margin: 0 0 6px !important;
+      font-size: 16px !important;
+      line-height: 1.3 !important;
+      font-weight: 500 !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__mode span {
+      display: block !important;
+      max-width: 340px !important;
+      font-size: 13px !important;
+      line-height: 1.5 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__stories {
+      padding-top: 38px !important;
+      border-top: 1px solid var(--hz-line) !important;
+      text-align: center !important;
+    }
+
+    .hz-aline__section-head {
+      margin: 0 0 24px !important;
+      display: grid !important;
+      grid-template-columns: 34% 66% !important;
+      gap: 32px !important;
+      align-items: end !important;
+    }
+
+    .hz-aline__section-head h3 {
+      margin: 0 !important;
+      font-size: clamp(25px, 3vw, 36px) !important;
+      line-height: 1.12 !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.012em !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__section-head p {
+      margin: 0 !important;
+      max-width: 520px !important;
+      font-size: 14px !important;
+      line-height: 1.58 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__stories .hz-aline__section-head {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      margin: 0 0 24px !important;
+      text-align: center !important;
+    }
+
+    .hz-aline__stories .hz-aline__section-head h3,
+    .hz-aline__stories .hz-aline__section-head p {
+      max-width: 520px !important;
+    }
+
+    .hz-aline__stories-row {
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      gap: 18px !important;
+      overflow-x: auto !important;
+      padding: 4px 2px 10px !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: thin !important;
+    }
+
+    .hz-aline__story {
+      flex: 0 0 auto !important;
+      width: 84px !important;
+      background: transparent !important;
+      border: 0 !important;
+      padding: 0 !important;
+      cursor: pointer !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 8px !important;
+    }
+
+    .hz-aline__story-ring {
+      width: 78px !important;
+      height: 78px !important;
+      border-radius: 50% !important;
+      padding: 3px !important;
+      border: 1px solid var(--hz-accent) !important;
+      background: #fff !important;
+      display: block !important;
+      transition: transform .2s ease, border-color .2s ease !important;
+    }
+
+    .hz-aline__story:hover .hz-aline__story-ring {
+      transform: scale(1.04) !important;
+      border-color: var(--hz-dark) !important;
+    }
+
+    .hz-aline__story-ring img {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 50% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    .hz-aline__story-name {
+      max-width: 82px !important;
+      font-size: 12px !important;
+      line-height: 1.2 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .hz-aline__viewer {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 99999 !important;
+      background: rgba(10, 10, 10, .92) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 20px !important;
+    }
+
+    .hz-aline__viewer[hidden] {
+      display: none !important;
+    }
+
+    .hz-aline__viewer-card {
+      position: relative !important;
+      width: min(420px, 92vw) !important;
+      max-height: 90vh !important;
+      aspect-ratio: 9 / 16 !important;
+      background: #1b1b1b !important;
+      border-radius: 14px !important;
+      overflow: hidden !important;
+    }
+
+    .hz-aline__viewer-img {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    .hz-aline__bars {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 6 !important;
+      display: flex !important;
+      gap: 4px !important;
+      padding: 10px 12px 0 !important;
+    }
+
+    .hz-aline__bar {
+      flex: 1 1 0 !important;
+      height: 3px !important;
+      border-radius: 3px !important;
+      background: rgba(255, 255, 255, .32) !important;
+      overflow: hidden !important;
+    }
+
+    .hz-aline__bar span {
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: #fff !important;
+      transform: scaleX(0) !important;
+      transform-origin: left !important;
+    }
+
+    .hz-aline__viewer-head {
+      position: absolute !important;
+      top: 20px !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 7 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      padding: 0 14px !important;
+    }
+
+    .hz-aline__viewer-avatar {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 50% !important;
+      overflow: hidden !important;
+      flex: none !important;
+      background: #333 !important;
+    }
+
+    .hz-aline__viewer-avatar img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+
+    .hz-aline__viewer-handle {
+      font-size: 13px !important;
+      line-height: 1 !important;
+      font-weight: 500 !important;
+      color: #fff !important;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, .4) !important;
+    }
+
+    .hz-aline__viewer-close {
+      margin-left: auto !important;
+      width: 34px !important;
+      height: 34px !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .hz-aline__viewer-close svg {
+      width: 20px !important;
+      height: 20px !important;
+      stroke: currentColor !important;
+      stroke-width: 2 !important;
+      fill: none !important;
+    }
+
+    .hz-aline__viewer-nav {
+      position: absolute !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      z-index: 5 !important;
+      background: transparent !important;
+      border: 0 !important;
+      cursor: pointer !important;
+      padding: 0 !important;
+    }
+
+    .hz-aline__viewer-prev {
+      left: 0 !important;
+      width: 32% !important;
+    }
+
+    .hz-aline__viewer-next {
+      right: 0 !important;
+      width: 68% !important;
+    }
+
+    .hz-aline__faq {
+      width: 100% !important;
+      max-width: 860px !important;
+      margin: 0 auto !important;
+      padding-top: 38px !important;
+      border-top: 1px solid var(--hz-line) !important;
+    }
+
+    .hz-aline__faq-head {
+      margin: 0 0 22px !important;
+    }
+
+    .hz-aline__faq-head h3 {
+      margin: 0 !important;
+      font-size: clamp(24px, 3vw, 34px) !important;
+      line-height: 1.12 !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.01em !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__faq-head p {
+      margin: 8px 0 0 !important;
+      max-width: 420px !important;
+      font-size: 13.5px !important;
+      line-height: 1.58 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline__faq-list {
+      width: 100% !important;
+      border-top: 1px solid var(--hz-line) !important;
+    }
+
+    .hz-aline__faq-list details {
+      border-bottom: 1px solid var(--hz-line) !important;
+    }
+
+    .hz-aline__faq-list summary {
+      list-style: none !important;
+      cursor: pointer !important;
+      padding: 21px 0 !important;
+      display: grid !important;
+      grid-template-columns: 1fr 26px !important;
+      gap: 18px !important;
+      align-items: center !important;
+      font-size: 16px !important;
+      line-height: 1.35 !important;
+      font-weight: 500 !important;
+      color: var(--hz-text) !important;
+    }
+
+    .hz-aline__faq-list summary::-webkit-details-marker {
+      display: none !important;
+    }
+
+    .hz-aline__sign {
+      position: relative !important;
+      width: 26px !important;
+      height: 26px !important;
+      flex: none !important;
+    }
+
+    .hz-aline__sign::before,
+    .hz-aline__sign::after {
+      content: "" !important;
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      background: var(--hz-text) !important;
+      transition: transform .25s ease, background .25s ease !important;
+    }
+
+    .hz-aline__sign::before {
+      width: 13px !important;
+      height: 1.5px !important;
+      transform: translate(-50%, -50%) !important;
+    }
+
+    .hz-aline__sign::after {
+      width: 1.5px !important;
+      height: 13px !important;
+      transform: translate(-50%, -50%) !important;
+    }
+
+    .hz-aline__faq-list details[open] summary {
+      color: var(--hz-accent) !important;
+    }
+
+    .hz-aline__faq-list details[open] .hz-aline__sign::before {
+      background: var(--hz-accent) !important;
+    }
+
+    .hz-aline__faq-list details[open] .hz-aline__sign::after {
+      transform: translate(-50%, -50%) scaleY(0) !important;
+    }
+
+    .hz-aline__faq-answer {
+      margin: 0 !important;
+      padding: 0 0 22px !important;
+      max-width: 640px !important;
+      font-size: 13.5px !important;
+      line-height: 1.6 !important;
+      font-weight: 400 !important;
+      color: var(--hz-muted) !important;
+    }
+
+    .hz-aline button:focus-visible,
+    .hz-aline summary:focus-visible {
+      outline: 2px solid var(--hz-accent) !important;
+      outline-offset: 3px !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hz-aline__track,
+      .hz-aline__mode,
+      .hz-aline__mode::before,
+      .hz-aline__sign::before,
+      .hz-aline__sign::after,
+      .hz-aline__story-ring,
+      .hz-aline__bar span {
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .hz-aline {
+        margin: 34px auto !important;
+        padding: 0 16px !important;
+      }
+
+      .hz-aline__wrap {
+        gap: 34px !important;
+      }
+
+      .hz-aline__hero,
+      .hz-aline__summary,
+      .hz-aline__product,
+      .hz-aline__section-head {
+        grid-template-columns: 1fr !important;
+      }
+
+      .hz-aline__hero {
+        gap: 22px !important;
+        align-items: start !important;
+      }
+
+      .hz-aline__intro,
+      .hz-aline__section-head p,
+      .hz-aline__product-info h3,
+      .hz-aline__product-info > p,
+      .hz-aline__mode span,
+      .hz-aline__faq-head p {
+        max-width: 100% !important;
+      }
+
+      .hz-aline__summary-item {
+        border-right: 0 !important;
+        border-bottom: 1px solid var(--hz-line) !important;
+      }
+
+      .hz-aline__summary-item:last-child {
+        border-bottom: 0 !important;
+      }
+
+      .hz-aline__gallery,
+      .hz-aline__track,
+      .hz-aline__slide {
+        min-height: auto !important;
+      }
+
+      .hz-aline__gallery {
+        aspect-ratio: 4 / 5 !important;
+      }
+
+      .hz-aline__slide {
+        padding: 22px 18px 68px !important;
+      }
+
+      .hz-aline__slide img {
+        max-height: none !important;
+      }
+
+      .hz-aline__product-info {
+        padding: 30px 22px !important;
+        border-left: 0 !important;
+        border-top: 1px solid var(--hz-line) !important;
+      }
+
+      .hz-aline__faq {
+        max-width: 100% !important;
+        padding-top: 34px !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hz-aline__stories-row {
+        justify-content: flex-start !important;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hz-aline {
+        margin: 28px auto !important;
+        padding: 0 14px !important;
+      }
+
+      .hz-aline__title {
+        font-size: 36px !important;
+      }
+
+      .hz-aline__gallery {
+        aspect-ratio: 4 / 5.35 !important;
+      }
+
+      .hz-aline__slide {
+        padding: 18px 14px 64px !important;
+      }
+
+      .hz-aline__product-info,
+      .hz-aline__summary-item {
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+      }
+
+      .hz-aline__story {
+        width: 78px !important;
+      }
+
+      .hz-aline__story-ring {
+        width: 72px !important;
+        height: 72px !important;
+      }
+    }
+  </style>
+
+  <div class="hz-aline__wrap">
+    <section class="hz-aline__hero">
+      <h2 class="hz-aline__title">
+        Aline 3 em 1.
+        <span>Cano baixo, médio e alto em uma única bota.</span>
+      </h2>
+
+      <p class="hz-aline__intro">
+        A Aline 3 em 1 foi criada para se adaptar ao seu look pela altura do cano. A mesma bota pode ser usada em três versões: cano baixo, cano médio ou cano alto.
+      </p>
+    </section>
+
+    <section class="hz-aline__summary">
+      <article class="hz-aline__summary-item">
+        <strong>Cano baixo</strong>
+        <span>Versão mais leve, prática e fácil de combinar no dia a dia.</span>
+      </article>
+
+      <article class="hz-aline__summary-item">
+        <strong>Cano médio</strong>
+        <span>Altura intermediária para equilibrar conforto, versatilidade e destaque.</span>
+      </article>
+
+      <article class="hz-aline__summary-item">
+        <strong>Cano alto</strong>
+        <span>Versão mais marcante para deixar a bota em evidência no look.</span>
+      </article>
+    </section>
+
+    <section class="hz-aline__product">
+      <div class="hz-aline__gallery" aria-live="polite">
+        <div class="hz-aline__count">
+          <b data-hz-current>01</b> / 03
+        </div>
+
+        <div class="hz-aline__track" data-hz-track>
+          <article class="hz-aline__slide">
+            <img
+              src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-1-dbet3eyawg.jpg"
+              alt="Bota Aline marrom na versão cano baixo"
+              loading="lazy"
+            >
+          </article>
+
+          <article class="hz-aline__slide">
+            <img
+              src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-2-u9nlyj7nbk-1py57pcd1b.jpg"
+              alt="Bota Aline marrom na versão cano médio"
+              loading="lazy"
+            >
+          </article>
+
+          <article class="hz-aline__slide">
+            <img
+              src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-9-83stq68osm.jpg"
+              alt="Bota Aline marrom na versão cano alto"
+              loading="lazy"
+            >
+          </article>
+        </div>
+
+        <div class="hz-aline__caption" data-hz-caption>Cano baixo</div>
+
+        <div class="hz-aline__arrows">
+          <button class="hz-aline__arrow" type="button" data-hz-prev aria-label="Imagem anterior">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg>
+          </button>
+
+          <button class="hz-aline__arrow" type="button" data-hz-next aria-label="Próxima imagem">
+            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="hz-aline__product-info">
+        <h3>Escolha a altura do cano</h3>
+        <p>
+          Alterne entre as três versões da Aline: cano baixo, cano médio e cano alto.
+        </p>
+
+        <div class="hz-aline__mode-list">
+          <button class="hz-aline__mode is-active" type="button" data-hz-mode data-index="0">
+            <strong>Cano baixo</strong>
+            <span>Mais leve, discreto e fácil de combinar em produções do dia a dia.</span>
+          </button>
+
+          <button class="hz-aline__mode" type="button" data-hz-mode data-index="1">
+            <strong>Cano médio</strong>
+            <span>Altura intermediária para criar looks versáteis sem perder destaque.</span>
+          </button>
+
+          <button class="hz-aline__mode" type="button" data-hz-mode data-index="2">
+            <strong>Cano alto</strong>
+            <span>Mais impacto visual, com a bota como ponto principal da composição.</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="hz-aline__stories">
+      <div class="hz-aline__section-head">
+        <h3>Inspirações de uso</h3>
+        <p>
+          Veja combinações rápidas para visualizar a Aline nas versões cano baixo, médio e alto.
+        </p>
+      </div>
+
+      <div class="hz-aline__stories-row" data-hz-stories>
+        <button class="hz-aline__story" type="button" data-hz-story
+          data-handle="@marina.alves"
+          data-frames='["https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-1-dbet3eyawg.jpg","https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-9-83stq68osm.jpg"]'>
+          <span class="hz-aline__story-ring">
+            <img src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-1-dbet3eyawg.jpg" alt="" loading="lazy">
+          </span>
+          <span class="hz-aline__story-name">@marina.alves</span>
+        </button>
+
+        <button class="hz-aline__story" type="button" data-hz-story
+          data-handle="@bia.figueiredo"
+          data-frames='["https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-2-u9nlyj7nbk-1py57pcd1b.jpg"]'>
+          <span class="hz-aline__story-ring">
+            <img src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-2-u9nlyj7nbk-1py57pcd1b.jpg" alt="" loading="lazy">
+          </span>
+          <span class="hz-aline__story-name">@bia.figueiredo</span>
+        </button>
+
+        <button class="hz-aline__story" type="button" data-hz-story
+          data-handle="@luana.dias"
+          data-frames='["https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-9-83stq68osm.jpg","https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-1-dbet3eyawg.jpg"]'>
+          <span class="hz-aline__story-ring">
+            <img src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-9-83stq68osm.jpg" alt="" loading="lazy">
+          </span>
+          <span class="hz-aline__story-name">@luana.dias</span>
+        </button>
+
+        <button class="hz-aline__story" type="button" data-hz-story
+          data-handle="@carol.menezes"
+          data-frames='["https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-1-dbet3eyawg.jpg","https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-2-u9nlyj7nbk-1py57pcd1b.jpg"]'>
+          <span class="hz-aline__story-ring">
+            <img src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-1-dbet3eyawg.jpg" alt="" loading="lazy">
+          </span>
+          <span class="hz-aline__story-name">@carol.menezes</span>
+        </button>
+
+        <button class="hz-aline__story" type="button" data-hz-story
+          data-handle="@rafa.tavares"
+          data-frames='["https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-2-u9nlyj7nbk-1py57pcd1b.jpg","https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-9-83stq68osm.jpg"]'>
+          <span class="hz-aline__story-ring">
+            <img src="https://cdn.awsli.com.br/600x700/945/945147/produto/390720042/line-bota-feminina-3-em-1-salto-alto-marrom-2-u9nlyj7nbk-1py57pcd1b.jpg" alt="" loading="lazy">
+          </span>
+          <span class="hz-aline__story-name">@rafa.tavares</span>
+        </button>
+      </div>
+
+      <div class="hz-aline__viewer" data-hz-viewer hidden>
+        <div class="hz-aline__viewer-card">
+          <img class="hz-aline__viewer-img" data-hz-vimg src="" alt="Cliente usando a bota Aline">
+
+          <div class="hz-aline__bars" data-hz-bars></div>
+
+          <div class="hz-aline__viewer-head">
+            <span class="hz-aline__viewer-avatar">
+              <img data-hz-vavatar src="" alt="">
+            </span>
+
+            <span class="hz-aline__viewer-handle" data-hz-vhandle></span>
+
+            <button class="hz-aline__viewer-close" type="button" data-hz-vclose aria-label="Fechar">
+              <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+          </div>
+
+          <button class="hz-aline__viewer-nav hz-aline__viewer-prev" type="button" data-hz-vprev aria-label="Anterior"></button>
+          <button class="hz-aline__viewer-nav hz-aline__viewer-next" type="button" data-hz-vnext aria-label="Próximo"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="hz-aline__faq">
+      <div class="hz-aline__faq-head">
+        <h3>FAQ</h3>
+        <p>Dúvidas rápidas sobre a Aline 3 em 1.</p>
+      </div>
+
+      <div class="hz-aline__faq-list">
+        <details open>
+          <summary>
+            <span>O que significa 3 em 1?</span>
+            <span class="hz-aline__sign"></span>
+          </summary>
+          <p class="hz-aline__faq-answer">
+            Significa que a mesma bota pode ser usada em três alturas de cano: baixo, médio e alto.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Qual versão é mais discreta?</span>
+            <span class="hz-aline__sign"></span>
+          </summary>
+          <p class="hz-aline__faq-answer">
+            O cano baixo é a versão mais leve e discreta, ideal para composições práticas e fáceis de usar.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Qual versão tem altura intermediária?</span>
+            <span class="hz-aline__sign"></span>
+          </summary>
+          <p class="hz-aline__faq-answer">
+            O cano médio é a opção intermediária entre o cano baixo e o cano alto, mantendo versatilidade no visual.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Qual versão valoriza mais a bota?</span>
+            <span class="hz-aline__sign"></span>
+          </summary>
+          <p class="hz-aline__faq-answer">
+            O cano alto cria uma presença maior no look e deixa a bota como ponto principal da produção.
+          </p>
+        </details>
+
+        <details>
+          <summary>
+            <span>Ela combina com quais cores?</span>
+            <span class="hz-aline__sign"></span>
+          </summary>
+          <p class="hz-aline__faq-answer">
+            Combina com preto, off white, bege, jeans, caramelo, marrom e tons terrosos.
+          </p>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      var blocks = document.querySelectorAll('[data-hz-aline]');
+
+      blocks.forEach(function (block) {
+        var track = block.querySelector('[data-hz-track]');
+        var slides = block.querySelectorAll('.hz-aline__slide');
+        var prev = block.querySelector('[data-hz-prev]');
+        var next = block.querySelector('[data-hz-next]');
+        var currentText = block.querySelector('[data-hz-current]');
+        var caption = block.querySelector('[data-hz-caption]');
+        var modes = block.querySelectorAll('[data-hz-mode]');
+        var captions = ['Cano baixo', 'Cano médio', 'Cano alto'];
+        var current = 0;
+        var startX = 0;
+        var endX = 0;
+
+        function pad(number) {
+          return number < 10 ? '0' + number : String(number);
+        }
+
+        function goTo(index) {
+          if (!track || !slides.length) return;
+
+          if (index < 0) index = slides.length - 1;
+          if (index >= slides.length) index = 0;
+
+          current = index;
+          track.style.transform = 'translateX(-' + (current * 100) + '%)';
+
+          if (currentText) currentText.textContent = pad(current + 1);
+          if (caption) caption.textContent = captions[current] || '';
+
+          modes.forEach(function (mode, modeIndex) {
+            mode.classList.toggle('is-active', modeIndex === current);
+          });
+        }
+
+        if (prev) {
+          prev.addEventListener('click', function () {
+            goTo(current - 1);
+          });
+        }
+
+        if (next) {
+          next.addEventListener('click', function () {
+            goTo(current + 1);
+          });
+        }
+
+        modes.forEach(function (mode) {
+          mode.addEventListener('click', function () {
+            goTo(parseInt(mode.getAttribute('data-index'), 10) || 0);
+          });
+        });
+
+        if (track) {
+          track.addEventListener('touchstart', function (event) {
+            startX = event.touches[0].clientX;
+            endX = startX;
+          }, { passive: true });
+
+          track.addEventListener('touchmove', function (event) {
+            endX = event.touches[0].clientX;
+          }, { passive: true });
+
+          track.addEventListener('touchend', function () {
+            var distance = startX - endX;
+
+            if (Math.abs(distance) > 45) {
+              goTo(distance > 0 ? current + 1 : current - 1);
+            }
+
+            startX = 0;
+            endX = 0;
+          });
+        }
+
+        var faqList = block.querySelector('.hz-aline__faq-list');
+
+        if (faqList) {
+          var faqDetails = faqList.querySelectorAll('details');
+
+          faqDetails.forEach(function (detail) {
+            detail.addEventListener('toggle', function () {
+              if (!detail.open) return;
+
+              faqDetails.forEach(function (otherDetail) {
+                if (otherDetail !== detail) {
+                  otherDetail.removeAttribute('open');
+                }
+              });
+            });
+          });
+        }
+
+        var storyButtons = block.querySelectorAll('[data-hz-story]');
+        var viewer = block.querySelector('[data-hz-viewer]');
+
+        if (viewer && storyButtons.length) {
+          var vImg = viewer.querySelector('[data-hz-vimg]');
+          var vAvatar = viewer.querySelector('[data-hz-vavatar]');
+          var vHandle = viewer.querySelector('[data-hz-vhandle]');
+          var vBars = viewer.querySelector('[data-hz-bars]');
+          var vClose = viewer.querySelector('[data-hz-vclose]');
+          var vPrev = viewer.querySelector('[data-hz-vprev]');
+          var vNext = viewer.querySelector('[data-hz-vnext]');
+          var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          var frameMs = 4500;
+          var stories = [];
+          var storyIndex = 0;
+          var frameIndex = 0;
+          var timer = null;
+          var lastFocus = null;
+
+          storyButtons.forEach(function (button) {
+            var frames = [];
+
+            try {
+              frames = JSON.parse(button.getAttribute('data-frames') || '[]');
+            } catch (error) {
+              frames = [];
+            }
+
+            stories.push({
+              handle: button.getAttribute('data-handle') || '',
+              frames: frames
+            });
+          });
+
+          function clearStoryTimer() {
+            if (timer) {
+              clearTimeout(timer);
+              timer = null;
+            }
+          }
+
+          function buildBars(count) {
+            if (!vBars) return;
+
+            vBars.innerHTML = '';
+
+            for (var i = 0; i < count; i++) {
+              var bar = document.createElement('span');
+              var fill = document.createElement('span');
+
+              bar.className = 'hz-aline__bar';
+              bar.appendChild(fill);
+              vBars.appendChild(bar);
+            }
+          }
+
+          function paintBars() {
+            if (!vBars) return;
+
+            var fills = vBars.querySelectorAll('.hz-aline__bar span');
+
+            fills.forEach(function (fill, index) {
+              fill.style.transition = 'none';
+
+              if (index < frameIndex) {
+                fill.style.transform = 'scaleX(1)';
+              } else if (index > frameIndex) {
+                fill.style.transform = 'scaleX(0)';
+              } else {
+                fill.style.transform = 'scaleX(0)';
+
+                if (reduceMotion) {
+                  fill.style.transform = 'scaleX(1)';
+                } else {
+                  void fill.offsetWidth;
+                  fill.style.transition = 'transform ' + frameMs + 'ms linear';
+                  fill.style.transform = 'scaleX(1)';
+                }
+              }
+            });
+          }
+
+          function showFrame() {
+            var story = stories[storyIndex];
+
+            if (!story || !story.frames.length) return;
+
+            var src = story.frames[frameIndex];
+
+            if (vImg) vImg.src = src;
+            if (vAvatar) vAvatar.src = story.frames[0];
+            if (vHandle) vHandle.textContent = story.handle;
+
+            paintBars();
+            clearStoryTimer();
+
+            if (!reduceMotion) {
+              timer = setTimeout(nextFrame, frameMs);
+            }
+          }
+
+          function openStory(index, frame) {
+            var story = stories[index];
+
+            if (!story || !story.frames.length) return;
+
+            storyIndex = index;
+            frameIndex = frame || 0;
+            lastFocus = document.activeElement;
+
+            buildBars(story.frames.length);
+            viewer.removeAttribute('hidden');
+            document.body.style.overflow = 'hidden';
+
+            showFrame();
+
+            if (vClose) vClose.focus();
+          }
+
+          function closeViewer() {
+            clearStoryTimer();
+            viewer.setAttribute('hidden', '');
+            document.body.style.overflow = '';
+
+            if (lastFocus && lastFocus.focus) {
+              lastFocus.focus();
+            }
+          }
+
+          function nextFrame() {
+            var story = stories[storyIndex];
+
+            if (!story) return;
+
+            if (frameIndex < story.frames.length - 1) {
+              frameIndex++;
+              showFrame();
+            } else if (storyIndex < stories.length - 1) {
+              openStory(storyIndex + 1, 0);
+            } else {
+              closeViewer();
+            }
+          }
+
+          function prevFrame() {
+            if (frameIndex > 0) {
+              frameIndex--;
+              showFrame();
+            } else if (storyIndex > 0) {
+              var previousStory = stories[storyIndex - 1];
+              openStory(storyIndex - 1, Math.max(0, previousStory.frames.length - 1));
+            } else {
+              showFrame();
+            }
+          }
+
+          storyButtons.forEach(function (button, index) {
+            button.addEventListener('click', function () {
+              openStory(index, 0);
+            });
+          });
+
+          if (vNext) vNext.addEventListener('click', nextFrame);
+          if (vPrev) vPrev.addEventListener('click', prevFrame);
+          if (vClose) vClose.addEventListener('click', closeViewer);
+
+          viewer.addEventListener('click', function (event) {
+            if (event.target === viewer) {
+              closeViewer();
+            }
+          });
+
+          document.addEventListener('keydown', function (event) {
+            if (viewer.hasAttribute('hidden')) return;
+
+            if (event.key === 'Escape') {
+              closeViewer();
+            }
+
+            if (event.key === 'ArrowRight') {
+              nextFrame();
+            }
+
+            if (event.key === 'ArrowLeft') {
+              prevFrame();
+            }
+          });
+        }
+
+        goTo(0);
+      });
+    })();
+  </script>
+</section>
