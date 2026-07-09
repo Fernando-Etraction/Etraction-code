@@ -1,0 +1,235 @@
+<!-- =========================================================
+     NOSSAS INSPIRAÇÕES — galeria em carrossel (marquee) contínuo
+     Bloco autocontido, escopado em .cpf-gal | Montserrat
+     Faixa escura editorial. Rolagem infinita, pausa no hover,
+     bordas com fade. Sem biblioteca. Respeita prefers-reduced-motion.
+     ========================================================= -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+    .cpf-gal {
+        --ink: #201C18;
+        --accent: #E07A5F;
+        --font: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ease: cubic-bezier(.2, .8, .2, 1);
+
+        font-family: var(--font);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        display: block;
+        background:
+            radial-gradient(1000px 520px at 50% -10%, rgba(224, 122, 95, 0.14), transparent 60%),
+            #201C18;
+        color: #fff;
+        overflow: hidden;
+    }
+
+    .cpf-gal * {
+        box-sizing: border-box;
+    }
+
+    .cpf-gal img {
+        display: block;
+        max-width: 100%;
+    }
+
+    .cpf-gal .cpf-gal__head {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: clamp(72px, 11vw, 130px) clamp(24px, 6vw, 40px) 0;
+        text-align: center;
+    }
+
+    .cpf-gal .cpf-gal__title {
+        font-weight: 300;
+        font-size: clamp(2rem, 3.8vw, 3rem);
+        letter-spacing: -0.015em;
+        color: #fff;
+        margin: 0 0 14px;
+    }
+
+    .cpf-gal .cpf-gal__sub {
+        font-size: clamp(1rem, 1.25vw, 1.14rem);
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.72);
+        margin: 0;
+    }
+
+    /* Trilho do marquee */
+    .cpf-gal .cpf-gal__marquee {
+        position: relative;
+        margin-top: clamp(40px, 6vw, 64px);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+
+    .cpf-gal .cpf-gal__track {
+        display: flex;
+        gap: clamp(14px, 2vw, 22px);
+        width: max-content;
+        padding: 4px;
+        animation: cpfMarquee 55s linear infinite;
+    }
+
+    .cpf-gal .cpf-gal__marquee:hover .cpf-gal__track {
+        animation-play-state: paused;
+    }
+
+    @keyframes cpfMarquee {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .cpf-gal .cpf-gal__item {
+        flex: 0 0 auto;
+        width: clamp(210px, 40vw, 280px);
+        aspect-ratio: 3 / 4;
+        border-radius: 16px;
+        overflow: hidden;
+        background: #2c2620;
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+    }
+
+    .cpf-gal .cpf-gal__item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .6s var(--ease), filter .6s var(--ease);
+        filter: saturate(1.02);
+    }
+
+    .cpf-gal .cpf-gal__item:hover img {
+        transform: scale(1.05);
+        filter: saturate(1.1);
+    }
+
+    /* CTA */
+    .cpf-gal .cpf-gal__cta {
+        text-align: center;
+        padding: clamp(44px, 6vw, 66px) clamp(24px, 6vw, 40px) clamp(72px, 11vw, 130px);
+    }
+
+    .cpf-gal .cpf-gal__btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 17px 42px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: transform .35s var(--ease), background-color .35s var(--ease);
+    }
+
+    .cpf-gal .cpf-gal__btn:hover {
+        background: #cf6a50;
+        transform: translateY(-2px);
+    }
+
+    /* Acessibilidade: sem movimento -> vira faixa com rolagem manual */
+    @media (prefers-reduced-motion: reduce) {
+        .cpf-gal .cpf-gal__marquee {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+
+        .cpf-gal .cpf-gal__track {
+            animation: none;
+        }
+
+        .cpf-gal .cpf-gal__item {
+            scroll-snap-align: center;
+        }
+    }
+</style>
+
+<section class="cpf-gal" id="inspiracoes">
+    <div class="cpf-gal__head">
+        <h2 class="cpf-gal__title">Nossas Inspirações</h2>
+        <p class="cpf-gal__sub">Conheça os pets que já ganharam um espaço especial no sofá (e no coração).</p>
+    </div>
+
+    <div class="cpf-gal__marquee">
+        <div class="cpf-gal__track">
+            <!-- Conjunto 1 -->
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8749/imagem-gato-apolo.jpg"
+                    alt="Gato Apólo" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8750/imagem-catchorro-johnny.jpg"
+                    alt="Cachorro Johnny com chapéu" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8751/familia-com-almofadas.jpeg"
+                    alt="Família feliz com as almofadas Vick e Vivi" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8752/descanso-no-sofa.jpeg"
+                    alt="Descanso no sofá com Vick e Vivi" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8753/imagem-catchorro-mel.jpeg"
+                    alt="Almofada da cadelinha Mel" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8754/almofadas-lolo-lola.jpeg"
+                    alt="Almofada Lolo e Lola na cama" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8755/almofada-johnny.jpeg"
+                    alt="Almofada do Johnny na cama" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2025/07/produto/7473/capa-almofada-personalidade-pet-5.jpg"
+                    alt="Almofada da Tereza na cama" loading="lazy" />
+            </div>
+
+            <!-- Conjunto 2 (duplicado para o loop contínuo) -->
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8749/imagem-gato-apolo.jpg" alt=""
+                    loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8750/imagem-catchorro-johnny.jpg"
+                    alt="" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8751/familia-com-almofadas.jpeg"
+                    alt="" loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8752/descanso-no-sofa.jpeg" alt=""
+                    loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8753/imagem-catchorro-mel.jpeg" alt=""
+                    loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8754/almofadas-lolo-lola.jpeg" alt=""
+                    loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8755/almofada-johnny.jpeg" alt=""
+                    loading="lazy" />
+            </div>
+            <div class="cpf-gal__item" aria-hidden="true">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2025/07/produto/7473/capa-almofada-personalidade-pet-5.jpg"
+                    alt="" loading="lazy" />
+            </div>
+        </div>
+    </div>
+
+    <div class="cpf-gal__cta">
+        <a class="cpf-gal__btn" href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet">
+            Quero o meu no sofá também
+        </a>
+    </div>
+</section>

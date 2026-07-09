@@ -1,0 +1,213 @@
+<!-- =========================================================
+     CASA PET FRIENDLY — HERO (primeira dobra) + "Os Queridinhos"
+     Bloco autocontido, escopado em .cpf-hero
+     Design premium/editorial. Textos do briefing na íntegra.
+     A vitrine "Os Queridinhos" entra no ponto marcado.
+     ========================================================= -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+    .cpf-hero {
+        --cream: #F5EFE7;
+        --paper: #FFFFFF;
+        --ink: #201C18;
+        --body: #55504A;
+        --muted: #938B81;
+        --accent: #E07A5F;
+        --accent-ink: #B9543A;
+        --line: rgba(32, 28, 24, 0.12);
+        --serif: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --sans: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ease: cubic-bezier(.2, .8, .2, 1);
+
+        font-family: var(--sans);
+        color: var(--body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        display: block;
+        background: var(--cream);
+    }
+
+    .cpf-hero * {
+        box-sizing: border-box;
+    }
+
+    .cpf-hero img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Primeira dobra — composição editorial (texto | imagem) */
+    .cpf-hero .cpf-hero__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        min-height: 92vh;
+    }
+
+    @media (min-width: 960px) {
+        .cpf-hero .cpf-hero__grid {
+            grid-template-columns: 1.02fr 0.98fr;
+        }
+    }
+
+    .cpf-hero .cpf-hero__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(48px, 8vw, 104px) clamp(24px, 6vw, 88px);
+        order: 2;
+    }
+
+    @media (min-width: 960px) {
+        .cpf-hero .cpf-hero__text {
+            order: 1;
+        }
+    }
+
+    .cpf-hero .cpf-brand {
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        margin: 0 0 30px;
+    }
+
+    .cpf-hero .cpf-hero__title {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--ink);
+        font-size: clamp(2.7rem, 6vw, 4.6rem);
+        line-height: 1.02;
+        letter-spacing: -0.015em;
+        margin: 0 0 26px;
+    }
+
+    .cpf-hero .cpf-hero__lead {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(1.3rem, 2.1vw, 1.7rem);
+        line-height: 1.35;
+        color: var(--accent-ink);
+        margin: 0 0 28px;
+        max-width: 30ch;
+    }
+
+    .cpf-hero .cpf-hero__desc {
+        font-size: clamp(1rem, 1.15vw, 1.08rem);
+        line-height: 1.7;
+        color: var(--body);
+        max-width: 46ch;
+        margin: 0 0 14px;
+    }
+
+    .cpf-hero .cpf-hero__desc:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .cpf-hero .cpf-cta {
+        margin-top: 40px;
+    }
+
+    .cpf-hero .cpf-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 17px 40px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.86rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: transform .35s var(--ease), background-color .35s var(--ease);
+    }
+
+    .cpf-hero .cpf-btn:hover {
+        background: #cf6a50;
+        transform: translateY(-2px);
+    }
+
+    /* Painel de imagem */
+    .cpf-hero .cpf-hero__media {
+        position: relative;
+        order: 1;
+        min-height: 56vh;
+        background: #e4ddd4;
+        overflow: hidden;
+    }
+
+    @media (min-width: 960px) {
+        .cpf-hero .cpf-hero__media {
+            order: 2;
+            min-height: auto;
+        }
+    }
+
+    .cpf-hero .cpf-hero__media img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Os Queridinhos */
+    .cpf-hero .cpf-queridinhos {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: clamp(72px, 11vw, 140px) clamp(24px, 6vw, 40px) clamp(24px, 4vw, 40px);
+        text-align: center;
+    }
+
+    .cpf-hero .cpf-queridinhos__title {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--ink);
+        font-size: clamp(2rem, 3.6vw, 2.9rem);
+        letter-spacing: -0.01em;
+        margin: 0;
+    }
+</style>
+
+<section class="cpf-hero" id="casa-pet-friendly">
+
+    <div class="cpf-hero__grid">
+        <div class="cpf-hero__text">
+            <p class="cpf-brand">Amofadas</p>
+            <h1 class="cpf-hero__title">Casa Pet<br />Friendly</h1>
+            <p class="cpf-hero__lead">Uma casa bonita também acolhe quem faz parte da sua história.</p>
+            <p class="cpf-hero__desc">Seu pet faz parte da família.</p>
+            <p class="cpf-hero__desc">
+                Por isso criamos uma linha pensada para quem quer uma casa bonita, organizada e cheia de
+                personalidade, sem abrir mão do conforto de quem está sempre ao seu lado.
+            </p>
+            <p class="cpf-hero__desc">
+                Aqui você encontra caminhas, futons e almofadas personalizadas criados para combinar com a
+                decoração da sua casa.
+            </p>
+            <div class="cpf-cta">
+                <a class="cpf-btn" href="#os-queridinhos">Ver a coleção</a>
+            </div>
+        </div>
+
+        <div class="cpf-hero__media">
+            <!-- Imagem principal (substituível) -->
+            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8747/imagem-catchorro-will-banner.png"
+                alt="Ambiente decorado e acolhedor com o pet fazendo parte da casa" />
+        </div>
+    </div>
+
+    <!-- ===== Os Queridinhos ===== -->
+    <div class="cpf-queridinhos" id="os-queridinhos">
+        <h2 class="cpf-queridinhos__title">Os Queridinhos</h2>
+
+        <!-- ===== INSERIR AQUI A VITRINE "OS QUERIDINHOS" ===== -->
+
+    </div>
+
+</section>

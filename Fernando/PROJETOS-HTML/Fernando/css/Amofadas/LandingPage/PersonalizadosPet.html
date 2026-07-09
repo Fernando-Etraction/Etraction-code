@@ -1,0 +1,1357 @@
+
+<!DOCTYPE html>
+    <html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Amofadas - Eternize seu pet em uma almofada de veludo premium personalizada." />
+        <title>Amofadas | Personalização Premium Pet</title>
+
+        <style>
+            /* =========================================================
+        IDENTIDADE (Minimalista + Inovadora) | Escopado em .pf-page
+        (não altera body, h1, etc. globais)
+        ========================================================== */
+
+            /* ✅ "Tema" apenas dentro do container .pf-page */
+            .pf-page {
+                --bg-color: #FAFAFA;
+                --text-color: #333333;
+                --accent-color: #E07A5F;
+                --secondary-bg: #F0F0F0;
+                --white: #FFFFFF;
+
+                --ink: #111111;
+                --muted: rgba(17, 17, 17, 0.62);
+                --muted-2: rgba(17, 17, 17, 0.50);
+
+                --border: rgba(17, 17, 17, 0.10);
+                --border-strong: rgba(17, 17, 17, 0.16);
+
+                --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.06);
+                --shadow-md: 0 16px 44px rgba(0, 0, 0, 0.10);
+
+                --radius-sm: 12px;
+                --radius-md: 18px;
+                --radius-lg: 26px;
+
+                --container: 1120px;
+
+                --font-main: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                --spacing-unit: 1.65;
+
+                --accent-soft: rgba(224, 122, 95, 0.14);
+                --accent-soft-2: rgba(224, 122, 95, 0.08);
+
+                --glass: rgba(255, 255, 255, 0.68);
+                --glass-strong: rgba(255, 255, 255, 0.82);
+
+                --focus: rgba(224, 122, 95, 0.35);
+
+                --ease: cubic-bezier(.2, .9, .2, 1);
+
+                font-family: var(--font-main);
+                color: var(--text-color);
+                line-height: var(--spacing-unit);
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+
+                background:
+                    radial-gradient(1200px 800px at 15% 10%, var(--accent-soft), transparent 55%),
+                    radial-gradient(900px 700px at 85% 0%, rgba(0, 0, 0, 0.04), transparent 55%),
+                    radial-gradient(900px 700px at 80% 90%, var(--accent-soft-2), transparent 55%),
+                    var(--bg-color);
+            }
+
+            .pf-page {
+                margin: -8px;
+                width: calc(100% + 16px);
+                overflow-x: hidden;
+            }
+
+
+            /* ✅ Reset só dentro do container */
+            .pf-page * {
+                box-sizing: border-box;
+            }
+
+            .pf-page img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+            }
+
+            /* ✅ Acessibilidade (escopada) */
+            .pf-page :focus-visible {
+                outline: 3px solid var(--focus);
+                outline-offset: 3px;
+                border-radius: 10px;
+            }
+
+            .container-titulo{
+                justify-content: center;
+            }
+
+            /* Bloquear scroll quando modal aberto */
+            body.lb-open {
+                overflow: hidden;
+                touch-action: none;
+            }
+
+            /* ================================
+        Barra de anúncio
+        ================================== */
+            .pf-page .announcement-bar {
+                position: sticky;
+                top: 0;
+                z-index: 999;
+                background: rgba(17, 17, 17, 0.92);
+                color: rgba(255, 255, 255, 0.92);
+                text-align: center;
+                padding: 10px 16px;
+                font-size: 0.82rem;
+                font-weight: 650;
+                letter-spacing: 0.10em;
+                text-transform: uppercase;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            }
+
+            /* ================================
+        Layout base
+        ================================== */
+            .pf-page .container {
+                max-width: var(--container);
+                margin: 0 auto;
+                padding: 86px 20px;
+            }
+
+            @media (max-width: 767px) {
+                .pf-page .container {
+                    padding: 64px 16px;
+                }
+            }
+
+            /* ================================
+        HERO
+        ================================== */
+            .pf-page .hero {
+                position: relative;
+                min-height: 92vh;
+                display: grid;
+                place-items: center;
+                text-align: center;
+                overflow: hidden;
+                background: #d8d8d8;
+                isolation: isolate;
+            }
+
+            .pf-page .hero-bg {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 0;
+                transform: scale(1.03);
+                filter: saturate(1.05) contrast(1.02);
+            }
+
+            .pf-page .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                background:
+                    radial-gradient(800px 500px at 50% 35%, rgba(224, 122, 95, 0.24), transparent 62%),
+                    linear-gradient(180deg, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.52));
+            }
+
+            .pf-page .hero::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                z-index: 1;
+                background:
+                    radial-gradient(1200px 800px at 50% 30%, transparent 45%, rgba(0, 0, 0, 0.40));
+                mix-blend-mode: multiply;
+                opacity: 0.75;
+            }
+
+            .pf-page .hero-content {
+                position: relative;
+                z-index: 2;
+                max-width: 980px;
+                padding: 0 18px;
+            }
+
+            .pf-page .logo {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                padding: 10px 14px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.14);
+                border: 1px solid rgba(255, 255, 255, 0.22);
+                color: rgba(255, 255, 255, 0.92);
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+                font-size: 0.85rem;
+                font-weight: 700;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                margin: 0 auto 22px;
+            }
+
+            /* ✅ Não mexe em h1 global */
+            .pf-page .hero-title {
+                color: rgba(255, 255, 255, 0.94);
+                font-size: clamp(2.05rem, 3.2vw, 3.2rem);
+                font-weight: 280;
+                letter-spacing: -0.02em;
+                line-height: 1.10;
+                margin: 0 0 14px;
+            }
+
+            .pf-page .hero-desc {
+                color: rgba(255, 255, 255, 0.84);
+                font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+                max-width: 720px;
+                margin: 0 auto;
+            }
+
+            .pf-page .btn-primary {
+                --btn-bg: var(--accent-color);
+                --btn-bg-hover: #d16b50;
+                background:
+                    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)) padding-box,
+                    linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.05)) border-box;
+                background-color: var(--btn-bg);
+                color: rgba(255, 255, 255, 0.96);
+                padding: 16px 34px;
+                border: 1px solid rgba(255, 255, 255, 0.22);
+                border-radius: 999px;
+                font-size: 1.05rem;
+                font-weight: 700;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 22px;
+                transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), background-color 0.22s var(--ease);
+                box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+                will-change: transform;
+                text-decoration: none;
+            }
+
+            .pf-page .btn-primary:hover {
+                transform: translateY(-2px);
+                background-color: var(--btn-bg-hover);
+                box-shadow: 0 18px 48px rgba(0, 0, 0, 0.26);
+            }
+
+            .pf-page .btn-primary:active {
+                transform: translateY(0px) scale(0.99);
+            }
+
+            @keyframes pf-pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(224, 122, 95, 0.55);
+                }
+
+                70% {
+                    box-shadow: 0 0 0 18px rgba(224, 122, 95, 0);
+                }
+
+                100% {
+                    box-shadow: 0 0 0 0 rgba(224, 122, 95, 0);
+                }
+            }
+
+            .pf-page .btn-pulse {
+                animation: pf-pulse 2.2s infinite;
+            }
+
+            .pf-page .steps-section,
+            .pf-page .gallery-section {
+                position: relative;
+            }
+
+            .pf-page .section-title {
+                font-size: clamp(1.65rem, 2.3vw, 2.25rem);
+                font-weight: 300;
+                letter-spacing: -0.02em;
+                color: var(--ink);
+                margin: 0 0 10px;
+            }
+
+            .pf-page .section-subtitle {
+                font-size: 1.08rem;
+                color: var(--muted);
+                margin: 0 auto 34px;
+                max-width: 680px;
+                text-align: center;
+            }
+
+            /* ================================
+        Personalização
+        ================================== */
+            .pf-page .personalizacao-content {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 28px;
+                align-items: start;
+                margin-top: 14px;
+            }
+
+            @media (min-width: 900px) {
+                .pf-page .personalizacao-content {
+                    grid-template-columns: 1.05fr 0.95fr;
+                    gap: 34px;
+                }
+
+                .pf-page .section-subtitle {
+                    text-align: left;
+                }
+            }
+
+            .pf-page .steps-column {
+                display: grid;
+                gap: 14px;
+                text-align: left;
+            }
+
+            .pf-page .template-image-column {
+                position: sticky;
+                top: 84px;
+                align-self: start;
+            }
+
+            @media (max-width: 899px) {
+                .pf-page .template-image-column {
+                    position: relative;
+                    top: auto;
+                }
+            }
+
+            .pf-page .template-image-column img {
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-md);
+                border: 1px solid var(--border);
+                background: var(--white);
+                overflow: hidden;
+                transform: translateZ(0);
+            }
+
+            .pf-page .step-card {
+                position: relative;
+                background: linear-gradient(180deg, var(--glass-strong), rgba(255, 255, 255, 0.55));
+                border: 1px solid var(--border);
+                border-radius: var(--radius-md);
+                padding: 18px;
+                box-shadow: var(--shadow-sm);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
+                overflow: hidden;
+            }
+
+            .pf-page .step-card::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(600px 220px at 0% 0%, var(--accent-soft), transparent 55%);
+                opacity: 0.65;
+                pointer-events: none;
+            }
+
+            .pf-page .step-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 18px 50px rgba(0, 0, 0, 0.10);
+                border-color: rgba(224, 122, 95, 0.22);
+            }
+
+            .pf-page .step-number {
+                font-size: 2.2rem;
+                color: var(--accent-color);
+                font-weight: 800;
+                opacity: 0.22;
+                line-height: 1;
+                display: block;
+                margin-bottom: 8px;
+                letter-spacing: -0.02em;
+                position: relative;
+                z-index: 1;
+            }
+
+            .pf-page .step-title {
+                font-size: 1.16rem;
+                margin: 0 0 6px;
+                font-weight: 720;
+                color: var(--ink);
+                letter-spacing: -0.01em;
+                position: relative;
+                z-index: 1;
+            }
+
+            .pf-page .step-card p {
+                color: var(--muted);
+                font-size: 0.98rem;
+                position: relative;
+                z-index: 1;
+                margin: 0;
+            }
+
+            .pf-page .recomendacoes {
+                list-style: none;
+                margin-top: 14px;
+                padding: 14px;
+                border-radius: 14px;
+                background: rgba(255, 255, 255, 0.70);
+                border: 1px solid rgba(17, 17, 17, 0.10);
+                box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .pf-page .recomendacoes::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(420px 180px at 0% 0%, rgba(224, 122, 95, 0.14), transparent 60%);
+                opacity: 0.95;
+                pointer-events: none;
+            }
+
+            .pf-page .recomendacoes li {
+                position: relative;
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                padding: 9px 10px;
+                border-radius: 12px;
+                color: rgba(17, 17, 17, 0.70);
+                font-size: 0.95rem;
+                line-height: 1.35;
+            }
+
+            .pf-page .recomendacoes li+li {
+                margin-top: 6px;
+            }
+
+            .pf-page .recomendacoes li::before {
+                content: "";
+                width: 10px;
+                height: 10px;
+                margin-top: 4px;
+                border-radius: 999px;
+                background: rgba(224, 122, 95, 0.80);
+                box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.14);
+                flex: 0 0 auto;
+            }
+
+            /* ================================
+        Galeria
+        ================================== */
+            .pf-page .gallery-section {
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.35));
+                border-top: 1px solid rgba(17, 17, 17, 0.06);
+                border-bottom: 1px solid rgba(17, 17, 17, 0.06);
+                padding: 86px 20px;
+                align-items: center;
+            }
+
+            .pf-page .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 14px;
+                max-width: 1240px;
+                margin: 34px auto 0;
+            }
+
+            .pf-page .gallery-item {
+                grid-column: span 6;
+                border-radius: var(--radius-md);
+                overflow: hidden;
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-sm);
+                background: var(--white);
+                position: relative;
+                aspect-ratio: 1 / 1;
+                transform: translateZ(0);
+                cursor: zoom-in;
+            }
+
+            @media (min-width: 900px) {
+                .pf-page .gallery-item {
+                    grid-column: span 3;
+                }
+            }
+
+            @media (max-width: 520px) {
+                .pf-page .gallery-item {
+                    grid-column: span 12;
+                }
+            }
+
+            .pf-page .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+                filter: saturate(1.02) contrast(1.02);
+            }
+
+            .pf-page .gallery-item::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 55%, rgba(0, 0, 0, 0.20));
+                opacity: 0;
+                transition: opacity 0.4s var(--ease);
+                pointer-events: none;
+            }
+
+            .pf-page .gallery-item:hover img {
+                transform: scale(1.06);
+                filter: saturate(1.1) contrast(1.05);
+            }
+
+            .pf-page .gallery-item:hover::after {
+                opacity: 1;
+            }
+
+            .pf-page .gallery-item::before {
+                content: "↗";
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                z-index: 2;
+                width: 34px;
+                height: 34px;
+                display: grid;
+                place-items: center;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.82);
+                border: 1px solid rgba(17, 17, 17, 0.10);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+                color: rgba(17, 17, 17, 0.65);
+                font-weight: 800;
+                opacity: 0;
+                transform: translateY(-4px);
+                transition: opacity .25s var(--ease), transform .25s var(--ease);
+                pointer-events: none;
+            }
+
+            .pf-page .gallery-item:hover::before {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* ================================
+        Vídeo
+        ================================== */
+            .pf-page .video-almofada-personalizada {
+                display: block;
+                width: 100%;
+                height: 680px;
+                max-width: 1120px;
+                margin: 18px auto 66px;
+                border-radius: var(--radius-lg);
+                background: var(--white);
+                border: 1px solid var(--border);
+                box-shadow: var(--shadow-md);
+                overflow: hidden;
+                outline: none;
+                position: relative;
+                accent-color: var(--accent-color);
+            }
+
+            .pf-page .video-almofada-personalizada::before {
+                content: "";
+                position: absolute;
+                inset: -1px;
+                border-radius: calc(var(--radius-lg) + 2px);
+                pointer-events: none;
+                background: linear-gradient(135deg,
+                        rgba(224, 122, 95, 0.26),
+                        rgba(255, 255, 255, 0) 58%,
+                        rgba(224, 122, 95, 0.12));
+                opacity: 0.42;
+                filter: blur(10px);
+            }
+
+            @media (max-width: 767px) {
+                .pf-page .video-almofada-personalizada {
+                    width: calc(100% - 24px);
+                    max-width: none;
+                    height: 360px;
+                    margin: 12px auto 120px;
+                    border-radius: var(--radius-lg);
+                }
+
+                .pf-page .video-almofada-personalizada::before {
+                    inset: -2px;
+                    opacity: 0.34;
+                }
+            }
+
+            /* ================================
+        Split section
+        ================================== */
+            .pf-page .split-section {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin-top: 10px;
+                background: linear-gradient(180deg, var(--glass-strong), rgba(255, 255, 255, 0.55));
+                border: 1px solid var(--border);
+                overflow: hidden;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--shadow-md);
+            }
+
+            @media (min-width: 900px) {
+                .pf-page .split-section {
+                    grid-template-columns: 1.05fr 0.95fr;
+                    align-items: stretch;
+                }
+            }
+
+            .pf-page .split-text {
+                padding: 44px 28px;
+            }
+
+            @media (min-width: 900px) {
+                .pf-page .split-text {
+                    padding: 58px 44px;
+                }
+            }
+
+            .pf-page .split-text p {
+                color: var(--muted);
+                font-size: 1.02rem;
+                margin-top: 14px;
+            }
+
+            .pf-page .split-text p:first-of-type {
+                margin-top: 0;
+            }
+
+            .pf-page .split-text strong {
+                color: rgba(17, 17, 17, 0.86);
+            }
+
+            .pf-page .split-image {
+                min-height: 320px;
+                background: #ddd;
+                border-top: 1px solid rgba(17, 17, 17, 0.06);
+            }
+
+            @media (min-width: 900px) {
+                .pf-page .split-image {
+                    border-top: none;
+                    border-left: 1px solid rgba(17, 17, 17, 0.06);
+                }
+            }
+
+            .pf-page .split-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* ================================
+        Informações importantes + CTA
+        ================================== */
+            .pf-page .important-block {
+                background: linear-gradient(180deg, var(--glass-strong), rgba(255, 255, 255, 0.55));
+                border: 1px solid rgba(224, 122, 95, 0.22);
+                padding: 22px 20px;
+                border-radius: var(--radius-md);
+                margin-top: 24px;
+                color: var(--muted);
+                box-shadow: var(--shadow-sm);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .pf-page .important-block::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(520px 240px at 0% 0%, var(--accent-soft), transparent 60%);
+                opacity: 0.75;
+                pointer-events: none;
+            }
+
+            .pf-page .important-title {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 800;
+                color: var(--ink);
+                margin-bottom: 10px;
+                text-transform: uppercase;
+                font-size: 0.78rem;
+                letter-spacing: 0.16em;
+                position: relative;
+                z-index: 1;
+            }
+
+            .pf-page .trust-badges {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 18px;
+                flex-wrap: wrap;
+            }
+
+            .pf-page .trust-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 14px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.75);
+                border: 1px solid var(--border);
+                box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+                color: rgba(17, 17, 17, 0.70);
+                font-size: 0.88rem;
+                white-space: nowrap;
+            }
+
+            /* ================================
+        CTA inline (seções intermediárias)
+        ================================== */
+            .pf-page .cta-inline {
+                text-align: center;
+                margin-top: 40px;
+            }
+
+            /* ================================
+        Mobile Floating CTA
+        ================================== */
+            .pf-page .mobile-cta {
+                position: fixed;
+                bottom: 14px;
+                left: 12px;
+                right: 12px;
+                z-index: 1000;
+                display: none;
+                padding: 10px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.80);
+                border: 1px solid rgba(17, 17, 17, 0.10);
+                box-shadow: 0 22px 70px rgba(0, 0, 0, 0.20);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+
+            @media (max-width: 767px) {
+                .pf-page .mobile-cta {
+                    display: block;
+                }
+            }
+
+            .pf-page .mobile-cta .btn-primary {
+                width: 100%;
+                margin-top: 0;
+                box-shadow: none;
+                padding: 14px 18px;
+                font-size: 1rem;
+            }
+
+            /* ================================
+        Footer
+        ================================== */
+            .pf-page footer .container {
+                padding: 34px 16px;
+            }
+
+            .pf-page footer p {
+                color: rgba(17, 17, 17, 0.45);
+            }
+
+            /* =========================================================
+        LIGHTBOX / GALERIA (Modal)
+        ========================================================== */
+            .pf-page .lightbox {
+                position: fixed;
+                inset: 0;
+                z-index: 2000;
+                display: none;
+            }
+
+            .pf-page .lightbox.is-open {
+                display: block;
+            }
+
+            .pf-page .lightbox__overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.70);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                animation: lbFade .18s var(--ease) both;
+            }
+
+            @keyframes lbFade {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 1;
+                }
+            }
+
+            .pf-page .lightbox__panel {
+                position: absolute;
+                inset: 0;
+                display: grid;
+                place-items: center;
+                padding: 18px;
+                pointer-events: none;
+            }
+
+            .pf-page .lightbox__stage {
+                width: min(1040px, 94vw);
+                height: min(78vh, 720px);
+                border-radius: 18px;
+                border: 1px solid rgba(255, 255, 255, 0.14);
+                background: rgba(17, 17, 17, 0.35);
+                box-shadow: 0 26px 90px rgba(0, 0, 0, 0.45);
+                overflow: hidden;
+                position: relative;
+                pointer-events: auto;
+                display: grid;
+                place-items: center;
+            }
+
+            .pf-page .lightbox__img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                transform: translateZ(0);
+                user-select: none;
+                -webkit-user-drag: none;
+                background: transparent;
+                opacity: 0;
+                transition: opacity .18s var(--ease);
+            }
+
+            .pf-page .lightbox__img.is-ready {
+                max-height: 769px;
+                object-fit: contain;
+                opacity: 1;
+            }
+
+            .pf-page .lightbox__topbar {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                pointer-events: none;
+            }
+
+            .pf-page .lightbox__counter {
+                pointer-events: auto;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 12px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                color: rgba(255, 255, 255, 0.86);
+                font-size: 0.9rem;
+                font-weight: 650;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+
+            .pf-page .lightbox__btn {
+                pointer-events: auto;
+                width: 44px;
+                height: 44px;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                background: rgba(255, 255, 255, 0.12);
+                color: rgba(255, 255, 255, 0.92);
+                display: grid;
+                place-items: center;
+                cursor: pointer;
+                transition: transform .18s var(--ease), background-color .18s var(--ease);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                user-select: none;
+            }
+
+            .pf-page .lightbox__btn:hover {
+                transform: translateY(-1px);
+                background: rgba(255, 255, 255, 0.16);
+            }
+
+            .pf-page .lightbox__btn:active {
+                transform: translateY(0px) scale(0.98);
+            }
+
+            .pf-page .lightbox__nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 52px;
+                height: 52px;
+                border-radius: 999px;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                background: rgba(255, 255, 255, 0.12);
+                color: rgba(255, 255, 255, 0.92);
+                display: grid;
+                place-items: center;
+                cursor: pointer;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                transition: transform .18s var(--ease), background-color .18s var(--ease), opacity .18s var(--ease);
+                user-select: none;
+            }
+
+            .pf-page .lightbox__nav:hover {
+                transform: translateY(-50%) translateY(-1px);
+                background: rgba(255, 255, 255, 0.16);
+            }
+
+            .pf-page .lightbox__nav:active {
+                transform: translateY(-50%) scale(0.98);
+            }
+
+            .pf-page .lightbox__nav--prev {
+                left: 12px;
+                z-index: 999;
+            }
+
+            .pf-page .lightbox__nav--next {
+                right: 12px;
+                z-index: 999;
+            }
+
+            @media (max-width: 520px) {
+                .pf-page .lightbox__stage {
+                    width: 94vw;
+                    height: 54vh;
+                }
+
+                .pf-page .lightbox__nav {
+                    width: 46px;
+                    height: 46px;
+                }
+
+                .pf-page .lightbox__img.is-ready {
+                    max-width: 244px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- ✅ Tudo dentro de .pf-page para escopar o CSS -->
+        <div class="pf-page">
+
+            <div class="announcement-bar">
+                ✨ Seu pet não é só parte da casa, é parte da sua história. ✨
+            </div>
+
+            <header class="hero" id="home">
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8747/imagem-catchorro-will-banner.png"
+                    alt="Cão Will em ambiente decorado com almofadas personalizadas" class="hero-bg" />
+
+                <div class="hero-content">
+                    <div class="logo">Amofadas</div>
+                    <!-- ✅ h1 sem CSS global: usamos classe -->
+                    <h1 class="hero-title">Transforme a foto do seu pet em uma obra de arte em veludo.</h1>
+                    <p class="hero-desc">Decoração afetiva, design minimalista e conforto inigualável.</p>
+
+                    <a href="#galeria" class="btn-primary">Ver Inspirações</a>
+                </div>
+            </header>
+
+            <main>
+                <section id="personalizacao" class="container steps-section">
+                    <h2 class="section-title">Como funciona a personalização</h2>
+                    <p class="section-subtitle">Um processo simples de co-criação para eternizar quem você ama.</p>
+
+                    <div class="personalizacao-content">
+                        <div class="steps-column">
+                            <div class="step-card">
+                                <span class="step-number">01</span>
+                                <h3 class="step-title">Escolha a personalidade</h3>
+                                <p>
+                                    No momento da compra, você seleciona uma das personalidades disponíveis que mais
+                                    representa
+                                    seu pet. Cada opção traz uma descrição única e afetuosa, que será impressa na almofada
+                                    junto
+                                    com a foto e o nome.
+                                </p>
+                            </div>
+
+                            <div class="step-card">
+                                <span class="step-number">02</span>
+                                <h3 class="step-title">Defina o nome</h3>
+                                <p>
+                                    O nome do seu pet terá destaque central, compondo o layout personalizado com tipografia
+                                    exclusiva.
+                                </p>
+                            </div>
+
+                            <div class="step-card">
+                                <span class="step-number">03</span>
+                                <h3 class="step-title">Envie sua foto</h3>
+                                <p>
+                                    Após finalizar o pedido, basta clicar no botão "Envie aqui as fotos" para nos enviar
+                                    diretamente
+                                    a imagem em alta resolução.
+                                </p>
+                                <ul class="recomendacoes">
+                                    <li>Formato ideal: JPG ou PNG</li>
+                                    <li>Foto com boa iluminação, sem cortes no rosto</li>
+                                    <li>Preferência por imagens com o pet centralizado</li>
+                                </ul>
+                            </div>
+
+                            <div class="step-card">
+                                <span class="step-number">04</span>
+                                <h3 class="step-title">Aprovação da arte</h3>
+                                <p>
+                                    Após receber a imagem, nossa equipe criativa prepara a arte da almofada e envia para sua
+                                    aprovação via WhatsApp.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="template-image-column">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8748/imagem-layout-capa.jpg"
+                                alt="Template de layout de personalização" loading="lazy" />
+
+                            <!-- CTA 1: abaixo da imagem do template (coluna direita) -->
+                            <div class="cta-inline" style="margin-top:22px;">
+                                <a href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet" class="btn-primary">
+                                    Começar minha personalização
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="galeria" class="gallery-section">
+                    <div class="container-titulo">
+                        <h2 class="section-title" style="text-align:center;">Nossas Inspirações</h2>
+                    </div>
+                    <p class="section-subtitle">Conheça os pets que já ganharam um espaço especial no sofá (e no coração).
+                    </p>
+
+                    <div class="gallery-grid">
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8749/imagem-gato-apolo.jpg"
+                                alt="Gato Apólo" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8750/imagem-catchorro-johnny.jpg"
+                                alt="Cachorro Johnny com chapéu" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8751/familia-com-almofadas.jpeg"
+                                alt="Família feliz com as almofadas Vick e Vivi" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8752/descanso-no-sofa.jpeg"
+                                alt="Descanso no sofá com Vick e Vivi" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8753/imagem-catchorro-mel.jpeg"
+                                alt="Almofada da cadelinha Mel" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8754/almofadas-lolo-lola.jpeg"
+                                alt="Almofada Lolo e Lola na cama" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8755/almofada-johnny.jpeg"
+                                alt="Almofada do Johnny na cama" loading="lazy" />
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2025/07/produto/7473/capa-almofada-personalidade-pet-5.jpg"
+                                alt="Almofada da Tereza na cama" loading="lazy" />
+                        </div>
+                    </div>
+
+                    <!-- CTA 2: após a prova social (pico emocional) -->
+                    <div class="cta-inline">
+                        <a href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet" class="btn-primary btn-pulse">
+                            Quero o meu no sofá também
+                        </a>
+                    </div>
+                </section>
+
+                <video class="video-almofada-personalizada" controls autoplay name="media">
+                    <source
+                        src="https://global-videos.zordcdn.com.br/amofadas/img/2025/08/produto/7619/vide-atualizado-pets.mp4"
+                        type="video/mp4" />
+                </video>
+
+                <section class="container" style="padding-top: 20px;">
+                    <div class="split-section">
+                        <div class="split-text">
+                            <h2 class="section-title" style="text-align:left;">Impressão profissional e acabamento premium
+                            </h2>
+                            <p style="margin-bottom: 18px;">
+                                Utilizamos estamparia digital por sublimação, o mesmo processo de alta costura, garantindo
+                                cores vivas que não desbotam.
+                            </p>
+                            <p>
+                                Toque e qualidade do produto. A capa é feita em <strong>veludo premium</strong>, macio,
+                                sofisticado e resistente,
+                                ideal para decorar sem abrir mão do conforto.
+                            </p>
+                            <p>
+                                <strong>Entrega com carinho.</strong>
+                                Após a produção, sua almofada é embalada com cuidado e enviada para seu refúgio.
+                            </p>
+                        </div>
+                        <div class="split-image">
+                            <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8756/catchorro-marley.jpeg"
+                                alt="Almofada premium do Marley" loading="lazy" />
+                        </div>
+                    </div>
+
+                    <!-- CTA 3: após o desejo aquecido pela qualidade -->
+                    <div class="cta-inline" style="margin-top:36px;">
+                        <a href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet" class="btn-primary">
+                            Encomendar em veludo premium
+                        </a>
+                    </div>
+                </section>
+
+                <section id="encomendar" class="container">
+                    <div class="important-block">
+                        <span class="important-title">Informações Importantes</span>
+                        <p>
+                            O produto é personalizado exclusivamente para você. Por isso, <strong>não realizamos trocas ou
+                                devoluções</strong> após a aprovação da arte.
+                            <br /><br />
+                            <em>Nota: O enchimento não está incluso no valor base, permitindo um frete mais econômico para
+                                todo o Brasil.</em>
+                        </p>
+                    </div>
+
+                    <div style="text-align:center; margin-top:44px;">
+                        <a href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet"
+                            class="btn-primary btn-pulse" style="font-size:1.15rem; padding:18px 34px;">
+                            Quero encomendar minha Almofada
+                        </a>
+
+                        <div class="trust-badges">
+                            <div class="trust-badge">🔒 Compra Segura</div>
+                            <div class="trust-badge">💬 Você aprova a arte antes</div>
+                            <div class="trust-badge">✨ Veludo Premium</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <div class="mobile-cta">
+                <a href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet"
+                    class="btn-primary btn-pulse">
+                    Encomendar Agora
+                </a>
+            </div>
+
+            <footer>
+                <div class="container"
+                    style="text-align:center; font-size:0.85rem; border-top:1px solid rgba(17,17,17,0.08); padding-top:22px;">
+                    <p>© 2026 Amofadas. Todos os direitos reservados.</p>
+                </div>
+            </footer>
+
+            <!-- =========================================================
+        LIGHTBOX (HTML do modal)
+        ========================================================== -->
+            <div class="lightbox" id="lightbox" aria-hidden="true">
+                <div class="lightbox__overlay" data-lb-close></div>
+
+                <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Galeria de imagens">
+                    <div class="lightbox__stage">
+                        <div class="lightbox__topbar">
+                            <div class="lightbox__counter" id="lbCounter">1 / 1</div>
+                            <button class="lightbox__btn" type="button" aria-label="Fechar" data-lb-close>✕</button>
+                        </div>
+
+                        <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Anterior"
+                            id="lbPrev">‹</button>
+                        <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Próxima"
+                            id="lbNext">›</button>
+
+                        <img class="lightbox__img" id="lbImg" alt="" />
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.pf-page -->
+
+        <script>
+            // Scroll suave (apenas para anchors com #)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    const target = href && href.length > 1 ? document.querySelector(href) : null;
+                    if (!target) return;
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // =========================================================
+            // LIGHTBOX / GALERIA
+            // =========================================================
+            (function () {
+                const galleryImgs = Array.from(document.querySelectorAll('.pf-page .gallery-section .gallery-grid img'));
+                if (!galleryImgs.length) return;
+
+                const lightbox = document.getElementById('lightbox');
+                const lbImg = document.getElementById('lbImg');
+                const lbCounter = document.getElementById('lbCounter');
+                const lbPrev = document.getElementById('lbPrev');
+                const lbNext = document.getElementById('lbNext');
+                const closeEls = Array.from(document.querySelectorAll('[data-lb-close]'));
+
+                let current = 0;
+                let lastFocused = null;
+
+                // swipe
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let touching = false;
+
+                function setCounter() {
+                    lbCounter.textContent = `${current + 1} / ${galleryImgs.length}`;
+                }
+
+                function show(index) {
+                    current = (index + galleryImgs.length) % galleryImgs.length;
+                    const img = galleryImgs[current];
+                    const src = img.currentSrc || img.src;
+                    const alt = img.alt || `Imagem ${current + 1}`;
+
+                    lbImg.classList.remove('is-ready');
+                    lbImg.alt = alt;
+
+                    const pre = new Image();
+                    pre.onload = () => {
+                        lbImg.src = src;
+                        requestAnimationFrame(() => lbImg.classList.add('is-ready'));
+                        setCounter();
+                    };
+                    pre.src = src;
+                }
+
+                function openAt(index, openerEl) {
+                    lastFocused = openerEl || document.activeElement;
+
+                    lightbox.classList.add('is-open');
+                    lightbox.setAttribute('aria-hidden', 'false');
+                    document.body.classList.add('lb-open');
+
+                    show(index);
+
+                    const closeBtn = lightbox.querySelector('[data-lb-close]');
+                    if (closeBtn) closeBtn.focus();
+                }
+
+                function close() {
+                    lightbox.classList.remove('is-open');
+                    lightbox.setAttribute('aria-hidden', 'true');
+                    document.body.classList.remove('lb-open');
+
+                    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+                }
+
+                function prev() { show(current - 1); }
+                function next() { show(current + 1); }
+
+                // clique nas imagens
+                galleryImgs.forEach((img, idx) => {
+                    const wrapper = img.closest('.gallery-item');
+                    if (wrapper) {
+                        wrapper.setAttribute('tabindex', '0');
+                        wrapper.setAttribute('role', 'button');
+                        wrapper.setAttribute('aria-label', `Abrir galeria: ${img.alt || 'imagem'}`);
+                    }
+
+                    const opener = wrapper || img;
+
+                    opener.addEventListener('click', () => openAt(idx, opener));
+                    opener.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openAt(idx, opener);
+                        }
+                    });
+                });
+
+                // botões
+                if (lbPrev) lbPrev.addEventListener('click', prev);
+                if (lbNext) lbNext.addEventListener('click', next);
+
+                closeEls.forEach(el => el.addEventListener('click', close));
+
+                // teclado
+                document.addEventListener('keydown', (e) => {
+                    if (!lightbox.classList.contains('is-open')) return;
+
+                    if (e.key === 'Escape') close();
+                    if (e.key === 'ArrowLeft') prev();
+                    if (e.key === 'ArrowRight') next();
+                });
+
+                // swipe no stage
+                const stage = lightbox.querySelector('.lightbox__stage');
+                if (stage) {
+                    stage.addEventListener('touchstart', (e) => {
+                        if (!lightbox.classList.contains('is-open')) return;
+                        if (!e.touches || e.touches.length !== 1) return;
+
+                        touching = true;
+                        touchStartX = e.touches[0].clientX;
+                        touchStartY = e.touches[0].clientY;
+                    }, { passive: true });
+
+                    stage.addEventListener('touchmove', () => { }, { passive: true });
+
+                    stage.addEventListener('touchend', (e) => {
+                        if (!touching) return;
+                        touching = false;
+
+                        const touch = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+                        if (!touch) return;
+
+                        const dx = touch.clientX - touchStartX;
+                        const dy = touch.clientY - touchStartY;
+
+                        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+                            if (dx > 0) prev();
+                            else next();
+                        }
+                    }, { passive: true });
+                }
+            })();
+        </script>
+    </body>
+
+    </html>

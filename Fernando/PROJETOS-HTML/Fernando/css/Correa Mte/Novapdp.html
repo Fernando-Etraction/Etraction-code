@@ -1,295 +1,1863 @@
 <style>
-    /* 1. Esconder elementos indesejados (usando seletores mais curtos e diretos) */
-    .product-description,
-    .product-sku,
-    .container-info-preco-exclusivo,
-    #content-price-product .price > img,
-    #content-price-product .icon-card,
-    .preco-de { /* Adicionado para esconder o 'De: R$...' se desejar */
-        display: none !important;
+  .product-description,
+  .product-sku,
+  .container-info-preco-exclusivo,
+  #content-price-product .price>img,
+  #content-price-product .icon,
+  #content-price-product .icon-card,
+  #content-price-product .icon-payment,
+  #content-price-product .preco-de,
+  #content-price-product .preco-de *,
+  .preco-de,
+  .percentual-desconto {
+    display: none !important;
+  }
+
+  .correa-top-trust-tags {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin: 0 0 9px !important;
+    padding: 0 !important;
+  }
+
+  .correa-top-trust-tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 5px 8px !important;
+    border-radius: 999px !important;
+    background: #ed1c24 !important;
+    border: 1px solid rgba(237, 28, 36, 0.1) !important;
+    color: #fff0f1 !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1px !important;
+  }
+
+  .correa-top-trust-tag svg {
+    width: 11px !important;
+    height: 11px !important;
+    display: block !important;
+    stroke: currentColor !important;
+  }
+
+  .informacoes-compra-produto {
+    padding-top: 20px !important;
+  }
+
+  .informacoes-compra-produto h1,
+  .product-title {
+    line-height: 1.2 !important;
+    font-weight: 600 !important;
+    font-size: 22px !important;
+    margin-bottom: 10px !important;
+  }
+
+  #content-price-product .values-area,
+  #content-price-product .values-area.flex,
+  .values-area.forma-pagamento-4 {
+    width: 100% !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: space-between !important;
+    gap: 0 !important;
+    margin: 10px 0 0 !important;
+    padding: 16px 18px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+  }
+
+  #content-price-product .values-area.correa-price-with-cashback,
+  .values-area.forma-pagamento-4.correa-price-with-cashback,
+  #content-price-product .values-area.correa-price-with-payment-more,
+  .values-area.forma-pagamento-4.correa-price-with-payment-more,
+  #content-price-product .values-area.correa-price-with-depor,
+  .values-area.forma-pagamento-4.correa-price-with-depor {
+    flex-wrap: wrap !important;
+    padding-bottom: 14px !important;
+  }
+
+  #content-price-product .values-area .preco-de.correa-preco-de-ready,
+  .values-area.forma-pagamento-4 .preco-de.correa-preco-de-ready {
+    order: -1 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    margin: 0 0 10px !important;
+    padding: 0 0 10px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+    color: #777777 !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+  }
+
+  #content-price-product .values-area .preco-de.correa-preco-de-ready *,
+  .values-area.forma-pagamento-4 .preco-de.correa-preco-de-ready * {
+    display: inline !important;
+  }
+
+  #content-price-product .values-area .preco-de.correa-preco-de-ready strike,
+  .values-area.forma-pagamento-4 .preco-de.correa-preco-de-ready strike,
+  #content-price-product .values-area .preco-de.correa-preco-de-ready .line-through,
+  .values-area.forma-pagamento-4 .preco-de.correa-preco-de-ready .line-through {
+    color: #777777 !important;
+    font-weight: 700 !important;
+    text-decoration: line-through !important;
+  }
+
+  #content-price-product .values-area .price,
+  .values-area.forma-pagamento-4 .price {
+    display: flex !important;
+    align-items: center !important;
+    max-width: none !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #content-price-product .values-area .price.pix,
+  .values-area.forma-pagamento-4 .price.pix {
+    order: 0 !important;
+    width: 52% !important;
+    padding-right: 18px !important;
+  }
+
+  #content-price-product .values-area .price.card,
+  .values-area.forma-pagamento-4 .price.card {
+    order: 1 !important;
+    width: 48% !important;
+    padding-left: 20px !important;
+    border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  #content-price-product .values-area .values,
+  .values-area.forma-pagamento-4 .values {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    width: 100% !important;
+  }
+
+  #content-price-product .values-area .full-price,
+  .values-area.forma-pagamento-4 .full-price {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    line-height: 1 !important;
+  }
+
+  #content-price-product .values-area .price.pix .price-big,
+  .values-area.forma-pagamento-4 .price.pix .price-big {
+    color: #ed1c24 !important;
+    font-size: 28px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.6px !important;
+  }
+
+  #content-price-product .values-area .price.pix .type-payment,
+  .values-area.forma-pagamento-4 .price.pix .type-payment {
+    color: #191919 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    line-height: 1.25 !important;
+  }
+
+  #content-price-product .values-area .price.pix .type-payment strong,
+  .values-area.forma-pagamento-4 .price.pix .type-payment strong {
+    font-weight: 800 !important;
+  }
+
+  #content-price-product .values-area .price.card .price-big,
+  .values-area.forma-pagamento-4 .price.card .price-big {
+    color: #111111 !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: -0.2px !important;
+  }
+
+  #content-price-product .values-area .price.card .type-payment,
+  .values-area.forma-pagamento-4 .price.card .type-payment {
+    color: #333333 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    line-height: 1.25 !important;
+    max-width: 145px !important;
+  }
+
+  #content-price-product .values-area .price.card .type-payment strong,
+  .values-area.forma-pagamento-4 .price.card .type-payment strong {
+    font-weight: 500 !important;
+  }
+
+  .correa-payment-more-wrapper {
+    order: 3 !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+  }
+
+  .correa-payment-more-link {
+    min-height: 25px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    background: #ffffff !important;
+    color: #667085 !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+  }
+
+  .correa-payment-more-link:hover {
+    border-color: rgba(237, 28, 36, 0.25) !important;
+    color: #ed1c24 !important;
+    background: #fff7f7 !important;
+  }
+
+  .produto-top-rating-source {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    margin: 8px 0 10px !important;
+    padding: 0 !important;
+  }
+
+  .produto-top-rating-source>*:not(.produto-top-rating-custom-content) {
+    display: none !important;
+  }
+
+  .produto-top-rating-custom-content {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-family: inherit !important;
+    line-height: 1 !important;
+    color: #111111 !important;
+  }
+
+  .produto-top-stars-red {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 1px !important;
+  }
+
+  .produto-top-stars-red svg {
+    width: 13px !important;
+    height: 13px !important;
+    display: block !important;
+    fill: #ff2020 !important;
+    stroke: #ff2020 !important;
+    stroke-width: 1.5 !important;
+  }
+
+  .produto-top-meta {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #111111 !important;
+    white-space: nowrap !important;
+  }
+
+  .produto-top-sold {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: #128a36 !important;
+    white-space: nowrap !important;
+  }
+
+  .produto-top-separator {
+    width: 3px !important;
+    height: 3px !important;
+    display: inline-block !important;
+    border-radius: 999px !important;
+    background: #111111 !important;
+    opacity: 0.8 !important;
+    margin: 0 3px !important;
+  }
+
+  .box-fidegg.cashback.correa-cashback-ready {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    margin: 10px 0 0 !important;
+    padding: 11px 14px !important;
+    border-radius: 10px !important;
+    background: #fff0f1 !important;
+    border: 1px solid rgba(238, 36, 48, 0.08) !important;
+    box-shadow: none !important;
+    color: #1f1f1f !important;
+    font-family: inherit !important;
+    line-height: 1.2 !important;
+  }
+
+  #content-price-product .values-area.correa-price-with-cashback .box-fidegg.cashback.correa-cashback-ready,
+  .values-area.forma-pagamento-4.correa-price-with-cashback .box-fidegg.cashback.correa-cashback-ready {
+    order: 2 !important;
+    width: 100% !important;
+    margin: 14px 0 0 !important;
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+  }
+
+  .correa-cashback-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-width: 0 !important;
+  }
+
+  .correa-cashback-icon {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    border-radius: 999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #ff2633 !important;
+    color: #ffffff !important;
+  }
+
+  .correa-cashback-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+    display: block !important;
+    stroke: currentColor !important;
+  }
+
+  .correa-cashback-text {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+  }
+
+  .correa-cashback-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #1f1f1f !important;
+    line-height: 1.15 !important;
+  }
+
+  .correa-cashback-title strong {
+    color: #ed1c24 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+  }
+
+  .correa-cashback-subtitle {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    color: #3f3f3f !important;
+    line-height: 1.15 !important;
+  }
+
+  .correa-cashback-info {
+    width: 15px !important;
+    height: 15px !important;
+    min-width: 15px !important;
+    border-radius: 999px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #ff2633 !important;
+    border: 1.5px solid #ff2633 !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready {
+    width: 100% !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .info-garantia {
+    display: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .derivacoes-produto {
+    width: 100% !important;
+    margin: 14px 0 0 !important;
+    padding: 0 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-area {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-area .title {
+    display: block !important;
+    margin: 0 0 7px !important;
+    color: #111111 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-lista-select {
+    width: 100% !important;
+    height: 48px !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 6px 38px 6px 9px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-lista-select:hover,
+  .area-buy-product.correa-buy-area-ready .variacao-lista-select:focus {
+    border-color: rgba(237, 28, 36, 0.28) !important;
+    box-shadow: 0 0 0 2px rgba(237, 28, 36, 0.06), 0 4px 14px rgba(0, 0, 0, 0.035) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .label-select {
+    display: flex !important;
+    align-items: center !important;
+    gap: 9px !important;
+    min-width: 0 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-img {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    padding: 2px !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+    background: #f7f7f7 !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-img img {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    border-radius: 999px !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-label {
+    color: #111111 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-lista-select>span:last-child {
+    right: 9px !important;
+    padding-right: 0 !important;
+    color: #111111 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .variacao-lista-select>span:last-child svg {
+    width: 18px !important;
+    height: 18px !important;
+    fill: currentColor !important;
+    opacity: 0.75 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .quantidade-comprar.area-comprar {
+    width: 100% !important;
+    display: flex !important;
+    align-items: stretch !important;
+    justify-content: space-between !important;
+    gap: 14px !important;
+    margin-top: 14px !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .quantidade {
+    width: 74px !important;
+    min-width: 74px !important;
+    max-width: 74px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .quantidade button {
+    width: 24px !important;
+    height: 44px !important;
+    min-width: 24px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .quantidade button:hover {
+    background: #f7f7f7 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .quantidade button svg {
+    width: 13px !important;
+    height: 13px !important;
+    fill: #111111 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .qtde-product {
+    width: 26px !important;
+    max-width: 26px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #111111 !important;
+    text-align: center !important;
+    background: transparent !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .button-buy {
+    flex: 1 !important;
+    width: auto !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    padding: 0 18px !important;
+    border: 1px solid #ed1c24 !important;
+    border-radius: 5px !important;
+    background: #ed1c24 !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    letter-spacing: 0.1px !important;
+    text-transform: uppercase !important;
+    box-shadow: none !important;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .button-buy:hover {
+    background: #d9151d !important;
+    border-color: #d9151d !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .button-buy svg {
+    width: 15px !important;
+    height: 15px !important;
+    stroke: currentColor !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .exibe-botao-whatsapp {
+    width: 100% !important;
+    margin: 10px 0 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .exibe-botao-whatsapp a {
+    width: 100% !important;
+    display: flex !important;
+    text-decoration: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .container-botao-whatsapp {
+    width: 100% !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    padding: 0 14px !important;
+    border: 1px solid #ed1c24 !important;
+    border-radius: 5px !important;
+    background: #ffffff !important;
+    color: #ed1c24 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    box-shadow: none !important;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .container-botao-whatsapp:hover {
+    background: #fff4f5 !important;
+    color: #d9151d !important;
+    border-color: #d9151d !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .container-botao-whatsapp img {
+    display: none !important;
+  }
+
+  .correa-whatsapp-icon {
+    width: 15px !important;
+    height: 15px !important;
+    display: block !important;
+    color: currentColor !important;
+    flex: 0 0 auto !important;
+  }
+
+  .correa-whatsapp-icon path {
+    fill: currentColor !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .compre-pelo-whatsapp {
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: inherit !important;
+    line-height: 1 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .box-frete {
+    width: 100% !important;
+    margin: 12px 0 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .calculo-frete {
+    width: 100% !important;
+    padding: 13px 14px 12px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 28px 1fr !important;
+    column-gap: 9px !important;
+    row-gap: 8px !important;
+    align-items: start !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .icon-truck {
+    grid-column: 1 !important;
+    grid-row: 1 / span 3 !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    border-radius: 999px !important;
+    background: #fff0f1 !important;
+    color: #ed1c24 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .icon-truck svg {
+    width: 17px !important;
+    height: 17px !important;
+    fill: currentColor !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .label-frete {
+    grid-column: 2 !important;
+    display: block !important;
+    margin: 0 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .cep-label {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #111111 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+  }
+
+  .correa-frete-helper {
+    display: block !important;
+    margin-top: 3px !important;
+    color: #5f5f5f !important;
+    font-size: 9.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.25 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .nao-sei-cep,
+  .area-buy-product.correa-buy-area-ready .label-frete>span:not(.correa-frete-helper) {
+    display: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.flex-1 {
+    grid-column: 2 !important;
+    width: 100% !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .area-calculo {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    margin: 0 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .cep-field {
+    flex: 1 !important;
+    width: 100% !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .field-content {
+    width: 100% !important;
+    height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 7px !important;
+    border: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready #cep {
+    height: 34px !important;
+    flex: 1 !important;
+    width: 100% !important;
+    padding: 0 10px !important;
+    border: 1px solid rgba(0, 0, 0, 0.09) !important;
+    border-radius: 7px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready #cep:focus {
+    border-color: rgba(237, 28, 36, 0.45) !important;
+    box-shadow: 0 0 0 2px rgba(237, 28, 36, 0.08) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready #cep::placeholder {
+    color: #9a9a9a !important;
+    opacity: 1 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .field-content button {
+    width: 76px !important;
+    min-width: 76px !important;
+    height: 34px !important;
+    padding: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 7px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-align: center !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .field-content button:not(:disabled):hover {
+    background: #f6f6f6 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .field-content button:disabled {
+    opacity: 1 !important;
+    cursor: not-allowed !important;
+    color: #111111 !important;
+    background: #ffffff !important;
+  }
+
+  .correa-envio-imediato {
+    grid-column: 2 !important;
+    display: none !important;
+  }
+
+  .correa-frete-tags {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 6px !important;
+    margin-top: 11px !important;
+    padding-top: 11px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+  }
+
+  .correa-frete-tag {
+    min-height: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    padding: 7px 6px !important;
+    border-radius: 7px !important;
+    background: #fafafa !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    color: #111111 !important;
+    font-size: 9.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+  }
+
+  .correa-frete-tag svg {
+    width: 13px !important;
+    height: 13px !important;
+    min-width: 13px !important;
+    display: block !important;
+    stroke: #ed1c24 !important;
+  }
+
+  .correa-frete-tag svg.correa-frete-icon {
+    width: 16px !important;
+    height: 16px !important;
+    min-width: 16px !important;
+    display: block !important;
+    color: #ed1c24 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .correa-frete-tag svg.correa-frete-icon-stroke path {
+    fill: none !important;
+    stroke: currentColor !important;
+  }
+
+  .correa-frete-tag svg.correa-frete-icon-fill path {
+    fill: currentColor !important;
+    stroke: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    margin: 10px 0 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(0, 0, 0, 0.07) !important;
+    border-radius: 9px !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+    box-shadow: none !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result+.correa-frete-tags {
+    margin-top: 10px !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result>div:first-child {
+    background: #ffffff !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result>div:first-child>div:first-child {
+    min-height: 38px !important;
+    padding: 9px 11px !important;
+    background: #fafafa !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result>div:first-child span {
+    color: #555555 !important;
+    font-size: 10.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result button {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: #777777 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result button:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: #111111 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .border-b {
+    border-color: rgba(0, 0, 0, 0.07) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.w-full.flex-wrap {
+    padding: 10px 11px !important;
+    background: #ffffff !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .tipo-entrega {
+    gap: 7px !important;
+    align-items: center !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .nome-servico {
+    color: #111111 !important;
+    font-size: 10.5px !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .tempo-entrega {
+    color: #667085 !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .frete-gratis,
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .descricao-valor {
+    color: #128a36 !important;
+    font-size: 10.5px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .frete-gratis {
+    padding: 4px 7px !important;
+    border-radius: 999px !important;
+    background: rgba(18, 138, 54, 0.08) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div {
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-cheap {
+    background: #f1fbf5 !important;
+    border-left: 3px solid #19b46b !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast {
+    background: #fff5ec !important;
+    border-left: 3px solid #ff7a00 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best {
+    background: #eefaf3 !important;
+    border-left: 3px solid #11a75c !important;
+    box-shadow: inset 0 0 0 1px rgba(17, 167, 92, 0.08) !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-cheap .nome-servico {
+    color: #19b46b !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast .nome-servico {
+    color: #f27a1a !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best .nome-servico {
+    color: #11a75c !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-cheap .descricao-valor,
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-cheap .frete-gratis {
+    color: #12a150 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast .descricao-valor,
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast .frete-gratis {
+    color: #e36b00 !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best .descricao-valor,
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best .frete-gratis {
+    color: #10924a !important;
+  }
+
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast .nome-servico::before,
+  .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best .nome-servico::before {
+    content: "⚡";
+    margin-right: 4px;
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  .correa-frete-opcao-tag {
+    display: none !important;
+  }
+
+  .correa-image-info-carousel {
+    width: 100% !important;
+    margin: 14px 0 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+  }
+
+  .correa-image-info-carousel-header {
+    display: none !important;
+    width: 100% !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    margin: 0 0 8px !important;
+  }
+
+  .correa-image-info-carousel-controls {
+    display: none !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 7px !important;
+  }
+
+  .correa-image-info-carousel-btn {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    cursor: pointer !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06) !important;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
+  }
+
+  .correa-image-info-carousel-btn:hover {
+    background: #fff0f1 !important;
+    color: #ed1c24 !important;
+    border-color: rgba(237, 28, 36, 0.18) !important;
+  }
+
+  .correa-image-info-carousel-btn svg {
+    width: 13px !important;
+    height: 13px !important;
+    display: block !important;
+    stroke: currentColor !important;
+  }
+
+  .correa-image-info-carousel-track {
+    width: 100% !important;
+    display: flex !important;
+    gap: 10px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-behavior: smooth !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 2px 2px 4px !important;
+    scrollbar-width: none !important;
+  }
+
+  .correa-image-info-carousel-track::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .correa-image-info-card {
+    flex: 0 0 calc((100% - 20px) / 3) !important;
+    min-height: 86px !important;
+    scroll-snap-align: start !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 12px !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.07) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.035) !important;
+  }
+
+  .correa-image-info-icon {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 999px !important;
+    background: #fff0f1 !important;
+    color: #ed1c24 !important;
+    font-size: 17px !important;
+    line-height: 1 !important;
+  }
+
+  .correa-image-info-content {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+  }
+
+  .correa-image-info-content strong {
+    color: #111111 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+  }
+
+  .correa-image-info-content span {
+    display: block !important;
+    color: #555555 !important;
+    font-size: 9.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.25 !important;
+  }
+
+  @media (max-width: 1024px) {
+    .correa-image-info-card {
+      flex-basis: calc((100% - 10px) / 2) !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .informacoes-compra-produto {
+      padding-top: 12px !important;
     }
 
-    /* 2. Ajuste do Título do Produto */
-    .informacoes-compra-produto h1 {
-        line-height: 1.2 !important; /* Ajustado de 1.6rem para evitar muito espaço */
-        font-weight: 600 !important;
-        font-size: 22px !important;
-        margin-bottom: 10px !important;
+    .correa-top-trust-tags {
+      gap: 5px !important;
+      margin: 0 0 7px !important;
     }
 
-    /* 3. Preço Principal (PIX) - Corrigido */
-    #content-price-product .price.pix .price-big {
-        color: var(--bg-base-color, #32BCAD) !important;
-        font-size: 28px !important;
-        font-weight: 700 !important;
+    .correa-top-trust-tag {
+      min-height: 22px !important;
+      padding: 5px 7px !important;
+      font-size: 8.8px !important;
+      letter-spacing: 0 !important;
+      white-space: nowrap !important;
     }
 
-    /* 4. Preço Secundário (Cartão) - Corrigido */
-    #content-price-product .price.card .price-big {
-        font-size: 18px !important;
-        font-weight: 700 !important;
-        color: #111 !important;
+    .informacoes-compra-produto h1,
+    .product-title {
+      font-size: 18px !important;
+      line-height: 1.18 !important;
+      margin-bottom: 7px !important;
     }
-    
-    /* Ajuste de espaçamento entre os preços */
-    .values-area.flex {
-        gap: 15px !important;
-        align-items: baseline !important;
+
+    .produto-top-rating-source {
+      margin: 6px 0 8px !important;
     }
+
+    .produto-top-rating-custom-content {
+      gap: 4px !important;
+    }
+
+    .produto-top-stars-red svg {
+      width: 11px !important;
+      height: 11px !important;
+    }
+
+    .produto-top-meta,
+    .produto-top-sold {
+      font-size: 9.5px !important;
+    }
+
+    .produto-top-separator {
+      margin: 0 2px !important;
+    }
+
+    #content-price-product .values-area,
+    #content-price-product .values-area.flex,
+    .values-area.forma-pagamento-4 {
+      display: flex !important;
+      flex-direction: column !important;
+      flex-wrap: nowrap !important;
+      align-items: stretch !important;
+      gap: 0 !important;
+      margin: 8px 0 0 !important;
+      padding: 12px !important;
+      border-radius: 10px !important;
+    }
+
+    #content-price-product .values-area .preco-de.correa-preco-de-ready,
+    .values-area.forma-pagamento-4 .preco-de.correa-preco-de-ready {
+      margin-bottom: 9px !important;
+      padding-bottom: 9px !important;
+      font-size: 10px !important;
+    }
+
+    #content-price-product .values-area .price.pix,
+    .values-area.forma-pagamento-4 .price.pix {
+      width: 100% !important;
+      order: 0 !important;
+      padding: 0 0 10px !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+    }
+
+    #content-price-product .values-area .price.card,
+    .values-area.forma-pagamento-4 .price.card {
+      width: 100% !important;
+      order: 1 !important;
+      padding: 10px 0 0 !important;
+      border-left: 0 !important;
+    }
+
+    #content-price-product .values-area .price.pix .price-big,
+    .values-area.forma-pagamento-4 .price.pix .price-big {
+      font-size: 25px !important;
+      line-height: 1 !important;
+      letter-spacing: -0.5px !important;
+    }
+
+    #content-price-product .values-area .price.pix .type-payment,
+    .values-area.forma-pagamento-4 .price.pix .type-payment {
+      font-size: 10px !important;
+      line-height: 1.2 !important;
+    }
+
+    #content-price-product .values-area .price.card .price-big,
+    .values-area.forma-pagamento-4 .price.card .price-big {
+      font-size: 17px !important;
+      line-height: 1 !important;
+    }
+
+    #content-price-product .values-area .price.card .type-payment,
+    .values-area.forma-pagamento-4 .price.card .type-payment {
+      max-width: 100% !important;
+      font-size: 10px !important;
+      line-height: 1.2 !important;
+    }
+
+    #content-price-product .values-area .price.card .values,
+    .values-area.forma-pagamento-4 .price.card .values {
+      gap: 3px !important;
+    }
+
+    #content-price-product .values-area.correa-price-with-cashback .box-fidegg.cashback.correa-cashback-ready,
+    .values-area.forma-pagamento-4.correa-price-with-cashback .box-fidegg.cashback.correa-cashback-ready,
+    .box-fidegg.cashback.correa-cashback-ready {
+      order: 2 !important;
+      margin: 10px 0 0 !important;
+      padding: 9px 10px !important;
+      border-radius: 8px !important;
+    }
+
+    .correa-cashback-left {
+      gap: 8px !important;
+    }
+
+    .correa-cashback-icon {
+      width: 21px !important;
+      height: 21px !important;
+      min-width: 21px !important;
+    }
+
+    .correa-cashback-icon svg {
+      width: 12px !important;
+      height: 12px !important;
+    }
+
+    .correa-cashback-title,
+    .correa-cashback-title strong {
+      font-size: 10px !important;
+      line-height: 1.15 !important;
+    }
+
+    .correa-cashback-subtitle {
+      font-size: 8.8px !important;
+      line-height: 1.15 !important;
+    }
+
+    .correa-cashback-info {
+      width: 13px !important;
+      height: 13px !important;
+      min-width: 13px !important;
+      font-size: 8px !important;
+    }
+
+    .correa-payment-more-wrapper {
+      order: 3 !important;
+      width: 100% !important;
+      margin-top: 9px !important;
+      padding-top: 9px !important;
+      justify-content: flex-start !important;
+      border-top: 1px solid rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .correa-payment-more-link {
+      min-height: 24px !important;
+      padding: 5px 9px !important;
+      font-size: 9px !important;
+      border-radius: 5px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .derivacoes-produto {
+      margin-top: 12px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .variacao-area .title {
+      margin-bottom: 6px !important;
+      font-size: 11px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .variacao-lista-select {
+      height: 46px !important;
+      min-height: 46px !important;
+      border-radius: 10px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .variacao-img {
+      width: 32px !important;
+      height: 32px !important;
+      min-width: 32px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .variacao-label {
+      font-size: 12px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .quantidade-comprar.area-comprar {
+      gap: 8px !important;
+      margin-top: 11px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .quantidade {
+      width: 66px !important;
+      min-width: 66px !important;
+      max-width: 66px !important;
+      height: 40px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .quantidade button {
+      width: 21px !important;
+      height: 40px !important;
+      min-width: 21px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .qtde-product {
+      height: 40px !important;
+      font-size: 12px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .button-buy {
+      height: 40px !important;
+      min-height: 40px !important;
+      padding: 0 10px !important;
+      font-size: 9.5px !important;
+      border-radius: 5px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .button-buy svg {
+      width: 13px !important;
+      height: 13px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .container-botao-whatsapp {
+      height: 36px !important;
+      min-height: 36px !important;
+      font-size: 9.5px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .box-frete {
+      margin-top: 10px !important;
+      border-radius: 11px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .calculo-frete {
+      padding: 11px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete {
+      grid-template-columns: 24px 1fr !important;
+      column-gap: 7px !important;
+      row-gap: 7px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .icon-truck {
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .icon-truck svg {
+      width: 15px !important;
+      height: 15px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .cep-label {
+      font-size: 9.8px !important;
+    }
+
+    .correa-frete-helper {
+      font-size: 8.8px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .field-content {
+      height: 31px !important;
+      gap: 6px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready #cep {
+      height: 31px !important;
+      padding: 0 8px !important;
+      font-size: 9.2px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .field-content button {
+      width: 64px !important;
+      min-width: 64px !important;
+      height: 31px !important;
+      font-size: 8.8px !important;
+    }
+
+    .correa-frete-tags {
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 5px !important;
+      margin-top: 9px !important;
+      padding-top: 9px !important;
+    }
+
+    .correa-frete-tag {
+      min-height: 42px !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      gap: 4px !important;
+      padding: 6px 4px !important;
+      font-size: 8.2px !important;
+      line-height: 1.05 !important;
+      text-align: center !important;
+    }
+
+    .correa-frete-tag svg.correa-frete-icon {
+      width: 14px !important;
+      height: 14px !important;
+      min-width: 14px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result {
+      margin-top: 9px !important;
+      border-radius: 8px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result>div:first-child>div:first-child {
+      min-height: 36px !important;
+      padding: 8px 10px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result>div:first-child span {
+      font-size: 9.5px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.w-full.flex-wrap {
+      padding: 9px 10px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .nome-servico,
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .tempo-entrega,
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .frete-gratis,
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .descricao-valor {
+      font-size: 9.5px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result+.correa-frete-tags {
+      margin-top: 9px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-cheap,
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast,
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best {
+      border-left-width: 2px !important;
+    }
+
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-fast .nome-servico::before,
+    .area-buy-product.correa-buy-area-ready .content-frete>.box-result .flex.flex-col>div.correa-frete-row-highlight-best .nome-servico::before {
+      font-size: 10px;
+      margin-right: 3px;
+    }
+
+    .correa-image-info-carousel {
+      margin-top: 9px !important;
+      padding: 0 31px !important;
+      position: relative !important;
+    }
+
+    .correa-image-info-carousel-header {
+      width: 100% !important;
+      height: 0 !important;
+      display: flex !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: absolute !important;
+      top: 50% !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 5 !important;
+      transform: translateY(-50%) !important;
+      pointer-events: none !important;
+    }
+
+    .correa-image-info-carousel-controls {
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .correa-image-info-carousel-btn {
+      width: 25px !important;
+      height: 25px !important;
+      min-width: 25px !important;
+      border-radius: 999px !important;
+      background: #ffffff !important;
+      color: #111111 !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important;
+      box-shadow: 0 3px 9px rgba(0, 0, 0, 0.1) !important;
+      pointer-events: auto !important;
+    }
+
+    .correa-image-info-carousel-btn svg {
+      width: 11px !important;
+      height: 11px !important;
+    }
+
+    .correa-image-info-carousel-track {
+      gap: 8px !important;
+      padding: 0 0 3px !important;
+      scroll-snap-type: x mandatory !important;
+    }
+
+    .correa-image-info-card {
+      flex: 0 0 100% !important;
+      min-height: 64px !important;
+      padding: 9px 10px !important;
+      gap: 8px !important;
+      border-radius: 8px !important;
+    }
+
+    .correa-image-info-icon {
+      width: 26px !important;
+      height: 26px !important;
+      min-width: 26px !important;
+      font-size: 13px !important;
+    }
+
+    .correa-image-info-content {
+      gap: 2px !important;
+    }
+
+    .correa-image-info-content strong {
+      font-size: 9.8px !important;
+      line-height: 1.15 !important;
+    }
+
+    .correa-image-info-content span {
+      font-size: 8.8px !important;
+      line-height: 1.2 !important;
+    }
+  }
 </style>
 
 <script>
-(function () {
-  const STORAGE_PREFIX = 'prod_vendas_';
-  const STYLE_ID = 'produto-top-rating-style';
-  const CUSTOM_CLASS = 'produto-top-rating-custom-content';
-  const SOURCE_CLASS = 'produto-top-rating-source';
+  (function () {
+    const STORAGE_PREFIX = 'prod_vendas_';
 
-  function getProductKey() {
-    return STORAGE_PREFIX + window.location.pathname.replace(/\W+/g, '_');
-  }
+    const TOP_TRUST_READY_CLASS = 'correa-top-trust-ready';
+    const RATING_CUSTOM_CLASS = 'produto-top-rating-custom-content';
+    const RATING_SOURCE_CLASS = 'produto-top-rating-source';
 
-  function getCachedSoldNumber() {
-    const key = getProductKey();
-    const cached = localStorage.getItem(key);
+    const CASHBACK_CLASS = 'correa-cashback-ready';
+    const PRICE_READY_CLASS = 'preco-premium-ready';
+    const PRICE_WITH_CASHBACK_CLASS = 'correa-price-with-cashback';
+    const PRICE_DE_READY_CLASS = 'correa-preco-de-ready';
+    const PRICE_WITH_DEPOR_CLASS = 'correa-price-with-depor';
 
-    if (cached && !isNaN(cached)) {
-      return Number(cached);
+    const BUY_READY_CLASS = 'correa-buy-area-ready';
+    const BUY_BUTTON_READY_CLASS = 'correa-buy-button-ready';
+    const WHATSAPP_READY_CLASS = 'correa-whatsapp-ready';
+
+    const SHIPPING_READY_CLASS = 'correa-envio-imediato-ready';
+    const SHIPPING_HELPER_CLASS = 'correa-frete-helper-ready';
+    const SHIPPING_TAGS_READY_CLASS = 'correa-frete-tags-ready';
+
+    const CAROUSEL_CLASS = 'correa-image-info-carousel';
+    const CAROUSEL_READY_CLASS = 'correa-image-info-carousel-ready';
+    const CAROUSEL_VERSION = 'loja-beneficios-v3-mobile-arrows';
+
+    function getProductKey() {
+      return STORAGE_PREFIX + window.location.pathname.replace(/\W+/g, '_');
     }
 
-    const number = Math.floor(Math.random() * (120 - 40 + 1)) + 40;
-    localStorage.setItem(key, String(number));
+    function getCachedSoldNumber() {
+      const key = getProductKey();
+      const cached = localStorage.getItem(key);
 
-    return number;
-  }
-
-  function injectStyle() {
-    if (document.getElementById(STYLE_ID)) return;
-
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
-
-    style.innerHTML = `
-      /* Esconder elementos indesejados */
-      .product-description,
-      .product-sku,
-      .container-info-preco-exclusivo,
-      #content-price-product .price > img,
-      #content-price-product .icon-card,
-      #content-price-product .preco-de,
-      #content-price-product .preco-de * {
-        display: none !important;
+      if (cached && !isNaN(cached)) {
+        return Number(cached);
       }
 
-      /* Título do produto */
-      .informacoes-compra-produto h1,
-      .product-title {
-        line-height: 1.2 !important;
-        font-weight: 600 !important;
-        font-size: 22px !important;
-        margin-bottom: 10px !important;
+      const number = Math.floor(Math.random() * (120 - 40 + 1)) + 40;
+
+      localStorage.setItem(key, String(number));
+
+      return number;
+    }
+
+    function formatRating(value) {
+      const number = parseFloat(String(value || '').replace(',', '.'));
+
+      if (isNaN(number)) return '5,0';
+
+      return number
+        .toFixed(2)
+        .replace('.', ',')
+        .replace(',00', ',0')
+        .replace(/,(\d)0$/, ',$1');
+    }
+
+    function setTextIfDifferent(element, text) {
+      if (!element) return;
+
+      if (element.textContent !== text) {
+        element.textContent = text;
+      }
+    }
+
+    function setAttributeIfDifferent(element, attr, value) {
+      if (!element) return;
+
+      if (element.getAttribute(attr) !== value) {
+        element.setAttribute(attr, value);
+      }
+    }
+
+    function normalizeCorreaText(text) {
+      return String(text || '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+    }
+
+    function normalizeFreteText(text) {
+      return String(text || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+    }
+
+    function getCartIcon() {
+      return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 6.5h14l-1.7 7.2a2 2 0 0 1-2 1.5H9.2a2 2 0 0 1-2-1.6L5.6 4H3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M9.5 20a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6Z" fill="currentColor"></path>
+        <path d="M17.5 20a.8.8 0 1 0 0-1.6.8.8 0 0 0 0 1.6Z" fill="currentColor"></path>
+      </svg>
+    `;
+    }
+
+    function getWhatsappIcon() {
+      return `
+      <svg class="correa-whatsapp-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="m17.507 14.307-.009.075c-2.199-1.096-2.429-1.242-2.713-.816-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.293-.506.32-.578.878-1.634.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.576-.05-.997-.042-1.368.344-1.614 1.774-1.207 3.604.174 5.55 2.714 3.552 4.16 4.206 6.804 5.114.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z" fill="currentColor"></path>
+        <path d="m20.52 3.449c-7.689-7.433-20.414-2.042-20.419 8.444 0 2.096.549 4.14 1.595 5.945l-1.696 6.162 6.335-1.652c7.905 4.27 17.661-1.4 17.665-10.449 0-3.176-1.24-6.165-3.495-8.411zm1.482 8.417c-.006 7.633-8.385 12.4-15.012 8.504l-.36-.214-3.75.975 1.005-3.645-.239-.375c-4.124-6.565.614-15.145 8.426-15.145 2.654 0 5.145 1.035 7.021 2.91 1.875 1.859 2.909 4.35 2.909 6.99z" fill="currentColor"></path>
+      </svg>
+    `;
+    }
+
+    function getSmallCheckIcon() {
+      return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20 6 9 17l-5-5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    `;
+    }
+
+    function getSecurePurchaseIcon() {
+      return `
+      <svg class="correa-frete-icon correa-frete-icon-stroke" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+        <path d="M120 184V112C120 58.98 162.98 16 216 16s96 42.98 96 96v72" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M344 208 332 80H96L56 472h206" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="m376 210 104 30v88c0 68-40 130-104 158-64-28-104-90-104-158v-88l104-30z" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="m330 350 34 34 56-84" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    `;
+    }
+
+    function getWarrantyIcon() {
+      return `
+      <svg class="correa-frete-icon correa-frete-icon-fill" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m22.814 9.216-.826-5.368A1 1 0 0 0 21 3c-5.467 0-8.269-2.684-8.293-2.707a1 1 0 0 0-1.41 0C11.269.316 8.467 3 3 3a1 1 0 0 0-.988.848l-.826 5.368a12.033 12.033 0 0 0 6.114 12.36l4.22 2.3a1 1 0 0 0 .958 0l4.22-2.3a12.033 12.033 0 0 0 6.116-12.36Zm-7.072 10.6L12 21.861 8.258 19.82a10.029 10.029 0 0 1-5.1-10.3l.7-4.541A14.717 14.717 0 0 0 12 2.3a14.717 14.717 0 0 0 8.139 2.68l.7 4.54a10.029 10.029 0 0 1-5.097 10.3Z"></path>
+        <path d="m15.293 8.293-5.293 5.293-1.293-1.293a1 1 0 1 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0-1.414-1.414Z"></path>
+      </svg>
+    `;
+    }
+
+    function getSpecialistSupportIcon() {
+      return `
+      <svg class="correa-frete-icon correa-frete-icon-stroke" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+        <path d="M156 260H76v-80h80" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M356 180h80v80H276" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M116 412c-44.183 0-80 35.817-80 80h440c0-44.183-35.817-80-80-80H116Z" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M276 340h-40c-44.183 0-80-35.817-80-80v-80c0-44.183 35.817-80 80-80h40c44.183 0 80 35.817 80 80v80c0 44.183-35.817 80-80 80Z" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M76 180v-1.739C76 90.856 146.856 20 234.261 20h43.478C365.144 20 436 90.856 436 178.261V180" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    `;
+    }
+
+    function getArrowIcon(direction) {
+      if (direction === 'next') {
+        return `
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="m9 5 7 7-7 7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      `;
       }
 
-      /* Área de preços */
-      #content-price-product .values-area,
-      #content-price-product .values-area.flex {
-        gap: 15px !important;
-        align-items: baseline !important;
-      }
+      return `
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m15 5-7 7 7 7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    `;
+    }
 
-      /* Preço PIX */
-      #content-price-product .price.pix .price-big,
-      #content-price-product .price.pix .full-price span {
-        color: var(--bg-base-color, #32BCAD) !important;
-        font-size: 28px !important;
-        font-weight: 700 !important;
-        line-height: 1.1 !important;
-      }
+    function insertTopTrustTags() {
+      const title =
+        document.querySelector('.informacoes-compra-produto h1') ||
+        document.querySelector('.product-title') ||
+        document.querySelector('h1');
 
-      /* Preço cartão */
-      #content-price-product .price.card .price-big,
-      #content-price-product .price.card .full-price > span {
-        font-size: 18px !important;
-        font-weight: 700 !important;
-        color: #111111 !important;
-        line-height: 1.2 !important;
-      }
+      if (!title) return;
 
-      /* Wrapper da avaliação original */
-      .${SOURCE_CLASS} {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        gap: 0 !important;
-        margin: 8px 0 10px !important;
-        padding: 0 !important;
-      }
+      const parent = title.parentElement;
 
-      .${SOURCE_CLASS} > *:not(.${CUSTOM_CLASS}) {
-        display: none !important;
-      }
+      if (!parent) return;
+      if (parent.classList.contains(TOP_TRUST_READY_CLASS)) return;
+      if (parent.querySelector('.correa-top-trust-tags')) return;
 
-      /* Nova avaliação */
-      .${CUSTOM_CLASS} {
-        display: flex !important;
-        align-items: center !important;
-        flex-wrap: wrap !important;
-        gap: 6px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        font-family: inherit !important;
-        line-height: 1 !important;
-        color: #111111 !important;
-      }
+      const trustTags = document.createElement('div');
 
-      .produto-top-stars-red {
-        display: inline-flex !important;
-        align-items: center !important;
-        gap: 1px !important;
-      }
+      trustTags.className = 'correa-top-trust-tags';
 
-      .produto-top-stars-red svg {
-        width: 13px !important;
-        height: 13px !important;
-        display: block !important;
-        fill: #ff2020 !important;
-        stroke: #ff2020 !important;
-        stroke-width: 1.5 !important;
-      }
-
-      .produto-top-meta {
-        font-size: 11px !important;
-        font-weight: 600 !important;
-        color: #111111 !important;
-        white-space: nowrap !important;
-      }
-
-      .produto-top-sold {
-        font-size: 11px !important;
-        font-weight: 700 !important;
-        color: #128a36 !important;
-        white-space: nowrap !important;
-      }
-
-      .produto-top-separator {
-        width: 3px !important;
-        height: 3px !important;
-        display: inline-block !important;
-        border-radius: 999px !important;
-        background: #111111 !important;
-        opacity: .8 !important;
-        margin: 0 3px !important;
-      }
-
-      @media (max-width: 767px) {
-        .informacoes-compra-produto h1,
-        .product-title {
-          font-size: 20px !important;
-          line-height: 1.22 !important;
-        }
-
-        #content-price-product .price.pix .price-big,
-        #content-price-product .price.pix .full-price span {
-          font-size: 26px !important;
-        }
-
-        #content-price-product .price.card .price-big,
-        #content-price-product .price.card .full-price > span {
-          font-size: 17px !important;
-        }
-
-        .${CUSTOM_CLASS} {
-          gap: 5px !important;
-        }
-
-        .produto-top-stars-red svg {
-          width: 12px !important;
-          height: 12px !important;
-        }
-
-        .produto-top-meta,
-        .produto-top-sold {
-          font-size: 10.5px !important;
-        }
-      }
+      trustTags.innerHTML = `
+      <span class="correa-top-trust-tag">
+        ${getSmallCheckIcon()}
+        Envio imediato
+      </span>
     `;
 
-    document.head.appendChild(style);
-  }
+      title.insertAdjacentElement('beforebegin', trustTags);
+      parent.classList.add(TOP_TRUST_READY_CLASS);
+    }
 
-  function formatRating(value) {
-    const number = parseFloat(String(value || '').replace(',', '.'));
+    function getRating(wrapper) {
+      const ratingEl = wrapper.querySelector('.average-rating');
 
-    if (isNaN(number)) return '5,0';
+      if (!ratingEl) return '5,0';
 
-    return number
-      .toFixed(2)
-      .replace('.', ',')
-      .replace(',00', ',0')
-      .replace(/,(\d)0$/, ',$1');
-  }
+      const dataValue = ratingEl.getAttribute('data-value');
+      const titleValue = ratingEl.getAttribute('title');
+      const rawValue = dataValue || titleValue || '5';
+      const match = String(rawValue).match(/\d+([.,]\d+)?/);
 
-  function getRating(wrapper) {
-    const ratingEl = wrapper.querySelector('.average-rating');
+      return formatRating(match ? match[0] : rawValue);
+    }
 
-    if (!ratingEl) return '5,0';
+    function getReviewCount(wrapper) {
+      const reviewEl =
+        wrapper.querySelector('.num-avaliacoes') ||
+        wrapper.querySelector('.num-avaliacao') ||
+        wrapper.querySelector('.avaliacoes-link');
 
-    const dataValue = ratingEl.getAttribute('data-value');
-    const titleValue = ratingEl.getAttribute('title');
-    const rawValue = dataValue || titleValue || '5';
+      const text = reviewEl ? reviewEl.textContent : wrapper.textContent;
+      const match = String(text || '').match(/\d+/);
 
-    const match = String(rawValue).match(/\d+([.,]\d+)?/);
+      return match ? match[0] : '0';
+    }
 
-    return formatRating(match ? match[0] : rawValue);
-  }
-
-  function getReviewCount(wrapper) {
-    const reviewEl =
-      wrapper.querySelector('.num-avaliacoes') ||
-      wrapper.querySelector('.num-avaliacao') ||
-      wrapper.querySelector('.avaliacoes-link');
-
-    const text = reviewEl ? reviewEl.textContent : wrapper.textContent;
-    const match = String(text || '').match(/\d+/);
-
-    return match ? match[0] : '0';
-  }
-
-  function renderStars() {
-    const star = `
+    function renderStars() {
+      const star = `
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.5 1.1 6.3L12 17.2 6.4 20.2l1.1-6.3-4.6-4.5 6.3-.9L12 2.8z"></path>
       </svg>
     `;
 
-    return Array(5).fill(star).join('');
-  }
+      return Array(5).fill(star).join('');
+    }
 
-  function findRatingWrapper() {
-    return (
-      document.querySelector('.avaliacoes.flex.items-center') ||
-      document.querySelector('.avaliacao-holder.flex.items-center') ||
-      document.querySelector('.avaliacao-holder') ||
-      document.querySelector('.avaliacao-geral-topo')
-    );
-  }
+    function findRatingWrapper() {
+      return (
+        document.querySelector('.avaliacoes.flex.items-center') ||
+        document.querySelector('.avaliacao-holder.flex.items-center') ||
+        document.querySelector('.avaliacao-holder') ||
+        document.querySelector('.avaliacao-geral-topo')
+      );
+    }
 
-  function applyRatingLayout() {
-    const wrapper = findRatingWrapper();
+    function moveRatingAfterTitle(wrapper) {
+      const title =
+        document.querySelector('.informacoes-compra-produto h1') ||
+        document.querySelector('.product-title') ||
+        document.querySelector('h1');
 
-    if (!wrapper) return;
-    if (wrapper.querySelector('.' + CUSTOM_CLASS)) return;
+      if (!title || !wrapper) return;
 
-    const rating = getRating(wrapper);
-    const reviews = getReviewCount(wrapper);
-    const sold = getCachedSoldNumber();
+      if (title.nextElementSibling !== wrapper) {
+        title.insertAdjacentElement('afterend', wrapper);
+      }
+    }
 
-    wrapper.classList.add(SOURCE_CLASS);
+    function applyRatingLayout() {
+      const wrapper = findRatingWrapper();
 
-    const customContent = document.createElement('div');
-    customContent.className = CUSTOM_CLASS;
+      if (!wrapper) return;
 
-    customContent.innerHTML = `
+      moveRatingAfterTitle(wrapper);
+
+      if (wrapper.querySelector('.' + RATING_CUSTOM_CLASS)) return;
+
+      const rating = getRating(wrapper);
+      const reviews = getReviewCount(wrapper);
+      const sold = getCachedSoldNumber();
+
+      wrapper.classList.add(RATING_SOURCE_CLASS);
+
+      const customContent = document.createElement('div');
+
+      customContent.className = RATING_CUSTOM_CLASS;
+
+      customContent.innerHTML = `
       <span class="produto-top-stars-red">
         ${renderStars()}
       </span>
@@ -300,52 +1868,713 @@
       <span class="produto-top-sold">+${sold} vendidos</span>
     `;
 
-    wrapper.appendChild(customContent);
-  }
-
-  function init() {
-    injectStyle();
-    applyRatingLayout();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
-  let scheduled = false;
-
-  const observer = new MutationObserver(function () {
-    if (scheduled) return;
-
-    scheduled = true;
-
-    requestAnimationFrame(function () {
-      scheduled = false;
-      init();
-    });
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
-  });
-
-  let attempts = 0;
-  const interval = setInterval(function () {
-    attempts++;
-    init();
-
-    if (attempts >= 20 || document.querySelector('.' + CUSTOM_CLASS)) {
-      clearInterval(interval);
+      wrapper.appendChild(customContent);
     }
-  }, 300);
-})();
 
+    function getCashbackValue(box) {
+      const strong = box.querySelector('strong');
 
-$(document).ready(function(){
-    const seletor = document.querySelector("#produto-react-app > div.flex.topo-produto.mt-space-20.pt-space-10.relative.max-xl\\:px-2 > div.informacoes-compra-produto.relative.min-w-\\[450px\\].w-\\[450px\\] > div.avaliacoes.flex.items-center.produto-top-rating-source");
-    $(seletor).insertAfter("h1");
-})
+      if (!strong) return 'R$ 0,00';
+
+      return strong.textContent
+        .replace(/de cashback/gi, '')
+        .replace(/cashback/gi, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function applyCashbackLayout() {
+      const boxes = document.querySelectorAll(
+        '.box-fidegg.cashback:not(.' + CASHBACK_CLASS + ')'
+      );
+
+      boxes.forEach(function (box) {
+        const cashbackValue = getCashbackValue(box);
+
+        box.classList.add(CASHBACK_CLASS);
+
+        box.innerHTML = `
+        <div class="correa-cashback-left">
+          <div class="correa-cashback-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M7 8.5h10M7 12h10M7 15.5h6" stroke-width="2" stroke-linecap="round"></path>
+              <path d="M12 3.5c-4.7 0-8.5 3.2-8.5 7.2 0 2.4 1.4 4.6 3.5 5.9v3.1l3.2-1.8c.6.1 1.2.1 1.8.1 4.7 0 8.5-3.2 8.5-7.2S16.7 3.5 12 3.5z" stroke-width="2" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+
+          <div class="correa-cashback-text">
+            <p class="correa-cashback-title">
+              Ganhe <strong>${cashbackValue}</strong> de cashback nesta compra
+            </p>
+
+            <p class="correa-cashback-subtitle">
+              Crédito para usar em uma próxima compra na Corrêa.
+            </p>
+          </div>
+        </div>
+
+        <div class="correa-cashback-info" aria-label="Informações sobre cashback">
+          i
+        </div>
+      `;
+      });
+    }
+
+    function moveDePorToPriceCard() {
+      const priceArea =
+        document.querySelector('#content-price-product .values-area') ||
+        document.querySelector('.values-area.forma-pagamento-4');
+
+      if (!priceArea) return;
+
+      const currentDePor = priceArea.querySelector('.preco-de');
+      const nativeDePor =
+        currentDePor ||
+        document.querySelector('#content-price-product > .preco-de') ||
+        document.querySelector('#content-price-product .preco-de') ||
+        document.querySelector('.preco-de');
+
+      if (!nativeDePor) return;
+
+      nativeDePor.classList.add(PRICE_DE_READY_CLASS);
+      priceArea.classList.add(PRICE_WITH_DEPOR_CLASS);
+
+      if (nativeDePor.parentElement !== priceArea) {
+        priceArea.insertBefore(nativeDePor, priceArea.firstChild);
+      }
+    }
+
+    function moveCashbackToPriceCard() {
+      const priceArea =
+        document.querySelector('#content-price-product .values-area') ||
+        document.querySelector('.values-area.forma-pagamento-4');
+
+      const cashbackBox = document.querySelector('.box-fidegg.cashback');
+
+      if (!priceArea || !cashbackBox) return;
+
+      priceArea.classList.add(PRICE_WITH_CASHBACK_CLASS);
+
+      if (cashbackBox.parentElement !== priceArea) {
+        priceArea.appendChild(cashbackBox);
+      }
+    }
+
+    function findPaymentMoreElement(priceArea) {
+      const candidates = Array.from(
+        document.querySelectorAll('a, button, span, div, [role="button"]')
+      );
+
+      for (const element of candidates) {
+        if (!element || priceArea.contains(element)) continue;
+        if (element.closest('.correa-payment-more-wrapper')) continue;
+
+        const text = normalizeCorreaText(element.textContent);
+
+        const isPaymentMore =
+          text === '+ formas de pagamento' ||
+          text === '+ forma de pagamento' ||
+          text === 'formas de pagamento' ||
+          text === 'forma de pagamento';
+
+        if (!isPaymentMore) continue;
+
+        const childHasSameText = Array.from(element.children || []).some(function (child) {
+          return normalizeCorreaText(child.textContent).includes('formas de pagamento');
+        });
+
+        if (childHasSameText) continue;
+
+        return element.closest('a, button, [role="button"]') || element;
+      }
+
+      return null;
+    }
+
+    function movePaymentMoreToPriceCard() {
+      const priceArea =
+        document.querySelector('#content-price-product .values-area') ||
+        document.querySelector('.values-area.forma-pagamento-4');
+
+      if (!priceArea) return;
+      if (priceArea.querySelector('.correa-payment-more-wrapper')) return;
+
+      const paymentMoreElement = findPaymentMoreElement(priceArea);
+
+      if (!paymentMoreElement) return;
+
+      const wrapper = document.createElement('div');
+
+      wrapper.className = 'correa-payment-more-wrapper';
+
+      paymentMoreElement.classList.add('correa-payment-more-link');
+
+      wrapper.appendChild(paymentMoreElement);
+      priceArea.appendChild(wrapper);
+
+      priceArea.classList.add('correa-price-with-payment-more');
+    }
+
+    function cleanPaymentTexts() {
+      const priceAreas = document.querySelectorAll(
+        '#content-price-product .values-area, .values-area.forma-pagamento-4'
+      );
+
+      priceAreas.forEach(function (area) {
+        if (area.classList.contains(PRICE_READY_CLASS)) return;
+
+        const pixBox = area.querySelector('.price.pix');
+        const cardBox = area.querySelector('.price.card');
+
+        if (pixBox) updatePixText(pixBox);
+        if (cardBox) updateCardText(cardBox);
+
+        area.classList.add(PRICE_READY_CLASS);
+      });
+    }
+
+    function updatePixText(pixBox) {
+      const pixType = pixBox.querySelector('.type-payment');
+      const discountEl = pixBox.querySelector('.percentual-desconto');
+
+      if (!pixType) return;
+
+      let discount = '';
+
+      if (discountEl) {
+        discount = discountEl.textContent
+          .replace('-', '')
+          .replace(/\s+/g, '')
+          .trim();
+      }
+
+      pixType.innerHTML = discount
+        ? `no Pix <strong>(${discount} de desconto)</strong>`
+        : `no Pix`;
+    }
+
+    function updateCardText(cardBox) {
+      const cardType = cardBox.querySelector('.type-payment');
+
+      if (!cardType) return;
+
+      cardType.innerHTML = cardType.innerHTML
+        .replace(/no cartão em\s*/i, 'em ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function applyBuyAreaLayout() {
+      const buyArea = document.querySelector('.area-buy-product');
+
+      if (!buyArea) return;
+
+      buyArea.classList.add(BUY_READY_CLASS);
+
+      updateBuyButton(buyArea);
+      updateWhatsappButton(buyArea);
+      updateShippingBox(buyArea);
+    }
+
+    function updateBuyButton(scope) {
+      const buyButton = scope.querySelector('.button-buy');
+
+      if (!buyButton) return;
+      if (buyButton.classList.contains(BUY_BUTTON_READY_CLASS)) return;
+
+      buyButton.innerHTML = `${getCartIcon()} <span>ADICIONAR AO CARRINHO</span>`;
+      buyButton.classList.add(BUY_BUTTON_READY_CLASS);
+    }
+
+    function updateWhatsappButton(scope) {
+      const whatsappButton = scope.querySelector('.container-botao-whatsapp');
+
+      if (!whatsappButton) return;
+      if (whatsappButton.classList.contains(WHATSAPP_READY_CLASS)) return;
+
+      whatsappButton.innerHTML = `
+      ${getWhatsappIcon()}
+      <span class="compre-pelo-whatsapp">COMPRAR PELO WHATSAPP</span>
+    `;
+
+      whatsappButton.classList.add(WHATSAPP_READY_CLASS);
+    }
+
+    function updateShippingBox(scope) {
+      const shippingBox = scope.querySelector('.calculo-frete');
+
+      if (!shippingBox) return;
+
+      const label = shippingBox.querySelector('.cep-label');
+      const input = shippingBox.querySelector('#cep');
+      const button = shippingBox.querySelector('.field-content button');
+      const labelWrapper = shippingBox.querySelector('.label-frete');
+      const contentFrete = shippingBox.querySelector('.content-frete');
+
+      setTextIfDifferent(label, 'Calcule o frete e prazo de entrega');
+      setAttributeIfDifferent(input, 'placeholder', 'Digite seu CEP');
+      setTextIfDifferent(button, 'Calcular');
+
+      if (labelWrapper && !labelWrapper.classList.contains(SHIPPING_HELPER_CLASS)) {
+        const helper = document.createElement('span');
+
+        helper.className = 'correa-frete-helper';
+        helper.textContent = 'Informe seu CEP para consultar prazo e opções de entrega.';
+
+        labelWrapper.appendChild(helper);
+        labelWrapper.classList.add(SHIPPING_HELPER_CLASS);
+      }
+
+      if (contentFrete && !contentFrete.classList.contains(SHIPPING_READY_CLASS)) {
+        const shippingInfo = document.createElement('div');
+
+        shippingInfo.className = 'correa-envio-imediato';
+
+        contentFrete.appendChild(shippingInfo);
+        contentFrete.classList.add(SHIPPING_READY_CLASS);
+      }
+
+      if (contentFrete && !contentFrete.classList.contains(SHIPPING_TAGS_READY_CLASS)) {
+        const shippingTags = document.createElement('div');
+
+        shippingTags.className = 'correa-frete-tags';
+
+        shippingTags.innerHTML = `
+        <div class="correa-frete-tag">
+          ${getSecurePurchaseIcon()}
+          <span>Compra segura</span>
+        </div>
+
+        <div class="correa-frete-tag">
+          ${getWarrantyIcon()}
+          <span>Garantia de 1 ano</span>
+        </div>
+
+        <div class="correa-frete-tag">
+          ${getSpecialistSupportIcon()}
+          <span>Atendimento especializado</span>
+        </div>
+      `;
+
+        contentFrete.appendChild(shippingTags);
+        contentFrete.classList.add(SHIPPING_TAGS_READY_CLASS);
+      }
+    }
+
+    function moveShippingResultAboveTags() {
+      const buyArea = document.querySelector('.area-buy-product');
+
+      if (!buyArea) return;
+
+      const shippingBox = buyArea.querySelector('.box-frete');
+      const contentFrete = buyArea.querySelector('.content-frete');
+      const shippingTags = buyArea.querySelector('.correa-frete-tags');
+      const resultBox = shippingBox ? shippingBox.querySelector('.box-result') : null;
+
+      if (!shippingBox || !contentFrete || !resultBox) return;
+
+      if (resultBox.parentElement !== contentFrete) {
+        if (shippingTags && shippingTags.parentElement === contentFrete) {
+          contentFrete.insertBefore(resultBox, shippingTags);
+        } else {
+          contentFrete.appendChild(resultBox);
+        }
+
+        return;
+      }
+
+      if (shippingTags && shippingTags.previousElementSibling !== resultBox) {
+        contentFrete.insertBefore(resultBox, shippingTags);
+      }
+    }
+
+    function parseFretePrice(priceElement) {
+      if (!priceElement) return null;
+
+      const text = String(priceElement.textContent || '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+
+      if (!text) return null;
+
+      if (text.includes('grátis') || text.includes('gratis')) {
+        return 0;
+      }
+
+      const match = text.match(/(\d{1,3}(?:\.\d{3})*|\d+)(?:,\d{2})?/);
+
+      if (!match) return null;
+
+      const numberText = match[0]
+        .replace(/\./g, '')
+        .replace(',', '.');
+
+      const value = parseFloat(numberText);
+
+      return isNaN(value) ? null : value;
+    }
+
+    function parseFreteDays(timeElement) {
+      if (!timeElement) {
+        return {
+          min: 9999,
+          max: 9999
+        };
+      }
+
+      const text = String(timeElement.textContent || '')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      const numbers = text.match(/\d+/g);
+
+      if (!numbers || !numbers.length) {
+        return {
+          min: 9999,
+          max: 9999
+        };
+      }
+
+      const parsedNumbers = numbers.map(function (number) {
+        return Number(number);
+      });
+
+      return {
+        min: parsedNumbers[0],
+        max: parsedNumbers[parsedNumbers.length - 1]
+      };
+    }
+
+    function getOriginalFreteName(nameElement) {
+      if (!nameElement) return '';
+
+      const savedName = nameElement.getAttribute('data-correa-original-name');
+
+      if (savedName) return savedName;
+
+      const currentName = String(nameElement.textContent || '').trim();
+
+      nameElement.setAttribute('data-correa-original-name', currentName);
+
+      return currentName;
+    }
+
+    function isAllowedFreteService(nameElement) {
+      const serviceName = normalizeFreteText(
+        nameElement
+          ? nameElement.getAttribute('data-correa-original-name') || nameElement.textContent
+          : ''
+      );
+
+      return (
+        serviceName.includes('economico') ||
+        serviceName.includes('normal')
+      );
+    }
+
+    function setFreteServiceName(nameElement, newName) {
+      if (!nameElement || !newName) return;
+
+      if (nameElement.textContent.trim() !== newName) {
+        nameElement.textContent = newName;
+      }
+    }
+
+    function resetFreteServiceName(nameElement) {
+      if (!nameElement) return;
+
+      const originalName = getOriginalFreteName(nameElement);
+
+      if (originalName && nameElement.textContent.trim() !== originalName) {
+        nameElement.textContent = originalName;
+      }
+    }
+
+    function getFreteOptionRows() {
+      const resultBox = document.querySelector(
+        '.area-buy-product.correa-buy-area-ready .content-frete > .box-result'
+      );
+
+      if (!resultBox) return [];
+
+      resultBox
+        .querySelectorAll('.correa-frete-opcao-tag')
+        .forEach(function (tag) {
+          tag.remove();
+        });
+
+      const rows = Array.from(resultBox.querySelectorAll('.flex.flex-col > div'));
+
+      return rows
+        .map(function (row) {
+          const nameElement = row.querySelector('.nome-servico');
+          const timeElement = row.querySelector('.tempo-entrega');
+          const priceElement = row.querySelector('.descricao-valor, .frete-gratis');
+
+          if (!nameElement || !timeElement || !priceElement) {
+            return null;
+          }
+
+          getOriginalFreteName(nameElement);
+
+          if (!isAllowedFreteService(nameElement)) {
+            resetFreteServiceName(nameElement);
+            return null;
+          }
+
+          const price = parseFretePrice(priceElement);
+          const days = parseFreteDays(timeElement);
+
+          if (price === null) {
+            resetFreteServiceName(nameElement);
+            return null;
+          }
+
+          return {
+            row: row,
+            nameElement: nameElement,
+            price: price,
+            minDays: days.min,
+            maxDays: days.max
+          };
+        })
+        .filter(Boolean);
+    }
+
+    function clearFreteRowStyles() {
+      const resultBox = document.querySelector(
+        '.area-buy-product.correa-buy-area-ready .content-frete > .box-result'
+      );
+
+      if (!resultBox) return;
+
+      resultBox.querySelectorAll('.flex.flex-col > div').forEach(function (row) {
+        row.classList.remove(
+          'correa-frete-row-highlight-cheap',
+          'correa-frete-row-highlight-fast',
+          'correa-frete-row-highlight-best'
+        );
+      });
+    }
+
+    function applyFreteServiceNames() {
+      const options = getFreteOptionRows();
+
+      clearFreteRowStyles();
+
+      if (!options.length) return;
+
+      const minPrice = Math.min.apply(
+        null,
+        options.map(function (option) {
+          return option.price;
+        })
+      );
+
+      const minMaxDays = Math.min.apply(
+        null,
+        options.map(function (option) {
+          return option.maxDays;
+        })
+      );
+
+      const fastestCandidates = options.filter(function (option) {
+        return option.maxDays === minMaxDays;
+      });
+
+      const minFastestStartDay = Math.min.apply(
+        null,
+        fastestCandidates.map(function (option) {
+          return option.minDays;
+        })
+      );
+
+      options.forEach(function (option) {
+        const isCheapest = option.price === minPrice;
+        const isFastest =
+          option.maxDays === minMaxDays &&
+          option.minDays === minFastestStartDay;
+
+        let newName = getOriginalFreteName(option.nameElement);
+
+        if (isCheapest && isFastest) {
+          newName = 'Mais rápido e barato';
+          option.row.classList.add('correa-frete-row-highlight-best');
+        } else if (isCheapest) {
+          newName = 'Mais barato';
+          option.row.classList.add('correa-frete-row-highlight-cheap');
+        } else if (isFastest) {
+          newName = 'Mais rápido';
+          option.row.classList.add('correa-frete-row-highlight-fast');
+        }
+
+        setFreteServiceName(option.nameElement, newName);
+      });
+    }
+
+    function getCarouselHTML() {
+      return `
+      <div class="correa-image-info-carousel-header">
+        <div class="correa-image-info-carousel-controls">
+          <button class="correa-image-info-carousel-btn correa-image-info-prev" type="button" aria-label="Anterior">
+            ${getArrowIcon('prev')}
+          </button>
+
+          <button class="correa-image-info-carousel-btn correa-image-info-next" type="button" aria-label="Próximo">
+            ${getArrowIcon('next')}
+          </button>
+        </div>
+      </div>
+
+      <div class="correa-image-info-carousel-track">
+        <div class="correa-image-info-card">
+          <div class="correa-image-info-icon" aria-hidden="true">🎟️</div>
+
+          <div class="correa-image-info-content">
+            <span style="display:inline;">Use<strong> BEMVINDO</strong></span>
+            <span><strong>Ganhe</strong> 5% de desconto</span>
+          </div>
+        </div>
+
+        <div class="correa-image-info-card">
+          <div class="correa-image-info-icon" aria-hidden="true">🏷️</div>
+
+          <div class="correa-image-info-content">
+            <strong>Desconto no PIX</strong>
+            <span>Pagamento com preço especial</span>
+          </div>
+        </div>
+
+        <div class="correa-image-info-card">
+          <div class="correa-image-info-icon" aria-hidden="true">💳</div>
+
+          <div class="correa-image-info-content">
+            <strong>Parcelamento</strong>
+            <span>Em até 8x sem juros</span>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+
+    function createInfoCarousel() {
+      const galleryBlock =
+        document.querySelector('#block-imagem') ||
+        document.querySelector('.block-imagem');
+
+      const swiperContainer =
+        document.querySelector('#container-swiper') ||
+        document.querySelector('.container-swiper');
+
+      if (!galleryBlock || !swiperContainer) return;
+
+      const existingCarousel = galleryBlock.querySelector('.' + CAROUSEL_CLASS);
+
+      if (existingCarousel) {
+        if (existingCarousel.getAttribute('data-carousel-version') !== CAROUSEL_VERSION) {
+          existingCarousel.innerHTML = getCarouselHTML();
+          existingCarousel.setAttribute('data-carousel-version', CAROUSEL_VERSION);
+          existingCarousel.classList.remove('correa-carousel-controls-ready');
+          bindCarouselControls(existingCarousel);
+        }
+
+        galleryBlock.classList.add(CAROUSEL_READY_CLASS);
+        return;
+      }
+
+      const carousel = document.createElement('div');
+
+      carousel.className = CAROUSEL_CLASS;
+      carousel.setAttribute('data-carousel-version', CAROUSEL_VERSION);
+      carousel.innerHTML = getCarouselHTML();
+
+      swiperContainer.insertAdjacentElement('afterend', carousel);
+      galleryBlock.classList.add(CAROUSEL_READY_CLASS);
+
+      bindCarouselControls(carousel);
+    }
+
+    function bindCarouselControls(carousel) {
+      const track = carousel.querySelector('.correa-image-info-carousel-track');
+      const prev = carousel.querySelector('.correa-image-info-prev');
+      const next = carousel.querySelector('.correa-image-info-next');
+
+      if (!track || !prev || !next) return;
+      if (carousel.classList.contains('correa-carousel-controls-ready')) return;
+
+      function getScrollAmount() {
+        const firstCard = track.querySelector('.correa-image-info-card');
+
+        if (!firstCard) return 240;
+
+        return firstCard.offsetWidth + 10;
+      }
+
+      prev.addEventListener('click', function () {
+        track.scrollBy({
+          left: -getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
+
+      next.addEventListener('click', function () {
+        track.scrollBy({
+          left: getScrollAmount(),
+          behavior: 'smooth'
+        });
+      });
+
+      carousel.classList.add('correa-carousel-controls-ready');
+    }
+
+    function init() {
+      insertTopTrustTags();
+      applyRatingLayout();
+      applyCashbackLayout();
+      cleanPaymentTexts();
+      moveDePorToPriceCard();
+      moveCashbackToPriceCard();
+      movePaymentMoreToPriceCard();
+      applyBuyAreaLayout();
+      moveShippingResultAboveTags();
+      applyFreteServiceNames();
+      createInfoCarousel();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    let scheduled = false;
+
+    const observer = new MutationObserver(function () {
+      if (scheduled) return;
+
+      scheduled = true;
+
+      requestAnimationFrame(function () {
+        scheduled = false;
+        init();
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    let attempts = 0;
+
+    const interval = setInterval(function () {
+      attempts++;
+      init();
+
+      if (attempts >= 25) {
+        clearInterval(interval);
+      }
+    }, 300);
+  })();
 </script>

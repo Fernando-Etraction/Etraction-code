@@ -1,0 +1,353 @@
+<!-- =========================================================================
+     CASA PET FRIENDLY / PERSONALIZADOS PET — OVERRIDE VISUAL DAS VITRINES
+     Refino APENAS visual (CSS + JS mínimo de update do Swiper).
+     Conservador e incremental: mexe só nos seletores autorizados.
+     NÃO altera copy/nome/preço/CTA/href, NÃO esconde a vitrine,
+     NÃO recria produtos, NÃO usa seletores agressivos ([class*="label"]),
+     NÃO força flex nos filhos internos e NÃO mexe no slidesPerView.
+     Inserir APÓS o carregamento da página.
+     ========================================================================= -->
+<style>
+    /* =====================================================================
+       TOKENS (namespaced com --cpfov- para não colidir com a Magazord)
+       ===================================================================== */
+    .vitrine-1,
+    .vitrine-2,
+    .vitrine-3 {
+        --cpfov-paper: #FFFFFF;
+        --cpfov-ink: #201C18;
+        --cpfov-body: #55504A;
+        --cpfov-muted: #938B81;
+        --cpfov-accent: #E07A5F;
+        --cpfov-accent-ink: #B9543A;
+        --cpfov-line: rgba(32, 28, 24, 0.10);
+        --cpfov-line-soft: rgba(32, 28, 24, 0.07);
+        --cpfov-ease: cubic-bezier(.2, .8, .2, 1);
+    }
+
+    /* =====================================================================
+       1) BASE — largura máxima ~1200px, centralizada, respiro coerente
+       ===================================================================== */
+    .vitrine-1,
+    .vitrine-2,
+    .vitrine-3 {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: clamp(16px, 4vw, 32px);
+        padding-right: clamp(16px, 4vw, 32px);
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    /* =====================================================================
+       2) CARD (.swiper-slide) — limpo: fundo branco, cantos arredondados,
+       SEM borda/sombra em repouso (sombra só no hover). Conteúdo centralizado.
+       Sem mudar display (não forçamos flex nos filhos).
+       ===================================================================== */
+    .vitrine-1 .swiper-slide,
+    .vitrine-2 .swiper-slide,
+    .vitrine-3 .swiper-slide {
+        background: var(--cpfov-paper);
+        border-radius: 14px;
+        overflow: hidden;
+        text-align: center;
+        /* sem borda e sem sombra em repouso: card limpo/integrado */
+        transition: box-shadow .3s var(--cpfov-ease), transform .3s var(--cpfov-ease);
+    }
+
+    /* hover só em dispositivos com mouse (evita estado preso no toque) */
+    @media (hover: hover) {
+
+        .vitrine-1 .swiper-slide:hover,
+        .vitrine-2 .swiper-slide:hover,
+        .vitrine-3 .swiper-slide:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 34px rgba(32, 28, 24, 0.10);
+        }
+    }
+
+    /* =====================================================================
+       3) IMAGEM — proporção controlada, no topo, sem distorcer
+       ===================================================================== */
+    .vitrine-1 .swiper-slide img,
+    .vitrine-2 .swiper-slide img,
+    .vitrine-3 .swiper-slide img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+
+    /* =====================================================================
+       4) NOME DO PRODUTO — visível, SEM corte (remove truncamento)
+       ===================================================================== */
+    .vitrine-1 .swiper-slide [class*="name"],
+    .vitrine-2 .swiper-slide [class*="name"],
+    .vitrine-3 .swiper-slide [class*="name"] {
+        display: block;
+        overflow: visible;
+        max-height: none;
+        height: auto;
+        white-space: normal;
+        text-overflow: clip;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        padding: 16px 14px 0;
+        margin: 0;
+        /* reserva ~2 linhas para alinhar avaliação/preço entre os cards */
+        min-height: calc(2 * 1.35em + 16px);
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: 1.35;
+        color: var(--cpfov-ink);
+    }
+
+    /* =====================================================================
+       5) AVALIAÇÃO / ESTRELAS — reduz o peso visual
+       (best-effort: substrings específicas de avaliação, só tamanho)
+       ===================================================================== */
+    .vitrine-1 .swiper-slide [class*="rating"],
+    .vitrine-1 .swiper-slide [class*="avalia"],
+    .vitrine-1 .swiper-slide [class*="estrela"],
+    .vitrine-1 .swiper-slide [class*="star"],
+    .vitrine-2 .swiper-slide [class*="rating"],
+    .vitrine-2 .swiper-slide [class*="avalia"],
+    .vitrine-2 .swiper-slide [class*="estrela"],
+    .vitrine-2 .swiper-slide [class*="star"],
+    .vitrine-3 .swiper-slide [class*="rating"],
+    .vitrine-3 .swiper-slide [class*="avalia"],
+    .vitrine-3 .swiper-slide [class*="estrela"],
+    .vitrine-3 .swiper-slide [class*="star"] {
+        font-size: 0.72rem;
+        line-height: 1;
+        margin-top: 6px;
+    }
+
+    /* =====================================================================
+       6) PREÇO — bloco compacto e estruturado (sem apagar informação).
+       O preço principal (negrito nativo) fica em destaque; o "de" riscado
+       é suavizado para criar hierarquia clara de preço.
+       ===================================================================== */
+    .vitrine-1 .swiper-slide [class*="price"],
+    .vitrine-2 .swiper-slide [class*="price"],
+    .vitrine-3 .swiper-slide [class*="price"] {
+        padding: 10px 14px 0;
+        margin: 0;
+        font-size: 0.95rem;
+        line-height: 1.35;
+        color: var(--cpfov-ink);
+    }
+
+    /* preço "de" riscado: menor e suave (hierarquia de preço) */
+    .vitrine-1 .swiper-slide del,
+    .vitrine-1 .swiper-slide s,
+    .vitrine-2 .swiper-slide del,
+    .vitrine-2 .swiper-slide s,
+    .vitrine-3 .swiper-slide del,
+    .vitrine-3 .swiper-slide s {
+        font-size: 0.82em;
+        color: var(--cpfov-muted);
+    }
+
+    /* =====================================================================
+       7) BOTÃO COMPRAR — fino e discreto
+       ===================================================================== */
+    .vitrine-1 .swiper-slide [class*="comprar"],
+    .vitrine-2 .swiper-slide [class*="comprar"],
+    .vitrine-3 .swiper-slide [class*="comprar"] {
+        display: block;
+        margin: 14px 14px 14px;
+        padding: 10px 14px;
+        border: 1px solid var(--cpfov-line);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--cpfov-ink);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color .3s var(--cpfov-ease), color .3s var(--cpfov-ease), border-color .3s var(--cpfov-ease);
+    }
+
+    @media (hover: hover) {
+
+        .vitrine-1 .swiper-slide [class*="comprar"]:hover,
+        .vitrine-2 .swiper-slide [class*="comprar"]:hover,
+        .vitrine-3 .swiper-slide [class*="comprar"]:hover {
+            background: var(--cpfov-accent);
+            border-color: var(--cpfov-accent);
+            color: #fff;
+        }
+    }
+
+    /* =====================================================================
+       8) SETAS — circulares e limpas no desktop
+       ===================================================================== */
+    .vitrine-1 .swiper-button-next,
+    .vitrine-1 .swiper-button-prev,
+    .vitrine-2 .swiper-button-next,
+    .vitrine-2 .swiper-button-prev,
+    .vitrine-3 .swiper-button-next,
+    .vitrine-3 .swiper-button-prev {
+        width: 40px;
+        height: 40px;
+        margin-top: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--cpfov-line);
+        box-shadow: 0 6px 16px rgba(32, 28, 24, 0.12);
+        transition: background-color .3s var(--cpfov-ease), transform .3s var(--cpfov-ease);
+        z-index: 5;
+    }
+
+    .vitrine-1 .swiper-button-next::after,
+    .vitrine-1 .swiper-button-prev::after,
+    .vitrine-2 .swiper-button-next::after,
+    .vitrine-2 .swiper-button-prev::after,
+    .vitrine-3 .swiper-button-next::after,
+    .vitrine-3 .swiper-button-prev::after {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--cpfov-accent-ink);
+    }
+
+    .vitrine-1 .swiper-button-prev,
+    .vitrine-2 .swiper-button-prev,
+    .vitrine-3 .swiper-button-prev {
+        left: 2px;
+    }
+
+    .vitrine-1 .swiper-button-next,
+    .vitrine-2 .swiper-button-next,
+    .vitrine-3 .swiper-button-next {
+        right: 2px;
+    }
+
+    /* =====================================================================
+       9) TABLET
+       ===================================================================== */
+    @media (max-width: 1024px) {
+
+        .vitrine-1,
+        .vitrine-2,
+        .vitrine-3 {
+            padding-left: clamp(14px, 4vw, 28px);
+            padding-right: clamp(14px, 4vw, 28px);
+        }
+    }
+
+    /* =====================================================================
+       10) MOBILE — foco do ajuste
+       Card mais leve/compacto, texto centralizado, estrelas/preço/botão
+       menores, setas ocultas (não sobrepõem o card). Mantém 2 por linha.
+       ===================================================================== */
+    @media (max-width: 640px) {
+
+        .vitrine-1,
+        .vitrine-2,
+        .vitrine-3 {
+            max-width: 100%;
+            padding-left: 12px;
+            padding-right: 12px;
+        }
+
+        .vitrine-1 .swiper-slide,
+        .vitrine-2 .swiper-slide,
+        .vitrine-3 .swiper-slide {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(32, 28, 24, 0.06);
+            text-align: center;
+        }
+
+        .vitrine-1 .swiper-slide [class*="name"],
+        .vitrine-2 .swiper-slide [class*="name"],
+        .vitrine-3 .swiper-slide [class*="name"] {
+            padding: 12px 10px 0;
+            font-size: 0.82rem;
+            line-height: 1.3;
+        }
+
+        .vitrine-1 .swiper-slide [class*="rating"],
+        .vitrine-1 .swiper-slide [class*="avalia"],
+        .vitrine-1 .swiper-slide [class*="estrela"],
+        .vitrine-1 .swiper-slide [class*="star"],
+        .vitrine-2 .swiper-slide [class*="rating"],
+        .vitrine-2 .swiper-slide [class*="avalia"],
+        .vitrine-2 .swiper-slide [class*="estrela"],
+        .vitrine-2 .swiper-slide [class*="star"],
+        .vitrine-3 .swiper-slide [class*="rating"],
+        .vitrine-3 .swiper-slide [class*="avalia"],
+        .vitrine-3 .swiper-slide [class*="estrela"],
+        .vitrine-3 .swiper-slide [class*="star"] {
+            font-size: 0.6rem;
+            margin-top: 4px;
+        }
+
+        .vitrine-1 .swiper-slide [class*="price"],
+        .vitrine-2 .swiper-slide [class*="price"],
+        .vitrine-3 .swiper-slide [class*="price"] {
+            padding: 6px 10px 0;
+            font-size: 0.8rem;
+            line-height: 1.25;
+        }
+
+        .vitrine-1 .swiper-slide [class*="comprar"],
+        .vitrine-2 .swiper-slide [class*="comprar"],
+        .vitrine-3 .swiper-slide [class*="comprar"] {
+            margin: 12px 10px 12px;
+            padding: 8px 10px;
+            font-size: 0.64rem;
+            letter-spacing: 0.08em;
+        }
+
+        .vitrine-1 .swiper-button-next,
+        .vitrine-1 .swiper-button-prev,
+        .vitrine-2 .swiper-button-next,
+        .vitrine-2 .swiper-button-prev,
+        .vitrine-3 .swiper-button-next,
+        .vitrine-3 .swiper-button-prev {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    /* =========================================================================
+       JS MÍNIMO — apenas .update() das instâncias Swiper existentes, para
+       recalcular o layout após o override. NÃO recria a vitrine, NÃO toca em
+       texto/HTML, NÃO usa innerHTML/textContent, NÃO mexe em slidesPerView.
+       ========================================================================= */
+    (function () {
+        var VITRINES = ['.vitrine-1', '.vitrine-2', '.vitrine-3'];
+
+        function updateSwipers() {
+            VITRINES.forEach(function (sel) {
+                var nodes = document.querySelectorAll(
+                    sel + ', ' + sel + ' .swiper, ' + sel + ' .swiper-container'
+                );
+                nodes.forEach(function (node) {
+                    var inst = node && node.swiper;
+                    if (inst && typeof inst.update === 'function') {
+                        try { inst.update(); } catch (e) { /* silencioso */ }
+                    }
+                });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateSwipers);
+        } else {
+            updateSwipers();
+        }
+        window.addEventListener('load', function () {
+            updateSwipers();
+            setTimeout(updateSwipers, 300); // reajuste após imagens carregarem
+        });
+    })();
+</script>

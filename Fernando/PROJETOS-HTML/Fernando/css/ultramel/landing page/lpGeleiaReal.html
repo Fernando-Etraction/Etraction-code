@@ -2718,87 +2718,34 @@
         padding-bottom: 72px !important;
     }
 
-    .uj-advantage-strip {
+    /* ===== BARRA DE CONFIANÇA (um-trust-bar) ===== */
+    .um-trust-bar {
         position: relative !important;
         z-index: 5 !important;
-        background: #457457 !important;
-        padding: 0 !important;
-        margin: 0 !important;
+        background: #173F31 !important;
+        color: #FFFFFF !important;
+        padding: 15px 0 !important;
     }
 
-    .uj-advantage-strip-inner {
-        width: 100%;
-        max-width: 1280px !important;
-        margin: 0 auto !important;
-        min-height: 86px !important;
-        gap: 0 !important;
-        overflow: hidden !important;
-        border-radius: 22px !important;
-        background: #457457 !important;
-        box-shadow: 0 18px 36px rgba(65, 55, 41, .10) !important;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-
-    .uj-advantage-item {
-        min-width: 0 !important;
-        min-height: 86px !important;
+    .um-trust-bar-grid {
         display: grid !important;
-        grid-template-columns: 34px minmax(0, 1fr) !important;
-        grid-template-areas:
-            "icon title"
-            "icon desc" !important;
-        align-content: center !important;
-        gap: 4px 12px !important;
-        padding: 18px 20px !important;
-        border-right: 1px solid rgba(248, 243, 221, .16) !important;
-        text-align: left !important;
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 10px !important;
+        align-items: center !important;
     }
 
-    .uj-advantage-item:last-child {
-        border-right: 0 !important;
-    }
-
-    .uj-advantage-icon {
-        grid-area: icon !important;
-        width: 34px !important;
-        height: 34px !important;
-        display: inline-flex !important;
+    .um-trust-bar-item {
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        border-radius: 50% !important;
-        background: #F2C85D !important;
-        color: #413729 !important;
-        font-size: 11px !important;
-        line-height: 1 !important;
-        font-weight: 950 !important;
-        letter-spacing: -.02em !important;
+        gap: 7px !important;
+        text-align: center !important;
+        color: rgba(255, 255, 255, 0.9) !important;
+        font-size: 13px !important;
+        font-weight: 800 !important;
     }
 
-    .uj-advantage-item strong {
-        grid-area: title !important;
-        display: block !important;
-        color: #F8F3DD !important;
-        font-size: 14px !important;
-        line-height: 1.15 !important;
-        font-weight: 900 !important;
-        letter-spacing: -.01em !important;
-        white-space: normal !important;
-    }
-
-    .uj-advantage-item small {
-        grid-area: desc !important;
-        display: block !important;
-        color: rgba(248, 243, 221, .72) !important;
-        font-size: 12px !important;
-        line-height: 1.25 !important;
-        font-weight: 700 !important;
-        letter-spacing: .01em !important;
-        text-transform: none !important;
-    }
-
-    .uj-advantage-strip+.uj-results-section {
+    .um-trust-bar+.uj-results-section {
         margin: 0 !important;
         padding: 76px 0 72px !important;
         border-top: 0 !important;
@@ -2806,7 +2753,7 @@
         position: relative !important;
     }
 
-    .uj-advantage-strip+.uj-results-section::before {
+    .um-trust-bar+.uj-results-section::before {
         content: "" !important;
         position: absolute !important;
         inset: 0 !important;
@@ -2818,42 +2765,17 @@
         pointer-events: none !important;
     }
 
-    .uj-advantage-strip+.uj-results-section .uj-wrap {
+    .um-trust-bar+.uj-results-section .uj-wrap {
         position: relative !important;
         z-index: 2 !important;
     }
 
     @media (max-width: 1060px) {
-        .uj-advantage-strip-inner {
-            display: grid !important;
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            min-height: 0 !important;
+        .um-trust-bar-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
         }
 
-        .uj-advantage-item {
-            min-height: 78px !important;
-            border-right: 1px solid rgba(248, 243, 221, .16) !important;
-            border-bottom: 1px solid rgba(248, 243, 221, .16) !important;
-        }
-
-        /* coluna direita sem divisória à direita */
-        .uj-advantage-item:nth-child(2n) {
-            border-right: 0 !important;
-        }
-
-        /* item ímpar final ocupa a linha inteira */
-        .uj-advantage-item:nth-child(5) {
-            grid-column: 1 / -1 !important;
-            border-right: 0 !important;
-        }
-
-        /* última linha sem divisória inferior */
-        .uj-advantage-item:nth-child(5),
-        .uj-advantage-item:last-child {
-            border-bottom: 0 !important;
-        }
-
-        .uj-advantage-strip+.uj-results-section {
+        .um-trust-bar+.uj-results-section {
             padding-top: 62px !important;
         }
     }
@@ -2863,37 +2785,11 @@
             padding-bottom: 52px !important;
         }
 
-        .uj-advantage-strip {
-            background:
-                linear-gradient(180deg, #F8F3DD 0 34px, #FFF9EC 34px 100%) !important;
+        .um-trust-bar-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
         }
 
-        .uj-advantage-strip-inner {
-            display: grid !important;
-            width: min(100% - 24px, 1180px) !important;
-            grid-template-columns: 1fr !important;
-            border-radius: 18px !important;
-        }
-
-        .uj-advantage-item {
-            grid-template-columns: 32px minmax(0, 1fr) !important;
-            min-height: 68px !important;
-            padding: 14px 16px !important;
-            border-right: 0 !important;
-            border-bottom: 1px solid rgba(248, 243, 221, .16) !important;
-        }
-
-        .uj-advantage-item:last-child {
-            border-bottom: 0 !important;
-        }
-
-        .uj-advantage-icon {
-            width: 32px !important;
-            height: 32px !important;
-            font-size: 10px !important;
-        }
-
-        .uj-advantage-strip+.uj-results-section {
+        .um-trust-bar+.uj-results-section {
             padding: 46px 0 48px !important;
         }
     }
@@ -3290,7 +3186,7 @@
 
                     <h1>
                         <span class="is-green">Geleia Real Pura Liofilizada,</span>
-                        <span class="is-brown">Mais logentividade e vitalidade</span>
+                        <span class="is-brown">Mais longevidade e vitalidade</span>
                     </h1>
 
                     <div class="uj-hero-actions">
@@ -3311,36 +3207,16 @@
             </div>
         </section>
 
-        <section class="uj-advantage-strip" aria-label="Vantagens Ultramel">
-            <div class="uj-wrap uj-advantage-strip-inner">
-                <div class="uj-advantage-item">
-                    <span class="uj-advantage-icon">01</span>
-                    <strong>Geleia real pura</strong>
-                    <small>sem misturas</small>
-                </div>
-
-                <div class="uj-advantage-item">
-                    <span class="uj-advantage-icon">02</span>
-                    <strong>Sem aditivos</strong>
-                    <small>composição limpa</small>
-                </div>
-
-                <div class="uj-advantage-item">
-                    <span class="uj-advantage-icon">03</span>
-                    <strong>Não precisa geladeira</strong>
-                    <small>uso mais prático</small>
-                </div>
-
-                <div class="uj-advantage-item">
-                    <span class="uj-advantage-icon">04</span>
-                    <strong>Com laudo de pureza</strong>
-                    <small>compra segura</small>
-                </div>
-
-                <div class="uj-advantage-item">
-                    <span class="uj-advantage-icon">05</span>
-                    <strong>Pote de vidro</strong>
-                    <small>Armazenagem segura e sem contaminaçao</small>
+        <!-- 2. BARRA DE CONFIANÇA -->
+        <section class="um-trust-bar" aria-label="Barra de confiança Ultramel">
+            <div class="uj-wrap">
+                <div class="um-trust-bar-grid">
+                    <div class="um-trust-bar-item">🐝 Geleia Real Pura</div>
+                    <div class="um-trust-bar-item">❄️ Liofilizada</div>
+                    <div class="um-trust-bar-item">🚫 Sem aditivos</div>
+                    <div class="um-trust-bar-item">📄 Laudo por lote</div>
+                    <div class="um-trust-bar-item">🫙 Pote de vidro</div>
+                    <div class="um-trust-bar-item">🔒 Compra segura</div>
                 </div>
             </div>
         </section>

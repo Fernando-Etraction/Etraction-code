@@ -1,0 +1,225 @@
+<!-- =========================================================
+     BLOCO 1 — ALMOFADAS PERSONALIZADAS
+     Bloco autocontido, escopado em .cpf-b1
+     Design premium/editorial. Textos do briefing na íntegra.
+     A vitrine entra no ponto marcado; CTAs após a vitrine.
+     ========================================================= -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+    .cpf-b1 {
+        --cream: #F5EFE7;
+        --paper: #FFFFFF;
+        --ink: #201C18;
+        --body: #55504A;
+        --muted: #938B81;
+        --accent: #E07A5F;
+        --accent-ink: #B9543A;
+        --line: rgba(32, 28, 24, 0.12);
+        --serif: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --sans: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ease: cubic-bezier(.2, .8, .2, 1);
+
+        font-family: var(--sans);
+        color: var(--body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        display: block;
+        background: var(--paper);
+    }
+
+    .cpf-b1 * {
+        box-sizing: border-box;
+    }
+
+    .cpf-b1 img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .cpf-b1 .cpf-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: clamp(80px, 12vw, 160px) clamp(24px, 6vw, 40px) clamp(48px, 7vw, 90px);
+    }
+
+    /* Composição editorial: imagem | texto */
+    .cpf-b1 .cpf-editorial {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(36px, 6vw, 80px);
+        align-items: center;
+    }
+
+    @media (min-width: 900px) {
+        .cpf-b1 .cpf-editorial {
+            grid-template-columns: 0.95fr 1.05fr;
+        }
+    }
+
+    .cpf-b1 .cpf-editorial__media {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        border-radius: 6px;
+        background: #ece5db;
+    }
+
+    .cpf-b1 .cpf-editorial__media img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* variação com vídeo (mostra o quadro completo, sem crop) */
+    .cpf-b1 .cpf-editorial__media--video {
+        aspect-ratio: auto;
+        background: #201c18;
+    }
+
+    .cpf-b1 .cpf-editorial__media--video video {
+        position: static;
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .cpf-b1 .cpf-editorial__title {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--ink);
+        font-size: clamp(2.1rem, 4.2vw, 3.3rem);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+        margin: 0 0 20px;
+    }
+
+    .cpf-b1 .cpf-editorial__lead {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+        line-height: 1.4;
+        color: var(--accent-ink);
+        margin: 0 0 28px;
+    }
+
+    .cpf-b1 .cpf-editorial__text p {
+        font-size: clamp(1.02rem, 1.15vw, 1.12rem);
+        line-height: 1.75;
+        color: var(--body);
+        max-width: 46ch;
+        margin: 0 0 16px;
+    }
+
+    .cpf-b1 .cpf-editorial__text p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Vitrine (slot) */
+    .cpf-b1 .cpf-vitrine {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 6vw, 40px);
+    }
+
+    /* CTAs */
+    .cpf-b1 .cpf-cta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 28px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: clamp(48px, 7vw, 90px) clamp(24px, 6vw, 40px) 0;
+    }
+
+    .cpf-b1 .cpf-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 17px 40px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.86rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: transform .35s var(--ease), background-color .35s var(--ease);
+    }
+
+    .cpf-b1 .cpf-btn:hover {
+        background: #cf6a50;
+        transform: translateY(-2px);
+    }
+
+    .cpf-b1 .cpf-link {
+        font-size: 0.86rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 4px;
+        transition: border-color .3s var(--ease), color .3s var(--ease);
+    }
+
+    .cpf-b1 .cpf-link:hover {
+        color: var(--accent-ink);
+        border-color: var(--accent);
+    }
+
+    @media (max-width: 620px) {
+        .cpf-b1 .cpf-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<section class="cpf-b1" id="almofadas-personalizadas">
+
+    <div class="cpf-wrap">
+        <div class="cpf-editorial">
+            <div class="cpf-editorial__media cpf-editorial__media--video">
+                <!-- Vídeo da almofada personalizada -->
+                <video autoplay muted loop playsinline controls preload="metadata"
+                    aria-label="Vídeo das almofadas personalizadas">
+                    <source
+                        src="https://global-videos.zordcdn.com.br/amofadas/img/2025/08/produto/7619/vide-atualizado-pets.mp4"
+                        type="video/mp4" />
+                </video>
+            </div>
+
+            <div class="cpf-editorial__text">
+                <h2 class="cpf-editorial__title">Almofadas Personalizadas</h2>
+                <p class="cpf-editorial__lead">Um presente que guarda histórias.</p>
+                <p>Transforme a foto do seu melhor amigo em uma almofada cheia de significado.</p>
+                <p>Uma lembrança única para quem acredita que pets também fazem parte da família.</p>
+                <p>Ideal para presentear. Ou eternizar momentos especiais.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Vitrine ===== -->
+    <div class="cpf-vitrine">
+        <!-- ===== INSERIR AQUI A VITRINE DE ALMOFADAS PERSONALIZADAS ===== -->
+    </div>
+
+    <!-- ===== CTAs ===== -->
+    <div class="cpf-cta">
+        <!-- VAI PARA PDP -->
+        <a class="cpf-btn" href="https://www.amofadas.com/capas-de-almofadas-personalizadas-pet">
+            Criar minha almofada personalizada
+        </a>
+        <!-- VAI PARA LP "Como Funciona" — troque pelo link da LP -->
+        <a class="cpf-link" href="#como-funciona">Como funciona?</a>
+    </div>
+
+</section>

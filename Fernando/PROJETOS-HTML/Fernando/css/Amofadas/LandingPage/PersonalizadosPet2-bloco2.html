@@ -1,0 +1,201 @@
+<!-- =========================================================
+     BLOCO 2 — CAMINHAS E FUTONS
+     Bloco autocontido, escopado em .cpf-b2
+     Design premium/editorial. Textos do briefing na íntegra.
+     Imagem espelhada em relação ao Bloco 1 (ritmo visual).
+     ========================================================= -->
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+    .cpf-b2 {
+        --cream: #F5EFE7;
+        --paper: #FFFFFF;
+        --ink: #201C18;
+        --body: #55504A;
+        --muted: #938B81;
+        --accent: #E07A5F;
+        --accent-ink: #B9543A;
+        --line: rgba(32, 28, 24, 0.12);
+        --serif: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --sans: 'Montserrat', ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ease: cubic-bezier(.2, .8, .2, 1);
+
+        font-family: var(--sans);
+        color: var(--body);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        display: block;
+        background: var(--cream);
+    }
+
+    .cpf-b2 * {
+        box-sizing: border-box;
+    }
+
+    .cpf-b2 img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .cpf-b2 .cpf-wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: clamp(80px, 12vw, 160px) clamp(24px, 6vw, 40px) clamp(48px, 7vw, 90px);
+    }
+
+    .cpf-b2 .cpf-editorial {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: clamp(36px, 6vw, 80px);
+        align-items: center;
+    }
+
+    @media (min-width: 900px) {
+        .cpf-b2 .cpf-editorial {
+            grid-template-columns: 1.05fr 0.95fr;
+        }
+    }
+
+    /* imagem à direita neste bloco (espelha o bloco 1) */
+    .cpf-b2 .cpf-editorial__media {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        border-radius: 6px;
+        background: #ece5db;
+        order: 1;
+    }
+
+    @media (min-width: 900px) {
+        .cpf-b2 .cpf-editorial__media {
+            order: 2;
+        }
+    }
+
+    .cpf-b2 .cpf-editorial__media img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .cpf-b2 .cpf-editorial__text {
+        order: 2;
+    }
+
+    @media (min-width: 900px) {
+        .cpf-b2 .cpf-editorial__text {
+            order: 1;
+        }
+    }
+
+    .cpf-b2 .cpf-editorial__title {
+        font-family: var(--serif);
+        font-weight: 400;
+        color: var(--ink);
+        font-size: clamp(2rem, 3.9vw, 3.1rem);
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+        margin: 0 0 28px;
+        max-width: 16ch;
+    }
+
+    .cpf-b2 .cpf-editorial__text p {
+        font-size: clamp(1.02rem, 1.15vw, 1.12rem);
+        line-height: 1.75;
+        color: var(--body);
+        max-width: 46ch;
+        margin: 0 0 16px;
+    }
+
+    .cpf-b2 .cpf-editorial__text p.cpf-emph {
+        font-family: var(--serif);
+        font-weight: 500;
+        font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+        color: var(--accent-ink);
+        margin: 22px 0;
+    }
+
+    .cpf-b2 .cpf-editorial__text p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Vitrine (slot) */
+    .cpf-b2 .cpf-vitrine {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 clamp(24px, 6vw, 40px);
+    }
+
+    /* CTA */
+    .cpf-b2 .cpf-cta {
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: clamp(48px, 7vw, 90px) clamp(24px, 6vw, 40px) 0;
+    }
+
+    .cpf-b2 .cpf-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 17px 40px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.86rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: transform .35s var(--ease), background-color .35s var(--ease);
+    }
+
+    .cpf-b2 .cpf-btn:hover {
+        background: #cf6a50;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 620px) {
+        .cpf-b2 .cpf-btn {
+            width: 100%;
+            max-width: 420px;
+        }
+    }
+</style>
+
+<section class="cpf-b2" id="caminhas-e-futons">
+
+    <div class="cpf-wrap">
+        <div class="cpf-editorial">
+            <div class="cpf-editorial__text">
+                <h2 class="cpf-editorial__title">Caminhas e futons que combinam com a sua decoração</h2>
+                <p>Mais do que uma caminha para cachorro, criamos peças que fazem parte da decoração da sua casa.</p>
+                <p class="cpf-emph">Tecidos. Cores. Texturas.</p>
+                <p>Tudo pensado para combinar com as almofadas, o sofá e o estilo do ambiente.</p>
+                <p>Assim, seu pet continua confortável e sua sala continua linda.</p>
+            </div>
+
+            <div class="cpf-editorial__media">
+                <!-- Imagem de caminha/futon no ambiente (substituível) -->
+                <img src="https://amofadas.cdn.magazord.com.br/img/2026/02/produto/8752/descanso-no-sofa.jpeg"
+                    alt="Caminha e futon integrados à decoração do ambiente" />
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Vitrine ===== -->
+    <div class="cpf-vitrine">
+        <!-- ===== INSERIR AQUI A VITRINE DE CAMINHAS E FUTONS ===== -->
+    </div>
+
+    <!-- ===== CTA ===== -->
+    <div class="cpf-cta">
+        <!-- Troque pelo link da categoria Caminhas e Futons -->
+        <a class="cpf-btn" href="#caminhas-futons-categoria">Ver caminhas e futons</a>
+    </div>
+
+</section>
