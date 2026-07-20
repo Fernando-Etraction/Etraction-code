@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modelo 02 — Descrição PDP Bugbee</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px 18px;
+      background: #f6f6f4;
+    }
+
+    .etraction-demo-shell {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+  </style>
+  <style>
+/*
+  MODELO 02 — DESCRIÇÃO PDP BUGBEE
+  Arquitetura editorial modular
+  Maturidade: pronto para homologação
+*/
+.etraction-pdp-story {
+  --etraction-brand: #627b53;
+  --etraction-brand-deep: #49663d;
+  --etraction-brand-soft: #eef3eb;
+  --etraction-brand-soft-strong: #e3ecdf;
+  --etraction-ink: #1d1d1b;
+  --etraction-white: #ffffff;
+  --etraction-border: rgba(29, 29, 27, 0.12);
+  --etraction-radius-large: 26px;
+  --etraction-radius-medium: 18px;
+
+  box-sizing: border-box;
+  width: min(100%, 1180px);
+  margin: 32px auto;
+  color: var(--etraction-ink);
+  font-family: "Roboto Flex", Roboto, Arial, sans-serif;
+  line-height: 1.55;
+}
+
+.etraction-pdp-story *,
+.etraction-pdp-story *::before,
+.etraction-pdp-story *::after {
+  box-sizing: inherit;
+}
+
+.etraction-pdp-story__hero {
+  padding: clamp(28px, 5vw, 54px);
+  border-radius: var(--etraction-radius-large);
+  background:
+    linear-gradient(135deg, rgba(98, 123, 83, 0.17), rgba(255, 255, 255, 0) 66%),
+    var(--etraction-white);
+  text-align: center;
+}
+
+.etraction-pdp-story__eyebrow,
+.etraction-pdp-features__kicker,
+.etraction-pdp-fabric__kicker,
+.etraction-pdp-use__kicker,
+.etraction-pdp-faq__kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--etraction-brand-deep);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.etraction-pdp-story__title,
+.etraction-pdp-features__title,
+.etraction-pdp-fabric__title,
+.etraction-pdp-use__title,
+.etraction-pdp-faq__title {
+  margin: 0;
+  color: var(--etraction-ink);
+  font-family: Rubrik, Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.14;
+}
+
+.etraction-pdp-story__title {
+  font-size: clamp(1.9rem, 4vw, 3.25rem);
+}
+
+.etraction-pdp-story__lead {
+  max-width: 760px;
+  margin: 16px auto 0;
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+}
+
+.etraction-pdp-story__summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 780px;
+  margin: 30px auto 0;
+  overflow: hidden;
+  border: 1px solid rgba(98, 123, 83, 0.2);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.etraction-pdp-story__summary-item {
+  display: grid;
+  gap: 3px;
+  padding: 18px;
+  border-right: 1px solid rgba(98, 123, 83, 0.16);
+}
+
+.etraction-pdp-story__summary-item:last-child {
+  border-right: 0;
+}
+
+.etraction-pdp-story__summary-item strong {
+  color: var(--etraction-brand-deep);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+.etraction-pdp-story__summary-item span {
+  color: rgba(29, 29, 27, 0.62);
+  font-size: 0.82rem;
+}
+
+.etraction-pdp-features {
+  margin-top: 32px;
+}
+
+.etraction-pdp-features__header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 14px;
+}
+
+.etraction-pdp-features__heading {
+  grid-column: 2;
+  text-align: center;
+}
+
+.etraction-pdp-features__title,
+.etraction-pdp-use__title,
+.etraction-pdp-faq__title {
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+}
+
+.etraction-pdp-features__controls {
+  display: none;
+  grid-column: 3;
+  align-items: center;
+  justify-self: end;
+  gap: 8px;
+}
+
+.etraction-pdp-story[data-etraction-enhanced="true"][data-etraction-carousel-overflow="true"]
+  .etraction-pdp-features__controls {
+  display: flex;
+}
+
+.etraction-pdp-features__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 1px solid rgba(98, 123, 83, 0.32);
+  border-radius: 999px;
+  background: var(--etraction-white);
+  color: var(--etraction-brand-deep);
+  cursor: pointer;
+}
+
+.etraction-pdp-features__button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.etraction-pdp-features__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.34;
+}
+
+.etraction-pdp-features__viewport {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: none;
+}
+
+.etraction-pdp-features__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.etraction-pdp-features__track {
+  display: grid;
+  grid-auto-columns: calc((100% - 60px) / 4);
+  grid-auto-flow: column;
+  gap: 20px;
+  margin: 0;
+  padding: 0 1px 4px;
+  list-style: none;
+}
+
+.etraction-pdp-features__item {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.etraction-pdp-feature-card {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 92px;
+  padding: 17px;
+  border: 1px solid rgba(98, 123, 83, 0.22);
+  border-radius: 16px;
+  background: var(--etraction-brand-soft);
+}
+
+.etraction-pdp-feature-card__number {
+  color: rgba(73, 102, 61, 0.48);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.etraction-pdp-feature-card__label {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(29, 29, 27, 0.58);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.etraction-pdp-feature-card__value {
+  color: var(--etraction-brand-deep);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.94rem;
+  line-height: 1.25;
+}
+
+.etraction-pdp-fabric {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(26px, 5vw, 56px);
+  margin-top: 34px;
+  padding: clamp(28px, 5vw, 52px);
+  border-radius: var(--etraction-radius-large);
+  background: var(--etraction-brand-deep);
+  color: var(--etraction-white);
+}
+
+.etraction-pdp-fabric__copy {
+  align-self: center;
+}
+
+.etraction-pdp-fabric__kicker {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.etraction-pdp-fabric__title {
+  color: var(--etraction-white);
+  font-size: clamp(1.55rem, 3vw, 2.4rem);
+}
+
+.etraction-pdp-fabric__lead {
+  margin: 15px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.etraction-pdp-fabric__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.etraction-pdp-fabric__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--etraction-white);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.etraction-pdp-fabric__details {
+  display: grid;
+  gap: 10px;
+}
+
+.etraction-pdp-fabric__detail {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.etraction-pdp-fabric__detail--highlight {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.etraction-pdp-fabric__detail-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--etraction-white);
+}
+
+.etraction-pdp-fabric__detail-icon svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.75;
+}
+
+.etraction-pdp-fabric__detail-label {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(255, 255, 255, 0.64);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.etraction-pdp-fabric__detail-title {
+  margin: 0;
+  color: var(--etraction-white);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.28;
+}
+
+.etraction-pdp-fabric__detail-text {
+  margin: 4px 0 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.9rem;
+}
+
+.etraction-pdp-use {
+  margin-top: 34px;
+}
+
+.etraction-pdp-use__heading,
+.etraction-pdp-faq__heading {
+  text-align: center;
+}
+
+.etraction-pdp-use__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.etraction-pdp-use__card {
+  padding: 22px;
+  border-top: 3px solid var(--etraction-brand);
+  background: var(--etraction-white);
+}
+
+.etraction-pdp-use__index {
+  display: block;
+  margin-bottom: 14px;
+  color: rgba(73, 102, 61, 0.4);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.etraction-pdp-use__card-title {
+  margin: 0;
+  color: var(--etraction-brand-deep);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.etraction-pdp-use__text {
+  margin: 7px 0 0;
+  color: rgba(29, 29, 27, 0.72);
+  font-size: 0.92rem;
+}
+
+.etraction-pdp-faq {
+  margin-top: 36px;
+  padding-top: 30px;
+  border-top: 1px solid var(--etraction-border);
+}
+
+.etraction-pdp-faq__list {
+  display: grid;
+  max-width: 920px;
+  gap: 10px;
+  margin: 20px auto 0;
+}
+
+.etraction-pdp-faq__item {
+  border-bottom: 1px solid var(--etraction-border);
+}
+
+.etraction-pdp-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 17px 2px;
+  color: var(--etraction-ink);
+  font-family: Montserrat, "Roboto Flex", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.etraction-pdp-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.etraction-pdp-faq__indicator {
+  position: relative;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.etraction-pdp-faq__indicator::before,
+.etraction-pdp-faq__indicator::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--etraction-brand-deep);
+  content: "";
+  transform: translate(-50%, -50%);
+}
+
+.etraction-pdp-faq__indicator::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.etraction-pdp-faq__item[open] .etraction-pdp-faq__indicator::after {
+  transform: translate(-50%, -50%);
+}
+
+.etraction-pdp-faq__answer {
+  padding: 0 2px 17px;
+  color: rgba(29, 29, 27, 0.72);
+}
+
+.etraction-pdp-faq__answer p {
+  margin: 0;
+}
+
+.etraction-pdp-features__button:focus-visible,
+.etraction-pdp-features__viewport:focus-visible,
+.etraction-pdp-faq__question:focus-visible {
+  outline: 3px solid rgba(98, 123, 83, 0.4);
+  outline-offset: 3px;
+}
+
+@media (max-width: 980px) {
+  .etraction-pdp-features__track {
+    grid-auto-columns: calc((100% - 20px) / 2);
+  }
+
+  .etraction-pdp-fabric {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .etraction-pdp-story__summary {
+    grid-template-columns: 1fr;
+  }
+
+  .etraction-pdp-story__summary-item {
+    border-right: 0;
+    border-bottom: 1px solid rgba(98, 123, 83, 0.16);
+  }
+
+  .etraction-pdp-story__summary-item:last-child {
+    border-bottom: 0;
+  }
+
+  .etraction-pdp-features__header {
+    grid-template-columns: 1fr;
+  }
+
+  .etraction-pdp-features__heading,
+  .etraction-pdp-features__controls {
+    grid-column: 1;
+    justify-self: center;
+  }
+
+  .etraction-pdp-features__track {
+    grid-auto-columns: 84%;
+    gap: 12px;
+  }
+
+  .etraction-pdp-use__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .etraction-pdp-fabric {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .etraction-pdp-features__viewport {
+    scroll-behavior: auto;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <main class="etraction-demo-shell">
+<!--
+  MODELO 02 — DESCRIÇÃO PDP BUGBEE
+  Arquitetura editorial modular
+  Produto de referência: 3170CJ
+-->
+<section
+  class="etraction-pdp-story"
+  data-etraction-product-description
+  aria-labelledby="etraction-pdp-story-title"
+>
+  <header class="etraction-pdp-story__hero">
+    <span class="etraction-pdp-story__eyebrow">Para vestir, brincar e aproveitar</span>
+
+    <h3 class="etraction-pdp-story__title" id="etraction-pdp-story-title">
+      Conforto em cada detalhe
+    </h3>
+
+    <p class="etraction-pdp-story__lead">
+      Casaco estampado e calça legging em molecotton para acompanhar a rotina
+      com conforto, respirabilidade e liberdade de movimentos.
+    </p>
+
+    <div class="etraction-pdp-story__summary" aria-label="Resumo do produto">
+      <span class="etraction-pdp-story__summary-item">
+        <strong>2 peças</strong>
+        <span>Casaco + calça</span>
+      </span>
+
+      <span class="etraction-pdp-story__summary-item">
+        <strong>Molecotton</strong>
+        <span>Toque confortável</span>
+      </span>
+
+      <span class="etraction-pdp-story__summary-item">
+        <strong>94% algodão</strong>
+        <span>Respirabilidade</span>
+      </span>
+    </div>
+  </header>
+
+  <section
+    class="etraction-pdp-features"
+    aria-labelledby="etraction-pdp-features-title"
+  >
+    <div class="etraction-pdp-features__header">
+      <div class="etraction-pdp-features__heading">
+        <span class="etraction-pdp-features__kicker">Detalhes do produto</span>
+        <h4 class="etraction-pdp-features__title" id="etraction-pdp-features-title">
+          Características
+        </h4>
+      </div>
+
+      <div class="etraction-pdp-features__controls" aria-label="Controles do carrossel">
+        <button
+          class="etraction-pdp-features__button"
+          type="button"
+          data-etraction-carousel-previous
+          aria-label="Ver características anteriores"
+          aria-controls="etraction-pdp-features-track"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+
+        <button
+          class="etraction-pdp-features__button"
+          type="button"
+          data-etraction-carousel-next
+          aria-label="Ver próximas características"
+          aria-controls="etraction-pdp-features-track"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="etraction-pdp-features__viewport"
+      data-etraction-carousel-viewport
+      role="region"
+      aria-roledescription="carrossel"
+      aria-label="Características do produto"
+      tabindex="0"
+    >
+      <ul
+        class="etraction-pdp-features__track"
+        id="etraction-pdp-features-track"
+        data-etraction-carousel-track
+      >
+        <li class="etraction-pdp-features__item" data-etraction-benefit-index="1">
+          <article class="etraction-pdp-feature-card">
+            <span class="etraction-pdp-feature-card__number">01</span>
+            <div>
+              <span class="etraction-pdp-feature-card__label">Conjunto</span>
+              <strong class="etraction-pdp-feature-card__value">Casaco + calça</strong>
+            </div>
+          </article>
+        </li>
+
+        <li class="etraction-pdp-features__item" data-etraction-benefit-index="2">
+          <article class="etraction-pdp-feature-card">
+            <span class="etraction-pdp-feature-card__number">02</span>
+            <div>
+              <span class="etraction-pdp-feature-card__label">Casaco</span>
+              <strong class="etraction-pdp-feature-card__value">Punho com elástico</strong>
+            </div>
+          </article>
+        </li>
+
+        <li class="etraction-pdp-features__item" data-etraction-benefit-index="3">
+          <article class="etraction-pdp-feature-card">
+            <span class="etraction-pdp-feature-card__number">03</span>
+            <div>
+              <span class="etraction-pdp-feature-card__label">Calça</span>
+              <strong class="etraction-pdp-feature-card__value">Modelagem legging</strong>
+            </div>
+          </article>
+        </li>
+
+        <li class="etraction-pdp-features__item" data-etraction-benefit-index="4">
+          <article class="etraction-pdp-feature-card">
+            <span class="etraction-pdp-feature-card__number">04</span>
+            <div>
+              <span class="etraction-pdp-feature-card__label">Estampa</span>
+              <strong class="etraction-pdp-feature-card__value">Corações digital</strong>
+            </div>
+          </article>
+        </li>
+
+        <li class="etraction-pdp-features__item" data-etraction-benefit-index="5">
+          <article class="etraction-pdp-feature-card">
+            <span class="etraction-pdp-feature-card__number">05</span>
+            <div>
+              <span class="etraction-pdp-feature-card__label">Tecido</span>
+              <strong class="etraction-pdp-feature-card__value">Molecotton</strong>
+            </div>
+          </article>
+        </li>
+
+        <li class="etraction-pdp-features__item" data-etraction-benefit-index="6">
+          <article class="etraction-pdp-feature-card">
+            <span class="etraction-pdp-feature-card__number">06</span>
+            <div>
+              <span class="etraction-pdp-feature-card__label">Combinação</span>
+              <strong class="etraction-pdp-feature-card__value">Calça lisa</strong>
+            </div>
+          </article>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section
+    class="etraction-pdp-fabric"
+    aria-labelledby="etraction-pdp-fabric-title"
+  >
+    <div class="etraction-pdp-fabric__copy">
+      <span class="etraction-pdp-fabric__kicker">Tecido em foco</span>
+
+      <h4 class="etraction-pdp-fabric__title" id="etraction-pdp-fabric-title">
+        Conforto que começa na composição
+      </h4>
+
+      <p class="etraction-pdp-fabric__lead">
+        A combinação de algodão e elastano ajuda a equilibrar respirabilidade,
+        conforto e liberdade de movimentos.
+      </p>
+
+      <div class="etraction-pdp-fabric__badges" aria-label="Composição">
+        <span class="etraction-pdp-fabric__badge">94% algodão</span>
+        <span class="etraction-pdp-fabric__badge">6% elastano</span>
+      </div>
+    </div>
+
+    <div class="etraction-pdp-fabric__details">
+      <article class="etraction-pdp-fabric__detail etraction-pdp-fabric__detail--highlight">
+        <span class="etraction-pdp-fabric__detail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M12 3 5 6v5c0 4.7 2.8 8.2 7 10 4.2-1.8 7-5.3 7-10V6l-7-3Z"></path>
+            <path d="m9 12 2 2 4-5"></path>
+          </svg>
+        </span>
+
+        <div>
+          <span class="etraction-pdp-fabric__detail-label">Algodão</span>
+          <h5 class="etraction-pdp-fabric__detail-title">Respirável e hipoalergênico</h5>
+          <p class="etraction-pdp-fabric__detail-text">
+            O algodão oferece respirabilidade e é hipoalergênico.
+          </p>
+        </div>
+      </article>
+
+      <article class="etraction-pdp-fabric__detail">
+        <span class="etraction-pdp-fabric__detail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M4 12h16M7 8l-3 4 3 4m10-8 3 4-3 4"></path>
+          </svg>
+        </span>
+
+        <div>
+          <span class="etraction-pdp-fabric__detail-label">Elastano</span>
+          <h5 class="etraction-pdp-fabric__detail-title">Liberdade para se movimentar</h5>
+          <p class="etraction-pdp-fabric__detail-text">
+            O elastano proporciona conforto e liberdade de movimentos.
+          </p>
+        </div>
+      </article>
+
+      <article class="etraction-pdp-fabric__detail">
+        <span class="etraction-pdp-fabric__detail-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M12 21c4-3 7-7 7-12-4 0-7 1-9 4-1-2-3-3-5-3 0 5 3 9 7 11Zm0 0v-8"></path>
+          </svg>
+        </span>
+
+        <div>
+          <span class="etraction-pdp-fabric__detail-label">Origem</span>
+          <h5 class="etraction-pdp-fabric__detail-title">Algodão responsável brasileiro</h5>
+          <p class="etraction-pdp-fabric__detail-text">
+            Faz parte do Movimento Sou de Algodão.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section
+    class="etraction-pdp-use"
+    aria-labelledby="etraction-pdp-use-title"
+  >
+    <div class="etraction-pdp-use__heading">
+      <span class="etraction-pdp-use__kicker">Na rotina</span>
+      <h4 class="etraction-pdp-use__title" id="etraction-pdp-use-title">
+        Prático para combinar, confortável para usar
+      </h4>
+    </div>
+
+    <div class="etraction-pdp-use__grid">
+      <article class="etraction-pdp-use__card">
+        <span class="etraction-pdp-use__index">01</span>
+        <h5 class="etraction-pdp-use__card-title">Visual pronto</h5>
+        <p class="etraction-pdp-use__text">
+          Casaco estampado e calça lisa formam uma combinação fácil para o dia a dia.
+        </p>
+      </article>
+
+      <article class="etraction-pdp-use__card">
+        <span class="etraction-pdp-use__index">02</span>
+        <h5 class="etraction-pdp-use__card-title">Caimento ajustado</h5>
+        <p class="etraction-pdp-use__text">
+          A modelagem legging acompanha o corpo sem limitar os movimentos.
+        </p>
+      </article>
+
+      <article class="etraction-pdp-use__card">
+        <span class="etraction-pdp-use__index">03</span>
+        <h5 class="etraction-pdp-use__card-title">Proteção no frio</h5>
+        <p class="etraction-pdp-use__text">
+          O punho com elástico ajuda a manter o casaco mais ajustado.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section
+    class="etraction-pdp-faq"
+    aria-labelledby="etraction-pdp-faq-title"
+  >
+    <div class="etraction-pdp-faq__heading">
+      <span class="etraction-pdp-faq__kicker">Dúvidas rápidas</span>
+      <h4 class="etraction-pdp-faq__title" id="etraction-pdp-faq-title">
+        Perguntas frequentes
+      </h4>
+    </div>
+
+    <div class="etraction-pdp-faq__list">
+      <details class="etraction-pdp-faq__item" data-etraction-faq-item>
+        <summary class="etraction-pdp-faq__question">
+          O que vem no conjunto?
+          <span class="etraction-pdp-faq__indicator" aria-hidden="true"></span>
+        </summary>
+        <div class="etraction-pdp-faq__answer">
+          <p>
+            Um casaco em molecotton com estampa digital de corações e uma calça em
+            molecotton liso.
+          </p>
+        </div>
+      </details>
+
+      <details class="etraction-pdp-faq__item" data-etraction-faq-item>
+        <summary class="etraction-pdp-faq__question">
+          Como é a modelagem da calça?
+          <span class="etraction-pdp-faq__indicator" aria-hidden="true"></span>
+        </summary>
+        <div class="etraction-pdp-faq__answer">
+          <p>
+            A calça possui modelagem legging, com caimento mais ajustado.
+          </p>
+        </div>
+      </details>
+
+      <details class="etraction-pdp-faq__item" data-etraction-faq-item>
+        <summary class="etraction-pdp-faq__question">
+          Qual é a composição?
+          <span class="etraction-pdp-faq__indicator" aria-hidden="true"></span>
+        </summary>
+        <div class="etraction-pdp-faq__answer">
+          <p>94% algodão e 6% elastano.</p>
+        </div>
+      </details>
+
+      <details class="etraction-pdp-faq__item" data-etraction-faq-item>
+        <summary class="etraction-pdp-faq__question">
+          Como escolher o tamanho?
+          <span class="etraction-pdp-faq__indicator" aria-hidden="true"></span>
+        </summary>
+        <div class="etraction-pdp-faq__answer">
+          <p>
+            Compare as medidas da criança com a tabela disponível na página e
+            considere que a calça possui modelagem legging.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+</section>
+
+  </main>
+  <script>
+/*
+  MODELO 02 — DESCRIÇÃO PDP BUGBEE
+  Progressive enhancement, sem dependências.
+*/
+(() => {
+  "use strict";
+
+  document.querySelectorAll("[data-etraction-product-description]").forEach((root) => {
+    if (root.dataset.etractionInitialized === "true") return;
+
+    root.dataset.etractionInitialized = "true";
+    root.dataset.etractionEnhanced = "true";
+
+    const viewport = root.querySelector("[data-etraction-carousel-viewport]");
+    const track = root.querySelector("[data-etraction-carousel-track]");
+    const previousButton = root.querySelector("[data-etraction-carousel-previous]");
+    const nextButton = root.querySelector("[data-etraction-carousel-next]");
+    const items = Array.from(root.querySelectorAll("[data-etraction-benefit-index]"));
+
+    const emitAnalytics = (eventName, detail = {}) => {
+      root.dispatchEvent(
+        new CustomEvent("etraction:analytics", {
+          bubbles: true,
+          detail: {
+            event: eventName,
+            component: "product_description_alternative",
+            product_id: "3170CJ",
+            ...detail
+          }
+        })
+      );
+    };
+
+    if (viewport && track && previousButton && nextButton && items.length) {
+      const getGap = () => {
+        const styles = window.getComputedStyle(track);
+        return Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+      };
+
+      const getStep = () => {
+        const firstItem = items[0];
+        return firstItem
+          ? firstItem.getBoundingClientRect().width + getGap()
+          : viewport.clientWidth;
+      };
+
+      const updateState = () => {
+        const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+        const tolerance = 3;
+        const hasOverflow = maxScroll > tolerance;
+
+        root.dataset.etractionCarouselOverflow = hasOverflow ? "true" : "false";
+        previousButton.disabled = !hasOverflow || viewport.scrollLeft <= tolerance;
+        nextButton.disabled = !hasOverflow || viewport.scrollLeft >= maxScroll - tolerance;
+      };
+
+      const navigate = (direction) => {
+        viewport.scrollBy({
+          left: direction * getStep(),
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth"
+        });
+
+        emitAnalytics("product_features_navigate", {
+          direction: direction > 0 ? "next" : "previous"
+        });
+      };
+
+      previousButton.addEventListener("click", () => navigate(-1));
+      nextButton.addEventListener("click", () => navigate(1));
+
+      let frame = 0;
+      viewport.addEventListener(
+        "scroll",
+        () => {
+          window.cancelAnimationFrame(frame);
+          frame = window.requestAnimationFrame(updateState);
+        },
+        { passive: true }
+      );
+
+      if ("ResizeObserver" in window) {
+        const observer = new ResizeObserver(updateState);
+        observer.observe(viewport);
+      } else {
+        window.addEventListener("resize", updateState, { passive: true });
+      }
+
+      updateState();
+    }
+
+    root.querySelectorAll("[data-etraction-faq-item]").forEach((item, index) => {
+      item.addEventListener("toggle", () => {
+        emitAnalytics("product_faq_toggle", {
+          faq_index: index + 1,
+          state: item.open ? "open" : "closed"
+        });
+      });
+    });
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            emitAnalytics("product_description_view");
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.25 }
+      );
+
+      observer.observe(root);
+    }
+  });
+})();
+
+  </script>
+</body>
+</html>
