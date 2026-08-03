@@ -1,0 +1,726 @@
+<!--
+  MODELO DE DESCRIÇÃO EDITÁVEL PARA MAGAZORD
+
+  ORIENTAÇÃO PARA QUEM CADASTRA O PRODUTO:
+  1. Trabalhe sempre pelo modo visual do editor.
+  2. Clique nos textos e substitua normalmente.
+  3. Nas duas áreas de foto, clique na imagem existente e use a opção de substituir.
+  4. Não apague a imagem para inserir outra fora do bloco.
+  5. Os ícones são neutros e automáticos: não precisam ser alterados.
+  6. Os blocos de medidas e cuidados iniciam abertos para facilitar a edição.
+  7. Não altere nomes de classes nem o bloco <style>.
+-->
+
+<style>
+  /* =========================================================
+     BASE VISUAL — NÃO PRECISA SER ALTERADA A CADA PRODUTO
+     ========================================================= */
+
+  .etraction-desc,
+  .etraction-desc * {
+    box-sizing: border-box !important;
+  }
+
+  .etraction-desc {
+    --etraction-pink: #ed1164;
+    --etraction-pink-soft: #fff1f6;
+    --etraction-blue: #2db8bb;
+    --etraction-blue-soft: #edfbfb;
+    --etraction-yellow: #ffc842;
+    --etraction-yellow-soft: #fff9e8;
+    --etraction-purple-soft: #f6f0ff;
+    --etraction-ink: #25323a;
+    --etraction-muted: #67737a;
+    --etraction-line: #e8ecee;
+
+    width: 100% !important;
+    max-width: 980px !important;
+    margin: 36px auto !important;
+    padding: 0 !important;
+    color: var(--etraction-ink) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    overflow: hidden !important;
+  }
+
+  .etraction-desc h2,
+  .etraction-desc h3,
+  .etraction-desc p,
+  .etraction-desc figure,
+  .etraction-desc dl,
+  .etraction-desc dd {
+    margin: 0 !important;
+  }
+
+  .etraction-desc img {
+    display: block !important;
+    max-width: 100% !important;
+    border: 0 !important;
+  }
+
+  .etraction-desc__intro {
+    position: relative !important;
+    padding: 28px 32px !important;
+    border: 1px solid var(--etraction-line) !important;
+    border-radius: 22px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+  }
+
+  .etraction-desc__intro::after {
+    content: "";
+    position: absolute !important;
+    top: -31px !important;
+    right: -31px !important;
+    width: 82px !important;
+    height: 82px !important;
+    border: 15px solid var(--etraction-yellow) !important;
+    border-radius: 50% !important;
+    opacity: .6 !important;
+    pointer-events: none !important;
+  }
+
+  .etraction-desc__label {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 7px !important;
+    margin-bottom: 8px !important;
+    color: var(--etraction-pink) !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: .08em !important;
+    text-transform: uppercase !important;
+  }
+
+  .etraction-desc__label::before {
+    content: "";
+    flex: 0 0 8px !important;
+    width: 8px !important;
+    height: 8px !important;
+    margin-right: 10px !important;
+    border-radius: 50% !important;
+    background: var(--etraction-pink) !important;
+    box-shadow: 12px 0 0 var(--etraction-blue) !important;
+  }
+
+  .etraction-desc__intro h2 {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 720px !important;
+    margin-bottom: 8px !important;
+    color: var(--etraction-ink) !important;
+    font-size: clamp(23px, 3vw, 31px) !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -.025em !important;
+  }
+
+  .etraction-desc__intro p {
+    position: relative !important;
+    z-index: 1 !important;
+    max-width: 760px !important;
+    color: var(--etraction-muted) !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+  }
+
+  .etraction-desc__benefits {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+  }
+
+  .etraction-desc__benefit {
+    display: flex !important;
+    align-items: center !important;
+    gap: 11px !important;
+    min-width: 0 !important;
+    min-height: 72px !important;
+    padding: 13px 14px !important;
+    border-radius: 16px !important;
+    background: var(--etraction-pink-soft) !important;
+    overflow: hidden !important;
+  }
+
+  .etraction-desc__benefit:nth-child(2) {
+    background: var(--etraction-blue-soft) !important;
+  }
+
+  .etraction-desc__benefit:nth-child(3) {
+    background: var(--etraction-yellow-soft) !important;
+  }
+
+  .etraction-desc__benefit:nth-child(4) {
+    background: var(--etraction-purple-soft) !important;
+  }
+
+  .etraction-desc__benefit-icon {
+    display: grid !important;
+    flex: 0 0 38px !important;
+    place-items: center !important;
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 13px !important;
+    color: var(--etraction-pink) !important;
+    background: #fff !important;
+    box-shadow: 0 5px 14px rgba(49, 63, 69, .06) !important;
+  }
+
+  .etraction-desc__benefit-icon::before {
+    content: "✓";
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+  }
+
+  .etraction-desc__benefit-copy {
+    min-width: 0 !important;
+  }
+
+  .etraction-desc__benefit strong {
+    display: block !important;
+    margin-bottom: 1px !important;
+    color: var(--etraction-ink) !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .etraction-desc__benefit small {
+    display: block !important;
+    color: var(--etraction-muted) !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .etraction-desc__focus {
+    width: 100% !important;
+    margin-top: 34px !important;
+  }
+
+  .etraction-desc__section-title {
+    margin-bottom: 16px !important;
+    text-align: center !important;
+  }
+
+  .etraction-desc__section-title h3 {
+    margin-bottom: 4px !important;
+    color: var(--etraction-ink) !important;
+    font-size: 21px !important;
+    line-height: 1.2 !important;
+  }
+
+  .etraction-desc__section-title p {
+    color: var(--etraction-muted) !important;
+    font-size: 13px !important;
+  }
+
+  .etraction-desc__focus-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+    width: 100% !important;
+  }
+
+  .etraction-desc__focus-card {
+    display: grid !important;
+    grid-template-columns: 42% 58% !important;
+    min-width: 0 !important;
+    min-height: 220px !important;
+    border: 1px solid var(--etraction-line) !important;
+    border-radius: 20px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+  }
+
+  /*
+    A foto fica presa neste quadro mesmo quando o editor adiciona
+    largura, altura, parágrafo ou outro invólucro automaticamente.
+  */
+  .etraction-desc__media {
+    position: relative !important;
+    min-width: 0 !important;
+    min-height: 220px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #f2f3f3 !important;
+    overflow: hidden !important;
+  }
+
+  .etraction-desc__media p,
+  .etraction-desc__media div,
+  .etraction-desc__media span,
+  .etraction-desc__media figure {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .etraction-desc__media img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+  }
+
+  .etraction-desc__focus-copy {
+    align-self: center !important;
+    min-width: 0 !important;
+    padding: 22px 21px !important;
+  }
+
+  .etraction-desc__number {
+    display: grid !important;
+    place-items: center !important;
+    width: 29px !important;
+    height: 29px !important;
+    margin-bottom: 11px !important;
+    border-radius: 10px !important;
+    color: #fff !important;
+    background: var(--etraction-pink) !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+  }
+
+  .etraction-desc__focus-card:nth-child(2) .etraction-desc__number {
+    background: var(--etraction-blue) !important;
+  }
+
+  .etraction-desc__focus-copy h3 {
+    margin-bottom: 6px !important;
+    color: var(--etraction-ink) !important;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .etraction-desc__focus-copy p {
+    color: var(--etraction-muted) !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .etraction-desc__technical {
+    display: grid !important;
+    grid-template-columns: .9fr 1.1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+  }
+
+  .etraction-desc__technical-box,
+  .etraction-desc__included {
+    min-width: 0 !important;
+    padding: 22px !important;
+    border: 1px solid var(--etraction-line) !important;
+    border-radius: 18px !important;
+    background: #fff !important;
+  }
+
+  .etraction-desc__technical-box h3,
+  .etraction-desc__included h3 {
+    margin-bottom: 14px !important;
+    color: var(--etraction-ink) !important;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+  }
+
+  .etraction-desc__specs {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px 16px !important;
+  }
+
+  .etraction-desc__spec {
+    min-width: 0 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px dashed var(--etraction-line) !important;
+  }
+
+  .etraction-desc__spec span {
+    display: block !important;
+    color: var(--etraction-muted) !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    letter-spacing: .05em !important;
+    text-transform: uppercase !important;
+  }
+
+  .etraction-desc__spec strong {
+    display: block !important;
+    margin-top: 2px !important;
+    color: var(--etraction-ink) !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .etraction-desc__included {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    background: linear-gradient(135deg, var(--etraction-pink-soft), #fff8ed) !important;
+  }
+
+  .etraction-desc__included::before {
+    content: "✓";
+    display: grid !important;
+    flex: 0 0 45px !important;
+    place-items: center !important;
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 14px !important;
+    color: var(--etraction-pink) !important;
+    background: #fff !important;
+    box-shadow: 0 5px 14px rgba(49, 63, 69, .06) !important;
+    font-size: 19px !important;
+    font-weight: 800 !important;
+  }
+
+  .etraction-desc__included h3 {
+    margin-bottom: 2px !important;
+    font-size: 15px !important;
+  }
+
+  .etraction-desc__included p {
+    color: var(--etraction-muted) !important;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+  }
+
+  .etraction-desc__accordions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+  }
+
+  .etraction-desc details {
+    display: block !important;
+    min-width: 0 !important;
+    border: 1px solid var(--etraction-line) !important;
+    border-radius: 15px !important;
+    background: #fff !important;
+    overflow: hidden !important;
+  }
+
+  .etraction-desc summary {
+    position: relative !important;
+    display: block !important;
+    padding: 16px 46px 14px 18px !important;
+    color: var(--etraction-ink) !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    list-style: none !important;
+  }
+
+  .etraction-desc summary::-webkit-details-marker {
+    display: none !important;
+  }
+
+  .etraction-desc summary::after {
+    content: "+";
+    position: absolute !important;
+    top: 50% !important;
+    right: 16px !important;
+    display: grid !important;
+    place-items: center !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50% !important;
+    color: var(--etraction-pink) !important;
+    background: var(--etraction-pink-soft) !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .etraction-desc details[open] summary::after {
+    content: "−";
+  }
+
+  .etraction-desc__accordion-content {
+    padding: 0 18px 18px !important;
+    color: var(--etraction-muted) !important;
+    font-size: 13px !important;
+  }
+
+  .etraction-desc__accordion-content p {
+    margin-bottom: 10px !important;
+  }
+
+  .etraction-desc__accordion-content ul {
+    margin: 0 !important;
+    padding-left: 18px !important;
+  }
+
+  .etraction-desc__table-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .etraction-desc table {
+    width: 100% !important;
+    min-width: 520px !important;
+    border-collapse: collapse !important;
+    color: var(--etraction-ink) !important;
+    font-size: 12px !important;
+  }
+
+  .etraction-desc th,
+  .etraction-desc td {
+    padding: 8px !important;
+    border: 1px solid var(--etraction-line) !important;
+    text-align: center !important;
+  }
+
+  .etraction-desc th {
+    background: var(--etraction-pink-soft) !important;
+  }
+
+  @media (max-width: 760px) {
+    .etraction-desc {
+      margin: 24px auto !important;
+      padding: 0 12px !important;
+    }
+
+    .etraction-desc__intro {
+      padding: 23px 20px !important;
+    }
+
+    .etraction-desc__benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .etraction-desc__focus-grid,
+    .etraction-desc__technical,
+    .etraction-desc__accordions {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .etraction-desc__intro h2 {
+      font-size: 22px !important;
+    }
+
+    .etraction-desc__benefit {
+      min-height: 66px !important;
+      padding: 10px !important;
+      gap: 8px !important;
+    }
+
+    .etraction-desc__benefit-icon {
+      flex-basis: 34px !important;
+      width: 34px !important;
+      height: 34px !important;
+    }
+
+    .etraction-desc__benefit small {
+      display: none !important;
+    }
+
+    .etraction-desc__focus-card {
+      grid-template-columns: 44% 56% !important;
+      min-height: 190px !important;
+    }
+
+    .etraction-desc__media {
+      min-height: 190px !important;
+    }
+
+    .etraction-desc__focus-copy {
+      padding: 17px 14px !important;
+    }
+
+    .etraction-desc__specs {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+  }
+</style>
+
+<!-- =========================================================
+     CONTEÚDO EDITÁVEL — DUPLIQUE E EDITE PELO MODO VISUAL
+     ========================================================= -->
+
+<section class="etraction-desc" aria-label="Descrição detalhada do produto">
+  <div class="etraction-desc__intro">
+    <span class="etraction-desc__label">Sobre a peça</span>
+    <h2>Conforto e delicadeza para acompanhar cada descoberta</h2>
+    <p>
+      O Macacão Bebê Algodão Pérola Coração une toque macio, modelagem confortável
+      e uma estampa delicada para deixar a rotina do bebê ainda mais aconchegante.
+    </p>
+  </div>
+
+  <div class="etraction-desc__benefits" aria-label="Principais características">
+    <div class="etraction-desc__benefit">
+      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
+      <span class="etraction-desc__benefit-copy">
+        <strong>Toque macio</strong>
+        <small>Confortável para a pele</small>
+      </span>
+    </div>
+
+    <div class="etraction-desc__benefit">
+      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
+      <span class="etraction-desc__benefit-copy">
+        <strong>Movimentos livres</strong>
+        <small>Modelagem confortável</small>
+      </span>
+    </div>
+
+    <div class="etraction-desc__benefit">
+      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
+      <span class="etraction-desc__benefit-copy">
+        <strong>Zíper prático</strong>
+        <small>Facilita na hora da troca</small>
+      </span>
+    </div>
+
+    <div class="etraction-desc__benefit">
+      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
+      <span class="etraction-desc__benefit-copy">
+        <strong>Detalhes delicados</strong>
+        <small>Estampa cheia de charme</small>
+      </span>
+    </div>
+  </div>
+
+  <div class="etraction-desc__focus">
+    <div class="etraction-desc__section-title">
+      <h3>Olhe mais de pertinho ✨</h3>
+      <p>Detalhes que fazem diferença no dia a dia.</p>
+    </div>
+
+    <div class="etraction-desc__focus-grid">
+      <article class="etraction-desc__focus-card">
+        <figure class="etraction-desc__media">
+          <img
+            src="https://placehold.co/800x800/f2f3f3/67737a?text=Substitua+esta+imagem"
+            alt="Detalhe aproximado do tecido e da estampa"
+            width="800"
+            height="800"
+            loading="lazy"
+          >
+        </figure>
+
+        <div class="etraction-desc__focus-copy">
+          <span class="etraction-desc__number">01</span>
+          <h3>Algodão macio</h3>
+          <p>Tecido suave e aconchegante, ideal para acompanhar os pequenos com conforto.</p>
+        </div>
+      </article>
+
+      <article class="etraction-desc__focus-card">
+        <figure class="etraction-desc__media">
+          <img
+            src="https://placehold.co/800x800/f2f3f3/67737a?text=Substitua+esta+imagem"
+            alt="Detalhe aproximado do fechamento da peça"
+            width="800"
+            height="800"
+            loading="lazy"
+          >
+        </figure>
+
+        <div class="etraction-desc__focus-copy">
+          <span class="etraction-desc__number">02</span>
+          <h3>Praticidade na troca</h3>
+          <p>O zíper com proteção facilita o vestir e ajuda a tornar a rotina mais simples.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="etraction-desc__technical" aria-label="Informações técnicas">
+    <div class="etraction-desc__technical-box">
+      <h3>Detalhes da peça</h3>
+
+      <div class="etraction-desc__specs">
+        <div class="etraction-desc__spec">
+          <span>Composição</span>
+          <strong>100% algodão</strong>
+        </div>
+
+        <div class="etraction-desc__spec">
+          <span>Cor</span>
+          <strong>Pérola</strong>
+        </div>
+
+        <div class="etraction-desc__spec">
+          <span>Estampa</span>
+          <strong>Corações</strong>
+        </div>
+
+        <div class="etraction-desc__spec">
+          <span>Fechamento</span>
+          <strong>Zíper protegido</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="etraction-desc__included">
+      <div>
+        <h3>O que vem na caixa?</h3>
+        <p>1 Macacão Bebê Algodão Pérola Coração.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Os dois itens começam abertos e não dependem de JavaScript. -->
+  <div class="etraction-desc__accordions" aria-label="Medidas e cuidados">
+    <details open>
+      <summary>Guia de medidas</summary>
+      <div class="etraction-desc__accordion-content">
+        <p>Compare as medidas com uma peça que já vista bem no bebê.</p>
+
+        <div class="etraction-desc__table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tam.</th>
+                <th>Altura</th>
+                <th>Cintura</th>
+                <th>Manga</th>
+                <th>Tórax</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>RN</td><td>51 cm</td><td>21 cm</td><td>20 cm</td><td>21 cm</td></tr>
+              <tr><td>P</td><td>54 cm</td><td>23 cm</td><td>21 cm</td><td>22 cm</td></tr>
+              <tr><td>M</td><td>57 cm</td><td>24 cm</td><td>22 cm</td><td>23 cm</td></tr>
+              <tr><td>G</td><td>60 cm</td><td>26 cm</td><td>24 cm</td><td>26 cm</td></tr>
+              <tr><td>1</td><td>63 cm</td><td>28 cm</td><td>26 cm</td><td>28 cm</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details open>
+      <summary>Cuidados com a peça</summary>
+      <div class="etraction-desc__accordion-content">
+        <ul>
+          <li>Lavar delicadamente e não deixar de molho.</li>
+          <li>Não usar alvejante ou secadora.</li>
+          <li>Passar em temperatura baixa.</li>
+          <li>Lavar peças coloridas separadamente na primeira lavagem.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>

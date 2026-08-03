@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aline 3 em 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1A1A1A;
+            --ink-soft: #7A746C;
+            --paper: #FFFFFF;
+            --paper-2: #FAF9F7;
+            --line: #E6E4DF;
+            --line-soft: #EFEDE9;
+            --body: 'Inter', system-ui, -apple-system, sans-serif;
+            --maxw: 1120px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        .aline {
+            font-family: var(--body);
+            color: var(--ink);
+            background: var(--paper);
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .aline img {
+            display: block;
+            max-width: 100%;
+            height: auto
+        }
+
+        .wrap {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 32px
+        }
+
+        .rule {
+            height: 1px;
+            background: var(--line);
+            max-width: var(--maxw);
+            margin: 0 auto
+        }
+
+        /* ===== HEADER ===== */
+        .head {
+            padding: 84px 0 56px
+        }
+
+        .head-grid {
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 60px;
+            align-items: start
+        }
+
+        .head h1 {
+            font-size: clamp(38px, 5vw, 58px);
+            font-weight: 600;
+            letter-spacing: -.025em;
+            line-height: 1.02;
+            color: var(--ink);
+        }
+
+        .head h1 .sub {
+            display: block;
+            font-weight: 400;
+            color: var(--ink-soft);
+            margin-top: 4px;
+        }
+
+        .head-desc {
+            padding-top: 14px;
+            font-size: 15px;
+            color: var(--ink-soft);
+            font-weight: 400;
+            line-height: 1.7;
+            max-width: 42ch;
+        }
+
+        /* ===== FEATURE CARDS ===== */
+        .cards {
+            padding: 48px 0
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--line);
+        }
+
+        .card {
+            padding: 30px 30px 36px;
+            border-right: 1px solid var(--line);
+        }
+
+        .card:last-child {
+            border-right: none
+        }
+
+        .card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: -.01em;
+            margin-bottom: 12px
+        }
+
+        .card p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 34ch
+        }
+
+        /* ===== EDITORIAL PHOTOS ===== */
+        .editorial {
+            padding: 24px 0
+        }
+
+        .ed-block {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+
+        .ed-full {
+            position: relative;
+            background: var(--paper-2);
+            overflow: hidden;
+        }
+
+        .ed-full img {
+            width: 100%;
+            height: clamp(420px, 62vh, 720px);
+            object-fit: cover;
+            object-position: center 35%;
+        }
+
+        .ed-full .caption {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            padding: 26px 30px;
+        }
+
+        .ed-full .caption .tag {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink);
+            background: var(--paper);
+            padding: 8px 14px;
+            display: inline-block;
+        }
+
+        /* split text + image */
+        .ed-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            max-width: var(--maxw);
+            margin: 0 auto;
+            border: 1px solid var(--line);
+        }
+
+        .ed-split.rev .ed-split-img {
+            order: 2
+        }
+
+        .ed-split-img {
+            background: var(--paper-2);
+            overflow: hidden;
+            min-height: 480px;
+            position: relative
+        }
+
+        .ed-split-img img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .ed-split-txt {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 56px 60px;
+        }
+
+        .ed-split-txt .label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 18px;
+        }
+
+        .ed-split-txt h3 {
+            font-size: clamp(24px, 2.8vw, 32px);
+            font-weight: 600;
+            letter-spacing: -.02em;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .ed-split-txt p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            font-weight: 400;
+            line-height: 1.65;
+            max-width: 38ch
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 60px 0 100px
+        }
+
+        .faq h2 {
+            font-size: clamp(26px, 3vw, 34px);
+            font-weight: 600;
+            letter-spacing: -.02em;
+            margin-bottom: 8px
+        }
+
+        .faq .sub {
+            font-size: 14px;
+            color: var(--ink-soft);
+            font-weight: 400;
+            margin-bottom: 36px
+        }
+
+        .faq-list {
+            border-top: 1px solid var(--line)
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--line)
+        }
+
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            padding: 24px 0;
+            text-align: left;
+            font-size: 15.5px;
+            font-weight: 500;
+            color: var(--ink);
+            letter-spacing: -.01em;
+        }
+
+        .faq-q .ico {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            position: relative;
+        }
+
+        .faq-q .ico::before,
+        .faq-q .ico::after {
+            content: "";
+            position: absolute;
+            background: var(--ink);
+            transition: transform .3s ease, opacity .3s ease;
+        }
+
+        .faq-q .ico::before {
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1.5px;
+            transform: translateY(-50%)
+        }
+
+        .faq-q .ico::after {
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1.5px;
+            transform: translateX(-50%)
+        }
+
+        .faq-item.open .faq-q .ico::after {
+            transform: translateX(-50%) scaleY(0);
+            opacity: 0
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease, padding .35s ease;
+        }
+
+        .faq-a .inner {
+            font-size: 14px;
+            color: var(--ink-soft);
+            font-weight: 400;
+            line-height: 1.7;
+            max-width: 60ch;
+            padding-bottom: 0;
+        }
+
+        .faq-item.open .faq-a {
+            padding-bottom: 24px
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:840px) {
+            .head {
+                padding: 56px 0 40px
+            }
+
+            .head-grid {
+                grid-template-columns: 1fr;
+                gap: 24px
+            }
+
+            .head-desc {
+                max-width: none
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr
+            }
+
+            .card {
+                border-right: none;
+                border-bottom: 1px solid var(--line)
+            }
+
+            .card:last-child {
+                border-bottom: none
+            }
+
+            .faq {
+                padding: 48px 0 72px
+            }
+
+            .ed-block {
+                padding: 28px 22px
+            }
+
+            .ed-split {
+                grid-template-columns: 1fr
+            }
+
+            .ed-split.rev .ed-split-img {
+                order: 0
+            }
+
+            .ed-split-img {
+                min-height: 360px
+            }
+
+            .ed-split-txt {
+                padding: 40px 28px
+            }
+
+            .ed-full img {
+                height: 48vh
+            }
+        }
+
+        @media(max-width:480px) {
+            .wrap {
+                padding: 0 22px
+            }
+
+            .rule {
+                margin: 0 22px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                animation: none !important;
+                transition: none !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="aline">
+
+        <!-- HEADER -->
+        <section class="head">
+            <div class="wrap">
+                <div class="head-grid">
+                    <h1>Aline 3 em 1<span class="sub">Uma bota, três estilos</span></h1>
+                    <p class="head-desc">Salto bloco de 10 cm, bico quadrado e estrutura firme. Pensada para
+                        acompanhar looks diferentes sem perder a elegância do dia a dia.</p>
+                </div>
+            </div>
+        </section>
+        <div class="rule"></div>
+
+        <!-- FEATURE CARDS -->
+        <section class="cards">
+            <div class="wrap">
+                <div class="cards-grid">
+                    <div class="card">
+                        <h3>Salto bloco</h3>
+                        <p>10 cm de altura, com base tratorada para maior estabilidade a cada passo.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Bico quadrado</h3>
+                        <p>Design moderno que valoriza o formato do pé com conforto no uso prolongado.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Cano versátil</h3>
+                        <p>Se adapta a diferentes alturas, do dia a dia às produções de noite.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EDITORIAL FULL -->
+        <section class="editorial">
+            <div class="ed-block">
+                <div class="ed-full">
+                    <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg"
+                        alt="Aline 3 em 1 em uso">
+                </div>
+            </div>
+        </section>
+
+        <!-- EDITORIAL SPLIT -->
+        <section class="editorial">
+            <div class="ed-split">
+                <div class="ed-split-img">
+                    <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-10-9g8apqtvml.jpg"
+                        alt="Detalhe do salto">
+                </div>
+                <div class="ed-split-txt">
+                    <span class="label">O detalhe</span>
+                    <h3>Salto bloco de 10 cm</h3>
+                    <p>Salto tratorado e bico quadrado. Estrutura firme e visual moderno em qualquer altura de cano.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div class="rule"></div>
+
+        <!-- EDITORIAL SPLIT REVERSE -->
+        <section class="editorial">
+            <div class="ed-split rev">
+                <div class="ed-split-img">
+                    <img src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-14-uaornp0x21.jpg"
+                        alt="Aline em look casual">
+                </div>
+                <div class="ed-split-txt">
+                    <span class="label">Versatilidade</span>
+                    <h3>Uma bota, três alturas</h3>
+                    <p>Do dia a dia à noite, a Aline se adapta ao seu look pela altura do cano. Três versões em um
+                        único par.</p>
+                </div>
+            </div>
+        </section>
+        <div class="rule"></div>
+
+        <!-- FAQ -->
+        <section class="faq">
+            <div class="wrap">
+                <h2>FAQ</h2>
+                <p class="sub">Dúvidas rápidas sobre a Aline 3 em 1.</p>
+                <div class="faq-list">
+                    <div class="faq-item open">
+                        <button class="faq-q">O que significa 3 em 1?<span class="ico"></span></button>
+                        <div class="faq-a">
+                            <div class="inner">Significa que a mesma bota pode ser usada em três alturas de cano:
+                                baixo, médio e alto.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q">Qual versão é mais discreta?<span class="ico"></span></button>
+                        <div class="faq-a">
+                            <div class="inner">A versão de cano baixo é a mais discreta, ideal para o dia a dia e
+                                fácil de combinar.</div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q">Ela combina com quais cores?<span class="ico"></span></button>
+                        <div class="faq-a">
+                            <div class="inner">Por ser preta, combina com praticamente todas as cores e estilos de
+                                roupa.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        (function () {
+            // ----- FAQ -----
+            document.querySelectorAll('.faq-q').forEach(function (q) {
+                q.addEventListener('click', function () {
+                    var item = q.parentElement;
+                    var a = item.querySelector('.faq-a');
+                    var open = item.classList.contains('open');
+                    document.querySelectorAll('.faq-item').forEach(function (it) {
+                        it.classList.remove('open');
+                        it.querySelector('.faq-a').style.maxHeight = '0';
+                    });
+                    if (!open) {
+                        item.classList.add('open');
+                        a.style.maxHeight = a.scrollHeight + 40 + 'px';
+                    }
+                });
+            });
+            // open first by default
+            var first = document.querySelector('.faq-item.open .faq-a');
+            if (first) { first.style.maxHeight = first.scrollHeight + 40 + 'px'; }
+        })();
+    </script>
+</body>
+
+</html>

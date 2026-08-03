@@ -1,0 +1,705 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<style>
+  .etraction-beneficios {
+    --etraction-preto: #171717;
+    --etraction-cinza: #707070;
+    --etraction-separador: #d4d4d4;
+    --etraction-borda: #ececec;
+    --etraction-fundo: #ffffff;
+
+    position: relative !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: var(--etraction-fundo) !important;
+    border: 0 !important;
+    border-top: 1px solid var(--etraction-borda) !important;
+    border-bottom: 1px solid var(--etraction-borda) !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    font-family: inherit !important;
+  }
+
+  .etraction-beneficios *,
+  .etraction-beneficios *::before,
+  .etraction-beneficios *::after {
+    box-sizing: border-box !important;
+  }
+
+  .etraction-beneficios__container {
+    width: 100% !important;
+    max-width: 1380px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+  }
+
+  .etraction-beneficios__swiper {
+    position: relative !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .etraction-beneficios__wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+    height: 74px !important;
+  }
+
+  .etraction-beneficios__item {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    height: 100% !important;
+    padding: 12px 24px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .etraction-beneficios__item:not(:last-child)::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 0 !important;
+    display: block !important;
+    width: 1px !important;
+    height: 36px !important;
+    background: var(--etraction-separador) !important;
+    transform: translateY(-50%) !important;
+    pointer-events: none !important;
+  }
+
+  .etraction-beneficios__conteudo {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 11px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .etraction-beneficios__icone {
+    display: flex !important;
+    flex: 0 0 28px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    color: var(--etraction-preto) !important;
+    opacity: 0.85 !important;
+  }
+
+  .etraction-beneficios__icone svg {
+    display: block !important;
+    width: 27px !important;
+    max-width: 27px !important;
+    height: 27px !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  .etraction-beneficios__icone .color-svg {
+    fill: var(--etraction-preto) !important;
+    color: var(--etraction-preto) !important;
+  }
+
+  .etraction-beneficios__icone .st80 {
+    fill: none !important;
+    stroke: var(--etraction-preto) !important;
+    stroke-width: 1.25 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+  }
+
+  .etraction-beneficios__icone--estrela .color-svg {
+    fill: none !important;
+    stroke: var(--etraction-preto) !important;
+    stroke-width: 2.1 !important;
+    stroke-linejoin: round !important;
+  }
+
+  .etraction-beneficios__texto {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+  }
+
+  .etraction-beneficios__titulo {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: var(--etraction-preto) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+  }
+
+  .etraction-beneficios__descricao {
+    display: block !important;
+    margin: 4px 0 0 !important;
+    padding: 0 !important;
+    color: var(--etraction-cinza) !important;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+  }
+
+  .etraction-beneficios__quebra {
+    display: block !important;
+  }
+
+  .etraction-beneficios__seta {
+    display: none !important;
+  }
+
+  @media (max-width: 1100px) and (min-width: 768px) {
+    .etraction-beneficios__container {
+      padding: 0 12px !important;
+    }
+
+    .etraction-beneficios__wrapper {
+      height: 72px !important;
+    }
+
+    .etraction-beneficios__item {
+      padding: 10px 12px !important;
+    }
+
+    .etraction-beneficios__item:not(:last-child)::after {
+      height: 32px !important;
+    }
+
+    .etraction-beneficios__conteudo {
+      gap: 8px !important;
+    }
+
+    .etraction-beneficios__icone {
+      flex-basis: 25px !important;
+      width: 25px !important;
+      height: 25px !important;
+    }
+
+    .etraction-beneficios__icone svg {
+      width: 24px !important;
+      height: 24px !important;
+    }
+
+    .etraction-beneficios__titulo {
+      font-size: 12.5px !important;
+    }
+
+    .etraction-beneficios__descricao {
+      font-size: 9.5px !important;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .etraction-beneficios {
+      padding: 6px 0 !important;
+      background: #ffffff !important;
+      border-top: 0 !important;
+      border-bottom: 0 !important;
+    }
+
+    .etraction-beneficios__container {
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 !important;
+    }
+
+    .etraction-beneficios__swiper {
+      width: 100% !important;
+      min-height: 68px !important;
+      overflow: hidden !important;
+    }
+
+    .etraction-beneficios__wrapper {
+      display: flex !important;
+      grid-template-columns: none !important;
+      align-items: center !important;
+      height: 68px !important;
+    }
+
+    .etraction-beneficios__item {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-width: 100% !important;
+      height: 68px !important;
+      padding: 4px 10px !important;
+      background: transparent !important;
+    }
+
+    .etraction-beneficios__item::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .etraction-beneficios__conteudo {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 11px !important;
+      width: calc(100% - 20px) !important;
+      max-width: 350px !important;
+      min-height: 58px !important;
+      margin: 0 auto !important;
+      padding: 9px 48px !important;
+      background: #ffffff !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .etraction-beneficios__icone {
+      flex: 0 0 27px !important;
+      width: 27px !important;
+      height: 27px !important;
+    }
+
+    .etraction-beneficios__icone svg {
+      width: 26px !important;
+      height: 26px !important;
+    }
+
+    .etraction-beneficios__texto {
+      align-items: flex-start !important;
+      justify-content: center !important;
+      text-align: left !important;
+    }
+
+    .etraction-beneficios__titulo {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      line-height: 1.15 !important;
+      white-space: normal !important;
+    }
+
+    .etraction-beneficios__descricao {
+      margin-top: 3px !important;
+      font-size: 10.5px !important;
+      line-height: 1.2 !important;
+    }
+
+    .etraction-beneficios__seta {
+      position: absolute !important;
+      top: 50% !important;
+      z-index: 20 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 28px !important;
+      height: 28px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 50% !important;
+      background: transparent !important;
+      color: var(--etraction-preto) !important;
+      box-shadow: none !important;
+      opacity: 0.65 !important;
+      cursor: pointer !important;
+      transform: translateY(-50%) !important;
+      transition: opacity 0.2s ease !important;
+    }
+
+    .etraction-beneficios__seta:hover,
+    .etraction-beneficios__seta:focus {
+      opacity: 1 !important;
+    }
+
+    .etraction-beneficios__seta--anterior {
+      left: max(18px, calc(50% - 168px)) !important;
+    }
+
+    .etraction-beneficios__seta--proxima {
+      right: max(18px, calc(50% - 168px)) !important;
+    }
+
+    .etraction-beneficios__seta svg {
+      display: block !important;
+      width: 17px !important;
+      height: 17px !important;
+      fill: none !important;
+      stroke: currentColor !important;
+      stroke-width: 1.7 !important;
+      stroke-linecap: round !important;
+      stroke-linejoin: round !important;
+    }
+
+    .etraction-beneficios .swiper-button-disabled {
+      opacity: 0.25 !important;
+      pointer-events: none !important;
+    }
+
+    .etraction-beneficios .swiper-pagination,
+    .etraction-beneficios .swiper-pagination-bullets,
+    .etraction-beneficios .swiper-pagination-bullet {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .etraction-beneficios__conteudo {
+      width: calc(100% - 12px) !important;
+      padding-right: 40px !important;
+      padding-left: 40px !important;
+    }
+
+    .etraction-beneficios__seta--anterior {
+      left: 12px !important;
+    }
+
+    .etraction-beneficios__seta--proxima {
+      right: 12px !important;
+    }
+
+    .etraction-beneficios__titulo {
+      font-size: 12.5px !important;
+    }
+
+    .etraction-beneficios__descricao {
+      font-size: 10px !important;
+    }
+  }
+</style>
+
+<section
+  class="etraction-beneficios"
+  aria-label="Benefícios da loja"
+>
+  <div class="etraction-beneficios__container">
+    <div class="etraction-beneficios__swiper swiper">
+      <div class="etraction-beneficios__wrapper swiper-wrapper">
+
+        <!-- PARCELAMENTO -->
+        <div class="etraction-beneficios__item swiper-slide">
+          <div class="etraction-beneficios__conteudo">
+            <span
+              class="etraction-beneficios__icone"
+              aria-hidden="true"
+            >
+              <svg
+                enable-background="new 0 0 48 48"
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="color-svg"
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  d="M43,40H5c-2.209,0-4-1.791-4-4V12c0-2.209,1.791-4,4-4h38c2.209,0,4,1.791,4,4v24C47,38.209,45.209,40,43,40z M3,21h42v-4H3V21z M45,12c0-1.104-0.896-2-2-2H5c-1.104,0-2,0.896-2,2v3h42V12z M45,23H3v13c0,1.104,0.896,2,2,2h38c1.104,0,2-0.896,2-2V23z M26,29h-4c-0.553,0-1-0.447-1-1c0-0.552,0.447-1,1-1h4c0.553,0,1,0.448,1,1C27,28.553,26.553,29,26,29z M17,29H8c-0.553,0-1-0.447-1-1c0-0.552,0.447-1,1-1h9c0.553,0,1,0.448,1,1C18,28.553,17.553,29,17,29z M8,32h6c0.553,0,1,0.448,1,1c0,0.553-0.447,1-1,1H8c-0.553,0-1-0.447-1-1C7,32.448,7.447,32,8,32z"
+                ></path>
+              </svg>
+            </span>
+
+            <span class="etraction-beneficios__texto">
+              <strong class="etraction-beneficios__titulo">
+                Parcelamento
+              </strong>
+
+              <span class="etraction-beneficios__descricao">
+                Até 10x no cartão
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <!-- PIX -->
+        <div class="etraction-beneficios__item swiper-slide">
+          <div class="etraction-beneficios__conteudo">
+            <span
+              class="etraction-beneficios__icone"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="color-svg"
+                  d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.5 369.5C353.7 383.7 372.6 391.5 392.6 391.5H407.7L310.6 488.6C280.3 518.1 231.1 518.1 200.8 488.6L103.3 391.2H112.6C132.6 391.2 151.5 383.4 165.7 369.2L242.4 292.5zM262.5 218.9C256.1 224.4 247.9 224.5 242.4 218.9L165.7 142.2C151.5 127.1 132.6 120.2 112.6 120.2H103.3L200.7 22.76C231.1-7.586 280.3-7.586 310.6 22.76L407.8 119.9H392.6C372.6 119.9 353.7 127.7 339.5 141.9L262.5 218.9zM112.6 142.7C126.4 142.7 139.1 148.3 149.7 158.1L226.4 234.8C233.6 241.1 243 245.6 252.5 245.6C261.9 245.6 271.3 241.1 278.5 234.8L355.5 157.8C365.3 148.1 378.8 142.5 392.6 142.5H430.3L488.6 200.8C518.9 231.1 518.9 280.3 488.6 310.6L430.3 368.9H392.6C378.8 368.9 365.3 363.3 355.5 353.5L278.5 276.5C264.6 262.6 240.3 262.6 226.4 276.6L149.7 353.2C139.1 363 126.4 368.6 112.6 368.6H80.78L22.76 310.6C-7.586 280.3-7.586 231.1 22.76 200.8L80.78 142.7H112.6z"
+                ></path>
+              </svg>
+            </span>
+
+            <span class="etraction-beneficios__texto">
+              <strong class="etraction-beneficios__titulo">
+                10% de desconto
+              </strong>
+
+              <span class="etraction-beneficios__descricao">
+                Para pagamentos no Pix
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <!-- FRETE -->
+        <div class="etraction-beneficios__item swiper-slide">
+          <div class="etraction-beneficios__conteudo">
+            <span
+              class="etraction-beneficios__icone"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 32 17.5"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="st80 color-svg"
+                  d="M22.9,0.8v13.6h-9.7c-0.1-1.3-1.2-2.3-2.6-2.3c-1.2,0.1-2.2,1-2.3,2.3H6V0.8H22.9z"
+                ></path>
+
+                <path
+                  class="st80 color-svg"
+                  d="M31,9.6v4.8h-1.6c-0.1-1.3-1.2-2.3-2.6-2.3c-1.2,0.1-2.2,1-2.3,2.3h-1.6V4.8h3.4L31,9.6z"
+                ></path>
+
+                <ellipse
+                  class="st80 color-svg"
+                  cx="10.9"
+                  cy="14.4"
+                  rx="2.4"
+                  ry="2.4"
+                ></ellipse>
+
+                <ellipse
+                  class="st80 color-svg"
+                  cx="27"
+                  cy="14.4"
+                  rx="2.4"
+                  ry="2.4"
+                ></ellipse>
+
+                <line
+                  class="st80 color-svg"
+                  x1="1"
+                  y1="2.4"
+                  x2="3.6"
+                  y2="2.4"
+                ></line>
+
+                <line
+                  class="st80 color-svg"
+                  x1="1"
+                  y1="5.6"
+                  x2="3.6"
+                  y2="5.6"
+                ></line>
+
+                <line
+                  class="st80 color-svg"
+                  x1="1"
+                  y1="8.8"
+                  x2="3.6"
+                  y2="8.8"
+                ></line>
+              </svg>
+            </span>
+
+            <span class="etraction-beneficios__texto">
+              <strong class="etraction-beneficios__titulo">
+                Frete fixo
+              </strong>
+
+              <span class="etraction-beneficios__descricao">
+                R$ 14,90 para Sul e Sudeste
+
+                <span class="etraction-beneficios__quebra">
+                  acima de R$ 229,90
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <!-- AVALIAÇÕES -->
+        <div class="etraction-beneficios__item swiper-slide">
+          <div class="etraction-beneficios__conteudo">
+            <span
+              class="etraction-beneficios__icone etraction-beneficios__icone--estrela"
+              aria-hidden="true"
+            >
+              <svg
+                viewBox="0 0 48 48"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="color-svg"
+                  d="M24 4l5.09 10.32L41 16.18l-8.5 8.28L34.18 36 24 30.27 13.82 36l2.18-11.54L7.5 16.18l11.91-1.86z"
+                ></path>
+              </svg>
+            </span>
+
+            <span class="etraction-beneficios__texto">
+              <strong class="etraction-beneficios__titulo">
+                Avaliação 4,9 / 5,0
+              </strong>
+
+              <span class="etraction-beneficios__descricao">
+                + de 2.000 avaliações verificadas
+              </span>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <button
+        class="etraction-beneficios__seta etraction-beneficios__seta--anterior"
+        type="button"
+        aria-label="Benefício anterior"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M14.5 5.5 8 12l6.5 6.5"></path>
+        </svg>
+      </button>
+
+      <button
+        class="etraction-beneficios__seta etraction-beneficios__seta--proxima"
+        type="button"
+        aria-label="Próximo benefício"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9.5 5.5 6.5 6.5-6.5 6.5"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  (function () {
+    "use strict";
+
+    var EtractionBeneficios = {
+      swiper: null,
+      mediaQuery: window.matchMedia("(max-width: 767px)"),
+
+      init: function () {
+        this.controlarSwiper();
+        this.registrarEventos();
+      },
+
+      registrarEventos: function () {
+        var self = this;
+
+        if (this.mediaQuery.addEventListener) {
+          this.mediaQuery.addEventListener("change", function () {
+            self.controlarSwiper();
+          });
+
+          return;
+        }
+
+        this.mediaQuery.addListener(function () {
+          self.controlarSwiper();
+        });
+      },
+
+      controlarSwiper: function () {
+        if (this.mediaQuery.matches) {
+          this.criarSwiper();
+          return;
+        }
+
+        this.destruirSwiper();
+      },
+
+      criarSwiper: function () {
+        var elemento = document.querySelector(
+          ".etraction-beneficios__swiper"
+        );
+
+        if (
+          !elemento ||
+          this.swiper ||
+          typeof window.Swiper === "undefined"
+        ) {
+          return;
+        }
+
+        this.swiper = new Swiper(elemento, {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+          spaceBetween: 0,
+          centeredSlides: true,
+          loop: true,
+          speed: 550,
+          effect: "fade",
+
+          fadeEffect: {
+            crossFade: true
+          },
+
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false
+          },
+
+          navigation: {
+            prevEl: ".etraction-beneficios__seta--anterior",
+            nextEl: ".etraction-beneficios__seta--proxima"
+          },
+
+          allowTouchMove: true,
+          grabCursor: true,
+          observer: true,
+          observeParents: true,
+          watchSlidesProgress: true,
+
+          a11y: {
+            enabled: true,
+            prevSlideMessage: "Benefício anterior",
+            nextSlideMessage: "Próximo benefício"
+          }
+        });
+      },
+
+      destruirSwiper: function () {
+        if (!this.swiper) {
+          return;
+        }
+
+        this.swiper.destroy(true, true);
+        this.swiper = null;
+      }
+    };
+
+    function iniciarEtractionBeneficios() {
+      EtractionBeneficios.init();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener(
+        "DOMContentLoaded",
+        iniciarEtractionBeneficios
+      );
+
+      return;
+    }
+
+    iniciarEtractionBeneficios();
+  })();
+</script>

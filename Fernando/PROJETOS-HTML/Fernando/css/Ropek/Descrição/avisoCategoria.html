@@ -1,0 +1,538 @@
+<style>
+#etraction-promocao-lookinhos {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+#etraction-promocao-lookinhos * {
+    box-sizing: border-box !important;
+}
+
+#etraction-promocao-lookinhos .etraction-promocao-container {
+    width: 100% !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+    padding: 0 15px !important;
+}
+
+#etraction-promocao-lookinhos .pesquisa-promocao {
+    position: relative !important;
+    width: 100% !important;
+    margin: 30px auto !important;
+    padding: 12px !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            #fdc939 0 55px,
+            transparent 57px
+        ),
+        radial-gradient(
+            circle at 94% 85%,
+            #34b7bf 0 75px,
+            transparent 77px
+        ),
+        radial-gradient(
+            circle at 82% 5%,
+            #e20464 0 35px,
+            transparent 37px
+        ),
+        linear-gradient(
+            135deg,
+            #df2222 0%,
+            #ec6d05 45%,
+            #e20464 100%
+        ) !important;
+
+    box-shadow:
+        0 12px 30px rgba(70, 25, 25, 0.16) !important;
+}
+
+#etraction-promocao-lookinhos .pesquisa-promocao::before,
+#etraction-promocao-lookinhos .pesquisa-promocao::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#etraction-promocao-lookinhos .pesquisa-promocao::before {
+    top: 18px;
+    left: 20%;
+    width: 18px;
+    height: 18px;
+    background: #34b7bf;
+
+    box-shadow:
+        35px 35px 0 #fdc939,
+        -55px 75px 0 #e20464,
+        580px 8px 0 #fdc939,
+        640px 65px 0 #34b7bf;
+}
+
+#etraction-promocao-lookinhos .pesquisa-promocao::after {
+    right: 8%;
+    bottom: 20px;
+    width: 14px;
+    height: 14px;
+    background: #fdc939;
+
+    box-shadow:
+        -45px -45px 0 #34b7bf,
+        35px -65px 0 #df2222;
+}
+
+#etraction-promocao-lookinhos .descricao-desconto {
+    position: relative !important;
+    width: 100% !important;
+    padding: 30px 25px !important;
+    text-align: center !important;
+    border: 4px solid #fdc939 !important;
+    border-radius: 17px !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+
+    box-shadow:
+        0 6px 0 rgba(122, 20, 20, 0.16) !important;
+}
+
+#etraction-promocao-lookinhos .descricao-desconto h2 {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px 12px !important;
+
+    margin: 0 0 16px !important;
+    color: #df2222 !important;
+    font-size: clamp(24px, 2.7vw, 39px) !important;
+    font-weight: 900 !important;
+    line-height: 1.15 !important;
+    letter-spacing: -1px !important;
+    text-align: center !important;
+    text-transform: none !important;
+}
+
+#etraction-promocao-lookinhos .etraction-promocao-oferta {
+    display: inline-block !important;
+}
+
+#etraction-promocao-lookinhos .etraction-promocao-separador {
+    display: inline-block !important;
+    color: #ec6d05 !important;
+    font-size: 0.7em !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+}
+
+#etraction-promocao-lookinhos .etraction-promocao-frete {
+    display: inline-block !important;
+    padding: 5px 10px !important;
+    border-radius: 8px !important;
+    background: #fdc939 !important;
+    color: #9f1717 !important;
+    font-size: 0.72em !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.4px !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-area {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin: 0 auto 15px !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-texto {
+    color: #343434 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-botao {
+    appearance: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+
+    min-height: 40px !important;
+    margin: 0 !important;
+    padding: 9px 18px !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #e20464 !important;
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.5px !important;
+
+    cursor: pointer !important;
+    box-shadow: 4px 4px 0 #fdc939 !important;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-botao:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 4px 6px 0 #fdc939 !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-botao:active {
+    transform: translateY(1px) !important;
+    box-shadow: 2px 2px 0 #fdc939 !important;
+}
+
+#etraction-promocao-lookinhos
+.etraction-cupom-botao.etraction-cupom-copiado {
+    background: #218838 !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-icone {
+    display: inline-flex !important;
+    width: 17px !important;
+    height: 17px !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-icone svg {
+    display: block !important;
+    width: 17px !important;
+    height: 17px !important;
+    fill: currentColor !important;
+}
+
+#etraction-promocao-lookinhos .etraction-cupom-ajuda {
+    width: 100% !important;
+    margin: 0 !important;
+    color: #5f5f5f !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    text-align: center !important;
+}
+
+#etraction-promocao-lookinhos .obs {
+    max-width: 780px !important;
+    margin: 0 auto !important;
+    color: #343434 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+}
+
+#etraction-promocao-lookinhos .obs-secundaria {
+    display: block !important;
+    margin-top: 3px !important;
+    font-weight: 400 !important;
+}
+
+@media (max-width: 767px) {
+    #etraction-promocao-lookinhos
+    .etraction-promocao-container {
+        padding: 0 10px !important;
+    }
+
+    #etraction-promocao-lookinhos .pesquisa-promocao {
+        margin: 20px auto !important;
+        padding: 8px !important;
+        border-radius: 18px !important;
+    }
+
+    #etraction-promocao-lookinhos .descricao-desconto {
+        padding: 24px 14px !important;
+        border-width: 3px !important;
+        border-radius: 13px !important;
+    }
+
+    #etraction-promocao-lookinhos .descricao-desconto h2 {
+        flex-direction: column !important;
+        gap: 7px !important;
+        margin-bottom: 14px !important;
+        font-size: 24px !important;
+        line-height: 1.15 !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    #etraction-promocao-lookinhos
+    .etraction-promocao-separador {
+        font-size: 13px !important;
+    }
+
+    #etraction-promocao-lookinhos
+    .etraction-promocao-frete {
+        padding: 7px 10px !important;
+        font-size: 17px !important;
+        line-height: 1.25 !important;
+    }
+
+    #etraction-promocao-lookinhos .etraction-cupom-area {
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-bottom: 14px !important;
+    }
+
+    #etraction-promocao-lookinhos .etraction-cupom-texto {
+        font-size: 13px !important;
+    }
+
+    #etraction-promocao-lookinhos .etraction-cupom-botao {
+        min-height: 39px !important;
+        padding: 8px 16px !important;
+        font-size: 14px !important;
+    }
+
+    #etraction-promocao-lookinhos .obs {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+}
+</style>
+
+<script>
+(function () {
+    "use strict";
+
+    var SELETOR_REFERENCIA =
+        "#main-area > div.area-breadcrumb";
+
+    var ID_PROMOCAO =
+        "etraction-promocao-lookinhos";
+
+    var CODIGO_CUPOM =
+        "LOOKINHOS";
+
+    var tentativas = 0;
+    var maxTentativas = 50;
+    var intervalo = null;
+
+    function copiarTextoFallback(texto) {
+        var campo = document.createElement("textarea");
+
+        campo.value = texto;
+        campo.setAttribute("readonly", "");
+        campo.style.position = "fixed";
+        campo.style.top = "-9999px";
+        campo.style.left = "-9999px";
+
+        document.body.appendChild(campo);
+
+        campo.select();
+        campo.setSelectionRange(0, campo.value.length);
+
+        var copiado = false;
+
+        try {
+            copiado = document.execCommand("copy");
+        } catch (erro) {
+            copiado = false;
+        }
+
+        document.body.removeChild(campo);
+
+        return copiado;
+    }
+
+    function mostrarCupomCopiado(botao) {
+        if (!botao) {
+            return;
+        }
+
+        var textoOriginal =
+            botao.getAttribute("data-texto-original") ||
+            CODIGO_CUPOM;
+
+        botao.classList.add("etraction-cupom-copiado");
+
+        botao.innerHTML =
+            '<span class="etraction-cupom-icone">' +
+                '<svg viewBox="0 0 256 256" aria-hidden="true">' +
+                    '<path d="M229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69 218.34 66.34a8 8 0 0 1 11.32 11.32Z"></path>' +
+                '</svg>' +
+            '</span>' +
+            '<span>CUPOM COPIADO!</span>';
+
+        window.setTimeout(function () {
+            botao.classList.remove(
+                "etraction-cupom-copiado"
+            );
+
+            botao.innerHTML =
+                '<span class="etraction-cupom-icone">' +
+                    '<svg viewBox="0 0 256 256" aria-hidden="true">' +
+                        '<path d="M216 32H88a8 8 0 0 0-8 8v40H40a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-40h40a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8Zm-56 176H48V96h112Zm48-48h-32V88a8 8 0 0 0-8-8H96V48h112Z"></path>' +
+                    '</svg>' +
+                '</span>' +
+                '<span>' + textoOriginal + '</span>';
+        }, 2200);
+    }
+
+    function copiarCupom(botao) {
+        if (
+            navigator.clipboard &&
+            typeof navigator.clipboard.writeText === "function"
+        ) {
+            navigator.clipboard
+                .writeText(CODIGO_CUPOM)
+                .then(function () {
+                    mostrarCupomCopiado(botao);
+                })
+                .catch(function () {
+                    if (copiarTextoFallback(CODIGO_CUPOM)) {
+                        mostrarCupomCopiado(botao);
+                    }
+                });
+
+            return;
+        }
+
+        if (copiarTextoFallback(CODIGO_CUPOM)) {
+            mostrarCupomCopiado(botao);
+        }
+    }
+
+    function adicionarEventoCupom(promocao) {
+        var botao = promocao.querySelector(
+            ".etraction-cupom-botao"
+        );
+
+        if (!botao) {
+            return;
+        }
+
+        botao.addEventListener("click", function () {
+            copiarCupom(botao);
+        });
+    }
+
+    function criarPromocao() {
+        if (document.getElementById(ID_PROMOCAO)) {
+            return true;
+        }
+
+        var referencia = document.querySelector(
+            SELETOR_REFERENCIA
+        );
+
+        if (!referencia) {
+            return false;
+        }
+
+        var promocao = document.createElement("section");
+
+        promocao.id = ID_PROMOCAO;
+
+        promocao.innerHTML =
+            '<div class="etraction-promocao-container">' +
+                '<div class="pesquisa-promocao">' +
+                    '<div class="descricao-desconto">' +
+
+                        '<h2>' +
+                            '<span class="etraction-promocao-oferta">' +
+                                '2 Lookinhos por R$144' +
+                            '</span>' +
+
+                            '<span class="etraction-promocao-separador">' +
+                                'ou' +
+                            '</span>' +
+
+                            '<span class="etraction-promocao-oferta">' +
+                                '3 Lookinhos por R$207' +
+                            '</span>' +
+
+                            '<span class="etraction-promocao-frete">' +
+                                '+ Frete Grátis' +
+                            '</span>' +
+                        '</h2>' +
+
+                        '<div class="etraction-cupom-area">' +
+                            '<span class="etraction-cupom-texto">' +
+                                'Use o cupom:' +
+                            '</span>' +
+
+                            '<button ' +
+                                'type="button" ' +
+                                'class="etraction-cupom-botao" ' +
+                                'data-texto-original="LOOKINHOS" ' +
+                                'aria-label="Copiar cupom LOOKINHOS"' +
+                            '>' +
+                                '<span class="etraction-cupom-icone">' +
+                                    '<svg viewBox="0 0 256 256" aria-hidden="true">' +
+                                        '<path d="M216 32H88a8 8 0 0 0-8 8v40H40a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-40h40a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8Zm-56 176H48V96h112Zm48-48h-32V88a8 8 0 0 0-8-8H96V48h112Z"></path>' +
+                                    '</svg>' +
+                                '</span>' +
+                                '<span>LOOKINHOS</span>' +
+                            '</button>' +
+
+                            '<p class="etraction-cupom-ajuda">' +
+                                'Clique no cupom para copiar' +
+                            '</p>' +
+                        '</div>' +
+
+                        '<p class="obs">' +
+                            'Escolha 2 ou 3 lookinhos e aplique o cupom LOOKINHOS no carrinho.' +
+
+                            '<span class="obs-secundaria">' +
+                                'Na compra de 3 lookinhos, você também garante Frete Grátis.' +
+                            '</span>' +
+                        '</p>' +
+
+                    '</div>' +
+                '</div>' +
+            '</div>';
+
+        referencia.insertAdjacentElement(
+            "afterend",
+            promocao
+        );
+
+        adicionarEventoCupom(promocao);
+
+        return true;
+    }
+
+    function iniciarPromocao() {
+        if (criarPromocao()) {
+            return;
+        }
+
+        intervalo = window.setInterval(function () {
+            tentativas++;
+
+            if (
+                criarPromocao() ||
+                tentativas >= maxTentativas
+            ) {
+                window.clearInterval(intervalo);
+                intervalo = null;
+            }
+        }, 300);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciarPromocao,
+            { once: true }
+        );
+    } else {
+        iniciarPromocao();
+    }
+})();
+</script>
