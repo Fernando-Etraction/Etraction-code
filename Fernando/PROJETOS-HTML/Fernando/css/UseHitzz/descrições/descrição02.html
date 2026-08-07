@@ -1,0 +1,912 @@
+<style>
+  #etraction-descricao-aline-editorial {
+    --etraction-descricao-texto: #171717;
+    --etraction-descricao-texto-suave: #66625d;
+    --etraction-descricao-fundo: #ffffff;
+    --etraction-descricao-fundo-claro: #f3f1ed;
+    --etraction-descricao-fundo-escuro: #171717;
+    --etraction-descricao-borda: #d9d5ce;
+    --etraction-descricao-destaque: #8d6840;
+    --etraction-descricao-largura: 1240px;
+
+    width: 100%;
+    background: var(--etraction-descricao-fundo);
+    color: var(--etraction-descricao-texto);
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  #etraction-descricao-aline-editorial,
+  #etraction-descricao-aline-editorial * {
+    box-sizing: border-box;
+  }
+
+  #etraction-descricao-aline-editorial img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #etraction-descricao-aline-editorial button {
+    font: inherit;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__container {
+    width: min(calc(100% - 40px), var(--etraction-descricao-largura));
+    margin: 0 auto;
+  }
+
+  /* ABERTURA */
+  #etraction-descricao-aline-editorial .etraction-descricao__abertura {
+    padding: 38px 0 46px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__abertura-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+    gap: 42px;
+    align-items: center;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__modelo {
+    margin: 0 0 10px;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__titulo-principal {
+    max-width: 520px;
+    margin: 0;
+    font-size: clamp(34px, 4.4vw, 52px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__resumo {
+    max-width: 520px;
+    margin: 18px 0 0;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__imagem-abrir {
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 2px;
+    background: var(--etraction-descricao-fundo-claro);
+    cursor: zoom-in;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__imagem-abrir:focus-visible {
+    outline: 3px solid var(--etraction-descricao-destaque);
+    outline-offset: 4px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__imagem-principal {
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    object-position: center 36%;
+  }
+
+  /* FICHA RÁPIDA */
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha {
+    border-top: 1px solid var(--etraction-descricao-borda);
+    border-bottom: 1px solid var(--etraction-descricao-borda);
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    margin: 0;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha-item {
+    min-width: 0;
+    margin: 0;
+    padding: 20px 24px;
+    border-right: 1px solid var(--etraction-descricao-borda);
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha-item:first-of-type {
+    padding-left: 0;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha-item:last-of-type {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha-item dt {
+    margin: 0 0 4px;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 12px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__ficha-item dd {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* TRÊS ALTURAS */
+  #etraction-descricao-aline-editorial .etraction-descricao__alturas {
+    padding: 68px 0 72px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__alturas-cabecalho {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+    gap: 42px;
+    align-items: end;
+    margin-bottom: 30px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__titulo-secao {
+    max-width: 520px;
+    margin: 0;
+    font-size: clamp(30px, 3.8vw, 44px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__texto-secao {
+    max-width: 570px;
+    margin: 0 0 2px auto;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__indicacao-mobile {
+    display: none;
+    margin: 0 0 12px;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 12px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__alturas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__altura {
+    min-width: 0;
+    margin: 0;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__altura-imagem {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__altura-legenda {
+    padding: 13px 0 0;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__altura-legenda h3 {
+    margin: 0 0 3px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__altura-legenda p {
+    margin: 0;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* CONSTRUÇÃO */
+  #etraction-descricao-aline-editorial .etraction-descricao__construcao {
+    padding: 54px 0;
+    background: var(--etraction-descricao-fundo-escuro);
+    color: #ffffff;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__construcao-grid {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.28fr);
+    gap: 62px;
+    align-items: start;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__construcao-cabecalho h2 {
+    max-width: 390px;
+    margin: 0;
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__construcao-intro {
+    max-width: 410px;
+    margin: 14px 0 0;
+    color: rgba(255, 255, 255, 0.67);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__detalhes {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__detalhe {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.42fr) minmax(0, 1fr);
+    gap: 22px;
+    padding: 17px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__detalhe h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__detalhe p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* MODAL */
+  #etraction-descricao-aline-editorial .etraction-descricao__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__modal[data-aberto="true"] {
+    display: flex;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__modal-conteudo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(1100px, 94vw);
+    height: min(88vh, 900px);
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__modal-imagem {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__modal-fechar {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.68);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #etraction-descricao-aline-editorial .etraction-descricao__modal-fechar:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 900px) {
+    #etraction-descricao-aline-editorial .etraction-descricao__abertura-grid,
+    #etraction-descricao-aline-editorial .etraction-descricao__alturas-cabecalho,
+    #etraction-descricao-aline-editorial .etraction-descricao__construcao-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__abertura-grid {
+      gap: 28px;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__texto-secao {
+      margin-left: 0;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__alturas-cabecalho {
+      gap: 14px;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__construcao-grid {
+      gap: 30px;
+    }
+  }
+
+  @media (max-width: 680px) {
+    #etraction-descricao-aline-editorial .etraction-descricao__container {
+      width: min(calc(100% - 28px), var(--etraction-descricao-largura));
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__abertura {
+      padding: 28px 0 34px;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__titulo-principal {
+      font-size: clamp(31px, 9.8vw, 42px);
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__resumo {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__imagem-principal {
+      aspect-ratio: 4 / 5;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__ficha-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__ficha-item,
+    #etraction-descricao-aline-editorial .etraction-descricao__ficha-item:first-of-type,
+    #etraction-descricao-aline-editorial .etraction-descricao__ficha-item:last-of-type {
+      padding: 15px 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--etraction-descricao-borda);
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__ficha-item:last-of-type {
+      border-bottom: 0;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__alturas {
+      padding: 50px 0 54px;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__indicacao-mobile {
+      display: block;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__alturas-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 82%;
+      grid-template-columns: none;
+      gap: 12px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding: 0 14px 10px 0;
+      scroll-snap-type: inline mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--etraction-descricao-borda) transparent;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__altura {
+      scroll-snap-align: start;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__construcao {
+      padding: 42px 0;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__construcao-grid {
+      gap: 24px;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__detalhe {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 15px 0;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__modal {
+      padding: 16px;
+    }
+
+    #etraction-descricao-aline-editorial .etraction-descricao__modal-fechar {
+      top: 12px;
+      right: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #etraction-descricao-aline-editorial *,
+    #etraction-descricao-aline-editorial *::before,
+    #etraction-descricao-aline-editorial *::after {
+      scroll-behavior: auto;
+      transition: none;
+      animation: none;
+    }
+  }
+</style>
+
+<section
+  id="etraction-descricao-aline-editorial"
+  aria-label="Descrição da bota Aline 3 em 1"
+>
+  <section class="etraction-descricao__abertura">
+    <div class="etraction-descricao__container">
+      <div class="etraction-descricao__abertura-grid">
+        <header>
+          <p class="etraction-descricao__modelo">
+            Aline 3 em 1
+          </p>
+
+          <h2 class="etraction-descricao__titulo-principal">
+            Três alturas em uma única bota
+          </h2>
+
+          <p class="etraction-descricao__resumo">
+            O cano pode ser usado nas versões baixa, média ou alta.
+            O modelo possui salto bloco de 10 cm, base tratorada e bico quadrado.
+          </p>
+        </header>
+
+        <button
+          class="etraction-descricao__imagem-abrir"
+          type="button"
+          data-etraction-imagem="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg"
+          data-etraction-alt="Bota feminina Aline 3 em 1 preta em uso"
+          aria-label="Ampliar imagem principal da bota Aline"
+        >
+          <img
+            class="etraction-descricao__imagem-principal"
+            src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg"
+            alt="Bota feminina Aline 3 em 1 preta em uso"
+            width="1200"
+            height="1500"
+          >
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="etraction-descricao__ficha"
+    aria-label="Características da bota"
+  >
+    <div class="etraction-descricao__container">
+      <dl class="etraction-descricao__ficha-grid">
+        <div class="etraction-descricao__ficha-item">
+          <dt>Salto</dt>
+          <dd>Bloco de 10 cm</dd>
+        </div>
+
+        <div class="etraction-descricao__ficha-item">
+          <dt>Bico</dt>
+          <dd>Quadrado</dd>
+        </div>
+
+        <div class="etraction-descricao__ficha-item">
+          <dt>Cano</dt>
+          <dd>Três configurações</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="etraction-descricao__alturas">
+    <div class="etraction-descricao__container">
+      <div class="etraction-descricao__alturas-cabecalho">
+        <h2 class="etraction-descricao__titulo-secao">
+          Escolha a altura do cano
+        </h2>
+
+        <p class="etraction-descricao__texto-secao">
+          Compare as três configurações disponíveis e veja como o modelo
+          fica em cada altura.
+        </p>
+      </div>
+
+      <p class="etraction-descricao__indicacao-mobile">
+        Deslize para ver as três alturas.
+      </p>
+
+      <div
+        class="etraction-descricao__alturas-grid"
+        aria-label="Configurações de altura do cano"
+      >
+        <figure class="etraction-descricao__altura">
+          <button
+            class="etraction-descricao__imagem-abrir"
+            type="button"
+            data-etraction-imagem="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-10-9g8apqtvml.jpg"
+            data-etraction-alt="Bota Aline com cano baixo"
+            aria-label="Ampliar imagem da bota Aline com cano baixo"
+          >
+            <img
+              class="etraction-descricao__altura-imagem"
+              src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-10-9g8apqtvml.jpg"
+              alt="Bota Aline com cano baixo"
+              width="900"
+              height="1125"
+              loading="lazy"
+            >
+          </button>
+
+          <figcaption class="etraction-descricao__altura-legenda">
+            <h3>Cano baixo</h3>
+            <p>Configuração curta do modelo.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="etraction-descricao__altura">
+          <button
+            class="etraction-descricao__imagem-abrir"
+            type="button"
+            data-etraction-imagem="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg"
+            data-etraction-alt="Bota Aline com cano médio"
+            aria-label="Ampliar imagem da bota Aline com cano médio"
+          >
+            <img
+              class="etraction-descricao__altura-imagem"
+              src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-8-pk55r2pho5-rmmsmdy5px.jpg"
+              alt="Bota Aline com cano médio"
+              width="900"
+              height="1125"
+              loading="lazy"
+            >
+          </button>
+
+          <figcaption class="etraction-descricao__altura-legenda">
+            <h3>Cano médio</h3>
+            <p>Configuração intermediária do modelo.</p>
+          </figcaption>
+        </figure>
+
+        <figure class="etraction-descricao__altura">
+          <button
+            class="etraction-descricao__imagem-abrir"
+            type="button"
+            data-etraction-imagem="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-14-uaornp0x21.jpg"
+            data-etraction-alt="Bota Aline com cano alto"
+            aria-label="Ampliar imagem da bota Aline com cano alto"
+          >
+            <img
+              class="etraction-descricao__altura-imagem"
+              src="https://cdn.awsli.com.br/2500x2500/945/945147/produto/390720097/line-bota-feminina-3-em-1-salto-alto-preta-14-uaornp0x21.jpg"
+              alt="Bota Aline com cano alto"
+              width="900"
+              height="1125"
+              loading="lazy"
+            >
+          </button>
+
+          <figcaption class="etraction-descricao__altura-legenda">
+            <h3>Cano alto</h3>
+            <p>Configuração completa do modelo.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="etraction-descricao__construcao">
+    <div class="etraction-descricao__container">
+      <div class="etraction-descricao__construcao-grid">
+        <header class="etraction-descricao__construcao-cabecalho">
+          <h2>
+            Construção do modelo
+          </h2>
+
+          <p class="etraction-descricao__construcao-intro">
+            Detalhes visuais presentes na estrutura da bota.
+          </p>
+        </header>
+
+        <div class="etraction-descricao__detalhes">
+          <article class="etraction-descricao__detalhe">
+            <h3>Salto bloco</h3>
+            <p>
+              Possui 10 cm de altura e base mais larga que a de um salto fino.
+            </p>
+          </article>
+
+          <article class="etraction-descricao__detalhe">
+            <h3>Base tratorada</h3>
+            <p>
+              Acabamento com relevos na parte inferior da base.
+            </p>
+          </article>
+
+          <article class="etraction-descricao__detalhe">
+            <h3>Bico quadrado</h3>
+            <p>
+              Frente com formato reto e cantos definidos.
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div
+    class="etraction-descricao__modal"
+    data-aberto="false"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Imagem ampliada do produto"
+    aria-hidden="true"
+  >
+    <div class="etraction-descricao__modal-conteudo">
+      <button
+        class="etraction-descricao__modal-fechar"
+        type="button"
+        aria-label="Fechar imagem ampliada"
+      >
+        ×
+      </button>
+
+      <img
+        class="etraction-descricao__modal-imagem"
+        src=""
+        alt=""
+        width="1600"
+        height="1600"
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    "use strict";
+
+    var chaveGlobal =
+      "__ETRACTION_DESCRICAO_ALINE_EDITORIAL__";
+
+    if (
+      window[chaveGlobal] &&
+      typeof window[chaveGlobal].destruir === "function"
+    ) {
+      window[chaveGlobal].destruir();
+    }
+
+    var raiz = document.querySelector(
+      "#etraction-descricao-aline-editorial"
+    );
+
+    if (!raiz) {
+      return;
+    }
+
+    var controlador = new AbortController();
+    var sinal = controlador.signal;
+    var focoAnterior = null;
+    var overflowHtmlAnterior = "";
+    var overflowBodyAnterior = "";
+    var modalAberto = false;
+
+    var modal = raiz.querySelector(
+      ".etraction-descricao__modal"
+    );
+
+    var modalImagem = raiz.querySelector(
+      ".etraction-descricao__modal-imagem"
+    );
+
+    var modalFechar = raiz.querySelector(
+      ".etraction-descricao__modal-fechar"
+    );
+
+    function obterElementosFocaveis() {
+      if (!modal) {
+        return [];
+      }
+
+      return Array.prototype.slice.call(
+        modal.querySelectorAll(
+          'button:not([disabled]), [href], input:not([disabled]), ' +
+          'select:not([disabled]), textarea:not([disabled]), ' +
+          '[tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(function (elemento) {
+        return elemento.offsetParent !== null;
+      });
+    }
+
+    function restaurarOverflow() {
+      document.documentElement.style.overflow =
+        overflowHtmlAnterior;
+
+      document.body.style.overflow =
+        overflowBodyAnterior;
+    }
+
+    function abrirModal(botao) {
+      var src = botao.getAttribute(
+        "data-etraction-imagem"
+      );
+
+      var alt =
+        botao.getAttribute("data-etraction-alt") || "";
+
+      if (
+        !src ||
+        !modal ||
+        !modalImagem ||
+        modalAberto
+      ) {
+        return;
+      }
+
+      modalAberto = true;
+      focoAnterior = document.activeElement;
+
+      overflowHtmlAnterior =
+        document.documentElement.style.overflow;
+
+      overflowBodyAnterior =
+        document.body.style.overflow;
+
+      modalImagem.src = src;
+      modalImagem.alt = alt;
+
+      modal.setAttribute("data-aberto", "true");
+      modal.setAttribute("aria-hidden", "false");
+
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+
+      if (modalFechar) {
+        modalFechar.focus();
+      }
+    }
+
+    function fecharModal() {
+      if (
+        !modal ||
+        !modalImagem ||
+        !modalAberto
+      ) {
+        return;
+      }
+
+      modalAberto = false;
+
+      modal.setAttribute("data-aberto", "false");
+      modal.setAttribute("aria-hidden", "true");
+
+      modalImagem.src = "";
+      modalImagem.alt = "";
+
+      restaurarOverflow();
+
+      if (
+        focoAnterior &&
+        document.contains(focoAnterior) &&
+        typeof focoAnterior.focus === "function"
+      ) {
+        focoAnterior.focus();
+      }
+
+      focoAnterior = null;
+    }
+
+    function controlarTeclado(evento) {
+      if (!modalAberto || !modal) {
+        return;
+      }
+
+      if (evento.key === "Escape") {
+        evento.preventDefault();
+        fecharModal();
+        return;
+      }
+
+      if (evento.key !== "Tab") {
+        return;
+      }
+
+      var focaveis = obterElementosFocaveis();
+
+      if (!focaveis.length) {
+        evento.preventDefault();
+        return;
+      }
+
+      var primeiro = focaveis[0];
+      var ultimo = focaveis[focaveis.length - 1];
+
+      if (
+        evento.shiftKey &&
+        document.activeElement === primeiro
+      ) {
+        evento.preventDefault();
+        ultimo.focus();
+        return;
+      }
+
+      if (
+        !evento.shiftKey &&
+        document.activeElement === ultimo
+      ) {
+        evento.preventDefault();
+        primeiro.focus();
+      }
+    }
+
+    raiz
+      .querySelectorAll("[data-etraction-imagem]")
+      .forEach(function (botao) {
+        botao.addEventListener(
+          "click",
+          function () {
+            abrirModal(botao);
+          },
+          { signal: sinal }
+        );
+      });
+
+    if (modalFechar) {
+      modalFechar.addEventListener(
+        "click",
+        fecharModal,
+        { signal: sinal }
+      );
+    }
+
+    if (modal) {
+      modal.addEventListener(
+        "click",
+        function (evento) {
+          if (evento.target === modal) {
+            fecharModal();
+          }
+        },
+        { signal: sinal }
+      );
+    }
+
+    document.addEventListener(
+      "keydown",
+      controlarTeclado,
+      { signal: sinal }
+    );
+
+    window[chaveGlobal] = {
+      destruir: function () {
+        controlador.abort();
+
+        if (modalAberto) {
+          modalAberto = false;
+          restaurarOverflow();
+        }
+
+        if (modal) {
+          modal.setAttribute("data-aberto", "false");
+          modal.setAttribute("aria-hidden", "true");
+        }
+
+        if (modalImagem) {
+          modalImagem.src = "";
+          modalImagem.alt = "";
+        }
+
+        delete window[chaveGlobal];
+      }
+    };
+  })();
+</script>

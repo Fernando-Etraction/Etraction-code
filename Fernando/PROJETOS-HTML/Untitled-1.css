@@ -1,0 +1,2036 @@
+<style><!--
+.content-home{
+    background-color: #fff;
+    margin-bottom: -30px;
+    padding: 20px 0;
+}
+
+@media (max-width: 425px){
+    h1 {
+        display: flex;
+        justify-content: center;
+        font-size: 14px !important;
+    }
+}
+
+.linhas .swiper-wrapper .banner-img img {
+    margin: 0 auto;
+    height: auto;
+    border: 5px solid #fff;
+    box-shadow: 3px 3px 34px -25px #000;
+    transition-duration: 0.5s;
+}
+
+
+.hover img {
+      transition: transform 0.5s;
+      -moz-transition: transform 0.5s;
+      -webkit-transition: transform 0.5s;
+      -o-transition: transform 0.5s;
+  }
+
+  .hover img:hover {
+      transform: scale(0.97);
+      -moz-transform: scale(0.97);
+      -webkit-transform: scale(0.97);
+      -o-transform: scale(0.97);
+  }
+
+
+
+@media(max-width: 800px){
+.fixo>.container{
+  padding: 0;
+}
+
+.fixo .swiper-wrapper {
+    flex-wrap: wrap;
+    transition: none !important;
+    transform: initial !important;
+}
+.fixo .banner-img{
+     padding: 0 !important;
+     width: 100% !important;
+     margin-bottom: 20px;
+}
+.dynamic-banner.swiper .swiper-button-prev, .dynamic-banner.swiper .swiper-button-next{
+  display: none;
+}
+}
+
+.vitrine-default h3 {
+    font-weight: normal;
+}
+--></style>
+
+<style>
+  /* =========================================================
+     HEADER TRANSPARENTE — TOALHA SHOW
+     Inspirada na estrutura clean da Femme
+  ========================================================= */
+
+  @media (min-width: 1024px) {
+    #header-react-app.etraction-header-femme {
+      --etraction-header-height: 84px;
+      --etraction-header-max-width: 1640px;
+      --etraction-header-color: #171717;
+      --etraction-header-accent: #4a2b7d;
+
+      position: absolute !important;
+      /*
+       * O valor é calculado pelo JS a partir da borda inferior da tarja.
+       * Enquanto o cálculo não acontece, "auto" preserva a posição natural.
+       */
+      top: var(--etraction-header-top, auto) !important;
+      right: 0 !important;
+      left: 0 !important;
+      z-index: 999 !important;
+      width: 100% !important;
+      height: var(--etraction-header-height) !important;
+      min-height: var(--etraction-header-height) !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      /*
+       * Não aplicar backdrop-filter no root React: esse filtro cria um novo
+       * contexto para elementos fixed e pode prender o minicarrinho na header.
+       */
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      transition:
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        height 0.25s ease !important;
+    }
+
+    /*
+     * Blur aplicado em uma camada independente.
+     * Assim o efeito aparece sobre o banner sem transformar o root React
+     * em contexto de posicionamento para o minicarrinho.
+     */
+    #header-react-app.etraction-header-femme::before {
+      content: "" !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 0 !important;
+      display: block !important;
+      pointer-events: none !important;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.62) 0%,
+        rgba(255, 255, 255, 0.34) 72%,
+        rgba(255, 255, 255, 0.14) 100%
+      ) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+      backdrop-filter: blur(16px) saturate(1.08) !important;
+      transition:
+        background 0.25s ease,
+        -webkit-backdrop-filter 0.25s ease,
+        backdrop-filter 0.25s ease !important;
+    }
+
+    /* Estado compacto e legível depois da rolagem */
+    #header-react-app.etraction-header-femme.etraction-header-rolagem {
+      position: fixed !important;
+      top: 0 !important;
+      height: 72px !important;
+      min-height: 72px !important;
+      background: transparent !important;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.08) !important;
+      box-shadow: 0 8px 28px rgba(17, 17, 17, 0.08) !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.etraction-header-rolagem::before {
+      background: rgba(255, 255, 255, 0.92) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(1.08) !important;
+      backdrop-filter: blur(18px) saturate(1.08) !important;
+    }
+
+    #header-react-app.etraction-header-femme > .header-top {
+      position: relative !important;
+      z-index: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      width: 100% !important;
+      max-width: none !important;
+      height: 100% !important;
+      min-height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme > .header-top > .container {
+      display: grid !important;
+      grid-template-columns: minmax(190px, 220px) minmax(0, 1fr) auto !important;
+      align-items: center !important;
+      justify-content: initial !important;
+      gap: 28px !important;
+      width: calc(100% - 64px) !important;
+      max-width: var(--etraction-header-max-width) !important;
+      height: 100% !important;
+      min-height: 100% !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+      background: transparent !important;
+    }
+
+    /* Logo */
+    #header-react-app.etraction-header-femme .logo,
+    #header-react-app.etraction-header-femme .logo > div {
+      width: 100% !important;
+      max-width: 220px !important;
+    }
+
+    #header-react-app.etraction-header-femme .logo-preview {
+      display: flex !important;
+      align-items: center !important;
+      width: 100% !important;
+      max-width: 220px !important;
+      height: auto !important;
+    }
+
+    #header-react-app.etraction-header-femme .logo-preview > img,
+    #header-react-app.etraction-header-femme .logo-preview > svg {
+      display: block !important;
+      width: 100% !important;
+      max-width: 220px !important;
+      height: auto !important;
+      max-height: 48px !important;
+      object-fit: contain !important;
+      object-position: left center !important;
+      transition: max-width 0.25s ease !important;
+    }
+
+    #header-react-app.etraction-header-femme.etraction-header-rolagem
+      .logo-preview
+      > img,
+    #header-react-app.etraction-header-femme.etraction-header-rolagem
+      .logo-preview
+      > svg {
+      max-width: 195px !important;
+      max-height: 42px !important;
+    }
+
+    /* Menu principal */
+    #header-react-app.etraction-header-femme #nav-root {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 2px !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    /*
+     * Normaliza todas as listas da navegação.
+     * A loja aplica recuos, bordas e marcadores via ::before e ::after.
+     */
+    #header-react-app.etraction-header-femme #nav-root ul {
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      background-image: none !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root li {
+      margin: 0 !important;
+      list-style: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      background-image: none !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root,
+    #header-react-app.etraction-header-femme #nav-root > li,
+    #header-react-app.etraction-header-femme #nav-root > li > a {
+      border-bottom: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root::before,
+    #header-react-app.etraction-header-femme #nav-root::after,
+    #header-react-app.etraction-header-femme #nav-root > li::before,
+    #header-react-app.etraction-header-femme #nav-root > li::after,
+    #header-react-app.etraction-header-femme #nav-root > li > a::before,
+    #header-react-app.etraction-header-femme #nav-root > li > a::after,
+    #header-react-app.etraction-header-femme #nav-root ul::before,
+    #header-react-app.etraction-header-femme #nav-root ul::after,
+    #header-react-app.etraction-header-femme #nav-root ul > li::before,
+    #header-react-app.etraction-header-femme #nav-root ul > li::after,
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      li
+      > a::before,
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      li
+      > a::after {
+      content: none !important;
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu {
+      display: block !important;
+      box-sizing: border-box !important;
+      text-align: center !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      ul {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      align-items: stretch !important;
+      justify-items: stretch !important;
+      gap: 8px 18px !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: center !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      background-image: none !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      li {
+      display: flex !important;
+      float: none !important;
+      clear: none !important;
+      align-items: stretch !important;
+      justify-content: stretch !important;
+      width: auto !important;
+      min-width: 0 !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+      text-align: center !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      background-image: none !important;
+    }
+
+    /* Quando a lista tiver quantidade ímpar, centraliza o último item. */
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      ul
+      > li:last-child:nth-child(odd) {
+      grid-column: 1 / -1 !important;
+      justify-self: center !important;
+      width: calc(50% - 9px) !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root > li {
+      position: static !important;
+      display: flex !important;
+      align-items: center !important;
+      height: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      background: transparent !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root > li > a {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 5px !important;
+      height: 100% !important;
+      padding: 0 10px !important;
+      color: var(--etraction-header-color) !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      line-height: 1.15 !important;
+      letter-spacing: 0.075em !important;
+      text-align: center !important;
+      text-shadow: 0 1px 10px rgba(255, 255, 255, 0.88) !important;
+      text-transform: uppercase !important;
+      white-space: nowrap !important;
+      transition:
+        color 0.2s ease,
+        opacity 0.2s ease !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root > li:hover > a {
+      color: var(--etraction-header-accent) !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      > .item-menu-promocao
+      > a {
+      color: #a85f00 !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      > li
+      > a
+      > svg {
+      width: 11px !important;
+      height: 11px !important;
+      color: currentColor !important;
+      fill: currentColor !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      > li
+      > a
+      > svg
+      path {
+      fill: currentColor !important;
+    }
+
+    /* Submenus continuam funcionais, mas com acabamento mais limpo */
+    #header-react-app.etraction-header-femme #nav-root .container-menu {
+      top: 100% !important;
+      left: 50% !important;
+      max-width: 620px !important;
+      padding: 24px !important;
+      background: rgba(255, 255, 255, 0.98) !important;
+      border: 1px solid rgba(17, 17, 17, 0.08) !important;
+      border-top: 0 !important;
+      border-radius: 0 0 6px 6px !important;
+      box-shadow: 0 20px 45px rgba(17, 17, 17, 0.12) !important;
+      transform: translate(-50%, 8px) !important;
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+    }
+  
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      a {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      min-height: 38px !important;
+      margin: 0 !important;
+      padding: 8px 12px !important;
+      box-sizing: border-box !important;
+      color: #292929 !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      border: 0 !important;
+      border-radius: 4px !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      line-height: 1.35 !important;
+      letter-spacing: 0 !important;
+      text-align: center !important;
+      text-transform: none !important;
+      transition:
+        color 0.2s ease,
+        opacity 0.2s ease !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      a:hover {
+      color: var(--etraction-header-accent) !important;
+      background-color: rgba(74, 43, 125, 0.06) !important;
+      opacity: 1 !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      .menu-icon.no-icon {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      .menu-text {
+      display: block !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      text-align: center !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu::before,
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu::after,
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      .menu-text::before,
+    #header-react-app.etraction-header-femme
+      #nav-root
+      .container-menu
+      .menu-text::after {
+      content: none !important;
+      display: none !important;
+      border: 0 !important;
+      background: transparent !important;
+    }
+
+    /*
+     * CORREÇÃO: dropdown das categorias deve abrir ALINHADO à categoria,
+     * não centralizado no meio da tela. Ancora o container no proprio <li>
+     * e neutraliza o deslocamento central (transform/left) do tema.
+     */
+    #header-react-app.etraction-header-femme
+      #nav-root
+      li.has-childs {
+      position: relative !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      li.has-childs
+      > .container-menu {
+      left: 0 !important;
+      right: auto !important;
+      transform: none !important;
+    }
+
+    /* Duas ultimas categorias abrem alinhadas a direita p/ nao vazar da tela */
+    #header-react-app.etraction-header-femme
+      #nav-root
+      li.has-childs:nth-last-child(-n + 2)
+      > .container-menu {
+      left: auto !important;
+      right: 0 !important;
+    }
+
+    /*
+     * A lista de subcategorias: sempre em COLUNA (o tema aplica grid)
+     * e com os itens alinhados à ESQUERDA, largura ajustada ao conteúdo.
+     */
+    #header-react-app.etraction-header-femme
+      #nav-root
+      li.has-childs
+      .menu-level-2 {
+      display: flex !important;
+      flex-direction: column !important;
+      flex-wrap: nowrap !important;
+      align-items: baseline !important;
+      justify-content: flex-start !important;
+      text-align: left !important;
+      width: fit-content !important;
+    }
+
+    /*
+     * Itens do submenu nao devem quebrar em varias linhas.
+     * Com align-items: baseline os itens encolhiam e o texto (ex.:
+     * "Toalha de Rosto Hotel") quebrava/cortava. Forca largura de
+     * conteudo e impede o encolhimento.
+     */
+    #header-react-app.etraction-header-femme
+      #nav-root
+      li.has-childs
+      .menu-level-2
+      > li {
+      flex-shrink: 0 !important;
+      width: max-content !important;
+      max-width: 100% !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      li.has-childs
+      .menu-level-2
+      a {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      width: max-content !important;
+      justify-content: flex-start !important;
+    }
+
+
+
+    /* Busca, conta, favoritos e carrinho */
+    #header-react-app.etraction-header-femme .acoes-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      gap: 16px !important;
+      min-width: max-content !important;
+      height: 100% !important;
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button,
+    #header-react-app.etraction-header-femme .login-area,
+    #header-react-app.etraction-header-femme .meus-favoritos,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart {
+      width: 38px !important;
+      min-width: 38px !important;
+      height: 38px !important;
+      min-height: 38px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      color: var(--etraction-header-color) !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-radius: 50% !important;
+      box-shadow: none !important;
+      transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease !important;
+    }
+
+    /*
+     * Mantém o invólucro nativo do carrinho livre.
+     * O minicarrinho da Magazord pode ser renderizado dentro deste elemento;
+     * limitar sua largura/altura interfere na abertura do painel.
+     */
+    #header-react-app.etraction-header-femme .carrinho-ctn {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: auto !important;
+      min-width: 38px !important;
+      height: auto !important;
+      min-height: 38px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      color: var(--etraction-header-color) !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      pointer-events: auto !important;
+    }
+
+    #header-react-app.etraction-header-femme .login-area > a,
+    #header-react-app.etraction-header-femme .meus-favoritos {
+      width: 100% !important;
+      height: 100% !important;
+      padding: 0 !important;
+      color: inherit !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart {
+      position: relative !important;
+      z-index: 2 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
+      color: inherit !important;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button:hover,
+    #header-react-app.etraction-header-femme .login-area:hover,
+    #header-react-app.etraction-header-femme .meus-favoritos:hover,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart:hover {
+      color: var(--etraction-header-accent) !important;
+      background: rgba(255, 255, 255, 0.62) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button > svg,
+    #header-react-app.etraction-header-femme .login-area > a > svg,
+    #header-react-app.etraction-header-femme .meus-favoritos > svg,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart
+      > svg {
+      width: 21px !important;
+      height: 21px !important;
+      color: inherit !important;
+      fill: currentColor !important;
+      filter: drop-shadow(0 1px 6px rgba(255, 255, 255, 0.8));
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button > svg path,
+    #header-react-app.etraction-header-femme .login-area > a > svg path,
+    #header-react-app.etraction-header-femme .meus-favoritos > svg path,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart
+      > svg
+      path {
+      fill: currentColor !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart
+      > .item-ctn {
+      top: -2px !important;
+      right: -2px !important;
+      width: 16px !important;
+      height: 16px !important;
+      background: #171717 !important;
+      color: #ffffff !important;
+      font-size: 9px !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* Busca aberta deve permanecer branca e acima de tudo */
+    #header-react-app.etraction-header-femme .area-busca {
+      top: 0 !important;
+      z-index: 40 !important;
+      background: rgba(255, 255, 255, 0.98) !important;
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
+
+    /*
+     * A tarja fica acima do conteúdo da página, mas abaixo da header.
+     * O carrinho e a busca são renderizados dentro da header; se a tarja
+     * tiver uma camada maior, ela cobre o topo dos painéis e o botão de fechar.
+     */
+    .pagina-conteudo-adicional.etraction-tarja-wrapper,
+    body .etraction-tarja-topo,
+    body .promo-banner-unico {
+      position: relative !important;
+      z-index: 1 !important;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    #header-react-app.etraction-header-femme {
+      --etraction-header-height: 78px;
+    }
+
+    #header-react-app.etraction-header-femme > .header-top > .container {
+      grid-template-columns: minmax(155px, 175px) minmax(0, 1fr) auto !important;
+      gap: 12px !important;
+      width: calc(100% - 32px) !important;
+    }
+
+    #header-react-app.etraction-header-femme .logo,
+    #header-react-app.etraction-header-femme .logo > div,
+    #header-react-app.etraction-header-femme .logo-preview {
+      max-width: 175px !important;
+    }
+
+    #header-react-app.etraction-header-femme .logo-preview > img,
+    #header-react-app.etraction-header-femme .logo-preview > svg {
+      max-width: 175px !important;
+      max-height: 40px !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root > li > a {
+      padding: 0 5px !important;
+      font-size: 9.5px !important;
+      letter-spacing: 0.025em !important;
+    }
+
+    #header-react-app.etraction-header-femme .acoes-header {
+      gap: 8px !important;
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button,
+    #header-react-app.etraction-header-femme .login-area,
+    #header-react-app.etraction-header-femme .meus-favoritos,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart {
+      width: 32px !important;
+      min-width: 32px !important;
+      height: 32px !important;
+      min-height: 32px !important;
+    }
+
+    #header-react-app.etraction-header-femme .carrinho-ctn {
+      min-width: 32px !important;
+      min-height: 32px !important;
+    }
+  }
+
+  /*
+   * Evita que logo, oito itens de menu e quatro ações se sobreponham
+   * em notebooks e tablets na orientação horizontal.
+   */
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    #header-react-app.etraction-header-femme {
+      --etraction-header-height: 74px;
+    }
+
+    #header-react-app.etraction-header-femme > .header-top > .container {
+      grid-template-columns: 130px minmax(0, 1fr) auto !important;
+      gap: 6px !important;
+      width: calc(100% - 24px) !important;
+    }
+
+    #header-react-app.etraction-header-femme .logo,
+    #header-react-app.etraction-header-femme .logo > div,
+    #header-react-app.etraction-header-femme .logo-preview,
+    #header-react-app.etraction-header-femme .logo-preview > img,
+    #header-react-app.etraction-header-femme .logo-preview > svg {
+      max-width: 130px !important;
+    }
+
+    #header-react-app.etraction-header-femme .logo-preview > img,
+    #header-react-app.etraction-header-femme .logo-preview > svg {
+      max-height: 34px !important;
+    }
+
+    #header-react-app.etraction-header-femme #nav-root > li > a {
+      gap: 2px !important;
+      padding: 0 2px !important;
+      font-size: 9px !important;
+      letter-spacing: 0 !important;
+    }
+
+    #header-react-app.etraction-header-femme
+      #nav-root
+      > li
+      > a
+      > svg {
+      width: 9px !important;
+      height: 9px !important;
+    }
+
+    #header-react-app.etraction-header-femme .acoes-header {
+      gap: 4px !important;
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button,
+    #header-react-app.etraction-header-femme .login-area,
+    #header-react-app.etraction-header-femme .meus-favoritos,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart {
+      width: 30px !important;
+      min-width: 30px !important;
+      height: 30px !important;
+      min-height: 30px !important;
+    }
+
+    #header-react-app.etraction-header-femme .carrinho-ctn {
+      min-width: 30px !important;
+      min-height: 30px !important;
+    }
+
+    #header-react-app.etraction-header-femme .pesquisa-button > svg,
+    #header-react-app.etraction-header-femme .login-area > a > svg,
+    #header-react-app.etraction-header-femme .meus-favoritos > svg,
+    #header-react-app.etraction-header-femme
+      .carrinho-ctn
+      > .link-cart
+      > svg {
+      width: 19px !important;
+      height: 19px !important;
+    }
+  }
+
+  /* =========================================================
+     MOBILE E TABLET
+  ========================================================= */
+  @media (max-width: 1023px) {
+    #header-react-app.etraction-header-femme.is-tablet-mobile {
+      --etraction-header-color: #171717;
+      --etraction-header-accent: #4a2b7d;
+      --etraction-menu-roxo: #3e2b72;
+
+      position: absolute !important;
+      top: var(--etraction-header-top, auto) !important;
+      right: 0 !important;
+      left: 0 !important;
+      z-index: 999 !important;
+      width: 100% !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      background: #ffffff !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      /*
+       * Mantém o carrinho/off-canvas relativo à viewport, não à header.
+       */
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      transition:
+        background-color 0.25s ease,
+        box-shadow 0.25s ease !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile.etraction-header-rolagem {
+      position: fixed !important;
+      top: 0 !important;
+      background: #ffffff !important;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.08) !important;
+      box-shadow: 0 7px 24px rgba(17, 17, 17, 0.1) !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile .header-top {
+      width: 100% !important;
+      min-height: 62px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-top
+      > .container {
+      display: grid !important;
+      grid-template-columns: 46px minmax(0, 1fr) 46px !important;
+      align-items: center !important;
+      justify-content: initial !important;
+      gap: 8px !important;
+      width: 100% !important;
+      max-width: none !important;
+      min-height: 62px !important;
+      margin: 0 !important;
+      padding: 6px 12px !important;
+      box-sizing: border-box !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn {
+      grid-column: 1 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      width: 46px !important;
+      height: 46px !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      > .menu-button,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      > .menu-button
+      > div {
+      position: relative !important;
+      z-index: 30 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 44px !important;
+      min-width: 44px !important;
+      height: 44px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      color: var(--etraction-header-color) !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      .menu-button
+      svg {
+      width: 25px !important;
+      height: 25px !important;
+      color: #171717 !important;
+      fill: #171717 !important;
+      stroke: #171717 !important;
+      opacity: 1 !important;
+      filter: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      .menu-button
+      svg *,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      .menu-button::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      .menu-button::after,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      .menu-button
+      > div::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-menu-button-ctn
+      .menu-button
+      > div::after {
+      color: #171717 !important;
+      fill: #171717 !important;
+      stroke: #171717 !important;
+      border-color: #171717 !important;
+      opacity: 1 !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile .logo {
+      grid-column: 2 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      margin: 0 !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile .logo > div,
+    #header-react-app.etraction-header-femme.is-tablet-mobile .logo-preview {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      max-width: 170px !important;
+      height: auto !important;
+      margin: 0 auto !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .logo-preview
+      > img,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .logo-preview
+      > svg {
+      display: block !important;
+      width: 100% !important;
+      max-width: 170px !important;
+      height: auto !important;
+      max-height: 38px !important;
+      object-fit: contain !important;
+      object-position: center !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .carrinho-container {
+      grid-column: 3 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      justify-self: end !important;
+      width: auto !important;
+      min-width: 46px !important;
+      height: auto !important;
+      min-height: 46px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      pointer-events: auto !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .carrinho-ctn {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: auto !important;
+      min-width: 44px !important;
+      height: auto !important;
+      min-height: 44px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      color: var(--etraction-header-color) !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      pointer-events: auto !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .carrinho-ctn
+      > .link-cart {
+      position: relative !important;
+      z-index: 3 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 44px !important;
+      min-width: 44px !important;
+      height: 44px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      color: var(--etraction-header-color) !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
+      pointer-events: auto !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .carrinho-ctn
+      .icon-top
+      svg {
+      width: 21px !important;
+      height: 21px !important;
+      color: var(--etraction-header-color) !important;
+      fill: currentColor !important;
+      filter: drop-shadow(0 1px 6px rgba(255, 255, 255, 0.78));
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .carrinho-ctn
+      .icon-top
+      svg
+      path {
+      fill: currentColor !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .carrinho-ctn
+      .item-ctn {
+      top: 1px !important;
+      right: 1px !important;
+      width: 16px !important;
+      height: 16px !important;
+      background: #171717 !important;
+      color: #ffffff !important;
+      border: 0 !important;
+      font-size: 9px !important;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.88) !important;
+    }
+
+    /* Busca translúcida enquanto a header está sobre o banner */
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-search-full {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 12px 10px !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-search-full
+      .search-area {
+      width: 100% !important;
+      min-height: 40px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      background: rgba(255, 255, 255, 0.84) !important;
+      border: 1px solid rgba(17, 17, 17, 0.12) !important;
+      border-radius: 999px !important;
+      box-shadow: 0 4px 15px rgba(17, 17, 17, 0.06) !important;
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-search-full
+      form,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-search-full
+      input {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    /* Ao rolar, a header fica compacta e a busca não ocupa o banner */
+    #header-react-app.etraction-header-femme.is-tablet-mobile.etraction-header-rolagem
+      .header-search-full {
+      display: none !important;
+    }
+
+    /* Menu lateral: listas centralizadas, sem borda ou marcador amarelo */
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn {
+      position: fixed !important;
+      top: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      z-index: 100 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      min-height: 100vh !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      background: rgba(17, 17, 17, 0.24) !important;
+      isolation: isolate !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      ul {
+      background-color: #ffffff !important;
+      background-image: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      > div {
+      position: fixed !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      z-index: 20 !important;
+      width: min(86vw, 320px) !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      max-height: none !important;
+      margin: 0 !important;
+      padding-top: env(safe-area-inset-top, 0px) !important;
+      box-sizing: border-box !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      overscroll-behavior: contain !important;
+      background-color: #ffffff !important;
+      background-image: linear-gradient(
+        to bottom,
+        var(--etraction-menu-roxo) 0,
+        var(--etraction-menu-roxo)
+          calc(env(safe-area-inset-top, 0px) + 66px),
+        #ffffff calc(env(safe-area-inset-top, 0px) + 66px),
+        #ffffff 100%
+      ) !important;
+      border: 0 !important;
+      box-shadow: 12px 0 34px rgba(17, 17, 17, 0.16) !important;
+    }
+
+    /*
+     * O fechamento nativo é mantido para preservar o evento do React, mas
+     * fica visualmente oculto. No tema ele é posicionado pela viewport e,
+     * quando o drawer tem 86vw, aparece no espaço branco fora do painel.
+     */
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .etraction-menu-fechar-nativo {
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .info-user {
+      position: relative !important;
+      min-height: 66px !important;
+      margin: 0 !important;
+      padding-right: 52px !important;
+      padding-left: 52px !important;
+      box-sizing: border-box !important;
+      color: #ffffff !important;
+      background: var(--etraction-menu-roxo) !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    /*
+     * Botão visual fixado dentro da faixa de usuário. O clique é repassado
+     * pelo JavaScript ao controle nativo da Magazord.
+     */
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .etraction-menu-mobile-fechar {
+      position: absolute !important;
+      top: 50% !important;
+      right: 8px !important;
+      left: auto !important;
+      z-index: 50 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 38px !important;
+      min-width: 38px !important;
+      height: 38px !important;
+      min-height: 38px !important;
+      margin: 0 !important;
+      padding: 0 0 2px !important;
+      color: #171717 !important;
+      background: rgba(255, 255, 255, 0.96) !important;
+      border: 0 !important;
+      border-radius: 50% !important;
+      outline: 0 !important;
+      box-shadow: 0 2px 10px rgba(17, 17, 17, 0.12) !important;
+      font-family: Arial, Helvetica, sans-serif !important;
+      font-size: 26px !important;
+      font-weight: 300 !important;
+      line-height: 1 !important;
+      text-align: center !important;
+      cursor: pointer !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: translateY(-50%) !important;
+      appearance: none !important;
+      -webkit-appearance: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .etraction-menu-mobile-fechar::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .etraction-menu-mobile-fechar::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    /*
+     * Fallback de cor para estruturas do tema que renderizam outro controle
+     * de fechamento. O botão criado acima é excluído dessas regras.
+     */
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      [aria-label*="fechar" i]:not(.etraction-menu-mobile-fechar),
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      [title*="fechar" i]:not(.etraction-menu-mobile-fechar),
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .close-menu,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .menu-close,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .menu-mobile-fechar {
+      color: #171717 !important;
+      opacity: 1 !important;
+      filter: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      [aria-label*="fechar" i]:not(.etraction-menu-mobile-fechar)
+      svg,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      [title*="fechar" i]:not(.etraction-menu-mobile-fechar)
+      svg,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .close-menu
+      svg,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .menu-close
+      svg,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .menu-mobile-fechar
+      svg,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      [aria-label*="fechar" i]:not(.etraction-menu-mobile-fechar)
+      svg
+      *,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      [title*="fechar" i]:not(.etraction-menu-mobile-fechar)
+      svg
+      *,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .close-menu
+      svg
+      *,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .menu-close
+      svg
+      *,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-ctn
+      .menu-mobile-fechar
+      svg
+      * {
+      color: #171717 !important;
+      fill: #171717 !important;
+      stroke: #171717 !important;
+      opacity: 1 !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      ul {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      text-align: center !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+      color: #242424 !important;
+      background-image: none !important;
+      border: 0 !important;
+      border-top: 0 !important;
+      border-right: 0 !important;
+      border-bottom: 0 !important;
+      border-left: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      text-align: center !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li
+      > a {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      min-height: 48px !important;
+      margin: 0 !important;
+      padding: 9px 48px !important;
+      box-sizing: border-box !important;
+      color: #242424 !important;
+      background: transparent !important;
+      background-image: none !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      font-size: 13px !important;
+      line-height: 1.3 !important;
+      text-align: center !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li.has-childs
+      > a {
+      padding-right: 48px !important;
+      padding-left: 48px !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li.has-childs {
+      position: relative !important;
+    }
+
+    /*
+     * O tema colore o bloco Atacado de roxo. Mantém o contraste correto
+     * depois da centralização geral dos links.
+     */
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li.item-menu-atacado
+      > a {
+      color: #ffffff !important;
+      background: var(--etraction-menu-roxo) !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li.has-childs
+      > button {
+      position: absolute !important;
+      top: 50% !important;
+      right: 4px !important;
+      left: auto !important;
+      z-index: 2 !important;
+      flex: 0 0 40px !important;
+      width: 40px !important;
+      height: 40px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      color: inherit !important;
+      background: transparent !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
+      transform: translateY(-50%) !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      .menu-mobile-titulo,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      .menu-mobile-voltar {
+      justify-content: center !important;
+      padding: 9px 44px !important;
+      text-align: center !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      .container-menu {
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: center !important;
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box::after,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      ul::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      ul::after,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li::after,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li
+      > a::before,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .menu-mobile-box
+      li
+      > a::after {
+      content: none !important;
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .pagina-conteudo-adicional.etraction-tarja-wrapper,
+    body .etraction-tarja-topo,
+    body .promo-banner-unico {
+      position: relative !important;
+      z-index: 1 !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-top
+      > .container {
+      grid-template-columns: 42px minmax(0, 1fr) 42px !important;
+      padding-inline: 8px !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .logo
+      > div,
+    #header-react-app.etraction-header-femme.is-tablet-mobile .logo-preview,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .logo-preview
+      > img,
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .logo-preview
+      > svg {
+      max-width: 148px !important;
+    }
+
+    #header-react-app.etraction-header-femme.is-tablet-mobile
+      .header-search-full {
+      padding-inline: 8px !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #header-react-app.etraction-header-femme,
+    #header-react-app.etraction-header-femme *,
+    #header-react-app.etraction-header-femme *::before,
+    #header-react-app.etraction-header-femme *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    "use strict";
+
+    var EtractionHeaderFemme = {
+      header: null,
+      tarja: null,
+      tarjaWrapper: null,
+      observer: null,
+      resizeObserver: null,
+      scrollFrame: null,
+      resizeTimer: null,
+      fecharMenuNativo: null,
+      limiteRolagem: 120,
+
+      iniciar: function () {
+        this.localizarHeader();
+        this.observarRenderizacao();
+
+        window.addEventListener("scroll", this.aoRolar.bind(this), {
+          passive: true
+        });
+
+        window.addEventListener("resize", this.aoRedimensionar.bind(this), {
+          passive: true
+        });
+      },
+
+      localizarHeader: function () {
+        var headerEncontrada = document.querySelector("#header-react-app");
+
+        if (!headerEncontrada) {
+          return;
+        }
+
+        if (this.header === headerEncontrada) {
+          return;
+        }
+
+        this.header = headerEncontrada;
+        this.header.classList.add("etraction-header-femme");
+        this.localizarTarja();
+        this.configurarFecharMenuMobile();
+        this.atualizarPosicaoInicial();
+        this.atualizarEstado();
+      },
+
+      localizarFecharMenuNativo: function (menu) {
+        if (
+          this.fecharMenuNativo &&
+          this.fecharMenuNativo.isConnected &&
+          menu.contains(this.fecharMenuNativo)
+        ) {
+          return this.fecharMenuNativo;
+        }
+
+        var seletores = [
+          ".close-button",
+          ".close-menu",
+          ".menu-close",
+          ".menu-mobile-fechar",
+          '[aria-label*="fechar" i]',
+          '[title*="fechar" i]'
+        ];
+        var candidatos = menu.querySelectorAll(seletores.join(","));
+
+        for (var indice = 0; indice < candidatos.length; indice += 1) {
+          if (
+            !candidatos[indice].classList.contains(
+              "etraction-menu-mobile-fechar"
+            )
+          ) {
+            this.fecharMenuNativo = candidatos[indice];
+            this.fecharMenuNativo.classList.add(
+              "etraction-menu-fechar-nativo"
+            );
+            return this.fecharMenuNativo;
+          }
+        }
+
+        this.fecharMenuNativo = null;
+        return null;
+      },
+
+      configurarFecharMenuMobile: function () {
+        if (!this.header) {
+          return;
+        }
+
+        var menu = this.header.querySelector(".menu-mobile-ctn");
+
+        if (!menu) {
+          this.fecharMenuNativo = null;
+          return;
+        }
+
+        var infoUsuario = menu.querySelector(".info-user");
+
+        if (!infoUsuario) {
+          return;
+        }
+
+        var fecharNativo = this.localizarFecharMenuNativo(menu);
+        var fecharCustomizado = infoUsuario.querySelector(
+          ".etraction-menu-mobile-fechar"
+        );
+
+        if (fecharCustomizado) {
+          return;
+        }
+
+        var self = this;
+        fecharCustomizado = document.createElement("button");
+        fecharCustomizado.type = "button";
+        fecharCustomizado.className = "etraction-menu-mobile-fechar";
+        fecharCustomizado.setAttribute("aria-label", "Fechar menu");
+        fecharCustomizado.textContent = "\u00d7";
+
+        fecharCustomizado.addEventListener("click", function (evento) {
+          evento.preventDefault();
+          evento.stopPropagation();
+
+          var controleNativo =
+            self.localizarFecharMenuNativo(menu) || fecharNativo;
+
+          if (controleNativo && controleNativo.isConnected) {
+            controleNativo.click();
+            return;
+          }
+
+          var botaoMenu = self.header.querySelector(
+            ".header-menu-button-ctn .menu-button"
+          );
+
+          if (botaoMenu) {
+            botaoMenu.click();
+          }
+        });
+
+        infoUsuario.appendChild(fecharCustomizado);
+      },
+
+      localizarTarja: function () {
+        var tarjaEncontrada = document.querySelector(
+          ".etraction-tarja-topo, .promo-banner-unico"
+        );
+
+        if (this.tarja === tarjaEncontrada) {
+          return;
+        }
+
+        if (this.resizeObserver) {
+          this.resizeObserver.disconnect();
+          this.resizeObserver = null;
+        }
+
+        if (this.tarjaWrapper) {
+          this.tarjaWrapper.classList.remove("etraction-tarja-wrapper");
+        }
+
+        this.tarja = tarjaEncontrada;
+        this.tarjaWrapper = this.tarja
+          ? this.tarja.closest(".pagina-conteudo-adicional") ||
+            this.tarja.parentElement
+          : null;
+
+        if (this.tarjaWrapper) {
+          this.tarjaWrapper.classList.add("etraction-tarja-wrapper");
+        }
+
+        if (this.tarja && "ResizeObserver" in window) {
+          var self = this;
+
+          this.resizeObserver = new ResizeObserver(function () {
+            self.atualizarPosicaoInicial();
+            self.atualizarEstado();
+          });
+
+          this.resizeObserver.observe(this.tarja);
+
+          if (this.tarjaWrapper && this.tarjaWrapper !== this.tarja) {
+            this.resizeObserver.observe(this.tarjaWrapper);
+          }
+        }
+      },
+
+      atualizarPosicaoInicial: function () {
+        if (!this.header) {
+          return;
+        }
+
+        this.localizarTarja();
+
+        var estavaEmRolagem = this.header.classList.contains(
+          "etraction-header-rolagem"
+        );
+
+        /*
+         * Mede a posição absoluta real, inclusive quando o visualizador da
+         * Magazord adiciona espaço antes da tarja. Usar somente a altura da
+         * tarja faria a header subir e invadir o texto promocional.
+         */
+        if (estavaEmRolagem) {
+          this.header.classList.remove("etraction-header-rolagem");
+        }
+
+        this.header.style.removeProperty("--etraction-header-top");
+
+        var headerRect = this.header.getBoundingClientRect();
+        var alturaHeader = Math.max(
+          62,
+          Math.round(headerRect.height || this.header.offsetHeight)
+        );
+
+        if (this.tarja) {
+          var tarjaRect = this.tarja.getBoundingClientRect();
+          var referencia = this.header.offsetParent;
+          var referenciaRect = referencia
+            ? referencia.getBoundingClientRect()
+            : { top: -window.scrollY };
+          var bordaReferencia =
+            referencia && referencia !== document.body
+              ? referencia.clientTop || 0
+              : 0;
+
+          /*
+           * "offsetTop + diferença" falha no mobile quando a posição
+           * absoluta ainda está em "top: auto": o offset pode ser 0 mesmo
+           * com a header visualmente abaixo da tarja. A nova conta usa a
+           * mesma referência real do position:absolute e funciona tanto
+           * no body quanto dentro de um contêiner posicionado.
+           */
+          var topoCorreto = Math.max(
+            0,
+            Math.round(
+              tarjaRect.bottom - referenciaRect.top - bordaReferencia
+            )
+          );
+
+          this.header.style.setProperty(
+            "--etraction-header-top",
+            topoCorreto + "px"
+          );
+
+          this.limiteRolagem = Math.max(
+            80,
+            Math.round(tarjaRect.bottom + window.scrollY + alturaHeader)
+          );
+        } else {
+          this.limiteRolagem = Math.max(
+            80,
+            Math.round(headerRect.top + window.scrollY + alturaHeader)
+          );
+        }
+
+        if (estavaEmRolagem) {
+          this.header.classList.add("etraction-header-rolagem");
+        }
+      },
+
+      atualizarEstado: function () {
+        if (!this.header) {
+          return;
+        }
+
+        this.header.classList.toggle(
+          "etraction-header-rolagem",
+          window.scrollY > this.limiteRolagem
+        );
+      },
+
+      aoRolar: function () {
+        var self = this;
+
+        if (this.scrollFrame) {
+          return;
+        }
+
+        this.scrollFrame = window.requestAnimationFrame(function () {
+          self.atualizarEstado();
+          self.scrollFrame = null;
+        });
+      },
+
+      aoRedimensionar: function () {
+        var self = this;
+
+        window.clearTimeout(this.resizeTimer);
+
+        this.resizeTimer = window.setTimeout(function () {
+          self.configurarFecharMenuMobile();
+          self.atualizarPosicaoInicial();
+          self.atualizarEstado();
+        }, 120);
+      },
+
+      observarRenderizacao: function () {
+        var self = this;
+
+        this.observer = new MutationObserver(function () {
+          if (!self.header || !self.header.isConnected) {
+            self.localizarHeader();
+          }
+
+          self.configurarFecharMenuMobile();
+
+          if (!self.tarja || !self.tarja.isConnected) {
+            self.localizarTarja();
+            self.atualizarPosicaoInicial();
+            self.atualizarEstado();
+          }
+        });
+
+        this.observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+    };
+
+    function iniciarEtractionHeader() {
+      EtractionHeaderFemme.iniciar();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", iniciarEtractionHeader, {
+        once: true
+      });
+    } else {
+      iniciarEtractionHeader();
+    }
+  })();
+</script>
+
+<style><!-- HEADER LIQUID GLASS + BUSCA ABERTA (Karsten style) -->
+/* Fundo liquid glass (pouca transparencia) */
+#header-react-app .header-top{
+  background: rgba(255,255,255,0.72) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.10) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.35) !important;
+}
+/* Menu: alinhar a esquerda e compactar para caber com a busca aberta */
+#header-react-app.etraction-header-femme #nav-root.flex{
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  flex-wrap: nowrap !important;
+  padding-left: 8px !important;
+}
+#header-react-app.etraction-header-femme #nav-root.flex > li,
+#header-react-app.etraction-header-femme #nav-root.flex > li > a{
+  font-size: 11.5px !important;
+  letter-spacing: -0.2px !important;
+  white-space: nowrap !important;
+}
+/* Layout do container (logo | menu | acoes) */
+#header-react-app .header-top .container{
+  grid-template-columns: auto minmax(0,1fr) auto !important;
+  gap: 16px !important;
+}
+#header-react-app .header-top .logo{ min-width: 200px !important; }
+/* Esconde botao de lupa (busca sempre aberta) */
+#header-react-app .acoes-header .pesquisa-button{ display:none !important; }
+/* Barra de busca sempre aberta - pill estilo Karsten */
+#header-react-app .acoes-header .area-busca{
+  position: static !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  height: auto !important;
+  width: 210px !important;
+  max-width: 210px !important;
+  min-width: 0 !important;
+  background: rgba(255,255,255,0.55) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(0,0,0,0.12) !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  padding: 3px 8px !important;
+  flex: 0 0 auto !important;
+}
+#header-react-app .acoes-header .area-busca > div{ width:100% !important; padding:0 !important; margin:0 !important; }
+#header-react-app .acoes-header .area-busca .flex.justify-between{ display:none !important; }
+#header-react-app .acoes-header .area-busca form{
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  width:100% !important;
+  gap:4px !important;
+}
+#header-react-app .acoes-header .area-busca input.search-input{
+  font-size: 13px !important;
+  padding: 2px 4px !important;
+}
+#header-react-app .acoes-header .area-busca form button{ width:28px !important; height:28px !important; flex:0 0 auto !important; }
+#header-react-app .acoes-header{ gap: 12px !important; }
+--></style>
+
+
+<style><!-- HEADER LIQUID GLASS - MOBILE -->
+@media (max-width: 1023px) {
+  /* Fundo liquid glass no header mobile (pouca transparencia) */
+  #header-react-app.etraction-header-femme.is-tablet-mobile,
+  #header-react-app.etraction-header-femme.is-tablet-mobile.etraction-header-rolagem{
+    background: rgba(255,255,255,0.72) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+    backdrop-filter: blur(16px) saturate(160%) !important;
+    box-shadow: 0 4px 24px rgba(17,17,17,0.10) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.35) !important;
+  }
+  /* Garante que a barra de busca mobile tenha leve efeito glass */
+  #header-react-app.etraction-header-femme.is-tablet-mobile .area-busca,
+  #header-react-app.etraction-header-femme.is-tablet-mobile .search-area{
+    background: rgba(255,255,255,0.55) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+    backdrop-filter: blur(10px) saturate(160%) !important;
+  }
+}
+--></style>

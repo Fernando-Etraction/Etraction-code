@@ -1,18 +1,20 @@
 <!--
-  MODELO DE DESCRIÇÃO EDITÁVEL PARA MAGAZORD
+  DESCRIÇÃO MODULAR E EDITÁVEL PARA MAGAZORD
 
   ORIENTAÇÃO PARA QUEM CADASTRA O PRODUTO:
-  1. Trabalhe sempre pelo modo visual do editor.
-  2. Clique nos textos e substitua normalmente.
-  3. Nas duas áreas de foto, clique na imagem existente e use a opção de substituir.
-  4. Não apague a imagem para inserir outra fora do bloco.
-  5. Os ícones são neutros e automáticos: não precisam ser alterados.
-  6. Os blocos de medidas e cuidados iniciam abertos para facilitar a edição.
-  7. Não altere nomes de classes nem o bloco <style>.
--->
+  1. Trabalhe normalmente pelo modo visual do editor.
+  2. As fotos dos blocos de destaque são puxadas automaticamente da galeria do produto.
+  3. A primeira foto da galeria preenche o bloco 01 e a segunda preenche o bloco 02.
+  4. Os ícones são neutros e automáticos: não precisam ser alterados.
+  5. O guia de medidas inicia aberto; os cuidados ficam sempre visíveis.
+  6. Não altere os nomes das classes, o bloco de estilos ou o script final.
 
-<style>
-  /* =========================================================
+  O conteúdo está em HTML normal para permanecer editável no construtor.
+  Todos os títulos usam spans com classes próprias, evitando conflito com
+  os estilos globais de h2 e h3 existentes na loja.
+-->
+<style><!--
+/* =========================================================
      BASE VISUAL — NÃO PRECISA SER ALTERADA A CADA PRODUTO
      ========================================================= */
 
@@ -44,13 +46,20 @@
     overflow: hidden !important;
   }
 
-  .etraction-desc h2,
-  .etraction-desc h3,
+  .etraction-desc__title,
   .etraction-desc p,
   .etraction-desc figure,
   .etraction-desc dl,
   .etraction-desc dd {
     margin: 0 !important;
+  }
+
+  .etraction-desc__title {
+    display: block !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    text-transform: none !important;
   }
 
   .etraction-desc img {
@@ -104,7 +113,7 @@
     box-shadow: 12px 0 0 var(--etraction-blue) !important;
   }
 
-  .etraction-desc__intro h2 {
+  .etraction-desc__title--main {
     position: relative !important;
     z-index: 1 !important;
     max-width: 720px !important;
@@ -207,7 +216,7 @@
     text-align: center !important;
   }
 
-  .etraction-desc__section-title h3 {
+  .etraction-desc__title--section {
     margin-bottom: 4px !important;
     color: var(--etraction-ink) !important;
     font-size: 21px !important;
@@ -297,7 +306,7 @@
     background: var(--etraction-blue) !important;
   }
 
-  .etraction-desc__focus-copy h3 {
+  .etraction-desc__title--card {
     margin-bottom: 6px !important;
     color: var(--etraction-ink) !important;
     font-size: 17px !important;
@@ -321,7 +330,7 @@
   }
 
   .etraction-desc__technical-box,
-  .etraction-desc__included {
+  .etraction-desc__care {
     min-width: 0 !important;
     padding: 22px !important;
     border: 1px solid var(--etraction-line) !important;
@@ -329,8 +338,7 @@
     background: #fff !important;
   }
 
-  .etraction-desc__technical-box h3,
-  .etraction-desc__included h3 {
+  .etraction-desc__title--box {
     margin-bottom: 14px !important;
     color: var(--etraction-ink) !important;
     font-size: 17px !important;
@@ -367,45 +375,54 @@
     overflow-wrap: anywhere !important;
   }
 
-  .etraction-desc__included {
-    display: flex !important;
-    align-items: center !important;
-    gap: 14px !important;
+  .etraction-desc__care {
     background: linear-gradient(135deg, var(--etraction-pink-soft), #fff8ed) !important;
   }
 
-  .etraction-desc__included::before {
-    content: "✓";
+  .etraction-desc__care .etraction-desc__title--box {
+    margin-bottom: 12px !important;
+  }
+
+  .etraction-desc__care-list {
     display: grid !important;
-    flex: 0 0 45px !important;
-    place-items: center !important;
-    width: 45px !important;
-    height: 45px !important;
-    border-radius: 14px !important;
-    color: var(--etraction-pink) !important;
-    background: #fff !important;
-    box-shadow: 0 5px 14px rgba(49, 63, 69, .06) !important;
-    font-size: 19px !important;
-    font-weight: 800 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px 14px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
   }
 
-  .etraction-desc__included h3 {
-    margin-bottom: 2px !important;
-    font-size: 15px !important;
-  }
-
-  .etraction-desc__included p {
+  .etraction-desc__care-item {
+    position: relative !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding-left: 18px !important;
     color: var(--etraction-muted) !important;
-    font-size: 13px !important;
+    font-size: 12px !important;
     line-height: 1.45 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .etraction-desc__care-item::before {
+    content: "✓";
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    color: var(--etraction-pink) !important;
+    font-weight: 800 !important;
   }
 
   .etraction-desc__accordions {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     gap: 10px !important;
     width: 100% !important;
     margin-top: 14px !important;
+  }
+
+  .etraction-desc__accordions > details {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
   }
 
   .etraction-desc details {
@@ -424,7 +441,7 @@
     color: var(--etraction-ink) !important;
     cursor: pointer !important;
     font-size: 14px !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     line-height: 1.35 !important;
     list-style: none !important;
   }
@@ -454,20 +471,17 @@
 
   .etraction-desc__accordion-content {
     padding: 0 18px 18px !important;
-    color: var(--etraction-muted) !important;
+    color: var(--etraction-ink) !important;
     font-size: 13px !important;
+    font-weight: 500 !important;
   }
 
   .etraction-desc__accordion-content p {
     margin-bottom: 10px !important;
+    color: var(--etraction-ink) !important;
+    font-weight: 600 !important;
   }
-
-  .etraction-desc__accordion-content ul {
-    margin: 0 !important;
-    padding-left: 18px !important;
-  }
-
-  .etraction-desc__table-wrap {
+.etraction-desc__table-wrap {
     width: 100% !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -479,6 +493,7 @@
     border-collapse: collapse !important;
     color: var(--etraction-ink) !important;
     font-size: 12px !important;
+    font-weight: 600 !important;
   }
 
   .etraction-desc th,
@@ -490,6 +505,17 @@
 
   .etraction-desc th {
     background: var(--etraction-pink-soft) !important;
+    color: var(--etraction-ink) !important;
+    font-weight: 800 !important;
+  }
+
+  .etraction-desc td {
+    color: var(--etraction-ink) !important;
+    font-weight: 600 !important;
+  }
+
+  .etraction-desc tbody td:first-child {
+    font-weight: 800 !important;
   }
 
   @media (max-width: 760px) {
@@ -511,10 +537,45 @@
     .etraction-desc__accordions {
       grid-template-columns: minmax(0, 1fr) !important;
     }
+
+    .etraction-desc__accordion-content {
+      width: 100% !important;
+      min-width: 0 !important;
+    }
+
+    .etraction-desc__table-wrap {
+      display: block !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-bottom: 8px !important;
+      overflow-x: scroll !important;
+      overflow-y: hidden !important;
+      overscroll-behavior-x: contain !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: thin !important;
+      scrollbar-color: var(--etraction-pink) var(--etraction-pink-soft) !important;
+    }
+
+    .etraction-desc__table-wrap::-webkit-scrollbar {
+      display: block !important;
+      height: 8px !important;
+    }
+
+    .etraction-desc__table-wrap::-webkit-scrollbar-track {
+      border-radius: 999px !important;
+      background: var(--etraction-pink-soft) !important;
+    }
+
+    .etraction-desc__table-wrap::-webkit-scrollbar-thumb {
+      min-width: 44px !important;
+      border: 2px solid var(--etraction-pink-soft) !important;
+      border-radius: 999px !important;
+      background: var(--etraction-pink) !important;
+    }
   }
 
   @media (max-width: 440px) {
-    .etraction-desc__intro h2 {
+    .etraction-desc__title--main {
       font-size: 22px !important;
     }
 
@@ -550,177 +611,307 @@
     .etraction-desc__specs {
       grid-template-columns: minmax(0, 1fr) !important;
     }
+
+    .etraction-desc__care-list {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
   }
-</style>
-
+--></style>
 <!-- =========================================================
-     CONTEÚDO EDITÁVEL — DUPLIQUE E EDITE PELO MODO VISUAL
+     CONTEÚDO EDITÁVEL — EDITE NORMALMENTE PELO MODO VISUAL
      ========================================================= -->
-
-<section class="etraction-desc" aria-label="Descrição detalhada do produto">
-  <div class="etraction-desc__intro">
-    <span class="etraction-desc__label">Sobre a peça</span>
-    <h2>Conforto e delicadeza para acompanhar cada descoberta</h2>
-    <p>
-      O Macacão Bebê Algodão Pérola Coração une toque macio, modelagem confortável
-      e uma estampa delicada para deixar a rotina do bebê ainda mais aconchegante.
-    </p>
-  </div>
-
-  <div class="etraction-desc__benefits" aria-label="Principais características">
-    <div class="etraction-desc__benefit">
-      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
-      <span class="etraction-desc__benefit-copy">
-        <strong>Toque macio</strong>
-        <small>Confortável para a pele</small>
-      </span>
-    </div>
-
-    <div class="etraction-desc__benefit">
-      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
-      <span class="etraction-desc__benefit-copy">
-        <strong>Movimentos livres</strong>
-        <small>Modelagem confortável</small>
-      </span>
-    </div>
-
-    <div class="etraction-desc__benefit">
-      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
-      <span class="etraction-desc__benefit-copy">
-        <strong>Zíper prático</strong>
-        <small>Facilita na hora da troca</small>
-      </span>
-    </div>
-
-    <div class="etraction-desc__benefit">
-      <span class="etraction-desc__benefit-icon" aria-hidden="true"></span>
-      <span class="etraction-desc__benefit-copy">
-        <strong>Detalhes delicados</strong>
-        <small>Estampa cheia de charme</small>
-      </span>
-    </div>
-  </div>
-
-  <div class="etraction-desc__focus">
-    <div class="etraction-desc__section-title">
-      <h3>Olhe mais de pertinho ✨</h3>
-      <p>Detalhes que fazem diferença no dia a dia.</p>
-    </div>
-
-    <div class="etraction-desc__focus-grid">
-      <article class="etraction-desc__focus-card">
-        <figure class="etraction-desc__media">
-          <img
-            src="https://placehold.co/800x800/f2f3f3/67737a?text=Substitua+esta+imagem"
-            alt="Detalhe aproximado do tecido e da estampa"
-            width="800"
-            height="800"
-            loading="lazy"
-          >
-        </figure>
-
-        <div class="etraction-desc__focus-copy">
-          <span class="etraction-desc__number">01</span>
-          <h3>Algodão macio</h3>
-          <p>Tecido suave e aconchegante, ideal para acompanhar os pequenos com conforto.</p>
-        </div>
-      </article>
-
-      <article class="etraction-desc__focus-card">
-        <figure class="etraction-desc__media">
-          <img
-            src="https://placehold.co/800x800/f2f3f3/67737a?text=Substitua+esta+imagem"
-            alt="Detalhe aproximado do fechamento da peça"
-            width="800"
-            height="800"
-            loading="lazy"
-          >
-        </figure>
-
-        <div class="etraction-desc__focus-copy">
-          <span class="etraction-desc__number">02</span>
-          <h3>Praticidade na troca</h3>
-          <p>O zíper com proteção facilita o vestir e ajuda a tornar a rotina mais simples.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <div class="etraction-desc__technical" aria-label="Informações técnicas">
-    <div class="etraction-desc__technical-box">
-      <h3>Detalhes da peça</h3>
-
-      <div class="etraction-desc__specs">
-        <div class="etraction-desc__spec">
-          <span>Composição</span>
-          <strong>100% algodão</strong>
-        </div>
-
-        <div class="etraction-desc__spec">
-          <span>Cor</span>
-          <strong>Pérola</strong>
-        </div>
-
-        <div class="etraction-desc__spec">
-          <span>Estampa</span>
-          <strong>Corações</strong>
-        </div>
-
-        <div class="etraction-desc__spec">
-          <span>Fechamento</span>
-          <strong>Zíper protegido</strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="etraction-desc__included">
-      <div>
-        <h3>O que vem na caixa?</h3>
-        <p>1 Macacão Bebê Algodão Pérola Coração.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Os dois itens começam abertos e não dependem de JavaScript. -->
-  <div class="etraction-desc__accordions" aria-label="Medidas e cuidados">
-    <details open>
-      <summary>Guia de medidas</summary>
-      <div class="etraction-desc__accordion-content">
-        <p>Compare as medidas com uma peça que já vista bem no bebê.</p>
-
-        <div class="etraction-desc__table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Tam.</th>
-                <th>Altura</th>
-                <th>Cintura</th>
-                <th>Manga</th>
-                <th>Tórax</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>RN</td><td>51 cm</td><td>21 cm</td><td>20 cm</td><td>21 cm</td></tr>
-              <tr><td>P</td><td>54 cm</td><td>23 cm</td><td>21 cm</td><td>22 cm</td></tr>
-              <tr><td>M</td><td>57 cm</td><td>24 cm</td><td>22 cm</td><td>23 cm</td></tr>
-              <tr><td>G</td><td>60 cm</td><td>26 cm</td><td>24 cm</td><td>26 cm</td></tr>
-              <tr><td>1</td><td>63 cm</td><td>28 cm</td><td>26 cm</td><td>28 cm</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </details>
-
-    <details open>
-      <summary>Cuidados com a peça</summary>
-      <div class="etraction-desc__accordion-content">
-        <ul>
-          <li>Lavar delicadamente e não deixar de molho.</li>
-          <li>Não usar alvejante ou secadora.</li>
-          <li>Passar em temperatura baixa.</li>
-          <li>Lavar peças coloridas separadamente na primeira lavagem.</li>
-        </ul>
-      </div>
-    </details>
-  </div>
+<section class="etraction-desc">
+<div class="etraction-desc__intro"><span class="etraction-desc__label">Sobre a pe&ccedil;a</span> <span class="etraction-desc__title etraction-desc__title--main">Conforto e prote&ccedil;&atilde;o para acompanhar cada descoberta</span>
+<p>O Macac&atilde;o Beb&ecirc; Algod&atilde;o Preto Floresta &eacute; uma pe&ccedil;a pr&aacute;tica e vers&aacute;til para o enxoval. Confeccionado em 100% algod&atilde;o, oferece toque macio, conforto e liberdade para o beb&ecirc; brincar, passear ou descansar. A cor preta com estampa de bichinhos da floresta cria um visual encantador e unissex para diferentes momentos do dia.</p>
+</div>
+<div class="etraction-desc__benefits">
+<div class="etraction-desc__benefit"><span class="etraction-desc__benefit-icon"></span> <span class="etraction-desc__benefit-copy"> <strong>100% algod&atilde;o</strong> <small>Toque macio para a pele do beb&ecirc;</small> </span></div>
+<div class="etraction-desc__benefit"><span class="etraction-desc__benefit-icon"></span> <span class="etraction-desc__benefit-copy"> <strong>Z&iacute;per integral</strong> <small>Abertura em todo o comprimento</small> </span></div>
+<div class="etraction-desc__benefit"><span class="etraction-desc__benefit-icon"></span> <span class="etraction-desc__benefit-copy"> <strong>Fechamento protegido</strong> <small>Evita o contato do metal com a pele</small> </span></div>
+<div class="etraction-desc__benefit"><span class="etraction-desc__benefit-icon"></span> <span class="etraction-desc__benefit-copy"> <strong>Modelo unissex</strong> <small>Estampa de bichinhos da floresta</small> </span></div>
+</div>
+<div class="etraction-desc__focus">
+<div class="etraction-desc__section-title"><span class="etraction-desc__title etraction-desc__title--section">Detalhes pensados para a rotina ✨</span>
+<p>Mais conforto para o beb&ecirc; e mais praticidade para quem cuida.</p>
+</div>
+<div class="etraction-desc__focus-grid">
+<article class="etraction-desc__focus-card">
+<figure class="etraction-desc__media"><img src="https://ropek.cdn.magazord.com.br/img/2026/07/produto/899/macacao-bebe-algodao-preto-floresta1.jpg" alt="Macac&atilde;o Beb&ecirc; Algod&atilde;o Preto Floresta visto de frente" width="800" height="800" /></figure>
+<div class="etraction-desc__focus-copy"><span class="etraction-desc__number">01</span> <span class="etraction-desc__title etraction-desc__title--card">Algod&atilde;o macio e confort&aacute;vel</span>
+<p>O tecido 100% algod&atilde;o proporciona um toque agrad&aacute;vel e ajuda a manter o beb&ecirc; confort&aacute;vel durante o uso.</p>
+</div>
+</article>
+<article class="etraction-desc__focus-card">
+<figure class="etraction-desc__media"><img src="https://ropek.cdn.magazord.com.br/img/2026/07/produto/898/macacao-bebe-algodao-preto-floresta.jpg" alt="Detalhe do Macac&atilde;o Beb&ecirc; Algod&atilde;o Preto Floresta" width="800" height="800" /></figure>
+<div class="etraction-desc__focus-copy"><span class="etraction-desc__number">02</span> <span class="etraction-desc__title etraction-desc__title--card">Trocas mais pr&aacute;ticas e seguras</span>
+<p>O z&iacute;per percorre todo o comprimento da pe&ccedil;a e possui prote&ccedil;&atilde;o interna e na gola, evitando o contato direto do metal com a pele sens&iacute;vel.</p>
+</div>
+</article>
+</div>
+</div>
+<div class="etraction-desc__technical">
+<div class="etraction-desc__technical-box"><span class="etraction-desc__title etraction-desc__title--box">Detalhes da pe&ccedil;a</span>
+<div class="etraction-desc__specs">
+<div class="etraction-desc__spec"><span>Tecido</span> <strong>Algod&atilde;o</strong></div>
+<div class="etraction-desc__spec"><span>Composi&ccedil;&atilde;o</span> <strong>100% algod&atilde;o</strong></div>
+<div class="etraction-desc__spec"><span>G&ecirc;nero</span> <strong>Unissex</strong></div>
+<div class="etraction-desc__spec"><span>Cor</span> <strong>Preto</strong></div>
+<div class="etraction-desc__spec"><span>Estampa</span> <strong>Bichinhos da floresta</strong></div>
+<div class="etraction-desc__spec"><span>Fechamento</span> <strong>Z&iacute;per com prote&ccedil;&atilde;o</strong></div>
+<div class="etraction-desc__spec"><span>Abertura</span> <strong>Em todo o comprimento</strong></div>
+<div class="etraction-desc__spec"><span>Modelagem</span> <strong>Mangas compridas</strong></div>
+</div>
+</div>
+<div class="etraction-desc__care"><span class="etraction-desc__title etraction-desc__title--box">Cuidados com a pe&ccedil;a</span>
+<div class="etraction-desc__care-list">
+<div class="etraction-desc__care-item"><span>Lavar delicadamente.</span></div>
+<div class="etraction-desc__care-item"><span>N&atilde;o secar na secadora.</span></div>
+<div class="etraction-desc__care-item"><span>Passar em temperatura m&iacute;nima.</span></div>
+<div class="etraction-desc__care-item"><span>N&atilde;o usar alvejante.</span></div>
+<div class="etraction-desc__care-item"><span>N&atilde;o deixar de molho.</span></div>
+<div class="etraction-desc__care-item"><span>Pe&ccedil;as de algod&atilde;o podem apresentar encolhimento na primeira lavagem.</span></div>
+</div>
+</div>
+</div>
+<!-- O guia inicia aberto e ocupa toda a largura, sem depender de JavaScript. -->
+<div class="etraction-desc__accordions"><details open=""> <summary>Guia de medidas</summary>
+<div class="etraction-desc__accordion-content">
+<p>Compare as medidas com uma pe&ccedil;a que j&aacute; vista bem no beb&ecirc;.</p>
+<div class="etraction-desc__table-wrap">
+<table>
+<thead>
+<tr><th>Tam.</th><th>Gancho at&eacute; a gola</th><th>Cintura</th><th>Altura total</th><th>Manga</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>RN</td>
+<td>31 cm</td>
+<td>22 cm</td>
+<td>53 cm</td>
+<td>20 cm</td>
+</tr>
+<tr>
+<td>P</td>
+<td>33 cm</td>
+<td>24 cm</td>
+<td>55 cm</td>
+<td>21 cm</td>
+</tr>
+<tr>
+<td>M</td>
+<td>35 cm</td>
+<td>25 cm</td>
+<td>59 cm</td>
+<td>23 cm</td>
+</tr>
+<tr>
+<td>G</td>
+<td>37 cm</td>
+<td>27 cm</td>
+<td>61 cm</td>
+<td>25 cm</td>
+</tr>
+<tr>
+<td>1</td>
+<td>39 cm</td>
+<td>29 cm</td>
+<td>64 cm</td>
+<td>27 cm</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details></div>
 </section>
+<!-- =========================================================
+     IMAGENS AUTOMÁTICAS DA GALERIA DO PRODUTO
+     ========================================================= -->
+<p>
+<script>// <![CDATA[
+(function () {
+  "use strict";
+
+  var gallerySelector = "#block-imagem";
+  var targetSelector = ".etraction-desc .etraction-desc__media img";
+  var retryInterval = 250;
+  var maxRetries = 40;
+  var retryCount = 0;
+  var retryTimer = null;
+  var galleryObserver = null;
+  var updateTimer = null;
+
+  function normalizeImageUrl(rawUrl) {
+    if (!rawUrl || /^data:/i.test(rawUrl)) {
+      return "";
+    }
+
+    try {
+      var url = new URL(rawUrl, window.location.href);
+      url.searchParams.delete("ims");
+      return url.href;
+    } catch (error) {
+      return String(rawUrl).replace(
+        /([?&])ims=[^&]+(&|$)/i,
+        function (_, separator, ending) {
+          return ending ? separator : "";
+        }
+      );
+    }
+  }
+
+  function getImageData(image) {
+    if (!image) {
+      return null;
+    }
+
+    var rawUrl =
+      image.getAttribute("data-src-zoom") ||
+      image.getAttribute("data-src") ||
+      image.currentSrc ||
+      image.getAttribute("src") ||
+      "";
+
+    var url = normalizeImageUrl(rawUrl);
+
+    if (!url || /placehold\.co|placeholder/i.test(url)) {
+      return null;
+    }
+
+    return {
+      url: url,
+      alt: image.getAttribute("alt") || "Imagem do produto"
+    };
+  }
+
+  function collectGalleryImages(gallery) {
+    var selectors = [
+      ".gallery-main .swiper-slide img[data-src-zoom]",
+      ".gallery-main .swiper-slide img[data-src]",
+      ".gallery-main .swiper-slide img",
+      ".thumbs-gallery .swiper-slide img[data-src]",
+      ".thumbs-gallery .swiper-slide img"
+    ];
+
+    var images = [];
+    var seen = Object.create(null);
+
+    selectors.forEach(function (selector) {
+      gallery.querySelectorAll(selector).forEach(function (image) {
+        var data = getImageData(image);
+
+        if (!data || seen[data.url]) {
+          return;
+        }
+
+        seen[data.url] = true;
+        images.push(data);
+      });
+    });
+
+    return images;
+  }
+
+  function applyImage(target, source, index) {
+    if (!target || !source) {
+      return;
+    }
+
+    target.removeAttribute("srcset");
+    target.removeAttribute("data-srcset");
+    target.removeAttribute("sizes");
+
+    target.setAttribute("src", source.url);
+    target.setAttribute("data-src", source.url);
+    target.setAttribute("loading", "lazy");
+    target.setAttribute("decoding", "async");
+    target.setAttribute(
+      "alt",
+      source.alt || "Imagem do produto " + (index + 1)
+    );
+
+    target.classList.remove("lazyload", "lazyloading");
+    target.classList.add("lazyloaded");
+  }
+
+  function updateDescriptionImages() {
+    var gallery = document.querySelector(gallerySelector);
+    var targets = document.querySelectorAll(targetSelector);
+
+    if (!gallery || !targets.length) {
+      return false;
+    }
+
+    var sources = collectGalleryImages(gallery);
+
+    if (!sources.length) {
+      return false;
+    }
+
+    Array.prototype.forEach.call(targets, function (target, index) {
+      var source = sources[index] || sources[sources.length - 1];
+      applyImage(target, source, index);
+    });
+
+    return true;
+  }
+
+  function scheduleUpdate() {
+    window.clearTimeout(updateTimer);
+    updateTimer = window.setTimeout(updateDescriptionImages, 120);
+  }
+
+  function observeGallery() {
+    var gallery = document.querySelector(gallerySelector);
+
+    if (!gallery || galleryObserver) {
+      return;
+    }
+
+    galleryObserver = new MutationObserver(scheduleUpdate);
+
+    galleryObserver.observe(gallery, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: [
+        "src",
+        "srcset",
+        "data-src",
+        "data-src-zoom"
+      ]
+    });
+  }
+
+  function attemptInitialization() {
+    retryCount += 1;
+
+    observeGallery();
+
+    if (updateDescriptionImages() || retryCount >= maxRetries) {
+      window.clearInterval(retryTimer);
+      retryTimer = null;
+    }
+  }
+
+  function initialize() {
+    attemptInitialization();
+
+    if (!retryTimer) {
+      retryTimer = window.setInterval(
+        attemptInitialization,
+        retryInterval
+      );
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize, {
+      once: true
+    });
+  } else {
+    initialize();
+  }
+})();
+// ]]></script>
+</p>

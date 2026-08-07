@@ -1,0 +1,1031 @@
+<style>
+  #etraction-descricao-amelie {
+    --etraction-descricao-texto: #181818;
+    --etraction-descricao-texto-suave: #66625e;
+    --etraction-descricao-fundo: #ffffff;
+    --etraction-descricao-fundo-claro: #f4f2ee;
+    --etraction-descricao-borda: #ddd9d2;
+    --etraction-descricao-destaque: #8c6945;
+    --etraction-descricao-largura: 1240px;
+
+    width: 100%;
+    background: var(--etraction-descricao-fundo);
+    color: var(--etraction-descricao-texto);
+    font-family: inherit;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  #etraction-descricao-amelie,
+  #etraction-descricao-amelie * {
+    box-sizing: border-box;
+  }
+
+  #etraction-descricao-amelie img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #etraction-descricao-amelie button {
+    font: inherit;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__container {
+    width: min(calc(100% - 40px), var(--etraction-descricao-largura));
+    margin: 0 auto;
+  }
+
+  /* ABERTURA */
+  #etraction-descricao-amelie .etraction-descricao__abertura {
+    padding: 38px 0 46px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__abertura-grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+    gap: 42px;
+    align-items: center;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__modelo {
+    margin: 0 0 10px;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__titulo-principal {
+    max-width: 540px;
+    margin: 0;
+    font-size: clamp(34px, 4.4vw, 52px);
+    font-weight: 600;
+    line-height: 1.06;
+    letter-spacing: -0.025em;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__resumo {
+    max-width: 530px;
+    margin: 18px 0 0;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__forma {
+    display: inline-block;
+    margin: 20px 0 0;
+    padding: 10px 0 0;
+    border-top: 1px solid var(--etraction-descricao-borda);
+    color: var(--etraction-descricao-texto);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__imagem-abrir {
+    width: 100%;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 2px;
+    background: var(--etraction-descricao-fundo-claro);
+    cursor: zoom-in;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__imagem-abrir:focus-visible {
+    outline: 3px solid var(--etraction-descricao-destaque);
+    outline-offset: 4px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__imagem-principal {
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  /* FICHA RÁPIDA */
+  #etraction-descricao-amelie .etraction-descricao__ficha {
+    border-top: 1px solid var(--etraction-descricao-borda);
+    border-bottom: 1px solid var(--etraction-descricao-borda);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__ficha-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__ficha-item {
+    min-width: 0;
+    margin: 0;
+    padding: 20px 24px;
+    border-right: 1px solid var(--etraction-descricao-borda);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__ficha-item--inicio {
+    padding-left: 0;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__ficha-item--fim {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__ficha-item dt {
+    margin: 0 0 4px;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 12px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__ficha-item dd {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* TRÊS ALTURAS */
+  #etraction-descricao-amelie .etraction-descricao__alturas {
+    padding: 68px 0 72px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__alturas-cabecalho {
+    margin-bottom: 28px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__titulo-secao {
+    max-width: 520px;
+    margin: 0;
+    font-size: clamp(30px, 3.8vw, 44px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__indicacao-mobile {
+    display: none;
+    margin: 0 0 12px;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 12px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__alturas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__altura {
+    min-width: 0;
+    margin: 0;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__altura-imagem {
+    aspect-ratio: 1100 / 1594;
+    object-fit: contain;
+    object-position: center;
+    background: var(--etraction-descricao-fundo-claro);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__altura-legenda {
+    padding: 12px 0 0;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__altura-legenda h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  /* GUIA DE TAMANHOS */
+  #etraction-descricao-amelie .etraction-descricao__medidas {
+    padding: 62px 0 72px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__medidas-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__medidas-texto {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+    gap: 48px;
+    align-items: end;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__medidas-texto h2 {
+    margin: 0;
+    font-size: clamp(28px, 3.6vw, 40px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__medidas-texto p {
+    width: 100%;
+    max-width: 620px;
+    margin: 0 0 2px auto;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__tabela-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-top: 1px solid var(--etraction-descricao-borda);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__tabela-wrapper:focus-visible {
+    outline: 2px solid var(--etraction-descricao-destaque);
+    outline-offset: 4px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__tabela {
+    width: 100%;
+    min-width: 420px;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__tabela th,
+  #etraction-descricao-amelie .etraction-descricao__tabela td {
+    width: 50%;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--etraction-descricao-borda);
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__tabela th {
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__tabela td:first-child {
+    font-weight: 600;
+  }
+
+  /* GARANTIA */
+  #etraction-descricao-amelie .etraction-descricao__garantia {
+    padding: 0 0 70px;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__garantia-box {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.4fr) minmax(0, 1fr);
+    gap: 24px;
+    padding: 22px 0;
+    border-top: 1px solid var(--etraction-descricao-borda);
+    border-bottom: 1px solid var(--etraction-descricao-borda);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__garantia-box h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__garantia-box p {
+    margin: 0;
+    color: var(--etraction-descricao-texto-suave);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* MODAL */
+  #etraction-descricao-amelie .etraction-descricao__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__modal[data-aberto="true"] {
+    display: flex;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__modal-conteudo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(1100px, 94vw);
+    height: min(88vh, 900px);
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__modal-imagem {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__modal-fechar {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.68);
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #etraction-descricao-amelie .etraction-descricao__modal-fechar:focus-visible {
+    outline: 3px solid #ffffff;
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 900px) {
+    #etraction-descricao-amelie .etraction-descricao__abertura-grid,
+    #etraction-descricao-amelie .etraction-descricao__medidas-texto {
+      grid-template-columns: 1fr;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__abertura-grid {
+      gap: 28px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-item {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--etraction-descricao-borda);
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--tablet-esquerda {
+      padding-left: 0;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--tablet-direita {
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--tablet-final {
+      border-bottom: 0;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__medidas-texto {
+      gap: 12px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__medidas-texto p {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 680px) {
+    #etraction-descricao-amelie .etraction-descricao__container {
+      width: min(calc(100% - 28px), var(--etraction-descricao-largura));
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__abertura {
+      padding: 28px 0 34px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__titulo-principal {
+      font-size: clamp(31px, 9.8vw, 42px);
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__resumo {
+      margin-top: 14px;
+      font-size: 14px;
+      line-height: 1.62;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-item,
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--inicio,
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--fim,
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--tablet-esquerda,
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--tablet-direita,
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--tablet-final {
+      padding: 15px 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--etraction-descricao-borda);
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__ficha-item--mobile-final {
+      border-bottom: 0;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__alturas {
+      padding: 50px 0 54px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__alturas-cabecalho {
+      margin-bottom: 10px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__indicacao-mobile {
+      display: block;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__alturas-grid {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 82%;
+      grid-template-columns: none;
+      gap: 12px;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      padding: 0 14px 10px 0;
+      scroll-snap-type: inline mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--etraction-descricao-borda) transparent;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__altura {
+      scroll-snap-align: start;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__medidas {
+      padding: 48px 0 54px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__tabela {
+      min-width: 390px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__garantia {
+      padding-bottom: 54px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__garantia-box {
+      grid-template-columns: 1fr;
+      gap: 7px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__modal {
+      padding: 16px;
+    }
+
+    #etraction-descricao-amelie .etraction-descricao__modal-fechar {
+      top: 12px;
+      right: 12px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #etraction-descricao-amelie *,
+    #etraction-descricao-amelie *::before,
+    #etraction-descricao-amelie *::after {
+      scroll-behavior: auto;
+      transition: none;
+      animation: none;
+    }
+  }
+</style>
+
+<section
+  id="etraction-descricao-amelie"
+  aria-label="Descrição da Bota Feminina Amelie 3 em 1"
+>
+  <section class="etraction-descricao__abertura">
+    <div class="etraction-descricao__container">
+      <div class="etraction-descricao__abertura-grid">
+        <header>
+          <p class="etraction-descricao__modelo">
+            Amelie 3 em 1
+          </p>
+
+          <h2 class="etraction-descricao__titulo-principal">
+            Três alturas em uma única bota
+          </h2>
+
+          <p class="etraction-descricao__resumo">
+            A Amelie possui salto baixo, material sintético, detalhe de fivela
+            e bico quadrado. O cano pode ser usado nas versões baixa, média ou alta.
+          </p>
+
+          <p class="etraction-descricao__forma">
+            Forma normal: escolha o seu tamanho habitual.
+          </p>
+        </header>
+
+        <button
+          class="etraction-descricao__imagem-abrir"
+          type="button"
+          data-etraction-imagem="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/78/05/e7/a7c4b7edf198c67b250d0da1d4/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-5.jpg"
+          data-etraction-alt="Bota Feminina Amelie preta com cano médio"
+          aria-label="Ampliar imagem principal da Bota Amelie"
+        >
+          <img
+            class="etraction-descricao__imagem-principal"
+            src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/78/05/e7/a7c4b7edf198c67b250d0da1d4/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-5.jpg"
+            alt="Bota Feminina Amelie preta com cano médio"
+            width="1100"
+            height="1594"
+          >
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section
+    class="etraction-descricao__ficha"
+    aria-label="Características da Bota Amelie"
+  >
+    <div class="etraction-descricao__container">
+      <dl class="etraction-descricao__ficha-grid">
+        <div
+          class="etraction-descricao__ficha-item
+                 etraction-descricao__ficha-item--inicio
+                 etraction-descricao__ficha-item--tablet-esquerda"
+        >
+          <dt>Cor</dt>
+          <dd>Preta</dd>
+        </div>
+
+        <div
+          class="etraction-descricao__ficha-item
+                 etraction-descricao__ficha-item--tablet-direita"
+        >
+          <dt>Salto</dt>
+          <dd>Baixo</dd>
+        </div>
+
+        <div
+          class="etraction-descricao__ficha-item
+                 etraction-descricao__ficha-item--tablet-esquerda
+                 etraction-descricao__ficha-item--tablet-final"
+        >
+          <dt>Bico</dt>
+          <dd>Quadrado</dd>
+        </div>
+
+        <div
+          class="etraction-descricao__ficha-item
+                 etraction-descricao__ficha-item--fim
+                 etraction-descricao__ficha-item--tablet-direita
+                 etraction-descricao__ficha-item--tablet-final
+                 etraction-descricao__ficha-item--mobile-final"
+        >
+          <dt>Material</dt>
+          <dd>Sintético</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="etraction-descricao__alturas">
+    <div class="etraction-descricao__container">
+      <header class="etraction-descricao__alturas-cabecalho">
+        <h2 class="etraction-descricao__titulo-secao">
+          Escolha a altura do cano
+        </h2>
+      </header>
+
+      <p class="etraction-descricao__indicacao-mobile">
+        Deslize para ver as três alturas.
+      </p>
+
+      <div
+        class="etraction-descricao__alturas-grid"
+        aria-label="Configurações de altura do cano"
+      >
+        <figure class="etraction-descricao__altura">
+          <button
+            class="etraction-descricao__imagem-abrir"
+            type="button"
+            data-etraction-imagem="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/1d/1b/e1/49a2c4c66823e83ec70baec1b8/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-9.png"
+            data-etraction-alt="Bota Amelie com cano baixo"
+            aria-label="Ampliar imagem da Bota Amelie com cano baixo"
+          >
+            <img
+              class="etraction-descricao__altura-imagem"
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/1d/1b/e1/49a2c4c66823e83ec70baec1b8/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-9.png"
+              alt="Bota Amelie com cano baixo"
+              width="1100"
+              height="1594"
+              loading="lazy"
+            >
+          </button>
+
+          <figcaption class="etraction-descricao__altura-legenda">
+            <h3>Cano baixo</h3>
+          </figcaption>
+        </figure>
+
+        <figure class="etraction-descricao__altura">
+          <button
+            class="etraction-descricao__imagem-abrir"
+            type="button"
+            data-etraction-imagem="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/78/05/e7/a7c4b7edf198c67b250d0da1d4/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-5.jpg"
+            data-etraction-alt="Bota Amelie com cano médio"
+            aria-label="Ampliar imagem da Bota Amelie com cano médio"
+          >
+            <img
+              class="etraction-descricao__altura-imagem"
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/78/05/e7/a7c4b7edf198c67b250d0da1d4/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-5.jpg"
+              alt="Bota Amelie com cano médio"
+              width="1100"
+              height="1594"
+              loading="lazy"
+            >
+          </button>
+
+          <figcaption class="etraction-descricao__altura-legenda">
+            <h3>Cano médio</h3>
+          </figcaption>
+        </figure>
+
+        <figure class="etraction-descricao__altura">
+          <button
+            class="etraction-descricao__imagem-abrir"
+            type="button"
+            data-etraction-imagem="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/1c/6e/19/a4569a92499465a4f93a7bab67/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-4.png"
+            data-etraction-alt="Bota Amelie com cano alto"
+            aria-label="Ampliar imagem da Bota Amelie com cano alto"
+          >
+            <img
+              class="etraction-descricao__altura-imagem"
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/1c/6e/19/a4569a92499465a4f93a7bab67/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-4.png"
+              alt="Bota Amelie com cano alto"
+              width="1100"
+              height="1594"
+              loading="lazy"
+            >
+          </button>
+
+          <figcaption class="etraction-descricao__altura-legenda">
+            <h3>Cano alto</h3>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="etraction-descricao__medidas">
+    <div class="etraction-descricao__container">
+      <div class="etraction-descricao__medidas-grid">
+        <header class="etraction-descricao__medidas-texto">
+          <h2>Guia de tamanhos</h2>
+
+          <p>
+            Compare a medida do pé com a tabela. A forma é normal e a indicação
+            da loja é escolher o tamanho habitual.
+          </p>
+        </header>
+
+        <div
+          class="etraction-descricao__tabela-wrapper"
+          role="region"
+          aria-label="Tabela de medidas da Bota Amelie"
+          tabindex="0"
+        >
+          <table class="etraction-descricao__tabela">
+            <thead>
+              <tr>
+                <th scope="col">Numeração</th>
+                <th scope="col">Comprimento do pé</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>34</td>
+                <td>22,5 cm</td>
+              </tr>
+              <tr>
+                <td>35</td>
+                <td>23,5 cm</td>
+              </tr>
+              <tr>
+                <td>36</td>
+                <td>24,0 cm</td>
+              </tr>
+              <tr>
+                <td>37</td>
+                <td>24,5 cm</td>
+              </tr>
+              <tr>
+                <td>38</td>
+                <td>25,5 cm</td>
+              </tr>
+              <tr>
+                <td>39</td>
+                <td>26,0 cm</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="etraction-descricao__garantia">
+    <div class="etraction-descricao__container">
+      <div class="etraction-descricao__garantia-box">
+        <h2>Garantia</h2>
+        <p>3 meses contra defeitos de fabricação.</p>
+      </div>
+    </div>
+  </section>
+
+  <div
+    class="etraction-descricao__modal"
+    data-aberto="false"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Imagem ampliada da Bota Amelie"
+    aria-hidden="true"
+  >
+    <div class="etraction-descricao__modal-conteudo">
+      <button
+        class="etraction-descricao__modal-fechar"
+        type="button"
+        aria-label="Fechar imagem ampliada"
+      >
+        ×
+      </button>
+
+      <img
+        class="etraction-descricao__modal-imagem"
+        src=""
+        alt=""
+        width="1600"
+        height="1600"
+      >
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    "use strict";
+
+    var chaveGlobal =
+      "__ETRACTION_DESCRICAO_AMELIE_3EM1__";
+
+    if (
+      window[chaveGlobal] &&
+      typeof window[chaveGlobal].destruir === "function"
+    ) {
+      window[chaveGlobal].destruir();
+    }
+
+    var raiz = document.querySelector(
+      "#etraction-descricao-amelie"
+    );
+
+    if (!raiz) {
+      return;
+    }
+
+    var controlador = new AbortController();
+    var sinal = controlador.signal;
+    var focoAnterior = null;
+    var overflowHtmlAnterior = "";
+    var overflowBodyAnterior = "";
+    var modalAberto = false;
+
+    var modal = raiz.querySelector(
+      ".etraction-descricao__modal"
+    );
+
+    var modalImagem = raiz.querySelector(
+      ".etraction-descricao__modal-imagem"
+    );
+
+    var modalFechar = raiz.querySelector(
+      ".etraction-descricao__modal-fechar"
+    );
+
+    function obterElementosFocaveis() {
+      if (!modal) {
+        return [];
+      }
+
+      return Array.prototype.slice.call(
+        modal.querySelectorAll(
+          'button:not([disabled]), [href], input:not([disabled]), ' +
+          'select:not([disabled]), textarea:not([disabled]), ' +
+          '[tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(function (elemento) {
+        return elemento.offsetParent !== null;
+      });
+    }
+
+    function restaurarOverflow() {
+      document.documentElement.style.overflow =
+        overflowHtmlAnterior;
+
+      document.body.style.overflow =
+        overflowBodyAnterior;
+    }
+
+    function abrirModal(botao) {
+      var src = botao.getAttribute(
+        "data-etraction-imagem"
+      );
+
+      var alt =
+        botao.getAttribute("data-etraction-alt") || "";
+
+      if (
+        !src ||
+        !modal ||
+        !modalImagem ||
+        modalAberto
+      ) {
+        return;
+      }
+
+      modalAberto = true;
+      focoAnterior = document.activeElement;
+
+      overflowHtmlAnterior =
+        document.documentElement.style.overflow;
+
+      overflowBodyAnterior =
+        document.body.style.overflow;
+
+      modalImagem.src = src;
+      modalImagem.alt = alt;
+
+      modal.setAttribute("data-aberto", "true");
+      modal.setAttribute("aria-hidden", "false");
+
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+
+      if (modalFechar) {
+        modalFechar.focus();
+      }
+    }
+
+    function fecharModal() {
+      if (
+        !modal ||
+        !modalImagem ||
+        !modalAberto
+      ) {
+        return;
+      }
+
+      modalAberto = false;
+
+      modal.setAttribute("data-aberto", "false");
+      modal.setAttribute("aria-hidden", "true");
+
+      modalImagem.src = "";
+      modalImagem.alt = "";
+
+      restaurarOverflow();
+
+      if (
+        focoAnterior &&
+        document.contains(focoAnterior) &&
+        typeof focoAnterior.focus === "function"
+      ) {
+        focoAnterior.focus();
+      }
+
+      focoAnterior = null;
+    }
+
+    function controlarTeclado(evento) {
+      if (!modalAberto || !modal) {
+        return;
+      }
+
+      if (evento.key === "Escape") {
+        evento.preventDefault();
+        fecharModal();
+        return;
+      }
+
+      if (evento.key !== "Tab") {
+        return;
+      }
+
+      var focaveis = obterElementosFocaveis();
+
+      if (!focaveis.length) {
+        evento.preventDefault();
+        return;
+      }
+
+      var primeiro = focaveis[0];
+      var ultimo = focaveis[focaveis.length - 1];
+
+      if (
+        evento.shiftKey &&
+        document.activeElement === primeiro
+      ) {
+        evento.preventDefault();
+        ultimo.focus();
+        return;
+      }
+
+      if (
+        !evento.shiftKey &&
+        document.activeElement === ultimo
+      ) {
+        evento.preventDefault();
+        primeiro.focus();
+      }
+    }
+
+    raiz
+      .querySelectorAll("[data-etraction-imagem]")
+      .forEach(function (botao) {
+        botao.addEventListener(
+          "click",
+          function () {
+            abrirModal(botao);
+          },
+          { signal: sinal }
+        );
+      });
+
+    if (modalFechar) {
+      modalFechar.addEventListener(
+        "click",
+        fecharModal,
+        { signal: sinal }
+      );
+    }
+
+    if (modal) {
+      modal.addEventListener(
+        "click",
+        function (evento) {
+          var clicouNaImagem =
+            modalImagem &&
+            (
+              evento.target === modalImagem ||
+              modalImagem.contains(evento.target)
+            );
+
+          var clicouNoFechar =
+            modalFechar &&
+            (
+              evento.target === modalFechar ||
+              modalFechar.contains(evento.target)
+            );
+
+          if (!clicouNaImagem && !clicouNoFechar) {
+            fecharModal();
+          }
+        },
+        { signal: sinal }
+      );
+    }
+
+    document.addEventListener(
+      "keydown",
+      controlarTeclado,
+      { signal: sinal }
+    );
+
+    window[chaveGlobal] = {
+      destruir: function () {
+        controlador.abort();
+
+        if (modalAberto) {
+          modalAberto = false;
+          restaurarOverflow();
+        }
+
+        if (modal) {
+          modal.setAttribute("data-aberto", "false");
+          modal.setAttribute("aria-hidden", "true");
+        }
+
+        if (modalImagem) {
+          modalImagem.src = "";
+          modalImagem.alt = "";
+        }
+
+        delete window[chaveGlobal];
+      }
+    };
+  })();
+</script>
