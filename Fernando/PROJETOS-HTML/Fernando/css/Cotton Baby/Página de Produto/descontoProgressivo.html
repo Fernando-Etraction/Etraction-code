@@ -1,0 +1,283 @@
+<!-- =========================================================
+  COTTONBABY — DESCONTO PROGRESSIVO
+  Inserido automaticamente após: .mais-formas-pagamento
+========================================================== -->
+
+<style id="etraction-cb-desconto-progressivo-style">
+  #etraction-cb-desconto-progressivo {
+    --etraction-cb-primary: #222943;
+    --etraction-cb-secondary: #64b0c7;
+    --etraction-cb-secondary-soft: #eef7fa;
+    --etraction-cb-accent: #d3409b;
+    --etraction-cb-accent-soft: #fff7fb;
+    --etraction-cb-ink: #252525;
+    --etraction-cb-muted: #6c7484;
+    --etraction-cb-border: #e1e1e1;
+
+    box-sizing: border-box;
+    width: 100%;
+    margin: 12px 0 0;
+    padding: 12px;
+    border: 1px solid var(--etraction-cb-border);
+    border-radius: 4px;
+    background: #ffffff;
+    color: var(--etraction-cb-ink);
+    font-family: Montserrat, sans-serif;
+  }
+
+  #etraction-cb-desconto-progressivo,
+  #etraction-cb-desconto-progressivo * {
+    box-sizing: border-box;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-title {
+    margin: 0 0 10px;
+    color: var(--etraction-cb-primary);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-option {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 98px;
+    padding: 12px 8px 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--etraction-cb-border);
+    border-radius: 4px;
+    background: #ffffff;
+    text-align: center;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-option--featured {
+    border: 2px solid var(--etraction-cb-accent);
+    background: var(--etraction-cb-accent-soft);
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    max-width: calc(100% - 16px);
+    padding: 4px 8px;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    background: var(--etraction-cb-primary);
+    color: #ffffff;
+    font-size: 8px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-quantity {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--etraction-cb-muted);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    color: var(--etraction-cb-primary);
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-currency {
+    margin-right: 3px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-value {
+    font-size: clamp(18px, 4vw, 22px);
+    font-weight: 800;
+    letter-spacing: -0.7px;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-unit {
+    margin-left: 3px;
+    color: var(--etraction-cb-muted);
+    font-size: 9px;
+    font-weight: 500;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-discount {
+    display: inline-flex;
+    margin-top: 5px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background: var(--etraction-cb-secondary-soft);
+    color: var(--etraction-cb-primary);
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  #etraction-cb-desconto-progressivo
+    .etraction-cb-option--featured
+    .etraction-cb-discount {
+    background: var(--etraction-cb-secondary);
+    color: var(--etraction-cb-primary);
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-note {
+    display: flex;
+    gap: 5px;
+    align-items: flex-start;
+    margin: 8px 1px 0;
+    color: var(--etraction-cb-muted);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+
+  #etraction-cb-desconto-progressivo .etraction-cb-note svg {
+    width: 12px;
+    min-width: 12px;
+    height: 12px;
+    color: var(--etraction-cb-accent);
+  }
+
+  @media (max-width: 380px) {
+    #etraction-cb-desconto-progressivo {
+      padding: 10px;
+    }
+
+    #etraction-cb-desconto-progressivo .etraction-cb-options {
+      gap: 6px;
+    }
+
+    #etraction-cb-desconto-progressivo .etraction-cb-option {
+      min-height: 96px;
+      padding-right: 6px;
+      padding-left: 6px;
+    }
+
+    #etraction-cb-desconto-progressivo .etraction-cb-badge {
+      font-size: 8px;
+    }
+  }
+</style>
+
+<template id="etraction-cb-desconto-progressivo-template">
+  <section
+    id="etraction-cb-desconto-progressivo"
+    aria-labelledby="etraction-cb-desconto-progressivo-title"
+  >
+    <h2
+      class="etraction-cb-title"
+      id="etraction-cb-desconto-progressivo-title"
+    >
+      Compre mais e economize
+    </h2>
+
+    <div class="etraction-cb-options">
+      <article class="etraction-cb-option">
+        <span class="etraction-cb-quantity">A partir de 3 unidades</span>
+
+        <div class="etraction-cb-price">
+          <span class="etraction-cb-currency">R$</span>
+          <strong class="etraction-cb-value">13,73</strong>
+          <span class="etraction-cb-unit">/un.</span>
+        </div>
+
+        <span class="etraction-cb-discount">10% OFF</span>
+      </article>
+
+      <article class="etraction-cb-option etraction-cb-option--featured">
+        <span class="etraction-cb-badge">Mais economia</span>
+        <span class="etraction-cb-quantity">A partir de 6 unidades</span>
+
+        <div class="etraction-cb-price">
+          <span class="etraction-cb-currency">R$</span>
+          <strong class="etraction-cb-value">12,96</strong>
+          <span class="etraction-cb-unit">/un.</span>
+        </div>
+
+        <span class="etraction-cb-discount">15% OFF</span>
+      </article>
+    </div>
+
+    <p class="etraction-cb-note">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M13 2 4.5 13H11l-1 9L19.5 11H13V2Z"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></path>
+      </svg>
+
+      <span>
+        O desconto é aplicado automaticamente conforme a quantidade no carrinho.
+      </span>
+    </p>
+  </section>
+</template>
+
+<script>
+  (function () {
+    "use strict";
+
+    var BLOCK_ID = "etraction-cb-desconto-progressivo";
+    var TEMPLATE_ID = "etraction-cb-desconto-progressivo-template";
+
+    function insertBlock() {
+      if (document.getElementById(BLOCK_ID)) return;
+
+      var anchor = document.querySelector(".mais-formas-pagamento");
+      var template = document.getElementById(TEMPLATE_ID);
+
+      if (!anchor || !template) return;
+
+      var block = template.content.firstElementChild.cloneNode(true);
+      anchor.insertAdjacentElement("afterend", block);
+    }
+
+    function init() {
+      insertBlock();
+
+      var scheduled = false;
+      var observer = new MutationObserver(function () {
+        if (scheduled || document.getElementById(BLOCK_ID)) return;
+
+        scheduled = true;
+
+        window.requestAnimationFrame(function () {
+          scheduled = false;
+          insertBlock();
+        });
+      });
+
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>

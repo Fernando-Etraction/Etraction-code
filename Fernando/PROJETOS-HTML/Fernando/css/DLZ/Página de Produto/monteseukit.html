@@ -1,0 +1,2134 @@
+<div class="pagina-conteudo-adicional conteudo-adicional-dlz-kit">
+  <style>
+    /* =========================================================
+       OCULTAR CONTEÚDO NATIVO APÓS INSERIR O WIZARD
+    ========================================================= */
+
+    .informacoes-compra-produto.kw-native-hidden .derivacoes-produto,
+    .informacoes-compra-produto.kw-native-hidden .area-comprar,
+    .informacoes-compra-produto.kw-native-hidden .quantidade-comprar,
+    .informacoes-compra-produto.kw-native-hidden .sugestoes-cores {
+      display: none !important;
+    }
+
+    /* =========================================================
+       BASE
+    ========================================================= */
+
+    .kw-wrap,
+    .kw-wrap *,
+    .kw-wrap *::before,
+    .kw-wrap *::after {
+      box-sizing: border-box;
+    }
+
+    .kw-wrap {
+      --kw-dark: #111111;
+      --kw-navy: #1c2c44;
+      --kw-gold: #b08a4a;
+      --kw-border: #e7e7e7;
+
+      width: 100%;
+      margin-top: 10px;
+      overflow: hidden;
+      border: 1px solid var(--kw-border);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--kw-dark);
+      font-family: inherit;
+    }
+
+
+    /* =========================================================
+       PROGRESSO
+    ========================================================= */
+
+    .kw-progress {
+      padding: 9px 12px 10px;
+      border-bottom: 1px solid #eeeeee;
+      background: #fafafa;
+    }
+
+    .kw-progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .kw-progress-label {
+      color: #333333;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .kw-progress-value {
+      color: #555555;
+      font-size: 9px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .kw-progress-track {
+      position: relative;
+      width: 100%;
+      height: 5px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e4e4e4;
+    }
+
+    .kw-progress-bar {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        var(--kw-navy),
+        var(--kw-gold)
+      );
+      transition: width 0.3s ease;
+    }
+
+    /* =========================================================
+       TOPO DA ETAPA
+    ========================================================= */
+
+    .kw-topbar {
+      padding: 9px 12px;
+      border-bottom: 1px solid #eeeeee;
+      background: #ffffff;
+      color: #222222;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* =========================================================
+       CARROSSEL
+    ========================================================= */
+
+    .kw-carousel {
+      position: relative;
+      width: 100%;
+    }
+
+    .kw-viewport {
+      width: 100%;
+      overflow: hidden;
+      transition: height 0.28s ease;
+    }
+
+    .kw-track {
+      display: flex;
+      width: 100%;
+      align-items: flex-start;
+      transition: transform 0.28s ease;
+      will-change: transform;
+    }
+
+    .kw-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      min-width: 100%;
+      height: auto;
+      align-self: flex-start;
+    }
+
+    .kw-stage {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 9px;
+      padding: 10px;
+    }
+
+    /* =========================================================
+       CARD
+    ========================================================= */
+
+    .kw-card {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ececec;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .kw-cardbody {
+      display: grid;
+      grid-template-columns: 125px minmax(0, 1fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .kw-media {
+      width: 100%;
+      height: 100%;
+      min-height: 175px;
+      overflow: hidden;
+      border: 1px solid #ececec;
+      border-radius: 6px;
+      background: #f5f5f5;
+    }
+
+    .kw-img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: #f5f5f5;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .kw-img.is-placeholder {
+      filter: grayscale(0.55);
+      opacity: 0.78;
+    }
+
+    .kw-side {
+      display: flex;
+      min-width: 0;
+      min-height: 175px;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .kw-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .kw-kicker {
+      color: #111111;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .kw-sub {
+      margin: 0;
+      color: #767676;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .kw-divider {
+      width: 100%;
+      height: 1px;
+      margin: 8px 0;
+      background: #ededed;
+    }
+
+    .kw-field {
+      margin-top: 8px;
+    }
+
+    .kw-field:first-of-type {
+      margin-top: 0;
+    }
+
+    .kw-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #222222;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* =========================================================
+       CORES
+    ========================================================= */
+
+    .kw-colors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .kw-color {
+      position: relative;
+      display: flex;
+      width: 27px;
+      height: 27px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      outline: none;
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
+    }
+
+    .kw-color:hover {
+      transform: translateY(-1px);
+    }
+
+    .kw-color[aria-selected="true"] {
+      border-color: #111111;
+      box-shadow:
+        0 0 0 2px #ffffff,
+        0 0 0 3px #111111;
+    }
+
+    .kw-color .sw {
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+    }
+
+    .kw-color[data-color="BRANCO"] .sw {
+      border: 1px solid #dddddd;
+    }
+
+    /* =========================================================
+       TAMANHOS
+    ========================================================= */
+
+    .kw-sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .kw-size {
+      min-width: 36px;
+      height: 30px;
+      padding: 0 8px;
+      border: 1px solid #d9d9d9;
+      border-radius: 4px;
+      background: #ffffff;
+      color: #111111;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      outline: none;
+      transition:
+        border-color 0.15s ease,
+        background 0.15s ease,
+        color 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .kw-size:hover {
+      border-color: #888888;
+    }
+
+    .kw-size[aria-selected="true"] {
+      border-color: #111111;
+      background: #111111;
+      color: #ffffff;
+      box-shadow: 0 0 0 1px #111111;
+    }
+
+    /* =========================================================
+       RESUMO
+    ========================================================= */
+
+    .kw-summary {
+      padding: 10px;
+      border: 1px solid #e6e6e6;
+      border-radius: 7px;
+      background: #fafafa;
+    }
+
+    .kw-summary-title {
+      display: block;
+      margin: 0 0 8px;
+      color: #111111;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .kw-summary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .kw-summary-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: #666666;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .kw-summary-item strong {
+      color: #111111;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* =========================================================
+       SETAS E INDICADORES
+    ========================================================= */
+
+    .kw-stepnav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 10px 9px;
+    }
+
+    .kw-arrow {
+      display: inline-flex;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #dcdcdc;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #111111;
+      cursor: pointer;
+      outline: none;
+      transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        opacity 0.15s ease;
+    }
+
+    .kw-arrow:hover:not(:disabled) {
+      border-color: #111111;
+      background: #f8f8f8;
+    }
+
+    .kw-arrow:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .kw-arrow svg {
+      display: block;
+      width: 13px;
+      height: 13px;
+    }
+
+    .kw-dots {
+      display: flex;
+      min-width: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .kw-dot {
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d9d9d9;
+      transition:
+        width 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .kw-dot.active {
+      width: 15px;
+      border-radius: 20px;
+      background: #111111;
+    }
+
+    /* =========================================================
+       BOTÕES
+    ========================================================= */
+
+    .kw-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 0 10px 10px;
+    }
+
+    .kw-btn {
+      width: 100%;
+      min-height: 42px;
+      padding: 9px 10px;
+      border: 1px solid #111111;
+      border-radius: 0;
+      background: #111111;
+      color: #ffffff;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      outline: none;
+      transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        opacity 0.15s ease;
+    }
+
+    .kw-btn:hover:not(:disabled) {
+      background: #2a2a2a;
+    }
+
+    .kw-btn.secondary {
+      border-color: #dfdfdf;
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .kw-btn.secondary:hover:not(:disabled) {
+      border-color: #111111;
+      background: #f8f8f8;
+    }
+
+    .kw-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .kw-msg {
+      min-height: 0;
+      padding: 0 10px 8px;
+      color: #b00020;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .kw-msg:empty {
+      display: none;
+    }
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 520px) {
+.kw-progress {
+        padding: 8px 10px 9px;
+      }
+
+      .kw-progress-label {
+        font-size: 9px;
+      }
+
+      .kw-topbar {
+        padding: 9px 10px;
+        font-size: 10px;
+      }
+
+      .kw-stage {
+        gap: 8px;
+        padding: 9px;
+      }
+
+      .kw-card {
+        padding: 8px;
+      }
+
+      .kw-cardbody {
+        grid-template-columns: 110px minmax(0, 1fr);
+        gap: 9px;
+      }
+
+      .kw-media,
+      .kw-side {
+        min-height: 165px;
+      }
+
+      .kw-kicker {
+        font-size: 9px;
+      }
+
+      .kw-sub {
+        font-size: 10px;
+      }
+
+      .kw-divider {
+        margin: 7px 0;
+      }
+
+      .kw-field {
+        margin-top: 7px;
+      }
+
+      .kw-label {
+        margin-bottom: 5px;
+        font-size: 9px;
+      }
+
+      .kw-colors {
+        gap: 7px;
+      }
+
+      .kw-color {
+        width: 25px;
+        height: 25px;
+      }
+
+      .kw-sizes {
+        gap: 5px;
+      }
+
+      .kw-size {
+        min-width: 34px;
+        height: 29px;
+        padding: 0 7px;
+        font-size: 11px;
+      }
+
+      .kw-summary {
+        padding: 9px;
+      }
+
+      .kw-summary-title,
+      .kw-summary-item {
+        font-size: 11px;
+      }
+
+      .kw-stepnav {
+        padding: 0 9px 8px;
+      }
+
+      .kw-arrow {
+        width: 27px;
+        height: 27px;
+      }
+
+      .kw-actions {
+        padding: 0 9px 9px;
+      }
+
+      .kw-btn {
+        min-height: 40px;
+        padding: 8px;
+        font-size: 11px;
+      }
+
+      .kw-msg {
+        padding: 0 9px 7px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .kw-cardbody {
+        grid-template-columns: 100px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .kw-media,
+      .kw-side {
+        min-height: 155px;
+      }
+
+      .kw-color {
+        width: 23px;
+        height: 23px;
+      }
+
+      .kw-size {
+        min-width: 31px;
+        height: 28px;
+        padding: 0 5px;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const DLZKitWizard = (function () {
+        const KIT_QUANTITY = 3;
+        const SIZES = ["P", "M", "G", "GG"];
+const COLOR_MAP = {
+          MARINHO_NAVAL: {
+            label: "Marinho Naval",
+            hex: "#18243b",
+            skuReference: "D291000-MarinhoNaval",
+            skuPrefix: "D291000-5592",
+            image:
+              "https://dlz.cdn.magazord.com.br/img/2026/07/produto/49134/d291000-5592-1.jpg"
+          },
+
+          BEGE_ARENITO: {
+            label: "Bege Arenito",
+            hex: "#c8ad86",
+            skuReference: "D291000-BegeArenito",
+            skuPrefix: "D291000-1239",
+            image:
+              "https://dlz.cdn.magazord.com.br/img/2026/07/produto/49135/d291000-1239-1.jpg"
+          },
+
+          PRETO: {
+            label: "Preto",
+            hex: "#111111",
+            skuReference: "D291000-Preto",
+            skuPrefix: "D291000-100",
+            image:
+              "https://dlz.cdn.magazord.com.br/img/2026/07/produto/49140/d291000-100-1.jpg"
+          },
+
+          BRANCO: {
+            label: "Branco",
+            hex: "#ffffff",
+            skuReference: "D291000-Branco",
+            skuPrefix: "D291000-001",
+            image:
+              "https://dlz.cdn.magazord.com.br/img/2026/07/produto/49137/d291000-001-1.jpg"
+          }
+        };
+
+        const state = {
+          sets: [],
+          index: 0,
+          adding: false
+        };
+
+        const $ = function (selector, root) {
+          return (root || document).querySelector(selector);
+        };
+
+        const $$ = function (selector, root) {
+          return Array.from(
+            (root || document).querySelectorAll(selector)
+          );
+        };
+
+        function normalize(value) {
+          return String(value || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]/g, "");
+        }
+
+        function getCurrentColorKey() {
+          const referenceElement =
+            document.querySelector(".codigo-prod");
+
+          const referenceText = normalize(
+            referenceElement
+              ? referenceElement.textContent
+              : ""
+          );
+
+          const pathText = normalize(
+            window.location.pathname
+          );
+
+          const match = Object.entries(
+            COLOR_MAP
+          ).find(function (entry) {
+            const product = entry[1];
+
+            return (
+              referenceText.includes(
+                normalize(product.skuReference)
+              ) ||
+              pathText.includes(
+                normalize(product.skuReference)
+              ) ||
+              pathText.includes(
+                normalize(product.label)
+              )
+            );
+          });
+
+          return match ? match[0] : "BRANCO";
+        }
+
+        function newSet(colorKey) {
+          return {
+            colorKey: colorKey || "",
+            size: ""
+          };
+        }
+
+        function buildSku(colorKey, size) {
+          const product =
+            COLOR_MAP[colorKey];
+
+          if (!product || !size) {
+            return "";
+          }
+
+          return (
+            product.skuPrefix +
+            "-" +
+            size
+          );
+        }
+
+        function totalSets() {
+          return state.sets.length;
+        }
+
+        function isLastSlide() {
+          return (
+            state.index ===
+            totalSets() - 1
+          );
+        }
+
+        function currentSlideValid() {
+          const currentSet =
+            state.sets[state.index];
+
+          if (!currentSet) {
+            return false;
+          }
+
+          return Boolean(
+            buildSku(
+              currentSet.colorKey,
+              currentSet.size
+            )
+          );
+        }
+
+        function allSlidesValid() {
+          return state.sets.every(
+            function (set) {
+              return Boolean(
+                buildSku(
+                  set.colorKey,
+                  set.size
+                )
+              );
+            }
+          );
+        }
+
+        function getCompletedItems() {
+          return state.sets.filter(
+            function (set) {
+              return Boolean(
+                buildSku(
+                  set.colorKey,
+                  set.size
+                )
+              );
+            }
+          ).length;
+        }
+
+        function getProgressMessage(completed) {
+          if (completed === 0) {
+            return "Escolha as 3 camisetas do seu kit";
+          }
+
+          if (completed === 1) {
+            return "Seu kit já está tomando forma";
+          }
+
+          if (completed === 2) {
+            return "Falta só mais uma camiseta";
+          }
+
+          return "Kit pronto para adicionar ao carrinho";
+        }
+
+        function renderColorButtons(selectedColor) {
+          return Object.entries(COLOR_MAP)
+            .map(function (entry) {
+              const key = entry[0];
+              const color = entry[1];
+
+              const selected =
+                selectedColor === key
+                  ? "true"
+                  : "false";
+
+              return `
+                <button
+                  type="button"
+                  class="kw-color"
+                  aria-selected="${selected}"
+                  data-color="${key}"
+                  title="${color.label}"
+                  aria-label="${color.label}"
+                >
+                  <span
+                    class="sw"
+                    style="background:${color.hex}">
+                  </span>
+                </button>
+              `;
+            })
+            .join("");
+        }
+
+        function renderSizeButtons(selectedSize) {
+          return SIZES.map(
+            function (size) {
+              const selected =
+                selectedSize === size
+                  ? "true"
+                  : "false";
+
+              return `
+                <button
+                  type="button"
+                  class="kw-size"
+                  aria-selected="${selected}"
+                  data-size="${size}"
+                >
+                  ${size}
+                </button>
+              `;
+            }
+          ).join("");
+        }
+
+        function renderSummary() {
+          const items = state.sets
+            .map(function (set, index) {
+              const color =
+                COLOR_MAP[set.colorKey];
+
+              const label =
+                color && set.size
+                  ? color.label +
+                    " — " +
+                    set.size
+                  : "Não selecionado";
+
+              return `
+                <div class="kw-summary-item">
+                  <span>Item ${index + 1}</span>
+                  <strong>${label}</strong>
+                </div>
+              `;
+            })
+            .join("");
+
+          return `
+            <div class="kw-summary">
+              <span class="kw-summary-title">
+                Seu kit ficou assim
+              </span>
+
+              <div class="kw-summary-list">
+                ${items}
+              </div>
+            </div>
+          `;
+        }
+
+        function renderSlide(index) {
+          const set =
+            state.sets[index];
+
+          const color =
+            COLOR_MAP[set.colorKey] ||
+            COLOR_MAP.BRANCO;
+
+          const placeholderClass =
+            set.colorKey
+              ? ""
+              : " is-placeholder";
+
+          const showSummary =
+            index === totalSets() - 1;
+
+          return `
+            <div
+              class="kw-slide"
+              data-slide="${index}"
+            >
+              <div class="kw-stage">
+                <div class="kw-card">
+                  <div class="kw-cardbody">
+                    <div class="kw-media">
+                      <img
+                        class="kw-img${placeholderClass}"
+                        src="${color.image}"
+                        alt="${color.label}"
+                        loading="lazy"
+                      >
+                    </div>
+
+                    <div class="kw-side">
+                      <div class="kw-meta">
+                        <span class="kw-kicker">
+                          Camiseta ${index + 1} de ${totalSets()}
+                        </span>
+
+                        <p class="kw-sub">
+                          Escolha a cor e o tamanho.
+                        </p>
+                      </div>
+
+                      <div class="kw-divider"></div>
+
+                      <div class="kw-field">
+                        <span class="kw-label">
+                          Cor
+                        </span>
+
+                        <div class="kw-colors">
+                          ${renderColorButtons(
+                            set.colorKey
+                          )}
+                        </div>
+                      </div>
+
+                      <div class="kw-field">
+                        <span class="kw-label">
+                          Tamanho
+                        </span>
+
+                        <div class="kw-sizes">
+                          ${renderSizeButtons(
+                            set.size
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                ${
+                  showSummary
+                    ? renderSummary()
+                    : ""
+                }
+              </div>
+            </div>
+          `;
+        }
+
+        function createArrow(direction) {
+          if (direction === "prev") {
+            return `
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M14.5 6.5L9 12l5.5 5.5"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                </path>
+              </svg>
+            `;
+          }
+
+          return `
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M9.5 6.5L15 12l-5.5 5.5"
+                stroke="currentColor"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+              </path>
+            </svg>
+          `;
+        }
+
+        function createWizardElement() {
+          const wrap =
+            document.createElement("div");
+
+          wrap.className = "kw-wrap";
+          wrap.id = "kw";
+
+          wrap.innerHTML = `
+            <div class="kw-progress">
+              <div class="kw-progress-row">
+                <span
+                  class="kw-progress-label"
+                  data-progress-label
+                ></span>
+
+                <span
+                  class="kw-progress-value"
+                  data-progress-value
+                ></span>
+              </div>
+
+              <div class="kw-progress-track">
+                <span
+                  class="kw-progress-bar"
+                  data-progress-bar
+                ></span>
+              </div>
+            </div>
+
+            <div
+              class="kw-topbar"
+              data-step
+            ></div>
+
+            <div class="kw-carousel">
+              <div class="kw-viewport">
+                <div
+                  class="kw-track"
+                  data-track
+                ></div>
+              </div>
+            </div>
+
+            <div class="kw-stepnav">
+              <button
+                type="button"
+                class="kw-arrow"
+                data-arrow-prev
+                aria-label="Item anterior"
+              >
+                ${createArrow("prev")}
+              </button>
+
+              <div
+                class="kw-dots"
+                data-dots
+              ></div>
+
+              <button
+                type="button"
+                class="kw-arrow"
+                data-arrow-next
+                aria-label="Próximo item"
+              >
+                ${createArrow("next")}
+              </button>
+            </div>
+
+            <div class="kw-actions">
+              <button
+                type="button"
+                class="kw-btn secondary"
+                data-secondary-action
+                style="display:none"
+              ></button>
+
+              <button
+                type="button"
+                class="kw-btn"
+                data-main-action
+                disabled
+              ></button>
+            </div>
+
+            <div
+              class="kw-msg"
+              data-msg
+            ></div>
+          `;
+
+          return wrap;
+        }
+
+        function updateProgress(wrap) {
+          const completed =
+            getCompletedItems();
+
+          const percentage =
+            Math.round(
+              completed /
+              totalSets() *
+              100
+            );
+
+          const label =
+            $(
+              "[data-progress-label]",
+              wrap
+            );
+
+          const value =
+            $(
+              "[data-progress-value]",
+              wrap
+            );
+
+          const bar =
+            $(
+              "[data-progress-bar]",
+              wrap
+            );
+
+          if (label) {
+            label.textContent =
+              getProgressMessage(
+                completed
+              );
+          }
+
+          if (value) {
+            value.textContent =
+              completed +
+              " de " +
+              totalSets();
+          }
+
+          if (bar) {
+            bar.style.width =
+              percentage + "%";
+          }
+        }
+
+        function updateViewportHeight(wrap) {
+          const viewport =
+            $(".kw-viewport", wrap);
+
+          const slides =
+            $$(".kw-slide", wrap);
+
+          const activeSlide =
+            slides[state.index];
+
+          if (
+            !viewport ||
+            !activeSlide
+          ) {
+            return;
+          }
+
+          window.requestAnimationFrame(
+            function () {
+              const height =
+                activeSlide.scrollHeight ||
+                activeSlide.offsetHeight;
+
+              if (height > 0) {
+                viewport.style.height =
+                  height + "px";
+              }
+            }
+          );
+        }
+
+        function renderAll(wrap) {
+          const track =
+            $("[data-track]", wrap);
+
+          const dots =
+            $("[data-dots]", wrap);
+
+          track.innerHTML = state.sets
+            .map(function (_, index) {
+              return renderSlide(index);
+            })
+            .join("");
+
+          dots.innerHTML = state.sets
+            .map(function (_, index) {
+              return `
+                <span
+                  class="kw-dot${
+                    index === state.index
+                      ? " active"
+                      : ""
+                  }"
+                ></span>
+              `;
+            })
+            .join("");
+
+          updateNavigation(wrap);
+          updateProgress(wrap);
+
+          const images =
+            $$(".kw-img", wrap);
+
+          images.forEach(
+            function (image) {
+              if (!image.complete) {
+                image.addEventListener(
+                  "load",
+                  function () {
+                    updateViewportHeight(
+                      wrap
+                    );
+                  },
+                  {
+                    once: true
+                  }
+                );
+              }
+            }
+          );
+        }
+
+        function updateNavigation(wrap) {
+          const track =
+            $("[data-track]", wrap);
+
+          const step =
+            $("[data-step]", wrap);
+
+          const dots =
+            $("[data-dots]", wrap);
+
+          const previousArrow =
+            $(
+              "[data-arrow-prev]",
+              wrap
+            );
+
+          const nextArrow =
+            $(
+              "[data-arrow-next]",
+              wrap
+            );
+
+          const mainButton =
+            $(
+              "[data-main-action]",
+              wrap
+            );
+
+          const secondaryButton =
+            $(
+              "[data-secondary-action]",
+              wrap
+            );
+
+          track.style.transform =
+            "translateX(-" +
+            state.index * 100 +
+            "%)";
+
+          $$(".kw-dot", dots).forEach(
+            function (dot, index) {
+              dot.classList.toggle(
+                "active",
+                index === state.index
+              );
+            }
+          );
+
+          step.textContent =
+            "Camiseta " +
+            (state.index + 1) +
+            " de " +
+            totalSets() +
+            " — Monte seu kit";
+
+          previousArrow.disabled =
+            state.index === 0 ||
+            state.adding;
+
+          nextArrow.disabled =
+            state.index ===
+              totalSets() - 1 ||
+            state.adding;
+
+          if (isLastSlide()) {
+            secondaryButton.style.display =
+              "block";
+
+            secondaryButton.textContent =
+              "Voltar";
+
+            secondaryButton.disabled =
+              state.adding;
+
+            mainButton.textContent =
+              state.adding
+                ? "Adicionando..."
+                : "Adicionar kit ao carrinho";
+
+            mainButton.disabled =
+              !allSlidesValid() ||
+              state.adding;
+          } else {
+            secondaryButton.style.display =
+              state.index > 0
+                ? "block"
+                : "none";
+
+            secondaryButton.textContent =
+              "Voltar";
+
+            secondaryButton.disabled =
+              state.index === 0 ||
+              state.adding;
+
+            mainButton.textContent =
+              "Próxima camiseta";
+
+            mainButton.disabled =
+              !currentSlideValid() ||
+              state.adding;
+          }
+
+          updateProgress(wrap);
+          updateViewportHeight(wrap);
+        }
+
+        function setMessage(
+          wrap,
+          message,
+          success
+        ) {
+          const element =
+            $("[data-msg]", wrap);
+
+          element.textContent =
+            message || "";
+
+          element.style.color =
+            success
+              ? "#0a7a2f"
+              : "#b00020";
+        }
+
+        function syncGallery(imageUrl) {
+          if (
+            typeof window
+              .__syncMagazordGalleryTo ===
+            "function"
+          ) {
+            window.__syncMagazordGalleryTo(
+              imageUrl
+            );
+          }
+        }
+
+        function goPrevious(wrap) {
+          if (
+            state.adding ||
+            state.index === 0
+          ) {
+            return;
+          }
+
+          state.index =
+            Math.max(
+              0,
+              state.index - 1
+            );
+
+          updateNavigation(wrap);
+        }
+
+        function goNext(wrap) {
+          if (
+            state.adding ||
+            !currentSlideValid() ||
+            isLastSlide()
+          ) {
+            return;
+          }
+
+          state.index =
+            Math.min(
+              totalSets() - 1,
+              state.index + 1
+            );
+
+          updateNavigation(wrap);
+        }
+
+        function bindWizard(wrap) {
+          wrap.addEventListener(
+            "click",
+            function (event) {
+              const slide =
+                event.target.closest(
+                  ".kw-slide"
+                );
+
+              if (
+                slide &&
+                !state.adding
+              ) {
+                const slideIndex =
+                  Number(
+                    slide.getAttribute(
+                      "data-slide"
+                    )
+                  );
+
+                if (
+                  !Number.isNaN(
+                    slideIndex
+                  ) &&
+                  state.sets[slideIndex]
+                ) {
+                  const colorButton =
+                    event.target.closest(
+                      "button[data-color]"
+                    );
+
+                  const sizeButton =
+                    event.target.closest(
+                      "button[data-size]"
+                    );
+
+                  if (
+                    colorButton ||
+                    sizeButton
+                  ) {
+                    const selectedSet =
+                      state.sets[
+                        slideIndex
+                      ];
+
+                    if (colorButton) {
+                      selectedSet.colorKey =
+                        colorButton.dataset
+                          .color || "";
+
+                      const product =
+                        COLOR_MAP[
+                          selectedSet
+                            .colorKey
+                        ];
+
+                      if (product) {
+                        syncGallery(
+                          product.image
+                        );
+                      }
+                    }
+
+                    if (sizeButton) {
+                      selectedSet.size =
+                        sizeButton.dataset
+                          .size || "";
+                    }
+
+                    renderAll(wrap);
+                    return;
+                  }
+                }
+              }
+
+              if (
+                event.target.closest(
+                  "[data-arrow-prev]"
+                )
+              ) {
+                goPrevious(wrap);
+                return;
+              }
+
+              if (
+                event.target.closest(
+                  "[data-arrow-next]"
+                )
+              ) {
+                goNext(wrap);
+                return;
+              }
+
+              if (
+                event.target.closest(
+                  "[data-secondary-action]"
+                )
+              ) {
+                goPrevious(wrap);
+                return;
+              }
+
+              if (
+                event.target.closest(
+                  "[data-main-action]"
+                )
+              ) {
+                if (isLastSlide()) {
+                  addEntireKit(wrap);
+                } else {
+                  goNext(wrap);
+                }
+              }
+            }
+          );
+        }
+
+        async function addToCartBySku(
+          sku,
+          quantity
+        ) {
+          const finalQuantity =
+            Number(quantity || 1);
+
+          if (
+            window.Zord &&
+            window.Zord.checkout &&
+            typeof window.Zord.checkout
+              .addCart === "function"
+          ) {
+            return new Promise(
+              function (
+                resolve,
+                reject
+              ) {
+                try {
+                  window.Zord.checkout.addCart(
+                    String(sku),
+                    1,
+                    finalQuantity,
+                    0,
+                    function () {
+                      resolve(true);
+                    }
+                  );
+                } catch (error) {
+                  reject(error);
+                }
+              }
+            );
+          }
+
+          const urls = [
+            "/carrinho/adicionar",
+            "/checkout/carrinho/adicionar",
+            "/carrinho",
+            "/checkout/carrinho"
+          ];
+
+          let lastError = null;
+
+          for (
+            let index = 0;
+            index < urls.length;
+            index += 1
+          ) {
+            const url =
+              urls[index];
+
+            try {
+              const body =
+                new URLSearchParams();
+
+              body.set(
+                "sku",
+                String(sku)
+              );
+
+              body.set(
+                "quantidade",
+                String(finalQuantity)
+              );
+
+              const response =
+                await fetch(
+                  url,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type":
+                        "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: body,
+                    credentials:
+                      "include"
+                  }
+                );
+
+              if (response.ok) {
+                return true;
+              }
+
+              lastError =
+                new Error(
+                  "Erro HTTP " +
+                    response.status +
+                    " em " +
+                    url
+                );
+            } catch (error) {
+              lastError = error;
+            }
+          }
+
+          throw (
+            lastError ||
+            new Error(
+              "Não foi possível adicionar o produto."
+            )
+          );
+        }
+
+        function openCart() {
+          if (
+            window.Zord &&
+            typeof window.Zord.redir ===
+              "function"
+          ) {
+            window.Zord.redir(
+              "checkout/cart"
+            );
+
+            return;
+          }
+
+          if (
+            window.Magazord &&
+            window.Magazord.MiniCart &&
+            typeof window.Magazord
+              .MiniCart.open ===
+              "function"
+          ) {
+            window.Magazord.MiniCart.open();
+            return;
+          }
+
+          if (
+            typeof window
+              .openMiniCart ===
+            "function"
+          ) {
+            window.openMiniCart();
+            return;
+          }
+
+          window.location.href =
+            "/checkout/cart";
+        }
+
+        function showAddedModal() {
+          if (
+            typeof window.zrd ===
+            "function"
+          ) {
+            window.zrd(
+              "swal",
+              function (sw) {
+                sw.fire({
+                  title:
+                    "Kit adicionado ao carrinho!",
+                  text:
+                    "O que você deseja fazer a seguir?",
+                  width: 600,
+                  icon: "success",
+                  showCancelButton:
+                    false,
+                  showDenyButton:
+                    true,
+                  denyButtonText:
+                    "Finalizar compra",
+                  denyButtonColor:
+                    "#1c2c44",
+                  showCloseButton:
+                    true,
+                  showConfirmButton:
+                    true,
+                  confirmButtonText:
+                    "Continuar comprando",
+                  confirmButtonColor:
+                    "#ffffff",
+                  customClass: {
+                    container:
+                      "container-popup-add-carrinho",
+                    popup:
+                      "popup-adicionado-ao-carrinho",
+                    actions:
+                      "actions-popup-add-carrinho",
+                    icon:
+                      "icone-adicionado-ao-carrinho",
+                    title:
+                      "titulo-adicionado-ao-carrinho",
+                    confirmButton:
+                      "botao-continuar-comprando",
+                    denyButton:
+                      "botao-finalizar-compra"
+                  }
+                }).then(
+                  function (result) {
+                    if (
+                      result.isDenied
+                    ) {
+                      openCart();
+                      return;
+                    }
+
+                    window.location.reload();
+                  }
+                );
+              }
+            );
+
+            return;
+          }
+
+          const goToCart =
+            window.confirm(
+              "Kit adicionado. Ir para o carrinho?"
+            );
+
+          if (goToCart) {
+            openCart();
+          } else {
+            window.location.reload();
+          }
+        }
+
+        async function addEntireKit(
+          wrap
+        ) {
+          if (
+            state.adding ||
+            !allSlidesValid()
+          ) {
+            return;
+          }
+
+          state.adding = true;
+
+          updateNavigation(wrap);
+
+          setMessage(
+            wrap,
+            "Adicionando o kit ao carrinho...",
+            true
+          );
+
+          try {
+            for (
+              let index = 0;
+              index <
+              state.sets.length;
+              index += 1
+            ) {
+              const set =
+                state.sets[index];
+
+              const sku =
+                buildSku(
+                  set.colorKey,
+                  set.size
+                );
+
+              await addToCartBySku(
+                sku,
+                1
+              );
+            }
+
+            setMessage(
+              wrap,
+              "Kit adicionado ao carrinho.",
+              true
+            );
+
+            showAddedModal();
+          } catch (error) {
+            console.error(
+              "[DLZ Kit] Erro ao adicionar:",
+              error
+            );
+
+            state.adding = false;
+
+            updateNavigation(wrap);
+
+            setMessage(
+              wrap,
+              "Não foi possível adicionar os produtos. Confira os SKUs das variações.",
+              false
+            );
+          }
+        }
+
+        function insertWizard() {
+          if (
+            document.querySelector(
+              "#kw"
+            )
+          ) {
+            return true;
+          }
+
+          const container =
+            document.querySelector(
+              ".informacoes-compra-produto"
+            );
+
+          if (!container) {
+            return false;
+          }
+
+          const anchor =
+            container.querySelector(
+              "#content-price-product"
+            ) ||
+            container.querySelector(
+              ".buy-area"
+            ) ||
+            container.querySelector(
+              ".produto-buy-highlight"
+            );
+
+          if (!anchor) {
+            return false;
+          }
+
+          const currentColor =
+            getCurrentColorKey();
+
+          state.sets =
+            Array.from(
+              {
+                length:
+                  KIT_QUANTITY
+              },
+              function (_, index) {
+                return newSet(
+                  index === 0
+                    ? currentColor
+                    : ""
+                );
+              }
+            );
+
+          state.index = 0;
+
+          const wizard =
+            createWizardElement();
+
+          anchor.insertAdjacentElement(
+            "afterend",
+            wizard
+          );
+
+          container.classList.add(
+            "kw-native-hidden"
+          );
+
+          bindWizard(wizard);
+          renderAll(wizard);
+
+          window.addEventListener(
+            "resize",
+            function () {
+              updateViewportHeight(
+                wizard
+              );
+            }
+          );
+
+          return true;
+        }
+
+        function init() {
+          let attempts = 0;
+          const maxAttempts = 120;
+
+          const tryInsert =
+            function () {
+              attempts += 1;
+
+              if (
+                insertWizard() ||
+                attempts >=
+                  maxAttempts
+              ) {
+                window.clearInterval(
+                  timer
+                );
+              }
+            };
+
+          const timer =
+            window.setInterval(
+              tryInsert,
+              250
+            );
+
+          tryInsert();
+
+          const observer =
+            new MutationObserver(
+              function () {
+                if (
+                  !document.querySelector(
+                    "#kw"
+                  )
+                ) {
+                  insertWizard();
+                }
+              }
+            );
+
+          observer.observe(
+            document.body,
+            {
+              childList: true,
+              subtree: true
+            }
+          );
+
+          window.setTimeout(
+            function () {
+              observer.disconnect();
+            },
+            30000
+          );
+        }
+
+        return {
+          init: init
+        };
+      })();
+
+      DLZKitWizard.init();
+    })();
+  </script>
+
+  <script>
+    (function () {
+      "use strict";
+
+      function removeQueryString(url) {
+        return url
+          ? String(url).split("?")[0]
+          : "";
+      }
+
+      function findThumbnail(imageUrl) {
+        const targetUrl =
+          removeQueryString(
+            imageUrl
+          );
+
+        if (!targetUrl) {
+          return null;
+        }
+
+        const images =
+          Array.from(
+            document.querySelectorAll(
+              ".thumbs-gallery img"
+            )
+          );
+
+        return (
+          images.find(
+            function (image) {
+              const source =
+                image.getAttribute(
+                  "src"
+                ) ||
+                image.getAttribute(
+                  "data-src"
+                ) ||
+                "";
+
+              return (
+                removeQueryString(
+                  source
+                ) === targetUrl
+              );
+            }
+          ) || null
+        );
+      }
+
+      function clickThumbnail(image) {
+        const clickableElement =
+          image.closest("figure") ||
+          image.closest(
+            ".swiper-slide"
+          ) ||
+          image;
+
+        clickableElement.dispatchEvent(
+          new MouseEvent(
+            "click",
+            {
+              bubbles: true,
+              cancelable: true,
+              view: window
+            }
+          )
+        );
+      }
+
+      window.__syncMagazordGalleryTo =
+        function (imageUrl) {
+          const thumbnail =
+            findThumbnail(imageUrl);
+
+          if (thumbnail) {
+            clickThumbnail(
+              thumbnail
+            );
+
+            return true;
+          }
+
+          const mainImage =
+            document.querySelector(
+              ".gallery-main .swiper-slide-active img"
+            ) ||
+            document.querySelector(
+              ".gallery-main img"
+            );
+
+          if (!mainImage) {
+            return false;
+          }
+
+          const cleanUrl =
+            removeQueryString(
+              imageUrl
+            );
+
+          if (!cleanUrl) {
+            return false;
+          }
+
+          const currentSource =
+            mainImage.getAttribute(
+              "src"
+            ) || "";
+
+          const imageSizeQuery =
+            (
+              currentSource.match(
+                /\?ims=[^&]+/i
+              ) || [""]
+            )[0];
+
+          const finalSource =
+            imageSizeQuery
+              ? cleanUrl +
+                imageSizeQuery
+              : cleanUrl;
+
+          mainImage.setAttribute(
+            "src",
+            finalSource
+          );
+
+          mainImage.setAttribute(
+            "data-src",
+            finalSource
+          );
+
+          mainImage.setAttribute(
+            "data-src-zoom",
+            cleanUrl
+          );
+
+          return true;
+        };
+    })();
+  </script>
+</div>

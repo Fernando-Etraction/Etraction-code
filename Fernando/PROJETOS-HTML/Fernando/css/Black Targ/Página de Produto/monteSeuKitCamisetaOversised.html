@@ -1,0 +1,3252 @@
+<!--
+  BLACK TARG | KIT OVERSIZED — CATÁLOGO DINÂMICO
+
+  Oferta:
+  2 camisetas: R$ 109 cada
+  3 camisetas: R$ 99 cada
+  4 ou mais camisetas: R$ 87 cada + frete grátis
+
+  IMPORTANTE:
+  A lista é lida automaticamente da categoria /camisetas-oversized e não possui
+  trava por URL de produto nem limite máximo de peças. O código envia os SKUs
+  escolhidos ao carrinho Magazord. A promoção progressiva e o frete grátis
+  precisam estar configurados no painel para os mesmos SKUs. As escolhas ficam
+  salvas no navegador por 24 horas para continuar entre páginas de produto.
+-->
+
+<style id="etraction-bt-kit-style">
+    .etraction-bt-kit,
+    .etraction-bt-kit * {
+        box-sizing: border-box;
+    }
+
+    .etraction-bt-kit {
+        width: 100%;
+        margin: 14px 0 12px;
+        color: #111;
+        font-family: inherit;
+    }
+
+    .etraction-bt-kit-trigger {
+        width: 100%;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        color: #111;
+        background: #f7f7f7;
+        border: 1px solid #d9d9d9;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: left;
+        transition: border-color .2s ease, background-color .2s ease;
+    }
+
+    .etraction-bt-kit-trigger:hover,
+    .etraction-bt-kit-trigger:focus-visible {
+        background: #fff;
+        border-color: #111;
+        outline: none;
+    }
+
+    .etraction-bt-kit-trigger__content {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .etraction-bt-kit-trigger__eyebrow {
+        display: block;
+        margin-bottom: 3px;
+        color: #666;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        line-height: 1.2;
+        text-transform: uppercase;
+    }
+
+    .etraction-bt-kit-trigger__title {
+        display: block;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 1.25;
+    }
+
+    .etraction-bt-kit-trigger__tiers {
+        margin-top: 9px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .etraction-bt-kit-trigger__tier {
+        min-height: 27px;
+        padding: 5px 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #2f2f2f;
+        background: #fff;
+        border: 1px solid #dedede;
+        border-radius: 4px;
+        font-size: 10px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .etraction-bt-kit-trigger__tier strong {
+        color: #111;
+        font-size: 11px;
+        font-weight: 850;
+    }
+
+    .etraction-bt-kit-trigger__action {
+        min-height: 38px;
+        padding: 10px 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        color: #fff;
+        background: #111;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 800;
+        line-height: 1;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .etraction-bt-kit-inline-error {
+        display: none;
+        margin: 7px 2px 0;
+        color: #b42318;
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    .etraction-bt-kit-inline-error.is-visible {
+        display: block;
+    }
+
+    .etraction-bt-kit-modal[hidden] {
+        display: none !important;
+    }
+
+    .etraction-bt-kit-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .etraction-bt-kit-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, .64);
+    }
+
+    .etraction-bt-kit-modal__panel {
+        position: relative;
+        width: min(680px, 100%);
+        height: 100%;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: -8px 0 30px rgba(0, 0, 0, .18);
+        animation: etractionBtKitIn .25s ease-out;
+    }
+
+    @keyframes etractionBtKitIn {
+        from {
+            opacity: .7;
+            transform: translateX(35px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .etraction-bt-kit-modal__header {
+        padding: 20px 56px 16px 20px;
+        border-bottom: 1px solid #e7e7e7;
+    }
+
+    .etraction-bt-kit-modal__title {
+        margin: 0;
+        color: #111;
+        font-size: 21px;
+        font-weight: 850;
+        line-height: 1.2;
+    }
+
+    .etraction-bt-kit-modal__subtitle {
+        margin: 5px 0 0;
+        color: #666;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .etraction-bt-kit-modal__close {
+        position: absolute;
+        z-index: 3;
+        top: 13px;
+        right: 13px;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        color: #111;
+        background: #f3f3f3;
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 25px;
+        line-height: 1;
+    }
+
+    .etraction-bt-kit-modal__close:hover,
+    .etraction-bt-kit-modal__close:focus-visible {
+        background: #e8e8e8;
+        outline: 2px solid #111;
+        outline-offset: 1px;
+    }
+
+    .etraction-bt-kit-progress {
+        padding: 14px 20px;
+        color: #fff;
+        background: #111;
+    }
+
+    .etraction-bt-kit-progress__top {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        font-size: 12px;
+    }
+
+    .etraction-bt-kit-progress__top strong {
+        font-size: 13px;
+    }
+
+    .etraction-bt-kit-progress__track {
+        height: 5px;
+        margin-top: 9px;
+        overflow: hidden;
+        background: #3e3e3e;
+        border-radius: 99px;
+    }
+
+    .etraction-bt-kit-progress__bar {
+        width: 25%;
+        height: 100%;
+        background: #fff;
+        border-radius: inherit;
+        transition: width .25s ease;
+    }
+
+    .etraction-bt-kit-progress__message {
+        min-height: 15px;
+        display: block;
+        margin-top: 7px;
+        color: #ddd;
+        font-size: 11px;
+        line-height: 1.35;
+    }
+
+    .etraction-bt-kit-selected {
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        background: #fafafa;
+        border-bottom: 1px solid #e7e7e7;
+        font-size: 12px;
+    }
+
+    .etraction-bt-kit-selected strong {
+        display: block;
+        font-size: 13px;
+        line-height: 1.3;
+    }
+
+    .etraction-bt-kit-selected__badge {
+        padding: 5px 8px;
+        flex: none;
+        color: #315e25;
+        background: #e9f6e4;
+        border-radius: 99px;
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+    .etraction-bt-kit-filters {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 10px 20px !important;
+        flex: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        overflow: hidden !important;
+        background: #fff !important;
+        border-bottom: 1px solid #e7e7e7 !important;
+    }
+
+    .etraction-bt-kit-filters__label {
+        flex: none !important;
+        color: #555 !important;
+        font-size: 11px !important;
+        font-weight: 750 !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+    }
+
+    .etraction-bt-kit-filters__options {
+        min-width: 0 !important;
+        padding: 1px !important;
+        flex: 1 1 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 5px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        scrollbar-width: thin;
+    }
+
+    .etraction-bt-kit-filter {
+        position: relative !important;
+        inset: auto !important;
+        min-width: 34px !important;
+        width: auto !important;
+        height: 32px !important;
+        min-height: 32px !important;
+        margin: 0 !important;
+        padding: 0 9px !important;
+        flex: 0 0 auto !important;
+        display: inline-grid !important;
+        place-items: center !important;
+        color: #222 !important;
+        background: #fff !important;
+        border: 1px solid #d4d4d4 !important;
+        border-radius: 99px !important;
+        cursor: pointer !important;
+        font-family: inherit !important;
+        font-size: 11px !important;
+        font-weight: 750 !important;
+        line-height: 1 !important;
+        white-space: nowrap !important;
+    }
+
+    .etraction-bt-kit-filter:hover,
+    .etraction-bt-kit-filter:focus-visible,
+    .etraction-bt-kit-filter.is-active {
+        color: #fff !important;
+        background: #111 !important;
+        border-color: #111 !important;
+        outline: none !important;
+    }
+
+    .etraction-bt-kit-grid {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        padding: 18px 20px 20px !important;
+        display: flex !important;
+        flex-flow: row wrap !important;
+        align-content: flex-start !important;
+        align-items: flex-start !important;
+        gap: 14px !important;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+
+    .etraction-bt-kit-catalog-status {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        min-height: 190px;
+        padding: 28px 18px;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 12px;
+        color: #666;
+        background: #fafafa;
+        border: 1px dashed #d8d8d8;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    .etraction-bt-kit-catalog-status__spinner {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #ddd;
+        border-top-color: #111;
+        border-radius: 50%;
+        animation: etractionBtKitSpin .75s linear infinite;
+    }
+
+    @keyframes etractionBtKitSpin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .etraction-bt-kit-catalog-status__retry {
+        min-height: 36px;
+        padding: 9px 13px;
+        color: #fff;
+        background: #111;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font: 800 11px/1 inherit;
+        text-transform: uppercase;
+    }
+
+    .etraction-bt-kit-card {
+        position: relative !important;
+        inset: auto !important;
+        width: calc(50% - 7px) !important;
+        min-width: 0 !important;
+        max-width: calc(50% - 7px) !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        flex: 0 0 calc(50% - 7px) !important;
+        align-self: flex-start !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        transform: none !important;
+        background: #fff !important;
+        border: 1px solid #e2e2e2 !important;
+        border-radius: 8px !important;
+    }
+
+    .etraction-bt-kit-card.is-selected,
+    .etraction-bt-kit-card.is-current {
+        border-color: #111 !important;
+        box-shadow: 0 0 0 1px #111 !important;
+    }
+
+    .etraction-bt-kit-card.is-loading {
+        opacity: .72;
+    }
+
+    .etraction-bt-kit-card__image-wrap {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 0 125% !important;
+        flex: none !important;
+        display: block !important;
+        box-sizing: content-box !important;
+        aspect-ratio: auto !important;
+        overflow: hidden !important;
+        transform: none !important;
+        background: #f3f3f3 !important;
+        cursor: default !important;
+        text-decoration: none !important;
+        user-select: none !important;
+    }
+
+    .etraction-bt-kit-card__image {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        transform: none !important;
+        object-fit: contain !important;
+        object-position: center !important;
+    }
+
+    .etraction-bt-kit-card__check {
+        position: absolute;
+        top: 9px;
+        right: 9px;
+        width: 28px;
+        height: 28px;
+        display: none;
+        place-items: center;
+        color: #fff;
+        background: #111;
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .etraction-bt-kit-card.is-selected .etraction-bt-kit-card__check,
+    .etraction-bt-kit-card.is-current .etraction-bt-kit-card__check {
+        display: grid;
+    }
+
+    .etraction-bt-kit-card__current-label {
+        position: absolute;
+        z-index: 2;
+        top: 9px;
+        left: 9px;
+        padding: 6px 8px;
+        display: none;
+        color: #fff;
+        background: #111;
+        border-radius: 4px;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .04em;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .etraction-bt-kit-card.is-current .etraction-bt-kit-card__current-label {
+        display: inline-flex;
+    }
+
+    .etraction-bt-kit-card__body {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 174px !important;
+        margin: 0 !important;
+        padding: 11px !important;
+        flex: none !important;
+        display: block !important;
+        transform: none !important;
+        background: #fff !important;
+    }
+
+    .etraction-bt-kit-card__name {
+        position: static !important;
+        min-height: 34px !important;
+        margin: 0 0 5px !important;
+        padding: 0 !important;
+        display: block !important;
+        color: #111 !important;
+        font-size: 13px !important;
+        font-weight: 750 !important;
+        line-height: 1.3 !important;
+    }
+
+    .etraction-bt-kit-card__price {
+        position: static !important;
+        min-height: 16px !important;
+        display: block !important;
+        margin: 0 0 9px !important;
+        padding: 0 !important;
+        color: #666 !important;
+        font-size: 12px !important;
+        line-height: 1.3 !important;
+    }
+
+    .etraction-bt-kit-card__sizes {
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 30px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 5px !important;
+        transform: none !important;
+    }
+
+    .etraction-bt-kit-size {
+        position: relative !important;
+        inset: auto !important;
+        z-index: 2 !important;
+        min-width: 31px !important;
+        width: auto !important;
+        max-width: none !important;
+        height: 30px !important;
+        min-height: 30px !important;
+        margin: 0 !important;
+        padding: 0 6px !important;
+        flex: 0 0 auto !important;
+        display: inline-grid !important;
+        place-items: center !important;
+        transform: none !important;
+        color: #222 !important;
+        background: #fff !important;
+        border: 1px solid #d7d7d7 !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        font-family: inherit !important;
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        line-height: 1 !important;
+        pointer-events: auto !important;
+        touch-action: manipulation;
+    }
+
+    .etraction-bt-kit-size:hover,
+    .etraction-bt-kit-size:focus-visible,
+    .etraction-bt-kit-size.is-selected {
+        color: #fff !important;
+        background: #111 !important;
+        border-color: #111 !important;
+        outline: none !important;
+    }
+
+    .etraction-bt-kit-size.is-unavailable,
+    .etraction-bt-kit-size:disabled {
+        position: relative;
+        color: #aaa !important;
+        background: #f5f5f5 !important;
+        border-color: #e5e5e5 !important;
+        cursor: not-allowed !important;
+        overflow: hidden;
+    }
+
+    .etraction-bt-kit-size.is-unavailable::after,
+    .etraction-bt-kit-size:disabled::after {
+        content: "";
+        position: absolute;
+        width: 130%;
+        height: 1px;
+        background: #aaa;
+        transform: rotate(-35deg);
+    }
+
+    .etraction-bt-kit-card__actions {
+        width: 100% !important;
+        margin-top: 10px !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .etraction-bt-kit-card__view,
+    .etraction-bt-kit-card__add {
+        min-width: 0 !important;
+        min-height: 38px !important;
+        padding: 8px 7px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        font-family: inherit !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        line-height: 1.15 !important;
+        text-align: center !important;
+        text-decoration: none !important;
+        text-transform: uppercase !important;
+    }
+
+    .etraction-bt-kit-card__view {
+        color: #111 !important;
+        background: #fff !important;
+        border: 1px solid #111 !important;
+    }
+
+    .etraction-bt-kit-card__view:hover,
+    .etraction-bt-kit-card__view:focus-visible {
+        color: #fff !important;
+        background: #111 !important;
+        outline: none !important;
+    }
+
+    .etraction-bt-kit-card__add {
+        color: #fff !important;
+        background: #5e9941 !important;
+        border: 1px solid #5e9941 !important;
+    }
+
+    .etraction-bt-kit-card__add:hover:not(:disabled),
+    .etraction-bt-kit-card__add:focus-visible:not(:disabled) {
+        background: #4f8437 !important;
+        border-color: #4f8437 !important;
+        outline: none !important;
+    }
+
+    .etraction-bt-kit-card__add:disabled {
+        color: #999 !important;
+        background: #e7e7e7 !important;
+        border-color: #e7e7e7 !important;
+        cursor: not-allowed !important;
+    }
+
+    .etraction-bt-kit-footer {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        padding: 13px 20px 16px;
+        flex: 0 0 auto;
+        background: rgba(255, 255, 255, .98);
+        border-top: 1px solid #ddd;
+        box-shadow: 0 -5px 16px rgba(0, 0, 0, .06);
+    }
+
+    .etraction-bt-kit-footer__summary {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .etraction-bt-kit-footer__summary span {
+        display: block;
+        color: #666;
+        font-size: 11px;
+    }
+
+    .etraction-bt-kit-footer__summary strong {
+        display: block;
+        margin-top: 2px;
+        color: #111;
+        font-size: 17px;
+    }
+
+    .etraction-bt-kit-footer__benefit {
+        max-width: 48%;
+        color: #39762b !important;
+        font-weight: 750;
+        line-height: 1.3;
+        text-align: right;
+    }
+
+    .etraction-bt-kit-footer__button {
+        width: 100%;
+        min-height: 49px;
+        padding: 12px 16px;
+        color: #fff;
+        background: #5e9941;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        font: 800 13px/1.2 inherit;
+        text-transform: uppercase;
+    }
+
+    .etraction-bt-kit-footer__button:hover:not(:disabled),
+    .etraction-bt-kit-footer__button:focus-visible:not(:disabled) {
+        background: #4f8437;
+        outline: 2px solid #2f5e20;
+        outline-offset: 2px;
+    }
+
+    .etraction-bt-kit-footer__button:disabled {
+        color: #999;
+        background: #e6e6e6;
+        cursor: not-allowed;
+    }
+
+    body.etraction-bt-kit-lock {
+        overflow: hidden;
+    }
+
+    @media (max-width: 767px) {
+        .etraction-bt-kit-trigger {
+            padding: 13px;
+            align-items: stretch;
+            flex-direction: column;
+            gap: 11px;
+        }
+
+        .etraction-bt-kit-trigger__tiers {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .etraction-bt-kit-trigger__tier {
+            justify-content: center;
+        }
+
+        .etraction-bt-kit-trigger__tier:last-child {
+            grid-column: 1 / -1;
+        }
+
+        .etraction-bt-kit-trigger__action {
+            width: 100%;
+        }
+
+        .etraction-bt-kit-modal {
+            align-items: flex-end;
+            overscroll-behavior: contain;
+        }
+
+        .etraction-bt-kit-modal__panel {
+            width: 100% !important;
+            max-width: none !important;
+            height: 100vh;
+            height: 100dvh;
+            border-radius: 0;
+            animation-name: etractionBtKitUp;
+        }
+
+        @keyframes etractionBtKitUp {
+            from {
+                opacity: .7;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .etraction-bt-kit-modal__close {
+            top: 9px;
+            right: 10px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .etraction-bt-kit-modal__header {
+            padding: 13px 52px 11px 13px;
+            flex: none;
+        }
+
+        .etraction-bt-kit-modal__title {
+            font-size: 18px;
+            line-height: 1.15;
+        }
+
+        .etraction-bt-kit-modal__subtitle {
+            margin-top: 4px;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+
+        .etraction-bt-kit-progress {
+            padding: 10px 13px;
+            flex: none;
+        }
+
+        .etraction-bt-kit-progress__top,
+        .etraction-bt-kit-progress__top strong {
+            font-size: 11px;
+        }
+
+        .etraction-bt-kit-progress__track {
+            margin-top: 7px;
+        }
+
+        .etraction-bt-kit-progress__message {
+            min-height: 14px;
+            margin-top: 5px;
+            font-size: 10px;
+        }
+
+        .etraction-bt-kit-selected {
+            min-width: 0;
+            padding: 8px 13px;
+            flex: none;
+            font-size: 10px;
+        }
+
+        .etraction-bt-kit-selected>span:first-child {
+            min-width: 0;
+        }
+
+        .etraction-bt-kit-selected strong {
+            overflow: hidden;
+            font-size: 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .etraction-bt-kit-selected__badge {
+            padding: 4px 7px;
+            font-size: 10px;
+        }
+
+        .etraction-bt-kit-filters {
+            padding: 8px 10px !important;
+            gap: 7px !important;
+        }
+
+        .etraction-bt-kit-filters__label {
+            font-size: 10px !important;
+        }
+
+        .etraction-bt-kit-filters__options {
+            gap: 4px !important;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .etraction-bt-kit-filter {
+            min-width: 36px !important;
+            height: 34px !important;
+            min-height: 34px !important;
+            padding: 0 10px !important;
+        }
+
+        .etraction-bt-kit-grid {
+            padding: 10px !important;
+            flex-flow: column nowrap !important;
+            align-items: stretch !important;
+            gap: 10px !important;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        .etraction-bt-kit-card {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-height: 202px !important;
+            flex: 0 0 auto !important;
+            flex-direction: row !important;
+            align-items: stretch !important;
+        }
+
+        .etraction-bt-kit-card__image-wrap {
+            width: clamp(124px, 36vw, 180px) !important;
+            height: auto !important;
+            min-height: 156px !important;
+            padding: 0 !important;
+            flex: 0 0 clamp(124px, 36vw, 180px) !important;
+            align-self: stretch !important;
+            box-sizing: border-box !important;
+            aspect-ratio: 4 / 5 !important;
+        }
+
+        .etraction-bt-kit-card__body {
+            width: auto !important;
+            min-width: 0 !important;
+            min-height: 0 !important;
+            padding: 12px !important;
+            flex: 1 1 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+        }
+
+        .etraction-bt-kit-card__name {
+            min-height: 0 !important;
+            margin-bottom: 5px !important;
+            font-size: 13px !important;
+            line-height: 1.25 !important;
+        }
+
+        .etraction-bt-kit-card__price {
+            min-height: 0 !important;
+            margin-bottom: 9px !important;
+            font-size: 11px !important;
+        }
+
+        .etraction-bt-kit-card__sizes {
+            min-height: 36px !important;
+            gap: 5px !important;
+        }
+
+        .etraction-bt-kit-card__actions {
+            margin-top: 9px !important;
+        }
+
+        .etraction-bt-kit-card__view,
+        .etraction-bt-kit-card__add {
+            min-height: 40px !important;
+            font-size: 9px !important;
+        }
+
+        .etraction-bt-kit-size {
+            min-width: 36px !important;
+            height: 36px !important;
+            min-height: 36px !important;
+            padding: 0 7px !important;
+            font-size: 12px !important;
+            touch-action: manipulation;
+        }
+
+        .etraction-bt-kit-card__check {
+            top: 7px;
+            right: 7px;
+            width: 25px;
+            height: 25px;
+            font-size: 12px;
+        }
+
+        .etraction-bt-kit-card__current-label {
+            top: 7px;
+            left: 7px;
+            padding: 5px 6px;
+            font-size: 8px;
+        }
+
+        .etraction-bt-kit-footer {
+            padding: 9px 11px max(11px, env(safe-area-inset-bottom));
+        }
+
+        .etraction-bt-kit-footer__summary {
+            margin-bottom: 7px;
+            align-items: center;
+        }
+
+        .etraction-bt-kit-footer__summary strong {
+            font-size: 16px;
+        }
+
+        .etraction-bt-kit-footer__benefit {
+            max-width: 52%;
+            font-size: 10px !important;
+        }
+
+        .etraction-bt-kit-footer__button {
+            min-height: 46px;
+            padding: 10px 12px;
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 360px) {
+        .etraction-bt-kit-modal__title {
+            font-size: 17px;
+        }
+
+        .etraction-bt-kit-selected__badge {
+            display: none;
+        }
+
+        .etraction-bt-kit-card__image-wrap {
+            width: 116px !important;
+            flex-basis: 116px !important;
+        }
+
+        .etraction-bt-kit-card__body {
+            padding: 10px !important;
+        }
+
+        .etraction-bt-kit-card__name {
+            font-size: 12px !important;
+        }
+
+        .etraction-bt-kit-card__actions {
+            grid-template-columns: 1fr !important;
+        }
+
+        .etraction-bt-kit-size {
+            min-width: 34px !important;
+            height: 34px !important;
+            min-height: 34px !important;
+        }
+    }
+</style>
+
+<section class="etraction-bt-kit" id="etraction-bt-kit">
+    <button class="etraction-bt-kit-trigger" id="etraction-bt-kit-open" type="button" aria-haspopup="dialog"
+        aria-controls="etraction-bt-kit-modal" aria-expanded="false">
+        <span class="etraction-bt-kit-trigger__content">
+            <span class="etraction-bt-kit-trigger__eyebrow">Compre mais, pague menos</span>
+            <span class="etraction-bt-kit-trigger__title">Monte seu kit Oversized</span>
+            <span class="etraction-bt-kit-trigger__tiers" aria-label="Condições da oferta">
+                <span class="etraction-bt-kit-trigger__tier"><strong>2x</strong> R$109 cada</span>
+                <span class="etraction-bt-kit-trigger__tier"><strong>3x</strong> R$99 cada</span>
+                <span class="etraction-bt-kit-trigger__tier"><strong>4x+</strong> R$87 cada</span>
+            </span>
+        </span>
+        <span class="etraction-bt-kit-trigger__action">Escolher camisetas</span>
+    </button>
+    <span class="etraction-bt-kit-inline-error" id="etraction-bt-kit-inline-error" role="alert"></span>
+</section>
+
+<div class="etraction-bt-kit-modal" id="etraction-bt-kit-modal" role="dialog" aria-modal="true"
+    aria-labelledby="etraction-bt-kit-title" hidden>
+    <div class="etraction-bt-kit-modal__backdrop" data-etraction-bt-kit-close></div>
+    <div class="etraction-bt-kit-modal__panel" role="document">
+        <button class="etraction-bt-kit-modal__close" type="button" data-etraction-bt-kit-close
+            aria-label="Fechar modal">&times;</button>
+
+        <header class="etraction-bt-kit-modal__header">
+            <h2 class="etraction-bt-kit-modal__title" id="etraction-bt-kit-title">Monte seu kit Oversized</h2>
+            <p class="etraction-bt-kit-modal__subtitle">Clique em um tamanho para incluir cada camiseta no kit.</p>
+        </header>
+
+        <div class="etraction-bt-kit-progress" aria-live="polite">
+            <div class="etraction-bt-kit-progress__top">
+                <strong id="etraction-bt-kit-count">1 peça selecionada</strong>
+                <span id="etraction-bt-kit-tier">Adicione mais 1</span>
+            </div>
+            <div class="etraction-bt-kit-progress__track">
+                <div class="etraction-bt-kit-progress__bar" id="etraction-bt-kit-progress-bar"></div>
+            </div>
+            <span class="etraction-bt-kit-progress__message" id="etraction-bt-kit-message">
+                Adicione mais 1 camiseta e pague R$109 em cada
+            </span>
+        </div>
+
+        <div class="etraction-bt-kit-selected">
+            <span>
+                <strong id="etraction-bt-kit-current-name">Produto atual da página</strong>
+                <span id="etraction-bt-kit-current-size">Você pode escolher o tamanho depois</span>
+            </span>
+            <span class="etraction-bt-kit-selected__badge">Já incluída</span>
+        </div>
+
+        <div class="etraction-bt-kit-filters" aria-label="Filtrar camisetas por tamanho">
+            <span class="etraction-bt-kit-filters__label">Tamanho</span>
+            <div class="etraction-bt-kit-filters__options" id="etraction-bt-kit-filter-options"></div>
+        </div>
+
+        <div class="etraction-bt-kit-grid" id="etraction-bt-kit-grid"></div>
+
+        <footer class="etraction-bt-kit-footer">
+            <div class="etraction-bt-kit-footer__summary">
+                <div>
+                    <span id="etraction-bt-kit-summary-label">Seu kit: 1 camiseta</span>
+                    <strong id="etraction-bt-kit-total">R$ 149,57</strong>
+                </div>
+                <span class="etraction-bt-kit-footer__benefit" id="etraction-bt-kit-benefit">Escolha mais 1 peça</span>
+            </div>
+            <button class="etraction-bt-kit-footer__button" id="etraction-bt-kit-add" type="button" disabled>
+                Escolha mais 1 camiseta
+            </button>
+        </footer>
+    </div>
+</div>
+
+<script>
+    (function () {
+        'use strict';
+
+        var GLOBAL_KEY = '__ETRACTION_BLACKTARG_KIT_OVERSIZED__';
+        var SELECTION_STORAGE_KEY = '__ETRACTION_BLACKTARG_KIT_SELECTIONS_V1__';
+        var SELECTION_STORAGE_TTL = 24 * 60 * 60 * 1000;
+        var BASE_PRICE = 149.57;
+        var BEST_TIER_START = 4;
+        var SIZE_ORDER = ['PP', 'P', 'M', 'G', 'GG', 'XGG', 'G1', 'G2', 'G3', 'G4'];
+
+        if (window[GLOBAL_KEY] && typeof window[GLOBAL_KEY].destroy === 'function') {
+            window[GLOBAL_KEY].destroy();
+        }
+
+        var styleElement = document.getElementById('etraction-bt-kit-style');
+        var root = document.getElementById('etraction-bt-kit');
+        var modal = document.getElementById('etraction-bt-kit-modal');
+        if (!root || !modal) return;
+
+        /* Sem restrição por URL: compatível com construtores e URLs de preview. */
+        if (modal.parentNode !== document.body) {
+            document.body.appendChild(modal);
+        }
+
+        var STORE_HOST = /(^|\.)blacktarg\.com\.br$/i.test(window.location.hostname);
+        var CATEGORY_URL = STORE_HOST
+            ? new URL('/camisetas-oversized', window.location.href).href
+            : 'https://www.blacktarg.com.br/camisetas-oversized';
+
+        /*
+         * Snapshot de segurança para o preview do construtor. Em produção, a categoria
+         * acima atualiza nomes, imagens, disponibilidade e inclui novos produtos.
+         */
+        var FALLBACK_PRODUCTS = [
+            {
+                "id": "6853",
+                "parentCode": "00987",
+                "productId": "1719",
+                "name": "Camiseta Oversized Knife In The Skull",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/08/produto/9765/gfergv.png?ims=800x1200",
+                "url": "/camiseta-oversized-knife-in-the-skull",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "6864",
+                        "code": "7900103022967",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "6865",
+                        "code": "7900103022974",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "6866",
+                        "code": "7900103022998",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "6867",
+                        "code": "7900103022981",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G1",
+                        "derivationId": "8119",
+                        "code": "7900103035530",
+                        "inStock": false
+                    },
+                    {
+                        "name": "G2",
+                        "derivationId": "8118",
+                        "code": "7900103035547",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "5213",
+                "parentCode": "00008A",
+                "productId": "1197",
+                "name": "Camiseta Oversized Black Cotton",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/08/produto/9763/jhbvecfd.png?ims=800x1200",
+                "url": "/camiseta-oversized-black-cotton-00008a",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "5214",
+                        "code": "7900103029775",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "5215",
+                        "code": "7900103029782",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "5216",
+                        "code": "7900103029805",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "5217",
+                        "code": "7900103029799",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "7291",
+                "parentCode": "02003",
+                "productId": "1820",
+                "name": "Camiseta Oversized Lion Of Judah",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/08/produto/9767/ewrfgv.png?ims=800x1200",
+                "url": "/camiseta-oversized-lion-of-judah",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "7292",
+                        "code": "7900103021946",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "7293",
+                        "code": "7900103021953",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "7294",
+                        "code": "7900103021977",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "7295",
+                        "code": "7900103021960",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10677",
+                "parentCode": "WY0083",
+                "productId": "2467",
+                "name": "Camiseta Oversized Holy Land",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9695/holy-landd.png?ims=800x1200",
+                "url": "/camiseta-oversized-holy-land",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10678",
+                        "code": "7900103050656",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10679",
+                        "code": "7900103050663",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10680",
+                        "code": "7900103050670",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10681",
+                        "code": "7900103050687",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10722",
+                "parentCode": "WY0100",
+                "productId": "2479",
+                "name": "Camiseta Oversized Discreet",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/08/produto/9738/uhbwc.png?ims=800x1200",
+                "url": "/camiseta-oversized-discreet",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10723",
+                        "code": "77350002315",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10724",
+                        "code": "77350003258",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10725",
+                        "code": "77350003897",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10726",
+                        "code": "77350008321",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10667",
+                "parentCode": "WY0081",
+                "productId": "2465",
+                "name": "Camiseta Oversized David´s Faith",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9685/david-s-faith.png?ims=800x1200",
+                "url": "/camiseta-oversized-david-s-faith",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10668",
+                        "code": "7900103050519",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10669",
+                        "code": "7900103050526",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10670",
+                        "code": "7900103050533",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10671",
+                        "code": "7900103050540",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10547",
+                "parentCode": "WY0085",
+                "productId": "2434",
+                "name": "Camiseta Oversized Magic Rabbit",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9691/magic-rabbitt.png?ims=800x1200",
+                "url": "/camiseta-oversized-magic-rabbit",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10548",
+                        "code": "7900103050793",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10550",
+                        "code": "7900103050809",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10549",
+                        "code": "7900103050816",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10551",
+                        "code": "7900103050823",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10525",
+                "parentCode": "WY0079",
+                "productId": "2428",
+                "name": "Camiseta Oversized Banana Monkeys",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9673/banana-monkeyss.png?ims=800x1200",
+                "url": "/camiseta-oversized-banana-monkeys",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10526",
+                        "code": "7900103050373",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10527",
+                        "code": "7900103050380",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10528",
+                        "code": "7900103050397",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10529",
+                        "code": "7900103050403",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10093",
+                "parentCode": "04465",
+                "productId": "2337",
+                "name": "Camiseta Oversized Unshakeable Rock",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/01/produto/9228/unshakeable-rock-0000-camada-1.png?ims=800x1200",
+                "url": "/camiseta-oversized-unshakeable-rock",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10094",
+                        "code": "7900103048585",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10095",
+                        "code": "7900103048592",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10096",
+                        "code": "7900103048608",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10097",
+                        "code": "7900103048615",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G1",
+                        "derivationId": "10134",
+                        "code": "7900103048929",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G2",
+                        "derivationId": "10133",
+                        "code": "7900103048936",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10708",
+                "parentCode": "WY0102",
+                "productId": "2475",
+                "name": "Camiseta Oversized Blue Discreet",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/08/produto/9740/jnflc.png?ims=800x1200",
+                "url": "/camiseta-oversized-blue-discreet-wy0102",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10709",
+                        "code": "70000532253",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10710",
+                        "code": "70000532874",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10711",
+                        "code": "70000532386",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10712",
+                        "code": "70000532417",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10657",
+                "parentCode": "WY0088",
+                "productId": "2463",
+                "name": "Camiseta Oversized Whitout Evil",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9701/whitout-evill.png?ims=800x1200",
+                "url": "/camiseta-oversized-whitout-evil",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10658",
+                        "code": "7900103051073",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10659",
+                        "code": "7900103051080",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10660",
+                        "code": "7900103051097",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10661",
+                        "code": "7900103051103",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10647",
+                "parentCode": "WY0077",
+                "productId": "2461",
+                "name": "Camiseta Oversized Resounding Victories",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9679/resoundingg.png?ims=800x1200",
+                "url": "/camiseta-oversized-resounding-victories",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10648",
+                        "code": "7900103051288",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10649",
+                        "code": "7900103051295",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10650",
+                        "code": "7900103051301",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10651",
+                        "code": "7900103051318",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10631",
+                "parentCode": "WY0076",
+                "productId": "2459",
+                "name": "Camiseta Oversized Master The Chaos",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9681/master-the-chaoss.png?ims=800x1200",
+                "url": "/camiseta-oversized-master-the-chaos-wy0076",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10638",
+                        "code": "7900103050861",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10639",
+                        "code": "7900103050878",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10640",
+                        "code": "7900103050885",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10641",
+                        "code": "7900103050892",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10621",
+                "parentCode": "WY0084",
+                "productId": "2457",
+                "name": "Camiseta Oversized Live Embers",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9693/live-emberss.png?ims=800x1200",
+                "url": "/camiseta-oversized-live-embers",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10622",
+                        "code": "7900103050724",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10623",
+                        "code": "7900103050731",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10624",
+                        "code": "7900103050748",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10625",
+                        "code": "7900103050755",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10601",
+                "parentCode": "WY0080",
+                "productId": "2453",
+                "name": "Camiseta Oversized Be Prosperous",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9687/be-prosperouss.png?ims=800x1200",
+                "url": "/camiseta-oversized-be-prosperous",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10602",
+                        "code": "7900103050441",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10603",
+                        "code": "7900103050458",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10604",
+                        "code": "7900103050465",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10605",
+                        "code": "7900103050472",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10574",
+                "parentCode": "WY0078",
+                "productId": "2441",
+                "name": "Camiseta Oversized Alive Troop",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9675/alive-troop.png?ims=800x1200",
+                "url": "/camiseta-oversized-alive-troop",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10575",
+                        "code": "7900103050304",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10576",
+                        "code": "7900103050311",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10577",
+                        "code": "7900103050328",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10578",
+                        "code": "7900103050335",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10514",
+                "parentCode": "WY0082",
+                "productId": "2425",
+                "name": "Camiseta Oversized Foot Wast",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9683/foot-wastt.png?ims=800x1200",
+                "url": "/camiseta-oversized-foot-wast",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10515",
+                        "code": "7900103050588",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10516",
+                        "code": "7900103050595",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10517",
+                        "code": "7900103050601",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10518",
+                        "code": "7900103050618",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10503",
+                "parentCode": "WY0086",
+                "productId": "2422",
+                "name": "Camiseta Oversized Peace And Balance",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9689/peace-and-balancee.png?ims=800x1200",
+                "url": "/camiseta-oversized-peace-and-balance",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10504",
+                        "code": "7900103050939",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10505",
+                        "code": "7900103050946",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10506",
+                        "code": "7900103050953",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10507",
+                        "code": "7900103050960",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10584",
+                "parentCode": "WY0093",
+                "productId": "2443",
+                "name": "Camiseta Oversized Blue Flames",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9705/blue-flamess.png?ims=800x1200",
+                "url": "/camiseta-oversized-blue-flames",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10590",
+                        "code": "7900103051431",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10591",
+                        "code": "7900103051448",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10592",
+                        "code": "7900103051455",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10593",
+                        "code": "7900103051462",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10482",
+                "parentCode": "WY0075",
+                "productId": "2415",
+                "name": "Camiseta Oversized Alien",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9677/alienn.png?ims=800x1200",
+                "url": "/camiseta-oversized-alien-wy0075",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10484",
+                        "code": "7900103050236",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10485",
+                        "code": "7900103050243",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10486",
+                        "code": "7900103050250",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10487",
+                        "code": "7900103050267",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10567",
+                "parentCode": "WY0092",
+                "productId": "2439",
+                "name": "Camiseta Oversized Green Alive Troop",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/07/produto/9707/green-alive-troop.png?ims=800x1200",
+                "url": "/camiseta-oversized-green-alive-troop",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10568",
+                        "code": "7900103051394",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10569",
+                        "code": "7900103051400",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10570",
+                        "code": "7900103051417",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10571",
+                        "code": "7900103051424",
+                        "inStock": true
+                    }
+                ]
+            },
+            {
+                "id": "10715",
+                "parentCode": "WY0101",
+                "productId": "2477",
+                "name": "Camiseta Oversized Green Discreet",
+                "image": "https://blacktarg.cdn.magazord.com.br/img/2026/08/produto/9739/iwhcf.png?ims=800x1200",
+                "url": "/camiseta-oversized-green-discreet",
+                "deposit": "1",
+                "sizes": [
+                    {
+                        "name": "P",
+                        "derivationId": "10716",
+                        "code": "77800035026",
+                        "inStock": true
+                    },
+                    {
+                        "name": "M",
+                        "derivationId": "10717",
+                        "code": "77800035221",
+                        "inStock": true
+                    },
+                    {
+                        "name": "G",
+                        "derivationId": "10718",
+                        "code": "77800035330",
+                        "inStock": true
+                    },
+                    {
+                        "name": "GG",
+                        "derivationId": "10719",
+                        "code": "77800035693",
+                        "inStock": true
+                    }
+                ]
+            }
+        ];
+
+        var state = {
+            selected: loadStoredSelections(),
+            products: initialProducts(),
+            sizeFilter: '',
+            adding: false,
+            mounted: false,
+            previewMode: false,
+            catalogLoading: false,
+            catalogLoaded: false,
+            catalogError: '',
+            catalogPromise: null,
+            currentPageData: null,
+            currentPageDataRead: false,
+            currentParentCode: ''
+        };
+        var grid = document.getElementById('etraction-bt-kit-grid');
+        var filterOptions = document.getElementById('etraction-bt-kit-filter-options');
+        var openButton = document.getElementById('etraction-bt-kit-open');
+        var addButton = document.getElementById('etraction-bt-kit-add');
+        var inlineError = document.getElementById('etraction-bt-kit-inline-error');
+        var observer = null;
+        var mountTimer = null;
+        var feedbackTimer = null;
+        var addingTimer = null;
+        var mountScheduled = false;
+        var lastFocused = null;
+        var destroyed = false;
+        var skipSelectionPersistence = false;
+        var requestControllers = [];
+
+        function money(value) {
+            return Number(value).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function normalizeSize(value) {
+            return String(value || '').replace(/\s+/g, '').trim().toUpperCase();
+        }
+
+        function loadStoredSelections() {
+            var selections = new Map();
+            try {
+                var raw = window.localStorage.getItem(SELECTION_STORAGE_KEY);
+                if (!raw) return selections;
+
+                var stored = JSON.parse(raw);
+                var savedAt = Number(stored && stored.savedAt || 0);
+                var items = stored && Array.isArray(stored.items) ? stored.items : [];
+                if (!savedAt || Date.now() - savedAt > SELECTION_STORAGE_TTL) {
+                    window.localStorage.removeItem(SELECTION_STORAGE_KEY);
+                    return selections;
+                }
+
+                items.forEach(function (item) {
+                    var id = String(item && item.id || '').trim();
+                    var code = String(item && item.code || '').trim();
+                    var sizeName = normalizeSize(item && item.sizeName);
+                    if (!id || !code || !sizeName) return;
+
+                    selections.set(id, {
+                        productId: String(item.productId || id),
+                        parentCode: String(item.parentCode || ''),
+                        name: String(item.name || ''),
+                        image: String(item.image || ''),
+                        url: String(item.url || ''),
+                        code: code,
+                        derivationId: String(item.derivationId || ''),
+                        sizeName: sizeName,
+                        deposit: String(item.deposit || '1')
+                    });
+                });
+            } catch (error) {
+                try { window.localStorage.removeItem(SELECTION_STORAGE_KEY); } catch (storageError) { }
+            }
+            return selections;
+        }
+
+        function persistSelections() {
+            try {
+                if (!state.selected.size) {
+                    window.localStorage.removeItem(SELECTION_STORAGE_KEY);
+                    return;
+                }
+
+                var items = [];
+                state.selected.forEach(function (selection, id) {
+                    items.push({
+                        id: String(id),
+                        productId: String(selection.productId || id),
+                        parentCode: String(selection.parentCode || ''),
+                        name: String(selection.name || ''),
+                        image: String(selection.image || ''),
+                        url: String(selection.url || ''),
+                        code: String(selection.code || ''),
+                        derivationId: String(selection.derivationId || ''),
+                        sizeName: normalizeSize(selection.sizeName),
+                        deposit: String(selection.deposit || '1')
+                    });
+                });
+
+                window.localStorage.setItem(SELECTION_STORAGE_KEY, JSON.stringify({
+                    savedAt: Date.now(),
+                    items: items
+                }));
+            } catch (error) {
+                /* A seleção continua funcionando durante a página atual. */
+            }
+        }
+
+        function clearStoredSelections() {
+            try { window.localStorage.removeItem(SELECTION_STORAGE_KEY); } catch (error) { }
+        }
+
+        function handlePageHide() {
+            if (skipSelectionPersistence) return;
+            saveCurrentPageSelection();
+            persistSelections();
+        }
+
+        function hasStock(value) {
+            if (typeof value === 'boolean') return value;
+            if (typeof value === 'number') return value > 0;
+            var normalized = String(value == null ? '' : value).trim().toLowerCase();
+            if (!normalized) return false;
+            if (/^-?\d+(?:[.,]\d+)?$/.test(normalized)) {
+                return Number(normalized.replace(',', '.')) > 0;
+            }
+            return ['0', 'false', 'nao', 'não', 'indisponivel', 'indisponível', 'sem estoque']
+                .indexOf(normalized) === -1;
+        }
+
+        function normalizePath(value) {
+            try {
+                var path = new URL(value || '/', window.location.href).pathname;
+                return (path.replace(/\/+$/, '') || '/').toLowerCase();
+            } catch (error) {
+                return String(value || '/').split('?')[0].replace(/\/+$/, '').toLowerCase() || '/';
+            }
+        }
+
+        function absoluteProductUrl(value) {
+            try {
+                return new URL(value, CATEGORY_URL).href;
+            } catch (error) {
+                return String(value || CATEGORY_URL);
+            }
+        }
+
+        function extractJsonValue(source, openIndex) {
+            var open = source.charAt(openIndex);
+            var close = open === '[' ? ']' : '}';
+            var depth = 0;
+            var inString = false;
+            var escaped = false;
+
+            for (var i = openIndex; i < source.length; i++) {
+                var character = source.charAt(i);
+                if (inString) {
+                    if (escaped) {
+                        escaped = false;
+                    } else if (character === '\\') {
+                        escaped = true;
+                    } else if (character === '"') {
+                        inString = false;
+                    }
+                    continue;
+                }
+                if (character === '"') {
+                    inString = true;
+                } else if (character === open) {
+                    depth += 1;
+                } else if (character === close) {
+                    depth -= 1;
+                    if (depth === 0) return source.slice(openIndex, i + 1);
+                }
+            }
+            throw new Error('JSON incorporado incompleto.');
+        }
+
+        function parseCatalogHtml(html) {
+            var parsedDocument = new DOMParser().parseFromString(html, 'text/html');
+            var scripts = parsedDocument.querySelectorAll('script');
+            var largestList = [];
+
+            for (var i = 0; i < scripts.length; i++) {
+                var source = scripts[i].textContent || '';
+                if (source.indexOf('dataVitrine') === -1) continue;
+                var match = /\bitens\s*:\s*/.exec(source);
+                if (!match) continue;
+
+                try {
+                    var openIndex = source.indexOf('[', match.index + match[0].length);
+                    var items = JSON.parse(extractJsonValue(source, openIndex));
+                    if (Array.isArray(items) && items.length > largestList.length) largestList = items;
+                } catch (error) {
+                    /* Tenta a próxima vitrine incorporada. */
+                }
+            }
+            if (!largestList.length) throw new Error('Nenhum produto encontrado na categoria.');
+            return largestList;
+        }
+
+        function parseProductHtml(html) {
+            var markerIndex = html.indexOf('const dataProduct');
+            if (markerIndex === -1) markerIndex = html.indexOf('var dataProduct');
+            if (markerIndex === -1) throw new Error('Dados do produto não encontrados.');
+
+            var source = html.slice(markerIndex);
+            var match = /\bproduto\s*:\s*/.exec(source);
+            if (!match) throw new Error('Produto não encontrado nos dados da página.');
+            var openIndex = source.indexOf('{', match.index + match[0].length);
+            return JSON.parse(extractJsonValue(source, openIndex));
+        }
+
+        function catalogSizes(item) {
+            var groups = Array.isArray(item.derivacoesItem) ? item.derivacoesItem : [];
+            var sizes = [];
+            var used = {};
+
+            groups.forEach(function (group) {
+                (Array.isArray(group) ? group : []).forEach(function (size) {
+                    var name = String(size.derivacao || '').trim();
+                    var key = normalizeSize(name);
+                    if (!name || used[key]) return;
+                    used[key] = true;
+                    sizes.push({
+                        name: name,
+                        itemId: String(size.iteder_id || ''),
+                        derivationId: '',
+                        code: '',
+                        inStock: hasStock(size.estoque)
+                    });
+                });
+            });
+            return sizes;
+        }
+
+        function productFromCatalog(item, index) {
+            return {
+                id: String(item.derivacao_id || item.codigo || ('catalog-' + index)),
+                parentCode: String(item.codigo || ''),
+                name: String(item.nome || item.titulo || 'Camiseta Oversized'),
+                image: String(item.midia_url || ''),
+                url: String(item.link || ''),
+                deposit: String(item.deposito || '1'),
+                sizes: catalogSizes(item),
+                detailsLoaded: false,
+                detailsLoading: false,
+                detailsError: '',
+                detailsPromise: null
+            };
+        }
+
+        function cloneFallbackProduct(product) {
+            return {
+                id: product.id,
+                parentCode: product.parentCode,
+                productId: product.productId,
+                name: product.name,
+                image: product.image,
+                url: product.url,
+                deposit: product.deposit,
+                sizes: product.sizes.map(function (size) {
+                    return {
+                        name: size.name,
+                        derivationId: size.derivationId,
+                        code: size.code,
+                        inStock: size.inStock
+                    };
+                }),
+                detailsLoaded: true,
+                detailsLoading: false,
+                detailsError: '',
+                detailsPromise: null
+            };
+        }
+
+        function initialProducts() {
+            return FALLBACK_PRODUCTS.map(cloneFallbackProduct);
+        }
+
+        function mergeFallbackDetails(product) {
+            var fallback = FALLBACK_PRODUCTS.find(function (item) {
+                return item.parentCode === product.parentCode ||
+                    normalizePath(item.url) === normalizePath(product.url);
+            });
+            if (!fallback) return product;
+
+            product.productId = fallback.productId;
+            product.sizes = product.sizes.map(function (catalogSize) {
+                var savedSize = findSize(fallback, catalogSize.name);
+                return {
+                    name: catalogSize.name,
+                    derivationId: savedSize ? savedSize.derivationId : '',
+                    code: savedSize ? savedSize.code : '',
+                    inStock: catalogSize.inStock
+                };
+            });
+            product.detailsLoaded = product.sizes.every(function (size) {
+                return !size.inStock || Boolean(size.code);
+            });
+            return product;
+        }
+
+        function createRequestOptions() {
+            var options = { credentials: 'same-origin', cache: 'no-store' };
+            if (window.AbortController) {
+                var controller = new AbortController();
+                requestControllers.push(controller);
+                options.signal = controller.signal;
+            }
+            return options;
+        }
+
+        function loadCatalog(force) {
+            if (state.catalogLoaded && !force) return Promise.resolve(state.products);
+            if (state.catalogPromise && !force) return state.catalogPromise;
+
+            state.catalogLoading = true;
+            state.catalogError = '';
+            renderProducts();
+
+            state.catalogPromise = fetch(CATEGORY_URL, createRequestOptions())
+                .then(function (response) {
+                    if (!response.ok) throw new Error('Categoria indisponível: ' + response.status);
+                    return response.text();
+                })
+                .then(function (html) {
+                    var products = parseCatalogHtml(html)
+                        .map(productFromCatalog)
+                        .map(mergeFallbackDetails)
+                        .filter(function (product) {
+                            return Boolean(product.url);
+                        });
+
+                    if (!products.length) throw new Error('A categoria não retornou camisetas.');
+                    state.products = products;
+                    state.catalogLoaded = true;
+
+                    var validProducts = {};
+                    products.forEach(function (product) { validProducts[product.id] = product; });
+                    var selectionChanged = false;
+                    var remappedSelections = [];
+                    state.selected.forEach(function (selection, productId) {
+                        var product = validProducts[productId] || products.find(function (candidate) {
+                            return Boolean(
+                                selection.parentCode && candidate.parentCode === selection.parentCode ||
+                                selection.url && normalizePath(candidate.url) === normalizePath(selection.url)
+                            );
+                        });
+                        if (product && !productHasSize(product, selection.sizeName)) {
+                            state.selected.delete(productId);
+                            selectionChanged = true;
+                            return;
+                        }
+                        if (product && product.id !== productId) {
+                            remappedSelections.push({
+                                oldId: productId,
+                                newId: product.id,
+                                selection: Object.assign({}, selection, {
+                                    productId: product.productId || selection.productId,
+                                    parentCode: product.parentCode || selection.parentCode,
+                                    name: product.name || selection.name,
+                                    image: product.image || selection.image,
+                                    url: product.url || selection.url,
+                                    deposit: product.deposit || selection.deposit
+                                })
+                            });
+                        }
+                    });
+                    remappedSelections.forEach(function (item) {
+                        state.selected.delete(item.oldId);
+                        state.selected.set(item.newId, item.selection);
+                        selectionChanged = true;
+                    });
+                    if (selectionChanged) persistSelections();
+                    return products;
+                })
+                .catch(function (error) {
+                    if (error && error.name === 'AbortError') return [];
+                    state.catalogError = 'Não foi possível carregar as camisetas da categoria.';
+                    state.catalogPromise = null;
+                    console.error('[eTraction] Erro ao carregar catálogo Oversized:', error);
+                    return [];
+                })
+                .then(function (products) {
+                    state.catalogLoading = false;
+                    if (!destroyed) {
+                        renderProducts();
+                        updateUI();
+                    }
+                    return products;
+                });
+
+            return state.catalogPromise;
+        }
+
+        function sizesFromProductData(productData) {
+            var derivations = Array.isArray(productData.derivacoes) ? productData.derivacoes : [];
+            return derivations.map(function (size) {
+                return {
+                    name: String(size.derivacao_nome || size.iteder_nome || ''),
+                    derivationId: String(size.derivacao_id || ''),
+                    code: String(size.codigo || ''),
+                    inStock: Number(size.qtde_estoque || 0) > 0
+                };
+            }).filter(function (size) { return size.name && size.code; });
+        }
+
+        function loadProductDetails(product) {
+            if (product.detailsLoaded) return Promise.resolve(product);
+            if (product.detailsPromise) return product.detailsPromise;
+
+            product.detailsLoading = true;
+            product.detailsError = '';
+            renderProducts();
+            updateUI();
+
+            product.detailsPromise = fetch(new URL(product.url, CATEGORY_URL).href, createRequestOptions())
+                .then(function (response) {
+                    if (!response.ok) throw new Error('Produto indisponível: ' + response.status);
+                    return response.text();
+                })
+                .then(parseProductHtml)
+                .then(function (productData) {
+                    var sizes = sizesFromProductData(productData);
+                    if (!sizes.length) throw new Error('Nenhum SKU de tamanho foi encontrado.');
+                    product.sizes = sizes;
+                    product.productId = String(productData.produto_id || product.id);
+                    product.parentCode = String(productData.codigo || product.parentCode);
+                    product.deposit = String(productData.deposito || product.deposit || '1');
+                    product.detailsLoaded = true;
+                    return product;
+                })
+                .catch(function (error) {
+                    if (error && error.name === 'AbortError') throw error;
+                    product.detailsError = 'Não foi possível validar os tamanhos. Toque novamente.';
+                    console.error('[eTraction] Erro ao carregar produto Oversized:', error);
+                    throw error;
+                })
+                .then(function (result) {
+                    product.detailsLoading = false;
+                    product.detailsPromise = null;
+                    if (!destroyed) {
+                        renderProducts();
+                        updateUI();
+                    }
+                    return result;
+                }, function (error) {
+                    product.detailsLoading = false;
+                    product.detailsPromise = null;
+                    if (!destroyed) {
+                        renderProducts();
+                        updateUI();
+                    }
+                    throw error;
+                });
+
+            return product.detailsPromise;
+        }
+
+        function readCurrentPageData() {
+            if (state.currentPageDataRead && state.currentPageData) return state.currentPageData;
+            var scripts = document.querySelectorAll('script');
+            for (var i = 0; i < scripts.length; i++) {
+                var source = scripts[i].textContent || '';
+                if (source.indexOf('dataProduct') === -1) continue;
+                try {
+                    state.currentPageData = parseProductHtml(source);
+                    break;
+                } catch (error) {
+                    /* Continua procurando o bloco principal do produto. */
+                }
+            }
+            state.currentPageDataRead = true;
+            return state.currentPageData;
+        }
+
+        function findSize(product, sizeName) {
+            var normalized = normalizeSize(sizeName);
+            var sizes = product && Array.isArray(product.sizes) ? product.sizes : [];
+            for (var i = 0; i < sizes.length; i++) {
+                if (normalizeSize(sizes[i].name) === normalized) return sizes[i];
+            }
+            return null;
+        }
+
+        function tierFor(count) {
+            if (count >= BEST_TIER_START) {
+                return {
+                    each: 87,
+                    label: 'R$87 cada',
+                    message: 'Melhor oferta desbloqueada: R$87 cada + frete grátis',
+                    benefit: 'R$87 por camiseta + frete grátis'
+                };
+            }
+            if (count === 3) {
+                return {
+                    each: 99,
+                    label: 'R$99 cada',
+                    message: 'Adicione mais 1 e pague R$87 cada + frete grátis',
+                    benefit: 'R$99 por camiseta'
+                };
+            }
+            if (count === 2) {
+                return {
+                    each: 109,
+                    label: 'R$109 cada',
+                    message: 'Adicione mais 1 e reduza para R$99 cada',
+                    benefit: 'R$109 por camiseta'
+                };
+            }
+            return {
+                each: BASE_PRICE,
+                label: 'Adicione mais 1',
+                message: 'Adicione mais 1 camiseta e pague R$109 em cada',
+                benefit: 'Escolha mais 1 peça'
+            };
+        }
+
+        function currentProduct() {
+            var selectedSize = document.querySelector(
+                '#pagina-produto-react-app .variacao-lista [data-derivacao-item-name].selected, ' +
+                '#pagina-produto-react-app .variacao-lista [data-derivacao-item-name][aria-selected="true"], ' +
+                '#pagina-produto-react-app .variacao-lista [data-derivacao-item-name][data-state="checked"]'
+            );
+            var hiddenSize = document.getElementById('prod-nome-derivacao');
+            var sizeName = selectedSize && selectedSize.dataset
+                ? selectedSize.dataset.derivacaoItemName
+                : '';
+
+            if (!sizeName && hiddenSize) sizeName = hiddenSize.value;
+            if (!sizeName && selectedSize) {
+                var label = selectedSize.querySelector('.variacao-label');
+                sizeName = label ? label.textContent : selectedSize.textContent;
+            }
+
+            sizeName = normalizeSize(sizeName);
+            var hiddenCode = document.getElementById('prod-codigo');
+            var hiddenName = document.getElementById('prod-nome');
+            var hiddenDeposit = document.getElementById('prod-deposito');
+            var pageData = readCurrentPageData();
+            var pageSizes = pageData ? sizesFromProductData(pageData) : [];
+            var size = findSize({ sizes: pageSizes }, sizeName);
+            var parentCode = pageData
+                ? String(pageData.codigo || '')
+                : String(hiddenCode && hiddenCode.value || '');
+            var code = size ? size.code : String(hiddenCode && hiddenCode.value || '').trim();
+            var hasContext = Boolean(hiddenCode || hiddenName || pageData);
+
+            if (code === parentCode && !size) code = '';
+            state.currentParentCode = parentCode;
+
+            return {
+                id: String(pageData && pageData.produto_id || parentCode || 'produto-atual'),
+                parentCode: parentCode,
+                url: window.location.href,
+                name: String(
+                    hiddenName && hiddenName.value ||
+                    pageData && (pageData.nome || pageData.titulo) ||
+                    'Produto atual da página'
+                ),
+                sizeName: sizeName,
+                derivationId: size ? size.derivationId : '',
+                code: code,
+                deposit: String(
+                    size && size.deposit ||
+                    hiddenDeposit && hiddenDeposit.value ||
+                    pageData && pageData.deposito ||
+                    '1'
+                ),
+                hasContext: hasContext,
+                valid: Boolean(sizeName && code && (!size || size.inStock))
+            };
+        }
+
+        function isCurrentCatalogProduct(product) {
+            if (!product) return false;
+            if (
+                state.currentParentCode &&
+                product.parentCode &&
+                String(product.parentCode) === String(state.currentParentCode)
+            ) {
+                return true;
+            }
+            return normalizePath(product.url) === normalizePath(window.location.href);
+        }
+
+        function isCurrentStoredSelection(selection) {
+            if (!selection) return false;
+            if (
+                state.currentParentCode &&
+                selection.parentCode &&
+                String(selection.parentCode) === String(state.currentParentCode)
+            ) {
+                return true;
+            }
+            return Boolean(
+                selection.url &&
+                normalizePath(selection.url) === normalizePath(window.location.href)
+            );
+        }
+
+        function storedCurrentSelection() {
+            var result = null;
+            state.selected.forEach(function (selection, productId) {
+                if (!result && isCurrentStoredSelection(selection)) {
+                    result = { productId: productId, selection: selection };
+                }
+            });
+            return result;
+        }
+
+        function removeStoredCurrentSelection() {
+            var removed = false;
+            state.selected.forEach(function (selection, productId) {
+                if (isCurrentStoredSelection(selection)) {
+                    state.selected.delete(productId);
+                    removed = true;
+                }
+            });
+            if (removed) persistSelections();
+            return removed;
+        }
+
+        function kitState() {
+            var current = currentProduct();
+            var storedCurrent = storedCurrentSelection();
+            var currentChoice = storedCurrent
+                ? storedCurrent.selection
+                : (current.valid ? current : null);
+            var additional = [];
+
+            state.selected.forEach(function (selection, productId) {
+                if (storedCurrent && productId === storedCurrent.productId) return;
+                if (isCurrentStoredSelection(selection)) return;
+                additional.push(selection);
+            });
+
+            return {
+                current: current,
+                currentChoice: currentChoice,
+                storedCurrent: storedCurrent,
+                additional: additional,
+                count: 1 + additional.length
+            };
+        }
+
+        function saveCurrentPageSelection() {
+            var current = currentProduct();
+            if (!current.valid) return false;
+
+            var catalogProduct = state.products.find(isCurrentCatalogProduct);
+            var productId = String(catalogProduct && catalogProduct.id || current.id);
+            state.selected.set(productId, {
+                productId: String(catalogProduct && catalogProduct.productId || current.id),
+                parentCode: String(catalogProduct && catalogProduct.parentCode || current.parentCode || ''),
+                name: String(catalogProduct && catalogProduct.name || current.name || ''),
+                image: String(catalogProduct && catalogProduct.image || ''),
+                url: String(catalogProduct && catalogProduct.url || current.url || ''),
+                code: String(current.code),
+                derivationId: String(current.derivationId || ''),
+                sizeName: normalizeSize(current.sizeName),
+                deposit: String(current.deposit || '1')
+            });
+            persistSelections();
+            return true;
+        }
+
+        function availableSizes(product) {
+            return (Array.isArray(product.sizes) ? product.sizes : []).filter(function (size) {
+                return Boolean(size && size.inStock && normalizeSize(size.name));
+            });
+        }
+
+        function productHasSize(product, sizeName) {
+            var requested = normalizeSize(sizeName);
+            return availableSizes(product).some(function (size) {
+                return normalizeSize(size.name) === requested;
+            });
+        }
+
+        function compareSizes(first, second) {
+            var firstName = normalizeSize(first);
+            var secondName = normalizeSize(second);
+            var firstIndex = SIZE_ORDER.indexOf(firstName);
+            var secondIndex = SIZE_ORDER.indexOf(secondName);
+            var firstRank = firstIndex === -1 ? SIZE_ORDER.length : firstIndex;
+            var secondRank = secondIndex === -1 ? SIZE_ORDER.length : secondIndex;
+            if (firstRank !== secondRank) return firstRank - secondRank;
+            return firstName.localeCompare(secondName, 'pt-BR', { numeric: true });
+        }
+
+        function catalogFilterSizes() {
+            var unique = {};
+            state.products.forEach(function (product) {
+                availableSizes(product).forEach(function (size) {
+                    unique[normalizeSize(size.name)] = true;
+                });
+            });
+            return Object.keys(unique).sort(compareSizes);
+        }
+
+        function renderSizeFilters() {
+            var sizes = catalogFilterSizes();
+            if (state.sizeFilter && sizes.indexOf(state.sizeFilter) === -1) {
+                state.sizeFilter = '';
+            }
+            filterOptions.innerHTML = [''].concat(sizes).map(function (sizeName) {
+                var label = sizeName || 'Todos';
+                var isActive = state.sizeFilter === sizeName;
+                return (
+                    '<button class="etraction-bt-kit-filter' + (isActive ? ' is-active' : '') + '" ' +
+                    'type="button" data-size-filter="' + escapeHtml(sizeName) + '" ' +
+                    'aria-pressed="' + (isActive ? 'true' : 'false') + '">' +
+                    escapeHtml(label) +
+                    '</button>'
+                );
+            }).join('');
+        }
+
+        function visibleProducts() {
+            return state.products.filter(function (product) {
+                if (!availableSizes(product).length) return false;
+                if (isCurrentCatalogProduct(product)) return true;
+                return !state.sizeFilter || productHasSize(product, state.sizeFilter);
+            }).sort(function (first, second) {
+                var firstIsCurrent = isCurrentCatalogProduct(first);
+                var secondIsCurrent = isCurrentCatalogProduct(second);
+                if (firstIsCurrent === secondIsCurrent) return 0;
+                return firstIsCurrent ? -1 : 1;
+            });
+        }
+
+        function renderProducts() {
+            var previousScroll = grid.scrollTop;
+            renderSizeFilters();
+
+            if (state.catalogLoading && !state.products.length) {
+                grid.innerHTML =
+                    '<div class="etraction-bt-kit-catalog-status" role="status">' +
+                    '<span class="etraction-bt-kit-catalog-status__spinner" aria-hidden="true"></span>' +
+                    '<span>Carregando todas as camisetas Oversized...</span>' +
+                    '</div>';
+                return;
+            }
+            if (state.catalogError && !state.products.length) {
+                grid.innerHTML =
+                    '<div class="etraction-bt-kit-catalog-status" role="alert">' +
+                    '<span>' + escapeHtml(state.catalogError) + '</span>' +
+                    '<button class="etraction-bt-kit-catalog-status__retry" type="button" ' +
+                    'data-etraction-bt-kit-retry>Tentar novamente</button>' +
+                    '</div>';
+                return;
+            }
+            if (!state.products.length) {
+                grid.innerHTML =
+                    '<div class="etraction-bt-kit-catalog-status">' +
+                    '<span>Abra o montador para carregar as camisetas.</span>' +
+                    '</div>';
+                return;
+            }
+
+            var productsToRender = visibleProducts();
+            if (!productsToRender.length) {
+                var emptyMessage = state.sizeFilter
+                    ? 'Nenhuma camiseta disponível no tamanho ' + state.sizeFilter + '.'
+                    : 'Nenhuma camiseta disponível no momento.';
+                grid.innerHTML =
+                    '<div class="etraction-bt-kit-catalog-status" role="status">' +
+                    '<span>' + escapeHtml(emptyMessage) + '</span>' +
+                    (state.sizeFilter
+                        ? '<button class="etraction-bt-kit-catalog-status__retry" type="button" ' +
+                        'data-etraction-bt-kit-clear-filter>Ver todos os tamanhos</button>'
+                        : '') +
+                    '</div>';
+                return;
+            }
+
+            grid.innerHTML = productsToRender.map(function (product) {
+                var isCurrentProduct = isCurrentCatalogProduct(product);
+                var sizesToRender = product.detailsLoading ? [] : availableSizes(product);
+                var sizes = sizesToRender.map(function (size) {
+                    return (
+                        '<button class="etraction-bt-kit-size" ' +
+                        'type="button" ' +
+                        'data-product="' + escapeHtml(product.id) + '" ' +
+                        'data-derivation-id="' + escapeHtml(size.derivationId) + '" ' +
+                        'data-code="' + escapeHtml(size.code) + '" ' +
+                        'data-size-name="' + escapeHtml(size.name) + '" ' +
+                        'aria-label="Selecionar tamanho ' + escapeHtml(size.name) + '">' +
+                        escapeHtml(size.name) +
+                        '</button>'
+                    );
+                }).join('');
+
+                var cardState = product.detailsLoading
+                    ? 'Carregando tamanhos...'
+                    : (product.detailsError || (isCurrentProduct
+                        ? 'Produto atual • escolha um tamanho'
+                        : 'Escolha um tamanho para incluir'));
+
+                return (
+                    '<article class="etraction-bt-kit-card' +
+                    (product.detailsLoading ? ' is-loading' : '') +
+                    (isCurrentProduct ? ' is-current' : '') +
+                    '" data-card="' + escapeHtml(product.id) + '">' +
+                    '<div class="etraction-bt-kit-card__image-wrap">' +
+                    '<img class="etraction-bt-kit-card__image" ' +
+                    'src="' + escapeHtml(product.image) + '" ' +
+                    'alt="' + escapeHtml(product.name) + '" ' +
+                    'width="420" height="525" loading="lazy">' +
+                    '<span class="etraction-bt-kit-card__current-label">Produto atual</span>' +
+                    '<span class="etraction-bt-kit-card__check" aria-hidden="true">✓</span>' +
+                    '</div>' +
+                    '<div class="etraction-bt-kit-card__body">' +
+                    '<h3 class="etraction-bt-kit-card__name">' + escapeHtml(product.name) + '</h3>' +
+                    '<span class="etraction-bt-kit-card__price">' + escapeHtml(cardState) + '</span>' +
+                    '<div class="etraction-bt-kit-card__sizes">' + sizes + '</div>' +
+                    '<div class="etraction-bt-kit-card__actions">' +
+                    '<a class="etraction-bt-kit-card__view" ' +
+                    'href="' + escapeHtml(absoluteProductUrl(product.url)) + '" ' +
+                    'data-etraction-bt-kit-view>Veja o produto</a>' +
+                    '<button class="etraction-bt-kit-card__add" type="button" ' +
+                    'data-etraction-bt-kit-card-add ' +
+                    'data-product="' + escapeHtml(product.id) + '" disabled>' +
+                    'Adicionar ao carrinho' +
+                    '</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</article>'
+                );
+            }).join('');
+            grid.scrollTop = previousScroll;
+        }
+
+        function syncCurrentProduct() {
+            var product = currentProduct();
+            var stored = storedCurrentSelection();
+            var currentChoice = stored ? stored.selection : (product.valid ? product : null);
+            document.getElementById('etraction-bt-kit-current-name').textContent = product.name;
+            document.getElementById('etraction-bt-kit-current-size').textContent = currentChoice
+                ? 'Tamanho ' + currentChoice.sizeName
+                : (product.hasContext
+                    ? 'Tamanho pendente — escolha antes de adicionar'
+                    : 'Prévia do construtor — tamanho escolhido na página do produto');
+            if (currentChoice) hideInlineError();
+            return product;
+        }
+
+        function updateUI() {
+            var selectionState = kitState();
+            var count = selectionState.count;
+            var tier = tierFor(count);
+            var total = count * tier.each;
+
+            document.getElementById('etraction-bt-kit-count').textContent =
+                count + (count === 1 ? ' peça selecionada' : ' peças selecionadas');
+            document.getElementById('etraction-bt-kit-tier').textContent = tier.label;
+            document.getElementById('etraction-bt-kit-message').textContent = tier.message;
+            document.getElementById('etraction-bt-kit-progress-bar').style.width =
+                Math.min((count / BEST_TIER_START) * 100, 100) + '%';
+            document.getElementById('etraction-bt-kit-summary-label').textContent =
+                'Seu kit: ' + count + (count === 1 ? ' camiseta' : ' camisetas');
+            document.getElementById('etraction-bt-kit-total').textContent = money(total);
+            document.getElementById('etraction-bt-kit-benefit').textContent = tier.benefit;
+
+            addButton.disabled = state.adding || count < 2;
+            addButton.textContent = state.adding
+                ? 'Adicionando ao carrinho...'
+                : (state.previewMode
+                    ? (count < 2
+                        ? 'Escolha mais 1 camiseta'
+                        : 'Kit com ' + count + ' camisetas selecionado')
+                    : (count < 2
+                        ? 'Escolha mais 1 camiseta'
+                        : 'Adicionar ' + count + ' camisetas ao carrinho'));
+
+            grid.querySelectorAll('.etraction-bt-kit-card').forEach(function (card) {
+                var selected = state.selected.get(card.dataset.card);
+                var product = state.products.find(function (item) {
+                    return item.id === card.dataset.card;
+                });
+                var price = card.querySelector('.etraction-bt-kit-card__price');
+                var cardAddButton = card.querySelector('.etraction-bt-kit-card__add');
+                var isCurrentProduct = isCurrentCatalogProduct(product);
+                var activeSelection = selected || (
+                    isCurrentProduct ? selectionState.currentChoice : null
+                );
+                card.classList.toggle('is-current', isCurrentProduct);
+                card.classList.toggle('is-selected', Boolean(selected) || isCurrentProduct);
+                price.textContent = activeSelection
+                    ? 'Tamanho ' + activeSelection.sizeName + ' • ' + money(tier.each)
+                    : (product && product.detailsLoading
+                        ? 'Carregando tamanhos...'
+                        : (product && product.detailsError || (isCurrentProduct
+                            ? 'Produto atual • escolha um tamanho'
+                            : 'Escolha um tamanho para incluir')));
+
+                if (cardAddButton) {
+                    cardAddButton.disabled = state.adding || !activeSelection || count < 2;
+                    cardAddButton.textContent = state.adding && activeSelection
+                        ? 'Adicionando...'
+                        : 'Adicionar ao carrinho';
+                }
+
+                card.querySelectorAll('.etraction-bt-kit-size').forEach(function (button) {
+                    var isSelected = Boolean(
+                        activeSelection && (
+                            (activeSelection.derivationId && activeSelection.derivationId === button.dataset.derivationId) ||
+                            normalizeSize(activeSelection.sizeName) === normalizeSize(button.dataset.sizeName)
+                        )
+                    );
+                    button.classList.toggle('is-selected', isSelected);
+                    button.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+                });
+            });
+        }
+
+        function showInlineError(message) {
+            inlineError.textContent = message;
+            inlineError.classList.add('is-visible');
+        }
+
+        function hideInlineError() {
+            inlineError.textContent = '';
+            inlineError.classList.remove('is-visible');
+        }
+
+        function showProgressFeedback(message) {
+            var messageElement = document.getElementById('etraction-bt-kit-message');
+            clearTimeout(feedbackTimer);
+            messageElement.textContent = message;
+            feedbackTimer = setTimeout(function () {
+                if (!destroyed) updateUI();
+            }, 2800);
+        }
+
+        function openModal() {
+            var current = syncCurrentProduct();
+            state.previewMode = !current.hasContext;
+            hideInlineError();
+            lastFocused = document.activeElement;
+            modal.hidden = false;
+            openButton.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('etraction-bt-kit-lock');
+            renderProducts();
+            updateUI();
+            loadCatalog(false);
+
+            window.requestAnimationFrame(function () {
+                var closeButton = modal.querySelector('.etraction-bt-kit-modal__close');
+                if (closeButton) closeButton.focus();
+            });
+        }
+
+        function closeModal() {
+            modal.hidden = true;
+            openButton.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('etraction-bt-kit-lock');
+            if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+        }
+
+        function setAdding(value) {
+            state.adding = value;
+            updateUI();
+        }
+
+        function addKitToCart() {
+            var selectionState = kitState();
+            var current = selectionState.current;
+            var currentChoice = selectionState.currentChoice;
+            var count = selectionState.count;
+
+            state.previewMode = !current.hasContext;
+            if (state.previewMode || !current.hasContext) {
+                showProgressFeedback('O carrinho fica disponível na página de um produto Oversized.');
+                return;
+            }
+            if (!currentChoice || !currentChoice.code) {
+                var currentCard = grid.querySelector('.etraction-bt-kit-card.is-current');
+                showProgressFeedback('Escolha o tamanho da camiseta atual para adicionar o kit.');
+                if (currentCard) {
+                    currentCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+            if (count < 2 || state.adding) return;
+            if (!window.Zord || !Zord.checkout || typeof Zord.checkout.addCarts !== 'function') {
+                showProgressFeedback('O carrinho ainda está carregando. Tente novamente em instantes.');
+                return;
+            }
+
+            var items = [{
+                codigo: currentChoice.code,
+                quantidade: 1,
+                deposito: currentChoice.deposit || '1'
+            }];
+            selectionState.additional.forEach(function (item) {
+                items.push({ codigo: item.code, quantidade: 1, deposito: item.deposit });
+            });
+
+            setAdding(true);
+            clearTimeout(addingTimer);
+            addingTimer = setTimeout(function () {
+                if (!destroyed && state.adding) {
+                    setAdding(false);
+                    showProgressFeedback('A adição demorou mais que o esperado. Tente novamente.');
+                }
+            }, 12000);
+
+            try {
+                Zord.checkout.addCarts(
+                    items,
+                    function () {
+                        clearTimeout(addingTimer);
+                        skipSelectionPersistence = true;
+                        state.selected.clear();
+                        clearStoredSelections();
+                        window.location.assign('/checkout/cart');
+                    },
+                    { source: 'Kit Oversized PDP', codigoOrigem: state.currentParentCode }
+                );
+            } catch (error) {
+                clearTimeout(addingTimer);
+                setAdding(false);
+                showProgressFeedback('Não foi possível adicionar o kit. Tente novamente.');
+                console.error('[eTraction] Erro ao adicionar kit Oversized:', error);
+            }
+        }
+
+        function commitProductSelection(product, size) {
+            if (!size || !size.inStock || !size.code) {
+                product.detailsError = 'Esse tamanho acabou de ficar indisponível.';
+                renderProducts();
+                updateUI();
+                return;
+            }
+
+            product.detailsError = '';
+            var oldSelection = state.selected.get(product.id);
+            var sameSelection = Boolean(
+                oldSelection && oldSelection.code === size.code
+            );
+
+            if (sameSelection) {
+                state.selected.delete(product.id);
+                persistSelections();
+                updateUI();
+                return;
+            }
+            state.selected.set(product.id, {
+                productId: product.productId || product.id,
+                parentCode: product.parentCode || '',
+                name: product.name || '',
+                image: product.image || '',
+                url: product.url || '',
+                code: size.code,
+                derivationId: size.derivationId,
+                sizeName: size.name,
+                deposit: product.deposit
+            });
+            persistSelections();
+            updateUI();
+        }
+
+        function selectProductSize(product, requestedSize) {
+            commitProductSelection(product, findSize(product, requestedSize));
+        }
+
+        function selectProductButton(product, button) {
+            var code = String(button.dataset.code || '').trim();
+            if (!code) return false;
+            commitProductSelection(product, {
+                name: button.dataset.sizeName,
+                derivationId: String(button.dataset.derivationId || ''),
+                code: code,
+                inStock: !button.disabled
+            });
+            return true;
+        }
+
+        function setSizeFilter(sizeName) {
+            state.sizeFilter = normalizeSize(sizeName);
+            renderProducts();
+            updateUI();
+            grid.scrollTop = 0;
+        }
+
+        function handleFilterClick(event) {
+            var button = event.target.closest('[data-size-filter]');
+            if (!button) return;
+            setSizeFilter(button.dataset.sizeFilter);
+        }
+
+        function handleGridClick(event) {
+            var retry = event.target.closest('[data-etraction-bt-kit-retry]');
+            if (retry) {
+                state.catalogPromise = null;
+                loadCatalog(true);
+                return;
+            }
+
+            var clearFilter = event.target.closest('[data-etraction-bt-kit-clear-filter]');
+            if (clearFilter) {
+                setSizeFilter('');
+                return;
+            }
+
+            var viewLink = event.target.closest('[data-etraction-bt-kit-view]');
+            if (viewLink) {
+                saveCurrentPageSelection();
+                persistSelections();
+                return;
+            }
+
+            var cardAddButton = event.target.closest('[data-etraction-bt-kit-card-add]');
+            if (cardAddButton) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (cardAddButton.disabled) return;
+
+                var cardProduct = state.products.find(function (item) {
+                    return item.id === cardAddButton.dataset.product;
+                });
+                var selectedProduct = state.selected.get(cardAddButton.dataset.product);
+                if (!selectedProduct && isCurrentCatalogProduct(cardProduct)) {
+                    selectedProduct = kitState().currentChoice;
+                }
+                if (!selectedProduct) {
+                    showProgressFeedback('Escolha o tamanho desta camiseta antes de adicionar.');
+                    return;
+                }
+                addKitToCart();
+                return;
+            }
+
+            var button = event.target.closest('.etraction-bt-kit-size');
+            if (!button || button.disabled) return;
+            event.preventDefault();
+            event.stopPropagation();
+
+            var product = state.products.find(function (item) {
+                return item.id === button.dataset.product;
+            });
+            if (!product) return;
+            var requestedSize = button.dataset.sizeName;
+
+            /* O SKU do snapshot permite selecionar imediatamente, inclusive no construtor. */
+            if (selectProductButton(product, button)) return;
+            if (product.detailsLoaded) {
+                selectProductSize(product, requestedSize);
+                return;
+            }
+            loadProductDetails(product).then(function () {
+                if (!destroyed) selectProductSize(product, requestedSize);
+            }).catch(function (error) {
+                if (!error || error.name !== 'AbortError') {
+                    showProgressFeedback('Não foi possível validar esse produto. Tente novamente.');
+                }
+            });
+        }
+
+        function handleDocumentClick(event) {
+            if (event.target.closest('#pagina-produto-react-app .variacao-lista')) {
+                setTimeout(function () {
+                    currentProduct();
+                    removeStoredCurrentSelection();
+                    syncCurrentProduct();
+                    updateUI();
+                }, 50);
+            }
+        }
+
+        function handleDocumentKeydown(event) {
+            if (modal.hidden) return;
+            if (event.key === 'Escape') {
+                closeModal();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+
+            var focusable = modal.querySelectorAll(
+                'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), ' +
+                'textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            );
+            if (!focusable.length) return;
+
+            var first = focusable[0];
+            var last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        }
+
+        function mountTrigger() {
+            if (destroyed) return false;
+            var app = document.getElementById('pagina-produto-react-app');
+            var buyArea = app && (
+                app.querySelector('.quantidade-comprar.area-comprar') ||
+                app.querySelector('#area-comprar') ||
+                app.querySelector('.area-buy-product')
+            );
+            if (!app || !buyArea || !buyArea.parentNode) return false;
+
+            if (root.parentNode !== buyArea.parentNode || root.nextSibling !== buyArea) {
+                buyArea.parentNode.insertBefore(root, buyArea);
+            }
+            if (modal.parentNode !== document.body) document.body.appendChild(modal);
+            state.mounted = true;
+
+            if (!observer) {
+                observer = new MutationObserver(function () {
+                    if (mountScheduled) return;
+                    mountScheduled = true;
+                    window.requestAnimationFrame(function () {
+                        mountScheduled = false;
+                        if (!destroyed) mountTrigger();
+                    });
+                });
+                observer.observe(app, { childList: true, subtree: true });
+            }
+            return true;
+        }
+
+        function waitForMount(attempt) {
+            if (destroyed || mountTrigger()) return;
+            /* No construtor, mantém o bloco na posição em que foi inserido. */
+            if (attempt >= 80) return;
+            mountTimer = setTimeout(function () { waitForMount(attempt + 1); }, 250);
+        }
+
+        function destroy() {
+            destroyed = true;
+            clearTimeout(mountTimer);
+            clearTimeout(feedbackTimer);
+            clearTimeout(addingTimer);
+            if (observer) observer.disconnect();
+            requestControllers.forEach(function (controller) {
+                try { controller.abort(); } catch (error) { /* Requisição já finalizada. */ }
+            });
+
+            openButton.removeEventListener('click', openModal);
+            addButton.removeEventListener('click', addKitToCart);
+            filterOptions.removeEventListener('click', handleFilterClick);
+            grid.removeEventListener('click', handleGridClick, true);
+            document.removeEventListener('click', handleDocumentClick);
+            document.removeEventListener('keydown', handleDocumentKeydown);
+            window.removeEventListener('pagehide', handlePageHide);
+            modal.querySelectorAll('[data-etraction-bt-kit-close]').forEach(function (button) {
+                button.removeEventListener('click', closeModal);
+            });
+
+            document.body.classList.remove('etraction-bt-kit-lock');
+            if (styleElement) styleElement.remove();
+            root.remove();
+            modal.remove();
+        }
+
+        renderProducts();
+        updateUI();
+        openButton.addEventListener('click', openModal);
+        addButton.addEventListener('click', addKitToCart);
+        filterOptions.addEventListener('click', handleFilterClick);
+        grid.addEventListener('click', handleGridClick, true);
+        document.addEventListener('click', handleDocumentClick);
+        document.addEventListener('keydown', handleDocumentKeydown);
+        window.addEventListener('pagehide', handlePageHide);
+        modal.querySelectorAll('[data-etraction-bt-kit-close]').forEach(function (button) {
+            button.addEventListener('click', closeModal);
+        });
+
+        waitForMount(0);
+        window[GLOBAL_KEY] = {
+            destroy: destroy,
+            refresh: function () {
+                state.currentPageDataRead = false;
+                state.currentPageData = null;
+                syncCurrentProduct();
+                updateUI();
+                mountTrigger();
+            }
+        };
+    })();
+</script>

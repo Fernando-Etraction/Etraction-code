@@ -1,0 +1,780 @@
+<style>
+  .etraction-tarja-topo {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f5f5f3 !important;
+    color: #111111 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+  }
+
+  .etraction-tarja-topo *,
+  .etraction-tarja-topo *::before,
+  .etraction-tarja-topo *::after {
+    box-sizing: border-box !important;
+  }
+
+  .etraction-tarja-conteudo {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 1120px !important;
+    min-height: 38px !important;
+    margin: 0 auto !important;
+    padding: 0 46px !important;
+  }
+
+  .etraction-tarja-slides {
+    position: relative !important;
+    width: 100% !important;
+    min-height: 38px !important;
+  }
+
+  .etraction-tarja-slide {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    min-height: 38px !important;
+    padding: 5px 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 7px !important;
+    color: #111111 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(4px) !important;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0.25s ease !important;
+    pointer-events: none !important;
+  }
+
+  .etraction-tarja-slide.etraction-ativo {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+  }
+
+  .etraction-tarja-texto {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .etraction-tarja-destaque {
+    color: #111111 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Frete */
+  .etraction-tarja-frete {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  .etraction-tarja-frete-linha {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    white-space: nowrap !important;
+  }
+
+  /* Cupom */
+  .etraction-tarja-cupom {
+    min-height: 24px !important;
+    padding: 4px 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    border: 1px solid #111111 !important;
+    border-radius: 3px !important;
+    background: #111111 !important;
+    color: #ffffff !important;
+    font-family: inherit !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    appearance: none !important;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s ease !important;
+  }
+
+  .etraction-tarja-cupom:hover {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  .etraction-tarja-cupom:active {
+    transform: scale(0.97) !important;
+  }
+
+  .etraction-tarja-cupom.etraction-copiado {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  .etraction-tarja-cupom svg {
+    width: 12px !important;
+    height: 12px !important;
+    display: block !important;
+    flex: 0 0 auto !important;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.8 !important;
+  }
+
+  /* Setas */
+  .etraction-tarja-seta {
+    position: absolute !important;
+    top: 50% !important;
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    color: #111111 !important;
+    opacity: 0.55 !important;
+    cursor: pointer !important;
+    transform: translateY(-50%) !important;
+    appearance: none !important;
+    z-index: 5 !important;
+    transition:
+      opacity 0.2s ease,
+      background 0.2s ease !important;
+  }
+
+  .etraction-tarja-seta:hover {
+    background: rgba(0, 0, 0, 0.04) !important;
+    opacity: 1 !important;
+  }
+
+  .etraction-tarja-seta-anterior {
+    left: 7px !important;
+  }
+
+  .etraction-tarja-seta-proxima {
+    right: 7px !important;
+  }
+
+  .etraction-tarja-seta svg {
+    width: 14px !important;
+    height: 14px !important;
+    display: block !important;
+    fill: none !important;
+    stroke: currentColor !important;
+    stroke-width: 1.7 !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+  }
+
+  @media (max-width: 767px) {
+    .etraction-tarja-topo,
+    .etraction-tarja-conteudo,
+    .etraction-tarja-slides,
+    .etraction-tarja-slide {
+      min-height: 46px !important;
+    }
+
+    .etraction-tarja-conteudo {
+      padding: 0 34px !important;
+    }
+
+    .etraction-tarja-slide {
+      padding: 4px 2px !important;
+      gap: 5px !important;
+      font-size: 11.5px !important;
+      line-height: 1.2 !important;
+    }
+
+    .etraction-tarja-texto {
+      gap: 3px !important;
+    }
+
+    /* Frete controlado em duas linhas */
+    .etraction-tarja-slide-frete {
+      padding: 3px 1px !important;
+    }
+
+    .etraction-tarja-frete {
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-wrap: nowrap !important;
+      gap: 1px !important;
+      font-size: 11px !important;
+      line-height: 1.15 !important;
+    }
+
+    .etraction-tarja-frete-linha {
+      width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-wrap: nowrap !important;
+      gap: 3px !important;
+      white-space: nowrap !important;
+    }
+
+    .etraction-tarja-cupom {
+      min-height: 22px !important;
+      padding: 3px 6px !important;
+      font-size: 10px !important;
+    }
+
+    .etraction-tarja-cupom svg {
+      width: 11px !important;
+      height: 11px !important;
+    }
+
+    .etraction-tarja-seta {
+      width: 25px !important;
+      height: 25px !important;
+    }
+
+    .etraction-tarja-seta-anterior {
+      left: 3px !important;
+    }
+
+    .etraction-tarja-seta-proxima {
+      right: 3px !important;
+    }
+
+    .etraction-tarja-seta svg {
+      width: 13px !important;
+      height: 13px !important;
+    }
+  }
+
+  @media (max-width: 370px) {
+    .etraction-tarja-conteudo {
+      padding-right: 31px !important;
+      padding-left: 31px !important;
+    }
+
+    .etraction-tarja-slide {
+      font-size: 10.5px !important;
+    }
+
+    .etraction-tarja-frete {
+      font-size: 9.8px !important;
+    }
+
+    .etraction-tarja-frete-linha {
+      gap: 2px !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .etraction-tarja-slide,
+    .etraction-tarja-cupom,
+    .etraction-tarja-seta {
+      transition: none !important;
+    }
+  }
+
+
+  /* Reforço para impedir que camadas da plataforma bloqueiem os controles */
+  .etraction-tarja-topo {
+    z-index: 1 !important;
+    isolation: isolate !important;
+    pointer-events: auto !important;
+  }
+
+  .etraction-tarja-conteudo,
+  .etraction-tarja-setas,
+  .etraction-tarja-seta,
+  .etraction-tarja-cupom {
+    pointer-events: auto !important;
+  }
+
+  .etraction-tarja-seta,
+  .etraction-tarja-cupom {
+    z-index: 5 !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  .etraction-tarja-seta svg,
+  .etraction-tarja-seta svg *,
+  .etraction-tarja-cupom svg,
+  .etraction-tarja-cupom svg *,
+  .etraction-tarja-cupom-texto {
+    pointer-events: none !important;
+  }
+
+  /* Integração com a header fixa da ToalhaShow */
+  html body .etraction-tarja-topo {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    z-index: 5 !important;
+    transform: none !important;
+  }
+
+  html body #header-react-app.header-fixed {
+    --etraction-header-top: 38px !important;
+    top: 38px !important;
+  }
+
+  @media (max-width: 767px) {
+    html body #header-react-app.header-fixed {
+      --etraction-header-top: 46px !important;
+      top: 46px !important;
+    }
+  }
+
+</style>
+
+<div
+  class="etraction-tarja-topo"
+  role="region"
+  aria-label="Condições comerciais"
+>
+  <div class="etraction-tarja-conteudo">
+    <div
+      class="etraction-tarja-seta etraction-tarja-seta-anterior"
+      role="button"
+      tabindex="0"
+      aria-label="Informação anterior"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"></path>
+      </svg>
+    </div>
+
+    <div class="etraction-tarja-slides" aria-live="polite">
+      <!-- Parcelamento -->
+      <div class="etraction-tarja-slide etraction-ativo">
+        <span class="etraction-tarja-texto">
+          Parcelamento em até
+          <strong class="etraction-tarja-destaque">10x no cartão</strong>
+        </span>
+      </div>
+
+      <!-- Frete -->
+      <div class="etraction-tarja-slide etraction-tarja-slide-frete">
+        <span class="etraction-tarja-texto etraction-tarja-frete">
+          <span class="etraction-tarja-frete-linha">
+            Frete fixo de
+            <strong class="etraction-tarja-destaque">R$ 14,90</strong>
+            para Sul e Sudeste
+          </span>
+
+          <span class="etraction-tarja-frete-linha">
+            em compras acima de
+            <strong class="etraction-tarja-destaque">R$ 219,90</strong>
+          </span>
+        </span>
+      </div>
+
+      <!-- Cupom -->
+      <div class="etraction-tarja-slide">
+        <span class="etraction-tarja-texto">
+          Utilize o cupom e ganhe
+          <strong class="etraction-tarja-destaque">5% OFF</strong>
+        </span>
+
+        <div
+          class="etraction-tarja-cupom"
+          role="button"
+          tabindex="0"
+          data-cupom="GANHA5"
+          aria-label="Copiar cupom GANHA5"
+          title="Clique para copiar"
+        >
+          <span class="etraction-tarja-cupom-texto">GANHA5</span>
+
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="8" y="8" width="11" height="11" rx="2"></rect>
+            <path
+              d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="etraction-tarja-seta etraction-tarja-seta-proxima"
+      role="button"
+      tabindex="0"
+      aria-label="Próxima informação"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 18l6-6-6-6"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    var NOME_GLOBAL = "EtractionTarjaTopoV7Header";
+    var SELETOR_RAIZ = ".etraction-tarja-topo";
+    var TEMPO_ROTACAO = 4500;
+
+    function maisProximo(elemento, seletor) {
+      if (!elemento) return null;
+      if (elemento.nodeType === 3) elemento = elemento.parentElement;
+
+      if (elemento.closest) {
+        return elemento.closest(seletor);
+      }
+
+      while (elemento && elemento.nodeType === 1) {
+        if (elemento.matches && elemento.matches(seletor)) return elemento;
+        elemento = elemento.parentElement;
+      }
+
+      return null;
+    }
+
+    function obterEstado(raiz) {
+      if (!raiz) return null;
+
+      if (!raiz.etractionTarjaEstado) {
+        raiz.etractionTarjaEstado = {
+          indice: 0,
+          intervalo: null
+        };
+      }
+
+      return raiz.etractionTarjaEstado;
+    }
+
+    function obterSlides(raiz) {
+      return Array.prototype.slice.call(
+        raiz.querySelectorAll(".etraction-tarja-slide")
+      );
+    }
+
+    function exibirSlide(raiz, indice) {
+      var estado = obterEstado(raiz);
+      var slides = obterSlides(raiz);
+      var quantidade = slides.length;
+
+      if (!estado || !quantidade) return;
+
+      estado.indice = (indice + quantidade) % quantidade;
+
+      slides.forEach(function (slide, posicao) {
+        var ativo = posicao === estado.indice;
+        slide.classList.toggle("etraction-ativo", ativo);
+        slide.setAttribute("aria-hidden", ativo ? "false" : "true");
+      });
+    }
+
+    function pararRotacao(raiz) {
+      var estado = obterEstado(raiz);
+      if (!estado || !estado.intervalo) return;
+
+      window.clearInterval(estado.intervalo);
+      estado.intervalo = null;
+    }
+
+    function iniciarRotacao(raiz) {
+      var estado = obterEstado(raiz);
+      var slides = obterSlides(raiz);
+
+      if (!estado) return;
+
+      pararRotacao(raiz);
+
+      if (slides.length <= 1 || document.hidden) return;
+
+      estado.intervalo = window.setInterval(function () {
+        var slidesAtuais = obterSlides(raiz);
+
+        if (!document.documentElement.contains(raiz)) {
+          pararRotacao(raiz);
+          return;
+        }
+
+        if (slidesAtuais.length > 1) {
+          exibirSlide(raiz, estado.indice + 1);
+        }
+      }, TEMPO_ROTACAO);
+    }
+
+    function reiniciarRotacao(raiz) {
+      pararRotacao(raiz);
+      iniciarRotacao(raiz);
+    }
+
+    function confirmarCopia(botao, cupom, sucesso) {
+      var texto = botao.querySelector(".etraction-tarja-cupom-texto");
+      if (!texto) return;
+
+      window.clearTimeout(botao.etractionTimeout);
+
+      texto.textContent = sucesso ? "COPIADO" : "COPIE: " + cupom;
+      botao.classList.toggle("etraction-copiado", sucesso);
+      botao.setAttribute(
+        "aria-label",
+        sucesso ? "Cupom " + cupom + " copiado" : "Copiar cupom " + cupom
+      );
+
+      botao.etractionTimeout = window.setTimeout(function () {
+        texto.textContent = cupom;
+        botao.classList.remove("etraction-copiado");
+        botao.setAttribute("aria-label", "Copiar cupom " + cupom);
+      }, sucesso ? 1400 : 2400);
+    }
+
+    function copiarComFallback(texto) {
+      var campo = document.createElement("textarea");
+      var copiado = false;
+
+      campo.value = texto;
+      campo.setAttribute("readonly", "readonly");
+      campo.style.position = "fixed";
+      campo.style.top = "0";
+      campo.style.left = "0";
+      campo.style.width = "1px";
+      campo.style.height = "1px";
+      campo.style.padding = "0";
+      campo.style.border = "0";
+      campo.style.opacity = "0";
+      campo.style.pointerEvents = "none";
+
+      document.body.appendChild(campo);
+
+      try {
+        campo.focus({ preventScroll: true });
+      } catch (erroFocus) {
+        campo.focus();
+      }
+
+      campo.select();
+      campo.setSelectionRange(0, campo.value.length);
+
+      try {
+        copiado = document.execCommand("copy") === true;
+      } catch (erroCopy) {
+        copiado = false;
+      }
+
+      document.body.removeChild(campo);
+      return copiado;
+    }
+
+    function copiarCupom(botao) {
+      var cupom = botao.getAttribute("data-cupom") || "GANHA5";
+      var copiado = copiarComFallback(cupom);
+
+      if (copiado) {
+        confirmarCopia(botao, cupom, true);
+        return;
+      }
+
+      if (
+        navigator.clipboard &&
+        typeof navigator.clipboard.writeText === "function" &&
+        window.isSecureContext
+      ) {
+        navigator.clipboard.writeText(cupom).then(
+          function () {
+            confirmarCopia(botao, cupom, true);
+          },
+          function () {
+            confirmarCopia(botao, cupom, false);
+          }
+        );
+        return;
+      }
+
+      confirmarCopia(botao, cupom, false);
+    }
+
+    function executarControle(controle, evento) {
+      var raiz = maisProximo(controle, SELETOR_RAIZ);
+      var estado = obterEstado(raiz);
+
+      if (!raiz || !estado) return;
+
+      if (evento) {
+        evento.preventDefault();
+        evento.stopPropagation();
+      }
+
+      if (controle.classList.contains("etraction-tarja-seta-anterior")) {
+        exibirSlide(raiz, estado.indice - 1);
+        reiniciarRotacao(raiz);
+        return;
+      }
+
+      if (controle.classList.contains("etraction-tarja-seta-proxima")) {
+        exibirSlide(raiz, estado.indice + 1);
+        reiniciarRotacao(raiz);
+        return;
+      }
+
+      if (controle.classList.contains("etraction-tarja-cupom")) {
+        copiarCupom(controle);
+      }
+    }
+
+    function encontrarControle(alvo) {
+      return maisProximo(
+        alvo,
+        ".etraction-tarja-seta-anterior, " +
+          ".etraction-tarja-seta-proxima, " +
+          ".etraction-tarja-cupom"
+      );
+    }
+
+    function tratarPointerDown(evento) {
+      if (typeof evento.button === "number" && evento.button !== 0) return;
+
+      var controle = encontrarControle(evento.target);
+      var raiz = controle ? maisProximo(controle, SELETOR_RAIZ) : null;
+      var estado = obterEstado(raiz);
+
+      if (!controle || !raiz || !estado) return;
+
+      executarControle(controle, evento);
+    }
+
+    function tratarTeclado(evento) {
+      if (evento.key !== "Enter" && evento.key !== " ") return;
+
+      var controle = encontrarControle(evento.target);
+      if (!controle) return;
+
+      executarControle(controle, evento);
+    }
+
+    function posicionarAntesDaHeader(raiz) {
+      var header = document.getElementById("header-react-app");
+      var altura;
+
+      if (!raiz || !header || !header.parentNode) return;
+
+      /* Remove a tarja de wrappers que possam criar uma camada inferior. */
+      if (raiz.nextElementSibling !== header || raiz.parentNode !== header.parentNode) {
+        header.parentNode.insertBefore(raiz, header);
+      }
+
+      altura = Math.round(raiz.getBoundingClientRect().height);
+
+      if (!altura) {
+        altura = window.innerWidth <= 767 ? 46 : 38;
+      }
+
+      header.style.setProperty("--etraction-header-top", altura + "px", "important");
+      header.style.setProperty("top", altura + "px", "important");
+    }
+
+    function inicializarRaiz(raiz) {
+      if (!raiz) return;
+
+      posicionarAntesDaHeader(raiz);
+
+      var estado = obterEstado(raiz);
+      var slides = obterSlides(raiz);
+
+      if (!estado || !slides.length) return;
+
+      exibirSlide(raiz, Math.min(estado.indice, slides.length - 1));
+      iniciarRotacao(raiz);
+      raiz.setAttribute("data-etraction-tarja-inicializada", "true");
+    }
+
+    function inicializarTodas() {
+      Array.prototype.forEach.call(
+        document.querySelectorAll(SELETOR_RAIZ),
+        inicializarRaiz
+      );
+    }
+
+    function registrarEventosGlobais() {
+      if (window[NOME_GLOBAL] && window[NOME_GLOBAL].eventosRegistrados) {
+        return;
+      }
+
+      window[NOME_GLOBAL] = window[NOME_GLOBAL] || {};
+      window[NOME_GLOBAL].eventosRegistrados = true;
+
+      window.addEventListener("pointerdown", tratarPointerDown, true);
+      window.addEventListener("keydown", tratarTeclado, true);
+
+      window.addEventListener("resize", function () {
+        inicializarTodas();
+      });
+
+      document.addEventListener("visibilitychange", function () {
+        Array.prototype.forEach.call(
+          document.querySelectorAll(SELETOR_RAIZ),
+          function (raiz) {
+            if (document.hidden) {
+              pararRotacao(raiz);
+            } else {
+              iniciarRotacao(raiz);
+            }
+          }
+        );
+      });
+
+      if (typeof MutationObserver === "function") {
+        var observador = new MutationObserver(function () {
+          inicializarTodas();
+        });
+
+        observador.observe(document.documentElement, {
+          childList: true,
+          subtree: true
+        });
+
+        window[NOME_GLOBAL].observador = observador;
+      }
+    }
+
+    registrarEventosGlobais();
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", inicializarTodas, {
+        once: true
+      });
+    } else {
+      inicializarTodas();
+    }
+
+    window.setTimeout(inicializarTodas, 250);
+    window.setTimeout(inicializarTodas, 1000);
+    window.setTimeout(inicializarTodas, 2500);
+  })();
+</script>

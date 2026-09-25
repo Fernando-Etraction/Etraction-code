@@ -1,0 +1,470 @@
+<!--
+  USE HITZZ — LP ESQUENTA BLACK FRIDAY 2026
+  Bloco HTML para inserção na plataforma (Uoou). Sem html/head/body.
+  Prefixo de classes: .hzbf-  |  Nenhum estilo global é alterado.
+  Fonte: herda a fonte padrão do site (não define família própria).
+
+  CONFIRMAR ANTES DE PUBLICAR (marcados com [CONFIRMAR] no código):
+  1. Data/hora de início da Black (HZBF_CONFIG.blackStart)
+  2. Se os 12% do app acumulam com o desconto da Black
+  3. Se os 12% são aplicados automaticamente ou via cupom
+-->
+<style>
+  .hzbf{
+    --hzbf-bg:#060606;
+    --hzbf-ink:#f4f4f2;
+    --hzbf-mute:rgba(244,244,242,.62);
+    --hzbf-faint:rgba(244,244,242,.38);
+    --hzbf-line:rgba(255,255,255,.12);
+    --hzbf-glass:linear-gradient(160deg,rgba(255,255,255,.11) 0%,rgba(255,255,255,.035) 45%,rgba(255,255,255,.06) 100%);
+    --hzbf-r:22px;
+    position:relative;isolation:isolate;overflow:hidden;
+    background:var(--hzbf-bg);color:var(--hzbf-ink);
+    font-family:inherit;line-height:1.45;-webkit-font-smoothing:antialiased;
+    padding:0 0 96px;
+  }
+  .hzbf--bleed{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+  .hzbf *,.hzbf *::before,.hzbf *::after{box-sizing:border-box}
+  .hzbf img{display:block;max-width:100%}
+  .hzbf a{color:inherit;text-decoration:none}
+  .hzbf,.hzbf *{font-family:inherit}
+  .hzbf button,.hzbf input{font:inherit}
+  .hzbf h1,.hzbf h2,.hzbf h3,.hzbf p{margin:0}
+
+  /* Luz ambiente: dá algo para o vidro refratar */
+  .hzbf__ambient{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+  .hzbf__ambient span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+  .hzbf__ambient span:nth-child(1){width:420px;height:420px;top:-120px;left:-140px;background:radial-gradient(circle,#3a3f55 0%,transparent 70%);animation:hzbf-drift 18s ease-in-out infinite alternate}
+  .hzbf__ambient span:nth-child(2){width:360px;height:360px;top:120px;right:-160px;background:radial-gradient(circle,#5a4636 0%,transparent 70%);animation:hzbf-drift 22s ease-in-out infinite alternate-reverse}
+  .hzbf__ambient span:nth-child(3){width:520px;height:520px;top:55%;left:30%;background:radial-gradient(circle,#2b2b2b 0%,transparent 70%)}
+  @keyframes hzbf-drift{to{transform:translate3d(60px,40px,0) scale(1.08)}}
+
+  .hzbf__wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 16px}
+
+  /* Vidro líquido */
+  .hzbf-glass{
+    position:relative;background:var(--hzbf-glass);
+    -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+    border:1px solid var(--hzbf-line);border-radius:var(--hzbf-r);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(255,255,255,.04),0 20px 50px -20px rgba(0,0,0,.8);
+  }
+  .hzbf-glass::before{
+    content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+    background:linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(255,255,255,.28));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;
+  }
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .hzbf-glass{background:rgba(28,28,28,.92)}
+  }
+
+  .hzbf-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--hzbf-mute)}
+  .hzbf-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.12);animation:hzbf-pulse 2.4s ease-in-out infinite}
+  @keyframes hzbf-pulse{50%{box-shadow:0 0 0 7px rgba(255,255,255,0)}}
+
+  /* Botões */
+  .hzbf-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:999px;font-size:15px;font-weight:600;letter-spacing:.01em;cursor:pointer;border:0;transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+  .hzbf .hzbf-btn--primary{background:#fff;color:#0a0a0a;box-shadow:0 10px 30px -10px rgba(255,255,255,.35)}
+  .hzbf-btn--primary:hover{transform:translateY(-1px);box-shadow:0 14px 36px -10px rgba(255,255,255,.45)}
+  .hzbf-btn:focus-visible,.hzbf a:focus-visible,.hzbf button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  .hzbf-link{font-size:14px;color:var(--hzbf-mute);border-bottom:1px solid var(--hzbf-line);padding-bottom:2px;transition:color .2s}
+  .hzbf-link:hover{color:var(--hzbf-ink)}
+
+  /* HERO */
+  .hzbf-hero{padding:48px 0 40px}
+  .hzbf-hero__grid{display:grid;gap:36px}
+  .hzbf-hero h1{font-size:clamp(34px,8.6vw,64px);line-height:1.02;font-weight:300;letter-spacing:-.035em;margin:18px 0 16px}
+  .hzbf-hero h1 strong{font-weight:700;display:block}
+  .hzbf-hero__sub{font-size:16px;color:var(--hzbf-mute);max-width:440px}
+  .hzbf-hero__sub b{color:var(--hzbf-ink);font-weight:600}
+  .hzbf-hero__actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px 22px;margin-top:28px}
+
+  .hzbf-count{margin-top:32px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:460px}
+  .hzbf-count__label{font-size:12px;color:var(--hzbf-mute);line-height:1.3}
+  .hzbf-count__label b{display:block;color:var(--hzbf-ink);font-size:13px;font-weight:600}
+  .hzbf-count__units{display:flex;gap:6px}
+  .hzbf-count__u{min-width:46px;text-align:center}
+  .hzbf-count__n{display:block;font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1}
+  .hzbf-count__t{display:block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--hzbf-faint);margin-top:6px}
+
+  /* Colagem do hero */
+  .hzbf-stack{position:relative;height:340px;max-width:460px;margin:0 auto;width:100%}
+  .hzbf-stack__img{position:absolute;width:52%;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:#e9e9e7;box-shadow:0 30px 60px -25px rgba(0,0,0,.9)}
+  .hzbf-stack__img img{width:100%;height:100%;object-fit:cover}
+  .hzbf-stack__img:nth-child(1){left:0;top:28px;transform:rotate(-6deg)}
+  .hzbf-stack__img:nth-child(2){right:0;top:0;transform:rotate(5deg)}
+  .hzbf-stack__img:nth-child(3){left:24%;top:96px;z-index:2;transform:rotate(-1deg)}
+  .hzbf-lens{position:absolute;z-index:3;right:4%;bottom:6px;width:132px;height:132px;border-radius:50%;display:grid;place-content:center;text-align:center}
+  .hzbf-lens__n{font-size:40px;font-weight:700;letter-spacing:-.05em;line-height:.9}
+  .hzbf-lens__n small{font-size:18px}
+  .hzbf-lens__t{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--hzbf-mute);margin-top:6px;line-height:1.3}
+
+  /* PRODUTOS */
+  .hzbf-sec{padding:56px 0 0}
+  .hzbf-sec__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:26px}
+  .hzbf-sec__head h2{font-size:clamp(26px,5.6vw,40px);font-weight:300;letter-spacing:-.03em;line-height:1.05}
+  .hzbf-sec__head h2 strong{font-weight:700}
+  .hzbf-sec__head p{font-size:14px;color:var(--hzbf-mute);max-width:360px}
+
+  .hzbf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .hzbf-card{padding:8px;display:flex;flex-direction:column;border-radius:24px}
+  .hzbf-card__media{position:relative;display:block;aspect-ratio:4/5;border-radius:17px;overflow:hidden;background:#e9e9e7}
+  .hzbf-card__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s ease,transform .8s ease}
+  .hzbf-card__media img+img{opacity:0}
+  .hzbf-tag{position:absolute;top:8px;left:8px;z-index:2;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;color:#fff;background:rgba(10,10,10,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18)}
+  .hzbf-fav{position:absolute;top:6px;right:6px;z-index:2;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#0a0a0a;transition:transform .2s}
+  .hzbf-fav:hover{transform:scale(1.06)}
+  .hzbf-fav svg{width:17px;height:17px}
+  .hzbf-card__body{padding:14px 8px 8px;display:flex;flex-direction:column;flex:1}
+  .hzbf-card__name{font-size:15px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+  .hzbf-card__desc{font-size:12px;color:var(--hzbf-mute);margin-top:3px;min-height:34px}
+  .hzbf-price{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--hzbf-line)}
+  .hzbf-price__now{font-size:11px;color:var(--hzbf-faint);line-height:1.3}
+  .hzbf-price__now b{display:block;font-size:13px;color:var(--hzbf-mute);font-weight:500}
+  .hzbf-price__black{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--hzbf-line);white-space:nowrap}
+  .hzbf-price__black svg{width:12px;height:12px;opacity:.8}
+  .hzbf-card__cta{margin-top:12px;min-height:44px;width:100%;font-size:13px;background:rgba(255,255,255,.09);color:var(--hzbf-ink);border:1px solid var(--hzbf-line)}
+  .hzbf-card__cta:hover{background:#fff;color:#0a0a0a}
+
+  .hzbf-note{display:flex;align-items:center;gap:12px;margin-top:18px;padding:14px 18px;font-size:13px;color:var(--hzbf-mute)}
+  .hzbf-note svg{flex:none;width:18px;height:18px;color:var(--hzbf-ink)}
+  .hzbf-note b{color:var(--hzbf-ink);font-weight:600}
+
+  /* APP */
+  .hzbf-app{margin-top:64px;padding:28px 20px;border-radius:30px;display:grid;gap:30px;overflow:hidden}
+  .hzbf-app h2{font-size:clamp(28px,6vw,44px);font-weight:300;letter-spacing:-.035em;line-height:1.02;margin:14px 0 12px}
+  .hzbf-app h2 strong{font-weight:700}
+  .hzbf-app__sub{font-size:15px;color:var(--hzbf-mute);max-width:420px}
+  .hzbf-compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px;max-width:420px}
+  .hzbf-compare__i{padding:14px 16px;border-radius:16px;border:1px solid var(--hzbf-line)}
+  .hzbf-compare__i span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--hzbf-faint)}
+  .hzbf-compare__i b{display:block;font-size:26px;font-weight:600;letter-spacing:-.03em;margin-top:4px}
+  .hzbf-compare__i--off b{color:var(--hzbf-faint);font-weight:400}
+  .hzbf-compare__i--on{background:#fff;color:#0a0a0a;border-color:#fff}
+  .hzbf-compare__i--on span{color:rgba(10,10,10,.55)}
+  .hzbf-steps{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:14px;counter-reset:hzbf}
+  .hzbf-steps li{counter-increment:hzbf;display:flex;gap:14px;align-items:baseline;font-size:14px;color:var(--hzbf-mute)}
+  .hzbf-steps li::before{content:"0" counter(hzbf);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--hzbf-ink);min-width:20px}
+  .hzbf-steps b{color:var(--hzbf-ink);font-weight:600}
+  .hzbf-stores{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .hzbf-store{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px 0 16px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid var(--hzbf-line);transition:background .2s,color .2s}
+  .hzbf-store svg{width:22px;height:22px;flex:none}
+  .hzbf-store span{font-size:10px;color:var(--hzbf-mute);line-height:1.1;display:block}
+  .hzbf-store b{font-size:15px;font-weight:600;line-height:1.1;display:block}
+  .hzbf-store:hover,.hzbf-store.is-match{background:#fff;color:#0a0a0a}
+  .hzbf-store:hover span,.hzbf-store.is-match span{color:rgba(10,10,10,.55)}
+  .hzbf-fine{font-size:11px;color:var(--hzbf-faint);margin-top:16px}
+
+  .hzbf-app__visual{position:relative;display:grid;place-items:center;min-height:250px}
+  .hzbf-app__ring{position:absolute;width:250px;height:250px;border-radius:50%;background:conic-gradient(from 200deg,rgba(255,255,255,.0),rgba(255,255,255,.28),rgba(255,255,255,0) 40%,rgba(170,190,255,.18) 70%,rgba(255,255,255,0));filter:blur(18px);animation:hzbf-spin 14s linear infinite}
+  @keyframes hzbf-spin{to{transform:rotate(360deg)}}
+  .hzbf-app__big{position:relative;width:210px;height:210px;border-radius:50%;display:grid;place-content:center;text-align:center}
+  .hzbf-app__big b{font-size:72px;font-weight:700;letter-spacing:-.06em;line-height:.85}
+  .hzbf-app__big b small{font-size:30px;letter-spacing:-.02em}
+  .hzbf-app__big span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--hzbf-mute);margin-top:10px}
+
+  /* Barra fixa mobile */
+  .hzbf-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 10px 10px 18px;border-radius:999px;transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.8,.2,1);background:linear-gradient(160deg,rgba(40,40,40,.72),rgba(15,15,15,.78))}
+  .hzbf-bar.is-on{transform:none}
+  .hzbf-bar__t{font-size:13px;line-height:1.25;color:var(--hzbf-mute)}
+  .hzbf-bar__t b{display:block;color:var(--hzbf-ink);font-size:14px}
+  .hzbf-bar .hzbf-btn{min-height:44px;padding:0 20px;font-size:14px}
+
+  @media (min-width:640px){
+    .hzbf-grid{gap:16px}
+    .hzbf-card__desc{min-height:0}
+  }
+  @media (min-width:960px){
+    .hzbf{padding-bottom:120px}
+    .hzbf__wrap{padding:0 32px}
+    .hzbf-hero{padding:88px 0 56px}
+    .hzbf-hero__grid{grid-template-columns:1.05fr .95fr;align-items:center;gap:48px}
+    .hzbf-stack{height:470px;max-width:none}
+    .hzbf-stack__img:nth-child(3){top:130px}
+    .hzbf-lens{width:156px;height:156px;right:2%;bottom:0}
+    .hzbf-lens__n{font-size:48px}
+    .hzbf-sec{padding-top:80px}
+    .hzbf-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+    .hzbf-card:hover .hzbf-card__media img+img{opacity:1}
+    .hzbf-card:hover .hzbf-card__media img{transform:scale(1.03)}
+    .hzbf-app{grid-template-columns:1.1fr .9fr;align-items:center;padding:56px;margin-top:96px}
+    .hzbf-app__visual{min-height:360px}
+    .hzbf-app__ring{width:340px;height:340px}
+    .hzbf-app__big{width:280px;height:280px}
+    .hzbf-app__big b{font-size:96px}
+    .hzbf-bar{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hzbf *,.hzbf *::before,.hzbf *::after{animation:none!important;transition:none!important}
+  }
+</style>
+
+<section class="hzbf hzbf--bleed" id="hzbf" aria-label="Esquenta Black Friday Use Hitzz">
+  <div class="hzbf__ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <!-- HERO -->
+  <header class="hzbf-hero">
+    <div class="hzbf__wrap hzbf-hero__grid">
+      <div>
+        <span class="hzbf-eyebrow">Esquenta Black Friday Hitzz</span>
+        <h1>A Black ainda não começou.<strong>Sua escolha já pode.</strong></h1>
+        <p class="hzbf-hero__sub">Esses modelos entram com desconto na Black. Baixe o app antes e sua primeira compra ganha <b>mais 12% OFF</b>.</p>
+
+        <div class="hzbf-hero__actions">
+          <a class="hzbf-btn hzbf-btn--primary" href="#hzbf-app" data-hzbf-store="auto" data-hzbf-cta="hero_app">
+            Baixar o app e garantir 12% OFF
+          </a>
+          <a class="hzbf-link" href="#hzbf-produtos" data-hzbf-cta="hero_produtos">Ver os modelos da Black</a>
+        </div>
+
+        <div class="hzbf-count hzbf-glass" data-hzbf-countdown role="timer" aria-live="off">
+          <p class="hzbf-count__label" data-hzbf-count-label><b>A Black começa em</b>27 de novembro</p>
+          <div class="hzbf-count__units">
+            <div class="hzbf-count__u"><span class="hzbf-count__n" data-u="d">--</span><span class="hzbf-count__t">dias</span></div>
+            <div class="hzbf-count__u"><span class="hzbf-count__n" data-u="h">--</span><span class="hzbf-count__t">horas</span></div>
+            <div class="hzbf-count__u"><span class="hzbf-count__n" data-u="m">--</span><span class="hzbf-count__t">min</span></div>
+            <div class="hzbf-count__u"><span class="hzbf-count__n" data-u="s">--</span><span class="hzbf-count__t">seg</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hzbf-stack" aria-hidden="true">
+        <div class="hzbf-stack__img"><img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-500,h-725,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/20/d7/37/9fd1ec1073c54bbf5b4e4c48e4/shanti-tamanco-feminino-plataforma-corda-nude-large-1.jpg" alt="" width="500" height="625" fetchpriority="high"></div>
+        <div class="hzbf-stack__img"><img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-500,h-725,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/bf/bf/70/ab75f932d2765212acad48b291/mariah-bota-feminina-croche-salto-anabela-camel-large-1.jpg" alt="" width="500" height="625"></div>
+        <div class="hzbf-stack__img"><img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-500,h-725,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/45/02/a4/c2683a4e329422a720f1d99ef8/miley-tamanco-plataforma-feminino-azul-escuro-large-1.jpg" alt="" width="500" height="625"></div>
+        <div class="hzbf-lens hzbf-glass">
+          <span class="hzbf-lens__n">+12<small>%</small></span>
+          <span class="hzbf-lens__t">OFF no app<br>1ª compra</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRODUTOS -->
+  <section class="hzbf-sec" id="hzbf-produtos" aria-labelledby="hzbf-produtos-t">
+    <div class="hzbf__wrap">
+      <div class="hzbf-sec__head">
+        <h2 id="hzbf-produtos-t">Na lista <strong>da Black</strong></h2>
+        <p>O preço Black só aparece no dia. Favorite agora para encontrar seu par sem perder tempo quando abrir.</p>
+      </div>
+
+      <div class="hzbf-grid">
+        <!-- MARIAH -->
+        <article class="hzbf-card hzbf-glass">
+          <a class="hzbf-card__media" href="https://www.usehitzz.com.br/mariah-bota-feminina-croche-salto-anabela-camel" data-hzbf-cta="produto_mariah_img" tabindex="-1" aria-hidden="true">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/bf/bf/70/ab75f932d2765212acad48b291/mariah-bota-feminina-croche-salto-anabela-camel-large-1.jpg" alt="" loading="lazy" width="600" height="750">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/fc/bc/11/9b06b608be9378399f35c568e0/mariah-bota-feminina-croche-salto-anabela-camel-large-2.jpg" alt="" loading="lazy" width="600" height="750">
+          </a>
+          <span class="hzbf-tag">Entra na Black</span>
+          <a class="hzbf-fav" href="https://www.usehitzz.com.br/account/wishlist/?slug=mariah-bota-feminina-croche-salto-anabela-camel&_redirect_to=/mariah-bota-feminina-croche-salto-anabela-camel" aria-label="Favoritar Mariah" data-hzbf-cta="fav_mariah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg></a>
+          <div class="hzbf-card__body">
+            <h3 class="hzbf-card__name">Mariah</h3>
+            <p class="hzbf-card__desc">Bota crochê salto anabela · Camel</p>
+            <div class="hzbf-price">
+              <p class="hzbf-price__now">Hoje<b>R$ 449,90</b></p>
+              <span class="hzbf-price__black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Preço Black</span>
+            </div>
+            <a class="hzbf-btn hzbf-card__cta" href="https://www.usehitzz.com.br/mariah-bota-feminina-croche-salto-anabela-camel" data-hzbf-cta="produto_mariah">Ver modelo</a>
+          </div>
+        </article>
+
+        <!-- MILEY -->
+        <article class="hzbf-card hzbf-glass">
+          <a class="hzbf-card__media" href="https://www.usehitzz.com.br/miley-tamanco-plataforma-feminino-azul-escuro" data-hzbf-cta="produto_miley_img" tabindex="-1" aria-hidden="true">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/45/02/a4/c2683a4e329422a720f1d99ef8/miley-tamanco-plataforma-feminino-azul-escuro-large-1.jpg" alt="" loading="lazy" width="600" height="750">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/89/80/a2/5ae48297d77a2218913da5b26f/miley-tamanco-plataforma-feminino-azul-escuro-large-2.jpg" alt="" loading="lazy" width="600" height="750">
+          </a>
+          <span class="hzbf-tag">Entra na Black</span>
+          <a class="hzbf-fav" href="https://www.usehitzz.com.br/account/wishlist/?slug=miley-tamanco-plataforma-feminino-azul-escuro&_redirect_to=/miley-tamanco-plataforma-feminino-azul-escuro" aria-label="Favoritar Miley" data-hzbf-cta="fav_miley"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg></a>
+          <div class="hzbf-card__body">
+            <h3 class="hzbf-card__name">Miley</h3>
+            <p class="hzbf-card__desc">Tamanco plataforma 12 cm · Azul escuro</p>
+            <div class="hzbf-price">
+              <p class="hzbf-price__now">Hoje<b>R$ 449,90</b></p>
+              <span class="hzbf-price__black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Preço Black</span>
+            </div>
+            <a class="hzbf-btn hzbf-card__cta" href="https://www.usehitzz.com.br/miley-tamanco-plataforma-feminino-azul-escuro" data-hzbf-cta="produto_miley">Ver modelo</a>
+          </div>
+        </article>
+
+        <!-- SHANTI -->
+        <article class="hzbf-card hzbf-glass">
+          <a class="hzbf-card__media" href="https://www.usehitzz.com.br/shanti-tamanco-feminino-plataforma-corda-nude" data-hzbf-cta="produto_shanti_img" tabindex="-1" aria-hidden="true">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/20/d7/37/9fd1ec1073c54bbf5b4e4c48e4/shanti-tamanco-feminino-plataforma-corda-nude-large-1.jpg" alt="" loading="lazy" width="600" height="750">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/51/a4/42/61420d703f29957ce6d1086cbf/shanti-tamanco-feminino-plataforma-corda-nude-large-2.jpg" alt="" loading="lazy" width="600" height="750">
+          </a>
+          <span class="hzbf-tag">Entra na Black</span>
+          <a class="hzbf-fav" href="https://www.usehitzz.com.br/account/wishlist/?slug=shanti-tamanco-feminino-plataforma-corda-nude&_redirect_to=/shanti-tamanco-feminino-plataforma-corda-nude" aria-label="Favoritar Shanti" data-hzbf-cta="fav_shanti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg></a>
+          <div class="hzbf-card__body">
+            <h3 class="hzbf-card__name">Shanti</h3>
+            <p class="hzbf-card__desc">Tamanco plataforma corda 7 cm · Nude</p>
+            <div class="hzbf-price">
+              <p class="hzbf-price__now">Hoje<b>R$ 499,90</b></p>
+              <span class="hzbf-price__black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Preço Black</span>
+            </div>
+            <a class="hzbf-btn hzbf-card__cta" href="https://www.usehitzz.com.br/shanti-tamanco-feminino-plataforma-corda-nude" data-hzbf-cta="produto_shanti">Ver modelo</a>
+          </div>
+        </article>
+
+        <!-- NATI -->
+        <article class="hzbf-card hzbf-glass">
+          <a class="hzbf-card__media" href="https://www.usehitzz.com.br/nati-sandalia-rasteira-feminina-de-dedo-preta" data-hzbf-cta="produto_nati_img" tabindex="-1" aria-hidden="true">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/2d/5d/31/e402f7e69c880ad4ac4c4608dd/nati-sandalia-rasteira-feminina-de-dedo-preta-large-1.jpg" alt="" loading="lazy" width="600" height="750">
+            <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/ed/9a/ef/83b7b813e761b68e69625fdba5/nati-sandalia-rasteira-feminina-de-dedo-preta-large-2.jpg" alt="" loading="lazy" width="600" height="750">
+          </a>
+          <span class="hzbf-tag">Entra na Black</span>
+          <a class="hzbf-fav" href="https://www.usehitzz.com.br/account/wishlist/?slug=nati-sandalia-rasteira-feminina-de-dedo-preta&_redirect_to=/nati-sandalia-rasteira-feminina-de-dedo-preta" aria-label="Favoritar Nati" data-hzbf-cta="fav_nati"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z"/></svg></a>
+          <div class="hzbf-card__body">
+            <h3 class="hzbf-card__name">Nati</h3>
+            <p class="hzbf-card__desc">Rasteira de dedo · Preta</p>
+            <div class="hzbf-price">
+              <p class="hzbf-price__now">Hoje<b>R$ 299,90</b></p>
+              <span class="hzbf-price__black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Preço Black</span>
+            </div>
+            <a class="hzbf-btn hzbf-card__cta" href="https://www.usehitzz.com.br/nati-sandalia-rasteira-feminina-de-dedo-preta" data-hzbf-cta="produto_nati">Ver modelo</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="hzbf-note hzbf-glass">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5"/><circle cx="12" cy="12" r="3"/></svg>
+        <p>A grade de cada modelo é limitada. <b>Quem já sabe o tamanho sai na frente</b> quando a Black abrir.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section class="hzbf__wrap" id="hzbf-app" aria-labelledby="hzbf-app-t">
+    <div class="hzbf-app hzbf-glass">
+      <div>
+        <span class="hzbf-eyebrow">Vantagem exclusiva do app</span>
+        <h2 id="hzbf-app-t">Na Black, o app vale <strong>12% OFF a mais.</strong></h2>
+        <p class="hzbf-app__sub">Baixe antes para chegar com a conta pronta e o desconto garantido na sua primeira compra.</p>
+
+        <div class="hzbf-compare" role="group" aria-label="Comparação de desconto na primeira compra">
+          <div class="hzbf-compare__i hzbf-compare__i--off"><span>No site</span><b>8% OFF</b></div>
+          <div class="hzbf-compare__i hzbf-compare__i--on"><span>No app</span><b>12% OFF</b></div>
+        </div>
+
+        <ol class="hzbf-steps">
+          <li><span><b>Baixe o app</b> Use Hitzz agora</span></li>
+          <li><span><b>Crie sua conta</b> e favorite seus modelos</span></li>
+          <li><span><b>Compre na Black</b> com 12% OFF extra na 1ª compra</span></li>
+        </ol>
+
+        <div class="hzbf-stores">
+          <a class="hzbf-store" data-os="ios" href="https://apps.apple.com/br/app/id6793275985" target="_blank" rel="noopener" data-hzbf-cta="app_ios">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3.1 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.7-1-2.7-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>
+            <span><span>Baixar na</span><b>App Store</b></span>
+          </a>
+          <a class="hzbf-store" data-os="android" href="https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR" target="_blank" rel="noopener" data-hzbf-cta="app_android">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 2.8c-.3.3-.4.7-.4 1.2v16c0 .5.1.9.4 1.2l9-9.2L4 2.8zm10.3 7.9L5.6 1.9l10.7 6.1-2 2.7zm0 2.6l2 2.7-10.7 6.1 8.7-8.8zm5.6-2.8L17.5 9l-2.3 3 2.3 3 2.4-1.4c.7-.4.7-1.4 0-1.7z"/></svg>
+            <span><span>Disponível no</span><b>Google Play</b></span>
+          </a>
+        </div>
+        <!-- [CONFIRMAR] regra: acumula com a Black? aplicação automática ou cupom? -->
+        <p class="hzbf-fine">Desconto válido para a primeira compra realizada pelo app.</p>
+      </div>
+
+      <div class="hzbf-app__visual" aria-hidden="true">
+        <div class="hzbf-app__ring"></div>
+        <div class="hzbf-app__big hzbf-glass"><b>12<small>%</small></b><span>OFF extra no app</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra fixa (mobile) -->
+  <div class="hzbf-bar hzbf-glass" data-hzbf-bar aria-hidden="true">
+    <p class="hzbf-bar__t"><b>+12% OFF no app</b>na sua 1ª compra</p>
+    <a class="hzbf-btn hzbf-btn--primary" href="#hzbf-app" data-hzbf-store="auto" data-hzbf-cta="bar_app" tabindex="-1">Baixar</a>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root = document.getElementById('hzbf');
+  if (!root || root.getAttribute('data-hzbf-init')) return;
+  root.setAttribute('data-hzbf-init','1');
+
+  /* Fonte: usa a do site. Só cai para sans-serif se a página não definir nenhuma (ex.: preview fora da loja) */
+  var ff = (getComputedStyle(root.parentNode || document.body).fontFamily || '').toLowerCase().replace(/["']/g,'');
+  if (!ff || /^(times|serif|georgia)/.test(ff)) {
+    root.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  }
+
+  var HZBF_CONFIG = {
+    blackStart: '2026-11-27T00:00:00-03:00', // [CONFIRMAR] início da Black
+    playUrl: 'https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR',
+    iosUrl: 'https://apps.apple.com/br/app/id6793275985'
+  };
+
+  /* Loja certa por dispositivo */
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/i.test(ua);
+  var playReady = HZBF_CONFIG.playUrl.indexOf('#') !== 0;
+  var storeUrl = isIOS ? HZBF_CONFIG.iosUrl : (isAndroid && playReady ? HZBF_CONFIG.playUrl : null);
+
+  var play = root.querySelector('.hzbf-store[data-os="android"]');
+  if (play && playReady) play.href = HZBF_CONFIG.playUrl;
+
+  if (storeUrl) {
+    root.querySelectorAll('[data-hzbf-store="auto"]').forEach(function(a){
+      a.href = storeUrl; a.target = '_blank'; a.rel = 'noopener';
+    });
+    var match = root.querySelector('.hzbf-store[data-os="' + (isIOS ? 'ios' : 'android') + '"]');
+    if (match) { match.classList.add('is-match'); match.parentNode.insertBefore(match, match.parentNode.firstChild); }
+  }
+
+  /* Contagem regressiva */
+  var box = root.querySelector('[data-hzbf-countdown]');
+  var end = new Date(HZBF_CONFIG.blackStart).getTime();
+  if (box && !isNaN(end)) {
+    var el = {}; ['d','h','m','s'].forEach(function(k){ el[k] = box.querySelector('[data-u="'+k+'"]'); });
+    var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+    var timer;
+    var tick = function(){
+      var diff = end - Date.now();
+      if (diff <= 0) {
+        clearInterval(timer);
+        var label = box.querySelector('[data-hzbf-count-label]');
+        if (label) label.innerHTML = '<b>A Black começou</b>Os preços já estão liberados';
+        ['d','h','m','s'].forEach(function(k){ if (el[k]) el[k].textContent = '00'; });
+        return;
+      }
+      var s = Math.floor(diff / 1000);
+      if (el.d) el.d.textContent = pad(Math.floor(s / 86400));
+      if (el.h) el.h.textContent = pad(Math.floor(s % 86400 / 3600));
+      if (el.m) el.m.textContent = pad(Math.floor(s % 3600 / 60));
+      if (el.s) el.s.textContent = pad(s % 60);
+    };
+    tick(); timer = setInterval(tick, 1000);
+  }
+
+  /* Barra fixa: aparece após o hero e some na seção do app */
+  var bar = root.querySelector('[data-hzbf-bar]');
+  var hero = root.querySelector('.hzbf-hero');
+  var app = root.querySelector('#hzbf-app');
+  if (bar && hero && app && 'IntersectionObserver' in window) {
+    var heroOut = false, appIn = false;
+    var sync = function(){
+      var on = heroOut && !appIn;
+      bar.classList.toggle('is-on', on);
+      bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+      var btn = bar.querySelector('a'); if (btn) btn.tabIndex = on ? 0 : -1;
+    };
+    new IntersectionObserver(function(e){ heroOut = !e[0].isIntersecting; sync(); }).observe(hero);
+    new IntersectionObserver(function(e){ appIn = e[0].isIntersecting; sync(); }, { threshold: .2 }).observe(app);
+  }
+
+  /* Rolagem suave nas âncoras internas (sem mexer no scroll global) */
+  root.querySelectorAll('a[href^="#hzbf"]').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      ev.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>

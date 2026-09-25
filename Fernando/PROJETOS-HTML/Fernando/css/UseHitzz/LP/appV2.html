@@ -1,0 +1,1781 @@
+<style type="text/css">
+    /* Página App — modo full, sem header/rodapé */
+    body.page-pagina-app .navbar.navbar-fixed-top,
+    body.page-pagina-app .background-darkin-navbar,
+    body.page-pagina-app footer,
+    body.page-pagina-app #newsletter-fixed-bottom,
+    body.page-pagina-app #whatsapp-widget,
+    body.page-pagina-app #lgdp,
+    body.page-pagina-app #page-content-pagina-app>.page-header,
+    body.page-pagina-app .breadcrumb {
+        display: none !important;
+    }
+
+    body.page-pagina-app .container.main-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    body.page-pagina-app .main-container.headerOffset {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    body.page-pagina-app #contentBlock {
+        margin: 0 !important;
+    }
+
+    body.page-pagina-app #contentBlock>div[class*="col-"] {
+        padding: 0 !important;
+        width: 100% !important;
+        float: none !important;
+    }
+
+    body.page-pagina-app {
+        overflow-x: hidden;
+    }
+</style>
+<!-- Fragmento embutível: sem <html>, <head> ou <body>. -->
+<style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    .hitzz-app-lp {
+        --ha-black: #1a1a1a;
+        --ha-ink: #1a1a1a;
+        --ha-white: #fff;
+        --ha-cream: #faf9f7;
+        --ha-sand: #7a746c;
+        --ha-line: #e6e4df;
+        width: 100%;
+        overflow: hidden;
+        background: var(--ha-white);
+        color: var(--ha-ink);
+        font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .hitzz-app-lp,
+    .hitzz-app-lp *,
+    .hitzz-app-lp *::before,
+    .hitzz-app-lp *::after {
+        box-sizing: border-box;
+    }
+
+    .hitzz-app-lp img,
+    .hitzz-app-lp svg {
+        display: block;
+    }
+
+    .hitzz-app-lp a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .hitzz-app-lp button {
+        font: inherit;
+    }
+
+    .ha-container {
+        width: min(1160px, calc(100% - 28px));
+        margin: 0 auto;
+    }
+
+    /* ANIMAÇÕES */
+    @keyframes haFadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ha-hero-bg {
+        opacity: 0;
+        animation: haFadeUp 1.1s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+    }
+
+    .ha-hero-copy>* {
+        opacity: 0;
+        animation: haFadeUp 0.7s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+    }
+
+    .ha-hero-copy>*:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .ha-hero-copy>*:nth-child(2) {
+        animation-delay: 0.15s;
+    }
+
+    .ha-hero-copy>*:nth-child(3) {
+        animation-delay: 0.25s;
+    }
+
+    .ha-hero-copy>*:nth-child(4) {
+        animation-delay: 0.35s;
+    }
+
+    .ha-hero-copy>*:nth-child(5) {
+        animation-delay: 0.45s;
+    }
+
+    .ha-hero-copy>*:nth-child(6) {
+        animation-delay: 0.55s;
+    }
+
+    .hitzz-app-lp.ha-reveal-ready [data-reveal] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.16, 0.84, 0.44, 1),
+            transform 0.6s cubic-bezier(0.16, 0.84, 0.44, 1);
+    }
+
+    .hitzz-app-lp.ha-reveal-ready [data-reveal].ha-in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .ha-benefits-grid [data-reveal]:nth-child(2) {
+        transition-delay: 0.1s;
+    }
+
+    .ha-benefits-grid [data-reveal]:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    .ha-steps [data-reveal]:nth-child(2) {
+        transition-delay: 0.1s;
+    }
+
+    .ha-steps [data-reveal]:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    /* HERO */
+    /* Mobile-first: texto sobreposto à foto, ancorado no topo para não cair sobre a pessoa. */
+    .ha-hero {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        align-items: flex-start;
+        min-height: 1000px;
+        padding: 28px 0 28px;
+        overflow: hidden;
+        background: var(--ha-black);
+        color: var(--ha-white);
+    }
+
+    .ha-hero-bg {
+        position: absolute !important;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -2;
+        overflow: hidden;
+    }
+
+    .ha-hero-bg img {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        object-fit: cover !important;
+        object-position: center top;
+        transform: scale(1.32);
+        transform-origin: 50% 0%;
+    }
+
+    .ha-hero-scrim {
+        position: absolute !important;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        background: linear-gradient(180deg,
+                rgba(26, 26, 26, 0.88) 0%,
+                rgba(26, 26, 26, 0.72) 30%,
+                rgba(26, 26, 26, 0.32) 52%,
+                rgba(26, 26, 26, 0.2) 68%,
+                rgba(26, 26, 26, 0.72) 100%);
+    }
+
+    .ha-logo {
+        width: 110px;
+        max-height: 54px;
+        margin: 0 auto 30px;
+        filter: invert(1);
+    }
+
+    .ha-hero-copy {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        text-align: center;
+    }
+
+    .ha-hero h1 {
+        max-width: 620px;
+        margin: 0 auto;
+        font-size: clamp(38px, 9vw, 60px);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.03;
+    }
+
+    .ha-hero h1 span {
+        color: rgba(255, 255, 255, 0.55);
+    }
+
+    .ha-hero-lead {
+        max-width: 530px;
+        margin: 20px auto 22px;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 16px;
+        line-height: 1.55;
+    }
+
+    /* CUPOM PRINCIPAL */
+    .ha-coupon {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 12px;
+        width: min(100%, 465px);
+        margin: 0 auto 18px;
+        padding: 11px 11px 11px 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.7);
+        border-radius: 15px;
+        background: rgba(20, 18, 17, 0.72);
+        text-align: left;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .ha-coupon-label {
+        display: block;
+        margin-bottom: 3px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .ha-coupon-code {
+        display: block;
+        font-size: 21px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        line-height: 1;
+    }
+
+    .ha-copy-button {
+        min-width: 92px;
+        min-height: 42px;
+        padding: 10px 15px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--ha-cream);
+        color: var(--ha-black);
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: 800;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .ha-copy-button:hover {
+        transform: translateY(-1px);
+        background: var(--ha-cream);
+    }
+
+    .ha-copy-button.is-copied {
+        background: var(--ha-sand);
+    }
+
+    /* BOTÕES DAS LOJAS */
+    .ha-store-links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: min(100%, 465px);
+        margin: 0 auto;
+    }
+
+    .ha-store-link {
+        display: flex;
+        min-height: 53px;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 9px 11px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 11px;
+        background: rgba(20, 18, 17, 0.55);
+        color: var(--ha-white);
+        transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease,
+            border-color 0.2s ease;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .ha-store-link:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.42);
+        background: rgba(20, 18, 17, 0.75);
+    }
+
+    .ha-store-link[aria-disabled="true"] {
+        cursor: default;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .ha-store-link:focus-visible,
+    .ha-copy-button:focus-visible,
+    .ha-main-cta:focus-visible {
+        outline: 3px solid var(--ha-sand);
+        outline-offset: 3px;
+    }
+
+    .ha-store-icon {
+        width: 23px;
+        height: 23px;
+        flex: 0 0 23px;
+    }
+
+    .ha-store-copy {
+        display: grid;
+        gap: 1px;
+        text-align: left;
+    }
+
+    .ha-store-copy small {
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    .ha-store-copy strong {
+        font-size: 13px;
+        line-height: 1.1;
+    }
+
+    .ha-legal {
+        display: block;
+        margin-top: 12px;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 10px;
+        line-height: 1.45;
+    }
+
+
+    /* MAIS VENDIDOS + 12% OFF NO APP */
+    .ha-bestsellers {
+        padding: 58px 0 66px;
+        border-bottom: 1px solid var(--ha-line);
+        background: #fff;
+    }
+
+    .ha-bestsellers-head {
+        display: grid;
+        gap: 20px;
+        margin-bottom: 24px;
+    }
+
+    .ha-bestsellers-title-wrap {
+        max-width: 720px;
+    }
+
+    .ha-bestsellers-kicker {
+        margin: 0 0 10px;
+        color: var(--ha-sand);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .ha-bestsellers h2 {
+        margin: 0;
+        font-size: clamp(30px, 5vw, 44px);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.06;
+    }
+
+    .ha-bestsellers-subtitle {
+        max-width: 650px;
+        margin: 13px 0 0;
+        color: var(--ha-sand);
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .ha-bestsellers-offer {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 16px;
+        overflow: hidden;
+        border: 1px solid #1a1a1a;
+        border-radius: 16px;
+        background: #1a1a1a;
+        color: #fff;
+        box-shadow: 0 10px 26px rgba(26, 26, 26, 0.12);
+    }
+
+    .ha-bestsellers-offer::after {
+        position: absolute;
+        top: -52px;
+        right: -35px;
+        width: 150px;
+        height: 150px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50%;
+        content: "";
+        pointer-events: none;
+    }
+
+    .ha-bestsellers-offer-copy {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        gap: 4px;
+    }
+
+    .ha-bestsellers-offer-copy small {
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .ha-bestsellers-offer-copy strong {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 7px;
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1;
+    }
+
+    .ha-bestsellers-offer-copy strong span {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+    }
+
+    .ha-bestsellers-code {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        margin-top: 5px;
+        padding: 7px 10px;
+        border: 1px dashed rgba(255, 255, 255, 0.68);
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+    }
+
+    .ha-bestsellers-copy {
+        position: relative;
+        z-index: 1;
+        flex: 0 0 auto;
+        min-width: 108px;
+        min-height: 44px;
+        padding: 10px 14px;
+        border: 0;
+        border-radius: 10px;
+        background: #fff;
+        color: #1a1a1a;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: 900;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .ha-bestsellers-copy:hover {
+        transform: translateY(-1px);
+        background: #f3f1ed;
+    }
+
+    .ha-bestsellers-copy.is-copied {
+        background: #d8d2c8;
+    }
+
+    .ha-carousel {
+        position: relative;
+    }
+
+    .ha-carousel-head {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 14px;
+        margin-bottom: 13px;
+    }
+
+    .ha-carousel-controls {
+        display: flex;
+        gap: 7px;
+    }
+
+    .ha-carousel-arrow {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        place-items: center;
+        border: 1px solid var(--ha-line);
+        border-radius: 50%;
+        background: #fff;
+        color: var(--ha-black);
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    }
+
+    .ha-carousel-arrow:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background: var(--ha-cream);
+    }
+
+    .ha-carousel-arrow:disabled {
+        cursor: default;
+        opacity: 0.32;
+    }
+
+    .ha-carousel-arrow svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .ha-products {
+        display: flex;
+        gap: 12px;
+        margin: 0 -14px;
+        padding: 0 14px 10px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-inline: contain;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .ha-products::-webkit-scrollbar {
+        display: none;
+    }
+
+    .ha-product-card {
+        min-width: 0;
+        flex: 0 0 min(74vw, 245px);
+        scroll-snap-align: start;
+    }
+
+    .ha-product-media {
+        position: relative;
+        display: block;
+        aspect-ratio: 2 / 3;
+        overflow: hidden;
+        border-radius: 18px;
+        background: #f3f3f3;
+    }
+
+    .ha-product-media::after {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        padding: 6px 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.88);
+        color: #1a1a1a;
+        content: "mais escolhido";
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .ha-product-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        transition: transform 0.35s ease;
+    }
+
+    .ha-product-card:hover .ha-product-media img {
+        transform: scale(1.02);
+    }
+
+    .ha-product-content {
+        padding: 12px 2px 2px;
+    }
+
+    .ha-product-name {
+        display: -webkit-box;
+        min-height: 34px;
+        margin: 0 0 9px;
+        overflow: hidden;
+        color: #3c3935;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.45;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+
+    .ha-product-price-old {
+        margin-bottom: 5px;
+        color: #9a958e;
+        font-size: 9px;
+        line-height: 1.3;
+    }
+
+    .ha-product-price-old span {
+        margin-left: 3px;
+        text-decoration: line-through;
+    }
+
+    .ha-product-price-app {
+        margin-bottom: 2px;
+        color: var(--ha-black);
+        line-height: 1.15;
+    }
+
+    .ha-product-price-app strong {
+        display: block;
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: -0.035em;
+    }
+
+    .ha-product-price-app strong span {
+        color: var(--ha-sand);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
+
+    .ha-product-coupon {
+        margin: 4px 0 0;
+        color: #9a958e;
+        font-size: 9px;
+        line-height: 1.4;
+    }
+
+    .ha-bestsellers-bottom {
+        display: grid;
+        gap: 10px;
+        margin-top: 17px;
+    }
+
+    .ha-bestsellers-note {
+        margin: 0;
+        color: #8c867f;
+        font-size: 10px;
+        line-height: 1.45;
+        text-align: center;
+    }
+
+    @media (min-width: 700px) {
+        .ha-bestsellers {
+            padding: 66px 0 72px;
+        }
+
+        .ha-bestsellers-head {
+            grid-template-columns: minmax(0, 1fr) minmax(330px, 410px);
+            align-items: end;
+            gap: 34px;
+        }
+
+        .ha-products {
+            gap: 14px;
+            margin: 0;
+            padding: 0 0 10px;
+        }
+
+        .ha-product-card {
+            flex-basis: calc((100% - 42px) / 4);
+        }
+
+    }
+
+    @media (min-width: 1050px) {
+        .ha-product-card {
+            flex-basis: calc((100% - 45px) / 4);
+        }
+
+        .ha-products {
+            gap: 15px;
+        }
+
+        .ha-product-content {
+            padding: 15px;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .ha-bestsellers-offer {
+            grid-template-columns: 1fr;
+        }
+
+        .ha-bestsellers-copy {
+            width: 100%;
+        }
+
+        .ha-carousel-head {
+            margin-bottom: 10px;
+        }
+
+        .ha-carousel-arrow {
+            width: 38px;
+            height: 38px;
+        }
+    }
+
+    /* BENEFÍCIOS COMPACTOS */
+    .ha-benefits {
+        border-bottom: 1px solid var(--ha-line);
+        background: var(--ha-cream);
+    }
+
+    .ha-benefits-grid {
+        display: grid;
+        gap: 0;
+    }
+
+    .ha-benefit {
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 5px;
+        border-bottom: 1px solid var(--ha-line);
+        transition: background 0.25s ease;
+    }
+
+    .ha-benefit:last-child {
+        border-bottom: 0;
+    }
+
+    .ha-benefit-icon {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+        place-items: center;
+        border: 1px solid rgba(26, 26, 26, 0.32);
+        border-radius: 50%;
+        background: rgba(26, 26, 26, 0.04);
+        transition: transform 0.25s ease;
+    }
+
+    .ha-benefit-icon svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .ha-benefit strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 13px;
+    }
+
+    .ha-benefit span {
+        color: var(--ha-sand);
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    /* COMO USAR */
+    .ha-how {
+        padding: 58px 0 70px;
+    }
+
+    .ha-how-grid {
+        display: grid;
+        gap: 34px;
+        align-items: center;
+    }
+
+    .ha-eyebrow {
+        margin: 0 0 12px;
+        color: var(--ha-sand);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+    }
+
+    .ha-how h2 {
+        max-width: 560px;
+        margin: 0 0 23px;
+        font-size: clamp(30px, 6vw, 42px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.08;
+    }
+
+    .ha-steps {
+        display: grid;
+    }
+
+    .ha-step {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 10px;
+        padding: 13px 0;
+        border-top: 1px solid var(--ha-line);
+    }
+
+    .ha-step:last-child {
+        border-bottom: 1px solid var(--ha-line);
+    }
+
+    .ha-step-index {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--ha-black);
+        color: var(--ha-white);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .ha-step strong {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 13px;
+    }
+
+    .ha-step span {
+        color: var(--ha-sand);
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .ha-offer-card {
+        position: relative;
+        padding: 28px;
+        overflow: hidden;
+        border-radius: 24px;
+        background: var(--ha-black);
+        color: var(--ha-white);
+    }
+
+    .ha-offer-card::after {
+        position: absolute;
+        right: -75px;
+        bottom: -95px;
+        width: 220px;
+        height: 220px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 50%;
+        content: "";
+    }
+
+    .ha-offer-card>* {
+        position: relative;
+        z-index: 2;
+    }
+
+    .ha-offer-card small {
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+
+    .ha-offer-card h3 {
+        margin: 12px 0 7px;
+        font-size: clamp(38px, 9vw, 54px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 0.98;
+    }
+
+    .ha-offer-card p {
+        max-width: 330px;
+        margin: 0 0 20px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .ha-offer-code {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        padding: 11px 12px 11px 15px;
+        border: 1px dashed rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
+    }
+
+    .ha-offer-code strong {
+        font-size: 18px;
+        letter-spacing: 0.08em;
+    }
+
+    .ha-offer-code button {
+        padding: 8px 11px;
+        border: 0;
+        border-radius: 8px;
+        background: #fff;
+        color: var(--ha-black);
+        cursor: pointer;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .ha-main-cta {
+        display: flex;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        width: 100%;
+        padding: 12px 18px;
+        border-radius: 12px;
+        background: var(--ha-sand);
+        color: #fff !important;
+        font-size: 14px;
+        font-weight: 900;
+        transition: transform 0.2s ease;
+    }
+
+    .ha-main-cta:hover {
+        transform: translateY(-2px);
+    }
+
+    .ha-main-cta svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* CTA FIXO MOBILE */
+    .ha-mobile-sticky {
+        position: fixed;
+        z-index: 999;
+        right: 8px;
+        bottom: calc(8px + env(safe-area-inset-bottom));
+        left: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 9px 9px 9px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        background: rgba(8, 8, 8, 0.95);
+        box-shadow: 0 15px 38px rgba(0, 0, 0, 0.34);
+        color: #fff;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(18px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        backdrop-filter: blur(14px);
+    }
+
+    .ha-mobile-sticky.is-visible {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .ha-sticky-copy strong {
+        display: block;
+        font-size: 12px;
+    }
+
+    .ha-sticky-copy span {
+        display: block;
+        margin-top: 2px;
+        color: var(--ha-sand);
+        font-size: 10px;
+        font-weight: 700;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.55);
+    }
+
+    .ha-sticky-button {
+        min-width: 116px;
+        padding: 12px 14px;
+        border-radius: 11px;
+        background: #fff;
+        color: var(--ha-black) !important;
+        font-size: 11px;
+        font-weight: 900;
+        text-align: center;
+    }
+
+    @media (min-width: 700px) {
+        .ha-container {
+            width: min(1160px, calc(100% - 52px));
+        }
+
+        .ha-benefits-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .ha-benefit {
+            padding: 24px 22px;
+            border-right: 1px solid var(--ha-line);
+            border-bottom: 0;
+        }
+
+        .ha-benefit:last-child {
+            border-right: 0;
+        }
+
+        .ha-benefit:hover {
+            background: rgba(26, 26, 26, 0.03);
+        }
+
+        .ha-benefit:hover .ha-benefit-icon {
+            transform: scale(1.06);
+        }
+
+        .ha-how-grid {
+            grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+            gap: 65px;
+        }
+    }
+
+    @media (min-width: 960px) {
+        .ha-hero {
+            align-items: center;
+            min-height: 650px;
+            padding: 46px 0;
+        }
+
+        .ha-hero-bg img {
+            transform: none;
+        }
+
+        .ha-hero-scrim {
+            background: linear-gradient(90deg,
+                    rgba(0, 0, 0, 0.8) 0%,
+                    rgba(0, 0, 0, 0.56) 32%,
+                    rgba(0, 0, 0, 0.2) 52%,
+                    rgba(0, 0, 0, 0.05) 68%,
+                    transparent 82%);
+        }
+
+        .ha-hero-copy {
+            max-width: 560px;
+            text-align: left;
+        }
+
+        .ha-logo,
+        .ha-hero h1,
+        .ha-hero-lead,
+        .ha-coupon,
+        .ha-store-links {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .ha-logo {
+            margin-bottom: 30px;
+        }
+
+        .ha-how {
+            padding: 75px 0 82px;
+        }
+
+        .ha-offer-card {
+            padding: 34px;
+        }
+
+        .ha-mobile-sticky {
+            display: none;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .ha-hero h1 {
+            font-size: 43px;
+        }
+
+        .ha-store-copy strong {
+            font-size: 11px;
+        }
+    }
+
+    @keyframes haStoreHighlightPulse {
+
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.16);
+        }
+    }
+
+    .ha-store-links.ha-highlight .ha-store-link {
+        animation: haStoreHighlightPulse 0.85s ease-in-out 2;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        .hitzz-app-lp *,
+        .hitzz-app-lp *::before,
+        .hitzz-app-lp *::after {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+        }
+    }
+</style>
+<main class="hitzz-app-lp" id="app-hitzz">
+    <section aria-labelledby="ha-title" class="ha-hero">
+        <picture class="ha-hero-bg">
+            <source media="(min-width: 960px)"
+                srcset="https://cdn-secure.uoou.com.br/static/images/loja_virtual/use-hitzz/usehitzz/plano-de-fundo-app.jpg" />
+            <img alt="Modelo mostrando o app Use Hitzz aberto no celular" height="1672"
+                src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/use-hitzz/usehitzz/plano-de-fundo-app-mobile.png"
+                width="941" />
+        </picture>
+        <div aria-hidden="true" class="ha-hero-scrim"></div>
+
+        <div class="ha-container">
+            <div class="ha-hero-copy">
+                <img alt="Use Hitzz" class="ha-logo" height="64"
+                    src="https://adaptive-images.uooucdn.com.br/tr:w-200,h-55,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/s/bc/cd/11/166f64fab1c8539ed760290a5c.svg"
+                    width="128" />
+                <h1 id="ha-title">
+                    Baixe o app e ganhe <span>12% OFF</span> na primeira compra.
+                </h1>
+
+                <p class="ha-hero-lead">
+                    Tenha a Hitzz na palma da m&atilde;o e aproveite 12% de desconto na sua primeira compra realizada
+                    pelo app.
+                </p>
+
+                <div aria-label="Cupom de 12% de desconto para a primeira compra no aplicativo" class="ha-coupon">
+                    <div>
+                        <span class="ha-coupon-label">Cupom da primeira compra</span> <strong
+                            class="ha-coupon-code">APP12</strong>
+                    </div>
+                    <button class="ha-copy-button" data-copy-coupon="" data-placement="hero" type="button">Copiar
+                        cupom</button>
+                </div>
+
+                <div aria-label="Baixe o aplicativo" class="ha-store-links">
+                    <a aria-label="Baixar o app Use Hitzz na App Store" class="ha-store-link" data-placement="hero"
+                        data-store="apple" href="#"><svg aria-hidden="true" class="ha-store-icon" fill="currentColor"
+                            viewbox="0 0 24 24">
+                            <path
+                                d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.79 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.1v-.01ZM12.03 7.25C11.88 5.02 13.69 3.18 15.77 3c.29 2.58-2.34 4.5-3.74 4.25Z">
+                            </path>
+                        </svg> <span class="ha-store-copy"><small>Baixar na</small><strong>App Store</strong></span>
+                    </a> <a aria-label="Baixar o app Use Hitzz no Google Play" class="ha-store-link"
+                        data-placement="hero" data-store="android" href="#"> <svg aria-hidden="true"
+                            class="ha-store-icon" viewbox="0 0 24 24">
+                            <path d="M2.6 2.4A2 2 0 0 0 2 3.85v16.3c0 .55.22 1.06.6 1.45L11.8 12 2.6 2.4Z"
+                                fill="#34A853"></path>
+                            <path d="m14.9 8.75-3.1 3.24 3.1 3.25 4.4-2.52c.75-.43.75-1.03 0-1.46l-4.4-2.51Z"
+                                fill="#FBBC04"></path>
+                            <path d="m2.6 21.6 11.28-6.45-2.08-3.16-9.2 9.61Z" fill="#EA4335"></path>
+                            <path d="M2.6 2.4 13.88 8.85 11.8 12 2.6 2.4Z" fill="#4285F4"></path>
+                        </svg> <span class="ha-store-copy"><small>Baixar no</small><strong>Google
+                                Play</strong></span> </a>
+                </div>
+                <small class="ha-legal">Cupom v&aacute;lido somente na primeira compra realizada pelo app. Consulte as
+                    condi&ccedil;&otilde;es da campanha.</small>
+            </div>
+        </div>
+    </section>
+
+
+    <section aria-labelledby="ha-bestsellers-title" class="ha-bestsellers">
+        <div class="ha-container">
+            <div class="ha-bestsellers-head">
+                <div class="ha-bestsellers-title-wrap" data-reveal="">
+                    <p class="ha-bestsellers-kicker">Os mais desejados da Hitzz</p>
+                    <h2 id="ha-bestsellers-title">Os Hitzz que estão entre os mais escolhidos.</h2>
+                    <p class="ha-bestsellers-subtitle">
+                        Uma seleção dos modelos mais vendidos para mostrar, na prática, quanto você paga no app.
+                        Na primeira compra, use <strong>APP12</strong> e aproveite 12% OFF.
+                    </p>
+                </div>
+
+                <div class="ha-bestsellers-offer" data-reveal="">
+                    <div class="ha-bestsellers-offer-copy">
+                        <small>Exclusivo na primeira compra pelo app</small>
+                        <strong>12% OFF <span>nos seus favoritos</span></strong>
+                        <span class="ha-bestsellers-code">APP12</span>
+                    </div>
+                    <button class="ha-bestsellers-copy" data-copy-coupon="" data-placement="bestsellers" type="button">
+                        Copiar cupom
+                    </button>
+                </div>
+            </div>
+
+            <div class="ha-carousel" data-product-carousel>
+                <div class="ha-carousel-head">
+                    <div class="ha-carousel-controls" aria-label="Controles do carrossel">
+                        <button class="ha-carousel-arrow" type="button" data-carousel-prev aria-label="Produtos anteriores">
+                            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+                        </button>
+                        <button class="ha-carousel-arrow" type="button" data-carousel-next aria-label="Próximos produtos">
+                            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="ha-products" data-carousel-track aria-label="Seleção visual dos 12 mais vendidos">
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/a6/bd/95/8be890428945544a0d677376de/lion-clog-feminino-2-em-1-couro-preto-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="LION - CLOG FEMININO 2 EM 1 COURO PRETO" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">LION - CLOG FEMININO 2 EM 1 COURO PRETO</h3>
+                    <div class="ha-product-price-old">De <span>R$ 599,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 527,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/fa/c9/47/078e4ec0ba3ecaad1e3b9138d0/aline-bota-feminina-3-em-1-salto-alto-preta-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="ALINE - BOTA FEMININA 3 EM 1 SALTO ALTO PRETA" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">ALINE - BOTA FEMININA 3 EM 1 SALTO ALTO PRETA</h3>
+                    <div class="ha-product-price-old">De <span>R$ 679,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 598,31 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/1f/cf/3a/dd243762612929a66d4b88d98e/sakura-chinelo-flatform-tiras-puffer-bege-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="SAKURA - CHINELO FLATFORM TIRAS PUFFER CAMURÇA BEGE" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">SAKURA - CHINELO FLATFORM TIRAS PUFFER CAMURÇA BEGE</h3>
+                    <div class="ha-product-price-old">De <span>R$ 399,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 351,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/ec/5b/6c/7fbfed8f07cbefba0031a3dfd1/mila-tamanco-feminino-plataforma-camurca-tira-vinil-bege-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="MILA - TAMANCO FEMININO PLATAFORMA CAMURÇA TIRA VINIL BEGE" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">MILA - TAMANCO FEMININO PLATAFORMA CAMURÇA TIRA VINIL BEGE</h3>
+                    <div class="ha-product-price-old">De <span>R$ 449,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 395,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/ee/60/91/17c1004fd9d4fda7990f8cab21/gummy-sapatilha-feminina-transparente-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="GUMMY - SAPATILHA FEMININA TRANSPARENTE" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">GUMMY - SAPATILHA FEMININA TRANSPARENTE</h3>
+                    <div class="ha-product-price-old">De <span>R$ 179,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 158,31 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/5e/b8/b3/0eb62c40d666c9a9a29627116c/naia-sandalia-feminina-anatomica-corda-bege-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="NÁIA - SANDÁLIA FEMININA ANATÔMICA CORDA BEGE" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">NÁIA - SANDÁLIA FEMININA ANATÔMICA CORDA BEGE</h3>
+                    <div class="ha-product-price-old">De <span>R$ 699,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 615,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/a8/a8/4b/16eb48a615abbb6fd887072792/capucine-flatform-papete-feminina-fivelas-marrom-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="CAPUCINE - FLATFORM PAPETE FEMININA FIVELAS MARROM" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">CAPUCINE - FLATFORM PAPETE FEMININA FIVELAS MARROM</h3>
+                    <div class="ha-product-price-old">De <span>R$ 449,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 395,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/74/f4/b5/e21fa9cc348bdd677c8aa152fb/eva-bota-sandalia-dedo-feminina-fivelas-bege-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="EVA - BOTA SANDÁLIA DEDO FEMININA FIVELAS BEGE" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">EVA - BOTA SANDÁLIA DEDO FEMININA FIVELAS BEGE</h3>
+                    <div class="ha-product-price-old">De <span>R$ 499,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 439,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/39/9d/b9/37d73acb7c1c8803c04847f8b4/hanna-tamanco-feminino-dedo-couro-vermelho-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="HANNA - TAMANCO FEMININO DEDO COURO VERMELHO" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">HANNA - TAMANCO FEMININO DEDO COURO VERMELHO</h3>
+                    <div class="ha-product-price-old">De <span>R$ 399,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 351,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/06/57/e4/6838d4cf2e290e6f30ffb54ee6/isis-chinelo-flatform-feminino-couro-preto-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="ISIS - CHINELO FLATFORM FEMININO COURO PRETO" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">ISIS - CHINELO FLATFORM FEMININO COURO PRETO</h3>
+                    <div class="ha-product-price-old">De <span>R$ 399,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 351,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/02/e4/b0/ab9fa66c7002f253ec60b22d80/sasha-tamanco-feminino-trama-artesanal-camel-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="SASHA - TAMANCO FEMININO TRAMA ARTESANAL CAMEL" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">SASHA - TAMANCO FEMININO TRAMA ARTESANAL CAMEL</h3>
+                    <div class="ha-product-price-old">De <span>R$ 599,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 527,91 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+            <article class="ha-product-card" data-reveal="">
+                <div class="ha-product-media">
+                    <img src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/8a/fc/db/2b0309e8052472c80118a05159/amelie-bota-feminina-3-em-1-salto-baixo-preta-large-1.png" decoding="async" referrerpolicy="no-referrer" alt="AMELIE - BOTA FEMININA 3 EM 1 SALTO BAIXO PRETA" width="520" height="780" />
+                </div>
+                <div class="ha-product-content">
+                    <h3 class="ha-product-name">AMELIE - BOTA FEMININA 3 EM 1 SALTO BAIXO PRETA</h3>
+                    <div class="ha-product-price-old">De <span>R$ 679,90</span></div>
+                    <div class="ha-product-price-app">
+                        <strong>Pague R$ 598,31 <span>no app</span></strong>
+                    </div>
+                    <p class="ha-product-coupon">com o cupom APP12 na 1ª compra</p>
+                </div>
+            </article>
+                </div>
+            </div>
+
+            <div class="ha-bestsellers-bottom">
+                <p class="ha-bestsellers-note">
+                    Os valores em “Pague no app” consideram 12% OFF sobre o preço exibido de cada modelo.
+                    APP12 é válido na primeira compra realizada pelo app, conforme condições da campanha.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section aria-label="Vantagens do aplicativo" class="ha-benefits">
+        <div class="ha-container ha-benefits-grid">
+            <div class="ha-benefit" data-reveal="">
+                <span aria-hidden="true" class="ha-benefit-icon"><svg fill="none" viewbox="0 0 24 24">
+                        <path d="M20 12v7H4V5h7m4-2h6v6m0-6-9 9" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.6"></path>
+                    </svg></span>
+
+                <div>
+                    <strong>12% OFF na primeira compra</strong><span>Use o cupom APP12 comprando pelo app.</span>
+                </div>
+            </div>
+
+            <div class="ha-benefit" data-reveal="">
+                <span aria-hidden="true" class="ha-benefit-icon"><svg fill="none" viewbox="0 0 24 24">
+                        <path d="M4 7h16v11H4V7Zm0 4h16M7 15h4" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.5"></path>
+                    </svg></span>
+
+                <div>
+                    <strong>Compra r&aacute;pida e segura</strong><span>Encontre e compre seus favoritos pelo
+                        celular.</span>
+                </div>
+            </div>
+
+            <div class="ha-benefit" data-reveal="">
+                <span aria-hidden="true" class="ha-benefit-icon"><svg fill="none" viewbox="0 0 24 24">
+                        <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v5l3 2" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                    </svg></span>
+
+                <div>
+                    <strong>Acompanhe seus pedidos</strong><span>Veja o andamento direto no aplicativo.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="ha-how-title" class="ha-how">
+        <div class="ha-container ha-how-grid">
+            <div>
+                <p class="ha-eyebrow">
+                    &Eacute; simples aproveitar
+                </p>
+
+                <h2 id="ha-how-title">
+                    Seu desconto em tr&ecirc;s passos.
+                </h2>
+
+                <div class="ha-steps">
+                    <div class="ha-step" data-reveal="">
+                        <span aria-hidden="true" class="ha-step-index">1</span>
+
+                        <div>
+                            <strong>Baixe o app</strong><span>Instale gratuitamente o aplicativo oficial da Use
+                                Hitzz.</span>
+                        </div>
+                    </div>
+
+                    <div class="ha-step" data-reveal="">
+                        <span aria-hidden="true" class="ha-step-index">2</span>
+
+                        <div>
+                            <strong>Escolha seus Hitzz</strong><span>Encontre seus modelos favoritos e adicione ao
+                                carrinho.</span>
+                        </div>
+                    </div>
+
+                    <div class="ha-step" data-reveal="">
+                        <span aria-hidden="true" class="ha-step-index">3</span>
+
+                        <div>
+                            <strong>Use APP12</strong><span>Aplique o cupom e garanta 12% OFF na sua primeira compra
+                                pelo app.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ha-offer-card" data-reveal="">
+                <small>Exclusivo para a primeira compra no app</small>
+
+                <h3>
+                    12% OFF
+                </h3>
+
+                <p>
+                    Baixe agora, escolha seus favoritos e use o cupom na sua primeira compra antes de finalizar o
+                    pedido.
+                </p>
+
+                <div class="ha-offer-code">
+                    <strong>APP12</strong><button data-copy-coupon="" data-placement="offer"
+                        type="button">Copiar</button>
+                </div>
+                <a class="ha-main-cta" data-placement="offer" data-smart-store="" href="#"> Baixar o app agora <svg
+                        aria-hidden="true" fill="none" viewbox="0 0 24 24">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="1.8"></path>
+                    </svg> </a>
+            </div>
+        </div>
+    </section>
+
+    <div aria-label="Baixe o app e ganhe 12% de desconto na primeira compra" class="ha-mobile-sticky"
+        data-mobile-sticky="">
+        <div class="ha-sticky-copy">
+            <strong>12% OFF na 1&ordf; compra</strong> <span>Use APP12 pelo app</span>
+        </div>
+        <a class="ha-sticky-button" data-placement="sticky" data-smart-store="" href="#">Baixar agora</a>
+    </div>
+</main>
+<script>
+    (function () {
+        "use strict";
+
+        var APP_STORE_URL = "https://apps.apple.com/br/app/use-hitzz/id6793275985";
+        var GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR";
+
+        var COUPON = "APP12";
+        var root = document.getElementById("app-hitzz");
+        if (!root) return;
+
+        var userAgent = navigator.userAgent || "";
+        var isIOS = /iPad|iPhone|iPod/.test(userAgent) ||
+            (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+        var isAndroid = /Android/i.test(userAgent);
+        var isMobile = isIOS || isAndroid ||
+            /Mobi|Windows Phone|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+
+        function isValidUrl(url) {
+            return typeof url === "string" && /^https:\/\//i.test(url);
+        }
+
+        function pushEvent(data) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push(data);
+        }
+
+        function copyFallback(text) {
+            var input = document.createElement("textarea");
+            input.value = text;
+            input.setAttribute("readonly", "");
+            input.style.position = "fixed";
+            input.style.opacity = "0";
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand("copy");
+            document.body.removeChild(input);
+        }
+
+        root.querySelectorAll("[data-copy-coupon]").forEach(function (button) {
+            button.addEventListener("click", function () {
+                var action = navigator.clipboard && window.isSecureContext
+                    ? navigator.clipboard.writeText(COUPON)
+                    : Promise.resolve(copyFallback(COUPON));
+
+                action.then(function () {
+                    var original = button.textContent;
+                    button.textContent = "Copiado!";
+                    button.classList.add("is-copied");
+
+                    pushEvent({
+                        event: "app_coupon_copy",
+                        app_name: "use_hitzz",
+                        coupon_code: COUPON,
+                        cta_placement: button.getAttribute("data-placement") || "unknown"
+                    });
+
+                    window.setTimeout(function () {
+                        button.textContent = original;
+                        button.classList.remove("is-copied");
+                    }, 1800);
+                });
+            });
+        });
+
+        function trackDownload(platform, placement) {
+            pushEvent({
+                event: "app_download_click",
+                app_name: "use_hitzz",
+                app_platform: platform,
+                coupon_code: COUPON,
+                cta_placement: placement || "unknown"
+            });
+        }
+
+        function configureStoreLink(link, platform, url) {
+            if (!isValidUrl(url)) {
+                link.setAttribute("aria-disabled", "true");
+                link.setAttribute("tabindex", "-1");
+                var small = link.querySelector("small");
+                var strong = link.querySelector("strong");
+                if (small) small.textContent = "Em breve no";
+                if (strong) strong.textContent = "Google Play";
+                return;
+            }
+
+            link.href = url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.addEventListener("click", function () {
+                trackDownload(platform, link.getAttribute("data-placement"));
+            });
+        }
+
+        root.querySelectorAll('[data-store="apple"]').forEach(function (link) {
+            configureStoreLink(link, "ios", APP_STORE_URL);
+        });
+
+        root.querySelectorAll('[data-store="android"]').forEach(function (link) {
+            configureStoreLink(link, "android", GOOGLE_PLAY_URL);
+        });
+
+        var storeLinksSection = root.querySelector(".ha-store-links");
+
+        function highlightStoreLinks() {
+            if (!storeLinksSection) return;
+            storeLinksSection.classList.remove("ha-highlight");
+            // eslint-disable-next-line no-unused-expressions
+            storeLinksSection.offsetWidth; // reinicia a animação se já estiver rodando
+            storeLinksSection.classList.add("ha-highlight");
+            window.setTimeout(function () {
+                storeLinksSection.classList.remove("ha-highlight");
+            }, 1800);
+        }
+
+        root.querySelectorAll("[data-smart-store]").forEach(function (link) {
+            if (!isMobile) {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    if (storeLinksSection) {
+                        storeLinksSection.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                    highlightStoreLinks();
+                    pushEvent({
+                        event: "app_download_scroll_to_stores",
+                        app_name: "use_hitzz",
+                        cta_placement: link.getAttribute("data-placement") || "unknown"
+                    });
+                });
+                return;
+            }
+
+            var platform = isIOS ? "ios" : "android";
+            var url = platform === "android" ? GOOGLE_PLAY_URL : APP_STORE_URL;
+
+            if (!isValidUrl(url) && isValidUrl(APP_STORE_URL)) {
+                platform = "ios";
+                url = APP_STORE_URL;
+            }
+
+            if (!isValidUrl(url)) {
+                link.setAttribute("aria-disabled", "true");
+                link.setAttribute("tabindex", "-1");
+                return;
+            }
+
+            link.href = url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.addEventListener("click", function () {
+                trackDownload(platform, link.getAttribute("data-placement"));
+            });
+        });
+
+        root.querySelectorAll("[data-product-carousel]").forEach(function (carousel) {
+            var track = carousel.querySelector("[data-carousel-track]");
+            var prev = carousel.querySelector("[data-carousel-prev]");
+            var next = carousel.querySelector("[data-carousel-next]");
+            if (!track || !prev || !next) return;
+
+            function getStep() {
+                var card = track.querySelector(".ha-product-card");
+                if (!card) return Math.max(track.clientWidth * 0.8, 260);
+                var styles = window.getComputedStyle(track);
+                var gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+                return card.getBoundingClientRect().width + gap;
+            }
+
+            function updateArrows() {
+                var maxScroll = Math.max(0, track.scrollWidth - track.clientWidth - 2);
+                prev.disabled = track.scrollLeft <= 2;
+                next.disabled = track.scrollLeft >= maxScroll;
+            }
+
+            prev.addEventListener("click", function () {
+                track.scrollBy({ left: -getStep(), behavior: "smooth" });
+                window.setTimeout(updateArrows, 350);
+            });
+
+            next.addEventListener("click", function () {
+                track.scrollBy({ left: getStep(), behavior: "smooth" });
+                window.setTimeout(updateArrows, 350);
+            });
+
+            track.addEventListener("scroll", function () {
+                window.requestAnimationFrame(updateArrows);
+            }, { passive: true });
+
+            window.addEventListener("resize", updateArrows, { passive: true });
+            updateArrows();
+        });
+
+        var sticky = root.querySelector("[data-mobile-sticky]");
+        var hero = root.querySelector(".ha-hero");
+
+        if (sticky && hero) {
+            if ("IntersectionObserver" in window) {
+                var stickyObserver = new IntersectionObserver(function (entries) {
+                    sticky.classList.toggle("is-visible", !entries[0].isIntersecting);
+                }, { rootMargin: "-100px 0px 0px 0px" });
+
+                stickyObserver.observe(hero);
+            } else {
+                var stickyTicking = false;
+                function toggleSticky() {
+                    sticky.classList.toggle("is-visible", hero.getBoundingClientRect().bottom < 100);
+                    stickyTicking = false;
+                }
+
+                window.addEventListener("scroll", function () {
+                    if (!stickyTicking) {
+                        window.requestAnimationFrame(toggleSticky);
+                        stickyTicking = true;
+                    }
+                }, { passive: true });
+
+                toggleSticky();
+            }
+        }
+
+        // Garante carregamento das imagens dos produtos usando as URLs exatas servidas pelo CDN da loja.
+        root.querySelectorAll(".ha-product-media img").forEach(function (img) {
+            img.loading = "eager";
+        });
+
+        var revealEls = root.querySelectorAll("[data-reveal]");
+        if (revealEls.length) {
+            root.classList.add("ha-reveal-ready");
+
+            if ("IntersectionObserver" in window) {
+                var revealObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("ha-in-view");
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2, rootMargin: "0px 0px -40px 0px" });
+
+                revealEls.forEach(function (el) { revealObserver.observe(el); });
+            } else {
+                revealEls.forEach(function (el) { el.classList.add("ha-in-view"); });
+            }
+        }
+    })();
+</script>

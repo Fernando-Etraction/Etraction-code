@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornada de Crescimento - Atacado Selah Produções</title>
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração da Identidade Visual (Cores da Marca) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#085182',
+                            blueHover: '#064067',
+                            gray: '#6E6E71',
+                            white: '#FFFFFF',
+                            light: '#F4F6F8' // Fundo off-white suave para dar contraste aos cards brancos
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-brand-white font-sans text-brand-gray selection:bg-brand-blue selection:text-white">
+    
+    <!-- BARRA DE NAVEGAÇÃO -->
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-50 border-b border-gray-100 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='https://www.selahproducoes.com.br/'">
+                    <i data-lucide="book-marked" class="h-8 w-8 text-brand-blue"></i>
+                    <span class="font-extrabold text-2xl text-brand-blue tracking-tighter uppercase">Selah<span class="text-brand-gray">Produções</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#jornada" class="text-brand-gray hover:text-brand-blue font-semibold text-sm uppercase tracking-wide transition-colors">A Jornada</a>
+                    <a href="#produtos" class="text-brand-gray hover:text-brand-blue font-semibold text-sm uppercase tracking-wide transition-colors">Materiais de Apoio</a>
+                    <a href="#comprar" class="text-brand-blue font-bold hover:text-brand-blueHover transition-colors flex items-center gap-1 text-sm uppercase tracking-wide">
+                        <i data-lucide="package-open" class="w-4 h-4"></i>
+                        Comprar no Atacado
+                    </a>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="#comprar" class="bg-[#25D366] hover:bg-[#1ebd5b] text-white px-6 py-2.5 rounded-md font-bold text-xs uppercase tracking-wide transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i> Atendimento WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECÇÃO HERÓI -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-brand-blue text-white">
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1438283173091-5dbf5c5a3206?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                alt="Igreja reunida" 
+                class="w-full h-full object-cover opacity-20 grayscale mix-blend-overlay"
+            />
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-blue/95 to-brand-blue/60"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white/10 border border-white/20 text-white font-bold text-xs uppercase tracking-widest mb-6">
+                    <i data-lucide="flame" class="w-4 h-4"></i>
+                    <span>A Jornada Completa</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-white">
+                    Uma jornada completa para conduzir sua igreja do <span class="underline decoration-white/30 decoration-4">ganhar ao multiplicar.</span>
+                </h1>
+                <p class="text-xl text-white/90 font-light mb-6 leading-relaxed">
+                    A <strong class="text-white font-semibold">Jornada de Crescimento</strong> é um caminho estruturado, bíblico e prático que forma discípulos, prepara líderes e estabelece uma igreja saudável e multiplicadora.
+                </p>
+                <div class="bg-white/5 border-l-4 border-white p-4 mb-8">
+                    <p class="italic text-white/80">"Não é um evento isolado. Não é apenas mais um curso. É um <strong class="text-white">processo contínuo de amadurecimento espiritual e crescimento saudável</strong>."</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#comprar" class="inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-brand-blue text-base uppercase tracking-wide font-bold py-4 px-8 rounded-md transition-all transform hover:-translate-y-1 shadow-lg">
+                        Equipar minha Igreja
+                    </a>
+                    <a href="#jornada" class="inline-flex items-center justify-center gap-3 bg-transparent hover:bg-white/10 text-white text-base uppercase tracking-wide font-bold py-4 px-8 rounded-md transition-all border border-white/30">
+                        Conhecer as Etapas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- A JORNADA: ETAPAS CLARAS -->
+    <section id="jornada" class="py-24 bg-brand-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <i data-lucide="compass" class="w-12 h-12 text-brand-blue mx-auto mb-4"></i>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-brand-blue mb-6 tracking-tight">
+                    Cada fase prepara sua igreja para o próximo nível.
+                </h2>
+                <p class="text-lg text-brand-gray">
+                    O crescimento saudável não acontece por acaso. Ele precisa de <strong class="text-brand-blue">sequência, intencionalidade e fundamento bíblico</strong>. Por isso, a Jornada foi organizada em etapas progressivas.
+                </p>
+            </div>
+
+            <!-- Etapa 1 -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-20">
+                <div class="w-full lg:w-1/2 order-2 lg:order-1">
+                    <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Casas de Paz" class="rounded-lg shadow-xl border border-gray-100 w-full h-[350px] object-cover" />
+                </div>
+                <div class="w-full lg:w-1/2 order-1 lg:order-2">
+                    <div class="inline-block bg-brand-light border border-gray-200 px-3 py-1 rounded text-brand-blue font-bold text-xs uppercase tracking-widest mb-4">1ª Etapa</div>
+                    <h3 class="text-3xl font-bold text-brand-blue mb-2"><i data-lucide="home" class="inline-block w-8 h-8 text-brand-blue mr-2 -mt-1"></i>Casas de Paz</h3>
+                    <p class="text-brand-gray font-bold uppercase tracking-widest text-sm mb-4">O início do mover de Deus</p>
+                    <p class="text-brand-gray mb-6 leading-relaxed">
+                        Aqui começa o <strong class="text-brand-blue">ganhar</strong>. As Casas de Paz são a porta de entrada para alcançar pessoas, abrir lares e estabelecer relacionamentos baseados no amor e na Palavra.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Evangelismo relacional</li>
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Ambiente simples e acolhedor</li>
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Base para formação de discípulos</li>
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Conexão da igreja com a comunidade</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Etapa 2 -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-20">
+                <div class="w-full lg:w-1/2">
+                    <div class="inline-block bg-brand-light border border-gray-200 px-3 py-1 rounded text-brand-blue font-bold text-xs uppercase tracking-widest mb-4">2ª Etapa</div>
+                    <h3 class="text-3xl font-bold text-brand-blue mb-2"><i data-lucide="flame" class="inline-block w-8 h-8 text-brand-blue mr-2 -mt-1"></i>Imersão</h3>
+                    <p class="text-brand-gray font-bold uppercase tracking-widest text-sm mb-4">Encontro, transformação e alinhamento</p>
+                    <p class="text-brand-gray mb-6 leading-relaxed">
+                        A Imersão é o momento de <strong class="text-brand-blue">aprofundamento espiritual</strong>. Aqui, vidas são confrontadas, restauradas e alinhadas com o propósito de Deus.
+                    </p>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Consolidação da fé</li>
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Quebra de ciclos espirituais</li>
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Clareza de identidade cristã</li>
+                        <li class="flex items-center gap-2 text-sm font-medium text-brand-gray"><i data-lucide="check" class="w-5 h-5 text-brand-blue"></i> Preparação para o discipulado contínuo</li>
+                    </ul>
+                </div>
+                <div class="w-full lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Imersão" class="rounded-lg shadow-xl border border-gray-100 w-full h-[350px] object-cover" />
+                </div>
+            </div>
+
+            <!-- Etapa 3 -->
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 order-2 lg:order-1">
+                    <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Escola de Crescimento" class="rounded-lg shadow-xl border border-gray-100 w-full h-[350px] object-cover" />
+                </div>
+                <div class="w-full lg:w-1/2 order-1 lg:order-2">
+                    <div class="inline-block bg-brand-light border border-gray-200 px-3 py-1 rounded text-brand-blue font-bold text-xs uppercase tracking-widest mb-4">3ª Etapa</div>
+                    <h3 class="text-3xl font-bold text-brand-blue mb-2"><i data-lucide="graduation-cap" class="inline-block w-8 h-8 text-brand-blue mr-2 -mt-1"></i>Escola de Crescimento</h3>
+                    <p class="text-brand-gray font-bold uppercase tracking-widest text-sm mb-4">Onde discípulos se tornam líderes</p>
+                    <p class="text-brand-gray mb-6 leading-relaxed">
+                        A Escola de Crescimento é a base da <strong class="text-brand-blue">formação sólida e contínua</strong> da igreja. Ela estrutura o discipulado, desenvolve líderes e estabelece fundamentos espirituais e ministeriais duradouros.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFORMAÇÃO COMERCIAL B2B -->
+    <section class="py-12 bg-brand-light border-y border-gray-200 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-8 justify-between">
+                <div class="md:w-1/4 text-center md:text-left">
+                    <i data-lucide="alert-circle" class="w-12 h-12 text-brand-blue mb-2 mx-auto md:mx-0"></i>
+                    <h4 class="text-brand-blue font-bold text-xl uppercase tracking-wide">Atenção Igrejas</h4>
+                    <p class="text-brand-gray text-sm font-medium">Clareza Comercial</p>
+                </div>
+                <div class="md:w-3/4">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 bg-white p-4 rounded border border-gray-200 shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-blue flex-shrink-0"></i>
+                            <span class="text-brand-gray">Para <strong>igrejas parceiras</strong>, oferecemos <strong class="text-brand-blue">material de apoio gratuito</strong> para os professores.</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-white p-4 rounded border border-gray-200 shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-blue flex-shrink-0"></i>
+                            <span class="text-brand-gray">Após a <strong>compra em atacado</strong>, o material é liberado para a turma, garantindo organização, legalidade e padronização do ensino.</span>
+                        </li>
+                        <li class="flex items-start gap-3 bg-white p-4 rounded border border-gray-200 shadow-sm">
+                            <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-blue flex-shrink-0"></i>
+                            <span class="text-brand-gray">Um modelo justo, saudável e sustentável para o crescimento da sua igreja.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS DE APOIO (VITRINA B2B) -->
+    <section id="produtos" class="py-24 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <i data-lucide="book-copy" class="w-10 h-10 text-brand-blue mx-auto mb-4"></i>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-brand-blue mb-4 tracking-tight">Materiais que fortalecem o discipulado</h2>
+                <p class="text-lg text-brand-gray">
+                    Para apoiar cada fase da Jornada, disponibilizamos livros e brochuras oficiais que aprofundam os princípios ensinados e fortalecem a formação das turmas.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Produto 1: O Fazedor de Discípulos -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col group relative">
+                    <div class="aspect-[4/3] bg-brand-light p-6 flex items-center justify-center relative overflow-hidden rounded-t-lg border-b border-gray-200">
+                        <div class="text-center relative z-10 w-2/3 bg-brand-blue border border-brand-blueHover p-6 rounded shadow-2xl group-hover:scale-105 transition-transform duration-500 aspect-[2/3] flex flex-col justify-center">
+                            <i data-lucide="user-plus" class="w-8 h-8 text-white mx-auto mb-3"></i>
+                            <h3 class="text-white font-bold text-sm uppercase tracking-widest leading-snug">O Fazedor de Discípulos</h3>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h4 class="text-xl font-bold text-brand-blue mb-2">O Fazedor de Discípulos</h4>
+                        <p class="text-brand-gray text-sm mb-6 flex-grow leading-relaxed">
+                            A essência do chamado para formar vidas, não apenas frequentadores.
+                        </p>
+                        <a href="#comprar" class="w-full flex items-center justify-center gap-2 bg-white hover:bg-brand-blue text-brand-blue hover:text-white font-bold text-xs uppercase tracking-wide py-3 rounded transition-colors border-2 border-brand-blue">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> Ver Condições Atacado
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto 2: As Varas da Multiplicação -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-2 border-brand-blue flex flex-col group relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 left-0 bg-brand-blue text-white text-xs font-bold px-3 py-1.5 rounded-t-[6px] z-20 uppercase tracking-wider text-center flex items-center justify-center gap-2">
+                        <i data-lucide="flame" class="w-4 h-4"></i> Mais Adotado pelas Igrejas
+                    </div>
+                    <div class="aspect-[4/3] mt-7 bg-brand-light p-6 flex items-center justify-center relative overflow-hidden border-b border-gray-200">
+                        <div class="text-center relative z-10 w-2/3 bg-brand-blue border border-brand-blueHover p-6 rounded shadow-2xl group-hover:scale-105 transition-transform duration-500 aspect-[2/3] flex flex-col justify-center">
+                            <i data-lucide="users" class="w-8 h-8 text-white mx-auto mb-3"></i>
+                            <h3 class="text-white font-bold text-sm uppercase tracking-widest leading-snug">As Varas da Multiplicação</h3>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h4 class="text-xl font-bold text-brand-blue mb-2">As Varas da Multiplicação</h4>
+                        <p class="text-brand-gray text-sm mb-6 flex-grow leading-relaxed">
+                            Princípios espirituais fundamentais para o crescimento saudável e multiplicável de pequenos grupos.
+                        </p>
+                        <a href="#comprar" class="w-full flex items-center justify-center gap-2 bg-brand-blue hover:bg-brand-blueHover text-white font-bold text-xs uppercase tracking-wide py-3 rounded transition-colors shadow-sm">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> Garantir para Turma
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Produto 3: Liderança Acima da Média -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 flex flex-col group relative">
+                    <div class="aspect-[4/3] bg-brand-light p-6 flex items-center justify-center relative overflow-hidden rounded-t-lg border-b border-gray-200">
+                        <div class="text-center relative z-10 w-2/3 bg-brand-blue border border-brand-blueHover p-6 rounded shadow-2xl group-hover:scale-105 transition-transform duration-500 aspect-[2/3] flex flex-col justify-center">
+                            <i data-lucide="award" class="w-8 h-8 text-white mx-auto mb-3"></i>
+                            <h3 class="text-white font-bold text-sm uppercase tracking-widest leading-snug">Liderança Acima da Média</h3>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h4 class="text-xl font-bold text-brand-blue mb-2">Liderança Acima da Média</h4>
+                        <p class="text-brand-gray text-sm mb-6 flex-grow leading-relaxed">
+                            Desenvolvimento de líderes com visão, caráter e excelência. Estrutura a liderança avançada.
+                        </p>
+                        <a href="#comprar" class="w-full flex items-center justify-center gap-2 bg-white hover:bg-brand-blue text-brand-blue hover:text-white font-bold text-xs uppercase tracking-wide py-3 rounded transition-colors border-2 border-brand-blue">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> Ver Condições Atacado
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- O RESULTADO DA JORNADA -->
+    <section class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-brand-blue mb-12 tracking-tight">
+                O que acontece quando sua igreja percorre essa jornada?
+            </h2>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <div class="bg-brand-light p-6 rounded-lg border border-gray-200 flex items-center gap-4">
+                    <i data-lucide="book-open-check" class="w-8 h-8 text-brand-blue flex-shrink-0"></i>
+                    <span class="font-bold text-brand-gray">Discípulos firmes na Palavra</span>
+                </div>
+                <div class="bg-brand-light p-6 rounded-lg border border-gray-200 flex items-center gap-4">
+                    <i data-lucide="users" class="w-8 h-8 text-brand-blue flex-shrink-0"></i>
+                    <span class="font-bold text-brand-gray">Líderes preparados e alinhados</span>
+                </div>
+                <div class="bg-brand-light p-6 rounded-lg border border-gray-200 flex items-center gap-4">
+                    <i data-lucide="network" class="w-8 h-8 text-brand-blue flex-shrink-0"></i>
+                    <span class="font-bold text-brand-gray">Pequenos grupos saudáveis</span>
+                </div>
+                <div class="bg-brand-light p-6 rounded-lg border border-gray-200 flex items-center gap-4 lg:col-span-1 sm:col-span-2 lg:col-start-1">
+                    <i data-lucide="bar-chart-3" class="w-8 h-8 text-brand-blue flex-shrink-0"></i>
+                    <span class="font-bold text-brand-gray">Crescimento com organização</span>
+                </div>
+                <div class="bg-brand-blue p-6 rounded-lg border border-brand-blueHover flex items-center gap-4 lg:col-span-2 sm:col-span-2 shadow-lg">
+                    <i data-lucide="flame" class="w-10 h-10 text-white flex-shrink-0"></i>
+                    <span class="font-extrabold text-white text-lg">Uma igreja viva, madura e multiplicadora</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OPÇÕES DE COMPRA (APENAS WHATSAPP) -->
+    <section id="comprar" class="py-24 bg-brand-blue relative overflow-hidden border-t border-brand-blueHover">
+        <div class="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-6 border border-white/20">
+                    <i data-lucide="message-circle" class="w-10 h-10 text-white"></i>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Equipe sua Igreja Hoje</h2>
+                <p class="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+                    Nosso atendimento é 100% humanizado. Converse com nossa equipe pelo WhatsApp para montar o pacote ideal para a sua igreja, com descontos exclusivos de atacado.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white border border-gray-200 rounded-xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg z-20 uppercase tracking-wider">Atendimento Consultivo</div>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-10 text-center md:text-left">
+                    <div class="flex flex-col items-center md:items-start">
+                        <i data-lucide="percent" class="w-8 h-8 text-brand-blue mb-4"></i>
+                        <h4 class="text-brand-blue font-bold text-sm uppercase tracking-wide mb-2">Descontos Progressivos</h4>
+                        <p class="text-brand-gray text-sm">Quanto maior a turma, menor o valor unitário dos materiais.</p>
+                    </div>
+                    <div class="flex flex-col items-center md:items-start">
+                        <i data-lucide="book-open" class="w-8 h-8 text-brand-blue mb-4"></i>
+                        <h4 class="text-brand-blue font-bold text-sm uppercase tracking-wide mb-2">Apoio ao Professor</h4>
+                        <p class="text-brand-gray text-sm">Garanta o material de apoio gratuito para os líderes da turma.</p>
+                    </div>
+                    <div class="flex flex-col items-center md:items-start">
+                        <i data-lucide="truck" class="w-8 h-8 text-brand-blue mb-4"></i>
+                        <h4 class="text-brand-blue font-bold text-sm uppercase tracking-wide mb-2">Logística Simplificada</h4>
+                        <p class="text-brand-gray text-sm">Enviamos os lotes com segurança para qualquer lugar do Brasil.</p>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="#" target="_blank" class="inline-flex items-center justify-center gap-3 bg-[#25D366] hover:bg-[#1ebd5b] text-white font-bold text-lg uppercase tracking-wide py-5 px-10 rounded-md transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,211,102,0.4)] w-full md:w-auto">
+                        <i data-lucide="message-square" class="w-6 h-6"></i>
+                        Solicitar Orçamento no WhatsApp
+                    </a>
+                    <p class="text-brand-gray text-xs mt-4 uppercase tracking-widest">Atendimento de Segunda a Sexta, 09h às 18h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAMADA FINAL - DECISÃO -->
+    <section class="py-24 bg-brand-light text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-brand-blue mb-6 tracking-tight">
+                Sua igreja não precisa apenas crescer. <br class="hidden md:block"/>
+                <span class="text-brand-blue underline decoration-brand-blue/30 decoration-4 underline-offset-8">Ela precisa crescer do jeito certo.</span>
+            </h2>
+            <p class="text-xl text-brand-gray mb-12 max-w-2xl mx-auto leading-relaxed">
+                A <strong>Jornada de Crescimento</strong> é um investimento em pessoas, famílias e gerações. Comece hoje a construir uma igreja forte, saudável e com fundamentos eternos.
+            </p>
+            <a href="#comprar" class="inline-flex items-center justify-center gap-3 bg-brand-blue hover:bg-brand-blueHover text-white text-base uppercase tracking-wide font-bold py-5 px-10 rounded-md transition-all transform hover:-translate-y-1 shadow-lg mx-auto">
+                👉 Quero iniciar a Jornada de Crescimento agora
+            </a>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="bg-brand-blue text-white/80 py-16 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-10 text-center md:text-left">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-2 mb-6 justify-center md:justify-start">
+                    <i data-lucide="book-marked" class="h-6 w-6 text-white"></i>
+                    <span class="font-extrabold text-xl text-white tracking-tighter uppercase">Selah<span class="text-white/70">Produções</span></span>
+                </div>
+                <p class="text-sm leading-relaxed max-w-sm mx-auto md:mx-0">Fornecendo ferramentas sólidas e materiais de apoio para que a sua igreja avance do ganhar ao multiplicar de forma saudável.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-xs">A Jornada</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#jornada" class="hover:text-white transition-colors">Casas de Paz</a></li>
+                    <li><a href="#jornada" class="hover:text-white transition-colors">Imersão</a></li>
+                    <li><a href="#jornada" class="hover:text-white transition-colors">Escola de Crescimento</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6 uppercase tracking-widest text-xs">Canais de Venda</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#comprar" class="text-[#25D366] hover:text-[#1ebd5b] transition-colors flex items-center justify-center md:justify-start gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Comercial</a></li>
+                    <li><span class="flex items-center justify-center md:justify-start gap-2"><i data-lucide="mail" class="w-4 h-4 text-white"></i> contato@selahproducoes.com.br</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-white/10 text-center text-xs uppercase tracking-widest flex justify-center text-white/60">
+            <p>© <span id="current-year"></span> Selah Produções. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script de Inicialização dos Ícones -->
+    <script>
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
