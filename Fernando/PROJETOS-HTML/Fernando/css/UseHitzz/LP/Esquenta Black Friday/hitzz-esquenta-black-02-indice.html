@@ -1,0 +1,1034 @@
+<!--
+  USE HITZZ · LP ESQUENTA BLACK FRIDAY 2026
+  Variação 02: Índice
+  Hero centralizado. Produtos em lista de linhas, como um índice de revista, com descrição completa. App em duas colunas.
+
+  Bloco HTML para inserção na plataforma (Uoou). Sem html/head/body.
+  Prefixo de classes: .hz02-  |  Nenhum estilo global é alterado. Fonte herdada do site.
+  Data da Black e links das lojas: HZ_CONFIG no script, no fim do arquivo.
+  [CONFIRMAR] como os 12% são aplicados no app (automático ou cupom).
+-->
+<style>
+  .hz02 {
+    --hz02-bg: #0a0a0a;
+    --hz02-ink: #f3f2ef;
+    --hz02-dark: #0a0a0a;
+    --hz02-mute: rgba(243, 242, 239, .64);
+    --hz02-faint: rgba(243, 242, 239, .42);
+    --hz02-line: rgba(243, 242, 239, .16);
+    --hz02-photo: #e6e5e1;
+    position: relative;
+    background: var(--hz02-bg);
+    color: var(--hz02-ink);
+    font-family: inherit;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  .hz02--bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw)
+  }
+
+  .hz02 *,
+  .hz02 *::before,
+  .hz02 *::after {
+    box-sizing: border-box
+  }
+
+  .hz02,
+  .hz02 * {
+    font-family: inherit
+  }
+
+  .hz02 img {
+    display: block;
+    max-width: 100%
+  }
+
+  .hz02 a {
+    color: inherit;
+    text-decoration: none
+  }
+
+  .hz02 button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer
+  }
+
+  .hz02 :where(h1, h2, h3, p, dl, dd, ol, figure) {
+    margin: 0
+  }
+
+  .hz02 a:focus-visible,
+  .hz02 button:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px
+  }
+
+  .hz02__wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px
+  }
+
+  .hz02-kicker {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--hz02-mute)
+  }
+
+  .hz02-kicker span {
+    color: var(--hz02-ink);
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid var(--hz02-line)
+  }
+
+  .hz02-h2 {
+    font-size: clamp(28px, 6vw, 44px);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.02
+  }
+
+  .hz02-h2 span {
+    font-weight: 300
+  }
+
+  .hz02-sub {
+    font-size: 16px;
+    color: var(--hz02-mute);
+    max-width: 440px
+  }
+
+  .hz02-sub b {
+    color: var(--hz02-ink);
+    font-weight: 600
+  }
+
+  .hz02-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 0 26px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border: 1px solid var(--hz02-ink);
+    transition: background .2s, color .2s
+  }
+
+  .hz02 .hz02-btn--solid {
+    background: var(--hz02-ink);
+    color: var(--hz02-dark)
+  }
+
+  .hz02 .hz02-btn--solid:hover {
+    background: transparent;
+    color: var(--hz02-ink)
+  }
+
+  .hz02 .hz02-btn--line:hover {
+    background: var(--hz02-ink);
+    color: var(--hz02-dark)
+  }
+
+  .hz02-link {
+    font-size: 14px;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px
+  }
+
+  .hz02-link:hover {
+    color: var(--hz02-mute)
+  }
+
+  .hz02-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 24px;
+    margin-top: 26px
+  }
+
+  .hz02-sec {
+    padding: 52px 0 64px
+  }
+
+  .hz02-sec__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px 24px;
+    margin-bottom: 26px
+  }
+
+  .hz02-sec__head p {
+    font-size: 14px;
+    color: var(--hz02-mute);
+    max-width: 340px
+  }
+
+  .hz02-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 12px
+  }
+
+  .hz02-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0
+  }
+
+  .hz02-card__top {
+    position: relative
+  }
+
+  .hz02-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 3/4;
+    background: var(--hz02-photo);
+    overflow: hidden
+  }
+
+  .hz02-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .45s ease
+  }
+
+  .hz02-media img+img {
+    opacity: 0
+  }
+
+  .hz02-fav {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    background: var(--hz02-dark);
+    color: var(--hz02-ink);
+    transition: background .2s, color .2s
+  }
+
+  .hz02-fav:hover {
+    background: var(--hz02-ink);
+    color: var(--hz02-dark)
+  }
+
+  .hz02-fav svg {
+    width: 16px;
+    height: 16px
+  }
+
+  .hz02 .hz02-fav--inline {
+    position: static;
+    flex: none;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: 1px solid var(--hz02-line)
+  }
+
+  .hz02 .hz02-fav--inline:hover {
+    background: var(--hz02-ink);
+    color: var(--hz02-dark);
+    border-color: var(--hz02-ink)
+  }
+
+  .hz02-idx {
+    position: absolute;
+    left: 10px;
+    bottom: 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    color: var(--hz02-dark);
+    pointer-events: none
+  }
+
+  .hz02-name {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-top: 14px
+  }
+
+  .hz02-desc {
+    font-size: 12.5px;
+    color: var(--hz02-mute);
+    margin-top: 4px
+  }
+
+  .hz02-grid .hz02-desc {
+    min-height: 2.9em
+  }
+
+  .hz02-price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 4px 10px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--hz02-line);
+    font-size: 12px;
+    color: var(--hz02-mute)
+  }
+
+  .hz02-price b {
+    color: var(--hz02-ink);
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-size: 11px
+  }
+
+  .hz02-cta {
+    align-self: flex-start;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px
+  }
+
+  .hz02-cta:hover {
+    color: var(--hz02-mute)
+  }
+
+  .hz02-count {
+    border-top: 1px solid var(--hz02-line);
+    padding-top: 14px;
+    max-width: 430px
+  }
+
+  .hz02-count__label {
+    font-size: 12px;
+    color: var(--hz02-mute)
+  }
+
+  .hz02-count__units {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 10px
+  }
+
+  .hz02-count__u {
+    padding: 0 12px;
+    border-left: 1px solid var(--hz02-line)
+  }
+
+  .hz02-count__u:first-child {
+    padding-left: 0;
+    border-left: 0
+  }
+
+  .hz02-count__n {
+    display: block;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums
+  }
+
+  .hz02-count__t {
+    display: block;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--hz02-faint);
+    margin-top: 6px
+  }
+
+  .hz02-num {
+    font-weight: 700;
+    line-height: .8;
+    letter-spacing: -.06em;
+    white-space: nowrap
+  }
+
+  .hz02-num small {
+    font-size: .42em;
+    font-weight: 300;
+    letter-spacing: -.02em;
+    vertical-align: top;
+    margin-left: 4px
+  }
+
+  .hz02-cap {
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--hz02-mute);
+    margin-top: 18px
+  }
+
+  .hz02-compare {
+    margin-top: 28px;
+    max-width: 440px;
+    border-top: 1px solid var(--hz02-line)
+  }
+
+  .hz02-compare div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--hz02-line)
+  }
+
+  .hz02-compare dt {
+    font-size: 14px;
+    color: var(--hz02-mute)
+  }
+
+  .hz02-compare dd {
+    font-size: 18px;
+    font-weight: 600;
+    white-space: nowrap
+  }
+
+  .hz02-compare div:first-child dd {
+    color: var(--hz02-faint);
+    font-weight: 400
+  }
+
+  .hz02-steps {
+    list-style: none;
+    padding: 0;
+    margin-top: 28px;
+    display: grid;
+    gap: 12px;
+    counter-reset: hz02
+  }
+
+  .hz02-steps li {
+    counter-increment: hz02;
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--hz02-mute)
+  }
+
+  .hz02-steps li::before {
+    content: "0" counter(hz02);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--hz02-ink);
+    min-width: 20px;
+    padding-top: 2px
+  }
+
+  .hz02-steps b {
+    color: var(--hz02-ink);
+    font-weight: 600
+  }
+
+  .hz02-stores {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px
+  }
+
+  .hz02-store {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    min-width: 180px;
+    min-height: 52px;
+    padding: 0 18px;
+    border: 1px solid rgba(243, 242, 239, .4);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    transition: background .2s, color .2s, border-color .2s
+  }
+
+  .hz02-store svg {
+    width: 14px;
+    height: 14px;
+    flex: none
+  }
+
+  .hz02-store:hover,
+  .hz02-store.is-match {
+    background: var(--hz02-ink);
+    color: var(--hz02-dark);
+    border-color: var(--hz02-ink)
+  }
+
+  .hz02-fine {
+    font-size: 11.5px;
+    color: var(--hz02-faint);
+    margin-top: 18px;
+    max-width: 440px
+  }
+
+  .hz02-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px 10px 16px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+    background: var(--hz02-ink);
+    color: var(--hz02-dark);
+    transform: translateY(110%);
+    transition: transform .3s ease
+  }
+
+  .hz02-bar.is-on {
+    transform: none
+  }
+
+  .hz02-bar p {
+    font-size: 12px;
+    line-height: 1.3;
+    color: rgba(10, 10, 10, .6)
+  }
+
+  .hz02-bar b {
+    display: block;
+    font-size: 14px;
+    color: var(--hz02-dark)
+  }
+
+  .hz02-bar a {
+    min-height: 42px;
+    padding: 0 20px;
+    display: inline-flex;
+    align-items: center;
+    background: var(--hz02-dark);
+    color: var(--hz02-ink);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase
+  }
+
+  @media (min-width:640px) {
+    .hz02-grid {
+      gap: 36px 16px
+    }
+
+    .hz02-grid .hz02-desc {
+      min-height: 0
+    }
+  }
+
+  @media (min-width:960px) {
+    .hz02__wrap {
+      padding: 0 32px
+    }
+
+    .hz02-sec {
+      padding: 88px 0 96px
+    }
+
+    .hz02-sec__head {
+      margin-bottom: 36px
+    }
+
+    .hz02-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px
+    }
+
+    .hz02-bar {
+      display: none
+    }
+  }
+
+  @media (hover:hover) {
+
+    .hz02-media:hover img+img,
+    .hz02-card:hover .hz02-media img+img {
+      opacity: 1
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    .hz02 * {
+      transition: none !important;
+      scroll-behavior: auto !important
+    }
+  }
+
+  /* ===== Layout da variação 02 ===== */
+
+  .hz02-x-hero {
+    padding: 48px 0 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--hz02-line)
+  }
+
+  .hz02-x-hero h1 {
+    font-size: clamp(44px, 12vw, 104px);
+    font-weight: 700;
+    letter-spacing: -.045em;
+    line-height: .95;
+    margin: 18px 0 18px
+  }
+
+  .hz02-x-hero .hz02-sub {
+    margin: 0 auto
+  }
+
+  .hz02-x-hero .hz02-actions {
+    justify-content: center
+  }
+
+  .hz02-x-hero .hz02-count {
+    margin: 36px auto 0;
+    text-align: left
+  }
+
+  .hz02-x-list {
+    border-top: 1px solid var(--hz02-ink)
+  }
+
+  .hz02-x-item {
+    display: grid;
+    grid-template-columns: 104px minmax(0, 1fr);
+    grid-template-areas: "t i" "t p" "t a";
+    column-gap: 16px;
+    row-gap: 12px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hz02-line);
+    align-items: start
+  }
+
+  .hz02-x-n {
+    display: none
+  }
+
+  .hz02-x-item .hz02-media {
+    grid-area: t
+  }
+
+  .hz02-x-info {
+    grid-area: i
+  }
+
+  .hz02-x-info .hz02-name {
+    margin-top: 0
+  }
+
+  .hz02-x-prices {
+    grid-area: p;
+    display: flex;
+    gap: 22px;
+    font-size: 13px;
+    color: var(--hz02-mute)
+  }
+
+  .hz02-x-prices i {
+    display: block;
+    font-style: normal;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--hz02-faint);
+    margin-bottom: 2px
+  }
+
+  .hz02-x-prices b {
+    color: var(--hz02-ink);
+    font-weight: 600
+  }
+
+  .hz02-x-acts {
+    grid-area: a;
+    display: flex;
+    gap: 8px
+  }
+
+  .hz02-x-acts .hz02-btn {
+    min-height: 42px;
+    padding: 0 16px;
+    font-size: 12px
+  }
+
+  .hz02-x-acts .hz02-fav--inline {
+    width: 42px;
+    height: 42px
+  }
+
+  .hz02-x-app {
+    border-top: 1px solid var(--hz02-line);
+    padding: 56px 0 64px
+  }
+
+  .hz02-x-app__grid {
+    display: grid;
+    gap: 36px
+  }
+
+  .hz02-x-app h2 {
+    margin: 16px 0 14px
+  }
+
+  .hz02-x-app .hz02-steps {
+    margin-top: 0;
+    gap: 0;
+    border-top: 1px solid var(--hz02-line)
+  }
+
+  .hz02-x-app .hz02-steps li {
+    font-size: 17px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hz02-line)
+  }
+
+  .hz02-x-app .hz02-steps li::before {
+    padding-top: 5px
+  }
+
+  @media (min-width:960px) {
+    .hz02-x-hero {
+      padding: 88px 0 80px
+    }
+
+    .hz02-x-item {
+      grid-template-columns: 44px 132px minmax(0, 1.6fr) minmax(0, 1fr) auto;
+      grid-template-areas: "n t i p a";
+      column-gap: 32px;
+      align-items: center;
+      padding: 20px 0
+    }
+
+    .hz02-x-n {
+      display: block;
+      grid-area: n;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .14em
+    }
+
+    .hz02-x-info .hz02-name {
+      font-size: 20px
+    }
+
+    .hz02-x-info .hz02-desc {
+      font-size: 14px;
+      max-width: 420px
+    }
+
+    .hz02-x-prices {
+      gap: 36px
+    }
+
+    .hz02-x-app {
+      padding: 96px 0
+    }
+
+    .hz02-x-app__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start
+    }
+  }
+</style>
+
+<section class="hz02 hz02--bleed" id="hz02" data-variant="02" aria-label="Esquenta Black Friday Use Hitzz">
+  <header class="hz02-x-hero" data-hz02-hero>
+    <div class="hz02__wrap">
+      <p class="hz02-kicker">Esquenta Black Friday<span>27.11</span></p>
+      <h1>A lista da Black.</h1>
+      <p class="hz02-sub">Separamos quatro modelos que entram com desconto em 27 de novembro. Comprando pelo app, a
+        primeira compra ganha <b>mais 12% OFF</b>.</p>
+      <div class="hz02-actions"><a class="hz02-btn hz02-btn--solid" href="#hz02-app" data-hz02-store="auto"
+          data-hz02-cta="hero_app">Baixar o app</a><a class="hz02-link" href="#hz02-produtos"
+          data-hz02-cta="hero_produtos">Ver a lista</a></div>
+      <div class="hz02-count " data-hz02-countdown role="timer" aria-live="off">
+        <p class="hz02-count__label" data-hz02-count-label>A Black começa em</p>
+        <div class="hz02-count__units">
+          <div class="hz02-count__u"><span class="hz02-count__n" data-u="d">--</span><span
+              class="hz02-count__t">dias</span></div>
+          <div class="hz02-count__u"><span class="hz02-count__n" data-u="h">--</span><span
+              class="hz02-count__t">horas</span></div>
+          <div class="hz02-count__u"><span class="hz02-count__n" data-u="m">--</span><span
+              class="hz02-count__t">min</span></div>
+          <div class="hz02-count__u"><span class="hz02-count__n" data-u="s">--</span><span
+              class="hz02-count__t">seg</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="hz02-sec" id="hz02-produtos" aria-labelledby="hz02-produtos-t">
+    <div class="hz02__wrap">
+      <div class="hz02-sec__head">
+        <h2 class="hz02-h2" id="hz02-produtos-t">04 modelos <span>na lista</span></h2>
+        <p>O preço Black aparece no dia 27. Favorite agora para achar rápido.</p>
+      </div>
+      <div class="hz02-x-list">
+        <article class="hz02-x-item">
+          <span class="hz02-x-n" aria-hidden="true">01</span>
+          <a class="hz02-media " href="https://www.usehitzz.com.br/nati-sandalia-rasteira-feminina-de-dedo-preta"
+            data-hz02-cta="produto_nati_img" tabindex="-1" aria-hidden="true"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/2d/5d/31/e402f7e69c880ad4ac4c4608dd/nati-sandalia-rasteira-feminina-de-dedo-preta-large-1.jpg"
+              alt="" loading="lazy" width="400" height="533"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/ed/9a/ef/83b7b813e761b68e69625fdba5/nati-sandalia-rasteira-feminina-de-dedo-preta-large-2.jpg"
+              alt="" loading="lazy" width="400" height="533"></a>
+          <div class="hz02-x-info">
+            <h3 class="hz02-name">Nati</h3>
+            <p class="hz02-desc">Rasteira com tira fina entre os dedos e bico redondo. Salto de 1 cm.</p>
+          </div>
+          <p class="hz02-x-prices"><span><i>Hoje</i>R$ 299,90</span><span><i>Preço Black</i><b>27.11</b></span></p>
+          <div class="hz02-x-acts"><a class="hz02-btn hz02-btn--line"
+              href="https://www.usehitzz.com.br/nati-sandalia-rasteira-feminina-de-dedo-preta"
+              data-hz02-cta="produto_nati">Ver modelo</a><a class="hz02-fav hz02-fav--inline"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=nati-sandalia-rasteira-feminina-de-dedo-preta&_redirect_to=/nati-sandalia-rasteira-feminina-de-dedo-preta"
+              aria-label="Favoritar Nati" data-hz02-cta="fav_nati"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a></div>
+        </article>
+        <article class="hz02-x-item">
+          <span class="hz02-x-n" aria-hidden="true">02</span>
+          <a class="hz02-media " href="https://www.usehitzz.com.br/mariah-bota-feminina-croche-salto-anabela-camel"
+            data-hz02-cta="produto_mariah_img" tabindex="-1" aria-hidden="true"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/bf/bf/70/ab75f932d2765212acad48b291/mariah-bota-feminina-croche-salto-anabela-camel-large-1.jpg"
+              alt="" loading="lazy" width="400" height="533"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/fc/bc/11/9b06b608be9378399f35c568e0/mariah-bota-feminina-croche-salto-anabela-camel-large-2.jpg"
+              alt="" loading="lazy" width="400" height="533"></a>
+          <div class="hz02-x-info">
+            <h3 class="hz02-name">Mariah</h3>
+            <p class="hz02-desc">Bota de cano médio em crochê, com salto anabela de 8 cm e bico fino.</p>
+          </div>
+          <p class="hz02-x-prices"><span><i>Hoje</i>R$ 449,90</span><span><i>Preço Black</i><b>27.11</b></span></p>
+          <div class="hz02-x-acts"><a class="hz02-btn hz02-btn--line"
+              href="https://www.usehitzz.com.br/mariah-bota-feminina-croche-salto-anabela-camel"
+              data-hz02-cta="produto_mariah">Ver modelo</a><a class="hz02-fav hz02-fav--inline"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=mariah-bota-feminina-croche-salto-anabela-camel&_redirect_to=/mariah-bota-feminina-croche-salto-anabela-camel"
+              aria-label="Favoritar Mariah" data-hz02-cta="fav_mariah"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a></div>
+        </article>
+        <article class="hz02-x-item">
+          <span class="hz02-x-n" aria-hidden="true">03</span>
+          <a class="hz02-media " href="https://www.usehitzz.com.br/miley-tamanco-plataforma-feminino-azul-escuro"
+            data-hz02-cta="produto_miley_img" tabindex="-1" aria-hidden="true"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/45/02/a4/c2683a4e329422a720f1d99ef8/miley-tamanco-plataforma-feminino-azul-escuro-large-1.jpg"
+              alt="" loading="lazy" width="400" height="533"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/89/80/a2/5ae48297d77a2218913da5b26f/miley-tamanco-plataforma-feminino-azul-escuro-large-2.jpg"
+              alt="" loading="lazy" width="400" height="533"></a>
+          <div class="hz02-x-info">
+            <h3 class="hz02-name">Miley</h3>
+            <p class="hz02-desc">Tamanco em camurça com desenho inspirado nos anos 70. Salto de 13 cm e plataforma de 5
+              cm.</p>
+          </div>
+          <p class="hz02-x-prices"><span><i>Hoje</i>R$ 449,90</span><span><i>Preço Black</i><b>27.11</b></span></p>
+          <div class="hz02-x-acts"><a class="hz02-btn hz02-btn--line"
+              href="https://www.usehitzz.com.br/miley-tamanco-plataforma-feminino-azul-escuro"
+              data-hz02-cta="produto_miley">Ver modelo</a><a class="hz02-fav hz02-fav--inline"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=miley-tamanco-plataforma-feminino-azul-escuro&_redirect_to=/miley-tamanco-plataforma-feminino-azul-escuro"
+              aria-label="Favoritar Miley" data-hz02-cta="fav_miley"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a></div>
+        </article>
+        <article class="hz02-x-item">
+          <span class="hz02-x-n" aria-hidden="true">04</span>
+          <a class="hz02-media " href="https://www.usehitzz.com.br/shanti-tamanco-feminino-plataforma-corda-nude"
+            data-hz02-cta="produto_shanti_img" tabindex="-1" aria-hidden="true"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/20/d7/37/9fd1ec1073c54bbf5b4e4c48e4/shanti-tamanco-feminino-plataforma-corda-nude-large-1.jpg"
+              alt="" loading="lazy" width="400" height="533"><img
+              src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-400,h-580,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/51/a4/42/61420d703f29957ce6d1086cbf/shanti-tamanco-feminino-plataforma-corda-nude-large-2.jpg"
+              alt="" loading="lazy" width="400" height="533"></a>
+          <div class="hz02-x-info">
+            <h3 class="hz02-name">Shanti</h3>
+            <p class="hz02-desc">Tamanco com plataforma revestida em corda, tira larga e palmilha acolchoada. Salto de 7
+              cm.</p>
+          </div>
+          <p class="hz02-x-prices"><span><i>Hoje</i>R$ 499,90</span><span><i>Preço Black</i><b>27.11</b></span></p>
+          <div class="hz02-x-acts"><a class="hz02-btn hz02-btn--line"
+              href="https://www.usehitzz.com.br/shanti-tamanco-feminino-plataforma-corda-nude"
+              data-hz02-cta="produto_shanti">Ver modelo</a><a class="hz02-fav hz02-fav--inline"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=shanti-tamanco-feminino-plataforma-corda-nude&_redirect_to=/shanti-tamanco-feminino-plataforma-corda-nude"
+              aria-label="Favoritar Shanti" data-hz02-cta="fav_shanti"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="hz02-x-app" id="hz02-app" data-hz02-appsec aria-labelledby="hz02-app-t">
+    <div class="hz02__wrap hz02-x-app__grid">
+      <div>
+        <p class="hz02-kicker">Só no app Use Hitzz</p>
+        <h2 class="hz02-h2" id="hz02-app-t">No app, a Black vale <span>12% OFF a mais.</span></h2>
+        <p class="hz02-sub">Os 12% valem na primeira compra pelo app e somam com o preço Black.</p>
+        <dl class="hz02-compare" aria-label="Desconto na primeira compra">
+          <div>
+            <dt>Primeira compra no site</dt>
+            <dd>8% OFF</dd>
+          </div>
+          <div>
+            <dt>Primeira compra no app</dt>
+            <dd>12% OFF</dd>
+          </div>
+        </dl>
+      </div>
+      <div>
+        <ol class="hz02-steps ">
+          <li><span><b>Baixe o app</b> Use Hitzz agora</span></li>
+          <li><span><b>Crie sua conta</b> e favorite seus modelos</span></li>
+          <li><span><b>Compre a partir de 27.11</b> com 12% OFF extra</span></li>
+        </ol>
+        <div class="hz02-stores "><a class="hz02-store" data-os="ios" href="https://apps.apple.com/br/app/id6793275985"
+            target="_blank" rel="noopener" data-hz02-cta="app_ios">App Store<svg viewBox="0 0 16 16" fill="none"
+              stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M4 12 12 4M6 4h6v6" />
+            </svg></a><a class="hz02-store" data-os="android"
+            href="https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR" target="_blank"
+            rel="noopener" data-hz02-cta="app_android">Google Play<svg viewBox="0 0 16 16" fill="none"
+              stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M4 12 12 4M6 4h6v6" />
+            </svg></a></div>
+        <!-- [CONFIRMAR] aplicação dos 12%: automática no app ou via cupom? Se for cupom, incluir o código aqui. -->
+        <p class="hz02-fine">Desconto de 12% válido para a primeira compra realizada no app Use Hitzz, acumulativo com
+          os preços da Black Friday.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra fixa (mobile) -->
+  <div class="hz02-bar" data-hz02-bar aria-hidden="true">
+    <p><b>+12% OFF no app</b>na sua 1ª compra da Black</p>
+    <a href="#hz02-app" data-hz02-store="auto" data-hz02-cta="bar_app" tabindex="-1">Baixar</a>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('hz02');
+    if (!root || root.getAttribute('data-hz02-init')) return;
+    root.setAttribute('data-hz02-init', '1');
+
+    var HZ_CONFIG = {
+      blackStart: '2026-11-27T00:00:00-03:00',
+      iosUrl: 'https://apps.apple.com/br/app/id6793275985',
+      playUrl: 'https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR'
+    };
+
+    /* Fonte: herda a do site; só cai para sans-serif se a página não definir nenhuma (preview fora da loja) */
+    var ff = (getComputedStyle(root.parentNode || document.body).fontFamily || '').toLowerCase().replace(/["']/g, '');
+    if (!ff || /^(times|serif|georgia)/.test(ff)) {
+      root.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    }
+
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+
+    /* Loja certa por dispositivo */
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var storeUrl = isIOS ? HZ_CONFIG.iosUrl : (isAndroid ? HZ_CONFIG.playUrl : null);
+    if (storeUrl) {
+      root.querySelectorAll('[data-hz02-store="auto"]').forEach(function (a) {
+        a.href = storeUrl; a.target = '_blank'; a.rel = 'noopener';
+      });
+      root.querySelectorAll('.hz02-stores').forEach(function (box) {
+        var m = box.querySelector('.hz02-store[data-os="' + (isIOS ? 'ios' : 'android') + '"]');
+        if (m) { m.classList.add('is-match'); box.insertBefore(m, box.firstChild); }
+      });
+    }
+
+    /* Contagem regressiva (todas as instâncias) */
+    var boxes = [].slice.call(root.querySelectorAll('[data-hz02-countdown]'));
+    var end = new Date(HZ_CONFIG.blackStart).getTime();
+    if (boxes.length && !isNaN(end)) {
+      var timer;
+      var tick = function () {
+        var diff = end - Date.now();
+        var done = diff <= 0;
+        var s = done ? 0 : Math.floor(diff / 1000);
+        var v = { d: pad(Math.floor(s / 86400)), h: pad(Math.floor(s % 86400 / 3600)), m: pad(Math.floor(s % 3600 / 60)), s: pad(s % 60) };
+        boxes.forEach(function (b) {
+          ['d', 'h', 'm', 's'].forEach(function (k) {
+            b.querySelectorAll('[data-u="' + k + '"]').forEach(function (e) { e.textContent = v[k]; });
+          });
+          if (done) {
+            var l = b.querySelector('[data-hz02-count-label]');
+            if (l) l.textContent = l.getAttribute('data-done') || 'A Black começou. Os preços já estão liberados.';
+          }
+        });
+        if (done) clearInterval(timer);
+      };
+      tick(); timer = setInterval(tick, 1000);
+    }
+
+    /* Barra fixa (mobile): aparece depois do hero e some na seção do app */
+    var bar = root.querySelector('[data-hz02-bar]');
+    var hero = root.querySelector('[data-hz02-hero]');
+    var app = root.querySelector('[data-hz02-appsec]');
+    if (bar && hero && app && 'IntersectionObserver' in window) {
+      var heroOut = false, appIn = false;
+      var sync = function () {
+        var on = heroOut && !appIn;
+        bar.classList.toggle('is-on', on);
+        bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+        var btn = bar.querySelector('a'); if (btn) btn.tabIndex = on ? 0 : -1;
+      };
+      new IntersectionObserver(function (e) { heroOut = !e[0].isIntersecting; sync(); }).observe(hero);
+      new IntersectionObserver(function (e) { appIn = e[0].isIntersecting; sync(); }, { threshold: .15 }).observe(app);
+    }
+
+    /* Rolagem suave nas âncoras internas */
+    root.querySelectorAll('a[href^="#hz02"]').forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        var t = document.querySelector(a.getAttribute('href'));
+        if (!t) return;
+        ev.preventDefault();
+        t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+  })();
+</script>

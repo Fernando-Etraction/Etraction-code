@@ -1,0 +1,50 @@
+<script>
+    (function () {
+        var MOBILE = 'https://cdn.awsli.com.br/767x767/1357/1357875/banner/mb03-2-yalo3xhr9e.png';
+        var DESKTOP = 'https://cdn.awsli.com.br/1920x1920/1357/1357875/banner/dsk03-3-3ibcqizvd2.png';
+        var LINK = 'https://www.abcdebebe.com.br/bercos-evolutivos-3-em-1-ou-4-em-1';
+        var ALT = 'Banner ABC de Bebê';
+        var SEL = '.banners-extras.banners-vitrine-mas-vendido';
+
+        function aplicar() {
+            var wrap = document.querySelector(SEL);
+            if (!wrap || wrap.getAttribute('data-etr-unico')) return;
+            wrap.setAttribute('data-etr-unico', '1');
+
+            var img =
+                '<picture>' +
+                '<source media="(max-width: 767px)" srcset="' + MOBILE + '">' +
+                '<img src="' + DESKTOP + '" alt="' + ALT + '" draggable="false">' +
+                '</picture>';
+
+            wrap.innerHTML =
+                '<div class="etr-banner-unico">' +
+                (LINK ? '<a href="' + LINK + '" target="_self">' + img + '</a>' : img) +
+                '</div>';
+        }
+
+        aplicar();
+
+        // A Loja Integrada monta o container depois do carregamento: observa e aplica quando ele surgir
+        var agendado = false;
+        new MutationObserver(function () {
+            if (agendado) return;
+            agendado = true;
+            setTimeout(function () { agendado = false; aplicar(); }, 50);
+        }).observe(document.documentElement, { childList: true, subtree: true });
+    })();
+</script>
+
+<style>
+    .banners-vitrine-mas-vendido .etr-banner-unico {
+        width: 100%;
+    }
+
+    .banners-vitrine-mas-vendido .etr-banner-unico a,
+    .banners-vitrine-mas-vendido .etr-banner-unico picture,
+    .banners-vitrine-mas-vendido .etr-banner-unico img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>

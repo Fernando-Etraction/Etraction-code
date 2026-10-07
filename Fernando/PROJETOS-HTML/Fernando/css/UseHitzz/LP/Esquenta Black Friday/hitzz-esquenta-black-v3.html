@@ -1,0 +1,1618 @@
+<!--
+  USE HITZZ · LP ESQUENTA BLACK FRIDAY 2026 (v3)
+  Referências: LP do app (usehitzz.com.br/app-hitzz) + versão escura com vidro líquido.
+  Bloco HTML para inserção na plataforma (Uoou). Sem html/head/body.
+  Prefixo de classes: .hzbk-  |  Nenhum estilo global é alterado. Fonte herdada do site.
+
+  Configuração no script (HZBK_CONFIG): data da Black, cupom e links das lojas.
+  Preços "Pague no app" = preço atual do site com 12% OFF (APP12), igual à LP do app.
+  Revisar os preços se algum modelo mudar de valor antes da publicação.
+-->
+<style>
+  .hzbk {
+    --hzbk-bg: #070707;
+    --hzbk-ink: #f5f5f3;
+    --hzbk-mute: rgba(245, 245, 243, .66);
+    --hzbk-faint: rgba(245, 245, 243, .42);
+    --hzbk-soft: #a3a39f;
+    --hzbk-line: rgba(255, 255, 255, .12);
+    --hzbk-glass: linear-gradient(160deg, rgba(255, 255, 255, .11) 0%, rgba(255, 255, 255, .035) 45%, rgba(255, 255, 255, .06) 100%);
+    --hzbk-r: 22px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--hzbk-bg);
+    color: var(--hzbk-ink);
+    font-family: inherit;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 0 96px;
+  }
+
+  .hzbk--bleed {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw)
+  }
+
+  .hzbk *,
+  .hzbk *::before,
+  .hzbk *::after {
+    box-sizing: border-box
+  }
+
+  .hzbk,
+  .hzbk * {
+    font-family: inherit
+  }
+
+  .hzbk img {
+    display: block;
+    max-width: 100%
+  }
+
+  .hzbk a {
+    color: inherit;
+    text-decoration: none
+  }
+
+  .hzbk button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer
+  }
+
+  .hzbk :where(h1, h2, h3, p, ul, ol) {
+    margin: 0
+  }
+
+  .hzbk :where(ul, ol) {
+    padding: 0;
+    list-style: none
+  }
+
+  .hzbk em {
+    font-style: normal;
+    color: var(--hzbk-soft)
+  }
+
+  .hzbk a:focus-visible,
+  .hzbk button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px
+  }
+
+  /* Luz ambiente */
+  .hzbk__ambient {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden
+  }
+
+  .hzbk__ambient span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: .55
+  }
+
+  .hzbk__ambient span:nth-child(1) {
+    width: 440px;
+    height: 440px;
+    top: -120px;
+    left: -140px;
+    background: radial-gradient(circle, #3a3f55 0%, transparent 70%);
+    animation: hzbk-drift 18s ease-in-out infinite alternate
+  }
+
+  .hzbk__ambient span:nth-child(2) {
+    width: 380px;
+    height: 380px;
+    top: 140px;
+    right: -160px;
+    background: radial-gradient(circle, #5a4636 0%, transparent 70%);
+    animation: hzbk-drift 22s ease-in-out infinite alternate-reverse
+  }
+
+  .hzbk__ambient span:nth-child(3) {
+    width: 560px;
+    height: 560px;
+    top: 48%;
+    left: 25%;
+    background: radial-gradient(circle, #2c2c2c 0%, transparent 70%)
+  }
+
+  @keyframes hzbk-drift {
+    to {
+      transform: translate3d(60px, 40px, 0) scale(1.08)
+    }
+  }
+
+  .hzbk-wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 16px
+  }
+
+  /* Vidro líquido */
+  .hzbk-glass {
+    position: relative;
+    background: var(--hzbk-glass);
+    -webkit-backdrop-filter: blur(22px) saturate(170%);
+    backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid var(--hzbk-line);
+    border-radius: var(--hzbk-r);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -1px 0 rgba(255, 255, 255, .04), 0 20px 50px -20px rgba(0, 0, 0, .8);
+  }
+
+  .hzbk-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, .28));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .hzbk-glass--dark {
+    background: linear-gradient(160deg, rgba(26, 26, 26, .92), rgba(12, 12, 12, .86))
+  }
+
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+    .hzbk-glass {
+      background: rgba(28, 28, 28, .94)
+    }
+  }
+
+  .hzbk-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute)
+  }
+
+  .hzbk-eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, .12);
+    animation: hzbk-pulse 2.4s ease-in-out infinite
+  }
+
+  @keyframes hzbk-pulse {
+    50% {
+      box-shadow: 0 0 0 7px rgba(255, 255, 255, 0)
+    }
+  }
+
+  .hzbk-kicker {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute)
+  }
+
+  /* Botões */
+  .hzbk-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 50px;
+    padding: 0 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 0;
+    transition: transform .2s, background .2s, color .2s
+  }
+
+  .hzbk .hzbk-btn--primary {
+    background: #fff;
+    color: #0a0a0a
+  }
+
+  /* Cupom */
+  .hzbk-coupon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 22px;
+    max-width: 460px;
+    padding: 10px 10px 10px 16px;
+    border: 1px dashed rgba(255, 255, 255, .38);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .05)
+  }
+
+  .hzbk-coupon__txt span {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute)
+  }
+
+  .hzbk-coupon__txt b {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    line-height: 1.15;
+    margin-top: 2px
+  }
+
+  .hzbk .hzbk-coupon__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 11px;
+    background: #fff;
+    color: #0a0a0a;
+    font-size: 13px;
+    font-weight: 700;
+    transition: transform .2s
+  }
+
+  .hzbk-coupon__btn:hover {
+    transform: translateY(-1px)
+  }
+
+  .hzbk-coupon__btn svg {
+    width: 15px;
+    height: 15px
+  }
+
+  .hzbk .hzbk-coupon__btn.is-done {
+    background: #d9f5df
+  }
+
+  .hzbk-coupon--sm {
+    margin-top: 14px;
+    padding: 8px 8px 8px 14px
+  }
+
+  .hzbk-coupon--sm .hzbk-coupon__txt span {
+    letter-spacing: .1em
+  }
+
+  .hzbk-coupon--sm .hzbk-coupon__txt b {
+    font-size: 18px
+  }
+
+  .hzbk .hzbk-coupon--sm .hzbk-coupon__btn {
+    min-height: 40px;
+    padding: 0 14px
+  }
+
+  /* Lojas */
+  .hzbk-stores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+    max-width: 460px
+  }
+
+  .hzbk-store {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 0 12px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid var(--hzbk-line);
+    transition: background .2s, color .2s
+  }
+
+  .hzbk-store svg {
+    width: 22px;
+    height: 22px;
+    flex: none
+  }
+
+  .hzbk-store span {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.1
+  }
+
+  .hzbk-store small {
+    display: block;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute);
+    margin-bottom: 2px
+  }
+
+  .hzbk-store:hover,
+  .hzbk-store.is-match {
+    background: #fff;
+    color: #0a0a0a
+  }
+
+  .hzbk-store:hover small,
+  .hzbk-store.is-match small {
+    color: rgba(10, 10, 10, .55)
+  }
+
+  .hzbk-fine {
+    font-size: 11px;
+    color: var(--hzbk-faint);
+    margin-top: 12px;
+    max-width: 460px
+  }
+
+  /* HERO */
+  .hzbk-hero {
+    padding: 40px 0 36px
+  }
+
+  .hzbk-hero__grid {
+    display: grid;
+    gap: 40px
+  }
+
+  .hzbk-hero h1 {
+    font-size: clamp(36px, 9vw, 64px);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -.035em;
+    margin: 18px 0 16px;
+    max-width: 620px
+  }
+
+  .hzbk-hero__sub {
+    font-size: 16px;
+    color: var(--hzbk-mute);
+    max-width: 470px
+  }
+
+  .hzbk-hero__sub b {
+    color: var(--hzbk-ink)
+  }
+
+  .hzbk-count {
+    margin-top: 26px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    max-width: 460px
+  }
+
+  .hzbk-count__label {
+    font-size: 12px;
+    color: var(--hzbk-mute);
+    line-height: 1.3
+  }
+
+  .hzbk-count__label b {
+    display: block;
+    color: var(--hzbk-ink);
+    font-size: 13px;
+    font-weight: 700
+  }
+
+  .hzbk-count__units {
+    display: flex;
+    gap: 4px
+  }
+
+  .hzbk-count__u {
+    min-width: 44px;
+    text-align: center
+  }
+
+  .hzbk-count__n {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.02em;
+    line-height: 1
+  }
+
+  .hzbk-count__t {
+    display: block;
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--hzbk-faint);
+    margin-top: 6px
+  }
+
+  .hzbk-stack {
+    position: relative;
+    height: 330px;
+    max-width: 460px;
+    margin: 0 auto;
+    width: 100%
+  }
+
+  .hzbk-stack__img {
+    position: absolute;
+    width: 52%;
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #e9e9e7;
+    box-shadow: 0 30px 60px -25px rgba(0, 0, 0, .9)
+  }
+
+  .hzbk-stack__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+  }
+
+  .hzbk-stack__img:nth-child(1) {
+    left: 0;
+    top: 28px;
+    transform: rotate(-6deg)
+  }
+
+  .hzbk-stack__img:nth-child(2) {
+    right: 0;
+    top: 0;
+    transform: rotate(5deg)
+  }
+
+  .hzbk-stack__img:nth-child(3) {
+    left: 24%;
+    top: 92px;
+    z-index: 2;
+    transform: rotate(-1deg)
+  }
+
+  .hzbk-lens {
+    position: absolute;
+    z-index: 3;
+    right: 3%;
+    bottom: 0;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    text-align: center
+  }
+
+  .hzbk-lens__n {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -.05em;
+    line-height: .9
+  }
+
+  .hzbk-lens__n small {
+    font-size: 18px
+  }
+
+  .hzbk-lens__t {
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute);
+    margin-top: 6px;
+    line-height: 1.3
+  }
+
+  /* Benefícios */
+  .hzbk-benefits {
+    display: grid;
+    border-radius: 20px;
+    padding: 4px 0
+  }
+
+  .hzbk-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px
+  }
+
+  .hzbk-benefits li+li {
+    border-top: 1px solid var(--hzbk-line)
+  }
+
+  .hzbk-benefits i {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--hzbk-line);
+    background: rgba(255, 255, 255, .05)
+  }
+
+  .hzbk-benefits svg {
+    width: 18px;
+    height: 18px
+  }
+
+  .hzbk-benefits span {
+    font-size: 13px;
+    color: var(--hzbk-mute);
+    line-height: 1.35
+  }
+
+  .hzbk-benefits b {
+    display: block;
+    font-size: 14px;
+    color: var(--hzbk-ink)
+  }
+
+  /* Seções */
+  .hzbk-sec {
+    padding: 56px 0 0
+  }
+
+  .hzbk-sec__head {
+    display: grid;
+    gap: 22px;
+    margin-bottom: 26px
+  }
+
+  .hzbk-sec__head h2 {
+    font-size: clamp(28px, 6.4vw, 46px);
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.04;
+    margin-top: 12px
+  }
+
+  .hzbk-sec__lead {
+    font-size: 15px;
+    color: var(--hzbk-mute);
+    max-width: 480px;
+    margin-top: 12px
+  }
+
+  .hzbk-sec__lead b {
+    color: var(--hzbk-ink)
+  }
+
+  .hzbk-promo {
+    padding: 18px 18px 16px;
+    border-radius: 20px
+  }
+
+  .hzbk-promo__eyebrow {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute)
+  }
+
+  .hzbk-promo__big {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    margin-top: 6px
+  }
+
+  .hzbk-promo__big small {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--hzbk-mute);
+    margin-left: 4px
+  }
+
+  /* Cards */
+  .hzbk-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px
+  }
+
+  .hzbk-card {
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    border-radius: 24px;
+    min-width: 0
+  }
+
+  .hzbk-card__media {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 17px;
+    overflow: hidden;
+    background: #e9e9e7
+  }
+
+  .hzbk-card__media>a:not(.hzbk-fav) {
+    position: absolute;
+    inset: 0;
+    display: block
+  }
+
+  .hzbk-card__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .5s ease, transform .8s ease
+  }
+
+  .hzbk-card__media img+img {
+    opacity: 0
+  }
+
+  .hzbk-tag {
+    position: absolute;
+    top: 9px;
+    left: 8px;
+    z-index: 2;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 6px 9px;
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(10, 10, 10, .6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .18);
+    pointer-events: none
+  }
+
+  .hzbk .hzbk-fav {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, .78);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: #0a0a0a;
+    transition: transform .2s
+  }
+
+  .hzbk-fav:hover {
+    transform: scale(1.06)
+  }
+
+  .hzbk-fav svg {
+    width: 17px;
+    height: 17px
+  }
+
+  .hzbk-card__body {
+    padding: 14px 7px 7px;
+    display: flex;
+    flex-direction: column;
+    flex: 1
+  }
+
+  .hzbk-card__name {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .03em;
+    text-transform: uppercase
+  }
+
+  .hzbk-card__desc {
+    font-size: 12px;
+    color: var(--hzbk-mute);
+    margin-top: 3px;
+    min-height: 34px
+  }
+
+  .hzbk-pay {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--hzbk-line)
+  }
+
+  .hzbk-pay__de {
+    font-size: 11.5px;
+    color: var(--hzbk-faint)
+  }
+
+  .hzbk-pay__app {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    margin-top: 3px;
+    line-height: 1.2
+  }
+
+  .hzbk-pay__app small {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--hzbk-mute);
+    white-space: nowrap
+  }
+
+  .hzbk-pay__note {
+    font-size: 11px;
+    color: var(--hzbk-faint);
+    margin-top: 2px
+  }
+
+  .hzbk-black {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-top: 12px;
+    padding: 8px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid var(--hzbk-line);
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--hzbk-mute)
+  }
+
+  .hzbk-black svg {
+    flex: none;
+    width: 13px;
+    height: 13px;
+    margin-top: 1px;
+    color: var(--hzbk-ink)
+  }
+
+  .hzbk-black b {
+    color: var(--hzbk-ink)
+  }
+
+  .hzbk-card__cta {
+    margin-top: auto;
+    min-height: 44px;
+    width: 100%;
+    font-size: 13px;
+    background: rgba(255, 255, 255, .09);
+    color: var(--hzbk-ink);
+    border: 1px solid var(--hzbk-line)
+  }
+
+  .hzbk-black+.hzbk-card__cta {
+    margin-top: 12px
+  }
+
+  .hzbk-card__cta:hover {
+    background: #fff;
+    color: #0a0a0a
+  }
+
+  .hzbk-disc {
+    font-size: 11.5px;
+    color: var(--hzbk-faint);
+    text-align: center;
+    max-width: 720px;
+    margin: 20px auto 0
+  }
+
+  /* Passos */
+  .hzbk-steps {
+    display: grid;
+    gap: 12px
+  }
+
+  .hzbk-steps li {
+    padding: 22px 22px 24px;
+    border-radius: 20px
+  }
+
+  .hzbk-steps__n {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: #0a0a0a;
+    font-size: 15px;
+    font-weight: 800
+  }
+
+  .hzbk-steps b {
+    display: block;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    margin-top: 16px
+  }
+
+  .hzbk-steps p {
+    font-size: 14px;
+    color: var(--hzbk-mute);
+    margin-top: 6px
+  }
+
+  /* Banner do app */
+  .hzbk-appsec {
+    margin-top: 64px
+  }
+
+  .hzbk-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid var(--hzbk-line);
+    background: #141414
+  }
+
+  .hzbk-banner__img {
+    width: 100%;
+    aspect-ratio: 5/4;
+    object-fit: cover;
+    object-position: 88% 18%
+  }
+
+  .hzbk-banner__copy {
+    position: relative;
+    margin-top: -90px;
+    padding: 90px 20px 26px;
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0) 0, #141414 90px)
+  }
+
+  .hzbk-banner h2 {
+    font-size: clamp(28px, 7vw, 50px);
+    font-weight: 800;
+    letter-spacing: -.035em;
+    line-height: 1.02;
+    margin: 14px 0 12px;
+    max-width: 540px
+  }
+
+  .hzbk-banner__copy>p:not(.hzbk-fine) {
+    font-size: 15px;
+    color: var(--hzbk-mute);
+    max-width: 440px
+  }
+
+  /* Barra fixa mobile */
+  .hzbk-bar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 10px 10px 18px;
+    border-radius: 999px;
+    transform: translateY(140%);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+    background: linear-gradient(160deg, rgba(40, 40, 40, .78), rgba(15, 15, 15, .84))
+  }
+
+  .hzbk-bar.is-on {
+    transform: none
+  }
+
+  .hzbk-bar__t {
+    font-size: 12px;
+    line-height: 1.25;
+    color: var(--hzbk-mute)
+  }
+
+  .hzbk-bar__t b {
+    display: block;
+    color: var(--hzbk-ink);
+    font-size: 14px
+  }
+
+  .hzbk-bar .hzbk-btn {
+    min-height: 44px;
+    padding: 0 22px;
+    font-size: 14px
+  }
+
+  .hzbk-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 84px;
+    z-index: 70;
+    transform: translate(-50%, 12px);
+    opacity: 0;
+    pointer-events: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #fff;
+    color: #0a0a0a;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .6);
+    transition: opacity .25s, transform .25s
+  }
+
+  .hzbk-toast.is-on {
+    opacity: 1;
+    transform: translate(-50%, 0)
+  }
+
+  /* Entrada suave (só com JS ativo) */
+  .hzbk.is-js [data-hzbk-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1)
+  }
+
+  .hzbk.is-js [data-hzbk-reveal].is-in {
+    opacity: 1;
+    transform: none
+  }
+
+  @media (min-width:640px) {
+    .hzbk-grid {
+      gap: 16px
+    }
+
+    .hzbk-card__desc {
+      min-height: 0
+    }
+
+    .hzbk-benefits {
+      grid-template-columns: repeat(3, 1fr);
+      padding: 0
+    }
+
+    .hzbk-benefits li {
+      padding: 18px 20px
+    }
+
+    .hzbk-benefits li+li {
+      border-top: 0;
+      border-left: 1px solid var(--hzbk-line)
+    }
+
+    .hzbk-steps {
+      grid-template-columns: repeat(3, 1fr)
+    }
+  }
+
+  @media (min-width:960px) {
+    .hzbk {
+      padding-bottom: 120px
+    }
+
+    .hzbk-wrap {
+      padding: 0 32px
+    }
+
+    .hzbk-hero {
+      padding: 80px 0 56px
+    }
+
+    .hzbk-hero__grid {
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 48px
+    }
+
+    .hzbk-stack {
+      height: 500px;
+      max-width: none
+    }
+
+    .hzbk-stack__img:nth-child(3) {
+      top: 140px
+    }
+
+    .hzbk-lens {
+      width: 156px;
+      height: 156px;
+      right: 2%;
+      bottom: 6px
+    }
+
+    .hzbk-lens__n {
+      font-size: 48px
+    }
+
+    .hzbk-sec {
+      padding-top: 88px
+    }
+
+    .hzbk-sec__head {
+      grid-template-columns: 1fr 400px;
+      align-items: end;
+      gap: 48px;
+      margin-bottom: 34px
+    }
+
+    .hzbk-sec__head--solo {
+      grid-template-columns: 1fr
+    }
+
+    .hzbk-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px
+    }
+
+    .hzbk-card:hover .hzbk-card__media img+img {
+      opacity: 1
+    }
+
+    .hzbk-card:hover .hzbk-card__media img {
+      transform: scale(1.03)
+    }
+
+    .hzbk-pay__app {
+      font-size: 19px
+    }
+
+    .hzbk-steps li {
+      padding: 28px 28px 30px
+    }
+
+    .hzbk-appsec {
+      margin-top: 96px
+    }
+
+    .hzbk-banner {
+      min-height: 600px;
+      display: flex;
+      align-items: center
+    }
+
+    .hzbk-banner__img {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      aspect-ratio: auto;
+      object-position: 100% 20%
+    }
+
+    .hzbk-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(10, 10, 10, .94) 0%, rgba(10, 10, 10, .82) 38%, rgba(10, 10, 10, 0) 68%);
+      pointer-events: none
+    }
+
+    .hzbk-banner__copy {
+      z-index: 1;
+      margin: 0;
+      padding: 64px 56px;
+      background: none;
+      max-width: 620px
+    }
+
+    .hzbk-bar {
+      display: none
+    }
+
+    .hzbk-toast {
+      bottom: 32px
+    }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+
+    .hzbk *,
+    .hzbk *::before,
+    .hzbk *::after {
+      animation: none !important;
+      transition: none !important
+    }
+
+    .hzbk.is-js [data-hzbk-reveal] {
+      opacity: 1;
+      transform: none
+    }
+  }
+</style>
+
+<section class="hzbk hzbk--bleed" id="hzbk" aria-label="Esquenta Black Friday Use Hitzz">
+  <div class="hzbk__ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <!-- HERO -->
+  <header class="hzbk-hero" data-hzbk-hero>
+    <div class="hzbk-wrap hzbk-hero__grid">
+      <div class="hzbk-hero__copy">
+        <span class="hzbk-eyebrow">Esquenta Black Friday Hitzz</span>
+        <h1>Na Black, o app te dá <em>+12% OFF</em> extra.</h1>
+        <p class="hzbk-hero__sub">Os modelos abaixo entram com preço Black em 27 de novembro. Comprando pelo app, use o
+          cupom <b>APP12</b> na primeira compra e some mais 12% OFF ao desconto.</p>
+
+        <div class="hzbk-count hzbk-glass" data-hzbk-countdown role="timer" aria-live="off">
+          <p class="hzbk-count__label" data-hzbk-count-label><b>A Black começa em</b>27 de novembro</p>
+          <div class="hzbk-count__units">
+            <div class="hzbk-count__u"><span class="hzbk-count__n" data-u="d">--</span><span
+                class="hzbk-count__t">dias</span></div>
+            <div class="hzbk-count__u"><span class="hzbk-count__n" data-u="h">--</span><span
+                class="hzbk-count__t">horas</span></div>
+            <div class="hzbk-count__u"><span class="hzbk-count__n" data-u="m">--</span><span
+                class="hzbk-count__t">min</span></div>
+            <div class="hzbk-count__u"><span class="hzbk-count__n" data-u="s">--</span><span
+                class="hzbk-count__t">seg</span></div>
+          </div>
+        </div>
+
+        <div class="hzbk-coupon">
+          <div class="hzbk-coupon__txt"><span>Cupom da 1ª compra no app</span><b>APP12</b></div>
+          <button type="button" class="hzbk-coupon__btn" data-hzbk-copy="APP12" data-hzbk-cta="copiar_hero"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2" />
+              <path d="M5 15V5a1 1 0 0 1 1-1h10" />
+            </svg><span>Copiar cupom</span></button>
+        </div>
+        <div class="hzbk-stores">
+          <a class="hzbk-store" data-os="ios" href="https://apps.apple.com/br/app/id6793275985" target="_blank"
+            rel="noopener" data-hzbk-cta="ios_hero"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3.1 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.7-1-2.7-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z" />
+            </svg><span><small>Baixar na</small>App Store</span></a>
+          <a class="hzbk-store" data-os="android"
+            href="https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR" target="_blank"
+            rel="noopener" data-hzbk-cta="android_hero"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M4 2.8c-.3.3-.4.7-.4 1.2v16c0 .5.1.9.4 1.2l9-9.2L4 2.8zm10.3 7.9L5.6 1.9l10.7 6.1-2 2.7zm0 2.6l2 2.7-10.7 6.1 8.7-8.8zm5.6-2.8L17.5 9l-2.3 3 2.3 3 2.4-1.4c.7-.4.7-1.4 0-1.7z" />
+            </svg><span><small>Disponível no</small>Google Play</span></a>
+        </div>
+        <p class="hzbk-fine">Cupom válido somente na primeira compra realizada pelo app. Acumula com os preços da Black
+          Friday.</p>
+      </div>
+
+      <div class="hzbk-stack" aria-hidden="true">
+        <div class="hzbk-stack__img"><img
+            src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-500,h-725,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/20/d7/37/9fd1ec1073c54bbf5b4e4c48e4/shanti-tamanco-feminino-plataforma-corda-nude-large-1.jpg"
+            alt="" width="500" height="625" fetchpriority="high"></div>
+        <div class="hzbk-stack__img"><img
+            src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-500,h-725,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/bf/bf/70/ab75f932d2765212acad48b291/mariah-bota-feminina-croche-salto-anabela-camel-large-1.jpg"
+            alt="" width="500" height="625"></div>
+        <div class="hzbk-stack__img"><img
+            src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-500,h-725,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/45/02/a4/c2683a4e329422a720f1d99ef8/miley-tamanco-plataforma-feminino-azul-escuro-large-1.jpg"
+            alt="" width="500" height="625"></div>
+        <div class="hzbk-lens hzbk-glass">
+          <span class="hzbk-lens__n">+12<small>%</small></span>
+          <span class="hzbk-lens__t">OFF no app<br>1ª compra</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BENEFÍCIOS -->
+  <div class="hzbk-wrap">
+    <ul class="hzbk-benefits hzbk-glass" data-hzbk-reveal>
+      <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path
+              d="M3 10V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v4a2 2 0 0 0 0 4v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a2 2 0 0 0 0-4z" />
+            <path d="M9 15l6-6M9.5 9.5h.01M14.5 14.5h.01" />
+          </svg></i><span><b>+12% OFF na 1ª compra</b>Cupom APP12, só no app</span></li>
+      <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+            <circle cx="12" cy="12" r="9" />
+          </svg></i><span><b>Soma com o preço Black</b>O cupom entra sobre o desconto do dia 27</span></li>
+      <li><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path
+              d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+          </svg></i><span><b>Favoritos prontos no app</b>Separe hoje e compre rápido na Black</span></li>
+    </ul>
+  </div>
+
+  <!-- PRODUTOS -->
+  <section class="hzbk-sec" id="hzbk-produtos" aria-labelledby="hzbk-produtos-t">
+    <div class="hzbk-wrap">
+      <div class="hzbk-sec__head">
+        <div>
+          <span class="hzbk-kicker">Na lista da Black</span>
+          <h2 id="hzbk-produtos-t">Os Hitzz que entram <em>na Black.</em></h2>
+          <p class="hzbk-sec__lead">Veja quanto cada modelo já sai no app hoje com o <b>APP12</b>. Na Black, o cupom
+            entra por cima do preço Black.</p>
+        </div>
+        <div class="hzbk-promo hzbk-glass hzbk-glass--dark">
+          <span class="hzbk-promo__eyebrow">Exclusivo na primeira compra pelo app</span>
+          <p class="hzbk-promo__big">12% OFF <small>nos seus favoritos</small></p>
+          <div class="hzbk-coupon hzbk-coupon--sm">
+            <div class="hzbk-coupon__txt"><span>Cupom da 1ª compra no app</span><b>APP12</b></div>
+            <button type="button" class="hzbk-coupon__btn" data-hzbk-copy="APP12" data-hzbk-cta="copiar_produtos"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="9" y="9" width="11" height="11" rx="2" />
+                <path d="M5 15V5a1 1 0 0 1 1-1h10" />
+              </svg><span>Copiar cupom</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hzbk-grid">
+        <article class="hzbk-card hzbk-glass" data-hzbk-reveal>
+          <div class="hzbk-card__media">
+            <a href="https://www.usehitzz.com.br/nati-sandalia-rasteira-feminina-de-dedo-preta" tabindex="-1"
+              aria-hidden="true" data-hzbk-cta="img_nati">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/2d/5d/31/e402f7e69c880ad4ac4c4608dd/nati-sandalia-rasteira-feminina-de-dedo-preta-large-1.jpg"
+                alt="" loading="lazy" width="600" height="750">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/ed/9a/ef/83b7b813e761b68e69625fdba5/nati-sandalia-rasteira-feminina-de-dedo-preta-large-2.jpg"
+                alt="" loading="lazy" width="600" height="750">
+            </a>
+            <span class="hzbk-tag">Na Black</span>
+            <a class="hzbk-fav"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=nati-sandalia-rasteira-feminina-de-dedo-preta&_redirect_to=/nati-sandalia-rasteira-feminina-de-dedo-preta"
+              aria-label="Favoritar Nati" data-hzbk-cta="fav_nati"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a>
+          </div>
+          <div class="hzbk-card__body">
+            <h3 class="hzbk-card__name">Nati</h3>
+            <p class="hzbk-card__desc">Rasteira de dedo · Preta</p>
+            <div class="hzbk-pay">
+              <span class="hzbk-pay__de">Hoje no site R$ 299,90</span>
+              <strong class="hzbk-pay__app">Pague R$ 263,91 <small>no app</small></strong>
+              <span class="hzbk-pay__note">com o cupom APP12 na 1ª compra</span>
+            </div>
+            <p class="hzbk-black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg><span>Na Black: preço Black <b>+ APP12</b></span></p>
+            <a class="hzbk-btn hzbk-card__cta"
+              href="https://www.usehitzz.com.br/nati-sandalia-rasteira-feminina-de-dedo-preta"
+              data-hzbk-cta="produto_nati">Ver modelo</a>
+          </div>
+        </article>
+        <article class="hzbk-card hzbk-glass" data-hzbk-reveal>
+          <div class="hzbk-card__media">
+            <a href="https://www.usehitzz.com.br/mariah-bota-feminina-croche-salto-anabela-camel" tabindex="-1"
+              aria-hidden="true" data-hzbk-cta="img_mariah">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/bf/bf/70/ab75f932d2765212acad48b291/mariah-bota-feminina-croche-salto-anabela-camel-large-1.jpg"
+                alt="" loading="lazy" width="600" height="750">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/fc/bc/11/9b06b608be9378399f35c568e0/mariah-bota-feminina-croche-salto-anabela-camel-large-2.jpg"
+                alt="" loading="lazy" width="600" height="750">
+            </a>
+            <span class="hzbk-tag">Na Black</span>
+            <a class="hzbk-fav"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=mariah-bota-feminina-croche-salto-anabela-camel&_redirect_to=/mariah-bota-feminina-croche-salto-anabela-camel"
+              aria-label="Favoritar Mariah" data-hzbk-cta="fav_mariah"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a>
+          </div>
+          <div class="hzbk-card__body">
+            <h3 class="hzbk-card__name">Mariah</h3>
+            <p class="hzbk-card__desc">Bota crochê anabela 8 cm · Camel</p>
+            <div class="hzbk-pay">
+              <span class="hzbk-pay__de">De <s>R$ 649,90</s> por R$ 449,90</span>
+              <strong class="hzbk-pay__app">Pague R$ 395,91 <small>no app</small></strong>
+              <span class="hzbk-pay__note">com o cupom APP12 na 1ª compra</span>
+            </div>
+            <p class="hzbk-black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg><span>Na Black: preço Black <b>+ APP12</b></span></p>
+            <a class="hzbk-btn hzbk-card__cta"
+              href="https://www.usehitzz.com.br/mariah-bota-feminina-croche-salto-anabela-camel"
+              data-hzbk-cta="produto_mariah">Ver modelo</a>
+          </div>
+        </article>
+        <article class="hzbk-card hzbk-glass" data-hzbk-reveal>
+          <div class="hzbk-card__media">
+            <a href="https://www.usehitzz.com.br/miley-tamanco-plataforma-feminino-azul-escuro" tabindex="-1"
+              aria-hidden="true" data-hzbk-cta="img_miley">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/45/02/a4/c2683a4e329422a720f1d99ef8/miley-tamanco-plataforma-feminino-azul-escuro-large-1.jpg"
+                alt="" loading="lazy" width="600" height="750">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/89/80/a2/5ae48297d77a2218913da5b26f/miley-tamanco-plataforma-feminino-azul-escuro-large-2.jpg"
+                alt="" loading="lazy" width="600" height="750">
+            </a>
+            <span class="hzbk-tag">Na Black</span>
+            <a class="hzbk-fav"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=miley-tamanco-plataforma-feminino-azul-escuro&_redirect_to=/miley-tamanco-plataforma-feminino-azul-escuro"
+              aria-label="Favoritar Miley" data-hzbk-cta="fav_miley"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a>
+          </div>
+          <div class="hzbk-card__body">
+            <h3 class="hzbk-card__name">Miley</h3>
+            <p class="hzbk-card__desc">Tamanco plataforma 13 cm · Azul escuro</p>
+            <div class="hzbk-pay">
+              <span class="hzbk-pay__de">Hoje no site R$ 449,90</span>
+              <strong class="hzbk-pay__app">Pague R$ 395,91 <small>no app</small></strong>
+              <span class="hzbk-pay__note">com o cupom APP12 na 1ª compra</span>
+            </div>
+            <p class="hzbk-black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg><span>Na Black: preço Black <b>+ APP12</b></span></p>
+            <a class="hzbk-btn hzbk-card__cta"
+              href="https://www.usehitzz.com.br/miley-tamanco-plataforma-feminino-azul-escuro"
+              data-hzbk-cta="produto_miley">Ver modelo</a>
+          </div>
+        </article>
+        <article class="hzbk-card hzbk-glass" data-hzbk-reveal>
+          <div class="hzbk-card__media">
+            <a href="https://www.usehitzz.com.br/shanti-tamanco-feminino-plataforma-corda-nude" tabindex="-1"
+              aria-hidden="true" data-hzbk-cta="img_shanti">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/20/d7/37/9fd1ec1073c54bbf5b4e4c48e4/shanti-tamanco-feminino-plataforma-corda-nude-large-1.jpg"
+                alt="" loading="lazy" width="600" height="750">
+              <img
+                src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-600,h-870,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/51/a4/42/61420d703f29957ce6d1086cbf/shanti-tamanco-feminino-plataforma-corda-nude-large-2.jpg"
+                alt="" loading="lazy" width="600" height="750">
+            </a>
+            <span class="hzbk-tag">Na Black</span>
+            <a class="hzbk-fav"
+              href="https://www.usehitzz.com.br/account/wishlist/?slug=shanti-tamanco-feminino-plataforma-corda-nude&_redirect_to=/shanti-tamanco-feminino-plataforma-corda-nude"
+              aria-label="Favoritar Shanti" data-hzbk-cta="fav_shanti"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path
+                  d="M12 20s-7-4.4-9.2-8.6C1.2 8.2 3 4.5 6.6 4.5c2 0 3.4 1.1 4.1 2.2h2.6c.7-1.1 2.1-2.2 4.1-2.2 3.6 0 5.4 3.7 3.8 6.9C19 15.6 12 20 12 20z" />
+              </svg></a>
+          </div>
+          <div class="hzbk-card__body">
+            <h3 class="hzbk-card__name">Shanti</h3>
+            <p class="hzbk-card__desc">Tamanco plataforma corda 7 cm · Nude</p>
+            <div class="hzbk-pay">
+              <span class="hzbk-pay__de">Hoje no site R$ 499,90</span>
+              <strong class="hzbk-pay__app">Pague R$ 439,91 <small>no app</small></strong>
+              <span class="hzbk-pay__note">com o cupom APP12 na 1ª compra</span>
+            </div>
+            <p class="hzbk-black"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg><span>Na Black: preço Black <b>+ APP12</b></span></p>
+            <a class="hzbk-btn hzbk-card__cta"
+              href="https://www.usehitzz.com.br/shanti-tamanco-feminino-plataforma-corda-nude"
+              data-hzbk-cta="produto_shanti">Ver modelo</a>
+          </div>
+        </article>
+      </div>
+      <p class="hzbk-disc">Os valores em "Pague no app" consideram 12% OFF sobre o preço atual de cada modelo. Na Black,
+        o APP12 é aplicado sobre o preço Black. Cupom válido na primeira compra realizada pelo app.</p>
+    </div>
+  </section>
+
+  <!-- PASSOS -->
+  <section class="hzbk-sec hzbk-how" aria-labelledby="hzbk-how-t">
+    <div class="hzbk-wrap">
+      <div class="hzbk-sec__head hzbk-sec__head--solo">
+        <div>
+          <span class="hzbk-kicker">É simples aproveitar</span>
+          <h2 id="hzbk-how-t">Seu desconto extra <em>em três passos.</em></h2>
+        </div>
+      </div>
+      <ol class="hzbk-steps">
+        <li class="hzbk-glass" data-hzbk-reveal><span class="hzbk-steps__n">1</span><b>Baixe o app</b>
+          <p>Instale grátis o aplicativo oficial da Use Hitzz e crie sua conta.</p>
+        </li>
+        <li class="hzbk-glass" data-hzbk-reveal><span class="hzbk-steps__n">2</span><b>Favorite seus Hitzz</b>
+          <p>Separe agora os modelos da lista para achar rápido no dia 27.</p>
+        </li>
+        <li class="hzbk-glass" data-hzbk-reveal><span class="hzbk-steps__n">3</span><b>Use APP12 na Black</b>
+          <p>Aplique o cupom antes de finalizar e some 12% OFF ao preço Black.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- BANNER APP -->
+  <section class="hzbk-wrap hzbk-appsec" id="hzbk-app" data-hzbk-appsec aria-labelledby="hzbk-app-t">
+    <div class="hzbk-banner">
+      <img class="hzbk-banner__img"
+        src="https://cdn-secure.uoou.com.br/static/images/loja_virtual/use-hitzz/usehitzz/plano-de-fundo-app.jpg" alt=""
+        loading="lazy" width="1600" height="600">
+      <div class="hzbk-banner__copy">
+        <span class="hzbk-eyebrow">Exclusivo para a primeira compra no app</span>
+        <h2 id="hzbk-app-t">Chegue na Black com <em>+12% OFF</em> garantido.</h2>
+        <p>Baixe agora, favorite seus modelos e use o cupom na primeira compra pelo app, antes de finalizar o pedido.
+        </p>
+        <div class="hzbk-coupon">
+          <div class="hzbk-coupon__txt"><span>Cupom da 1ª compra no app</span><b>APP12</b></div>
+          <button type="button" class="hzbk-coupon__btn" data-hzbk-copy="APP12" data-hzbk-cta="copiar_banner"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2" />
+              <path d="M5 15V5a1 1 0 0 1 1-1h10" />
+            </svg><span>Copiar cupom</span></button>
+        </div>
+        <div class="hzbk-stores">
+          <a class="hzbk-store" data-os="ios" href="https://apps.apple.com/br/app/id6793275985" target="_blank"
+            rel="noopener" data-hzbk-cta="ios_banner"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3.1 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8 0 0-2.7-1-2.7-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z" />
+            </svg><span><small>Baixar na</small>App Store</span></a>
+          <a class="hzbk-store" data-os="android"
+            href="https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR" target="_blank"
+            rel="noopener" data-hzbk-cta="android_banner"><svg viewBox="0 0 24 24" fill="currentColor"
+              aria-hidden="true">
+              <path
+                d="M4 2.8c-.3.3-.4.7-.4 1.2v16c0 .5.1.9.4 1.2l9-9.2L4 2.8zm10.3 7.9L5.6 1.9l10.7 6.1-2 2.7zm0 2.6l2 2.7-10.7 6.1 8.7-8.8zm5.6-2.8L17.5 9l-2.3 3 2.3 3 2.4-1.4c.7-.4.7-1.4 0-1.7z" />
+            </svg><span><small>Disponível no</small>Google Play</span></a>
+        </div>
+        <p class="hzbk-fine">Cupom válido somente na primeira compra realizada pelo app. Acumula com os preços da Black
+          Friday.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra fixa (mobile) -->
+  <div class="hzbk-bar hzbk-glass" data-hzbk-bar aria-hidden="true">
+    <p class="hzbk-bar__t"><b>+12% OFF no app</b>Cupom APP12 na 1ª compra</p>
+    <a class="hzbk-btn hzbk-btn--primary" href="#hzbk-app" data-hzbk-store="auto" data-hzbk-cta="bar_app"
+      tabindex="-1">Baixar</a>
+  </div>
+
+  <div class="hzbk-toast" data-hzbk-toast role="status" aria-live="polite"></div>
+</section>
+
+<script>
+  (function () {
+    var root = document.getElementById('hzbk');
+    if (!root || root.getAttribute('data-hzbk-init')) return;
+    root.setAttribute('data-hzbk-init', '1');
+
+    var HZBK_CONFIG = {
+      blackStart: '2026-11-27T00:00:00-03:00',
+      coupon: 'APP12',
+      iosUrl: 'https://apps.apple.com/br/app/id6793275985',
+      playUrl: 'https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR'
+    };
+
+    /* Fonte: herda a do site; só cai para sans-serif se a página não definir nenhuma (preview fora da loja) */
+    var ff = (getComputedStyle(root.parentNode || document.body).fontFamily || '').toLowerCase().replace(/["']/g, '');
+    if (!ff || /^(times|serif|georgia)/.test(ff)) {
+      root.style.fontFamily = 'Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif';
+    }
+
+    var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
+
+    /* Loja certa por dispositivo */
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isAndroid = /Android/i.test(ua);
+    var storeUrl = isIOS ? HZBK_CONFIG.iosUrl : (isAndroid ? HZBK_CONFIG.playUrl : null);
+    if (storeUrl) {
+      root.querySelectorAll('[data-hzbk-store="auto"]').forEach(function (a) {
+        a.href = storeUrl; a.target = '_blank'; a.rel = 'noopener';
+      });
+      root.querySelectorAll('.hzbk-stores').forEach(function (box) {
+        var m = box.querySelector('.hzbk-store[data-os="' + (isIOS ? 'ios' : 'android') + '"]');
+        if (m) { m.classList.add('is-match'); box.insertBefore(m, box.firstChild); }
+      });
+    }
+
+    /* Copiar cupom */
+    var toast = root.querySelector('[data-hzbk-toast]'), toastT;
+    var showToast = function (msg) {
+      if (!toast) return;
+      toast.textContent = msg; toast.classList.add('is-on');
+      clearTimeout(toastT); toastT = setTimeout(function () { toast.classList.remove('is-on'); }, 2200);
+    };
+    var fallbackCopy = function (text) {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) { }
+      document.body.removeChild(ta); return ok;
+    };
+    root.querySelectorAll('[data-hzbk-copy]').forEach(function (btn) {
+      var label = btn.querySelector('span');
+      var original = label ? label.textContent : '';
+      btn.addEventListener('click', function () {
+        var code = btn.getAttribute('data-hzbk-copy') || HZBK_CONFIG.coupon;
+        var done = function () {
+          btn.classList.add('is-done'); if (label) label.textContent = 'Copiado!';
+          showToast('Cupom ' + code + ' copiado. Use na 1ª compra pelo app.');
+          setTimeout(function () { btn.classList.remove('is-done'); if (label) label.textContent = original; }, 2200);
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(code).then(done, function () { if (fallbackCopy(code)) done(); });
+        } else if (fallbackCopy(code)) { done(); }
+      });
+    });
+
+    /* Contagem regressiva */
+    var box = root.querySelector('[data-hzbk-countdown]');
+    var end = new Date(HZBK_CONFIG.blackStart).getTime();
+    if (box && !isNaN(end)) {
+      var el = {};['d', 'h', 'm', 's'].forEach(function (k) { el[k] = box.querySelector('[data-u="' + k + '"]'); });
+      var timer;
+      var tick = function () {
+        var diff = end - Date.now();
+        if (diff <= 0) {
+          clearInterval(timer);
+          var label = box.querySelector('[data-hzbk-count-label]');
+          if (label) label.innerHTML = '<b>A Black começou</b>Use APP12 no app';
+          ['d', 'h', 'm', 's'].forEach(function (k) { if (el[k]) el[k].textContent = '00'; });
+          return;
+        }
+        var s = Math.floor(diff / 1000);
+        if (el.d) el.d.textContent = pad(Math.floor(s / 86400));
+        if (el.h) el.h.textContent = pad(Math.floor(s % 86400 / 3600));
+        if (el.m) el.m.textContent = pad(Math.floor(s % 3600 / 60));
+        if (el.s) el.s.textContent = pad(s % 60);
+      };
+      tick(); timer = setInterval(tick, 1000);
+    }
+
+    /* Entrada suave dos blocos */
+    var items = root.querySelectorAll('[data-hzbk-reveal]');
+    if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+      root.classList.add('is-js');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      items.forEach(function (it, i) { it.style.transitionDelay = (i % 4) * 70 + 'ms'; io.observe(it); });
+    }
+
+    /* Barra fixa: aparece depois do hero e some no banner do app */
+    var bar = root.querySelector('[data-hzbk-bar]');
+    var hero = root.querySelector('[data-hzbk-hero]');
+    var app = root.querySelector('[data-hzbk-appsec]');
+    if (bar && hero && app && 'IntersectionObserver' in window) {
+      var heroOut = false, appIn = false;
+      var sync = function () {
+        var on = heroOut && !appIn;
+        bar.classList.toggle('is-on', on);
+        bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+        var btn = bar.querySelector('a'); if (btn) btn.tabIndex = on ? 0 : -1;
+      };
+      new IntersectionObserver(function (e) { heroOut = !e[0].isIntersecting; sync(); }).observe(hero);
+      new IntersectionObserver(function (e) { appIn = e[0].isIntersecting; sync(); }, { threshold: .15 }).observe(app);
+    }
+
+    /* Rolagem suave nas âncoras internas */
+    root.querySelectorAll('a[href^="#hzbk"]').forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        var t = document.querySelector(a.getAttribute('href'));
+        if (!t) return;
+        ev.preventDefault();
+        t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  })();
+
+</script>

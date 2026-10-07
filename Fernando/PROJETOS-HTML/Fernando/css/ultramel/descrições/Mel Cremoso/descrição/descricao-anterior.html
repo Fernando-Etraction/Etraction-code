@@ -1,0 +1,2893 @@
+<style>
+    /* =========================================================
+       ULTRAMEL — MEL CRU CREMOSO BRANCO (descrição de produto)
+       Todo o CSS é escopado em #etraction-ultramel-mel-branco.
+       ========================================================= */
+    #etraction-ultramel-mel-branco {
+        --etraction-ultramel-mel-branco-verde: #457457;
+        --etraction-ultramel-mel-branco-verde-escuro: #304d39;
+        --etraction-ultramel-mel-branco-dourado: #F2C85D;
+        --etraction-ultramel-mel-branco-dourado-escuro: #8b681c;
+        --etraction-ultramel-mel-branco-creme: #f8f3df;
+        --etraction-ultramel-mel-branco-creme-claro: #fffdf6;
+        --etraction-ultramel-mel-branco-cartao: #fffef9;
+        --etraction-ultramel-mel-branco-marrom: #3d3023;
+        --etraction-ultramel-mel-branco-texto: #4b443d;
+        --etraction-ultramel-mel-branco-texto-suave: #716a62;
+        --etraction-ultramel-mel-branco-borda: #ded2b3;
+        --etraction-ultramel-mel-branco-borda-suave: rgba(139, 104, 28, .18);
+        --etraction-ultramel-mel-branco-serifa: Georgia, "Times New Roman", serif;
+        width: 100%;
+        overflow: hidden;
+        overflow: clip; /* clip (e não hidden) para o título do FAQ poder ficar sticky */
+        background: var(--etraction-ultramel-mel-branco-creme);
+        color: var(--etraction-ultramel-mel-branco-texto);
+        font-family: inherit;
+        font-size: 16px;
+        line-height: 1.42;
+    }
+
+    #etraction-ultramel-mel-branco,
+    #etraction-ultramel-mel-branco * {
+        box-sizing: border-box;
+    }
+
+    #etraction-ultramel-mel-branco h2,
+    #etraction-ultramel-mel-branco h3,
+    #etraction-ultramel-mel-branco h4,
+    #etraction-ultramel-mel-branco p,
+    #etraction-ultramel-mel-branco figure {
+        margin-top: 0;
+    }
+
+    #etraction-ultramel-mel-branco a {
+        color: inherit;
+    }
+
+    /* ---------- Estrutura comum ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-limite {
+        width: calc(100% - 32px);
+        max-width: 1160px;
+        margin: 0 auto;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-modulo {
+        padding: 40px 0;
+        border-bottom: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-modulo:last-of-type {
+        border-bottom: 0;
+    }
+
+    /* Fundos alternados para separar as seções */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-diferencas,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-usos,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq {
+        background: var(--etraction-ultramel-mel-branco-creme-claro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-cabecalho {
+        max-width: 760px;
+        margin: 0 auto 20px;
+        text-align: center;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-ornamento {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        width: 132px;
+        margin: 0 auto 10px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-ornamento::before,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-ornamento::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-ornamento-icone {
+        position: relative;
+        display: block;
+        flex: 0 0 46px;
+        width: 46px;
+        height: 46px;
+        overflow: hidden;
+        border-radius: 50%;
+        /* Pinta a abelha (SVG) no verde da marca */
+        filter: brightness(0) saturate(100%) invert(42%) sepia(27%) saturate(865%) hue-rotate(78deg) brightness(86%) contrast(88%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-titulo {
+        margin-bottom: 0;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: clamp(28px, 3.4vw, 42px);
+        font-weight: 400;
+        line-height: 1.12;
+        text-wrap: balance;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-subtitulo {
+        max-width: 640px;
+        margin: 8px auto 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 14px;
+        line-height: 1.45;
+        text-wrap: pretty;
+    }
+
+    /* Rótulos pequenos em caixa alta */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-etiqueta {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--etraction-ultramel-mel-branco-dourado-escuro);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    /* ---------- Caixas de ícone (PNG em ../imagens/icones/) ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso-icone {
+        position: relative;
+        display: inline-flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 1px solid var(--etraction-ultramel-mel-branco-dourado);
+        border-radius: 10px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        color: var(--etraction-ultramel-mel-branco-verde);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-ornamento-icone>img,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-icone>img,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-icone>img,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa-icone>img,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto-icone>img,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo-icone>img,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso-icone>img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: 100%;
+        max-width: none;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    /* ---------- 1. O que é o mel cremoso ---------- */
+    /* Duas colunas: produto em destaque à esquerda, texto + destaques à direita */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-grade {
+        display: grid;
+        grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+        gap: 48px;
+        align-items: center;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-conteudo {
+        display: grid;
+        gap: 22px;
+        min-width: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-texto p {
+        margin-bottom: 10px;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 15.5px;
+        line-height: 1.6;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-texto p:last-child {
+        margin-bottom: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-texto strong {
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: center;
+        width: 100%;
+        max-width: 400px;
+        aspect-ratio: 1 / 1;
+        margin: 0;
+    }
+
+    /* Halo dourado atrás do pote */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto::before {
+        content: "";
+        position: absolute;
+        inset: 6%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(242, 200, 93, .38) 0%, rgba(242, 200, 93, .14) 50%, rgba(242, 200, 93, 0) 70%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto img {
+        position: relative;
+        display: block;
+        width: 72%;
+        max-width: 320px;
+        height: auto;
+        background: transparent;
+        mix-blend-mode: multiply;
+        object-fit: contain;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristicas-grade {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+        min-height: 64px;
+        padding: 10px 12px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 12px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-icone {
+        width: 44px;
+        height: 44px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-conteudo {
+        min-width: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica strong {
+        display: block;
+        margin-bottom: 1px;
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font-size: 13px;
+        line-height: 1.2;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-conteudo span {
+        display: block;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 12px;
+        line-height: 1.3;
+    }
+
+    /* ---------- 2. Comparação ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-diferencas .etraction-ultramel-mel-branco-cabecalho {
+        max-width: 820px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 14px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        overflow: hidden;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-coluna {
+        position: relative;
+        min-width: 0;
+        padding: 22px;
+    }
+
+    /* Coluna do produto em destaque */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-coluna-destaque {
+        background: linear-gradient(180deg, rgba(242, 200, 93, .16) 0%, rgba(242, 200, 93, 0) 55%);
+        box-shadow: inset 0 3px 0 var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-selo {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--etraction-ultramel-mel-branco-verde);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: .06em;
+        line-height: 1.2;
+        text-transform: uppercase;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-coluna+.etraction-ultramel-mel-branco-comparacao-coluna {
+        border-left: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-cabecalho {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 18px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--etraction-ultramel-mel-branco-borda-suave);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-icone {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-cabecalho-texto {
+        min-width: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-coluna h4 {
+        margin: 0;
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.15;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-cabecalho-texto p {
+        margin: 4px 0 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13px;
+        line-height: 1.35;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-item {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(222, 210, 179, .62);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-item:first-child {
+        padding-top: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-item:last-child {
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-item strong {
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font-size: 12.5px;
+        line-height: 1.35;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-item span {
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    /* ---------- 3. Produção ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-producao .etraction-ultramel-mel-branco-cabecalho {
+        margin-bottom: 24px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-grade {
+        display: grid;
+        grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+        gap: 34px;
+        align-items: stretch;
+    }
+
+    /* A foto acompanha a altura da coluna de etapas (sem sobras em branco) */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-imagem {
+        position: relative;
+        min-height: 380px;
+        margin: 0;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-imagem img {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 45%;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-conteudo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-confirmado {
+        margin: 0 0 10px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapas {
+        display: grid;
+        gap: 10px;
+        counter-reset: etraction-ultramel-etapa;
+    }
+
+    /* Linha ligando os ícones das etapas */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: var(--etraction-ultramel-mel-branco-etapa-eixo, 44px);
+        width: 2px;
+        height: 11px;
+        background: var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa {
+        position: relative;
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+        min-height: 96px;
+        padding: 15px 17px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 12px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        counter-increment: etraction-ultramel-etapa;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa-icone {
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background: var(--etraction-ultramel-mel-branco-creme-claro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa-conteudo {
+        min-width: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa h4 {
+        margin: 0 0 3px;
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font-size: 15px;
+    }
+
+    /* Numeração automática: "1. Cristalização", "2. Batimento"... */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa h4::before {
+        content: counter(etraction-ultramel-etapa) ". ";
+        color: var(--etraction-ultramel-mel-branco-dourado-escuro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa p {
+        margin: 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-top: 14px;
+        padding: 12px 14px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-left: 3px solid var(--etraction-ultramel-mel-branco-verde);
+        border-radius: 9px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto-icone {
+        width: 42px;
+        height: 42px;
+        margin-top: 2px;
+        border-color: var(--etraction-ultramel-mel-branco-verde);
+        border-radius: 50%;
+        background: var(--etraction-ultramel-mel-branco-creme-claro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto-texto {
+        min-width: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto h4 {
+        margin-bottom: 4px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto p {
+        margin-bottom: 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13px;
+    }
+
+    /* ---------- 4. Motivos e 5. Usos (cartões com ícone à esquerda) ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos-grade {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo {
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 10px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo:hover {
+        border-color: var(--etraction-ultramel-mel-branco-dourado);
+        box-shadow: 0 6px 18px rgba(61, 48, 35, .06);
+    }
+
+    /* O cabeçalho do motivo "some" do layout para ícone, título e texto
+       entrarem direto na grade do cartão. */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo-cabecalho {
+        display: contents;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso {
+        display: grid;
+        grid-template-columns: 46px minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        column-gap: 14px;
+        row-gap: 2px;
+        align-items: center;
+        padding: 16px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso-icone {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        width: 46px;
+        height: 46px;
+        border-radius: 8px;
+        background: var(--etraction-ultramel-mel-branco-creme-claro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo h4,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso h4 {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: end;
+        margin: 0 0 3px;
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font-size: 14px;
+        line-height: 1.25;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo p,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso p {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+        margin: 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-usos-grade {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 10px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        overflow: hidden;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso+.etraction-ultramel-mel-branco-uso {
+        border-left: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 12px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao-item {
+        padding: 12px 16px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao-item+.etraction-ultramel-mel-branco-conservacao-item {
+        border-left: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao-item h4 {
+        margin-bottom: 4px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao-item p {
+        margin-bottom: 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao-aviso {
+        margin: 8px 0 0;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-size: 12.5px;
+        font-weight: 700;
+    }
+
+    /* ---------- 6. Nutrição e referências ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-nutricao-pergunta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 14px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 9px;
+        background: var(--etraction-ultramel-mel-branco-creme-claro);
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.3;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color .18s ease;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-nutricao-pergunta:hover {
+        border-color: var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-nutricao-corpo {
+        padding-top: 12px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-painel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 14px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        overflow: hidden;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-coluna {
+        min-width: 0;
+        padding: 22px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-coluna+.etraction-ultramel-mel-branco-tecnico-coluna {
+        border-left: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-coluna h4 {
+        margin-bottom: 8px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela-area {
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 7px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela {
+        width: 100%;
+        min-width: 300px;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela th,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela td {
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela td:last-child {
+        white-space: normal;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela thead th {
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela tbody tr:last-child th,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tabela tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-nutricao-nota {
+        margin: 9px 0 0;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 12px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencias-intro,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencias-aviso {
+        margin-bottom: 10px;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 12px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencias-aviso {
+        margin: 10px 0 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencias-lista {
+        border-top: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia {
+        display: grid;
+        grid-template-columns: 130px 1fr;
+        gap: 10px;
+        align-items: center;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia strong {
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font-size: 12.5px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 10px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 999px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        color: var(--etraction-ultramel-mel-branco-dourado-escuro);
+        font-size: 11.5px;
+        font-weight: 800;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia a:hover {
+        border-color: var(--etraction-ultramel-mel-branco-dourado);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+
+    /* ---------- 7. FAQ ---------- */
+    /* Desktop: título fixo à esquerda enquanto a lista rola à direita */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade {
+        display: grid;
+        grid-template-columns: minmax(240px, .75fr) minmax(0, 1.5fr);
+        gap: 56px;
+        align-items: start;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade .etraction-ultramel-mel-branco-cabecalho {
+        position: sticky;
+        top: 24px;
+        margin: 0;
+        text-align: left;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade .etraction-ultramel-mel-branco-subtitulo {
+        margin-left: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-lista {
+        min-width: 0;
+        border-top: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-mais {
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        margin-top: 18px;
+        padding: 9px 20px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-dourado);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        font: inherit;
+        font-size: 13.5px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background .18s ease;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-mais:hover {
+        background: rgba(242, 200, 93, .25);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-mais[hidden] {
+        display: none;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-item {
+        border-bottom: 1px solid var(--etraction-ultramel-mel-branco-borda);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-item h4 {
+        margin-bottom: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-pergunta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        width: 100%;
+        padding: 12px 2px;
+        border: 0;
+        background: transparent;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.35;
+        text-align: left;
+        cursor: pointer;
+        transition: color .18s ease;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-pergunta:hover,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-pergunta[aria-expanded="true"] {
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-icone {
+        display: inline-flex;
+        flex: 0 0 25px;
+        align-items: center;
+        justify-content: center;
+        width: 25px;
+        height: 25px;
+        border: 1px solid var(--etraction-ultramel-mel-branco-dourado);
+        border-radius: 50%;
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+        transition: background .18s ease;
+    }
+
+    #etraction-ultramel-mel-branco [aria-expanded="true"] .etraction-ultramel-mel-branco-faq-icone {
+        background: var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-icone svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-icone-vertical {
+        transform-origin: center;
+        transition: opacity .2s ease, transform .2s ease;
+    }
+
+    #etraction-ultramel-mel-branco [aria-expanded="true"] .etraction-ultramel-mel-branco-faq-icone-vertical {
+        opacity: 0;
+        transform: rotate(90deg);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-resposta p {
+        max-width: 810px;
+        margin-bottom: 0;
+        padding: 0 42px 12px 2px;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+
+    /* Foco visível por teclado */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-nutricao-pergunta:focus-visible,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-pergunta:focus-visible,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-mais:focus-visible,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia a:focus-visible {
+        outline: 2px solid var(--etraction-ultramel-mel-branco-verde);
+        outline-offset: 3px;
+    }
+
+    /* ---------- Acordeões ----------
+       Só recolhem quando o JS carregou (classe -js na raiz): sem JS o conteúdo
+       continua legível. Fechados ficam com visibility:hidden para os links
+       internos não receberem foco pelo teclado. */
+    #etraction-ultramel-mel-branco.etraction-ultramel-mel-branco-js .etraction-ultramel-mel-branco-faq-resposta,
+    #etraction-ultramel-mel-branco.etraction-ultramel-mel-branco-js .etraction-ultramel-mel-branco-nutricao-conteudo {
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        transition: max-height .26s ease, visibility 0s linear .26s;
+    }
+
+    #etraction-ultramel-mel-branco.etraction-ultramel-mel-branco-js .etraction-ultramel-mel-branco-aberto {
+        visibility: visible;
+        transition: max-height .26s ease, visibility 0s linear 0s;
+    }
+
+    /* =========================================================
+       ACABAMENTO DE MARCA
+       Favo de fundo, gotas de mel, faixa verde e profundidade.
+       ========================================================= */
+    #etraction-ultramel-mel-branco {
+        --etraction-ultramel-mel-branco-sombra: 0 1px 2px rgba(61, 48, 35, .04), 0 12px 28px -14px rgba(61, 48, 35, .18);
+        --etraction-ultramel-mel-branco-favo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%238b681c' stroke-opacity='.09' stroke-width='1'/%3E%3C/svg%3E");
+        --etraction-ultramel-mel-branco-favo-claro: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23F2C85D' stroke-opacity='.1' stroke-width='1'/%3E%3C/svg%3E");
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-modulo {
+        position: relative;
+    }
+
+    /* Rótulo acima dos títulos: — NOSSOS DIFERENCIAIS — */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-sobretitulo {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+        color: var(--etraction-ultramel-mel-branco-dourado-escuro);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-sobretitulo::before,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-sobretitulo::after {
+        content: "";
+        width: 22px;
+        height: 1px;
+        background: var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade .etraction-ultramel-mel-branco-sobretitulo::before {
+        display: none;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-titulo em {
+        color: var(--etraction-ultramel-mel-branco-dourado-escuro);
+        font-style: italic;
+    }
+
+    /* Hero: brilho de mel + favo bem sutil */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao {
+        padding-bottom: 64px;
+        background:
+            radial-gradient(ellipse 60% 70% at 22% 62%, rgba(242, 200, 93, .22), rgba(242, 200, 93, 0) 70%),
+            var(--etraction-ultramel-mel-branco-favo),
+            var(--etraction-ultramel-mel-branco-creme-claro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto img {
+        filter: drop-shadow(0 22px 26px rgba(139, 104, 28, .22));
+        mix-blend-mode: normal;
+    }
+
+    /* Selo redondo "100% mel cru" sobre o pote */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto-selo {
+        position: absolute;
+        top: 14%;
+        right: 8%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        background: var(--etraction-ultramel-mel-branco-verde-escuro);
+        box-shadow: 0 0 0 4px var(--etraction-ultramel-mel-branco-creme-claro), 0 10px 22px rgba(48, 77, 57, .28);
+        color: var(--etraction-ultramel-mel-branco-creme);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: .1em;
+        line-height: 1.1;
+        text-transform: uppercase;
+        transform: rotate(-10deg);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto-selo::before {
+        content: "";
+        position: absolute;
+        inset: 5px;
+        border: 1px dashed rgba(242, 200, 93, .7);
+        border-radius: 50%;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto-selo strong {
+        color: var(--etraction-ultramel-mel-branco-dourado);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 24px;
+        font-weight: 400;
+        letter-spacing: 0;
+    }
+
+    /* Gotas de mel escorrendo do hero para a seção seguinte */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao {
+        border-bottom: 0;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao+.etraction-ultramel-mel-branco-modulo {
+        padding-top: 88px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao+.etraction-ultramel-mel-branco-modulo::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 56px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='56' viewBox='0 0 320 56'%3E%3Cpath fill='%23F2C85D' d='M0 0h320v8H0z M20 7q3 0 3 6v17a7 7 0 0 0 14 0V13q0-6 3-6z M78 7q3 0 3 7v28a9 9 0 0 0 18 0V14q0-7 3-7z M140 7q2 0 2 4v8a5 5 0 0 0 10 0v-8q0-4 2-4z M196 7q3 0 3 6v22a8 8 0 0 0 16 0V13q0-6 3-6z M262 7q2 0 2 5v12a6 6 0 0 0 12 0V12q0-5 2-5z'/%3E%3C/svg%3E") repeat-x;
+        pointer-events: none;
+    }
+
+    /* Profundidade nos cartões */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-usos-grade,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-painel {
+        box-shadow: var(--etraction-ultramel-mel-branco-sombra);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-contexto,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao {
+        background: var(--etraction-ultramel-mel-branco-cartao);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso {
+        transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica:hover,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(61, 48, 35, .05), 0 18px 34px -16px rgba(61, 48, 35, .26);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso:hover {
+        background: #fff8e4;
+    }
+
+    /* Ícones com fundo de mel suave */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo-icone,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso-icone {
+        border-color: rgba(242, 200, 93, .9);
+        background: radial-gradient(circle at 50% 35%, #fffef9 0%, #fdf1cf 100%);
+    }
+
+    /* Processo: legenda sobre a foto */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-imagem {
+        box-shadow: var(--etraction-ultramel-mel-branco-sombra);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-legenda {
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 253, 246, .92);
+        box-shadow: 0 6px 16px rgba(61, 48, 35, .18);
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-size: 12.5px;
+        font-weight: 700;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-legenda::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--etraction-ultramel-mel-branco-dourado);
+        box-shadow: 0 0 0 3px rgba(242, 200, 93, .3);
+    }
+
+    /* Diferenciais: faixa verde da marca com favo dourado */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos {
+        padding: 56px 0;
+        border-bottom: 0;
+        background:
+            var(--etraction-ultramel-mel-branco-favo-claro),
+            linear-gradient(160deg, #3a5c45 0%, var(--etraction-ultramel-mel-branco-verde-escuro) 60%, #263f2e 100%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos .etraction-ultramel-mel-branco-titulo {
+        color: var(--etraction-ultramel-mel-branco-creme);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos .etraction-ultramel-mel-branco-titulo em,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos .etraction-ultramel-mel-branco-sobretitulo {
+        color: var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos .etraction-ultramel-mel-branco-subtitulo {
+        color: rgba(248, 243, 223, .78);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo {
+        border-color: rgba(242, 200, 93, .22);
+        background: rgba(255, 255, 255, .05);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo:hover {
+        border-color: rgba(242, 200, 93, .6);
+        background: rgba(255, 255, 255, .08);
+        box-shadow: none;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo h4 {
+        color: var(--etraction-ultramel-mel-branco-creme);
+        font-size: 15px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo p {
+        color: rgba(248, 243, 223, .74);
+    }
+
+    /* FAQ: pergunta aberta ganha destaque */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-item {
+        transition: background .2s ease;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-item:has([aria-expanded="true"]) {
+        background: linear-gradient(90deg, rgba(242, 200, 93, .14), rgba(242, 200, 93, 0));
+        box-shadow: inset 3px 0 0 var(--etraction-ultramel-mel-branco-dourado);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-item:has([aria-expanded="true"]) .etraction-ultramel-mel-branco-faq-pergunta,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-item:has([aria-expanded="true"]) .etraction-ultramel-mel-branco-faq-resposta p {
+        padding-left: 14px;
+    }
+
+    /* ---------- Perfil sensorial ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-grade {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-escalas,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-bloco {
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        border-radius: 16px;
+        background: var(--etraction-ultramel-mel-branco-cartao);
+        box-shadow: var(--etraction-ultramel-mel-branco-sombra);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-escalas {
+        display: grid;
+        align-content: center;
+        gap: 26px;
+        padding: 28px 30px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-topo {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-topo strong {
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 19px;
+        font-weight: 400;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-topo span {
+        color: var(--etraction-ultramel-mel-branco-verde);
+        font-size: 11.5px;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-trilho {
+        position: relative;
+        height: 10px;
+        margin: 12px 0 7px;
+        border-radius: 999px;
+        box-shadow: inset 0 1px 2px rgba(61, 48, 35, .12);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-cor {
+        background: linear-gradient(90deg, #fbf3d5 0%, #f2c85d 35%, #c98a2b 70%, #7a4310 100%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-sabor {
+        background: linear-gradient(90deg, #fdf6dc 0%, #f4d27a 40%, #d39a3a 75%, #8f5418 100%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-textura {
+        background: linear-gradient(90deg, #e3a033 0%, #f2c85d 40%, #f7e3a8 75%, #fbf1d6 100%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-marcador {
+        position: absolute;
+        top: 50%;
+        width: 22px;
+        height: 22px;
+        border: 3px solid var(--etraction-ultramel-mel-branco-verde-escuro);
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 3px 8px rgba(48, 77, 57, .3);
+        transform: translate(-50%, -50%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-escala-limites {
+        display: flex;
+        justify-content: space-between;
+        color: var(--etraction-ultramel-mel-branco-texto-suave);
+        font-size: 11.5px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-ficha {
+        display: grid;
+        gap: 14px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-bloco {
+        padding: 20px 22px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-bloco h4 {
+        margin-bottom: 10px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etiquetas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etiquetas li {
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f7d77f, var(--etraction-ultramel-mel-branco-dourado));
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etiquetas-claras li {
+        border: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        background: var(--etraction-ultramel-mel-branco-creme-claro);
+        color: var(--etraction-ultramel-mel-branco-texto);
+        font-weight: 600;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-origem {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border-color: transparent;
+        background:
+            var(--etraction-ultramel-mel-branco-favo-claro),
+            var(--etraction-ultramel-mel-branco-verde-escuro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-origem-icone {
+        display: flex;
+        flex: 0 0 52px;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        border: 1px solid rgba(242, 200, 93, .45);
+        border-radius: 50%;
+        background: rgba(242, 200, 93, .12);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-origem-icone img {
+        width: 30px;
+        height: 30px;
+        /* Pinta a abelha de dourado */
+        filter: brightness(0) saturate(100%) invert(84%) sepia(38%) saturate(745%) hue-rotate(354deg) brightness(101%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-origem p {
+        margin: 0;
+        color: rgba(248, 243, 223, .8);
+        font-size: 13.5px;
+        line-height: 1.5;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-origem strong {
+        display: block;
+        margin-bottom: 2px;
+        color: var(--etraction-ultramel-mel-branco-creme);
+    }
+
+    /* ---------- Fechamento cor de mel ---------- */
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento {
+        padding: 56px 0;
+        overflow: hidden;
+        background:
+            radial-gradient(ellipse 50% 80% at 78% 50%, rgba(255, 250, 230, .55), rgba(255, 250, 230, 0) 70%),
+            var(--etraction-ultramel-mel-branco-favo),
+            linear-gradient(135deg, #f7da84 0%, var(--etraction-ultramel-mel-branco-dourado) 45%, #e2a93c 100%);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-grade {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr);
+        gap: 32px;
+        align-items: center;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento .etraction-ultramel-mel-branco-sobretitulo {
+        color: var(--etraction-ultramel-mel-branco-marrom);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento .etraction-ultramel-mel-branco-sobretitulo::before,
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento .etraction-ultramel-mel-branco-sobretitulo::after {
+        background: rgba(61, 48, 35, .45);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-frase {
+        margin: 0 0 20px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-family: var(--etraction-ultramel-mel-branco-serifa);
+        font-size: clamp(34px, 4.4vw, 54px);
+        line-height: 1.05;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-frase em {
+        color: var(--etraction-ultramel-mel-branco-verde-escuro);
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-lista {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-lista li {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--etraction-ultramel-mel-branco-marrom);
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-lista li::before {
+        content: "✓";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--etraction-ultramel-mel-branco-verde-escuro);
+        color: var(--etraction-ultramel-mel-branco-dourado);
+        font-size: 11px;
+    }
+
+    #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-imagem {
+        display: block;
+        justify-self: center;
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+        filter: drop-shadow(0 24px 28px rgba(61, 48, 35, .3));
+        transform: rotate(6deg);
+    }
+
+    @media (max-width: 760px) {
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-grade,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-grade {
+            grid-template-columns: 1fr;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-perfil-escalas {
+            padding: 22px 20px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento {
+            padding: 44px 0;
+            text-align: center;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-lista {
+            justify-content: center;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-fechamento-imagem {
+            max-width: 180px;
+        }
+    }
+
+    /* ---------- Responsivo ---------- */
+    @media (max-width: 940px) {
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-grade {
+            gap: 28px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristicas-grade,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos-grade,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-usos-grade {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso:nth-child(3) {
+            border-left: 0;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso:nth-child(n+3) {
+            border-top: 1px solid var(--etraction-ultramel-mel-branco-borda);
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-grade {
+            grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr);
+            gap: 22px;
+        }
+    }
+
+    @media (max-width: 760px) {
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-modulo {
+            padding: 32px 0;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao {
+            padding-bottom: 44px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao+.etraction-ultramel-mel-branco-modulo {
+            padding-top: 76px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos {
+            padding: 44px 0;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto-selo {
+            width: 76px;
+            height: 76px;
+            font-size: 9px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto-selo strong {
+            font-size: 20px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-cabecalho {
+            margin-bottom: 16px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-introducao-grade {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-produto {
+            max-width: 260px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao {
+            grid-template-columns: 1fr;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-coluna {
+            padding: 18px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-coluna+.etraction-ultramel-mel-branco-comparacao-coluna {
+            border-top: 1px solid var(--etraction-ultramel-mel-branco-borda);
+            border-left: 0;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-grade {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-imagem {
+            min-height: 0;
+            aspect-ratio: 4 / 3;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-processo-confirmado {
+            text-align: center;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade .etraction-ultramel-mel-branco-cabecalho {
+            position: static;
+            text-align: center;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade .etraction-ultramel-mel-branco-subtitulo {
+            margin-left: auto;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-grade .etraction-ultramel-mel-branco-sobretitulo::before {
+            display: block;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-mais {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-painel {
+            grid-template-columns: 1fr;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-coluna {
+            padding: 18px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-tecnico-coluna+.etraction-ultramel-mel-branco-tecnico-coluna {
+            border-top: 1px solid var(--etraction-ultramel-mel-branco-borda);
+            border-left: 0;
+        }
+    }
+
+    @media (max-width: 560px) {
+        #etraction-ultramel-mel-branco {
+            font-size: 15px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-limite {
+            width: calc(100% - 24px);
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-ornamento-icone {
+            flex-basis: 40px;
+            width: 40px;
+            height: 40px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristicas-grade,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivos-grade,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-usos-grade,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao {
+            grid-template-columns: 1fr;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica {
+            grid-template-columns: 40px minmax(0, 1fr);
+            gap: 10px;
+            min-height: 56px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-caracteristica-icone {
+            width: 40px;
+            height: 40px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-cabecalho {
+            grid-template-columns: 50px minmax(0, 1fr);
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-icone {
+            width: 50px;
+            height: 50px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-comparacao-item {
+            grid-template-columns: 1fr;
+            gap: 2px;
+            padding: 9px 0;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa {
+            --etraction-ultramel-mel-branco-etapa-eixo: 37px;
+            grid-template-columns: 48px minmax(0, 1fr);
+            gap: 12px;
+            min-height: 86px;
+            padding: 13px 14px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-etapa-icone {
+            width: 48px;
+            height: 48px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso {
+            grid-template-columns: 42px minmax(0, 1fr);
+            column-gap: 12px;
+            padding: 14px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-motivo-icone,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso-icone {
+            width: 42px;
+            height: 42px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-uso+.etraction-ultramel-mel-branco-uso,
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-conservacao-item+.etraction-ultramel-mel-branco-conservacao-item {
+            border-top: 1px solid var(--etraction-ultramel-mel-branco-borda);
+            border-left: 0;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-referencia {
+            grid-template-columns: 1fr;
+            gap: 4px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-pergunta {
+            padding: 12px 0;
+            font-size: 13.5px;
+        }
+
+        #etraction-ultramel-mel-branco .etraction-ultramel-mel-branco-faq-resposta p {
+            padding-right: 28px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        #etraction-ultramel-mel-branco *,
+        #etraction-ultramel-mel-branco.etraction-ultramel-mel-branco-js .etraction-ultramel-mel-branco-faq-resposta,
+        #etraction-ultramel-mel-branco.etraction-ultramel-mel-branco-js .etraction-ultramel-mel-branco-nutricao-conteudo {
+            transition: none !important;
+        }
+    }
+</style>
+<section id="etraction-ultramel-mel-branco">
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-1"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-introducao">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <div aria-hidden="true" class="etraction-ultramel-mel-branco-ornamento"><span
+                        class="etraction-ultramel-mel-branco-ornamento-icone"><img alt=""
+                            src="https://adaptive-images.uooucdn.com.br/tr:w-iw,q-80/static/images/loja_virtual/ultra-mel/descricao-geleia-real/ultra-logo-abelha.svg" /></span>
+                </div>
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Mel Cru Cremoso Branco</span>
+                <h2 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-1">O que é o mel <em>cremoso</em>?</h2>
+                <p class="etraction-ultramel-mel-branco-subtitulo">A mesma composição do mel, com cristais muito
+                    pequenos e uma
+                    textura lisa, densa e fácil de espalhar.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-introducao-grade">
+                <figure class="etraction-ultramel-mel-branco-produto">
+                    <img alt="Pote de Ultramel Mel Cru Cremoso Branco 300g" height="700" decoding="async"
+                        src="../imagens/designSemNome74.png" width="700" />
+                    <span aria-hidden="true" class="etraction-ultramel-mel-branco-produto-selo"><strong>100%</strong>mel cru</span>
+                </figure>
+                <div class="etraction-ultramel-mel-branco-introducao-conteudo">
+                <div class="etraction-ultramel-mel-branco-introducao-texto">
+                    <p>Mel cremoso <strong>continua sendo mel</strong>. Ele não contém creme, leite ou manteiga. Sua
+                        consistência
+                        se forma pela cristalização controlada do próprio alimento, que organiza cristais finos e
+                        uniformes.</p>
+                    <p>O Mel Cru Cremoso Branco Ultramel tem o mel como único ingrediente, é produzido com florada
+                        silvestre e
+                        predominância de flores de Uva Japão. Por isso, apresenta coloração clara, sabor suave e notas
+                        levemente
+                        frutadas. Pode ser consumido da mesma forma que o mel comum.</p>
+                </div>
+                <div aria-label="Destaques do Mel Cremoso Ultramel"
+                    class="etraction-ultramel-mel-branco-caracteristicas">
+                    <div class="etraction-ultramel-mel-branco-caracteristicas-grade">
+                        <div class="etraction-ultramel-mel-branco-caracteristica">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-caracteristica-icone"><img
+                                    alt="" aria-hidden="true" decoding="async"
+                                    src="../imagens/icones/iconeGota.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-caracteristica-conteudo">
+                                <strong>Mel cru</strong>
+                                <span>Não pasteurizado.</span>
+                            </div>
+                        </div>
+                        <div class="etraction-ultramel-mel-branco-caracteristica">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-caracteristica-icone"><img
+                                    alt="" aria-hidden="true" decoding="async"
+                                    src="../imagens/icones/iconeFolha.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-caracteristica-conteudo">
+                                <strong>Único ingrediente</strong>
+                                <span>100% mel, sem aditivos.</span>
+                            </div>
+                        </div>
+                        <div class="etraction-ultramel-mel-branco-caracteristica">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-caracteristica-icone"><img
+                                    alt="" aria-hidden="true" decoding="async"
+                                    src="../imagens/icones/iconeCreme.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-caracteristica-conteudo">
+                                <strong>Textura cremosa</strong>
+                                <span>Lisa, densa e fácil de espalhar.</span>
+                            </div>
+                        </div>
+                        <div class="etraction-ultramel-mel-branco-caracteristica">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-caracteristica-icone"><img
+                                    alt="" aria-hidden="true" decoding="async"
+                                    src="../imagens/icones/iconePoteVazio.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-caracteristica-conteudo">
+                                <strong>Pote de vidro</strong>
+                                <span>Livre de toxinas derivadas do plástico.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-perfil"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-perfil">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Perfil sensorial</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-perfil">
+                    Conheça o <em>Mel Branco</em></h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">Florada silvestre com predominância de Uva Japão: um
+                    mel claro, suave e delicado.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-perfil-grade">
+                <div class="etraction-ultramel-mel-branco-perfil-escalas">
+                    <div class="etraction-ultramel-mel-branco-escala">
+                        <div class="etraction-ultramel-mel-branco-escala-topo">
+                            <strong>Cor</strong>
+                            <span>Clara</span>
+                        </div>
+                        <div aria-hidden="true"
+                            class="etraction-ultramel-mel-branco-escala-trilho etraction-ultramel-mel-branco-escala-cor">
+                            <span class="etraction-ultramel-mel-branco-escala-marcador" style="left: 10%"></span>
+                        </div>
+                        <div aria-hidden="true" class="etraction-ultramel-mel-branco-escala-limites">
+                            <span>Clara</span><span>Escura</span>
+                        </div>
+                    </div>
+                    <div class="etraction-ultramel-mel-branco-escala">
+                        <div class="etraction-ultramel-mel-branco-escala-topo">
+                            <strong>Sabor</strong>
+                            <span>Suave</span>
+                        </div>
+                        <div aria-hidden="true"
+                            class="etraction-ultramel-mel-branco-escala-trilho etraction-ultramel-mel-branco-escala-sabor">
+                            <span class="etraction-ultramel-mel-branco-escala-marcador" style="left: 18%"></span>
+                        </div>
+                        <div aria-hidden="true" class="etraction-ultramel-mel-branco-escala-limites">
+                            <span>Suave</span><span>Intenso</span>
+                        </div>
+                    </div>
+                    <div class="etraction-ultramel-mel-branco-escala">
+                        <div class="etraction-ultramel-mel-branco-escala-topo">
+                            <strong>Textura</strong>
+                            <span>Cremosa</span>
+                        </div>
+                        <div aria-hidden="true"
+                            class="etraction-ultramel-mel-branco-escala-trilho etraction-ultramel-mel-branco-escala-textura">
+                            <span class="etraction-ultramel-mel-branco-escala-marcador" style="left: 90%"></span>
+                        </div>
+                        <div aria-hidden="true" class="etraction-ultramel-mel-branco-escala-limites">
+                            <span>Fluida</span><span>Cremosa</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="etraction-ultramel-mel-branco-perfil-ficha">
+                    <div class="etraction-ultramel-mel-branco-perfil-bloco">
+                        <h4>Notas de sabor</h4>
+                        <ul class="etraction-ultramel-mel-branco-etiquetas">
+                            <li>Suave</li>
+                            <li>Delicado</li>
+                            <li>Levemente frutado</li>
+                        </ul>
+                    </div>
+                    <div class="etraction-ultramel-mel-branco-perfil-bloco">
+                        <h4>Combina com</h4>
+                        <ul class="etraction-ultramel-mel-branco-etiquetas etraction-ultramel-mel-branco-etiquetas-claras">
+                            <li>Queijos</li>
+                            <li>Castanhas</li>
+                            <li>Frutas</li>
+                            <li>Iogurte</li>
+                            <li>Café e chá</li>
+                            <li>Tábuas de frios</li>
+                        </ul>
+                    </div>
+                    <div class="etraction-ultramel-mel-branco-perfil-bloco etraction-ultramel-mel-branco-perfil-origem">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-perfil-origem-icone"><img alt=""
+                                decoding="async" loading="lazy"
+                                src="https://adaptive-images.uooucdn.com.br/tr:w-iw,q-80/static/images/loja_virtual/ultra-mel/descricao-geleia-real/ultra-logo-abelha.svg" /></span>
+                        <p><strong>Ideal para quem prefere méis menos intensos.</strong> A coloração clara vem da
+                            florada predominante de Uva Japão e do néctar coletado pelas abelhas na região.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-2"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-diferencas">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Cremoso ou comum?</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-2">Compare <em>textura</em> e uso</h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">O mesmo mel, agora com uma textura mais cremosa,
+                    prática e
+                    agradável para consumir no dia a dia.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-comparacoes">
+                <div class="etraction-ultramel-mel-branco-comparacao">
+                    <article
+                        class="etraction-ultramel-mel-branco-comparacao-coluna etraction-ultramel-mel-branco-comparacao-coluna-destaque">
+                        <div class="etraction-ultramel-mel-branco-comparacao-cabecalho">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-comparacao-icone"><img alt=""
+                                    aria-hidden="true" decoding="async" loading="lazy"
+                                    src="../imagens/icones/iconePotemel.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-comparacao-cabecalho-texto">
+                                <span class="etraction-ultramel-mel-branco-comparacao-selo">Este produto</span>
+                                <span class="etraction-ultramel-mel-branco-comparacao-etiqueta">Textura cremosa</span>
+                                <h4>Mel cremoso</h4>
+                                <p>Mais encorpado e fácil de espalhar.</p>
+                            </div>
+                        </div>
+                        <div class="etraction-ultramel-mel-branco-comparacao-itens">
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Textura</strong>
+                                <span>Lisa, densa e uniforme.</span>
+                            </div>
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Melhor com</strong>
+                                <span>Pães, torradas, panquecas e uso com colher.</span>
+                            </div>
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Na hora de servir</strong>
+                                <span>Mais controle e menos facilidade para escorrer.</span>
+                            </div>
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Composição</strong>
+                                <span>Continua sendo 100% mel.</span>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="etraction-ultramel-mel-branco-comparacao-coluna">
+                        <div class="etraction-ultramel-mel-branco-comparacao-cabecalho">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-comparacao-icone"><img alt=""
+                                    aria-hidden="true" decoding="async" loading="lazy"
+                                    src="../imagens/icones/iconeGotaFavo.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-comparacao-cabecalho-texto">
+                                <span class="etraction-ultramel-mel-branco-comparacao-etiqueta">Textura fluida</span>
+                                <h4>Mel comum</h4>
+                                <p>Mais fluido e fácil de misturar.</p>
+                            </div>
+                        </div>
+                        <div class="etraction-ultramel-mel-branco-comparacao-itens">
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Textura</strong>
+                                <span>Fluida e fácil de incorporar.</span>
+                            </div>
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Melhor para</strong>
+                                <span>Bebidas, receitas, molhos e finalizações.</span>
+                            </div>
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Na hora de usar</strong>
+                                <span>Prático para adoçar e misturar aos alimentos.</span>
+                            </div>
+                            <div class="etraction-ultramel-mel-branco-comparacao-item">
+                                <strong>Composição</strong>
+                                <span>Também é 100% mel.</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-3"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-producao">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Do favo ao pote</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-3">Como o mel ganha sua textura <em>cremosa</em>?</h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">A textura cremosa nasce da cristalização fina do
+                    próprio mel, seguida de um batimento cuidadoso.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-processo-grade">
+                <figure class="etraction-ultramel-mel-branco-processo-imagem">
+                    <img alt="Mel Cru Cremoso Branco Ultramel" decoding="async" loading="lazy" height="1014"
+                        src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/fc/c5/fb/37e1ba8548bd744539cabf096b/ultramel-mel-cru-cremoso-branco-300g-large-3.png"
+                        width="700" />
+                    <figcaption class="etraction-ultramel-mel-branco-processo-legenda">Lisa, densa e fácil de espalhar</figcaption>
+                </figure>
+                <div class="etraction-ultramel-mel-branco-processo-conteudo">
+                    <p class="etraction-ultramel-mel-branco-processo-confirmado">Como é feito</p>
+                    <div aria-label="Processo em três etapas" class="etraction-ultramel-mel-branco-etapas">
+                        <article class="etraction-ultramel-mel-branco-etapa">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-etapa-icone"><img alt=""
+                                    aria-hidden="true" decoding="async" loading="lazy"
+                                    src="../imagens/icones/iconeCristais.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-etapa-conteudo">
+                                <h4>Cristalização</h4>
+                                <p>O mel forma, de maneira natural, cristais finos e uniformes.</p>
+                            </div>
+                        </article>
+                        <article class="etraction-ultramel-mel-branco-etapa">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-etapa-icone"><img alt=""
+                                    aria-hidden="true" decoding="async" loading="lazy"
+                                    src="../imagens/icones/iconeBatedor.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-etapa-conteudo">
+                                <h4>Batimento</h4>
+                                <p>O batimento espalha esses cristais de forma homogênea por todo o mel.</p>
+                            </div>
+                        </article>
+                        <article class="etraction-ultramel-mel-branco-etapa">
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-etapa-icone"><img alt=""
+                                    aria-hidden="true" decoding="async" loading="lazy"
+                                    src="../imagens/icones/iconeColherCreme.png" /></span>
+                            <div class="etraction-ultramel-mel-branco-etapa-conteudo">
+                                <h4>Textura cremosa</h4>
+                                <p>O resultado é uma textura lisa e macia, pronta para espalhar.</p>
+                            </div>
+                        </article>
+                    </div>
+                    <aside class="etraction-ultramel-mel-branco-contexto">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-contexto-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconeInformacao.png" /></span>
+                        <div class="etraction-ultramel-mel-branco-contexto-texto">
+                            <h4>Como esse processo funciona em outros méis cremosos?</h4>
+                            <p>Em métodos conhecidos, a cristalização pode ser guiada por agitação, mel finamente cristalizado e
+                                temperatura controlada. Essas etapas são contexto técnico geral e não descrevem necessariamente
+                                o processo
+                                da Ultramel.</p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-4"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-motivos">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Nossos diferenciais</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-4">Por que escolher a <em>Ultramel</em>?</h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">Produção cuidadosa, do favo ao pote, preservando as
+                    características naturais do mel.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-motivos-grade">
+                <article class="etraction-ultramel-mel-branco-motivo">
+                    <div class="etraction-ultramel-mel-branco-motivo-cabecalho">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-motivo-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconeGotaCheck.png" /></span>
+                        <h4>Mel cru de verdade</h4>
+                    </div>
+                    <p>Não pasteurizado, mantendo enzimas e compostos bioativos preservados.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-motivo">
+                    <div class="etraction-ultramel-mel-branco-motivo-cabecalho">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-motivo-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconeTemperatura.png" /></span>
+                        <h4>Preparado a frio</h4>
+                    </div>
+                    <p>Textura cremosa obtida sem aquecimento excessivo, preservando nutrientes sensíveis ao calor.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-motivo">
+                    <div class="etraction-ultramel-mel-branco-motivo-cabecalho">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-motivo-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconeMisturador.png" /></span>
+                        <h4>Sem descristalização industrial</h4>
+                    </div>
+                    <p>Não é aquecido entre 45°C e 75°C, faixa comum em grande parte dos méis do mercado.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-motivo">
+                    <div class="etraction-ultramel-mel-branco-motivo-cabecalho">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-motivo-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconePoteFavo.png" /></span>
+                        <h4>Embalagem de vidro</h4>
+                    </div>
+                    <p>Livre de BPA, microplásticos e outras toxinas associadas a embalagens plásticas.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-motivo">
+                    <div class="etraction-ultramel-mel-branco-motivo-cabecalho">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-motivo-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconeApicultor.png" /></span>
+                        <h4>Produção artesanal</h4>
+                    </div>
+                    <p>Pequenos lotes colhidos por famílias de apicultores, respeitando o ciclo das abelhas.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-motivo">
+                    <div class="etraction-ultramel-mel-branco-motivo-cabecalho">
+                        <span aria-hidden="true" class="etraction-ultramel-mel-branco-motivo-icone"><img alt=""
+                                aria-hidden="true" decoding="async" loading="lazy"
+                                src="../imagens/icones/iconeGotaFolha.png" /></span>
+                        <h4>100% natural</h4>
+                    </div>
+                    <p>Sem corantes, conservantes, aditivos ou qualquer ingrediente além do próprio mel.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-5"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-usos">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Na sua rotina</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-5">Como usar o mel <em>cremoso</em>?</h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">Use para espalhar, adoçar bebidas ou finalizar
+                    receitas.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-usos-grade">
+                <article class="etraction-ultramel-mel-branco-uso">
+                    <span aria-hidden="true" class="etraction-ultramel-mel-branco-uso-icone"><img alt=""
+                            aria-hidden="true" decoding="async" loading="lazy"
+                            src="../imagens/icones/iconePao.png" /></span>
+                    <h4>Para espalhar</h4>
+                    <p>Pães, torradas, panquecas e waffles.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-uso">
+                    <span aria-hidden="true" class="etraction-ultramel-mel-branco-uso-icone"><img alt=""
+                            aria-hidden="true" decoding="async" loading="lazy"
+                            src="../imagens/icones/iconeMorangoQueijo.png" /></span>
+                    <h4>Com frutas e laticínios</h4>
+                    <p>Frutas, iogurtes e queijos.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-uso">
+                    <span aria-hidden="true" class="etraction-ultramel-mel-branco-uso-icone"><img alt=""
+                            aria-hidden="true" decoding="async" loading="lazy"
+                            src="../imagens/icones/iconeXicara.png" /></span>
+                    <h4>Em bebidas</h4>
+                    <p>Café, chá e outras bebidas mornas.</p>
+                </article>
+                <article class="etraction-ultramel-mel-branco-uso">
+                    <span aria-hidden="true" class="etraction-ultramel-mel-branco-uso-icone"><img alt=""
+                            aria-hidden="true" decoding="async" loading="lazy"
+                            src="../imagens/icones/iconeTijela.png" /></span>
+                    <h4>Em receitas</h4>
+                    <p>Molhos, tábuas de frios, sobremesas e preparações doces ou salgadas.</p>
+                </article>
+            </div>
+            <div class="etraction-ultramel-mel-branco-conservacao">
+                <div class="etraction-ultramel-mel-branco-conservacao-item">
+                    <h4>Como conservar?</h4>
+                    <p>Guarde em local seco, fresco e protegido da luz. Não é necessário manter na geladeira.</p>
+                </div>
+                <div class="etraction-ultramel-mel-branco-conservacao-item">
+                    <h4>Se ficar mais firme?</h4>
+                    <p>Aqueça delicadamente em banho-maria com água morna e mexa até atingir a textura desejada.</p>
+                    <p class="etraction-ultramel-mel-branco-conservacao-aviso">Não utilize água fervente, micro-ondas
+                        ou aquecimento direto no fogo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-6"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-nutricao-modulo">
+        <div class="etraction-ultramel-mel-branco-limite">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Transparência</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-6">Informação nutricional e <em>referências</em></h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">Dados do produto e materiais científicos apresentados
+                    de
+                    forma técnica e compacta.</p>
+            </header>
+                    <div class="etraction-ultramel-mel-branco-tecnico-painel">
+                        <div class="etraction-ultramel-mel-branco-tecnico-coluna">
+                            <h4>Informação nutricional</h4>
+                            <div class="etraction-ultramel-mel-branco-tabela-area">
+                                <table class="etraction-ultramel-mel-branco-tabela">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Componente</th>
+                                            <th scope="col">100 g</th>
+                                            <th scope="col">20 g</th>
+                                            <th scope="col">%VD</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Valor energético</th>
+                                            <td>336 kcal</td>
+                                            <td>67 kcal</td>
+                                            <td>3%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Carboidratos</th>
+                                            <td>84 g</td>
+                                            <td>17 g</td>
+                                            <td>6%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Açúcares totais</th>
+                                            <td>82 g</td>
+                                            <td>16 g</td>
+                                            <td>%VD não informado</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="etraction-ultramel-mel-branco-nutricao-nota">Sem adição de açúcar, glucose ou
+                                xaropes.</p>
+                        </div>
+                        <div class="etraction-ultramel-mel-branco-tecnico-coluna">
+                            <h4>Referências científicas</h4>
+                            <p class="etraction-ultramel-mel-branco-referencias-intro">Os estudos abaixo abordam o mel e
+                                seus
+                                componentes de forma geral. Não representam comprovação de efeitos específicos deste
+                                produto.</p>
+                            <button aria-controls="etraction-ultramel-mel-branco-nutricao-conteudo" aria-expanded="false"
+                                class="etraction-ultramel-mel-branco-nutricao-pergunta"
+                                id="etraction-ultramel-mel-branco-nutricao-toggle" type="button">
+                                <span>Ver estudos por tema</span>
+                                <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone"><svg viewbox="0 0 24 24">
+                                        <path d="M5 12h14"></path>
+                                        <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                    </svg></span>
+                            </button>
+                            <div aria-labelledby="etraction-ultramel-mel-branco-nutricao-toggle"
+                                class="etraction-ultramel-mel-branco-nutricao-conteudo"
+                                id="etraction-ultramel-mel-branco-nutricao-conteudo" role="region">
+                            <div class="etraction-ultramel-mel-branco-nutricao-corpo">
+                            <div class="etraction-ultramel-mel-branco-referencias-lista">
+                                <div class="etraction-ultramel-mel-branco-referencia">
+                                    <strong>Energia</strong>
+                                    <div class="etraction-ultramel-mel-branco-referencia-links">
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/34189483/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            34189483</a>
+                                        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11442837/"
+                                            rel="noopener noreferrer" target="_blank">PMC 11442837</a>
+                                    </div>
+                                </div>
+                                <div class="etraction-ultramel-mel-branco-referencia">
+                                    <strong>Saúde intestinal</strong>
+                                    <div class="etraction-ultramel-mel-branco-referencia-links">
+                                        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9367972/"
+                                            rel="noopener noreferrer" target="_blank">PMC 9367972</a>
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/33047241/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            33047241</a>
+                                    </div>
+                                </div>
+                                <div class="etraction-ultramel-mel-branco-referencia">
+                                    <strong>Imunidade</strong>
+                                    <div class="etraction-ultramel-mel-branco-referencia-links">
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/29492183/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            29492183</a>
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/33924384/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            33924384</a>
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/36405698/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            36405698</a>
+                                    </div>
+                                </div>
+                                <div class="etraction-ultramel-mel-branco-referencia">
+                                    <strong>Emagrecimento</strong>
+                                    <div class="etraction-ultramel-mel-branco-referencia-links">
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/35811958/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            35811958</a>
+                                        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8197897/"
+                                            rel="noopener noreferrer" target="_blank">PMC 8197897</a>
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/28246535/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            28246535</a>
+                                    </div>
+                                </div>
+                                <div class="etraction-ultramel-mel-branco-referencia">
+                                    <strong>Fertilidade</strong>
+                                    <div class="etraction-ultramel-mel-branco-referencia-links">
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/34205972/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            34205972</a>
+                                        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8197897/"
+                                            rel="noopener noreferrer" target="_blank">PMC 8197897</a>
+                                    </div>
+                                </div>
+                                <div class="etraction-ultramel-mel-branco-referencia">
+                                    <strong>Processamento a frio</strong>
+                                    <div class="etraction-ultramel-mel-branco-referencia-links">
+                                        <a href="https://pubmed.ncbi.nlm.nih.gov/22716101/" rel="noopener noreferrer"
+                                            target="_blank">PMID
+                                            22716101</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="etraction-ultramel-mel-branco-referencias-aviso">As referências possuem caráter
+                                informativo e
+                                não substituem orientação médica ou nutricional.</p>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </section>
+    <section aria-labelledby="etraction-ultramel-mel-branco-titulo-7"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-faq">
+        <div class="etraction-ultramel-mel-branco-limite etraction-ultramel-mel-branco-faq-grade">
+            <header class="etraction-ultramel-mel-branco-cabecalho">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Tire suas dúvidas</span>
+                <h3 class="etraction-ultramel-mel-branco-titulo" id="etraction-ultramel-mel-branco-titulo-7">Perguntas <em>frequentes</em></h3>
+                <p class="etraction-ultramel-mel-branco-subtitulo">Tudo o que você precisa saber sobre o Mel Cru
+                    Cremoso Branco: textura, conservação, consumo e origem.</p>
+            </header>
+            <div class="etraction-ultramel-mel-branco-faq-lista">
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-1" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-1" type="button">
+                            O que é o Mel Cru Cremoso Branco Ultramel?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-1">
+                        <p>O Mel Cru Cremoso Branco Ultramel é um mel puro artesanal produzido a partir do néctar de
+                            flores com
+                            predominância de Uva Japão. Possui coloração clara, textura naturalmente cremosa e sabor
+                            suave com notas
+                            levemente frutadas. É um mel cru, sem aquecimento excessivo, sem conservantes e sem
+                            aditivos.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-2" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-2" type="button">
+                            O que significa mel cru?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-2">
+                        <p>O termo “mel cru” significa que o mel passa por mínima interferência industrial, preservando
+                            enzimas
+                            naturais, aromas, antioxidantes e características originais do alimento produzido pelas
+                            abelhas. Diferente
+                            de muitos méis convencionais, o mel cru não é submetido a altas temperaturas.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-3" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-3" type="button">
+                            O Mel Branco Ultramel é realmente puro?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-3">
+                        <p>Sim. O Mel Cru Cremoso Branco Ultramel contém apenas mel puro em sua composição. Não possui
+                            açúcar,
+                            glucose, xaropes, espessantes, conservantes ou qualquer outro ingrediente artificial.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-4" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-4" type="button">
+                            Por que o mel fica cremoso?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-4">
+                        <p>A cremosidade é resultado de uma cristalização fina e natural do mel puro. Após a
+                            cristalização, o mel é
+                            cuidadosamente batido para alcançar uma textura aveludada e uniforme, sem perder suas
+                            propriedades
+                            naturais.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-5" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-5" type="button">
+                            O mel cristalizado estraga?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-5">
+                        <p>Não. A cristalização é um processo natural do mel puro e um dos sinais de autenticidade. Méis
+                            adulterados
+                            ou excessivamente aquecidos costumam não cristalizar.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-6" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-6" type="button">
+                            Por que o Mel Branco Ultramel tem coloração clara?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-6">
+                        <p>A coloração clara está relacionada principalmente à florada predominante de Uva Japão e às
+                            características naturais do néctar coletado pelas abelhas naquela região.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-7" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-7" type="button">
+                            Qual o sabor do Mel Cru Cremoso Branco?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-7">
+                        <p>O Mel Branco Ultramel possui sabor suave, delicado e levemente frutado. É uma excelente opção
+                            para quem
+                            prefere méis menos intensos.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-8" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-8" type="button">
+                            O Mel Cru Cremoso Branco possui conservantes?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-8">
+                        <p>Não. O produto é livre de conservantes, aromatizantes, corantes e aditivos artificiais.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-9" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-9" type="button">
+                            Como consumir o mel cremoso?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-9">
+                        <p>O mel cremoso pode ser consumido puro ou utilizado em diversas preparações, como pães e
+                            torradas, frutas,
+                            iogurtes, cafés e chás, panquecas e waffles, tábuas de queijo, molhos, receitas salgadas e
+                            sobremesas.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-10" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-10" type="button">
+                            O mel cru perde nutrientes quando aquecido?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-10">
+                        <p>Temperaturas elevadas podem reduzir parte das enzimas e compostos naturais do mel cru. Por
+                            isso, muitas
+                            pessoas preferem consumir o mel puro ou adicioná-lo a bebidas mornas, não ferventes.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-11" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-11" type="button">
+                            O Mel Cru Cremoso Branco Ultramel é artesanal?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-11">
+                        <p>Sim. A Ultramel trabalha com pequenas famílias de apicultores que respeitam os ciclos
+                            naturais das
+                            abelhas e da florada, produzindo mel em pequenos lotes.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-12" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-12" type="button">
+                            Qual o diferencial do Mel Branco Ultramel?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-12">
+                        <p>Os principais diferenciais são: mel cru e puro, textura naturalmente cremosa, produção
+                            artesanal,
+                            pequenos lotes frescos, ausência de aditivos ou misturas, sabor suave e delicado e origem
+                            floral
+                            selecionada.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-13" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-13" type="button">
+                            O mel cru contém antioxidantes naturais?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-13">
+                        <p>Sim. O mel cru naturalmente possui compostos antioxidantes, enzimas e substâncias bioativas
+                            presentes no
+                            néctar das flores.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-14" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-14" type="button">
+                            Crianças podem consumir mel?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-14">
+                        <p>O mel deve ser oferecido apenas a crianças maiores de 1 ano.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-15" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-15" type="button">
+                            O mel pode endurecer com o tempo?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-15">
+                        <p>Sim. Por ser um mel puro e natural, sua textura pode variar ao longo do tempo devido à
+                            cristalização
+                            natural. Isso não altera sua qualidade. Caso deseje recuperar uma textura mais cremosa e
+                            fluida,
+                            recomenda-se aquecer o pote delicadamente em banho-maria morno, evitando altas temperaturas.
+                            O ideal é
+                            utilizar água morna, sem ferver, para preservar aroma, sabor e as características naturais
+                            do mel cru.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-16" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-16" type="button">
+                            O Mel Branco Ultramel combina com receitas salgadas?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-16">
+                        <p>Sim. Seu sabor suave harmoniza muito bem com queijos, castanhas, molhos para saladas, carnes,
+                            pizzas
+                            artesanais e tábuas de frios.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-17" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-17" type="button">
+                            Qual a diferença entre mel industrializado e mel cru artesanal?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-17">
+                        <p>Muitos méis industrializados passam por aquecimento intenso e ultrafiltragem, processos que
+                            podem alterar
+                            características naturais do mel. Já o mel cru artesanal preserva melhor aroma, sabor,
+                            textura e compostos
+                            naturais.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-18" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-18" type="button">
+                            O Mel Branco Ultramel é um alimento natural?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-18">
+                        <p>Sim. É um alimento natural produzido pelas abelhas a partir do néctar das flores, sem adição
+                            de
+                            ingredientes artificiais.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-19" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-19" type="button">
+                            O mel cru pode fazer parte de uma alimentação equilibrada?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-19">
+                        <p>Sim. Consumido com equilíbrio, o mel cru pode substituir adoçantes ultraprocessados em
+                            diversas
+                            preparações do dia a dia.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-20" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-20" type="button">
+                            Por que escolher um mel em pequenos lotes?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-20">
+                        <p>Pequenos lotes permitem maior controle de qualidade, frescor e preservação das
+                            características naturais
+                            do mel artesanal.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-21" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-21" type="button">
+                            Como identificar um mel puro de verdade?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-21">
+                        <p>Alguns sinais comuns de mel puro incluem cristalização natural, aroma floral característico,
+                            variação
+                            natural de cor e textura, ausência de sabor artificial excessivamente doce e composição sem
+                            aditivos ou
+                            xaropes.</p>
+                    </div>
+                </article>
+                <article class="etraction-ultramel-mel-branco-faq-item">
+                    <h4>
+                        <button aria-controls="etraction-ultramel-mel-branco-resposta-22" aria-expanded="false"
+                            class="etraction-ultramel-mel-branco-faq-pergunta"
+                            id="etraction-ultramel-mel-branco-pergunta-22" type="button">
+                            O Mel Branco Ultramel pode ser usado no café?
+                            <span aria-hidden="true" class="etraction-ultramel-mel-branco-faq-icone">
+                                <svg viewbox="0 0 24 24">
+                                    <path d="M5 12h14"></path>
+                                    <path class="etraction-ultramel-mel-branco-faq-icone-vertical" d="M12 5v14"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </h4>
+                    <div class="etraction-ultramel-mel-branco-faq-resposta"
+                        id="etraction-ultramel-mel-branco-resposta-22">
+                        <p>Sim. Muitas pessoas preferem o mel cremoso no café por sua textura delicada e sabor suave,
+                            que adoça sem
+                            mascarar totalmente o sabor da bebida.</p>
+                    </div>
+                </article>
+                <button class="etraction-ultramel-mel-branco-faq-mais" hidden type="button">Ver todas as
+                    perguntas</button>
+            </div>
+        </div>
+    </section>
+    <section aria-label="Mel Cru Cremoso Branco Ultramel"
+        class="etraction-ultramel-mel-branco-modulo etraction-ultramel-mel-branco-fechamento">
+        <div class="etraction-ultramel-mel-branco-limite etraction-ultramel-mel-branco-fechamento-grade">
+            <div class="etraction-ultramel-mel-branco-fechamento-texto">
+                <span class="etraction-ultramel-mel-branco-sobretitulo">Ultramel</span>
+                <p class="etraction-ultramel-mel-branco-fechamento-frase">100% mel.<br /><em>Nada além do mel.</em></p>
+                <ul class="etraction-ultramel-mel-branco-fechamento-lista">
+                    <li>Mel cru, não pasteurizado</li>
+                    <li>Textura naturalmente cremosa</li>
+                    <li>Pequenos lotes, pote de vidro</li>
+                </ul>
+            </div>
+            <img alt="" aria-hidden="true" class="etraction-ultramel-mel-branco-fechamento-imagem" decoding="async"
+                height="700" loading="lazy" src="../imagens/designSemNome74.png" width="700" />
+        </div>
+    </section>
+</section>
+<script>
+    (function () {
+        "use strict";
+
+        var chave = "__ETRACTION_ULTRAMEL_MEL_BRANCO__";
+        var raiz = document.getElementById("etraction-ultramel-mel-branco");
+
+        if (!raiz || (window[chave] && window[chave].inicializado)) {
+            return;
+        }
+
+        var CLASSE_ABERTO = "etraction-ultramel-mel-branco-aberto";
+
+        // Liga o modo acordeão (o CSS só recolhe o conteúdo com esta classe).
+        raiz.classList.add("etraction-ultramel-mel-branco-js");
+
+        var perguntas = Array.prototype.slice.call(
+            raiz.querySelectorAll(".etraction-ultramel-mel-branco-faq-pergunta")
+        );
+        var botaoNutricao = raiz.querySelector(".etraction-ultramel-mel-branco-nutricao-pergunta");
+        var temporizadorResize = null;
+
+        function obterPainel(botao) {
+            var id = botao.getAttribute("aria-controls");
+            return id ? document.getElementById(id) : null;
+        }
+
+        function estaAberto(botao) {
+            return botao.getAttribute("aria-expanded") === "true";
+        }
+
+        function definir(botao, aberto) {
+            var painel = obterPainel(botao);
+            botao.setAttribute("aria-expanded", aberto ? "true" : "false");
+            if (painel) {
+                painel.classList.toggle(CLASSE_ABERTO, aberto);
+                painel.style.maxHeight = aberto ? painel.scrollHeight + "px" : "0px";
+            }
+        }
+
+        perguntas.forEach(function (pergunta) {
+            definir(pergunta, false);
+            pergunta.addEventListener("click", function () {
+                var abrir = !estaAberto(pergunta);
+                // Mantém apenas uma resposta aberta por vez.
+                perguntas.forEach(function (item) {
+                    if (item !== pergunta && estaAberto(item)) {
+                        definir(item, false);
+                    }
+                });
+                definir(pergunta, abrir);
+            });
+        });
+
+        // FAQ longo: mostra as primeiras perguntas e libera o resto num clique.
+        var FAQ_VISIVEIS = 8;
+        var itensFaq = Array.prototype.slice.call(
+            raiz.querySelectorAll(".etraction-ultramel-mel-branco-faq-item")
+        );
+        var botaoMais = raiz.querySelector(".etraction-ultramel-mel-branco-faq-mais");
+
+        if (botaoMais && itensFaq.length > FAQ_VISIVEIS) {
+            itensFaq.slice(FAQ_VISIVEIS).forEach(function (item) {
+                item.hidden = true;
+            });
+            botaoMais.textContent = "Ver todas as perguntas (" + itensFaq.length + ")";
+            botaoMais.hidden = false;
+            botaoMais.addEventListener("click", function () {
+                itensFaq.forEach(function (item) {
+                    item.hidden = false;
+                });
+                botaoMais.hidden = true;
+                var primeiraNova = itensFaq[FAQ_VISIVEIS].querySelector("button");
+                if (primeiraNova) {
+                    primeiraNova.focus();
+                }
+            });
+        }
+
+        if (botaoNutricao && obterPainel(botaoNutricao)) {
+            definir(botaoNutricao, false);
+            botaoNutricao.addEventListener("click", function () {
+                definir(botaoNutricao, !estaAberto(botaoNutricao));
+            });
+        }
+
+        function recalcularAberta() {
+            perguntas.concat(botaoNutricao ? [botaoNutricao] : []).forEach(function (botao) {
+                var painel = obterPainel(botao);
+                if (painel && estaAberto(botao)) {
+                    painel.style.maxHeight = "none";
+                    painel.style.maxHeight = painel.scrollHeight + "px";
+                }
+            });
+        }
+
+        window.addEventListener("resize", function () {
+            window.clearTimeout(temporizadorResize);
+            temporizadorResize = window.setTimeout(recalcularAberta, 100);
+        });
+
+        window[chave] = {
+            inicializado: true,
+            raiz: raiz,
+            recalcular: recalcularAberta
+        };
+    })();
+</script>

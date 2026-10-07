@@ -1,0 +1,1417 @@
+<!-- Etraction · LP Geleia Real Ultramel · Variação 07 "Ele e ela"
+     Dobra dividida entre benefícios para homens e mulheres, compra em linha.
+     Bloco autocontido: cole inteiro no construtor. Vídeos: preencha data-src nos dois <figure class="etr-vid">. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Raleway:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet">
+<style>
+  html:has(.etr-gr) {
+    overflow-x: clip
+  }
+
+  .etr-gr {
+    --y: #F2C85D;
+    --ink: #2f240f;
+    --cream: #fff8df;
+    --paper: #fffdf8;
+    --sand: #eadfbf;
+    --bg: var(--paper);
+    --alt: var(--cream);
+    --fg: var(--ink);
+    --muted: rgba(47, 36, 15, .66);
+    --line: var(--sand);
+    --acc: var(--y);
+    --on-acc: var(--ink);
+    --cta-bg: var(--ink);
+    --cta-fg: var(--cream);
+    --card: var(--paper);
+    --fd: 'Raleway', system-ui, sans-serif;
+    --fb: 'Albert Sans', system-ui, sans-serif;
+    --hw: 600;
+    --va: 9/16;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--fb);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-align: left;
+    font-variant-numeric: lining-nums;
+  }
+
+  .etr-gr *,
+  .etr-gr *::before,
+  .etr-gr *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+  }
+
+  .etr-gr img,
+  .etr-gr video,
+  .etr-gr iframe {
+    display: block;
+    max-width: 100%;
+    border: 0
+  }
+
+  .etr-gr a {
+    color: inherit;
+    text-decoration: none
+  }
+
+  .etr-gr ul {
+    list-style: none
+  }
+
+  .etr-gr b {
+    font-weight: 600
+  }
+
+  .etr-gr .w {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 20px
+  }
+
+  .etr-gr section {
+    padding: 88px 0;
+    background: var(--bg)
+  }
+
+  .etr-gr section.s-alt {
+    background: var(--alt)
+  }
+
+  .etr-gr h1,
+  .etr-gr h2,
+  .etr-gr h3 {
+    font-family: var(--fd);
+    font-weight: var(--hw);
+    letter-spacing: -.02em;
+    line-height: 1.06;
+    color: inherit
+  }
+
+  .etr-gr h1 {
+    font-size: clamp(34px, 4.6vw, 60px)
+  }
+
+  .etr-gr h1,
+  .etr-gr h2,
+  .etr-gr h3 {
+    text-wrap: balance
+  }
+
+  .etr-gr h2 {
+    font-size: clamp(28px, 3.2vw, 42px)
+  }
+
+  .etr-gr h3 {
+    font-size: 22px;
+    line-height: 1.2
+  }
+
+  .etr-gr .kick {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px
+  }
+
+  .etr-gr .lede {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 52ch;
+    margin-top: 18px
+  }
+
+  .etr-gr .s-head {
+    max-width: 640px;
+    margin-bottom: 48px
+  }
+
+  .etr-gr .s-head>p:not(.kick) {
+    color: var(--muted);
+    margin-top: 14px;
+    font-size: 17px
+  }
+
+  .etr-gr .s-head.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center
+  }
+
+  .etr-gr .arr {
+    width: 18px;
+    height: 18px;
+    flex: none
+  }
+
+  .etr-gr .stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--acc)
+  }
+
+  .etr-gr .stars svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor
+  }
+
+  /* ---------- compra ---------- */
+  .etr-gr .etr-buy {
+    max-width: 480px
+  }
+
+  .etr-gr .b-opts {
+    display: grid;
+    gap: 8px
+  }
+
+  .etr-gr .b-opt {
+    position: relative;
+    display: grid;
+    grid-template-columns: 18px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--card);
+    cursor: pointer;
+    transition: border-color .15s
+  }
+
+  .etr-gr .b-opt:hover {
+    border-color: var(--fg)
+  }
+
+  .etr-gr .b-opt input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none
+  }
+
+  .etr-gr .b-opt.is-on {
+    border-color: var(--fg);
+    box-shadow: inset 0 0 0 1px var(--fg)
+  }
+
+  .etr-gr .b-opt:has(input:focus-visible) {
+    outline: 2px solid var(--acc);
+    outline-offset: 2px
+  }
+
+  .etr-gr .b-dot {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--fg);
+    border-radius: 50%;
+    display: grid;
+    place-items: center
+  }
+
+  .etr-gr .b-opt.is-on .b-dot::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--fg)
+  }
+
+  .etr-gr .b-q b {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 16px
+  }
+
+  .etr-gr .b-q>span {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.35
+  }
+
+  .etr-gr .b-tag {
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    background: var(--acc);
+    color: var(--on-acc);
+    padding: 2px 7px;
+    border-radius: 3px
+  }
+
+  .etr-gr .b-save {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    margin-top: 2px
+  }
+
+  .etr-gr .b-p {
+    text-align: right
+  }
+
+  .etr-gr .b-p b {
+    display: block;
+    font-size: 17px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap
+  }
+
+  .etr-gr .b-p span {
+    font-size: 12.5px;
+    color: var(--muted);
+    white-space: nowrap
+  }
+
+  .etr-gr .b-cta {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 0 22px;
+    border-radius: 6px;
+    background: var(--cta-bg);
+    color: var(--cta-fg);
+    font-weight: 600;
+    font-size: 16px;
+    transition: opacity .15s
+  }
+
+  .etr-gr .b-cta:hover {
+    opacity: .9
+  }
+
+  .etr-gr .b-note {
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px
+  }
+
+  .etr-gr .b-note i {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: .6
+  }
+
+  .etr-gr .etr-buy--row {
+    max-width: none
+  }
+
+  .etr-gr .etr-buy--row .b-opts {
+    grid-template-columns: repeat(3, 1fr)
+  }
+
+  @media (max-width:760px) {
+    .etr-gr .etr-buy--row .b-opts {
+      grid-template-columns: 1fr
+    }
+  }
+
+  @media (min-width:761px) {
+    .etr-gr .etr-buy--row .b-opt {
+      grid-template-columns: 18px 1fr;
+      align-content: start;
+      align-items: start
+    }
+
+    .etr-gr .etr-buy--row .b-dot {
+      margin-top: 2px
+    }
+
+    .etr-gr .etr-buy--row .b-p {
+      grid-column: 2;
+      text-align: left
+    }
+
+    .etr-gr .etr-buy--row .b-cta {
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .etr-gr .etr-buy--row .b-note {
+      justify-content: center
+    }
+  }
+
+  /* ---------- vídeo ---------- */
+  .etr-gr .etr-vid {
+    margin: 0
+  }
+
+  .etr-gr .v-frame {
+    position: relative;
+    aspect-ratio: var(--va);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg)
+  }
+
+  .etr-gr .v-frame video,
+  .etr-gr .v-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000
+  }
+
+  .etr-gr .v-ph {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase
+  }
+
+  .etr-gr .v-ph svg {
+    width: 56px;
+    height: 56px;
+    color: var(--fg);
+    opacity: .55
+  }
+
+  .etr-gr .etr-vid figcaption {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px
+  }
+
+  .etr-gr .etr-vid figcaption:empty {
+    display: none
+  }
+
+  /* ---------- relatos ---------- */
+  .etr-gr .r-k {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px
+  }
+
+  .etr-gr .r-list {
+    margin-top: 18px;
+    display: grid;
+    gap: 12px
+  }
+
+  .etr-gr .r-list li {
+    position: relative;
+    padding-left: 26px;
+    font-size: 16px
+  }
+
+  .etr-gr .r-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 14px;
+    height: 16px;
+    background: var(--fg);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 16'%3E%3Cpath d='M7 1l5.6 3.25v6.5L7 14 1.4 10.75v-6.5z' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 16'%3E%3Cpath d='M7 1l5.6 3.25v6.5L7 14 1.4 10.75v-6.5z' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E") center/contain no-repeat
+  }
+
+  /* A: duas colunas, vídeo ao lado dos bullets */
+  .etr-gr .r-mode-A .r-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px
+  }
+
+  .etr-gr .r-mode-A .r-col {
+    display: grid;
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: center
+  }
+
+  .etr-gr .r-mode-A .r-col+.r-col {
+    border-left: 1px solid var(--line);
+    padding-left: 56px
+  }
+
+  /* B: linhas alternadas */
+  .etr-gr .r-mode-B .r-grid {
+    display: grid;
+    gap: 0
+  }
+
+  .etr-gr .r-mode-B .r-col {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 520px);
+    justify-content: center;
+    gap: 80px;
+    align-items: center;
+    padding: 48px 0
+  }
+
+  .etr-gr .r-mode-B .r-col+.r-col {
+    border-top: 1px solid var(--line)
+  }
+
+  .etr-gr .r-mode-B .r-ela {
+    grid-template-columns: minmax(0, 520px) minmax(0, 300px)
+  }
+
+  .etr-gr .r-mode-B .r-ela .etr-vid {
+    order: 2
+  }
+
+  .etr-gr .r-mode-B h3 {
+    font-size: clamp(24px, 2.6vw, 34px)
+  }
+
+  .etr-gr .r-mode-B .r-list li {
+    font-size: 17px
+  }
+
+  /* C: colunas com vídeo largo em cima */
+  .etr-gr .r-mode-C {
+    --va: 4/5
+  }
+
+  .etr-gr .r-mode-C .r-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px
+  }
+
+  .etr-gr .r-mode-C .r-body {
+    padding-top: 24px
+  }
+
+  @media (max-width:900px) {
+
+    .etr-gr .r-mode-A .r-grid,
+    .etr-gr .r-mode-C .r-grid {
+      grid-template-columns: 1fr;
+      gap: 48px
+    }
+
+    .etr-gr .r-mode-A .r-col+.r-col {
+      border-left: 0;
+      padding-left: 0;
+      border-top: 1px solid var(--line);
+      padding-top: 48px
+    }
+
+    .etr-gr .r-mode-B .r-col,
+    .etr-gr .r-mode-B .r-ela {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding: 36px 0
+    }
+
+    .etr-gr .r-mode-B .r-ela .etr-vid {
+      order: 0
+    }
+
+    .etr-gr .r-mode-B .etr-vid {
+      max-width: 260px
+    }
+
+    .etr-gr .r-mode-B .r-col,
+    .etr-gr .r-mode-B .r-ela {
+      justify-content: stretch
+    }
+  }
+
+  @media (max-width:560px) {
+    .etr-gr .r-mode-A .r-col {
+      grid-template-columns: 1fr;
+      gap: 22px
+    }
+
+    .etr-gr .r-mode-A .etr-vid {
+      max-width: 260px
+    }
+  }
+
+  /* ---------- prova social ---------- */
+  .etr-gr .p-stats {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line)
+  }
+
+  .etr-gr .p-stat {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 22px 20px 22px 0
+  }
+
+  .etr-gr .p-stat+.p-stat {
+    border-left: 1px solid var(--line);
+    padding-left: 24px
+  }
+
+  .etr-gr .p-stat b {
+    display: block;
+    font-family: var(--fd);
+    font-weight: var(--hw);
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1;
+    letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums
+  }
+
+  .etr-gr .p-stat span {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px
+  }
+
+  .etr-gr .p-q {
+    margin: 0
+  }
+
+  .etr-gr .p-q p {
+    margin-top: 12px;
+    font-size: 16px
+  }
+
+  .etr-gr .p-q footer {
+    margin-top: 14px;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column
+  }
+
+  .etr-gr .p-q footer span {
+    color: var(--muted)
+  }
+
+  .etr-gr .p-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px
+  }
+
+  .etr-gr .p-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 40px
+  }
+
+  .etr-gr .p-grid .p-q {
+    padding: 0 28px
+  }
+
+  .etr-gr .p-grid .p-q:first-child {
+    padding-left: 0
+  }
+
+  .etr-gr .p-grid .p-q+.p-q {
+    border-left: 1px solid var(--line)
+  }
+
+  .etr-gr .p-foot {
+    margin-top: 44px
+  }
+
+  .etr-gr .p-b {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 72px;
+    align-items: start
+  }
+
+  .etr-gr .p-q--big p {
+    font-family: var(--fd);
+    font-weight: 500;
+    font-size: clamp(24px, 2.6vw, 34px);
+    line-height: 1.22;
+    letter-spacing: -.01em;
+    margin-top: 18px
+  }
+
+  .etr-gr .p-q--big footer {
+    font-size: 14px;
+    margin-top: 22px
+  }
+
+  .etr-gr .p-side .p-stats {
+    margin-bottom: 8px
+  }
+
+  .etr-gr .p-list .p-q {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line)
+  }
+
+  .etr-gr .p-side .p-link {
+    margin-top: 24px
+  }
+
+  .etr-gr .p-c-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap
+  }
+
+  .etr-gr .p-c-top .p-stats {
+    flex: 1 1 520px;
+    border-top: 0
+  }
+
+  .etr-gr .p-rows .p-q {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 6px 40px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line)
+  }
+
+  .etr-gr .p-rows .p-q .stars {
+    grid-column: 2
+  }
+
+  .etr-gr .p-rows .p-q p {
+    grid-column: 2;
+    margin-top: 0;
+    font-size: 17px
+  }
+
+  .etr-gr .p-rows .p-q footer {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    margin-top: 0
+  }
+
+  @media (max-width:900px) {
+    .etr-gr .p-grid {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 32px
+    }
+
+    .etr-gr .p-grid .p-q:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0
+    }
+
+    .etr-gr .p-b {
+      grid-template-columns: 1fr;
+      gap: 40px
+    }
+  }
+
+  @media (max-width:560px) {
+    .etr-gr .p-stat {
+      padding: 18px 10px 18px 0
+    }
+
+    .etr-gr .p-stat+.p-stat {
+      padding-left: 14px
+    }
+
+    .etr-gr .p-grid {
+      grid-template-columns: 1fr;
+      row-gap: 0
+    }
+
+    .etr-gr .p-grid .p-q {
+      padding: 24px 0;
+      border-left: 0 !important
+    }
+
+    .etr-gr .p-grid .p-q+.p-q {
+      border-top: 1px solid var(--line)
+    }
+
+    .etr-gr .p-rows .p-q {
+      grid-template-columns: 1fr
+    }
+
+    .etr-gr .p-rows .p-q footer {
+      grid-row: auto;
+      grid-column: 1;
+      order: 3
+    }
+
+    .etr-gr .p-rows .p-q .stars,
+    .etr-gr .p-rows .p-q p {
+      grid-column: 1
+    }
+  }
+
+  /* ---------- FAQ ---------- */
+  .etr-gr .f-item {
+    border-bottom: 1px solid var(--line)
+  }
+
+  .etr-gr .f-list {
+    border-top: 1px solid var(--line)
+  }
+
+  .etr-gr .f-item summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 17px
+  }
+
+  .etr-gr .f-item summary::-webkit-details-marker {
+    display: none
+  }
+
+  .etr-gr .f-q {
+    flex: 1
+  }
+
+  .etr-gr .f-ic {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex: none
+  }
+
+  .etr-gr .f-ic::before,
+  .etr-gr .f-ic::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6.5px;
+    width: 14px;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform .2s
+  }
+
+  .etr-gr .f-ic::after {
+    transform: rotate(90deg)
+  }
+
+  .etr-gr .f-item[open] .f-ic::after {
+    transform: rotate(0)
+  }
+
+  .etr-gr .f-item p {
+    padding: 0 40px 22px 0;
+    color: var(--muted);
+    max-width: 68ch
+  }
+
+  .etr-gr .f-n {
+    font-family: var(--fd);
+    font-weight: var(--hw);
+    font-size: 14px;
+    color: var(--muted);
+    min-width: 28px;
+    font-variant-numeric: tabular-nums
+  }
+
+  .etr-gr .f-mode-C .f-item p {
+    padding-left: 44px
+  }
+
+  .etr-gr .f-contact {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--muted)
+  }
+
+  .etr-gr .f-contact a {
+    color: var(--fg);
+    font-weight: 600;
+    border-bottom: 1px solid currentColor
+  }
+
+  .etr-gr .f-mode-A .f-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: 72px;
+    align-items: start
+  }
+
+  .etr-gr .f-mode-A .f-side {
+    position: sticky;
+    top: 24px
+  }
+
+  .etr-gr .f-mode-A .s-head {
+    margin-bottom: 0
+  }
+
+  .etr-gr .f-mode-B .f-wrap {
+    max-width: 800px
+  }
+
+  .etr-gr .f-mode-B .f-side {
+    text-align: center;
+    margin-bottom: 44px
+  }
+
+  .etr-gr .f-mode-B .s-head {
+    margin: 0 auto
+  }
+
+  .etr-gr .f-mode-C .f-side {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 40px
+  }
+
+  .etr-gr .f-mode-C .s-head {
+    margin-bottom: 0
+  }
+
+  @media (max-width:900px) {
+    .etr-gr .f-mode-A .f-wrap {
+      grid-template-columns: 1fr;
+      gap: 36px
+    }
+
+    .etr-gr .f-mode-A .f-side {
+      position: static
+    }
+  }
+
+  @media (max-width:760px) {
+    .etr-gr section {
+      padding: 60px 0
+    }
+
+    .etr-gr .b-opt {
+      padding: 12px;
+      gap: 10px
+    }
+
+    .etr-gr .b-q>span,
+    .etr-gr .b-p span,
+    .etr-gr .b-save {
+      font-size: 12px
+    }
+
+    .etr-gr .b-opts {
+      gap: 6px
+    }
+
+    .etr-gr .lede {
+      font-size: 16px
+    }
+
+    .etr-gr .s-head {
+      margin-bottom: 34px
+    }
+
+    .etr-gr .f-item summary {
+      font-size: 16px;
+      padding: 18px 0
+    }
+
+    .etr-gr .f-item p {
+      padding-right: 0
+    }
+
+    .etr-gr .f-mode-C .f-item p {
+      padding-left: 0
+    }
+  }
+
+  /* ---------- variação 07 ---------- */
+  .etr-gr .h07 {
+    padding: 44px 0 64px
+  }
+
+  .etr-gr .h07 .h-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1fr);
+    grid-template-areas: "head head head" "ele img ela" "buy buy buy";
+    gap: 32px 48px;
+    align-items: center
+  }
+
+  .etr-gr .h07 .h-head {
+    grid-area: head;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto
+  }
+
+  .etr-gr .h07 h1 {
+    font-size: clamp(30px, 3.6vw, 50px)
+  }
+
+  .etr-gr .h07 .h-img {
+    grid-area: img
+  }
+
+  .etr-gr .h07 .h-img img {
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
+    object-position: 50% 80%;
+    border-radius: 4px
+  }
+
+  .etr-gr .h07 .side {
+    border-top: 1px solid var(--fg);
+    padding-top: 16px
+  }
+
+  .etr-gr .h07 .side.ele {
+    grid-area: ele
+  }
+
+  .etr-gr .h07 .side.ela {
+    grid-area: ela
+  }
+
+  .etr-gr .h07 .side p {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted)
+  }
+
+  .etr-gr .h07 .side ul {
+    margin-top: 10px
+  }
+
+  .etr-gr .h07 .side li {
+    font-family: var(--fd);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line)
+  }
+
+  .etr-gr .h07 .side li small {
+    display: block;
+    font-family: var(--fb);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0;
+    color: var(--muted)
+  }
+
+  .etr-gr .h07 .etr-buy {
+    grid-area: buy;
+    width: 100%
+  }
+
+  @media (max-width:900px) {
+    .etr-gr .h07 {
+      padding: 28px 0 56px
+    }
+
+    .etr-gr .h07 .h-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "head head" "img img" "buy buy" "ele ela";
+      gap: 24px
+    }
+
+    .etr-gr .h07 .h-head {
+      text-align: left
+    }
+
+    .etr-gr .h07 .h-img img {
+      height: 210px
+    }
+  }
+
+  @media (max-width:560px) {
+    .etr-gr .h07 .h-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas: "head" "img" "buy" "ele" "ela"
+    }
+  }
+</style>
+<div class="etr-gr v07">
+
+  <section class="h07">
+    <div class="w h-grid">
+      <div class="h-head">
+        <p class="kick">Geleia Real Pura Liofilizada · 9.000 mg</p>
+        <h1>Ele quer disposição. Ela quer equilíbrio. Os dois tomam a mesma cápsula.</h1>
+      </div>
+      <div class="side ele">
+        <p>Para ele</p>
+        <ul>
+          <li>Energia<small>Disposição do começo ao fim do dia</small></li>
+          <li>Performance<small>Treino e recuperação</small></li>
+          <li>Foco<small>Clareza mental no trabalho</small></li>
+        </ul>
+      </div>
+      <figure class="h-img"><img
+          src="https://adaptive-images.uooucdn.com.br/ik-seo/tr:w-1100,h-1594,c-at_max,pr-true,q-80/a22571-ogxytxlxut0/pv/fa/c2/10/abbc56ee1ecd8a4951d85605ba/geleia-real-pura-liofilizada-9-000mg-large-1.jpg"
+          alt="Pote e caixa da Geleia Real Liofilizada Ultramel com cápsulas" width="1062" height="1594"
+          fetchpriority="high"></figure>
+      <div class="side ela">
+        <p>Para ela</p>
+        <ul>
+          <li>Equilíbrio<small>Hormonal, em todas as fases</small></li>
+          <li>Pele e cabelo<small>Aparência mais saudável</small></li>
+          <li>Humor<small>Menos estresse na rotina</small></li>
+        </ul>
+      </div>
+
+      <div class="etr-buy etr-buy--row" data-buy data-prefix="Comprar">
+        <div class="b-opts" role="radiogroup" aria-label="Escolha seu kit">
+          <label class="b-opt">
+            <input type="radio" name="etr-kit-07" value="1" data-label="1 pote" data-total="R$ 248,88">
+            <span class="b-dot" aria-hidden="true"></span>
+            <span class="b-q"><b>1 pote</b><span>30 dias · para experimentar</span></span>
+            <span class="b-p"><b>R$ 248,88</b><span>3x de R$ 82,96</span></span>
+          </label>
+          <label class="b-opt">
+            <input type="radio" name="etr-kit-07" value="3" data-label="3 potes" data-total="R$ 656,64">
+            <span class="b-dot" aria-hidden="true"></span>
+            <span class="b-q"><b>3 potes</b><span>90 dias · R$ 218,88 por pote</span><span class="b-save">Economize R$
+                90,00</span></span>
+            <span class="b-p"><b>R$ 656,64</b><span>3x de R$ 218,88</span></span>
+          </label>
+          <label class="b-opt is-on">
+            <input type="radio" name="etr-kit-07" value="6" data-label="6 potes" data-total="R$ 1.133,28" checked>
+            <span class="b-dot" aria-hidden="true"></span>
+            <span class="b-q"><b>6 potes<em class="b-tag">Mais escolhido</em></b><span>180 dias · R$ 188,88 por
+                pote</span><span class="b-save">Economize R$ 360,00</span></span>
+            <span class="b-p"><b>R$ 1.133,28</b><span>3x de R$ 377,76</span></span>
+          </label>
+        </div>
+        <a class="b-cta" href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg?kit=6"
+          data-cta><span>Comprar 6 potes por R$ 1.133,28</span><svg class="arr" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10h11M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg></a>
+        <p class="b-note">3x sem juros no cartão <i></i> Frete para todo o Brasil <i></i> Laudo técnico</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-relatos r-mode-A s-alt">
+    <div class="w">
+      <header class="s-head ">
+        <p class="kick">Para os dois</p>
+        <h2>Mesma cápsula, benefícios para cada corpo</h2>
+      </header>
+      <div class="r-grid">
+        <article class="r-col r-ele">
+          <figure class="etr-vid" data-src="" data-poster="">
+            <!-- Cole a URL do vídeo (ele) em data-src: .mp4, .webm ou link do YouTube. data-poster é opcional (imagem de capa). -->
+            <div class="v-frame">
+              <div class="v-ph"><svg viewBox="0 0 64 64" aria-hidden="true">
+                  <path d="M32 4.5l23.8 13.75v27.5L32 59.5 8.2 45.75v-27.5z" fill="none" stroke="currentColor"
+                    stroke-width="1.4" />
+                  <path d="M27 23.5v17l13.5-8.5z" fill="currentColor" />
+                </svg><span>Relato em vídeo</span></div>
+            </div>
+            <figcaption></figcaption>
+          </figure>
+          <div class="r-body">
+            <p class="r-k">Para ele</p>
+            <h3>Energia que dura o dia inteiro</h3>
+            <ul class="r-list">
+              <li>Mais energia e disposição do começo ao fim do dia</li>
+              <li>Apoio à performance física e à recuperação depois do treino</li>
+              <li>Foco e clareza mental para render no trabalho</li>
+              <li>Contribui para níveis hormonais mais equilibrados com o tempo</li>
+            </ul>
+          </div>
+        </article>
+        <article class="r-col r-ela">
+          <figure class="etr-vid" data-src="" data-poster="">
+            <!-- Cole a URL do vídeo (ela) em data-src: .mp4, .webm ou link do YouTube. data-poster é opcional (imagem de capa). -->
+            <div class="v-frame">
+              <div class="v-ph"><svg viewBox="0 0 64 64" aria-hidden="true">
+                  <path d="M32 4.5l23.8 13.75v27.5L32 59.5 8.2 45.75v-27.5z" fill="none" stroke="currentColor"
+                    stroke-width="1.4" />
+                  <path d="M27 23.5v17l13.5-8.5z" fill="currentColor" />
+                </svg><span>Relato em vídeo</span></div>
+            </div>
+            <figcaption></figcaption>
+          </figure>
+          <div class="r-body">
+            <p class="r-k">Para ela</p>
+            <h3>Equilíbrio de dentro para fora</h3>
+            <ul class="r-list">
+              <li>Contribui para o equilíbrio hormonal do organismo</li>
+              <li>Pele e cabelo com aparência mais saudável</li>
+              <li>Ajuda a reduzir o estresse e melhora o humor</li>
+              <li>Menos cansaço e mais disposição na rotina</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-prova p-mode-C">
+    <div class="w">
+      <header class="s-head ">
+        <p class="kick">Avaliações</p>
+        <h2>Clientes de todo o Brasil</h2>
+      </header>
+      <div class="p-c-top">
+        <div class="p-stats">
+          <div class="p-stat"><b>5,0</b><span>nota média</span></div>
+          <div class="p-stat"><b>309</b><span>avaliações</span></div>
+          <div class="p-stat"><b>100%</b><span>recomendam</span></div>
+        </div><a class="p-link"
+          href="https://www.ultramel.com.br/geleia-real-pura-liofilizada-9-000mg#product-review">Ler todas as 309
+          avaliações <svg class="arr" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 10h11M11 5.5l4.5 4.5-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg></a>
+      </div>
+      <div class="p-rows">
+        <blockquote class="p-q">
+          <span class="stars" role="img" aria-label="5 de 5 estrelas"><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg></span>
+          <p>“Estou indo para o segundo pote, e o primeiro já me ajudou muito com mais disposição, melhora do sono e
+            aumento da imunidade.”</p>
+          <footer><b>Raquel R.</b><span>Balneário Piçarras, SC</span></footer>
+        </blockquote>
+        <blockquote class="p-q">
+          <span class="stars" role="img" aria-label="5 de 5 estrelas"><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg></span>
+          <p>“Estou tomando há dez dias, mas já senti diferença na disposição. O sono ainda não está muito bom, mas acho
+            que aos poucos vou obtendo outras melhoras.”</p>
+          <footer><b>Vanderlei F.</b><span>São Paulo, SP</span></footer>
+        </blockquote>
+        <blockquote class="p-q">
+          <span class="stars" role="img" aria-label="5 de 5 estrelas"><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg></span>
+          <p>“Saúde acima de tudo. Qualidade excelente.”</p>
+          <footer><b>Josely A.</b><span>Novo Hamburgo, RS</span></footer>
+        </blockquote>
+        <blockquote class="p-q">
+          <span class="stars" role="img" aria-label="5 de 5 estrelas"><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg><svg viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M10 1.6l2.47 5.33 5.83.66-4.33 3.97 1.18 5.75L10 14.4l-5.15 2.91 1.18-5.75L1.7 7.59l5.83-.66z" />
+            </svg></span>
+          <p>“Maravilhoso!”</p>
+          <footer><b>Mery T.</b><span>Rio de Janeiro, RJ</span></footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="s-faq f-mode-C">
+    <div class="w f-wrap">
+      <div class="f-side">
+        <header class="s-head ">
+          <p class="kick">Dúvidas</p>
+          <h2>O que as pessoas perguntam</h2>
+        </header>
+        <p class="f-contact">Ficou alguma dúvida? <a href="https://api.whatsapp.com/send?phone=554731703350"
+            target="_blank" rel="noopener">Fale com a gente no WhatsApp</a></p>
+      </div>
+      <div class="f-list">
+        <details class="f-item">
+          <summary><span class="f-n">01</span><span class="f-q">O que é a geleia real?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>É a substância que as abelhas produzem para alimentar a rainha durante toda a vida. As operárias recebem
+            geleia real só nos primeiros dias. A rainha vive até 6 anos; as operárias, cerca de 4 semanas.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">02</span><span class="f-q">O que significa “liofilizada”?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>A liofilização retira a umidade da geleia real em baixa temperatura. Isso preserva as características
+            naturais do alimento e permite guardar em cápsula, sem geladeira.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">03</span><span class="f-q">Qual a diferença para a geleia real fresca?</span><span
+              class="f-ic" aria-hidden="true"></span></summary>
+          <p>A fresca precisa de refrigeração constante e estraga com facilidade. A liofilizada é mais concentrada,
+            estável e prática: uma cápsula por dia, em qualquer lugar.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">04</span><span class="f-q">O que é o 10-HDA?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>É o ácido 10-hidroxidecenoico, um composto que só existe na geleia real. É usado como principal indicador
+            de autenticidade e qualidade, e é estudado por sua ação antioxidante.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">05</span><span class="f-q">A Geleia Real Ultramel tem algum aditivo?</span><span
+              class="f-ic" aria-hidden="true"></span></summary>
+          <p>Não. Cada cápsula tem só geleia real liofilizada: sem maltodextrina, sem vitaminas sintéticas, sem
+            conservantes, sem corantes e sem enchimento.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">06</span><span class="f-q">Como devo tomar?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Uma cápsula por dia, pela manhã, em jejum. Ou conforme a orientação do seu médico ou nutricionista.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">07</span><span class="f-q">Quanto tempo dura um pote?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Cada pote tem 30 cápsulas de 300 mg e rende 1 mês de uso.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">08</span><span class="f-q">Em quanto tempo vou perceber diferença?</span><span
+              class="f-ic" aria-hidden="true"></span></summary>
+          <p>Varia de pessoa para pessoa. Muitos clientes relatam mais disposição nas primeiras semanas. Como todo
+            alimento natural, o resultado vem do uso contínuo, por isso os kits de 3 e 6 meses são os mais escolhidos.
+          </p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">09</span><span class="f-q">Precisa guardar na geladeira?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Não. Guarde em local fresco, seco e protegido da luz.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">10</span><span class="f-q">Tem glúten ou lactose?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Não. O produto é sem glúten e sem lactose, incluindo a cápsula, que é de gelatina.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">11</span><span class="f-q">Quem não deve tomar?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Pessoas alérgicas a produtos apícolas. Se você está grávida, amamentando, faz reposição hormonal ou usa
+            medicação contínua, converse com seu médico antes.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">12</span><span class="f-q">O produto tem laudo técnico?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Sim. O laudo atesta a identidade e a conformidade do produto e está na última foto do carrossel da página
+            do produto.</p>
+        </details>
+        <details class="f-item">
+          <summary><span class="f-n">13</span><span class="f-q">Qual kit vale mais a pena?</span><span class="f-ic"
+              aria-hidden="true"></span></summary>
+          <p>Para uso contínuo, o kit de 6 potes: cada pote sai por R$ 188,88, uma economia de R$ 360,00 em relação a
+            comprar um por vez. O kit de 3 potes sai por R$ 218,88 o pote.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  (function () {
+    function init(root) {
+      if (root.getAttribute('data-etr-ready')) return;
+      root.setAttribute('data-etr-ready', '1');
+
+      root.querySelectorAll('[data-buy]').forEach(function (box) {
+        var cta = box.querySelector('[data-cta]');
+        var prefix = box.getAttribute('data-prefix') || 'Comprar';
+        var base = cta.getAttribute('href').split('?')[0];
+        box.querySelectorAll('input[type=radio]').forEach(function (r) {
+          r.addEventListener('change', function () {
+            box.querySelectorAll('.b-opt').forEach(function (o) { o.classList.remove('is-on'); });
+            r.closest('.b-opt').classList.add('is-on');
+            cta.querySelector('span').textContent = prefix + ' ' + r.getAttribute('data-label') + ' por ' + r.getAttribute('data-total');
+            cta.setAttribute('href', base + '?kit=' + r.value);
+          });
+        });
+      });
+
+      root.querySelectorAll('.etr-vid').forEach(function (fig) {
+        var src = (fig.getAttribute('data-src') || '').trim();
+        if (!src) return;
+        var frame = fig.querySelector('.v-frame');
+        var yt = src.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);
+        var el;
+        if (yt) {
+          el = document.createElement('iframe');
+          el.src = 'https://www.youtube.com/embed/' + yt[1] + '?rel=0&playsinline=1';
+          el.setAttribute('allow', 'accelerometer; encrypted-media; gyroscope; picture-in-picture');
+          el.setAttribute('allowfullscreen', '');
+          el.setAttribute('title', 'Relato em vídeo');
+        } else {
+          el = document.createElement('video');
+          el.src = src;
+          el.controls = true;
+          el.playsInline = true;
+          el.preload = 'metadata';
+          var poster = fig.getAttribute('data-poster');
+          if (poster) el.poster = poster;
+        }
+        frame.innerHTML = '';
+        frame.appendChild(el);
+        fig.classList.add('has-video');
+      });
+    }
+    function run() { document.querySelectorAll('.etr-gr').forEach(init); }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  })();
+</script>

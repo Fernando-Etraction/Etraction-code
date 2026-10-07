@@ -1,94 +1,268 @@
 (function () {
     'use strict';
 
-    const CONFIG = {
-        id: 'etraction-complete-pedido-pdp',
-        styleId: 'etraction-complete-pedido-pdp-style',
+    const PRODUTOS_PERMITIDOS = [
+        '/ultramel-mel-cru-cremoso-dourado-400g',
+        '/ultramel-mel-cru-cremoso-dourado-300g',
+        '/ultramel-mel-cru-cremoso-dourado-1kg'
+    ];
 
-        productUrl: '/pegador-de-mel-em-madeira-macica-17cm',
-        productPath: '/pegador-de-mel-em-madeira-macica-17cm',
-
-        fallbackName: 'Adicionar pegador de mel 17 cm',
-        fallbackPrice: 'R$ 16,88',
-
-        eyebrow: 'COMBINE COM SEU MEL',
-        description: 'Fabricado em madeira'
-    };
-
-    let productData = null;
-    let loadingProduct = false;
-    let addingAccessory = false;
-    let allowNativeSubmit = false;
-
-
-    /* =========================================================
-       NÃO MOSTRA NA PDP DO PRÓPRIO PEGADOR
-       ========================================================= */
-
-    const currentPath = window.location.pathname
+    const path = window.location.pathname
         .replace(/\/+$/, '')
         .toLowerCase();
 
-    const accessoryPath = CONFIG.productPath
-        .replace(/\/+$/, '')
-        .toLowerCase();
-
-    if (currentPath === accessoryPath) {
+    if (!PRODUTOS_PERMITIDOS.includes(path)) {
         return;
     }
 
 
     /* =========================================================
+       CONFIG
+    ========================================================= */
+
+    const CONFIG = {
+
+        blockId:
+            'etraction-complete-pedido-pdp',
+
+        styleId:
+            'etraction-ultramel-completo-style',
+
+        accessoryUrl:
+            '/pegador-de-mel-em-madeira-macica-17cm',
+
+        accessoryName:
+            'Adicionar pegador de mel 17 cm',
+
+        fallbackPrice:
+            'R$ 16,88',
+
+        cartUrl:
+            '/cart/',
+
+        width:
+            '500px',
+
+        redirectFallbackDelay:
+            2600,
+
+        operationTimeout: 20000
+    };
+
+
+    /* =========================================================
+       ESTADO
+    ========================================================= */
+
+    const STATE = {
+
+        productData: null,
+
+        productPromise: null,
+
+        accessoryAdded: false,
+
+        accessoryPromise: null,
+
+        bypassNativeClick: false,
+
+        buyNow: {
+
+            active: false,
+
+            submitSeen: false,
+
+            button: null,
+
+            observer: null,
+
+            redirectTimer: null,
+
+            operationTimer: null
+        }
+    };
+
+
+    /* =========================================================
        CSS
-       ========================================================= */
+    ========================================================= */
+
+    const ETRACTION_BOUND_BUY = new WeakSet();
+    const ETRACTION_BOUND_BLOCK = new WeakSet();
+
+
+    /*
+     * Lê a quantidade real do carrinho no servidor.
+     * Retorna null quando não foi possível ler.
+     */
+    function getCartQuantityFromServer() {
+
+        return new Promise( function ( resolve ) {
+
+            let settled = false;
+
+            const finish = function ( value ) {
+
+                if ( settled ) {
+                    return;
+                }
+
+                settled = true;
+                resolve( value );
+            };
+
+            setTimeout( function () {
+                finish( null );
+            }, 4000 );
+
+            try {
+
+                window.Uoou.cart.reload( function ( data ) {
+
+                    finish(
+                        data && data.cart_quantity !== undefined
+                            ? Number( data.cart_quantity )
+                            : null
+                    );
+                } );
+
+            } catch ( error ) {
+
+                finish( null );
+            }
+        } );
+    }
+
+
+    /*
+     * true  = item entrou no carrinho
+     * false = confirmado que NAO entrou
+     * null  = nao deu para saber
+     */
+    async function waitForCartGrowth( baseline, timeout ) {
+
+        if ( baseline === null ) {
+            return null;
+        }
+
+        const deadline = Date.now() + timeout;
+        let sawReading = false;
+
+        while ( Date.now() < deadline ) {
+
+            const current = await getCartQuantityFromServer();
+
+            if ( current !== null ) {
+
+                sawReading = true;
+
+                if ( current > baseline ) {
+                    return true;
+                }
+            }
+
+            await new Promise( function ( resolve ) {
+                setTimeout( resolve, 350 );
+            } );
+        }
+
+        return sawReading ? false : null;
+    }
+
 
     function insertStyles() {
 
-        if (document.getElementById(CONFIG.styleId)) {
+        if (
+            document.getElementById(
+                CONFIG.styleId
+            )
+        ) {
             return;
         }
 
-        const style = document.createElement('style');
 
-        style.id = CONFIG.styleId;
+        const style =
+            document.createElement('style');
+
+
+        style.id =
+            CONFIG.styleId;
+
 
         style.textContent = `
 
-            #${CONFIG.id} {
-                width: 100% !important;
-                max-width: 500px !important;
+            /* =================================================
+               COMPLETE SEU PEDIDO
+            ================================================= */
 
-                margin: 0 0 18px !important;
-                padding: 0 !important;
+            #${CONFIG.blockId} {
 
-                box-sizing: border-box !important;
+                width:
+                    100% !important;
 
-                font-family: inherit !important;
+                max-width:
+                    calc( ${CONFIG.width} + 30px ) !important;
+
+                margin:
+                    14px 0 18px !important;
+
+                /*
+                 * O bloco vive dentro de um .row
+                 * com margin 0 -15px, que anula o
+                 * padding da coluna. Esse padding
+                 * devolve o alinhamento.
+                 */
+                padding:
+                    0 15px !important;
+
+                box-sizing:
+                    border-box !important;
+
+                font-family:
+                    inherit !important;
+            }
+
+
+            #${CONFIG.blockId} * {
+
+                box-sizing:
+                    border-box !important;
             }
 
 
             /* =================================================
                TÍTULO
-               ================================================= */
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__title {
-                margin: 0 0 8px !important;
-                padding: 0 !important;
+            #${CONFIG.blockId}
+            .etraction-complete__title {
 
-                color: #332d26 !important;
+                margin:
+                    0 0 8px !important;
 
-                font-size: 13px !important;
-                font-weight: 600 !important;
-                line-height: 1.3 !important;
+                color:
+                    #332d26 !important;
+
+                font-size:
+                    13px !important;
+
+                font-weight:
+                    600 !important;
+
+                line-height:
+                    1.3 !important;
             }
 
 
             /* =================================================
                CARD
-               ================================================= */
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__card {
-                display: grid !important;
+            #${CONFIG.blockId}
+            .etraction-complete__card {
+
+                display:
+                    grid !important;
 
                 grid-template-columns:
                     32px
@@ -96,26 +270,32 @@
                     minmax(0, 1fr)
                     auto !important;
 
-                align-items: center !important;
+                align-items:
+                    center !important;
 
-                gap: 10px !important;
+                gap:
+                    10px !important;
 
-                width: 100% !important;
-                min-height: 96px !important;
+                width:
+                    100% !important;
 
-                margin: 0 !important;
-                padding: 11px 14px !important;
+                min-height:
+                    96px !important;
 
-                box-sizing: border-box !important;
+                padding:
+                    11px 14px !important;
 
-                background: #fff !important;
+                background:
+                    #fff !important;
 
-                border: 1px solid #e5d2ad !important;
-                border-radius: 8px !important;
+                border:
+                    1px solid #e5d2ad !important;
 
-                box-shadow: none !important;
+                border-radius:
+                    8px !important;
 
-                cursor: pointer !important;
+                cursor:
+                    pointer !important;
 
                 transition:
                     border-color .2s ease,
@@ -124,15 +304,22 @@
             }
 
 
-            #${CONFIG.id} .etraction-complete__card:hover {
-                border-color: #d8bd89 !important;
+            #${CONFIG.blockId}
+            .etraction-complete__card:hover {
+
+                border-color:
+                    #d8bd89 !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__card.is-selected {
-                background: #f7faf7 !important;
+            #${CONFIG.blockId}
+            .etraction-complete__card.is-selected {
 
-                border-color: #6f9a7e !important;
+                background:
+                    #f7faf7 !important;
+
+                border-color:
+                    #6f9a7e !important;
 
                 box-shadow:
                     0 0 0 1px
@@ -140,454 +327,1104 @@
             }
 
 
-            #${CONFIG.id} .etraction-complete__card.is-loading {
-                opacity: .72 !important;
-                pointer-events: none !important;
+            #${CONFIG.blockId}
+            .etraction-complete__card.is-loading {
+
+                opacity:
+                    .72 !important;
             }
 
 
             /* =================================================
-               CHECKBOX
-               ================================================= */
+               CHECK
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__check-wrap {
-                position: relative !important;
+            #${CONFIG.blockId}
+            .etraction-complete__check-wrap {
 
-                display: flex !important;
+                position:
+                    relative !important;
 
-                align-items: center !important;
-                justify-content: center !important;
+                display:
+                    flex !important;
 
-                width: 32px !important;
-                height: 32px !important;
+                align-items:
+                    center !important;
 
-                margin: 0 !important;
-                padding: 0 !important;
+                justify-content:
+                    center !important;
 
-                cursor: pointer !important;
+                width:
+                    32px !important;
+
+                height:
+                    32px !important;
+
+                margin:
+                    0 !important;
+
+                cursor:
+                    pointer !important;
             }
 
 
-            /*
-             * CHECKBOX NATIVO INVISÍVEL
-             */
+            #${CONFIG.blockId}
+            .etraction-complete__check {
 
-            #${CONFIG.id} .etraction-complete__check {
-                position: absolute !important;
+                position:
+                    absolute !important;
 
-                width: 1px !important;
-                height: 1px !important;
+                width:
+                    1px !important;
 
-                margin: 0 !important;
-                padding: 0 !important;
+                height:
+                    1px !important;
 
-                opacity: 0 !important;
+                opacity:
+                    0 !important;
 
-                pointer-events: none !important;
+                pointer-events:
+                    none !important;
             }
 
 
-            /*
-             * BOX VISUAL
-             */
-
-            #${CONFIG.id} .etraction-complete__check-ui {
-                display: flex !important;
-
-                align-items: center !important;
-                justify-content: center !important;
-
-                width: 20px !important;
-                height: 20px !important;
-
-                flex: 0 0 20px !important;
-
-                margin: 0 !important;
-                padding: 0 !important;
-
-                box-sizing: border-box !important;
-
-                background: #fff !important;
-
-                border: 1.5px solid #bcae99 !important;
-                border-radius: 5px !important;
-
-                transition:
-                    background-color .18s ease,
-                    border-color .18s ease,
-                    transform .15s ease,
-                    box-shadow .18s ease !important;
-            }
-
-
-            #${CONFIG.id}
-            .etraction-complete__check-wrap:hover
+            #${CONFIG.blockId}
             .etraction-complete__check-ui {
-                border-color: #47795d !important;
-            }
 
+                display:
+                    flex !important;
 
-            /*
-             * SVG
-             */
+                align-items:
+                    center !important;
 
-            #${CONFIG.id} .etraction-complete__check-svg {
-                display: block !important;
+                justify-content:
+                    center !important;
 
-                width: 12px !important;
-                height: 12px !important;
+                width:
+                    20px !important;
 
-                flex: 0 0 12px !important;
+                height:
+                    20px !important;
 
-                margin: 0 !important;
-                padding: 0 !important;
+                background:
+                    #fff !important;
 
-                opacity: 0 !important;
+                border:
+                    1.5px solid #bcae99 !important;
 
-                transform: scale(.65) !important;
+                border-radius:
+                    5px !important;
 
                 transition:
-                    opacity .15s ease,
-                    transform .15s ease !important;
+                    .18s ease !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__check-svg path {
-                fill: none !important;
-
-                stroke: #fff !important;
-                stroke-width: 2.4 !important;
-
-                stroke-linecap: round !important;
-                stroke-linejoin: round !important;
-            }
-
-
-            /*
-             * CHECKADO
-             */
-
-            #${CONFIG.id}
-            .etraction-complete__check:checked
-            + .etraction-complete__check-ui {
-                background: #47795d !important;
-                border-color: #47795d !important;
-
-                box-shadow:
-                    0 2px 5px
-                    rgba(71, 121, 93, .20) !important;
-            }
-
-
-            #${CONFIG.id}
-            .etraction-complete__check:checked
-            + .etraction-complete__check-ui
+            #${CONFIG.blockId}
             .etraction-complete__check-svg {
-                opacity: 1 !important;
 
-                transform: scale(1) !important;
+                display:
+                    block !important;
+
+                width:
+                    12px !important;
+
+                height:
+                    12px !important;
+
+                opacity:
+                    0 !important;
+
+                transform:
+                    scale(.65) !important;
+
+                transition:
+                    .15s ease !important;
+            }
+
+
+            #${CONFIG.blockId}
+            .etraction-complete__check-svg path {
+
+                fill:
+                    none !important;
+
+                stroke:
+                    #fff !important;
+
+                stroke-width:
+                    2.4 !important;
+
+                stroke-linecap:
+                    round !important;
+
+                stroke-linejoin:
+                    round !important;
+            }
+
+
+            #${CONFIG.blockId}
+            .etraction-complete__check:checked
+            +
+            .etraction-complete__check-ui {
+
+                background:
+                    #47795d !important;
+
+                border-color:
+                    #47795d !important;
+            }
+
+
+            #${CONFIG.blockId}
+            .etraction-complete__check:checked
+            +
+            .etraction-complete__check-ui
+            .etraction-complete__check-svg {
+
+                opacity:
+                    1 !important;
+
+                transform:
+                    scale(1) !important;
             }
 
 
             /* =================================================
                IMAGEM
-               ================================================= */
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__image-link {
-                display: flex !important;
+            #${CONFIG.blockId}
+            .etraction-complete__image-link {
 
-                align-items: center !important;
-                justify-content: center !important;
+                display:
+                    flex !important;
 
-                width: 72px !important;
-                height: 72px !important;
+                align-items:
+                    center !important;
 
-                margin: 0 !important;
-                padding: 0 !important;
+                justify-content:
+                    center !important;
 
-                overflow: hidden !important;
+                width:
+                    72px !important;
 
-                background: #faf8f3 !important;
+                height:
+                    72px !important;
 
-                border-radius: 8px !important;
+                overflow:
+                    hidden !important;
 
-                text-decoration: none !important;
+                background:
+                    #faf8f3 !important;
+
+                border-radius:
+                    8px !important;
+
+                text-decoration:
+                    none !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__image {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__image {
 
-                width: 100% !important;
-                height: 100% !important;
+                display:
+                    block !important;
 
-                padding: 6px !important;
+                width:
+                    100% !important;
 
-                box-sizing: border-box !important;
+                height:
+                    100% !important;
 
-                object-fit: contain !important;
+                padding:
+                    6px !important;
+
+                object-fit:
+                    contain !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__placeholder {
-                color: #a09a90 !important;
+            #${CONFIG.blockId}
+            .etraction-complete__placeholder {
 
-                font-size: 9px !important;
-                line-height: 1.2 !important;
+                color:
+                    #a09a90 !important;
 
-                text-align: center !important;
+                font-size:
+                    9px !important;
+
+                text-align:
+                    center !important;
             }
 
 
             /* =================================================
-               INFORMAÇÕES
-               ================================================= */
+               INFO
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__info {
-                display: flex !important;
+            #${CONFIG.blockId}
+            .etraction-complete__info {
 
-                flex-direction: column !important;
-                justify-content: center !important;
+                display:
+                    flex !important;
 
-                min-width: 0 !important;
+                flex-direction:
+                    column !important;
 
-                margin: 0 !important;
-                padding: 0 !important;
+                justify-content:
+                    center !important;
+
+                min-width:
+                    0 !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__eyebrow {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__eyebrow {
 
-                margin: 0 0 4px !important;
+                display:
+                    block !important;
 
-                color: #47795d !important;
+                margin:
+                    0 0 4px !important;
 
-                font-size: 8px !important;
-                font-weight: 700 !important;
+                color:
+                    #47795d !important;
 
-                line-height: 1.2 !important;
+                font-size:
+                    8px !important;
 
-                letter-spacing: 1px !important;
+                font-weight:
+                    700 !important;
 
-                text-transform: uppercase !important;
+                letter-spacing:
+                    1px !important;
+
+                text-transform:
+                    uppercase !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__name {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__name {
 
-                margin: 0 !important;
-                padding: 0 !important;
+                display:
+                    block !important;
 
-                color: #332d26 !important;
+                margin:
+                    0 !important;
 
-                font-size: 13px !important;
-                font-weight: 600 !important;
+                color:
+                    #332d26 !important;
 
-                line-height: 1.25 !important;
+                font-size:
+                    13px !important;
 
-                text-decoration: none !important;
+                font-weight:
+                    600 !important;
+
+                line-height:
+                    1.25 !important;
+
+                text-decoration:
+                    none !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__description {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__description {
 
-                margin: 4px 0 0 !important;
+                display:
+                    block !important;
 
-                color: #8a837a !important;
+                margin:
+                    4px 0 0 !important;
 
-                font-size: 10px !important;
-                font-weight: 400 !important;
+                color:
+                    #8a837a !important;
 
-                line-height: 1.25 !important;
+                font-size:
+                    10px !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__feedback {
-                display: none !important;
+            #${CONFIG.blockId}
+            .etraction-complete__feedback {
 
-                margin: 5px 0 0 !important;
+                display:
+                    none !important;
 
-                color: #47795d !important;
+                margin:
+                    5px 0 0 !important;
 
-                font-size: 9px !important;
-                font-weight: 600 !important;
+                color:
+                    #47795d !important;
 
-                line-height: 1.25 !important;
+                font-size:
+                    9px !important;
+
+                font-weight:
+                    600 !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__feedback.is-visible {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__feedback.is-visible {
+
+                display:
+                    block !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__feedback.is-error {
-                color: #a34f4f !important;
+            #${CONFIG.blockId}
+            .etraction-complete__feedback.is-error {
+
+                color:
+                    #a34f4f !important;
             }
 
 
             /* =================================================
                PREÇO
-               ================================================= */
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__price {
-                display: flex !important;
+            #${CONFIG.blockId}
+            .etraction-complete__price {
 
-                flex-direction: column !important;
+                display:
+                    flex !important;
 
-                align-items: flex-end !important;
-                justify-content: center !important;
+                flex-direction:
+                    column !important;
 
-                min-width: 95px !important;
+                align-items:
+                    flex-end !important;
 
-                margin: 0 !important;
-                padding: 0 !important;
+                justify-content:
+                    center !important;
 
-                text-align: right !important;
+                min-width:
+                    95px !important;
+
+                text-align:
+                    right !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__price-label {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__price-label {
 
-                margin: 0 0 4px !important;
+                display:
+                    block !important;
 
-                color: #928b82 !important;
+                margin:
+                    0 0 4px !important;
 
-                font-size: 8px !important;
+                color:
+                    #928b82 !important;
 
-                line-height: 1 !important;
+                font-size:
+                    8px !important;
 
-                white-space: nowrap !important;
+                white-space:
+                    nowrap !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__price-value {
-                display: block !important;
+            #${CONFIG.blockId}
+            .etraction-complete__price-value {
 
-                color: #47795d !important;
+                display:
+                    block !important;
 
-                font-size: 18px !important;
-                font-weight: 700 !important;
+                color:
+                    #47795d !important;
 
-                line-height: 1 !important;
+                font-size:
+                    18px !important;
 
-                white-space: nowrap !important;
+                font-weight:
+                    700 !important;
+
+                white-space:
+                    nowrap !important;
             }
 
 
-            #${CONFIG.id} .etraction-complete__price-value::before {
-                content: '+ ' !important;
+            #${CONFIG.blockId}
+            .etraction-complete__price-value::before {
+
+                content:
+                    '+ ' !important;
+            }
+
+
+            #${CONFIG.blockId}
+            .etraction-complete__helper {
+
+                margin:
+                    7px 0 0 !important;
+
+                color:
+                    #8c857b !important;
+
+                font-size:
+                    9px !important;
             }
 
 
             /* =================================================
-               HELPER
-               ================================================= */
+               BLOCO DE COMPRA
+            ================================================= */
 
-            #${CONFIG.id} .etraction-complete__helper {
-                margin: 7px 0 0 !important;
-                padding: 0 !important;
+            #product-price-info
+            .cart-actions-container {
 
-                color: #8c857b !important;
+                width:
+                    calc( ${CONFIG.width} + 30px ) !important;
 
-                font-size: 9px !important;
-                font-weight: 400 !important;
+                max-width:
+                    calc( ${CONFIG.width} + 30px ) !important;
 
-                line-height: 1.25 !important;
+                float:
+                    none !important;
+
+                flex:
+                    none !important;
+
+                margin:
+                    0 !important;
+
+                box-sizing:
+                    border-box !important;
+
+                /*
+                 * Compensa o margin -15px do .row
+                 * para alinhar com o resto da coluna.
+                 */
+                padding:
+                    0 15px !important;
+            }
+
+
+            #product-price-info
+            .cart-actions-container
+            .cart-actions {
+
+                display:
+                    grid !important;
+
+                grid-template-columns:
+                    110px
+                    minmax(0, 1fr) !important;
+
+                gap:
+                    8px !important;
+
+                width:
+                    100% !important;
+
+                max-width:
+                    ${CONFIG.width} !important;
+
+                margin:
+                    0 !important;
+
+                padding:
+                    0 !important;
+
+                align-items:
+                    stretch !important;
+            }
+
+
+            #product-price-info
+            .cart-actions-container
+            .in-stock-label {
+
+                display:
+                    none !important;
+            }
+
+
+            /* =================================================
+               QUANTIDADE
+            ================================================= */
+
+            #product-price-info
+            .cart-quantity-container {
+
+                width:
+                    110px !important;
+
+                max-width:
+                    110px !important;
+
+                margin:
+                    0 !important;
+
+                padding:
+                    0 !important;
+            }
+
+
+            #product-price-info
+            .cart-quantity-container
+            .form-group {
+
+                width:
+                    100% !important;
+
+                margin:
+                    0 !important;
+
+                padding:
+                    0 !important;
+            }
+
+
+            #product-price-info
+            .cart-quantity-container
+            .input-group {
+
+                display:
+                    flex !important;
+
+                width:
+                    100% !important;
+
+                height:
+                    42px !important;
+
+                margin:
+                    0 !important;
+            }
+
+
+            #product-price-info
+            .cart-quantity-container
+            .input-group-btn {
+
+                display:
+                    flex !important;
+
+                width:
+                    36px !important;
+
+                min-width:
+                    36px !important;
+
+                height:
+                    42px !important;
+            }
+
+
+            #product-price-info
+            .quantity-subtract,
+
+            #product-price-info
+            .quantity-increase {
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center !important;
+
+                justify-content:
+                    center !important;
+
+                width:
+                    36px !important;
+
+                min-width:
+                    36px !important;
+
+                max-width:
+                    36px !important;
+
+                height:
+                    42px !important;
+
+                padding:
+                    0 !important;
+
+                margin:
+                    0 !important;
+
+                background:
+                    #fff !important;
+
+                border:
+                    1px solid #777 !important;
+
+                border-radius:
+                    0 !important;
+
+                box-shadow:
+                    none !important;
+
+                color:
+                    #e1ae43 !important;
+
+                font-size:
+                    12px !important;
+            }
+
+
+            #product-price-info
+            .quantity-subtract {
+
+                border-radius:
+                    3px 0 0 3px !important;
+
+                border-right:
+                    0 !important;
+            }
+
+
+            #product-price-info
+            .quantity-increase {
+
+                border-radius:
+                    0 3px 3px 0 !important;
+
+                border-left:
+                    0 !important;
+            }
+
+
+            #product-price-info
+            .cart-quantity-field {
+
+                width:
+                    38px !important;
+
+                min-width:
+                    38px !important;
+
+                max-width:
+                    38px !important;
+
+                height:
+                    42px !important;
+
+                padding:
+                    0 !important;
+
+                margin:
+                    0 !important;
+
+                background:
+                    #fff !important;
+
+                border:
+                    1px solid #777 !important;
+
+                border-radius:
+                    0 !important;
+
+                box-shadow:
+                    none !important;
+
+                color:
+                    #555 !important;
+
+                font-size:
+                    14px !important;
+
+                font-weight:
+                    500 !important;
+
+                text-align:
+                    center !important;
+            }
+
+
+            /* =================================================
+               ADICIONAR AO CARRINHO
+            ================================================= */
+
+            #product-price-info
+            #btn-cart-right {
+
+                display:
+                    block !important;
+
+                visibility:
+                    visible !important;
+
+                width:
+                    100% !important;
+
+                max-width:
+                    none !important;
+
+                height:
+                    42px !important;
+
+                float:
+                    none !important;
+
+                margin:
+                    0 !important;
+
+                padding:
+                    0 !important;
+            }
+
+
+            #product-price-info
+            #btn-cart-right
+            .btn-cart {
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center !important;
+
+                justify-content:
+                    center !important;
+
+                width:
+                    100% !important;
+
+                height:
+                    42px !important;
+
+                margin:
+                    0 !important;
+
+                padding:
+                    0 20px !important;
+
+                background:
+                    #44795d !important;
+
+                border:
+                    1px solid #44795d !important;
+
+                border-radius:
+                    3px !important;
+
+                box-shadow:
+                    none !important;
+
+                color:
+                    #fff !important;
+
+                font-family:
+                    inherit !important;
+
+                font-size:
+                    13px !important;
+
+                font-weight:
+                    700 !important;
+
+                text-transform:
+                    uppercase !important;
+
+                white-space:
+                    nowrap !important;
+
+                animation:
+                    none !important;
+
+                transform:
+                    none !important;
+            }
+
+
+            /* =================================================
+               COMPRAR AGORA
+            ================================================= */
+
+            #product-price-info
+            .etraction-comprar-agora {
+
+                grid-column:
+                    1 / -1 !important;
+
+                display:
+                    flex !important;
+
+                align-items:
+                    center !important;
+
+                justify-content:
+                    center !important;
+
+                width:
+                    100% !important;
+
+                max-width:
+                    ${CONFIG.width} !important;
+
+                height:
+                    40px !important;
+
+                margin:
+                    0 !important;
+
+                padding:
+                    0 20px !important;
+
+                background:
+                    #fff !important;
+
+                border:
+                    1px solid #44795d !important;
+
+                border-radius:
+                    3px !important;
+
+                color:
+                    #44795d !important;
+
+                cursor:
+                    pointer !important;
+
+                font-family:
+                    inherit !important;
+
+                font-size:
+                    13px !important;
+
+                font-weight:
+                    700 !important;
+
+                text-transform:
+                    uppercase !important;
+            }
+
+
+            #product-price-info
+            .etraction-comprar-agora:hover {
+
+                background:
+                    #44795d !important;
+
+                color:
+                    #fff !important;
+            }
+
+
+            #product-price-info
+            .etraction-comprar-agora:disabled {
+
+                opacity:
+                    .65 !important;
+
+                cursor:
+                    wait !important;
+            }
+
+
+            #product-price-info
+            .cart-actions
+            > div[style*="clear"] {
+
+                display:
+                    none !important;
             }
 
 
             /* =================================================
                MOBILE
-               ================================================= */
+            ================================================= */
 
             @media (max-width: 767px) {
 
-                #${CONFIG.id} {
-                    width: 100% !important;
-                    max-width: 500px !important;
+                #${CONFIG.blockId} {
 
-                    margin: 0 0 14px !important;
+                    max-width:
+                        100% !important;
+
+                    margin:
+                        12px 0 14px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__card {
+                #${CONFIG.blockId}
+                .etraction-complete__card {
+
                     grid-template-columns:
                         28px
                         58px
                         minmax(0, 1fr)
                         auto !important;
 
-                    gap: 7px !important;
+                    gap:
+                        7px !important;
 
-                    min-height: 82px !important;
+                    min-height:
+                        82px !important;
 
-                    padding: 9px 10px !important;
+                    padding:
+                        9px 10px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__check-wrap {
-                    width: 28px !important;
-                    height: 28px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__check-wrap {
+
+                    width:
+                        28px !important;
+
+                    height:
+                        28px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__check-ui {
-                    width: 18px !important;
-                    height: 18px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__check-ui {
 
-                    flex-basis: 18px !important;
+                    width:
+                        18px !important;
+
+                    height:
+                        18px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__check-svg {
-                    width: 11px !important;
-                    height: 11px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__image-link {
 
-                    flex-basis: 11px !important;
+                    width:
+                        58px !important;
+
+                    height:
+                        62px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__image-link {
-                    width: 58px !important;
-                    height: 62px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__name {
+
+                    font-size:
+                        11px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__name {
-                    font-size: 11px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__description {
+
+                    font-size:
+                        9px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__description {
-                    font-size: 9px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__price {
+
+                    min-width:
+                        70px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__price {
-                    min-width: 70px !important;
+                #${CONFIG.blockId}
+                .etraction-complete__price-value {
+
+                    font-size:
+                        14px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__price-label {
-                    font-size: 7px !important;
+                #product-price-info
+                .cart-actions-container {
+
+                    width:
+                        100% !important;
+
+                    max-width:
+                        100% !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__price-value {
-                    font-size: 14px !important;
+                #product-price-info
+                .cart-actions-container
+                .cart-actions {
+
+                    grid-template-columns:
+                        100px
+                        minmax(0, 1fr) !important;
+
+                    gap:
+                        7px !important;
+
+                    max-width:
+                        100% !important;
                 }
 
+
+                #product-price-info
+                .cart-quantity-container {
+
+                    width:
+                        100px !important;
+
+                    max-width:
+                        100px !important;
+                }
+
+
+                #product-price-info
+                .cart-quantity-container
+                .input-group-btn,
+
+                #product-price-info
+                .quantity-subtract,
+
+                #product-price-info
+                .quantity-increase {
+
+                    width:
+                        32px !important;
+
+                    min-width:
+                        32px !important;
+
+                    max-width:
+                        32px !important;
+                }
+
+
+                #product-price-info
+                .cart-quantity-field {
+
+                    width:
+                        36px !important;
+
+                    min-width:
+                        36px !important;
+
+                    max-width:
+                        36px !important;
+                }
+
+
+                #product-price-info
+                #btn-cart-right
+                .btn-cart,
+
+                #product-price-info
+                .etraction-comprar-agora {
+
+                    font-size:
+                        12px !important;
+                }
             }
 
 
             @media (max-width: 390px) {
 
-                #${CONFIG.id} .etraction-complete__card {
+                #${CONFIG.blockId}
+                .etraction-complete__card {
+
                     grid-template-columns:
                         24px
                         54px
@@ -597,65 +1434,96 @@
                         "check image info"
                         "check image price";
 
-                    gap: 5px 7px !important;
+                    gap:
+                        5px 7px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__check-wrap {
-                    grid-area: check !important;
+                #${CONFIG.blockId}
+                .etraction-complete__check-wrap {
+
+                    grid-area:
+                        check !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__image-link {
-                    grid-area: image !important;
+                #${CONFIG.blockId}
+                .etraction-complete__image-link {
 
-                    width: 54px !important;
-                    height: 58px !important;
+                    grid-area:
+                        image !important;
+
+                    width:
+                        54px !important;
+
+                    height:
+                        58px !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__info {
-                    grid-area: info !important;
+                #${CONFIG.blockId}
+                .etraction-complete__info {
+
+                    grid-area:
+                        info !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__price {
-                    grid-area: price !important;
+                #${CONFIG.blockId}
+                .etraction-complete__price {
 
-                    align-items: flex-start !important;
+                    grid-area:
+                        price !important;
 
-                    min-width: 0 !important;
+                    align-items:
+                        flex-start !important;
 
-                    text-align: left !important;
+                    min-width:
+                        0 !important;
+
+                    text-align:
+                        left !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__price-label {
-                    display: none !important;
+                #${CONFIG.blockId}
+                .etraction-complete__price-label {
+
+                    display:
+                        none !important;
                 }
 
 
-                #${CONFIG.id} .etraction-complete__price-value {
-                    font-size: 13px !important;
-                }
+                #${CONFIG.blockId}
+                .etraction-complete__price-value {
 
+                    font-size:
+                        13px !important;
+                }
             }
 
         `;
 
-        document.head.appendChild(style);
+
+        document.head.appendChild(
+            style
+        );
     }
 
 
     /* =========================================================
-       CRIA BLOCO
-       ========================================================= */
+       CRIA COMPLETE SEU PEDIDO
+    ========================================================= */
 
-    function createBlock() {
+    function createCompleteBlock() {
 
-        const wrapper = document.createElement('div');
+        const wrapper =
+            document.createElement('div');
 
-        wrapper.id = CONFIG.id;
+
+        wrapper.id =
+            CONFIG.blockId;
+
 
         wrapper.innerHTML = `
 
@@ -671,7 +1539,7 @@
                     <input
                         type="checkbox"
                         class="etraction-complete__check"
-                        aria-label="Adicionar ${CONFIG.fallbackName}"
+                        aria-label="${CONFIG.accessoryName}"
                     >
 
                     <span class="etraction-complete__check-ui">
@@ -682,7 +1550,11 @@
                             xmlns="http://www.w3.org/2000/svg"
                             aria-hidden="true"
                         >
-                            <path d="M3 8.2L6.4 11.5L13 4.8"></path>
+
+                            <path
+                                d="M3 8.2L6.4 11.5L13 4.8"
+                            ></path>
+
                         </svg>
 
                     </span>
@@ -691,7 +1563,7 @@
 
 
                 <a
-                    href="${CONFIG.productUrl}"
+                    href="${CONFIG.accessoryUrl}"
                     class="etraction-complete__image-link"
                     target="_blank"
                     rel="noopener"
@@ -707,26 +1579,25 @@
                 <div class="etraction-complete__info">
 
                     <span class="etraction-complete__eyebrow">
-                        ${CONFIG.eyebrow}
+                        COMBINE COM SEU MEL
                     </span>
 
-
                     <a
-                        href="${CONFIG.productUrl}"
+                        href="${CONFIG.accessoryUrl}"
                         class="etraction-complete__name"
                         target="_blank"
                         rel="noopener"
                     >
-                        ${CONFIG.fallbackName}
+                        ${CONFIG.accessoryName}
                     </a>
 
-
                     <span class="etraction-complete__description">
-                        ${CONFIG.description}
+                        Fabricado em madeira
                     </span>
 
-
-                    <span class="etraction-complete__feedback"></span>
+                    <span
+                        class="etraction-complete__feedback"
+                    ></span>
 
                 </div>
 
@@ -737,8 +1608,9 @@
                         Adicione por
                     </span>
 
-
-                    <strong class="etraction-complete__price-value">
+                    <strong
+                        class="etraction-complete__price-value"
+                    >
                         ${CONFIG.fallbackPrice}
                     </strong>
 
@@ -759,278 +1631,413 @@
 
 
     /* =========================================================
-       DADOS DO PEGADOR
-       ========================================================= */
+       HELPERS
+    ========================================================= */
 
-    async function getProductData() {
+    function getBlock() {
 
-        if (productData) {
-            return productData;
+        return document.getElementById(
+            CONFIG.blockId
+        );
+    }
+
+
+    function isAccessorySelected() {
+
+        const block =
+            getBlock();
+
+
+        const checkbox =
+            block &&
+            block.querySelector(
+                '.etraction-complete__check'
+            );
+
+
+        return !!(
+            checkbox &&
+            checkbox.checked
+        );
+    }
+
+
+    function setAccessoryFeedback(
+        text,
+        error
+    ) {
+
+        const block =
+            getBlock();
+
+
+        if (!block) {
+            return;
         }
 
 
-        if (loadingProduct) {
+        const feedback =
+            block.querySelector(
+                '.etraction-complete__feedback'
+            );
 
-            return new Promise(function (resolve, reject) {
 
-                const interval = setInterval(function () {
+        const card =
+            block.querySelector(
+                '.etraction-complete__card'
+            );
 
-                    if (!loadingProduct) {
 
-                        clearInterval(interval);
+        if (card) {
 
-                        if (productData) {
-
-                            resolve(productData);
-
-                        } else {
-
-                            reject(
-                                new Error(
-                                    'Produto não carregado.'
-                                )
-                            );
-
-                        }
-
-                    }
-
-                }, 80);
-
-            });
-
+            card.classList.toggle(
+                'is-loading',
+                text ===
+                'Incluindo o acessório...'
+            );
         }
 
 
-        loadingProduct = true;
-
-
-        try {
-
-            const response = await fetch(
-                CONFIG.productUrl +
-                '?etraction_crosssell=' +
-                Date.now(),
-                {
-                    method: 'GET',
-                    credentials: 'same-origin',
-                    cache: 'no-store'
-                }
-            );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    'Não foi possível carregar o Pegador.'
-                );
-
-            }
-
-
-            const html = await response.text();
-
-
-            const doc = new DOMParser().parseFromString(
-                html,
-                'text/html'
-            );
-
-
-            const form = doc.querySelector(
-                '#product-variant-form'
-            );
-
-
-            if (!form) {
-
-                throw new Error(
-                    'Formulário do Pegador não encontrado.'
-                );
-
-            }
-
-
-            const action = form.getAttribute(
-                'action'
-            );
-
-
-            if (!action) {
-
-                throw new Error(
-                    'Endpoint do Pegador não encontrado.'
-                );
-
-            }
-
-
-            const entries = [];
-
-
-            form.querySelectorAll(
-                'input[name], select[name], textarea[name]'
-            ).forEach(function (control) {
-
-                if (control.disabled) {
-                    return;
-                }
-
-
-                if (
-                    (
-                        control.type === 'checkbox' ||
-                        control.type === 'radio'
-                    ) &&
-                    !control.checked
-                ) {
-                    return;
-                }
-
-
-                entries.push({
-                    name: control.name,
-                    value: control.value
-                });
-
-            });
-
-
-            /* QUANTIDADE */
-
-            let quantityFound = false;
-
-
-            entries.forEach(function (entry) {
-
-                if (
-                    entry.name ===
-                    'sylius_cart_item[quantity]' ||
-                    entry.name.indexOf('[quantity]') !== -1
-                ) {
-
-                    entry.value = '1';
-
-                    quantityFound = true;
-
-                }
-
-            });
-
-
-            if (!quantityFound) {
-
-                entries.push({
-                    name: 'sylius_cart_item[quantity]',
-                    value: '1'
-                });
-
-            }
-
-
-            /* IMAGEM */
-
-            let image = '';
-
-
-            const ogImage = doc.querySelector(
-                'meta[property="og:image"]'
-            );
-
-
-            if (ogImage) {
-
-                image =
-                    ogImage.getAttribute('content') ||
-                    '';
-
-            }
-
-
-            if (!image) {
-
-                const img =
-                    doc.querySelector(
-                        '#gallery-image-and-product-options img'
-                    ) ||
-                    doc.querySelector(
-                        'img[itemprop="image"]'
-                    );
-
-
-                if (img) {
-
-                    image =
-                        img.getAttribute('src') ||
-                        img.getAttribute('data-src') ||
-                        '';
-
-                }
-
-            }
-
-
-            /* PREÇO */
-
-            let price = CONFIG.fallbackPrice;
-
-
-            const priceElement =
-                doc.querySelector(
-                    '[data-is-available="true"] .pv-price-sale'
-                ) ||
-                doc.querySelector('.pv-price-sale') ||
-                doc.querySelector('.price-sales');
-
-
-            if (priceElement) {
-
-                const value =
-                    priceElement
-                        .textContent
-                        .replace(/\s+/g, ' ')
-                        .trim();
-
-
-                if (value) {
-                    price = value;
-                }
-
-            }
-
-
-            productData = {
-                action: action,
-
-                method:
-                    (
-                        form.getAttribute('method') ||
-                        'POST'
-                    ).toUpperCase(),
-
-                entries: entries,
-
-                image: image,
-
-                price: price
-            };
-
-
-            return productData;
-
-
-        } finally {
-
-            loadingProduct = false;
-
+        if (!feedback) {
+            return;
         }
 
+
+        feedback.textContent =
+            text || '';
+
+
+        feedback.classList.toggle(
+            'is-visible',
+            !!text
+        );
+
+
+        feedback.classList.toggle(
+            'is-error',
+            !!error
+        );
     }
 
 
     /* =========================================================
-       VISUAL
-       ========================================================= */
+       PEGA DADOS DO PEGADOR
+    ========================================================= */
+
+    async function getProductData() {
+
+        if (STATE.productData) {
+
+            return STATE.productData;
+        }
+
+
+        if (STATE.productPromise) {
+
+            return STATE.productPromise;
+        }
+
+
+        STATE.productPromise =
+            (
+                async function () {
+
+                    const response =
+                        await fetch(
+                            CONFIG.accessoryUrl +
+                            '?etraction_crosssell=' +
+                            Date.now(),
+                            {
+                                method:
+                                    'GET',
+
+                                credentials:
+                                    'same-origin',
+
+                                cache:
+                                    'no-store'
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            'Não foi possível carregar o pegador.'
+                        );
+                    }
+
+
+                    const html =
+                        await response.text();
+
+
+                    const doc =
+                        new DOMParser()
+                            .parseFromString(
+                                html,
+                                'text/html'
+                            );
+
+
+                    const form =
+                        doc.querySelector(
+                            '#product-variant-form'
+                        );
+
+
+                    if (!form) {
+
+                        throw new Error(
+                            'Formulário do pegador não encontrado.'
+                        );
+                    }
+
+
+                    const action =
+                        form.getAttribute(
+                            'action'
+                        );
+
+
+                    if (!action) {
+
+                        throw new Error(
+                            'Endpoint do pegador não encontrado.'
+                        );
+                    }
+
+
+                    const entries =
+                        [];
+
+
+                    form.querySelectorAll(
+                        'input[name], select[name], textarea[name]'
+                    )
+                    .forEach(
+                        function (
+                            control
+                        ) {
+
+                            if (
+                                control.disabled
+                            ) {
+                                return;
+                            }
+
+
+                            if (
+                                (
+                                    control.type ===
+                                    'checkbox' ||
+
+                                    control.type ===
+                                    'radio'
+                                ) &&
+
+                                !control.checked
+                            ) {
+                                return;
+                            }
+
+
+                            entries.push({
+                                name:
+                                    control.name,
+
+                                value:
+                                    control.value
+                            });
+                        }
+                    );
+
+
+                    /* QUANTIDADE */
+
+                    let quantityFound =
+                        false;
+
+
+                    entries.forEach(
+                        function (
+                            entry
+                        ) {
+
+                            if (
+                                entry.name ===
+                                'sylius_cart_item[quantity]' ||
+
+                                entry.name.indexOf(
+                                    '[quantity]'
+                                ) !== -1
+                            ) {
+
+                                entry.value =
+                                    '1';
+
+
+                                quantityFound =
+                                    true;
+                            }
+                        }
+                    );
+
+
+                    if (!quantityFound) {
+
+                        entries.push({
+
+                            name:
+                                'sylius_cart_item[quantity]',
+
+                            value:
+                                '1'
+                        });
+                    }
+
+
+                    /* IMAGEM */
+
+                    let image =
+                        '';
+
+
+                    const ogImage =
+                        doc.querySelector(
+                            'meta[property="og:image"]'
+                        );
+
+
+                    if (ogImage) {
+
+                        image =
+                            ogImage.getAttribute(
+                                'content'
+                            ) || '';
+                    }
+
+
+                    if (!image) {
+
+                        const img =
+
+                            doc.querySelector(
+                                '#gallery-image-and-product-options img'
+                            ) ||
+
+                            doc.querySelector(
+                                'img[itemprop="image"]'
+                            );
+
+
+                        if (img) {
+
+                            image =
+
+                                img.getAttribute(
+                                    'src'
+                                ) ||
+
+                                img.getAttribute(
+                                    'data-src'
+                                ) ||
+
+                                '';
+                        }
+                    }
+
+
+                    /* PREÇO */
+
+                    let price =
+                        CONFIG.fallbackPrice;
+
+
+                    const priceElement =
+
+                        doc.querySelector(
+                            '[data-is-available="true"] .pv-price-sale'
+                        ) ||
+
+                        doc.querySelector(
+                            '.pv-price-sale'
+                        ) ||
+
+                        doc.querySelector(
+                            '.price-sales'
+                        );
+
+
+                    if (priceElement) {
+
+                        const value =
+
+                            priceElement
+                                .textContent
+                                .replace(
+                                    /\s+/g,
+                                    ' '
+                                )
+                                .trim();
+
+
+                        if (value) {
+
+                            price =
+                                value;
+                        }
+                    }
+
+
+                    STATE.productData = {
+
+                        action:
+                            action,
+
+                        method:
+                            (
+                                form.getAttribute(
+                                    'method'
+                                ) ||
+                                'POST'
+                            )
+                            .toUpperCase(),
+
+                        entries:
+                            entries,
+
+                        image:
+                            image,
+
+                        price:
+                            price
+                    };
+
+
+                    return STATE.productData;
+                }
+            )();
+
+
+        try {
+
+            return await STATE.productPromise;
+
+        } catch (error) {
+
+            STATE.productPromise =
+                null;
+
+
+            throw error;
+        }
+    }
+
+
+    /* =========================================================
+       CARREGA VISUAL
+    ========================================================= */
 
     async function loadVisualData() {
 
@@ -1041,9 +2048,7 @@
 
 
             const block =
-                document.getElementById(
-                    CONFIG.id
-                );
+                getBlock();
 
 
             if (!block) {
@@ -1070,7 +2075,6 @@
 
                 price.textContent =
                     data.price;
-
             }
 
 
@@ -1079,18 +2083,14 @@
                 data.image
             ) {
 
-                image.innerHTML = `
+                image.innerHTML =
 
-                    <img
-                        src="${data.image}"
-                        alt="${CONFIG.fallbackName}"
-                        class="etraction-complete__image"
-                    >
-
-                `;
-
+                    '<img src="' +
+                    data.image +
+                    '" alt="' +
+                    CONFIG.accessoryName +
+                    '" class="etraction-complete__image">';
             }
-
 
         } catch (error) {
 
@@ -1098,92 +2098,189 @@
                 '[eTraction Complete Pedido]',
                 error
             );
-
         }
-
     }
 
 
     /* =========================================================
-       ADICIONA ACESSÓRIO
-       ========================================================= */
+       GARANTE QUE ACESSÓRIO ENTROU NO CARRINHO
 
-    async function addAccessory() {
+       ESTA É A PARTE PRINCIPAL DA CORREÇÃO.
+    ========================================================= */
 
-        if (addingAccessory) {
-            return;
+    async function ensureAccessoryAdded() {
+
+        if (
+            !isAccessorySelected()
+        ) {
+
+            return true;
         }
 
 
-        addingAccessory = true;
+        if (
+            STATE.accessoryAdded
+        ) {
+
+            return true;
+        }
+
+
+        if (
+            STATE.accessoryPromise
+        ) {
+
+            return STATE.accessoryPromise;
+        }
+
+
+        setAccessoryFeedback(
+            'Incluindo o acessório...',
+            false
+        );
+
+
+        STATE.accessoryPromise =
+            (
+                async function () {
+
+                    const data =
+                        await getProductData();
+
+
+                    const formData =
+                        new FormData();
+
+
+                    data.entries.forEach(
+                        function (
+                            entry
+                        ) {
+
+                            formData.append(
+                                entry.name,
+                                entry.value
+                            );
+                        }
+                    );
+
+
+                    const url =
+                        new URL(
+                            data.action,
+                            window.location.origin
+                        )
+                        .href;
+
+
+                    /*
+                     * NÃO USA SENDBEACON.
+                     *
+                     * Precisamos ESPERAR a resposta
+                     * para garantir que o pegador
+                     * realmente entrou no carrinho.
+                     */
+
+                    const response =
+                        await fetch(
+                            url,
+                            {
+                                method:
+                                    data.method,
+
+                                body:
+                                    formData,
+
+                                credentials:
+                                    'same-origin',
+
+                                redirect:
+                                    'follow',
+
+                                cache:
+                                    'no-store'
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            'Erro HTTP ' +
+                            response.status
+                        );
+                    }
+
+
+                    STATE.accessoryAdded =
+                        true;
+
+
+                    setAccessoryFeedback(
+                        'Acessório incluído ✓',
+                        false
+                    );
+
+
+                    return true;
+                }
+            )();
 
 
         try {
 
-            const data =
-                await getProductData();
+            return await STATE.accessoryPromise;
+
+        } catch (error) {
+
+            STATE.accessoryAdded =
+                false;
 
 
-            const formData =
-                new FormData();
+            setAccessoryFeedback(
+                'Não foi possível incluir o acessório.',
+                true
+            );
 
 
-            data.entries.forEach(function (entry) {
-
-                formData.append(
-                    entry.name,
-                    entry.value
-                );
-
-            });
+            console.error(
+                '[eTraction Upsell]',
+                error
+            );
 
 
-            const url =
-                new URL(
-                    data.action,
-                    window.location.origin
-                ).href;
-
-
-            const response =
-                await fetch(
-                    url,
-                    {
-                        method: data.method,
-
-                        body: formData,
-
-                        credentials: 'same-origin',
-
-                        redirect: 'follow'
-                    }
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    'Erro HTTP ' +
-                    response.status
-                );
-
-            }
-
+            throw error;
 
         } finally {
 
-            addingAccessory = false;
-
+            STATE.accessoryPromise =
+                null;
         }
-
     }
 
 
     /* =========================================================
        CHECKBOX
-       ========================================================= */
+    ========================================================= */
 
-    function bindCheckbox(block) {
+    function bindCompleteBlock(
+        block
+    ) {
+
+        if (
+            !block ||
+            ETRACTION_BOUND_BLOCK.has( block )
+        ) {
+
+            return;
+        }
+
+
+        ETRACTION_BOUND_BLOCK.add( block );
+
+        block.dataset.etractionBound =
+            'true';
+
 
         const checkbox =
             block.querySelector(
@@ -1197,12 +2294,6 @@
             );
 
 
-        const feedback =
-            block.querySelector(
-                '.etraction-complete__feedback'
-            );
-
-
         const helper =
             block.querySelector(
                 '.etraction-complete__helper'
@@ -1211,9 +2302,9 @@
 
         if (
             !checkbox ||
-            !card ||
-            !feedback
+            !card
         ) {
+
             return;
         }
 
@@ -1222,79 +2313,84 @@
             'change',
             function () {
 
-                if (checkbox.checked) {
+                /*
+                 * Mudou a seleção:
+                 * permite adicionar novamente.
+                 */
 
-                    card.classList.add(
-                        'is-selected'
-                    );
-
-
-                    feedback.classList.remove(
-                        'is-error'
-                    );
+                STATE.accessoryAdded =
+                    false;
 
 
-                    feedback.classList.add(
-                        'is-visible'
-                    );
+                STATE.accessoryPromise =
+                    null;
 
 
-                    feedback.textContent =
-                        'Será adicionado junto ao seu produto.';
-
-
-                    if (helper) {
-
-                        helper.textContent =
-                            'Desmarque caso não queira incluir o acessório.';
-
-                    }
-
-
-                    return;
-                }
+                card.classList.toggle(
+                    'is-selected',
+                    checkbox.checked
+                );
 
 
                 card.classList.remove(
-                    'is-selected',
                     'is-loading'
                 );
 
 
-                feedback.classList.remove(
-                    'is-visible',
-                    'is-error'
+                setAccessoryFeedback(
+                    checkbox.checked
+                        ?
+                        'Será adicionado junto ao seu produto.'
+                        :
+                        '',
+                    false
                 );
-
-
-                feedback.textContent = '';
 
 
                 if (helper) {
 
                     helper.textContent =
-                        'Marque a opção para incluir o acessório no pedido.';
-
+                        checkbox.checked
+                            ?
+                            'Desmarque caso não queira incluir o acessório.'
+                            :
+                            'Marque a opção para incluir o acessório no pedido.';
                 }
 
+
+                if (
+                    checkbox.checked
+                ) {
+
+                    /*
+                     * Pré-carrega os dados.
+                     */
+
+                    getProductData()
+                        .catch(
+                            function () {}
+                        );
+                }
             }
         );
 
 
-        /* =====================================================
-           CLIQUE NO CARD
-           ===================================================== */
-
         card.addEventListener(
             'click',
-            function (event) {
+            function (
+                event
+            ) {
 
                 if (
-                    event.target.closest('a') ||
+                    event.target.closest(
+                        'a'
+                    ) ||
+
                     event.target.closest(
                         '.etraction-complete__check-wrap'
                     )
                 ) {
+
                     return;
                 }
 
@@ -1307,303 +2403,814 @@
                     new Event(
                         'change',
                         {
-                            bubbles: true
+                            bubbles:
+                                true
                         }
                     )
                 );
-
             }
         );
-
     }
 
 
     /* =========================================================
-       CONTINUA SUBMIT NATIVO
-       ========================================================= */
+       COMPRAR AGORA - HELPERS
+    ========================================================= */
 
-    function continueNativeSubmit(
-        form,
-        submitter
-    ) {
+    function clearBuyNowTimers() {
 
-        allowNativeSubmit = true;
+        const b =
+            STATE.buyNow;
 
 
-        try {
+        if (
+            b.redirectTimer
+        ) {
 
-            if (
-                typeof form.requestSubmit ===
-                'function'
-            ) {
-
-                if (
-                    submitter &&
-                    submitter.form === form
-                ) {
-
-                    form.requestSubmit(
-                        submitter
-                    );
-
-                } else {
-
-                    form.requestSubmit();
-
-                }
-
-            } else if (submitter) {
-
-                submitter.click();
-
-            } else {
-
-                HTMLFormElement
-                    .prototype
-                    .submit
-                    .call(form);
-
-            }
-
-
-        } finally {
-
-            setTimeout(function () {
-
-                allowNativeSubmit = false;
-
-            }, 100);
-
-        }
-
-    }
-
-
-    /* =========================================================
-       FORM PRINCIPAL
-       ========================================================= */
-
-    function bindMainProductForm() {
-
-        const form =
-            document.querySelector(
-                '#product-variant-form'
+            clearTimeout(
+                b.redirectTimer
             );
-
-
-        if (!form) {
-            return;
         }
 
 
         if (
-            form.dataset.etractionUpsellBound ===
-            'true'
+            b.operationTimer
         ) {
+
+            clearTimeout(
+                b.operationTimer
+            );
+        }
+
+
+        if (
+            b.observer
+        ) {
+
+            b.observer.disconnect();
+        }
+
+
+        b.redirectTimer =
+            null;
+
+
+        b.operationTimer =
+            null;
+
+
+        b.observer =
+            null;
+    }
+
+
+    function resetBuyNow() {
+
+        const b =
+            STATE.buyNow;
+
+
+        clearBuyNowTimers();
+
+
+        b.active =
+            false;
+
+
+        b.submitSeen =
+            false;
+
+
+        if (
+            b.button
+        ) {
+
+            b.button.disabled =
+                false;
+
+
+            b.button.textContent =
+                'COMPRAR AGORA';
+        }
+
+
+        b.button =
+            null;
+    }
+
+
+    function goToCart() {
+
+        const b =
+            STATE.buyNow;
+
+
+        if (
+            !b.active
+        ) {
+
             return;
         }
 
 
-        form.dataset.etractionUpsellBound =
-            'true';
+        clearBuyNowTimers();
 
 
-        form.addEventListener(
-            'submit',
-            async function (event) {
+        if (
+            b.button
+        ) {
 
-                if (allowNativeSubmit) {
-                    return;
-                }
-
-
-                const block =
-                    document.getElementById(
-                        CONFIG.id
-                    );
+            b.button.textContent =
+                'REDIRECIONANDO...';
+        }
 
 
-                if (!block) {
-                    return;
-                }
+        b.active =
+            false;
 
 
-                const checkbox =
-                    block.querySelector(
-                        '.etraction-complete__check'
-                    );
+        window.location.href =
+            CONFIG.cartUrl;
+    }
 
 
-                /*
-                 * NÃO MARCADO:
-                 * comportamento nativo.
-                 */
+    function isVisible(
+        element
+    ) {
 
-                if (
-                    !checkbox ||
-                    !checkbox.checked
-                ) {
-                    return;
-                }
+        if (!element) {
+            return false;
+        }
 
 
-                event.preventDefault();
-                event.stopImmediatePropagation();
+        const style =
+            window.getComputedStyle(
+                element
+            );
 
 
-                if (addingAccessory) {
-                    return;
-                }
+        if (
+            style.display ===
+            'none' ||
+
+            style.visibility ===
+            'hidden' ||
+
+            parseFloat(
+                style.opacity ||
+                '1'
+            ) === 0
+        ) {
+
+            return false;
+        }
 
 
-                const card =
-                    block.querySelector(
-                        '.etraction-complete__card'
-                    );
+        const rect =
+            element.getBoundingClientRect();
 
 
-                const feedback =
-                    block.querySelector(
-                        '.etraction-complete__feedback'
-                    );
-
-
-                const submitter =
-                    event.submitter ||
-                    document.activeElement;
-
-
-                card.classList.add(
-                    'is-loading'
-                );
-
-
-                feedback.classList.remove(
-                    'is-error'
-                );
-
-
-                feedback.classList.add(
-                    'is-visible'
-                );
-
-
-                feedback.textContent =
-                    'Incluindo o acessório...';
-
-
-                try {
-
-                    await addAccessory();
-
-
-                    feedback.textContent =
-                        'Acessório incluído ✓';
-
-
-                    continueNativeSubmit(
-                        form,
-                        submitter
-                    );
-
-
-                } catch (error) {
-
-                    console.error(
-                        '[eTraction Upsell]',
-                        error
-                    );
-
-
-                    card.classList.remove(
-                        'is-loading'
-                    );
-
-
-                    feedback.classList.add(
-                        'is-error'
-                    );
-
-
-                    feedback.textContent =
-                        'Não foi possível incluir o acessório.';
-
-
-                    continueNativeSubmit(
-                        form,
-                        submitter
-                    );
-
-                }
-
-            },
-            true
+        return (
+            rect.width > 0 ||
+            rect.height > 0
         );
+    }
 
+
+    function hasPurchaseSuccess() {
+
+        const selectors = [
+
+            '.popup-adicionado-ao-carrinho.swal2-show',
+
+            '.swal2-popup.popup-adicionado-ao-carrinho',
+
+            '.swal2-popup.swal2-show .swal2-success',
+
+            '.swal2-popup.swal2-show .swal2-icon-success',
+
+            '.minicart-modal.show',
+
+            '.minicart-modal.active',
+
+            '.minicart-modal.is-open',
+
+            '.minicart-modal.open',
+
+            '.minicart-modal[aria-hidden="false"]'
+        ];
+
+
+        return selectors.some(
+            function (
+                selector
+            ) {
+
+                return isVisible(
+                    document.querySelector(
+                        selector
+                    )
+                );
+            }
+        );
+    }
+
+
+    function startSuccessObserver() {
+
+        const b =
+            STATE.buyNow;
+
+
+        if (
+            b.observer
+        ) {
+
+            b.observer.disconnect();
+        }
+
+
+        b.observer =
+            new MutationObserver(
+                function () {
+
+                    if (
+                        !b.active ||
+                        !b.submitSeen
+                    ) {
+
+                        return;
+                    }
+
+
+                    if (
+                        hasPurchaseSuccess()
+                    ) {
+
+                        setTimeout(
+                            goToCart,
+                            180
+                        );
+                    }
+                }
+            );
+
+
+        b.observer.observe(
+            document.body,
+            {
+                childList:
+                    true,
+
+                subtree:
+                    true,
+
+                attributes:
+                    true,
+
+                attributeFilter: [
+                    'class',
+                    'style',
+                    'aria-hidden'
+                ]
+            }
+        );
     }
 
 
     /* =========================================================
-       INSERE BLOCO
-       ========================================================= */
+       OBSERVA SUBMIT PRINCIPAL
 
-    function insertBlock() {
+       NÃO CANCELA O SUBMIT.
+    ========================================================= */
 
-        const existing =
-            document.getElementById(
-                CONFIG.id
-            );
+    document.addEventListener(
+        'submit',
+        function (
+            event
+        ) {
+
+            const b =
+                STATE.buyNow;
 
 
-        if (existing) {
+            if (
+                !b.active
+            ) {
 
-            bindMainProductForm();
+                return;
+            }
+
+
+            if (
+                !event.target ||
+
+                event.target.id !==
+                'product-variant-form'
+            ) {
+
+                return;
+            }
+
+
+            b.submitSeen =
+                true;
+
+
+            if (
+                b.button
+            ) {
+
+                b.button.textContent =
+                    'FINALIZANDO...';
+            }
+
+
+            if (
+                b.redirectTimer
+            ) {
+
+                clearTimeout(
+                    b.redirectTimer
+                );
+            }
+
+
+            /*
+             * Caso as classes do popup mudem,
+             * existe fallback para /cart/.
+             */
+
+            b.redirectTimer =
+                null;
+
+
+            /* redirect imediato removido */
+
+        },
+        true
+    );
+
+
+    /* =========================================================
+       ADICIONAR AO CARRINHO NATIVO
+
+       SE COMPLETE ESTIVER MARCADO:
+       1. segura apenas o primeiro clique
+       2. adiciona pegador
+       3. espera concluir
+       4. refaz o clique nativo
+    ========================================================= */
+
+    document.addEventListener(
+        'click',
+        function (
+            event
+        ) {
+
+            const nativeButton =
+                event.target.closest(
+                    '#product-price-info ' +
+                    '#btn-cart-right ' +
+                    '.btn-cart'
+                );
+
+
+            if (
+                !nativeButton
+            ) {
+
+                return;
+            }
+
+
+            /*
+             * Este é o clique disparado por nós
+             * depois que o acessório já entrou.
+             *
+             * Deixa a Magazord trabalhar
+             * normalmente.
+             */
+
+            if (
+                STATE.bypassNativeClick
+            ) {
+
+                STATE.bypassNativeClick =
+                    false;
+
+
+                return;
+            }
+
+
+            /*
+             * Sem acessório:
+             * 100% nativo.
+             */
+
+            if (
+                !isAccessorySelected() ||
+
+                STATE.accessoryAdded
+            ) {
+
+                return;
+            }
+
+
+            /*
+             * Só seguramos o primeiro clique.
+             */
+
+            event.preventDefault();
+
+            event.stopImmediatePropagation();
+
+
+            const oldDisabled =
+                nativeButton.disabled;
+
+
+            nativeButton.disabled =
+                true;
+
+
+            ensureAccessoryAdded()
+
+                .catch(
+                    function () {
+
+                        /*
+                         * Se o pegador falhar,
+                         * NÃO bloqueia o produto principal.
+                         */
+                    }
+                )
+
+                .finally(
+                    function () {
+
+                        nativeButton.disabled =
+                            oldDisabled;
+
+
+                        STATE.bypassNativeClick =
+                            true;
+
+
+                        /*
+                         * AGORA executa o clique
+                         * verdadeiro da Magazord.
+                         */
+
+                        nativeButton.click();
+                    }
+                );
+
+        },
+        true
+    );
+
+
+    /* =========================================================
+       COMPRAR AGORA
+    ========================================================= */
+
+    async function startBuyNow(
+        button,
+        nativeButton
+    ) {
+
+        const b =
+            STATE.buyNow;
+
+
+        if (
+            b.active
+        ) {
 
             return;
         }
 
 
-        const target =
+        b.active =
+            true;
+
+
+        b.submitSeen =
+            false;
+
+
+        b.button =
+            button;
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            isAccessorySelected()
+                ?
+                'INCLUINDO ACESSÓRIO...'
+                :
+                'ADICIONANDO...';
+
+
+        /*
+         * =====================================================
+         * PONTO PRINCIPAL:
+         *
+         * Se Complete seu pedido estiver marcado,
+         * ESPERA o pegador entrar ANTES de adicionar
+         * o mel.
+         * =====================================================
+         */
+
+        try {
+
+            if (
+                isAccessorySelected()
+            ) {
+
+                await ensureAccessoryAdded();
+            }
+
+        } catch (error) {
+
+            /*
+             * Não trava a compra do mel.
+             */
+        }
+
+
+        if (
+            !b.active
+        ) {
+
+            return;
+        }
+
+
+        button.textContent =
+            'ADICIONANDO...';
+
+
+        /* startSuccessObserver() desativado. */
+
+
+        b.operationTimer = setTimeout(
+            function () {
+
+                if (
+                    b.active &&
+                    !b.submitSeen
+                ) {
+
+                    resetBuyNow();
+                }
+            },
+            CONFIG.operationTimeout
+        );
+
+
+        /*
+         * Quantidade ANTES de adicionar o mel.
+         */
+        const baseline =
+            await getCartQuantityFromServer();
+
+
+        /*
+         * Re-busca o botao nativo: o tema
+         * re-renderiza esse bloco o tempo todo.
+         */
+        const freshNative =
             document.querySelector(
-                '#product-variant-form ' +
-                '.association-link-products.product-variant-show-images'
+                '#product-price-info ' +
+                '#btn-cart-right ' +
+                '.btn-cart'
+            ) || nativeButton;
+
+
+        /*
+         * Acessorio ja processado: deixa
+         * passar o clique nativo.
+         */
+        STATE.bypassNativeClick = true;
+
+        freshNative.click();
+
+
+        /*
+         * So redireciona quando o carrinho
+         * realmente cresceu no servidor.
+         */
+        const grew =
+            await waitForCartGrowth(
+                baseline,
+                15000
+            );
+
+        if ( !b.active ) {
+            return;
+        }
+
+        if ( grew === false ) {
+
+            resetBuyNow();
+
+            setAccessoryFeedback(
+                'Não foi possível adicionar. Tente novamente.',
+                true
+            );
+
+            return;
+        }
+
+        goToCart();
+    }
+
+
+    /* =========================================================
+       MONTA BOTÕES
+    ========================================================= */
+
+    function applyBuyButtons() {
+
+        const container =
+            document.querySelector(
+                '#product-price-info ' +
+                '.cart-actions-container'
             );
 
 
-        if (!target) {
+        if (!container) {
             return;
         }
 
 
-        insertStyles();
-
-
-        const block =
-            createBlock();
-
-
-        target.insertAdjacentElement(
-            'beforebegin',
-            block
+        container.classList.remove(
+            'col-lg-5',
+            'col-md-5',
+            'col-sm-5',
+            'col-xs-6'
         );
 
 
-        bindCheckbox(
-            block
+        const actions =
+            container.querySelector(
+                '.cart-actions'
+            );
+
+
+        if (!actions) {
+            return;
+        }
+
+
+        const btnContainer =
+            actions.querySelector(
+                '#btn-cart-right'
+            );
+
+
+        if (!btnContainer) {
+            return;
+        }
+
+
+        btnContainer.classList.remove(
+            'visible-md',
+            'visible-lg'
         );
 
 
-        bindMainProductForm();
+        const nativeButton =
+            btnContainer.querySelector(
+                '.btn-cart'
+            );
 
 
-        loadVisualData();
+        if (!nativeButton) {
+            return;
+        }
 
+
+        const text =
+            nativeButton
+                .textContent
+                .replace(
+                    /\s+/g,
+                    ' '
+                )
+                .trim()
+                .toUpperCase();
+
+
+        if (
+            text === 'COMPRAR' ||
+
+            text === 'ADICIONAR' ||
+
+            text ===
+            'ADICIONAR AO CARRINHO'
+        ) {
+
+            nativeButton.textContent =
+                'ADICIONAR AO CARRINHO';
+        }
+
+
+        /* =====================================================
+           BOTÃO COMPRAR AGORA
+        ===================================================== */
+
+        let buyNow =
+            actions.querySelector(
+                '.etraction-comprar-agora'
+            );
+
+
+        if (!buyNow) {
+
+            buyNow =
+                document.createElement(
+                    'button'
+                );
+
+
+            buyNow.type =
+                'button';
+
+
+            buyNow.className =
+                'etraction-comprar-agora';
+
+
+            buyNow.textContent =
+                'COMPRAR AGORA';
+
+
+            buyNow.setAttribute(
+                'aria-label',
+                'Comprar agora'
+            );
+
+
+            actions.appendChild(
+                buyNow
+            );
+        }
+
+
+        buyNow.dataset.etractionReady =
+            'true';
+    }
+
+
+    /* =========================================================
+       INSERE COMPLETE SEU PEDIDO
+    ========================================================= */
+
+    function insertCompleteBlock() {
+        const target = document.querySelector('#product-price-info');
+
+        if (!target) return;
+
+        let block = getBlock();
+        const isNew = !block;
+
+        if (isNew) {
+            block = createCompleteBlock();
+        }
+
+        if (target.nextElementSibling !== block) {
+            target.insertAdjacentElement('afterend', block);
+        }
+
+        bindCompleteBlock(block);
+
+        if (isNew) {
+            loadVisualData();
+        }
     }
 
 
     /* =========================================================
        INIT
-       ========================================================= */
+    ========================================================= */
+
+    function init() {
+
+        insertStyles();
+
+        insertCompleteBlock();
+
+        applyBuyButtons();
+    }
+
 
     if (
         document.readyState ===
@@ -1612,38 +3219,70 @@
 
         document.addEventListener(
             'DOMContentLoaded',
-            insertBlock
+            init,
+            {
+                once:
+                    true
+            }
         );
 
     } else {
 
-        insertBlock();
-
+        init();
     }
 
 
     /* =========================================================
-       OBSERVER
-       ========================================================= */
+       OBSERVER MAGAZORD
+    ========================================================= */
 
-    let observerTimer = null;
+    let mutationTimer =
+        null;
+
+    let lastSync =
+        0;
+
+    /*
+     * O tema muta o DOM a cada ~100ms.
+     * Um debounce puro nunca dispara, entao
+     * aqui existe um teto de 400ms.
+     */
+    function syncEtractionBlocks() {
+
+        lastSync = Date.now();
+
+        insertCompleteBlock();
+
+        applyBuyButtons();
+    }
 
 
     const observer =
-        new MutationObserver(function () {
+        new MutationObserver(
+            function () {
 
-            clearTimeout(
-                observerTimer
-            );
-
-
-            observerTimer =
-                setTimeout(
-                    insertBlock,
-                    150
+                clearTimeout(
+                    mutationTimer
                 );
 
-        });
+
+                if (
+                    Date.now() - lastSync > 400
+                ) {
+
+                    syncEtractionBlocks();
+
+                    return;
+                }
+
+
+                mutationTimer =
+                    setTimeout(
+                        syncEtractionBlocks,
+                        120
+                    );
+            }
+        );
 
 
     function startObserver() {
@@ -1655,6 +3294,7 @@
                 100
             );
 
+
             return;
         }
 
@@ -1662,12 +3302,119 @@
         observer.observe(
             document.body,
             {
-                childList: true,
-                subtree: true
+                childList:
+                    true,
+
+                subtree:
+                    true
             }
         );
-
     }
+
+    /*
+     * Delegacao: o tema recria os botoes,
+     * entao o clique NAO pode depender de
+     * listener preso a um no especifico.
+     */
+    document.addEventListener(
+        'click',
+        function ( event ) {
+
+            const buyNow =
+                event.target.closest &&
+                event.target.closest(
+                    '.etraction-comprar-agora'
+                );
+
+            if ( !buyNow ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            const currentNativeButton =
+                document.querySelector(
+                    '#product-price-info ' +
+                    '#btn-cart-right ' +
+                    '.btn-cart'
+                );
+
+            if ( !currentNativeButton ) {
+                return;
+            }
+
+            startBuyNow(
+                buyNow,
+                currentNativeButton
+            );
+        },
+        true
+    );
+
+    /*
+     * Voltar pelo historico (bfcache) restaura
+     * a pagina com o STATE congelado: o botao
+     * fica disabled em "REDIRECIONANDO...".
+     * Aqui o estado volta ao inicial.
+     */
+    window.addEventListener(
+        'pageshow',
+        function () {
+
+            resetBuyNow();
+
+
+            /*
+             * Numa restauracao de bfcache o STATE
+             * volta congelado. Sem isso,
+             * accessoryAdded continua true e o
+             * pegador NAO e adicionado de novo
+             * mesmo com o checkbox marcado.
+             */
+            STATE.accessoryAdded = false;
+
+            STATE.accessoryPromise = null;
+
+            STATE.bypassNativeClick = false;
+
+
+            const checkbox =
+                document.querySelector(
+                    '#' + CONFIG.blockId +
+                    ' .etraction-complete__check'
+                );
+
+            if ( checkbox ) {
+
+                setAccessoryFeedback(
+                    checkbox.checked
+                        ? 'Será adicionado junto ao seu produto.'
+                        : '',
+                    false
+                );
+            }
+
+
+            const buyNow =
+                document.querySelector(
+                    '.etraction-comprar-agora'
+                );
+
+            if ( buyNow ) {
+
+                buyNow.disabled = false;
+
+                buyNow.textContent =
+                    'COMPRAR AGORA';
+            }
+
+
+            syncEtractionBlocks();
+        }
+    );
 
 
     startObserver();
