@@ -23,12 +23,12 @@
   var SELETOR_TITULO = ".products-filter .taxon-title-text";
 
   // Páginas onde o bloco aparece. Lista vazia = todas as categorias
-  var PAGINAS = ["/ver-todos"];
+  var PAGINAS = ["/ver-todos", "/ver-todos/em-alta"];
 
   // Filtro de categoria (pílulas abaixo da faixa)
   var FILTROS = [
     { nome: "Todos", url: "/ver-todos" },
-    { nome: "Em alta", url: "/hitzz-em-alta" },
+    { nome: "Em alta", url: "/ver-todos/em-alta" },
     { nome: "Botas", url: "/bota-feminina-de-salto" },
     { nome: "Flats", url: "/calcado-flat-flats" },
     { nome: "Tamancos", url: "/tamancos" },
