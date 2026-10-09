@@ -131,11 +131,14 @@
     '.product-list-image-container .hz1010-tag{position:absolute;top:10px;left:0;z-index:11;box-sizing:border-box;display:inline-flex;align-items:center;gap:5px;margin:0;padding:7px 11px 7px 10px;border-radius:0 999px 999px 0;background:#e5262e;box-shadow:0 2px 8px rgba(0,0,0,.18);color:#fff;font-family:inherit;font-size:13px;font-weight:800;line-height:1;letter-spacing:.08em;text-transform:uppercase;text-align:left;white-space:nowrap;pointer-events:none;-webkit-font-smoothing:antialiased}',
 
     /* Foguinho: sem espaçamento de letra e um pouco maior que o texto */
+    /* Com selo da loja no mesmo canto (ex.: "Pré Venda"), a tag fica logo abaixo dele */
+    '.product-list-image-container:has(.uoou-product-tag-badge) .hz1010-tag{top:44px}',
     '.hz1010-tag .hz1010-tag__txt{font-size:inherit;line-height:1}',
     '.hz1010-tag .hz1010-tag__icon{font-size:14px;letter-spacing:0;line-height:1}',
 
     '@media (max-width:600px){',
     '.product-list-image-container .hz1010-tag{top:8px;gap:4px;padding:6px 9px 6px 8px;font-size:11px}',
+    '.product-list-image-container:has(.uoou-product-tag-badge) .hz1010-tag{top:44px}',
     '.hz1010-tag .hz1010-tag__icon{font-size:12px}',
     '}'
   ].join("");

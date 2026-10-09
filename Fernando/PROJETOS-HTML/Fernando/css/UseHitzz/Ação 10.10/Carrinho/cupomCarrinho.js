@@ -31,7 +31,7 @@
     headlineRest: "para garantir o preço da promoção 10.10",
     coupon: "1010",
 
-    // O cupom dá 10% sobre o valor dos produtos
+    // O cupom dá 10%; no bloco ele é somado ao desconto do Pix que o carrinho já mostra
     couponDiscount: 0.10
   };
 
@@ -41,7 +41,8 @@
     linhaCupom: ".rowCartPromotionCodes",
     campoCupom: "#uoou_cart_promotionCoupons_0",
     botaoCupom: "#apply-coupon",
-    subtotal: "#cartContainer .cartSubtotal .itemTotalPrice"
+    subtotal: "#cartContainer .cartSubtotal .itemTotalPrice",
+    totalPix: "#cartContainer .cart-cash-payment .cash-price"
   };
 
 
@@ -194,6 +195,7 @@
     /* Economia com o cupom + botão */
     '.hz1010-cart__foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;margin-top:12px;padding-top:12px;border-top:1px solid #e0e0e0}',
     '.hz1010-cart__saving{display:flex;flex-wrap:wrap;align-items:center;gap:4px 7px;margin:0;color:#444;font-size:14px;line-height:1.2}',
+    '.hz1010-cart__pix[hidden]{display:none}',
     '.hz1010-cart__value{color:#111;font-size:20px;font-weight:800;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}',
     '.hz1010-cart__code{display:inline-block;padding:5px 10px;border:1px dashed #8a8a8a;border-radius:4px;background:#fff;color:#111;font-size:15px;font-weight:800;line-height:1;letter-spacing:.14em}',
     '.hz1010-cart__btn{-webkit-appearance:none;appearance:none;display:inline-flex;align-items:center;justify-content:center;width:auto;height:40px;min-width:0;margin:0;padding:0 22px;border:0;border-radius:4px;background:#111;box-shadow:none;color:#fff;font:inherit;font-size:14px;font-weight:700;line-height:1;letter-spacing:0;text-transform:none;white-space:nowrap;cursor:pointer;transition:background-color .15s}',
@@ -219,6 +221,7 @@
     '.hz1010-cart__saving{gap:3px 5px;font-size:12px}',
     '.hz1010-cart__value{font-size:17px}',
     '.hz1010-cart__code{padding:4px 8px;font-size:13px}',
+    '.hz1010-cart__lg{display:none}',
     '.hz1010-cart__btn{width:100%;height:36px;font-size:13px}',
     '}',
 
@@ -250,7 +253,7 @@
         '<span class="hz1010-cart__clock" data-hz1010-cart-timer aria-hidden="true"></span>' +
       '</div>' +
       '<div class="hz1010-cart__foot">' +
-        '<p class="hz1010-cart__saving"><span data-hz1010-cart-lead></span><strong class="hz1010-cart__value" data-hz1010-cart-saving></strong><span>com o cupom</span><span class="hz1010-cart__code">' + esc(CONFIG.coupon) + '</span></p>' +
+        '<p class="hz1010-cart__saving"><span data-hz1010-cart-lead></span><strong class="hz1010-cart__value" data-hz1010-cart-saving></strong><span class="hz1010-cart__pix" data-hz1010-cart-pix>no Pix</span><span>com<span class="hz1010-cart__lg"> o cupom</span></span><span class="hz1010-cart__code">' + esc(CONFIG.coupon) + '</span></p>' +
         '<button type="button" class="hz1010-cart__btn" data-hz1010-cart-apply></button>' +
       '</div>';
   }
@@ -277,10 +280,36 @@
       return false;
     }
 
-    var economia = Math.round(subtotal * CONFIG.couponDiscount * 100) / 100;
     var aplicado = cupomAplicado();
 
     bloco.classList.toggle("is-applied", aplicado);
+
+    // Economia pagando no Pix = produtos - total no Pix já com o cupom.
+    // Antes de aplicar, o total no Pix exibido ainda não tem os 10% do cupom.
+    var pix = lerPreco(document.querySelector(SELETORES.totalPix));
+    var temPix = pix > 0 && pix < subtotal;
+
+    var economia;
+
+    if (temPix) {
+
+      var pixFinal = aplicado
+        ? pix
+        : Math.round(pix * (1 - CONFIG.couponDiscount) * 100) / 100;
+
+      economia = Math.round((subtotal - pixFinal) * 100) / 100;
+
+    } else {
+
+      // Sem preço no Pix no carrinho: mostra só a economia do cupom
+      economia = Math.round(subtotal * CONFIG.couponDiscount * 100) / 100;
+    }
+
+    var seloPix = bloco.querySelector("[data-hz1010-cart-pix]");
+
+    if (seloPix) {
+      seloPix.hidden = !temPix;
+    }
 
     definirTexto(
       bloco.querySelector("[data-hz1010-cart-lead]"),
