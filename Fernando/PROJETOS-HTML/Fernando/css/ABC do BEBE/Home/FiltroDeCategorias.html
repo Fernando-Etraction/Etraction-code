@@ -1,0 +1,223 @@
+<script>
+  /* Filtro de categorias na home - ABC de Bebê (Loja Integrada) */
+  (function ($) {
+    if (!$ || !$('body').hasClass('pagina-inicial') || $('.abc-filtro').length) return;
+
+    // imagens enviadas no gerenciador de arquivos da loja; o "600x600" faz o CDN entregar a versão reduzida
+    var IMG = 'https://cdn.awsli.com.br/600x600/1357/1357875/arquivos/';
+    // imagens sem texto; o nome da categoria é escrito por cima pelo código
+    var CATEGORIAS = [
+      { nome: 'Pronta Entrega', url: '/pronta-entrega', img: IMG + 'interior-restaurado-sem-textos-sobrepostos-1.png' },
+      { nome: 'Berços', url: '/bercos', img: IMG + 'interior-decorado-sem-texto-sobreposto-2.png' },
+      { nome: 'Berços Evolutivos', url: '/bercos-evolutivos-3-em-1-ou-4-em-1', img: IMG + 'interior-restaurado-sem-texto-3.png' },
+      { nome: 'Móveis', url: '/moveis', img: IMG + 'ambiente-sofisticado-sem-textos-sobrepostos-5.png' },
+      { nome: 'Poltronas de Amamentação', url: '/poltronas-de-amamentacao', img: IMG + 'parede-restaurada-sem-textos-7.png' },
+      { nome: 'Papel de Parede', url: '/papel-de-parede', img: IMG + 'ambiente-elegante-sem-texto-4.png' },
+      { nome: 'Decoração', url: '/decoracao-e-acessorios', img: IMG + 'fundo-restaurado-sem-textos-sobrepostos-6.png' }
+    ];
+    var LIMITE = 12;
+    var cache = {};
+
+    var css =
+      '.abc-filtro{margin:30px 0 10px}' +
+      '.abc-filtro-abas{margin:0 0 28px;padding:0 44px;list-style:none;position:relative}' +
+      '.abc-filtro-aba{padding:8px 9px 12px;box-sizing:border-box}' +
+      '.abc-filtro-aba button{display:block;width:100%;padding:0;border:0;background:none;font-family:inherit;cursor:pointer;text-align:center}' +
+      '.abc-filtro-quadro{display:block;position:relative;width:100%;padding-top:100%;border-radius:22px;overflow:hidden;background:#fbf3ee;box-shadow:0 4px 14px rgba(190,140,130,.2);transition:transform .3s,box-shadow .3s}' +
+      '.abc-filtro-quadro img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .35s}' +
+      '.abc-filtro-aba button:hover .abc-filtro-quadro img{transform:scale(1.06)}' +
+      '.abc-filtro-aba button:hover .abc-filtro-quadro{transform:translateY(-4px);box-shadow:0 10px 22px rgba(190,140,130,.3)}' +
+      '.abc-filtro-aba button.ativo .abc-filtro-quadro{box-shadow:0 0 0 3px #eaa9c1,0 8px 18px rgba(222,109,155,.25)}' +
+      '.abc-filtro-quadro:after{content:"";position:absolute;right:0;bottom:0;left:0;height:40%;background:linear-gradient(to top,rgba(255,247,242,.97) 0,rgba(255,247,242,.86) 38%,rgba(255,247,242,0) 100%);transition:height .3s}' +
+      '.abc-filtro-aba button:hover .abc-filtro-quadro:after,.abc-filtro-aba button.ativo .abc-filtro-quadro:after{height:48%}' +
+      '.abc-filtro-nome{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:0 8px 10px;color:#6f4a45;font-family:Italiana,Georgia,serif;font-size:23px;font-weight:400;line-height:1.05;text-align:center;transition:transform .3s}' +
+      '.abc-filtro-nome:after{content:"";display:block;width:0;height:2px;margin:5px auto 0;background:#eaa9c1;transition:width .3s}' +
+      '.abc-filtro-aba button:hover .abc-filtro-nome,.abc-filtro-aba button.ativo .abc-filtro-nome{transform:translateY(-4px)}' +
+      '.abc-filtro-aba button:hover .abc-filtro-nome:after,.abc-filtro-aba button.ativo .abc-filtro-nome:after{width:38px}' +
+      // setas próprias (botão redondo branco com seta rosa), iguais nos três carrosséis
+      '.abc-filtro .abc-seta{position:absolute;top:50%;z-index:3;display:flex!important;align-items:center;justify-content:center;width:38px;height:38px;margin-top:-19px;padding:0;border:0;border-radius:50%;background:#fff;color:#c9668d;box-shadow:0 3px 10px rgba(150,100,100,.22);cursor:pointer;transition:transform .2s,background .2s,opacity .2s}' +
+      '.abc-filtro .abc-seta svg{width:18px;height:18px}' +
+      '.abc-filtro .abc-seta:hover{background:#fbe4ec;transform:scale(1.06)}' +
+      '.abc-filtro .abc-seta-prev{left:0}' +
+      '.abc-filtro .abc-seta-next{right:0}' +
+      '.abc-filtro .abc-seta.slick-disabled{opacity:0;pointer-events:none}' +
+      '.abc-filtro-conteudo .abc-seta{top:36%}' +
+      '.abc-filtro-titulo{margin-top:4px}' +
+      '.abc-filtro-conteudo{min-height:420px;position:relative;transition:opacity .2s}' +
+      '.abc-filtro-conteudo.carregando{opacity:.35;pointer-events:none}' +
+      '.abc-filtro-vazio{text-align:center;padding:60px 0;color:#777}' +
+      '.abc-filtro-vermais{text-align:center;margin:18px 0 0}' +
+      '.abc-filtro-vermais a{display:inline-block;font-weight:600;color:#201f1f;border-bottom:2px solid #9dd466;padding-bottom:2px;text-decoration:none}' +
+      '@media(max-width:767px){' +
+      '.abc-filtro-abas{padding:0 6px;margin-bottom:20px}' +
+      '.abc-filtro .abc-seta{width:30px;height:30px;margin-top:-15px}' +
+      '.abc-filtro .abc-seta svg{width:15px;height:15px}' +
+      '.abc-filtro .abc-seta-prev{left:2px}' +
+      '.abc-filtro .abc-seta-next{right:2px}' +
+      '.abc-filtro-aba{padding:4px 6px}' +
+      '.abc-filtro-nome{font-size:19px;padding:0 6px 8px}' +
+      '.abc-filtro-conteudo{min-height:320px}}';
+    $('<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&display=swap">').appendTo('head');
+    $('<style id="abc-filtro-css">').text(css).appendTo('head');
+
+    // vitrine "Mais vendidos" (o tema pode montá-la depois deste código, por isso é buscada na hora)
+    function maisVendidos() {
+      var $v = $('.listagem.vitrine-mas-vendido').first();
+      return $v.length ? $v : $('.listagem.vitrine-produtos').not('.abc-filtro').first();
+    }
+    var $secao = $(
+      // sem as classes "listagem vitrine-produtos" no bloco de fora: o tema trata esses blocos como vitrines dele
+      // (mexe em títulos e carrosséis); elas ficam só na área dos produtos, para os cards herdarem o estilo da loja
+      '<div class="abc-filtro">' +
+      '<div class="conteiner"><div class="row-fluid">' +
+      '<div class="titulo-categoria"><strong>Compre por categoria</strong></div>' +
+      '<div class="abc-filtro-abas" role="tablist"></div>' +
+      '<div class="titulo-categoria abc-filtro-titulo"><strong></strong></div>' +
+      '<div class="abc-filtro-conteudo listagem listagem-desktop-prod4 listagem-mobile-prod2 item-home fixarImagem"></div>' +
+      '<p class="abc-filtro-vermais"><a href="#"></a></p>' +
+      '</div></div>' +
+      '</div>'
+    );
+    var $abas = $secao.find('.abc-filtro-abas');
+    var $conteudo = $secao.find('.abc-filtro-conteudo');
+    var $titulo = $secao.find('.abc-filtro-titulo strong');
+    var $verMais = $secao.find('.abc-filtro-vermais a');
+
+    $.each(CATEGORIAS, function (i, c) {
+      var $quadro = $('<span class="abc-filtro-quadro">');
+      if (c.img) $quadro.append($('<img loading="lazy">').attr({ src: c.img, alt: '' }));
+      $quadro.append($('<span class="abc-filtro-nome">').text(c.nome));
+      $('<div class="abc-filtro-aba">').append(
+        $('<button type="button" role="tab">').attr('aria-label', c.nome).data('cat', c).append($quadro)
+      ).appendTo($abas);
+    });
+
+    // Posição: acima de "Mais vendidos" (o carrossel de bolinhas, se existir, se coloca dentro deste bloco,
+    // logo abaixo dos quadradinhos).
+    // O tema monta e reorganiza a home depois que este código roda, e a home é uma coluna flex com 'order'
+    // em cada bloco; por isso a posição é conferida de novo até o tema terminar.
+    var movimentos = 0;
+    function posicionar() {
+      // não reinsere o bloco se alguém o removeu, e para depois de 30 movimentos (nunca entra em loop)
+      if (movimentos > 30 || !$.contains(document.documentElement, $secao[0])) return;
+      var $v = maisVendidos();
+      if (!$v.length) return;
+      var $c = $('.abc-circulos').first();
+      var $depois = $c.length && $c.next()[0] === $v[0] ? $c : $v;
+      if ($secao.next()[0] !== $depois[0]) { movimentos++; $depois.before($secao); }
+      var ordem = $v.css('order');
+      if ($secao[0].style.order !== ordem) $secao[0].style.order = ordem;
+      // se os carrosséis foram montados com a home ainda escondida pelo tema, ficam com largura zero: recalcula
+      $secao.find('.slick-initialized').each(function () { try { $(this).slick('setPosition'); } catch (e) { } });
+      conferirCarrossel();
+    }
+    // ao terminar de carregar, o tema reorganiza todos os cards de produto da página e desmonta o carrossel
+    // do filtro (os cards voltam a ser filhos diretos da lista); quando isso acontece, monta de novo
+    function conferirCarrossel() {
+      var $ul = $conteudo.children('ul');
+      if (!$ul.length || $ul.children('.slick-list').length) return;
+      var cat = $abas.find('.ativo').data('cat');
+      if (cat && cache[cat.url]) mostrar(cat, cache[cat.url]);
+    }
+    function vigiar(fn) {
+      $(fn);
+      // no 'load' confere na hora e de novo um pouco depois, porque o tema também mexe na página nesse momento
+      $(window).on('load', function () { fn(); setTimeout(fn, 300); setTimeout(fn, 1500); });
+      $.each([300, 1000, 2500, 5000, 8000, 12000], function (i, ms) { setTimeout(fn, ms); });
+      var corpo = document.getElementById('corpo');
+      if (corpo && window.MutationObserver) {
+        var espera;
+        var obs = new MutationObserver(function () { clearTimeout(espera); espera = setTimeout(fn, 50); });
+        obs.observe(corpo, { childList: true });
+        setTimeout(function () { obs.disconnect(); }, 10000);
+      }
+    }
+    ($('#corpo').length ? $('#corpo') : $('body')).append($secao);
+    posicionar();
+    vigiar(posicionar);
+
+    // setas próprias, que aparecem também no celular
+    var SETAS = {
+      prevArrow: '<button type="button" class="abc-seta abc-seta-prev" aria-label="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>',
+      nextArrow: '<button type="button" class="abc-seta abc-seta-next" aria-label="Próximo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+    };
+    function setas() { return SETAS; }
+
+    if ($.fn.slick) {
+      $abas.slick($.extend({
+        slidesToShow: 5, slidesToScroll: 2, infinite: false, dots: false, arrows: true,
+        responsive: [
+          { breakpoint: 1024, settings: { slidesToShow: 4, slidesToScroll: 2 } },
+          { breakpoint: 768, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+          { breakpoint: 600, settings: { slidesToShow: 2.3, slidesToScroll: 1 } }
+        ]
+      }, setas()));
+    }
+
+    // deixa o card da página de categoria igual ao card da vitrine da home
+    function normalizar(item) {
+      var $i = $(item).addClass('acoes-fixar');
+      $i.find('.cor-principal,.cor-secundaria').removeClass('cor-principal cor-secundaria');
+      $i.find('.fundo-principal').removeClass('fundo-principal');
+      var $preco = $i.find('.preco-produto');
+      $preco.parent().addClass('precos-wrap');
+      var $pix = $preco.find('.desconto-a-vista');
+      if ($pix.length) {
+        var valor = $pix.find('strong').first().prop('outerHTML') || '';
+        $pix.html(valor + ' <span>no pix</span>').prependTo($preco);
+      }
+      $i.find('.acoes-produto .botao-comprar').text('Adicionar');
+      $i.wrapInner('<div class="listagem-item-wrap"></div>');
+      return $i;
+    }
+
+    function mostrar(cat, itens) {
+      var $ul = $('<ul class="abc-filtro-carrossel">');
+      if (!itens.length) {
+        $conteudo.html('<p class="abc-filtro-vazio">Nenhum produto encontrado nesta categoria.</p>');
+      } else {
+        $.each(itens, function (i, html) { $ul.append(normalizar($(html))); });
+        $conteudo.empty().append($ul);
+        if ($.fn.slick) {
+          $ul.slick($.extend({
+            slidesToShow: 4, slidesToScroll: 4, infinite: false, dots: false, arrows: true,
+            responsive: [
+              { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 3 } },
+              { breakpoint: 600, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+              { breakpoint: 350, settings: { slidesToShow: 1, slidesToScroll: 1 } }
+            ]
+          }, setas()));
+        }
+      }
+      $verMais.attr('href', cat.url).text('Ver tudo em ' + cat.nome + ' →');
+      $conteudo.removeClass('carregando');
+    }
+
+    function carregar(cat) {
+      // título da vitrine de produtos = categoria escolhida (no mesmo estilo dos títulos das vitrines do tema)
+      $titulo.text(cat.nome);
+      $conteudo.addClass('carregando');
+      if (cache[cat.url]) return mostrar(cat, cache[cat.url]);
+      $.get(cat.url).done(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var itens = $(doc).find('#corpo .listagem .listagem-item').slice(0, LIMITE).map(function () {
+          return this.outerHTML;
+        }).get();
+        cache[cat.url] = itens;
+        if ($abas.find('.ativo').data('cat') === cat) mostrar(cat, itens);
+      }).fail(function () {
+        $conteudo.removeClass('carregando').html('<p class="abc-filtro-vazio">Não foi possível carregar os produtos.</p>');
+      });
+    }
+
+    $abas.on('click', '.abc-filtro-aba button', function () {
+      var $b = $(this);
+      if ($b.hasClass('ativo')) return;
+      $abas.find('.abc-filtro-aba button').removeClass('ativo').attr('aria-selected', 'false');
+      $b.addClass('ativo').attr('aria-selected', 'true');
+      carregar($b.data('cat'));
+    });
+
+    $abas.find('.abc-filtro-aba button').first().trigger('click');
+  })(window.jQuery);
+</script>

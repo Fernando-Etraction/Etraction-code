@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visualizador - Filtro de Categorias | ABC de Bebê</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Italiana&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{font-family:Sarabun,Arial,sans-serif;color:#201f1f;background:#fff}
+
+  /* ---------- barra do visualizador ---------- */
+  .viz{display:flex;flex-direction:column;height:100%;background:#eceef0}
+  .viz-barra{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:10px 16px;background:#201f1f;color:#fff}
+  .viz-barra strong{font-size:15px;margin-right:auto}
+  .viz-barra button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1.5px solid #555;background:none;color:#fff;cursor:pointer}
+  .viz-barra button.ativo{background:#9dd466;border-color:#9dd466;color:#201f1f}
+  .viz-barra span{font-size:13px;color:#bbb}
+  .viz-palco{flex:1;min-height:0;display:flex;justify-content:center;padding:16px;overflow:auto}
+  .viz-palco iframe{width:100%;height:100%;border:0;background:#fff;box-shadow:0 2px 18px rgba(0,0,0,.18);transition:max-width .25s}
+
+  /* ---------- simulação da loja ---------- */
+  .loja-topo{background:#de6d9b;color:#fff;text-align:center;font-size:14px;padding:8px}
+  .loja-cab{display:flex;align-items:center;justify-content:center;padding:16px;border-bottom:1px solid #eee;font-size:22px;color:#3fbfbd}
+  .loja-banner{height:240px;display:flex;align-items:center;justify-content:center;background:#f3ede4;color:#a8998a;font-size:15px}
+  .loja-aviso{text-align:center;color:#999;font-size:13px;padding:26px 16px 40px;border-top:1px solid #eee;margin-top:30px}
+  .conteiner{max-width:1236px;margin:0 auto;padding:0 12px}
+  .titulo-categoria{text-align:center;font-size:22px;margin:0 0 20px}
+
+  /* ---------- filtro (mesmo CSS do FiltroDeCategorias.html) ---------- */
+  .abc-filtro{margin:30px 0 10px}
+  .abc-filtro-abas{margin:0 0 28px;padding:0 34px;position:relative}
+  .abc-filtro-aba{padding:8px 9px 12px}
+  .abc-filtro-aba button{display:block;width:100%;padding:0;border:0;background:none;font-family:inherit;cursor:pointer;text-align:center}
+  .abc-filtro-quadro{display:block;position:relative;width:100%;padding-top:100%;border-radius:22px;overflow:hidden;background:#fbf3ee;box-shadow:0 4px 14px rgba(190,140,130,.2);transition:transform .3s,box-shadow .3s}
+  .abc-filtro-quadro img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;transition:transform .35s}
+  .abc-filtro-aba button:hover .abc-filtro-quadro img{transform:scale(1.06)}
+  .abc-filtro-aba button:hover .abc-filtro-quadro{transform:translateY(-4px);box-shadow:0 10px 22px rgba(190,140,130,.3)}
+  .abc-filtro-aba button.ativo .abc-filtro-quadro{box-shadow:0 0 0 3px #eaa9c1,0 8px 18px rgba(222,109,155,.25)}
+  .abc-filtro-quadro:after{content:"";position:absolute;right:0;bottom:0;left:0;height:40%;background:linear-gradient(to top,rgba(255,247,242,.97) 0,rgba(255,247,242,.86) 38%,rgba(255,247,242,0) 100%);transition:height .3s}
+  .abc-filtro-aba button:hover .abc-filtro-quadro:after,.abc-filtro-aba button.ativo .abc-filtro-quadro:after{height:48%}
+  .abc-filtro-nome{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:0 8px 10px;color:#6f4a45;font-family:Italiana,Georgia,serif;font-size:23px;font-weight:400;line-height:1.05;text-align:center;transition:transform .3s}
+  .abc-filtro-nome:after{content:"";display:block;width:0;height:2px;margin:5px auto 0;background:#eaa9c1;transition:width .3s}
+  .abc-filtro-aba button:hover .abc-filtro-nome,.abc-filtro-aba button.ativo .abc-filtro-nome{transform:translateY(-4px)}
+  .abc-filtro-aba button:hover .abc-filtro-nome:after,.abc-filtro-aba button.ativo .abc-filtro-nome:after{width:38px}
+  .abc-filtro-conteudo{min-height:420px}
+  .abc-filtro-vazio{text-align:center;padding:60px 0;color:#777}
+  .abc-filtro-vermais{text-align:center;margin:18px 0 0}
+  .abc-filtro-vermais a{display:inline-block;font-weight:600;color:#201f1f;border-bottom:2px solid #9dd466;padding-bottom:2px;text-decoration:none}
+
+  /* setas e cards aproximados do tema da loja */
+  .slick-arrow{position:absolute;top:calc(50% - 18px);z-index:2;width:26px;height:36px;display:flex!important;align-items:center;justify-content:center;background:#f4f4f4;border-radius:6px;cursor:pointer}
+  .slick-arrow svg{width:12px;height:12px;fill:#999}
+  .slick-prev{left:0}.slick-next{right:0}
+  .slick-disabled{opacity:.3;cursor:default}
+  .prod{padding:0 8px;text-align:center}
+  .prod-img{position:relative;padding-top:100%;border-radius:6px;overflow:hidden;background:#f6f6f6}
+  .prod-img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+  .prod-selo{position:absolute;top:6px;left:6px;z-index:1;background:#9dd466;color:#fff;font-size:11px;font-weight:700;line-height:1.1;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;padding:4px}
+  .prod-nome{display:block;margin:12px 0 8px;font-size:15px;line-height:1.3;color:#201f1f;text-decoration:none;min-height:58px}
+  .prod-pix{font-size:20px;font-weight:700;color:#4fcfc9}
+  .prod-pix small{font-size:12px;font-weight:400}
+  .prod-preco{font-size:13px;margin-top:2px}
+  .prod-preco s{color:#999;margin-right:4px}
+  .prod-parc{font-size:12px;color:#444}
+  .prod-btn{display:block;margin-top:12px;padding:11px;border-radius:5px;background:#9dd466;color:#fff;font-weight:700;font-size:14px}
+  .vitrine-carrossel{padding:0 34px;position:relative}
+
+  @media(max-width:767px){
+    .abc-filtro-abas{padding:0 6px;margin-bottom:20px}
+    .abc-filtro-aba{padding:4px 6px}
+    .abc-filtro-nome{font-size:19px;padding:0 6px 8px}
+    .abc-filtro-conteudo{min-height:320px}
+    .vitrine-carrossel{padding:0 4px}
+    .vitrine-carrossel .slick-arrow{display:none!important}
+    .prod{padding:0 5px}
+    .prod-nome{font-size:13px;min-height:68px}
+    .prod-pix{font-size:17px}
+    .loja-banner{height:150px}
+  }
+</style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+(function ($) {
+  // ---------- modo visualizador: barra + moldura com a simulação ----------
+  if (location.search.indexOf('loja') === -1) {
+    var TAMANHOS = [
+      { nome: 'Computador', largura: '100%' },
+      { nome: 'Tablet', largura: '820px' },
+      { nome: 'Celular', largura: '390px' }
+    ];
+    var $viz = $('<div class="viz"><div class="viz-barra"><strong>Visualizador · Filtro de Categorias</strong></div><div class="viz-palco"><iframe title="Simulação da home"></iframe></div></div>').appendTo('body');
+    var $frame = $viz.find('iframe').attr('src', location.pathname.split('/').pop() + '?loja');
+    $.each(TAMANHOS, function (i, t) {
+      $('<button type="button">').text(t.nome).toggleClass('ativo', i === 0).on('click', function () {
+        $viz.find('button').removeClass('ativo');
+        $(this).addClass('ativo');
+        $frame.css('max-width', t.largura);
+      }).appendTo($viz.find('.viz-barra'));
+    });
+    $viz.find('.viz-barra').append('<span>Simulação: produtos e preços são uma amostra fixa da loja.</span>');
+    return;
+  }
+
+  // ---------- modo loja: simulação da home com o filtro ----------
+  var IMG = 'https://cdn.awsli.com.br/600x600/1357/1357875/arquivos/';
+  var CDN = 'https://cdn.awsli.com.br/400x400/1357/1357875/produto/';
+  var LOJA = 'https://www.abcdebebe.com.br';
+  var CATEGORIAS = [
+    { nome: 'Pronta Entrega', url: '/pronta-entrega', img: IMG + 'interior-restaurado-sem-textos-sobrepostos-1.png' },
+    { nome: 'Berços', url: '/bercos', img: IMG + 'interior-decorado-sem-texto-sobreposto-2.png' },
+    { nome: 'Berços Evolutivos', url: '/bercos-evolutivos-3-em-1-ou-4-em-1', img: IMG + 'interior-restaurado-sem-texto-3.png' },
+    { nome: 'Móveis', url: '/moveis', img: IMG + 'ambiente-sofisticado-sem-textos-sobrepostos-5.png' },
+    { nome: 'Poltronas de Amamentação', url: '/poltronas-de-amamentacao', img: IMG + 'parede-restaurada-sem-textos-7.png' },
+    { nome: 'Papel de Parede', url: '/papel-de-parede', img: IMG + 'ambiente-elegante-sem-texto-4.png' },
+    { nome: 'Decoração', url: '/decoracao-e-acessorios', img: IMG + 'fundo-restaurado-sem-textos-sobrepostos-6.png' }
+  ];
+  // amostra copiada da loja: [nome, imagem, preço no pix, preço "de", preço "por", parcelas, selo]
+  var PRODUTOS = {
+    '/pronta-entrega': [
+      ['Almofada De Amamentação - Tricot / Trama Losango - Azul Marinho Tirreno', '257925042/site---imagens---2025-08-20t154943-163-jx1o0senyc.jpg', 'R$ 314,91', 'R$ 499,90', 'R$ 349,90', 'até 6x de R$ 58,31 sem juros', '30% OFF'],
+      ['Berço Paglia - 3 em 1 - Carvalho', '192625654/site---imagens--11--uwb2zkc9s7.png', 'R$ 5.579,91', 'R$ 6.599,90', 'R$ 6.199,90', 'até 10x de R$ 619,99 sem juros', '6% OFF'],
+      ['Poltrona De Amamentação Elétrica Reclinável Aurora - Bouclê Natural', '403749681/4244b5518d574e61b8dfd7df364821ee-4yjjm1s84t.jpg', 'R$ 5.399,91', 'R$ 7.299,90', 'R$ 5.999,90', 'até 10x de R$ 599,99 sem juros', '18% OFF'],
+      ['Poltrona De Amamentação Natu + Puff - Com Balanço - Boucle Creme', '402246021/71d0e4b26cc14246a60ce67f765032ab-4ov6fhvg7j.png', 'R$ 2.789,91', 'R$ 3.625,90', 'R$ 3.099,90', 'até 10x de R$ 309,99 sem juros', '15% OFF'],
+      ['Quarto Completo - Cozy - Berço + Cômoda 6 Gavetas + Roupeiro 3 Portas', '399715836/87bea3aec1c84198a655b8a69f37326c-sq5rz2qbia.jpg', 'R$ 7.568,10', 'R$ 8.899,90', 'R$ 8.409,00', 'até 10x de R$ 840,90 sem juros', '6% OFF']
+    ],
+    '/bercos': [
+      ['Berço Unique - 2 em 1 - Freijo / Off White / Ecco Wood', '354708563/149-jkiqu4scev.jpg', 'R$ 1.034,91', 'R$ 1.699,90', 'R$ 1.149,90', 'até 10x de R$ 114,99 sem juros', '32% OFF'],
+      ['Berço Paris 2 em 1 - Branco', '402477121/4e27781f5f93425db5e125e30b198665-qrito8zzjd.jpg', 'R$ 3.049,18', '', 'R$ 3.387,98', 'até 10x de R$ 338,79 sem juros', '30% OFF'],
+      ['Berço Raízes Colina Palha - Madeira Mel', '400918818/4ae71166e7604c159ae3fee7d6cf79c3-11gqwdjzii.jpg', 'R$ 4.545,90', '', 'R$ 5.051,00', 'até 10x de R$ 505,10 sem juros', ''],
+      ['Berço 3 em 1 Evolutivo Loop - Branco', '399474668/7af5a6d7a6494f849c0578b0733995e1-xbskawj18k.jpg', 'R$ 2.969,10', 'R$ 4.299,90', 'R$ 3.299,00', 'até 10x de R$ 329,90 sem juros', '23% OFF'],
+      ['Berço Fio Plus - 2 Em 1 - Madeira / Pés Madeira', '396728009/40-rxozoozcjw.jpg', 'R$ 3.149,91', 'R$ 4.899,00', 'R$ 3.499,90', 'até 10x de R$ 349,99 sem juros', '29% OFF']
+    ],
+    '/bercos-evolutivos-3-em-1-ou-4-em-1': [
+      ['Berço Redondo Evolutivo Wave - Branco', '402072093/45a50041ff404164a4375c6c96934f28-u350bg2n2x.jpg', 'R$ 4.305,51', 'R$ 6.834,14', 'R$ 4.783,90', 'até 10x de R$ 478,39 sem juros', '30% OFF'],
+      ['Berço Redondo Evolutivo Wave - Mel', '402070325/def6a722e8574766971824a408d7daeb-zrcaje3mxf.jpg', 'R$ 4.305,51', 'R$ 6.834,14', 'R$ 4.783,90', 'até 10x de R$ 478,39 sem juros', '30% OFF'],
+      ['Berço Paglia - 3 em 1 - Paglia Nogueira com Palhinha Natural', '374601769/226-7hc6b5s7h8.jpg', 'R$ 5.615,10', 'R$ 6.999,90', 'R$ 6.239,00', 'até 10x de R$ 623,90 sem juros', '11% OFF'],
+      ['Berço Evolutivo Lola - 3 em 1 - Verde', '370541832/66-xz7u9gr8pr.jpg', 'R$ 3.419,91', '', 'R$ 3.799,90', 'até 10x de R$ 379,99 sem juros', ''],
+      ['Berço Evolutivo Sleep - 3 em 1 - Cinza', '365410701/50-of0yqwvnn0.jpg', 'R$ 3.239,91', 'R$ 4.543,00', 'R$ 3.599,90', 'até 10x de R$ 359,99 sem juros', '21% OFF']
+    ],
+    '/moveis': [
+      ['Cômoda Tutto New - Com Porta - Freijó / Off White', '241742397/154-i0grpt7yh5.jpg', 'R$ 1.394,91', 'R$ 1.799,90', 'R$ 1.549,90', 'até 10x de R$ 154,99 sem juros', '14% OFF'],
+      ['Quarto Completo - Berço 2 Em 1 Lili II + Cômoda Lili II + Guarda-Roupa 2 Portas De Correr - Branco', '402618590/35514636e3eb49849ddf42df0578538a-iy172odr0n.jpg', 'R$ 7.172,91', 'R$ 9.376,35', 'R$ 7.969,90', 'até 10x de R$ 796,99 sem juros', '15% OFF'],
+      ['Berço Unique - 2 em 1 - Freijo / Off White / Ecco Wood', '354708563/149-jkiqu4scev.jpg', 'R$ 1.034,91', 'R$ 1.699,90', 'R$ 1.149,90', 'até 10x de R$ 114,99 sem juros', '32% OFF'],
+      ['Conjunto - Berço 2 Em 1 Kurve + Cômoda 6 Gavetas - Verde Jade', '402057364/9d0cbfab532d42688b080efc252a4258-3tqsm81b5j.jpg', 'R$ 7.603,20', '', 'R$ 8.448,00', 'até 10x de R$ 844,80 sem juros', ''],
+      ['Berço Paris 2 em 1 - Branco', '402477121/4e27781f5f93425db5e125e30b198665-qrito8zzjd.jpg', 'R$ 3.049,18', '', 'R$ 3.387,98', 'até 10x de R$ 338,79 sem juros', '30% OFF']
+    ],
+    '/poltronas-de-amamentacao': [
+      ['Poltrona De Amamentação Ana Clara - Com Puff - Velvet Rose', '403777989/73b0fb2f372746f48f0bfc040f85aad1-d013gk1wct.png', 'R$ 1.349,91', 'R$ 2.795,86', 'R$ 1.499,90', 'até 10x de R$ 149,99 sem juros', '46% OFF'],
+      ['Poltrona De Amamentação Reclinável Pérola - Com Balanço E Giro - Bouclê Volcano Pérola', '400893444/5a1046d9b136450dbb88ddff12ae35ef-m7ok3vzq4o.jpg', 'R$ 4.148,91', 'R$ 5.999,90', 'R$ 4.609,90', 'até 10x de R$ 460,99 sem juros', '23% OFF'],
+      ['Poltrona De Amamentação Mayla - Com Balanço e Giro - Com Puff - Linho Bege Claro', '343699937/72-abs44s7m0n.jpg', 'R$ 2.159,91', 'R$ 2.999,90', 'R$ 2.399,90', 'até 10x de R$ 239,99 sem juros', '20% OFF'],
+      ['Poltrona De Amamentação Clarisse - Com Balanço e Giro - Com Puff Pé Palito - Boucle Natural', '300837583/28-qt5c7o2u00.png', 'R$ 2.105,91', 'R$ 2.999,90', 'R$ 2.339,90', 'até 10x de R$ 233,99 sem juros', '22% OFF'],
+      ['Poltrona De Amamentação Sofia Com Puff Dani - Bouclê Verde', '403811464/551a09c1a78e40bfbe518039826e3511-ve4zzk0ddh.jpg', 'R$ 1.709,91', '', 'R$ 1.899,90', 'até 10x de R$ 189,99 sem juros', '']
+    ],
+    '/papel-de-parede': [],
+    '/decoracao-e-acessorios': [
+      ['Lustre de Flores e Passarinhos - Dourado E Off White - 3 Cúpulas', '403682503/10c906e4e8ae481d8b00f8a0968c402e-7f5e48y4qy.png', 'R$ 773,91', 'R$ 1.299,90', 'R$ 859,90', 'até 10x de R$ 85,99 sem juros', '34% OFF'],
+      ['Kit Higiene De Cerâmica 4 Peças - Urso Hobby / Azul Bebê', '401975155/2511048e5d2647e9bf913dc74a71727c-bj0ktoldix.jpg', 'R$ 611,01', 'R$ 814,90', 'R$ 678,90', 'até 10x de R$ 67,89 sem juros', '17% OFF'],
+      ['Dossel Tenda Mosquiteiro Com Pingente Pompom - Verde', '159768676/355c2e1a10f8410bb967615fb24fbd33-8yl6496ksk.jpg', 'R$ 377,91', 'R$ 599,90', 'R$ 419,90', 'até 8x de R$ 52,48 sem juros', '30% OFF'],
+      ['Luminária Arandela - Cavalinho Dourado e Cúpula Bege', '403211302/6ce2f05dff69450c80a5fce67bcdab33-vxarwemb6d.png', 'R$ 413,91', '', 'R$ 459,90', 'até 9x de R$ 51,10 sem juros', ''],
+      ['Prateleira Slim Cabideiro - 1 Unidade - Branco', '241784038/pt-brprateleira-dtzae-pzg3akfil4.jpeg', 'R$ 215,91', 'R$ 499,90', 'R$ 239,90', 'até 4x de R$ 59,97 sem juros', '52% OFF']
+    ]
+  };
+
+  var SETA_E = '<div class="slick-prev"><svg viewBox="0 0 330 330"><path d="m233.25 306l-105.75-141 105.75-141c4.971-6.628 3.627-16.03-3-21-6.627-4.971-16.03-3.626-21 3l-112.5 150c-4 5.333-4 12.667 0 18l112.5 150c2.947 3.93 7.451 6.001 12.012 6.001 3.131 0 6.29-0.978 8.988-3.001 6.628-4.971 7.971-14.373 3-21z"/></svg></div>';
+  var SETA_D = '<div class="slick-next"><svg viewBox="0 0 330 330"><path d="m233.25 156l-112.5-150c-4.972-6.628-14.372-7.97-21-3-6.628 4.971-7.971 14.373-3 21l105.75 141-105.75 141c-4.971 6.627-3.627 16.03 3 21 2.698 2.024 5.856 3.001 8.988 3.001 4.561 0 9.065-2.072 12.012-6.001l112.5-150c4-5.333 4-12.667 0-18z"/></svg></div>';
+
+  $('body').append(
+    '<div class="loja-topo"><b>5% OFF</b> na primeira compra</div>' +
+    '<div class="loja-cab">ABC De bebê</div>' +
+    '<div class="loja-banner">banner principal da home</div>' +
+    '<div class="abc-filtro"><div class="conteiner">' +
+      '<div class="titulo-categoria"><strong>Compre por categoria</strong></div>' +
+      '<div class="abc-filtro-abas" role="tablist"></div>' +
+      '<div class="abc-filtro-conteudo"></div>' +
+      '<p class="abc-filtro-vermais"><a href="#" target="_blank" rel="noopener"></a></p>' +
+    '</div></div>' +
+    '<div class="loja-aviso">Abaixo continua a home normal da loja (vitrine "Mais vendidos" etc.).</div>'
+  );
+  var $abas = $('.abc-filtro-abas');
+  var $conteudo = $('.abc-filtro-conteudo');
+  var $verMais = $('.abc-filtro-vermais a');
+
+  $.each(CATEGORIAS, function (i, c) {
+    var $quadro = $('<span class="abc-filtro-quadro">').append($('<img>').attr({ src: c.img, alt: '' }), $('<span class="abc-filtro-nome">').text(c.nome));
+    $('<div class="abc-filtro-aba">').append(
+      $('<button type="button" role="tab">').attr('aria-label', c.nome).data('cat', c).append($quadro)
+    ).appendTo($abas);
+  });
+
+  $abas.slick({ slidesToShow: 5, slidesToScroll: 2, infinite: false, dots: false, arrows: true, prevArrow: SETA_E, nextArrow: SETA_D,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 4, slidesToScroll: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+      { breakpoint: 600, settings: { slidesToShow: 2.3, slidesToScroll: 1, arrows: false } }
+    ] });
+
+  function card(p) {
+    var $c = $('<div class="prod">');
+    var $img = $('<div class="prod-img">').append($('<img loading="lazy">').attr({ src: CDN + p[1], alt: p[0] }));
+    if (p[6]) $img.append($('<span class="prod-selo">').text(p[6]));
+    $c.append($img, $('<span class="prod-nome">').text(p[0]));
+    $c.append($('<div class="prod-pix">').text(p[2] + ' ').append('<small>no pix</small>'));
+    var $preco = $('<div class="prod-preco">');
+    if (p[3]) $preco.append($('<s>').text(p[3]));
+    $c.append($preco.append($('<b>').text(p[4])), $('<div class="prod-parc">').text(p[5]), '<span class="prod-btn">Adicionar</span>');
+    return $c;
+  }
+
+  function mostrar(cat) {
+    var itens = PRODUTOS[cat.url] || [];
+    if (!itens.length) {
+      $conteudo.html('<p class="abc-filtro-vazio">Nenhum produto encontrado nesta categoria.</p>');
+    } else {
+      var $ul = $('<div class="vitrine-carrossel">');
+      $.each(itens, function (i, p) { $ul.append(card(p)); });
+      $conteudo.empty().append($ul);
+      $ul.slick({ slidesToShow: 4, slidesToScroll: 4, infinite: false, dots: false, arrows: true, prevArrow: SETA_E, nextArrow: SETA_D,
+        responsive: [
+          { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 3 } },
+          { breakpoint: 600, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+          { breakpoint: 350, settings: { slidesToShow: 1, slidesToScroll: 1 } }
+        ] });
+    }
+    $verMais.attr('href', LOJA + cat.url).text('Ver tudo em ' + cat.nome + ' →');
+  }
+
+  $abas.on('click', 'button', function () {
+    var $b = $(this);
+    if ($b.hasClass('ativo')) return;
+    $abas.find('button').removeClass('ativo').attr('aria-selected', 'false');
+    $b.addClass('ativo').attr('aria-selected', 'true');
+    mostrar($b.data('cat'));
+  });
+
+  $abas.find('button').first().trigger('click');
+})(window.jQuery);
+</script>
+</body>
+</html>

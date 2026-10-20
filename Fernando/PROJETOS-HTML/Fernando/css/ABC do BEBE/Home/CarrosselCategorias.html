@@ -1,0 +1,140 @@
+<script>
+  /* Carrossel de categorias (círculos) na home - ABC de Bebê (Loja Integrada) */
+  (function ($) {
+    if (!$ || !$('body').hasClass('pagina-inicial') || $('.abc-circulos').length) return;
+
+    // imagens do gerenciador de arquivos (sem fundo); o "400x400" faz o CDN entregar a versão reduzida
+    var IMG = 'https://cdn.awsli.com.br/400x400/1357/1357875/arquivos/whatsapp-image-2026-10-15-at-';
+    var CATEGORIAS = [
+      { nome: 'Quartos Completos', url: '/quartos-completos', img: IMG + '15-24-58-4-jpg-editado.png' },
+      { nome: 'Puffs', url: '/pufes-20599788', img: IMG + '15-24-56-3-jpg-editado.png' },
+      { nome: 'Móbiles', url: '/mobiles', img: IMG + '15-24-56-4-jpg-editado.png' },
+      { nome: 'Enfeites de Parede', url: '/enfeites-de-parede', img: IMG + '15-24-56-2-jpg-editado.png' },
+      { nome: 'Decorações Temáticas', url: '/decoracoes-tematicas', img: IMG + '15-24-58-2-jpg-editado.png' },
+      { nome: 'Enxoval', url: '/enxoval', img: IMG + '15-24-59-jpg-editado.png' },
+      { nome: 'Almofadas Decorativas', url: '/almofadas-decorativas', img: IMG + '15-24-57-jpg-editado.png' },
+      { nome: 'Kits de Higiene', url: '/kits-de-higiene', img: IMG + '15-24-56-jpg-editado.png' },
+      { nome: 'Brinquedoteca', url: '/brinquedoteca-23469148', img: IMG + '15-25-00-1-jpg-editado.png' },
+      { nome: 'Ofertas da Semana', url: '/ofertas-da-semana', img: IMG + '15-24-57-3-jpg-editado.png' }
+    ];
+    // cores dos círculos, em sequência (rosa, menta, amarelo)
+    var CORES = ['#fbe4ec', '#dcf2ee', '#fdf1d2'];
+
+    var css =
+      '.abc-circulos{margin:40px 0 20px}' +
+      // dentro do filtro: sem a margem lateral extra do segundo "conteiner"
+      '.abc-filtro .abc-circulos{margin:4px 0 30px}' +
+      '.abc-filtro .abc-circulos>.conteiner{padding-left:0;padding-right:0;width:auto;max-width:none}' +
+      '.abc-filtro .abc-circulos .row-fluid{margin:0}' +
+      '.abc-circulos .titulo-categoria{text-align:center}' +
+      '.abc-circulos-lista{display:block!important;padding:0 44px;position:relative}' +
+      '.abc-circulos-item{display:block;padding:10px 8px 4px;text-align:center;text-decoration:none!important;outline:0}' +
+      '.abc-circulos-img{display:block;position:relative;width:100%;max-width:170px;margin:0 auto;padding-top:min(100%,170px)}' +
+      '.abc-circulos-img:before{content:"";position:absolute;top:12%;right:10%;bottom:8%;left:10%;border-radius:50%;background:var(--abc-cor,#fbe4ec);box-shadow:inset 0 -6px 14px rgba(255,255,255,.7);transition:transform .35s}' +
+      '.abc-circulos-img img{position:absolute;top:0;left:0;z-index:1;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 6px 8px rgba(150,100,100,.16));transition:transform .35s}' +
+      '.abc-circulos-item:hover .abc-circulos-img:before{transform:scale(1.07)}' +
+      '.abc-circulos-item:hover .abc-circulos-img img{transform:translateY(-6px) scale(1.04)}' +
+      '.abc-circulos-nome{display:inline-block;margin-top:10px;font-size:15px;line-height:1.25;color:#5b4a46;border-bottom:2px solid transparent;padding-bottom:2px;transition:color .25s,border-color .25s}' +
+      '.abc-circulos-item:hover .abc-circulos-nome{color:#c9668d;border-color:#eaa9c1}' +
+      // setas próprias (botão redondo branco com seta rosa), iguais às do filtro
+      '.abc-circulos .abc-seta{position:absolute;top:50%;z-index:3;display:flex!important;align-items:center;justify-content:center;width:38px;height:38px;margin-top:-19px;padding:0;border:0;border-radius:50%;background:#fff;color:#c9668d;box-shadow:0 3px 10px rgba(150,100,100,.22);cursor:pointer;transition:transform .2s,background .2s,opacity .2s}' +
+      '.abc-circulos .abc-seta svg{width:18px;height:18px}' +
+      '.abc-circulos .abc-seta:hover{background:#fbe4ec;transform:scale(1.06)}' +
+      '.abc-circulos .abc-seta-prev{left:0}' +
+      '.abc-circulos .abc-seta-next{right:0}' +
+      '.abc-circulos .abc-seta.slick-disabled{opacity:0;pointer-events:none}' +
+      '.abc-circulos-lista .abc-seta.abc-seta{top:40%}' +
+      '.abc-circulos-lista .slick-dots{position:static!important;display:flex!important;justify-content:center;width:100%!important;margin:14px 0 0!important;padding:0;list-style:none;line-height:0}' +
+      '.abc-circulos-lista .slick-dots li{display:inline-block;margin:0 4px}' +
+      '.abc-circulos-lista .slick-dots button{display:block;width:8px;height:8px;padding:0;border:0;border-radius:50%;background:#e2d8d4;font-size:0;cursor:pointer;transition:width .25s,background .25s}' +
+      '.abc-circulos-lista .slick-dots .slick-active button{width:22px;border-radius:4px;background:#eaa9c1}' +
+      '@media(max-width:767px){' +
+      '.abc-circulos{margin-top:28px}' +
+      '.abc-circulos-lista{padding:0 4px}' +
+      '.abc-circulos .abc-seta{width:30px;height:30px;margin-top:-15px}' +
+      '.abc-circulos .abc-seta svg{width:15px;height:15px}' +
+      '.abc-circulos .abc-seta-prev{left:2px}' +
+      '.abc-circulos .abc-seta-next{right:2px}' +
+      '.abc-circulos-item{padding:8px 4px 4px}' +
+      '.abc-circulos-nome{font-size:13px;margin-top:6px}}';
+    $('<style id="abc-circulos-css">').text(css).appendTo('head');
+
+    var $secao = $(
+      '<div class="abc-circulos">' +
+      '<div class="conteiner"><div class="row-fluid">' +
+      '<div class="titulo-categoria"><strong>Navegue por categorias</strong></div>' +
+      '<div class="abc-circulos-lista"></div>' +
+      '</div></div>' +
+      '</div>'
+    );
+    var $lista = $secao.find('.abc-circulos-lista');
+
+    $.each(CATEGORIAS, function (i, c) {
+      $('<div>').append(
+        $('<a class="abc-circulos-item">').attr('href', c.url).append(
+          // via atributo style: o jQuery do tema não aplica variáveis CSS com .css()
+          $('<span class="abc-circulos-img">').attr('style', '--abc-cor:' + CORES[i % CORES.length])
+            .append($('<img loading="lazy">').attr({ src: c.img, alt: c.nome })),
+          $('<span class="abc-circulos-nome">').text(c.nome)
+        )
+      ).appendTo($lista);
+    });
+
+    // Posição: logo abaixo da fileira de quadradinhos do filtro (dentro do bloco dele, antes dos produtos).
+    // Sem o filtro na página, fica logo acima de "Mais vendidos".
+    // O tema monta e reorganiza a home depois que este código roda, e a home é uma coluna flex com 'order'
+    // em cada bloco; por isso a posição é conferida de novo até o tema terminar.
+    function maisVendidos() {
+      var $v = $('.listagem.vitrine-mas-vendido').first();
+      return $v.length ? $v : $('.listagem.vitrine-produtos').not('.abc-filtro').first();
+    }
+    var movimentos = 0;
+    function posicionar() {
+      // não reinsere o bloco se alguém o removeu, e para depois de 30 movimentos (nunca entra em loop)
+      if (movimentos > 30 || !$.contains(document.documentElement, $secao[0])) return;
+      var $quadros = $('.abc-filtro .abc-filtro-abas').first();
+      if ($quadros.length) {
+        if ($secao.prev()[0] !== $quadros[0]) { movimentos++; $quadros.after($secao); }
+        if ($secao[0].style.order) $secao[0].style.order = '';
+      } else {
+        var $v = maisVendidos();
+        if (!$v.length) return;
+        if ($secao.next()[0] !== $v[0]) { movimentos++; $v.before($secao); }
+        var ordem = $v.css('order');
+        if ($secao[0].style.order !== ordem) $secao[0].style.order = ordem;
+      }
+      // se o carrossel foi montado com a home ainda escondida pelo tema, fica com largura zero: recalcula
+      $secao.find('.slick-initialized').each(function () { try { $(this).slick('setPosition'); } catch (e) { } });
+    }
+    function vigiar(fn) {
+      $(fn);
+      $(window).on('load', fn);
+      $.each([300, 1000, 2500, 5000], function (i, ms) { setTimeout(fn, ms); });
+      var corpo = document.getElementById('corpo');
+      if (corpo && window.MutationObserver) {
+        var espera;
+        var obs = new MutationObserver(function () { clearTimeout(espera); espera = setTimeout(fn, 50); });
+        obs.observe(corpo, { childList: true });
+        setTimeout(function () { obs.disconnect(); }, 10000);
+      }
+    }
+    ($('#corpo').length ? $('#corpo') : $('body')).append($secao);
+    posicionar();
+    vigiar(posicionar);
+
+    // setas próprias, que aparecem também no celular
+    var SETA_E = '<button type="button" class="abc-seta abc-seta-prev" aria-label="Anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+    var SETA_D = '<button type="button" class="abc-seta abc-seta-next" aria-label="Próximo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+
+    if ($.fn.slick) {
+      $lista.slick({
+        slidesToShow: 6, slidesToScroll: 2, infinite: true, dots: true, arrows: true, prevArrow: SETA_E, nextArrow: SETA_D,
+        responsive: [
+          { breakpoint: 1024, settings: { slidesToShow: 5, slidesToScroll: 2 } },
+          { breakpoint: 768, settings: { slidesToShow: 4, slidesToScroll: 2 } },
+          { breakpoint: 600, settings: { slidesToShow: 3, slidesToScroll: 3 } }
+        ]
+      });
+    }
+  })(window.jQuery);
+</script>

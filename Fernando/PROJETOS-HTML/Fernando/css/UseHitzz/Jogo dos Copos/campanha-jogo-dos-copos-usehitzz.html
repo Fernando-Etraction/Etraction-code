@@ -1,0 +1,582 @@
+<!-- USEHITZZ — JOGO DOS COPOS | HTML + CSS + JS (sem <body>) -->
+<style>
+  .uh-cups-overlay,
+  .uh-cups-overlay * { box-sizing: border-box; }
+
+  .uh-cups-overlay {
+    --uh-black: #111111;
+    --uh-white: #ffffff;
+    --uh-pink: #ff4f87;
+    --uh-pink-dark: #df2f69;
+    --uh-cream: #fff8f5;
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgba(10, 10, 10, .72);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .uh-game-trigger {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 2147482999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 8px 18px 8px 9px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--uh-black, #111);
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .uh-game-trigger:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(0,0,0,.34); }
+  .uh-game-trigger-icon {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ff4f87;
+    font-size: 19px;
+  }
+  .uh-game-trigger.uh-trigger-hidden { display: none; }
+
+  .uh-cups-overlay.uh-is-open { opacity: 1; visibility: visible; }
+
+  .uh-cups-modal {
+    position: relative;
+    width: min(100%, 430px);
+    min-height: 525px;
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at 0 0, rgba(255,79,135,.16), transparent 36%),
+      var(--uh-cream);
+    box-shadow: 0 24px 70px rgba(0,0,0,.34);
+    color: var(--uh-black);
+    scrollbar-width: thin;
+  }
+
+  .uh-cups-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(17,17,17,.08);
+    color: var(--uh-black);
+    font-size: 25px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .uh-cups-view { display: none; padding: 32px 24px 26px; text-align: center; }
+  .uh-cups-view.uh-is-active { display: block; animation: uhFade .35s ease; }
+
+  .uh-cups-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 10px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    background: var(--uh-black);
+    color: var(--uh-white);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .uh-cups-title {
+    margin: 0;
+    font-size: clamp(26px, 7vw, 36px);
+    line-height: 1.02;
+    letter-spacing: -.035em;
+  }
+
+  .uh-cups-title span { color: var(--uh-pink-dark); }
+
+  .uh-cups-subtitle {
+    max-width: 340px;
+    margin: 12px auto 0;
+    color: #5f5a5c;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .uh-cups-stage {
+    position: relative;
+    height: 188px;
+    margin: 23px 0 7px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #fff 0%, #fff 70%, #f4e5e0 70%, #eddbd5 100%);
+    box-shadow: inset 0 0 0 1px rgba(17,17,17,.06);
+  }
+
+  .uh-prize {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transform: translateX(-50%) scale(0);
+    background: var(--uh-pink);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    box-shadow: 0 7px 18px rgba(223,47,105,.35);
+    transition: transform .32s cubic-bezier(.2,.9,.2,1.3);
+  }
+
+  .uh-prize.uh-show { transform: translateX(-50%) scale(1); }
+
+  .uh-cup {
+    position: absolute;
+    left: 0;
+    bottom: 22px;
+    z-index: 2;
+    width: 31%;
+    height: 108px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    transform: translateX(var(--uh-x));
+    transition: transform .34s cubic-bezier(.55,.01,.35,1);
+    cursor: default;
+  }
+
+  .uh-cup::before {
+    content: "";
+    position: absolute;
+    inset: 24px 13px 5px;
+    border-radius: 8px 8px 13px 13px;
+    background: linear-gradient(135deg, #292929, #050505 72%);
+    box-shadow: inset 7px 0 9px rgba(255,255,255,.08), 0 12px 16px rgba(0,0,0,.18);
+  }
+
+  .uh-cup::after {
+    content: "HITZZ";
+    position: absolute;
+    top: 57px;
+    left: 50%;
+    z-index: 2;
+    color: var(--uh-pink);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .08em;
+    transform: translateX(-50%);
+  }
+
+  .uh-cup > span {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    z-index: 1;
+    width: 53px;
+    height: 30px;
+    border: 7px solid #111;
+    border-bottom: 0;
+    border-radius: 25px 25px 0 0;
+    transform: translateX(-50%);
+  }
+
+  .uh-cup.uh-lift { transform: translateX(var(--uh-x)) translateY(-38px); }
+  .uh-cups-stage.uh-can-pick .uh-cup { cursor: pointer; }
+  .uh-cups-stage.uh-can-pick .uh-cup:hover { filter: brightness(1.18); }
+
+  .uh-cups-status {
+    min-height: 23px;
+    margin: 8px 0 15px;
+    color: #4d4749;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .uh-cups-btn {
+    width: 100%;
+    min-height: 50px;
+    border: 0;
+    border-radius: 13px;
+    background: var(--uh-black);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+
+  .uh-cups-btn:hover { transform: translateY(-1px); }
+  .uh-cups-btn:disabled { opacity: .55; cursor: wait; transform: none; }
+
+  .uh-cups-hint { margin: 11px 0 0; color: #81797c; font-size: 11px; }
+
+  .uh-result-icon {
+    display: grid;
+    place-items: center;
+    width: 66px;
+    height: 66px;
+    margin: 8px auto 15px;
+    border-radius: 50%;
+    background: rgba(255,79,135,.14);
+    color: var(--uh-pink-dark);
+    font-size: 31px;
+  }
+
+  .uh-discount {
+    margin: 17px 0 4px;
+    color: var(--uh-pink-dark);
+    font-size: 46px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.05em;
+  }
+
+  .uh-form { display: grid; gap: 10px; margin-top: 21px; text-align: left; }
+  .uh-field label { display: block; margin: 0 0 5px 3px; font-size: 11px; font-weight: 800; }
+  .uh-field input {
+    width: 100%;
+    height: 47px;
+    border: 1px solid #ded4d0;
+    border-radius: 12px;
+    outline: none;
+    background: #fff;
+    padding: 0 14px;
+    color: #1b1919;
+    font-size: 14px;
+  }
+  .uh-field input:focus { border-color: var(--uh-pink); box-shadow: 0 0 0 3px rgba(255,79,135,.12); }
+
+  .uh-consent { display: flex; align-items: flex-start; gap: 8px; color: #6c6567; font-size: 10px; line-height: 1.35; }
+  .uh-consent input { margin: 2px 0 0; accent-color: var(--uh-pink-dark); }
+  .uh-form-message { min-height: 16px; margin: 0; color: #b42318; font-size: 11px; text-align: center; }
+
+  .uh-coupon-box {
+    margin: 22px 0 12px;
+    padding: 9px 9px 9px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 2px dashed var(--uh-pink);
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .uh-coupon-code { font-size: 20px; font-weight: 900; letter-spacing: .08em; }
+  .uh-copy-btn { border: 0; border-radius: 9px; padding: 10px 12px; background: var(--uh-pink); color: #fff; font-weight: 800; cursor: pointer; }
+  .uh-rules { margin: 12px 0 0; color: #81797c; font-size: 10px; line-height: 1.4; }
+
+  @keyframes uhFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (max-width: 420px) {
+    .uh-cups-overlay { padding: 8px; }
+    .uh-cups-modal { min-height: 500px; max-height: calc(100vh - 16px); border-radius: 19px; }
+    .uh-cups-view { padding: 27px 17px 21px; }
+    .uh-cups-stage { height: 168px; margin-top: 18px; }
+    .uh-cup { height: 98px; }
+    .uh-cup::before { inset-inline: 10px; }
+    .uh-game-trigger { right: 12px; bottom: 12px; padding-right: 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .uh-cup, .uh-cups-overlay, .uh-prize { transition-duration: .01ms !important; }
+  }
+</style>
+
+<button class="uh-game-trigger" id="uhGameTrigger" type="button" aria-haspopup="dialog">
+  <span class="uh-game-trigger-icon" aria-hidden="true">🎁</span>
+  <span>Jogar e ganhar desconto</span>
+</button>
+
+<div class="uh-cups-overlay" id="uhCupsOverlay" aria-hidden="true">
+  <section class="uh-cups-modal" role="dialog" aria-modal="true" aria-labelledby="uhCupsTitle">
+    <button class="uh-cups-close" type="button" aria-label="Fechar">×</button>
+
+    <div class="uh-cups-view uh-is-active" data-view="game">
+      <p class="uh-cups-kicker">Desafio UseHitzz</p>
+      <h2 class="uh-cups-title" id="uhCupsTitle">Encontre o prêmio<br>e ganhe até <span>10% OFF</span></h2>
+      <p class="uh-cups-subtitle">Preste atenção na caixa premiada. Depois da mistura, escolha apenas uma.</p>
+
+      <div class="uh-cups-stage" aria-label="Jogo das três caixas de presente">
+        <span class="uh-prize" aria-hidden="true">10%</span>
+        <button class="uh-cup" type="button" data-cup="0" aria-label="Escolher caixa 1"><span></span></button>
+        <button class="uh-cup" type="button" data-cup="1" aria-label="Escolher caixa 2"><span></span></button>
+        <button class="uh-cup" type="button" data-cup="2" aria-label="Escolher caixa 3"><span></span></button>
+      </div>
+
+      <p class="uh-cups-status" aria-live="polite">Pronta para testar sua atenção?</p>
+      <button class="uh-cups-btn uh-start-btn" type="button">Começar o desafio</button>
+      <p class="uh-cups-hint">Uma tentativa por pessoa.</p>
+    </div>
+
+    <div class="uh-cups-view" data-view="form">
+      <div class="uh-result-icon">✦</div>
+      <p class="uh-cups-kicker">Seu prêmio está reservado</p>
+      <h2 class="uh-cups-title uh-result-title">Você ganhou!</h2>
+      <div class="uh-discount"><span data-discount>10</span>% OFF</div>
+      <p class="uh-cups-subtitle uh-result-copy">Preencha seus dados para revelar o cupom.</p>
+
+      <form class="uh-form" id="uhLeadForm" novalidate>
+        <div class="uh-field"><label for="uhName">Nome</label><input id="uhName" name="name" type="text" autocomplete="name" placeholder="Seu nome" required></div>
+        <div class="uh-field"><label for="uhEmail">E-mail</label><input id="uhEmail" name="email" type="email" autocomplete="email" placeholder="voce@email.com" required></div>
+        <div class="uh-field"><label for="uhPhone">Celular</label><input id="uhPhone" name="phone" type="tel" autocomplete="tel" inputmode="numeric" maxlength="15" placeholder="(00) 00000-0000" required></div>
+        <label class="uh-consent"><input name="consent" type="checkbox" required><span>Aceito receber novidades e ofertas da UseHitzz e concordo com o tratamento dos dados informados.</span></label>
+        <p class="uh-form-message" aria-live="polite"></p>
+        <button class="uh-cups-btn" type="submit">Revelar meu cupom</button>
+      </form>
+    </div>
+
+    <div class="uh-cups-view" data-view="coupon">
+      <div class="uh-result-icon">✓</div>
+      <p class="uh-cups-kicker">Prêmio liberado</p>
+      <h2 class="uh-cups-title">Seu cupom chegou!</h2>
+      <div class="uh-discount"><span data-discount>10</span>% OFF</div>
+      <p class="uh-cups-subtitle">Copie o código e use no carrinho antes que a campanha termine.</p>
+      <div class="uh-coupon-box">
+        <span class="uh-coupon-code" data-coupon>HITZZ10</span>
+        <button class="uh-copy-btn" type="button">Copiar</button>
+      </div>
+      <a class="uh-cups-btn uh-shop-btn" href="/" style="display:grid;place-items:center;text-decoration:none">Usar desconto agora</a>
+      <p class="uh-rules">Cupom de uso único, não cumulativo com outras promoções e sujeito às regras da campanha.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const CONFIG = {
+    coupon10: 'HITZZ10', // TROQUE PELO CÓDIGO REAL DE 10%
+    coupon5: 'HITZZ5',   // TROQUE PELO CÓDIGO REAL DE 5%
+    shopUrl: '/',
+    storageKey: 'usehitzz_cups_campaign_v1',
+    replayAfterDays: 30,
+
+    /* Integração: insira aqui a URL do CRM/webhook. Vazio = demonstração local. */
+    leadEndpoint: '',
+    leadHeaders: { 'Content-Type': 'application/json' }
+  };
+
+  const overlay = document.getElementById('uhCupsOverlay');
+  if (!overlay) return;
+
+  const trigger = document.getElementById('uhGameTrigger');
+  const modal = overlay.querySelector('.uh-cups-modal');
+  const stage = overlay.querySelector('.uh-cups-stage');
+  const cups = Array.from(overlay.querySelectorAll('.uh-cup'));
+  const prize = overlay.querySelector('.uh-prize');
+  const status = overlay.querySelector('.uh-cups-status');
+  const startBtn = overlay.querySelector('.uh-start-btn');
+  const closeBtn = overlay.querySelector('.uh-cups-close');
+  const form = overlay.querySelector('#uhLeadForm');
+  const formMessage = overlay.querySelector('.uh-form-message');
+  const copyBtn = overlay.querySelector('.uh-copy-btn');
+  let positions = [0, 1, 2];
+  let prizeCup = Math.floor(Math.random() * 3);
+  let playing = false;
+  let result = null;
+
+  function xForSlot(slot) { return (slot * 107 + 2) + '%'; }
+  function prizeXForSlot(slot) { return (16.5 + slot * 33.5) + '%'; }
+  function renderPositions() {
+    cups.forEach((cup, index) => cup.style.setProperty('--uh-x', xForSlot(positions[index])));
+  }
+  renderPositions();
+
+  function showView(name) {
+    overlay.querySelectorAll('.uh-cups-view').forEach(view => {
+      view.classList.toggle('uh-is-active', view.dataset.view === name);
+    });
+    modal.scrollTop = 0;
+  }
+
+  function openModal() {
+    overlay.classList.add('uh-is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    setTimeout(() => closeBtn.focus(), 60);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('uh-is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+
+  function setPlayed() {
+    localStorage.setItem(CONFIG.storageKey, JSON.stringify({ playedAt: Date.now(), result }));
+    if (trigger) trigger.classList.add('uh-trigger-hidden');
+  }
+
+  function canOpen() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(CONFIG.storageKey));
+      if (!saved || !saved.playedAt) return true;
+      return Date.now() - saved.playedAt > CONFIG.replayAfterDays * 86400000;
+    } catch (_) { return true; }
+  }
+
+  function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+  async function startGame() {
+    if (playing) return;
+    playing = true;
+    startBtn.disabled = true;
+    startBtn.textContent = 'Observe o prêmio';
+    status.textContent = 'O prêmio está aqui. Não tire os olhos!';
+
+    positions = [0, 1, 2];
+    prizeCup = 1;
+    renderPositions();
+    prize.style.left = prizeXForSlot(positions[prizeCup]);
+    prize.classList.add('uh-show');
+    cups[prizeCup].classList.add('uh-lift');
+    await wait(1050);
+    cups[prizeCup].classList.remove('uh-lift');
+    prize.classList.remove('uh-show');
+    await wait(350);
+
+    status.textContent = 'Misturando...';
+    startBtn.textContent = 'Acompanhe as caixas';
+    const rounds = 9;
+    for (let i = 0; i < rounds; i++) {
+      let a = Math.floor(Math.random() * 3);
+      let b = (a + 1 + Math.floor(Math.random() * 2)) % 3;
+      [positions[a], positions[b]] = [positions[b], positions[a]];
+      renderPositions();
+      await wait(i < 6 ? 300 : 390);
+    }
+
+    playing = false;
+    stage.classList.add('uh-can-pick');
+    status.textContent = 'Agora escolha um copo!';
+    startBtn.style.display = 'none';
+  }
+
+  async function chooseCup(index) {
+    if (playing || !stage.classList.contains('uh-can-pick')) return;
+    playing = true;
+    stage.classList.remove('uh-can-pick');
+
+    const chosenSlot = positions[index];
+    const prizeSlot = positions[prizeCup];
+    const hit = chosenSlot === prizeSlot;
+    result = { discount: hit ? 10 : 5, coupon: hit ? CONFIG.coupon10 : CONFIG.coupon5, hit };
+
+    cups[index].classList.add('uh-lift');
+    prize.style.left = prizeXForSlot(prizeSlot);
+    prize.classList.add('uh-show');
+    status.textContent = hit ? 'Você encontrou o prêmio principal!' : 'Quase! Mas você ainda ganhou um presente.';
+    await wait(1150);
+
+    overlay.querySelector('.uh-result-title').textContent = hit ? 'Você acertou!' : 'Não foi dessa vez...';
+    overlay.querySelector('.uh-result-copy').textContent = hit
+      ? 'Preencha seus dados para revelar seu cupom de 10%.'
+      : 'Mas você ganhou 5% OFF! Preencha seus dados para liberar.';
+    overlay.querySelectorAll('[data-discount]').forEach(el => el.textContent = result.discount);
+    showView('form');
+  }
+
+  function maskPhone(event) {
+    const value = event.target.value.replace(/\D/g, '').slice(0, 11);
+    if (value.length <= 2) event.target.value = value.replace(/(\d{0,2})/, '($1');
+    else if (value.length <= 6) event.target.value = value.replace(/(\d{2})(\d+)/, '($1) $2');
+    else if (value.length <= 10) event.target.value = value.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+    else event.target.value = value.replace(/(\d{2})(\d{5})(\d+)/, '($1) $2-$3');
+  }
+
+  async function submitLead(event) {
+    event.preventDefault();
+    formMessage.textContent = '';
+    if (!form.checkValidity()) {
+      formMessage.textContent = 'Preencha todos os campos corretamente para liberar o cupom.';
+      form.reportValidity();
+      return;
+    }
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Liberando...';
+    const data = Object.fromEntries(new FormData(form).entries());
+    const payload = {
+      name: data.name.trim(),
+      email: data.email.trim().toLowerCase(),
+      phone: data.phone.replace(/\D/g, ''),
+      consent: true,
+      campaign: 'usehitzz_jogo_dos_copos',
+      discount: result.discount,
+      coupon: result.coupon,
+      wonMainPrize: result.hit,
+      pageUrl: location.href,
+      createdAt: new Date().toISOString()
+    };
+
+    try {
+      if (CONFIG.leadEndpoint) {
+        const response = await fetch(CONFIG.leadEndpoint, {
+          method: 'POST', headers: CONFIG.leadHeaders, body: JSON.stringify(payload), keepalive: true
+        });
+        if (!response.ok) throw new Error('Falha no cadastro');
+      } else {
+        /* Evento disponível para GTM/integrações enquanto o endpoint não for definido. */
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'usehitzz_cups_lead', ...payload });
+        document.dispatchEvent(new CustomEvent('usehitzz:cups-lead', { detail: payload }));
+      }
+
+      overlay.querySelector('[data-coupon]').textContent = result.coupon;
+      overlay.querySelector('.uh-shop-btn').href = CONFIG.shopUrl;
+      setPlayed();
+      showView('coupon');
+    } catch (_) {
+      formMessage.textContent = 'Não foi possível enviar agora. Tente novamente em instantes.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Revelar meu cupom';
+    }
+  }
+
+  startBtn.addEventListener('click', startGame);
+  if (trigger) trigger.addEventListener('click', openModal);
+  cups.forEach((cup, index) => cup.addEventListener('click', () => chooseCup(index)));
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', event => { if (event.target === overlay) closeModal(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
+  form.addEventListener('submit', submitLead);
+  form.querySelector('[name="phone"]').addEventListener('input', maskPhone);
+  copyBtn.addEventListener('click', async () => {
+    const code = overlay.querySelector('[data-coupon]').textContent;
+    try { await navigator.clipboard.writeText(code); }
+    catch (_) {
+      const input = document.createElement('input'); input.value = code; document.body.appendChild(input);
+      input.select(); document.execCommand('copy'); input.remove();
+    }
+    copyBtn.textContent = 'Copiado!';
+    setTimeout(() => copyBtn.textContent = 'Copiar', 1800);
+  });
+
+  if (!canOpen() && trigger) trigger.classList.add('uh-trigger-hidden');
+  window.UseHitzzCups = { open: openModal, close: closeModal, config: CONFIG };
+})();
+</script>

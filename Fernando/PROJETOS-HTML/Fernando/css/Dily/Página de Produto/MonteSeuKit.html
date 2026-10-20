@@ -1,0 +1,1603 @@
+<!-- =========================================================
+     ETRACTION | KIT DILY - 3 REGATAS POR R$99 / 6 POR R$189
+     Colar no Magazord (scripts da página de produto).
+     Só roda nas PDPs configuradas em CONFIG.produtos.
+     O desconto continua sendo aplicado pela promoção do carrinho.
+========================================================= -->
+<style>
+    /* =========================================================
+   COMPRA NATIVA
+   Kit 3 / Kit 6: esconde cor, tamanho, quantidade e COMPRAR.
+   1 unidade: mostra a compra nativa normal da Magazord.
+========================================================= */
+
+    body.etraction-kit-ativo:not(.etraction-kit-unitario) #produto-react-app .derivacoes-produto,
+    body.etraction-kit-ativo:not(.etraction-kit-unitario) #produto-react-app .quantidade-comprar {
+        display: none !important;
+    }
+
+    /*
+ * Ordem da área de compra (é flex coluna):
+ * tabela de medidas > abas do kit > cor/tamanho > COMPRAR > resto.
+ */
+    body.etraction-kit-ativo #produto-react-app .area-buy-product>* {
+        order: 10;
+    }
+
+    body.etraction-kit-ativo #produto-react-app #button-measure-table {
+        order: 1;
+        /* Separa do "+ formas de pagamento". */
+        margin-top: 14px;
+    }
+
+    body.etraction-kit-ativo #produto-react-app .etraction-kit-dily {
+        order: 2;
+    }
+
+    body.etraction-kit-ativo #produto-react-app .derivacoes-produto {
+        order: 3;
+    }
+
+    body.etraction-kit-ativo #produto-react-app .quantidade-comprar {
+        order: 4;
+    }
+
+    /* No unitário o bloco do kit fica só com as abas. */
+    body.etraction-kit-unitario .etraction-kit-dily__combos {
+        margin-bottom: 0;
+    }
+
+    .etraction-kit-dily,
+    .etraction-kit-dily *,
+    .etraction-kit-dily-modal,
+    .etraction-kit-dily-modal * {
+        box-sizing: border-box;
+    }
+
+    .etraction-kit-dily {
+        width: 100%;
+        margin: 14px 0;
+        color: #1c1c1c;
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    .etraction-kit-dily button,
+    .etraction-kit-dily-modal button {
+        font-family: inherit;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* =========================================================
+   ABAS (1 unidade / Kit 3 / Kit 6)
+========================================================= */
+
+    .etraction-kit-dily__combos {
+        display: grid;
+        /* Uma coluna por opção (1 unidade / Kit 3 / Kit 6). */
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .etraction-kit-dily__combo {
+        appearance: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        padding: 10px 6px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #1c1c1c;
+    }
+
+    .etraction-kit-dily__combo.is-active {
+        border: 2px solid #1c1c1c;
+        padding: 9px 5px;
+    }
+
+    .etraction-kit-dily__combo-name {
+        font-size: 13px;
+        line-height: 1.2;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .etraction-kit-dily__combo-price {
+        font-size: 11px;
+        line-height: 1.2;
+        color: #777;
+    }
+
+    .etraction-kit-dily__combo-badge {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 2px 8px;
+        background: #1f9d55;
+        border-radius: 999px;
+        font-size: 9px;
+        line-height: 1.3;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: #fff;
+    }
+
+    /* =========================================================
+   ESPAÇOS DO KIT
+========================================================= */
+
+    .etraction-kit-dily__heading {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        margin-bottom: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .etraction-kit-dily__heading small {
+        font-size: 11px;
+        font-weight: 400;
+        text-transform: none;
+        color: #888;
+    }
+
+    .etraction-kit-dily__slots {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .etraction-kit-dily__slot {
+        position: relative;
+        border: 1px solid #e3e3e3;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .etraction-kit-dily__slot-open {
+        appearance: none;
+        display: block;
+        width: 100%;
+        padding: 0;
+        background: none;
+        border: 0;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .etraction-kit-dily__slot-media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: #f1f1f1;
+        font-size: 22px;
+        font-weight: 600;
+        color: #c4c4c4;
+    }
+
+    .etraction-kit-dily__slots.is-compact .etraction-kit-dily__slot-media {
+        aspect-ratio: 4 / 3;
+    }
+
+    .etraction-kit-dily__slot-media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .etraction-kit-dily__slot-label {
+        display: block;
+        padding: 6px 4px;
+        font-size: 11px;
+        line-height: 1.2;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #1c1c1c;
+    }
+
+    .etraction-kit-dily__slot-remove {
+        appearance: none;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        background: rgba(255, 255, 255, .92);
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 13px;
+        line-height: 20px;
+        color: #1c1c1c;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    }
+
+    /* =========================================================
+   PREÇO + BOTÃO
+========================================================= */
+
+    .etraction-kit-dily__price {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0 10px;
+    }
+
+    .etraction-kit-dily__price s {
+        font-size: 13px;
+        color: #999;
+    }
+
+    .etraction-kit-dily__price strong {
+        font-size: 22px;
+        line-height: 1;
+        font-weight: 800;
+    }
+
+    .etraction-kit-dily__price span {
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 700;
+        color: #1f9d55;
+    }
+
+    .etraction-kit-dily__button,
+    .etraction-kit-dily-modal__save {
+        appearance: none;
+        width: 100%;
+        height: 48px;
+        padding: 0 16px;
+        background: #1c1c1c;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        color: #fff;
+    }
+
+    .etraction-kit-dily__button:hover:not(:disabled),
+    .etraction-kit-dily-modal__save:hover:not(:disabled) {
+        opacity: .88;
+    }
+
+    .etraction-kit-dily__button:disabled,
+    .etraction-kit-dily-modal__save:disabled {
+        background: #8a8a8a;
+        cursor: not-allowed;
+    }
+
+    .etraction-kit-dily__error {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #c0392b;
+        text-align: center;
+    }
+
+    /* =========================================================
+   JANELA DE ESCOLHA DA PEÇA
+========================================================= */
+
+    .etraction-kit-dily-modal {
+        position: fixed;
+        inset: 0;
+        /* Acima de pop-ups da loja (provador, avisos, chat). */
+        z-index: 2147483000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        color: #1c1c1c;
+        font-family: inherit;
+        font-size: 12px;
+    }
+
+    .etraction-kit-dily-modal[hidden] {
+        display: none;
+    }
+
+    .etraction-kit-dily-modal__backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, .45);
+    }
+
+    .etraction-kit-dily-modal__box {
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        max-height: calc(100vh - 32px);
+        overflow-y: auto;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+    }
+
+    .etraction-kit-dily-modal__close {
+        appearance: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        background: #fff;
+        border: 0;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        line-height: 30px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
+    }
+
+    .etraction-kit-dily-modal__media {
+        width: 100%;
+        height: 240px;
+        background: #f1f1f1;
+    }
+
+    .etraction-kit-dily-modal__media img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .etraction-kit-dily-modal__body {
+        padding: 14px 16px 16px;
+    }
+
+    .etraction-kit-dily-modal__step {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        color: #888;
+    }
+
+    .etraction-kit-dily-modal__field {
+        margin-bottom: 12px;
+    }
+
+    .etraction-kit-dily-modal__label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 12px;
+        color: #777;
+    }
+
+    .etraction-kit-dily-modal__label b {
+        font-weight: 700;
+        color: #1c1c1c;
+    }
+
+    .etraction-kit-dily-modal__options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .etraction-kit-dily-modal__option {
+        appearance: none;
+        min-width: 46px;
+        height: 38px;
+        padding: 0 12px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1c1c1c;
+    }
+
+    .etraction-kit-dily-modal__option.is-selected {
+        background: #1c1c1c;
+        border-color: #1c1c1c;
+        color: #fff;
+    }
+
+    .etraction-kit-dily-modal__option:disabled {
+        opacity: .3;
+        cursor: not-allowed;
+        text-decoration: line-through;
+    }
+
+    .etraction-kit-dily-modal__color {
+        appearance: none;
+        width: 30px;
+        height: 30px;
+        padding: 2px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .etraction-kit-dily-modal__color img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .etraction-kit-dily-modal__color.is-selected {
+        border-color: #1c1c1c;
+        box-shadow: 0 0 0 1px #1c1c1c;
+    }
+
+    .etraction-kit-dily-modal__color:disabled {
+        opacity: .25;
+        cursor: not-allowed;
+    }
+
+    /* Celular: janela sobe de baixo */
+    @media (max-width: 600px) {
+
+        .etraction-kit-dily-modal {
+            align-items: flex-end;
+            padding: 0;
+        }
+
+        .etraction-kit-dily-modal__box {
+            max-width: none;
+            max-height: 92vh;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .etraction-kit-dily-modal__media {
+            height: 200px;
+        }
+    }
+</style>
+
+<script>
+    (function () {
+        'use strict';
+
+        /* =====================================================
+           CONFIGURAÇÃO
+        ===================================================== */
+
+        var CONFIG = {
+
+            /*
+             * Produtos que participam do kit.
+             * id = produto_id do Magazord (dataProduct.produto.produto_id)
+             */
+            produtos: [
+                {
+                    id: 588,
+                    rotulo: 'Básica',
+                    url: '/regata-alcinha-basica-poliamida-com-entrada-para-bojo-removivel'
+                },
+                {
+                    id: 596,
+                    rotulo: 'Lisa',
+                    url: '/regata-alcinha-basica-poliamida-lisa-com-entrada-para-bojo-removive'
+                }
+            ],
+
+            /*
+             * Opções de compra. O valor é só informativo:
+             * quem aplica o desconto é a promoção do carrinho.
+             * preco: 0 = usa o preço normal do produto (unitário).
+             */
+            combos: [
+                { nome: '1 unidade', pecas: 1, preco: 35.91 , selo: '' },
+                { nome: 'Kit 3', pecas: 3, preco: 99, selo: '' },
+                { nome: 'Kit 6', pecas: 6, preco: 189, selo: 'Melhor preço' }
+            ],
+
+            /* Posição da opção que já vem marcada (1 = Kit 3). */
+            comboInicial: 1,
+
+            /* Cache do produto buscado via fetch (minutos). */
+            cacheMinutos: 10
+        };
+
+        var COMPONENT_ID = 'etraction-kit-dily';
+        var MODAL_ID = 'etraction-kit-dily-modal';
+        var CACHE_PREFIX = 'etraction-kit-dily:';
+
+        /*
+         * O kit entra ANTES do primeiro seletor encontrado:
+         * logo abaixo da tabela de medidas (antes da garantia).
+         * Ajuste aqui se o template mobile usar outra estrutura.
+         */
+        var ANCHORS = [
+            '#produto-react-app .info-garantia',
+            '#produto-react-app .quantidade-comprar',
+            '#produto-react-app .derivacoes-produto'
+        ];
+
+        /* Classe no body que esconde a compra nativa (ver CSS). */
+        var BODY_CLASS = 'etraction-kit-ativo';
+
+        /* Classe no body quando "1 unidade" está marcado: volta a compra nativa. */
+        var UNIT_CLASS = 'etraction-kit-unitario';
+
+
+        /* =====================================================
+           UTILITÁRIOS
+        ===================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value == null ? '' : value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+
+        function formatMoney(value) {
+
+            return Number(value).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).replace(',00', '');
+        }
+
+
+        function resizeImage(url, size) {
+
+            if (!url) {
+                return '';
+            }
+
+            return url.split('?')[0] + '?ims=' + size;
+        }
+
+
+        function getDataProduct() {
+
+            try {
+                /* const global do Magazord (não fica em window). */
+                /* eslint-disable-next-line no-undef */
+                return typeof dataProduct !== 'undefined' ? dataProduct : null;
+            }
+
+            catch (error) {
+                return null;
+            }
+        }
+
+
+        function getHostImagem() {
+
+            var data = getDataProduct();
+
+            var host =
+                (data && data.hostImagem) ||
+                'https://dily.cdn.magazord.com.br';
+
+            return host.replace(/\/$/, '') + '/';
+        }
+
+
+        /* =====================================================
+           NORMALIZA O PRODUTO DO MAGAZORD
+        ===================================================== */
+
+        function normalizeProduct(produto, conf) {
+
+            var host = getHostImagem();
+
+            var skus = (produto.derivacoes || []).map(function (sku) {
+
+                var item = {
+                    codigo: sku.codigo,
+                    deposito: sku.deposito || 1,
+                    estoque: Number(sku.qtde_estoque) || 0,
+                    cor: '',
+                    corOrdem: 0,
+                    corImagem: '',
+                    tamanho: '',
+                    tamanhoOrdem: 0,
+                    imagem: ''
+                };
+
+                (sku.derivacoes_produto || []).forEach(function (deriv) {
+
+                    if (deriv.deri_id === 1 || /cor/i.test(deriv.deri_nome)) {
+
+                        item.cor = deriv.derivacao;
+                        item.corOrdem = deriv.ordem || 0;
+
+                        if (deriv.midia_url) {
+                            item.corImagem = deriv.midia_url;
+                        }
+
+                        else if (deriv.midia_path && deriv.midia_arquivo_nome) {
+                            item.corImagem = host + deriv.midia_path + deriv.midia_arquivo_nome;
+                        }
+                    }
+
+                    else if (deriv.deri_id === 2 || /tamanho/i.test(deriv.deri_nome)) {
+
+                        item.tamanho = deriv.derivacao;
+                        item.tamanhoOrdem = deriv.ordem || 0;
+                    }
+                });
+
+                var midia = sku.midias && sku.midias[0];
+
+                if (midia && midia.midia_url) {
+                    item.imagem = midia.midia_url;
+                }
+
+                else if (sku.midia_url) {
+                    item.imagem = sku.midia_url;
+                }
+
+                else if (sku.midia_path && sku.midia_arquivo_nome) {
+                    item.imagem = host + sku.midia_path + sku.midia_arquivo_nome;
+                }
+
+                return item;
+
+            }).filter(function (item) {
+
+                return item.codigo && item.cor && item.tamanho;
+            });
+
+
+            var cores = [];
+            var tamanhos = [];
+
+            skus.slice()
+                .sort(function (a, b) { return a.corOrdem - b.corOrdem; })
+                .forEach(function (sku) {
+
+                    if (cores.every(function (c) { return c.nome !== sku.cor; })) {
+                        cores.push({ nome: sku.cor, imagem: sku.corImagem });
+                    }
+                });
+
+            skus.slice()
+                .sort(function (a, b) { return a.tamanhoOrdem - b.tamanhoOrdem; })
+                .forEach(function (sku) {
+
+                    if (tamanhos.indexOf(sku.tamanho) === -1) {
+                        tamanhos.push(sku.tamanho);
+                    }
+                });
+
+            return {
+                id: produto.produto_id,
+                rotulo: conf.rotulo,
+                valor: Number(produto.valor) || 0,
+                skus: skus,
+                cores: cores,
+                tamanhos: tamanhos
+            };
+        }
+
+
+        /* =====================================================
+           BUSCA O OUTRO PRODUTO DO KIT
+        ===================================================== */
+
+        function readCache(conf) {
+
+            try {
+
+                var raw = sessionStorage.getItem(CACHE_PREFIX + conf.id);
+
+                if (!raw) {
+                    return null;
+                }
+
+                var cached = JSON.parse(raw);
+
+                if (Date.now() - cached.time > CONFIG.cacheMinutos * 60000) {
+                    return null;
+                }
+
+                return cached.data;
+            }
+
+            catch (error) {
+                return null;
+            }
+        }
+
+
+        function writeCache(conf, data) {
+
+            try {
+                sessionStorage.setItem(
+                    CACHE_PREFIX + conf.id,
+                    JSON.stringify({ time: Date.now(), data: data })
+                );
+            }
+
+            catch (error) {
+                /* sem storage, segue sem cache */
+            }
+        }
+
+
+        function fetchProduct(conf) {
+
+            var cached = readCache(conf);
+
+            if (cached) {
+                return Promise.resolve(cached);
+            }
+
+            return fetch(conf.url, { credentials: 'same-origin' })
+                .then(function (response) {
+
+                    if (!response.ok) {
+                        throw new Error('HTTP ' + response.status);
+                    }
+
+                    return response.text();
+                })
+                .then(function (html) {
+
+                    /*
+                     * O Magazord imprime "produto: {...}," em uma
+                     * única linha dentro do const dataProduct.
+                     */
+                    var match = html.match(/\bproduto:\s*(\{.*\}),\s*$/m);
+
+                    if (!match) {
+                        throw new Error('dataProduct não encontrado');
+                    }
+
+                    var data = normalizeProduct(JSON.parse(match[1]), conf);
+
+                    writeCache(conf, data);
+
+                    return data;
+                });
+        }
+
+
+        /* =====================================================
+           PONTO DE INSERÇÃO
+        ===================================================== */
+
+        function getAnchor() {
+
+            for (var i = 0; i < ANCHORS.length; i++) {
+
+                var anchor = document.querySelector(ANCHORS[i]);
+
+                if (anchor) {
+                    return anchor;
+                }
+            }
+
+            return null;
+        }
+
+
+        function mount(root) {
+
+            var anchor = getAnchor();
+
+            if (!anchor || !anchor.parentNode) {
+                return false;
+            }
+
+            if (root.nextElementSibling !== anchor) {
+                anchor.parentNode.insertBefore(root, anchor);
+            }
+
+            return true;
+        }
+
+
+        /* =====================================================
+           INICIALIZA
+        ===================================================== */
+
+        function init() {
+
+            if (document.getElementById(COMPONENT_ID)) {
+                return true;
+            }
+
+            var data = getDataProduct();
+
+            if (!data || !data.produto || !getAnchor()) {
+                return false;
+            }
+
+            var currentConf = CONFIG.produtos.filter(function (conf) {
+                return conf.id === data.produto.produto_id;
+            })[0];
+
+            /* Não é uma das PDPs do kit: encerra sem fazer nada. */
+            if (!currentConf) {
+                return true;
+            }
+
+
+            /* =================================================
+               ESTADO
+            ================================================= */
+
+            var modeloPadrao = CONFIG.produtos.indexOf(currentConf);
+
+            var state = {
+                combo: CONFIG.comboInicial,
+                modelos: CONFIG.produtos.map(function () { return null; }),
+
+                /* Peças do kit (null = espaço vazio). */
+                kit: [],
+
+                /* Espaço sendo editado na janela (null = fechada). */
+                editando: null,
+
+                /* Rascunho da peça na janela. */
+                rascunho: null,
+
+                /* Última peça escolhida: vira o padrão da próxima. */
+                ultima: null,
+
+                adicionando: false,
+                erro: ''
+            };
+
+            state.modelos[modeloPadrao] =
+                normalizeProduct(data.produto, currentConf);
+
+
+            function totalPecas() {
+                return CONFIG.combos[state.combo].pecas;
+            }
+
+
+            /* preco 0 = preço normal do produto x quantidade. */
+            function precoCombo(combo) {
+                return combo.preco || state.modelos[modeloPadrao].valor * combo.pecas;
+            }
+
+
+            function ajustaKit() {
+
+                var total = totalPecas();
+
+                state.kit = state.kit.slice(0, total);
+
+                while (state.kit.length < total) {
+                    state.kit.push(null);
+                }
+            }
+
+
+            function findSku(peca) {
+
+                var produto = state.modelos[peca.modelo];
+
+                if (!produto) {
+                    return null;
+                }
+
+                return produto.skus.filter(function (sku) {
+                    return sku.cor === peca.cor && sku.tamanho === peca.tamanho;
+                })[0] || null;
+            }
+
+
+            function corDisponivel(peca, cor) {
+
+                return state.modelos[peca.modelo].skus.some(function (sku) {
+                    return sku.cor === cor && sku.estoque > 0;
+                });
+            }
+
+
+            function tamanhoDisponivel(peca, tamanho) {
+
+                return state.modelos[peca.modelo].skus.some(function (sku) {
+                    return sku.tamanho === tamanho &&
+                        (!peca.cor || sku.cor === peca.cor) &&
+                        sku.estoque > 0;
+                });
+            }
+
+
+            function limpaIndisponiveis(peca) {
+
+                if (peca.cor && !corDisponivel(peca, peca.cor)) {
+                    peca.cor = '';
+                }
+
+                if (peca.tamanho && !tamanhoDisponivel(peca, peca.tamanho)) {
+                    peca.tamanho = '';
+                }
+            }
+
+
+            /* Foto do modelo na cor da peça (ou a primeira cor). */
+            function imagemPeca(peca) {
+
+                var produto = state.modelos[peca.modelo];
+
+                if (!produto) {
+                    return '';
+                }
+
+                var sku = produto.skus.filter(function (item) {
+                    return peca.cor ? item.cor === peca.cor : true;
+                })[0];
+
+                return sku ? sku.imagem : '';
+            }
+
+
+            function copiaPeca(peca) {
+                return { modelo: peca.modelo, cor: peca.cor, tamanho: peca.tamanho };
+            }
+
+
+            ajustaKit();
+
+
+            /* =================================================
+               CRIA COMPONENTE + JANELA
+            ================================================= */
+
+            var root = document.createElement('section');
+
+            root.id = COMPONENT_ID;
+            root.className = 'etraction-kit-dily';
+
+            mount(root);
+
+            /*
+             * Só esconde a compra nativa depois que o kit está na página:
+             * se algo falhar antes daqui, o produto continua comprável.
+             */
+            document.body.classList.add(BODY_CLASS);
+
+
+            /* A janela fica no body para não sofrer com overflow da coluna. */
+            var modal = document.createElement('div');
+
+            modal.id = MODAL_ID;
+            modal.className = 'etraction-kit-dily-modal';
+            modal.hidden = true;
+
+            document.body.appendChild(modal);
+
+
+            /*
+             * O React do Magazord pode re-renderizar a área de compra.
+             * Se o kit sair do DOM, reinsere o mesmo elemento (mantém o estado).
+             */
+            var reactApp = document.getElementById('produto-react-app');
+
+            if (reactApp && 'MutationObserver' in window) {
+
+                /*
+                 * Agrupa as mudanças em um único quadro: evita reinserir o
+                 * bloco várias vezes seguidas enquanto o React re-renderiza.
+                 */
+                var remontagem = null;
+
+                new MutationObserver(function () {
+
+                    if (remontagem) {
+                        return;
+                    }
+
+                    remontagem = requestAnimationFrame(function () {
+
+                        remontagem = null;
+
+                        if (!root.isConnected || root.nextElementSibling !== getAnchor()) {
+                            mount(root);
+                        }
+                    });
+
+                }).observe(reactApp, { childList: true, subtree: true });
+            }
+
+
+            /*
+             * Ao voltar do carrinho (botão "voltar"), o navegador restaura a
+             * página como estava, ainda em "Adicionando…". Reinicia o kit.
+             */
+            window.addEventListener('pageshow', function (event) {
+
+                if (!event.persisted) {
+                    return;
+                }
+
+                state.adicionando = false;
+                state.erro = '';
+                state.kit = [];
+                state.editando = null;
+                state.rascunho = null;
+
+                ajustaKit();
+                renderModal();
+                render();
+
+                if (window.Zord && typeof Zord.unblock === 'function') {
+                    Zord.unblock();
+                }
+            });
+
+
+            /* =================================================
+               RENDER DO BLOCO
+            ================================================= */
+
+            function render() {
+
+                var combo = CONFIG.combos[state.combo];
+                var total = combo.pecas;
+                var produtoAtual = state.modelos[modeloPadrao];
+                var unitario = total === 1;
+
+                var escolhidas = state.kit.filter(Boolean).length;
+                var faltam = total - escolhidas;
+
+                /* 1 unidade: mostra cor/tamanho/COMPRAR nativos (ver CSS). */
+                document.body.classList.toggle(UNIT_CLASS, unitario);
+
+
+                /* ABAS */
+
+                var combosHTML = CONFIG.combos.map(function (item, index) {
+
+                    return (
+                        '<button type="button" class="etraction-kit-dily__combo' +
+                        (index === state.combo ? ' is-active' : '') +
+                        '" data-kit-combo="' + index + '">' +
+                        (item.selo
+                            ? '<span class="etraction-kit-dily__combo-badge">' + escapeHTML(item.selo) + '</span>'
+                            : '') +
+                        '<span class="etraction-kit-dily__combo-name">' + escapeHTML(item.nome) + '</span>' +
+                        '<span class="etraction-kit-dily__combo-price">' + formatMoney(precoCombo(item)) + '</span>' +
+                        '</button>'
+                    );
+
+                }).join('');
+
+
+                /* No unitário o bloco é só as abas; a compra é a nativa. */
+                if (unitario) {
+
+                    root.innerHTML =
+                        '<div class="etraction-kit-dily__combos">' + combosHTML + '</div>';
+
+                    return;
+                }
+
+
+                /* ESPAÇOS */
+
+                var slotsHTML = state.kit.map(function (peca, index) {
+
+                    if (!peca) {
+
+                        return (
+                            '<div class="etraction-kit-dily__slot">' +
+                            '<button type="button" class="etraction-kit-dily__slot-open" data-kit-slot="' + index + '">' +
+                            '<span class="etraction-kit-dily__slot-media">' + (index + 1) + '</span>' +
+                            '<span class="etraction-kit-dily__slot-label">Escolher</span>' +
+                            '</button>' +
+                            '</div>'
+                        );
+                    }
+
+                    var imagem = imagemPeca(peca);
+
+                    return (
+                        '<div class="etraction-kit-dily__slot">' +
+                        '<button type="button" class="etraction-kit-dily__slot-open" data-kit-slot="' + index + '"' +
+                        ' title="Alterar peça ' + (index + 1) + '">' +
+                        '<span class="etraction-kit-dily__slot-media">' +
+                        (imagem
+                            ? '<img src="' + escapeHTML(resizeImage(imagem, '240x320')) + '" alt="">'
+                            : '') +
+                        '</span>' +
+                        '<span class="etraction-kit-dily__slot-label">' +
+                        escapeHTML(peca.cor + ' · ' + peca.tamanho) +
+                        '</span>' +
+                        '</button>' +
+                        '<button type="button" class="etraction-kit-dily__slot-remove"' +
+                        ' data-kit-remove="' + index + '" aria-label="Remover peça ' + (index + 1) + '">×</button>' +
+                        '</div>'
+                    );
+
+                }).join('');
+
+
+                /* PREÇO */
+
+                var preco = precoCombo(combo);
+                var precoDe = produtoAtual.valor * total;
+
+                var precoHTML =
+                    (precoDe > preco ? '<s>' + formatMoney(precoDe) + '</s>' : '') +
+                    '<strong>' + formatMoney(preco) + '</strong>' +
+                    '<span>' + formatMoney(preco / total) + '/un</span>';
+
+
+                /* BOTÃO */
+
+                var textoBotao = state.adicionando
+                    ? 'Adicionando…'
+                    : (faltam > 0
+                        ? 'Escolha mais ' + faltam + (faltam === 1 ? ' peça' : ' peças')
+                        : 'Adicionar kit ao carrinho');
+
+
+                root.innerHTML =
+
+                    '<div class="etraction-kit-dily__combos">' + combosHTML + '</div>' +
+
+                    '<div class="etraction-kit-dily__heading">' +
+                    'Monte seu kit <small>toque para escolher</small>' +
+                    '</div>' +
+
+                    '<div class="etraction-kit-dily__slots' + (total > 3 ? ' is-compact' : '') + '">' +
+                    slotsHTML +
+                    '</div>' +
+
+                    '<div class="etraction-kit-dily__price">' + precoHTML + '</div>' +
+
+                    '<button type="button" class="etraction-kit-dily__button" data-kit-action="buy"' +
+                    (faltam > 0 || state.adicionando ? ' disabled' : '') + '>' +
+                    textoBotao +
+                    '</button>' +
+
+                    (state.erro
+                        ? '<div class="etraction-kit-dily__error">' + escapeHTML(state.erro) + '</div>'
+                        : '');
+            }
+
+
+            /* =================================================
+               RENDER DA JANELA
+            ================================================= */
+
+            function renderModal() {
+
+                if (state.editando === null) {
+
+                    modal.hidden = true;
+                    modal.innerHTML = '';
+                    document.documentElement.style.overflow = '';
+                    return;
+                }
+
+                var peca = state.rascunho;
+                var produto = state.modelos[peca.modelo];
+                var imagem = imagemPeca(peca);
+                var completa = !!findSku(peca) && findSku(peca).estoque > 0;
+                var editandoCheio = !!state.kit[state.editando];
+
+
+                var disponiveis = state.modelos
+                    .map(function (modelo, index) { return modelo ? index : -1; })
+                    .filter(function (index) { return index !== -1; });
+
+                var modeloHTML = disponiveis.length > 1
+                    ? (
+                        '<div class="etraction-kit-dily-modal__field">' +
+                        '<span class="etraction-kit-dily-modal__label">Modelo</span>' +
+                        '<div class="etraction-kit-dily-modal__options">' +
+                        disponiveis.map(function (index) {
+
+                            return (
+                                '<button type="button" class="etraction-kit-dily-modal__option' +
+                                (index === peca.modelo ? ' is-selected' : '') +
+                                '" data-kit-model="' + index + '">' +
+                                escapeHTML(state.modelos[index].rotulo) +
+                                '</button>'
+                            );
+
+                        }).join('') +
+                        '</div>' +
+                        '</div>'
+                    )
+                    : '';
+
+
+                var coresHTML = produto.cores.map(function (cor, index) {
+
+                    return (
+                        '<button type="button" class="etraction-kit-dily-modal__color' +
+                        (cor.nome === peca.cor ? ' is-selected' : '') +
+                        '" data-kit-color="' + index + '"' +
+                        ' title="' + escapeHTML(cor.nome) + '"' +
+                        ' aria-label="' + escapeHTML(cor.nome) + '"' +
+                        (corDisponivel(peca, cor.nome) ? '' : ' disabled') + '>' +
+                        (cor.imagem
+                            ? '<img src="' + escapeHTML(cor.imagem) + '" alt="">'
+                            : '') +
+                        '</button>'
+                    );
+
+                }).join('');
+
+
+                var tamanhosHTML = produto.tamanhos.map(function (tamanho, index) {
+
+                    return (
+                        '<button type="button" class="etraction-kit-dily-modal__option' +
+                        (tamanho === peca.tamanho ? ' is-selected' : '') +
+                        '" data-kit-size="' + index + '"' +
+                        (tamanhoDisponivel(peca, tamanho) ? '' : ' disabled') + '>' +
+                        escapeHTML(tamanho) +
+                        '</button>'
+                    );
+
+                }).join('');
+
+
+                var textoSalvar = !peca.cor
+                    ? 'Escolha a cor'
+                    : (!peca.tamanho
+                        ? 'Escolha o tamanho'
+                        : (editandoCheio ? 'Salvar peça' : 'Adicionar ao kit'));
+
+
+                modal.innerHTML =
+
+                    '<div class="etraction-kit-dily-modal__backdrop" data-kit-close></div>' +
+
+                    '<div class="etraction-kit-dily-modal__box" role="dialog" aria-modal="true"' +
+                    ' aria-label="Escolher peça ' + (state.editando + 1) + '">' +
+
+                    '<button type="button" class="etraction-kit-dily-modal__close" data-kit-close aria-label="Fechar">×</button>' +
+
+                    '<div class="etraction-kit-dily-modal__media">' +
+                    (imagem
+                        ? '<img src="' + escapeHTML(resizeImage(imagem, '480x640')) + '" alt="">'
+                        : '') +
+                    '</div>' +
+
+                    '<div class="etraction-kit-dily-modal__body">' +
+
+                    '<span class="etraction-kit-dily-modal__step">' +
+                    'Peça ' + (state.editando + 1) + ' de ' + totalPecas() +
+                    '</span>' +
+
+                    modeloHTML +
+
+                    '<div class="etraction-kit-dily-modal__field">' +
+                    '<span class="etraction-kit-dily-modal__label">Cor' +
+                    (peca.cor ? ': <b>' + escapeHTML(peca.cor) + '</b>' : '') +
+                    '</span>' +
+                    '<div class="etraction-kit-dily-modal__options">' + coresHTML + '</div>' +
+                    '</div>' +
+
+                    '<div class="etraction-kit-dily-modal__field">' +
+                    '<span class="etraction-kit-dily-modal__label">Tamanho' +
+                    (peca.tamanho ? ': <b>' + escapeHTML(peca.tamanho) + '</b>' : '') +
+                    '</span>' +
+                    '<div class="etraction-kit-dily-modal__options">' + tamanhosHTML + '</div>' +
+                    '</div>' +
+
+                    '<button type="button" class="etraction-kit-dily-modal__save" data-kit-action="save"' +
+                    (completa ? '' : ' disabled') + '>' +
+                    textoSalvar +
+                    '</button>' +
+
+                    '</div>' +
+
+                    '</div>';
+
+                modal.hidden = false;
+                document.documentElement.style.overflow = 'hidden';
+            }
+
+
+            function abreJanela(index) {
+
+                var peca = state.kit[index] || state.ultima;
+
+                state.editando = index;
+
+                state.rascunho = peca
+                    ? copiaPeca(peca)
+                    : { modelo: modeloPadrao, cor: '', tamanho: '' };
+
+                limpaIndisponiveis(state.rascunho);
+
+                renderModal();
+            }
+
+
+            function fechaJanela() {
+
+                state.editando = null;
+                state.rascunho = null;
+
+                renderModal();
+            }
+
+
+            /* =================================================
+               ADICIONAR AO CARRINHO
+            ================================================= */
+
+            function addToCart() {
+
+                if (state.adicionando) {
+                    return;
+                }
+
+                /* Agrupa peças iguais em um único item com quantidade. */
+                var agrupado = {};
+                var itens = [];
+
+                state.kit.forEach(function (peca) {
+
+                    var sku = findSku(peca);
+
+                    if (!agrupado[sku.codigo]) {
+
+                        agrupado[sku.codigo] = {
+                            codigo: sku.codigo,
+                            quantidade: 0,
+                            deposito: String(sku.deposito),
+                            personalizacao: [],
+                            estoque: sku.estoque,
+                            nome: peca.cor + ' ' + peca.tamanho
+                        };
+
+                        itens.push(agrupado[sku.codigo]);
+                    }
+
+                    agrupado[sku.codigo].quantidade++;
+                });
+
+                var semEstoque = itens.filter(function (item) {
+                    return item.quantidade > item.estoque;
+                })[0];
+
+                if (semEstoque) {
+
+                    state.erro = 'Estoque insuficiente para ' + semEstoque.nome + '.';
+                    render();
+                    return;
+                }
+
+                var produtos = itens.map(function (item) {
+
+                    return {
+                        codigo: item.codigo,
+                        quantidade: item.quantidade,
+                        deposito: item.deposito,
+                        personalizacao: item.personalizacao
+                    };
+                });
+
+                state.adicionando = true;
+                state.erro = '';
+                render();
+
+                var finaliza = function () {
+                    Zord.redir('checkout/cart');
+                };
+
+                /* Se o carrinho não abrir, libera o botão de novo. */
+                setTimeout(function () {
+
+                    if (state.adicionando) {
+                        state.adicionando = false;
+                        render();
+                    }
+
+                }, 10000);
+
+                try {
+
+                    if (Zord.checkout && typeof Zord.checkout.addCarts === 'function') {
+
+                        /* Mesma função usada pelo "Compre Junto" nativo. */
+                        Zord.checkout.addCarts(produtos, finaliza, { source: 'Produto' });
+                    }
+
+                    else {
+
+                        Zord.call('checkout/cart', 'AddMultiples', { produtos: produtos }, finaliza)
+                            .fail(function () {
+                                state.adicionando = false;
+                                render();
+                            });
+                    }
+                }
+
+                catch (error) {
+
+                    console.warn('[eTraction Kit Dily]', error);
+
+                    state.adicionando = false;
+                    state.erro = 'Não foi possível adicionar o kit. Tente novamente.';
+                    render();
+                }
+            }
+
+
+            /* =================================================
+               EVENTOS DO BLOCO
+            ================================================= */
+
+            root.addEventListener('click', function (event) {
+
+                var target = event.target.closest('button');
+
+                if (!target || target.disabled || !root.contains(target)) {
+                    return;
+                }
+
+                state.erro = '';
+
+                if (target.hasAttribute('data-kit-combo')) {
+
+                    state.combo = Number(target.getAttribute('data-kit-combo'));
+                    ajustaKit();
+                    render();
+                }
+
+                else if (target.hasAttribute('data-kit-remove')) {
+
+                    state.kit[Number(target.getAttribute('data-kit-remove'))] = null;
+                    render();
+                }
+
+                else if (target.hasAttribute('data-kit-slot')) {
+
+                    abreJanela(Number(target.getAttribute('data-kit-slot')));
+                }
+
+                else if (target.getAttribute('data-kit-action') === 'buy') {
+
+                    addToCart();
+                }
+            });
+
+
+            /* =================================================
+               EVENTOS DA JANELA
+            ================================================= */
+
+            modal.addEventListener('click', function (event) {
+
+                if (event.target.closest('[data-kit-close]')) {
+                    fechaJanela();
+                    return;
+                }
+
+                var target = event.target.closest('button');
+
+                if (!target || target.disabled || state.editando === null) {
+                    return;
+                }
+
+                var peca = state.rascunho;
+                var produto = state.modelos[peca.modelo];
+
+                if (target.hasAttribute('data-kit-model')) {
+
+                    peca.modelo = Number(target.getAttribute('data-kit-model'));
+                    limpaIndisponiveis(peca);
+                }
+
+                else if (target.hasAttribute('data-kit-color')) {
+
+                    peca.cor = produto.cores[Number(target.getAttribute('data-kit-color'))].nome;
+                    limpaIndisponiveis(peca);
+                }
+
+                else if (target.hasAttribute('data-kit-size')) {
+
+                    peca.tamanho = produto.tamanhos[Number(target.getAttribute('data-kit-size'))];
+                }
+
+                else if (target.getAttribute('data-kit-action') === 'save') {
+
+                    state.kit[state.editando] = copiaPeca(peca);
+                    state.ultima = copiaPeca(peca);
+
+                    fechaJanela();
+                    render();
+                    return;
+                }
+
+                renderModal();
+            });
+
+
+            document.addEventListener('keydown', function (event) {
+
+                if (event.key === 'Escape' && state.editando !== null) {
+                    fechaJanela();
+                }
+            });
+
+
+            render();
+
+
+            /* =================================================
+               CARREGA OS OUTROS MODELOS DO KIT
+            ================================================= */
+
+            CONFIG.produtos.forEach(function (conf, index) {
+
+                if (state.modelos[index]) {
+                    return;
+                }
+
+                fetchProduct(conf)
+                    .then(function (produto) {
+
+                        if (produto.skus.length) {
+
+                            state.modelos[index] = produto;
+
+                            render();
+
+                            if (state.editando !== null) {
+                                renderModal();
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        console.warn('[eTraction Kit Dily] Falha ao carregar ' + conf.url, error);
+                    });
+            });
+
+            return true;
+        }
+
+
+        /* =====================================================
+           AGUARDA O REACT DO MAGAZORD
+        ===================================================== */
+
+        var tentativas = 0;
+
+        (function waitInit() {
+
+            if (init() || ++tentativas > 60) {
+                return;
+            }
+
+            setTimeout(waitInit, 250);
+        })();
+
+    })();
+</script>
