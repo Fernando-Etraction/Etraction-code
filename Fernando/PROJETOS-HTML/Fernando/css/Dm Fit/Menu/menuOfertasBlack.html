@@ -1,0 +1,546 @@
+<style>
+/* =========================================================
+   MENU | OFERTAS BLACK DMFIT
+   Modelo 01: categoria piscando, primeira do menu, com submenu
+   Desktop: #nav-root | Celular: gaveta .menu-mobile-box
+========================================================= */
+
+@keyframes etractionDmfitObPisca {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .35;
+    }
+
+}
+
+
+@keyframes etractionDmfitObPonto {
+
+    0% {
+        box-shadow: 0 0 0 0 rgba(235, 8, 112, .6);
+    }
+
+    100% {
+        box-shadow: 0 0 0 7px rgba(235, 8, 112, 0);
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+#nav-root > li.etraction-dmfit-ob {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+}
+
+
+/* com o item novo o menu anda para a direita e os submenus vazios da loja
+   (Liquida, Atacado) passavam da tela, criando rolagem lateral */
+#nav-root > li.not-has-childs > .container-menu:not(:has(li)) {
+    display: none !important;
+}
+
+
+/* ids no seletor para ganhar do "#header-react-app a { color }" da loja */
+#header-react-app #nav-root > li.etraction-dmfit-ob > a.etraction-dmfit-ob__link {
+    position: relative !important;
+    z-index: 2 !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 7px !important;
+
+    padding: 15px 8px !important;
+
+    color: #eb0870 !important;
+
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+
+    white-space: nowrap !important;
+}
+
+
+#header-react-app #nav-root > li.etraction-dmfit-ob .etraction-dmfit-ob__txt {
+    color: #eb0870 !important;
+
+    letter-spacing: .04em !important;
+
+    animation: etractionDmfitObPisca 1.2s ease-in-out infinite !important;
+}
+
+
+.etraction-dmfit-ob__ponto {
+    flex: 0 0 auto !important;
+
+    width: 7px !important;
+    height: 7px !important;
+
+    border-radius: 50% !important;
+
+    background: #eb0870 !important;
+
+    animation: etractionDmfitObPonto 1.2s ease-out infinite !important;
+}
+
+
+#header-react-app #nav-root > li.etraction-dmfit-ob .etraction-dmfit-ob__seta path {
+    fill: #eb0870 !important;
+}
+
+
+.etraction-dmfit-ob__seta {
+    width: 12px !important;
+    height: 12px !important;
+
+    transition: transform .2s ease !important;
+}
+
+
+#nav-root > li.etraction-dmfit-ob:hover .etraction-dmfit-ob__seta,
+#nav-root > li.etraction-dmfit-ob:focus-within .etraction-dmfit-ob__seta {
+    transform: rotate(180deg) !important;
+}
+
+
+/* submenu */
+
+.etraction-dmfit-ob__drop {
+    position: absolute !important;
+    z-index: 30 !important;
+
+    top: 100% !important;
+    left: -12px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 270px !important;
+
+    padding: 8px !important;
+
+    border-top: 3px solid #eb0870 !important;
+    border-radius: 0 0 10px 10px !important;
+
+    background: #ffffff !important;
+
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .16) !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+
+    transform: translateY(6px) !important;
+
+    transition: opacity .2s ease, transform .2s ease, visibility .2s !important;
+}
+
+
+#nav-root > li.etraction-dmfit-ob:hover .etraction-dmfit-ob__drop,
+#nav-root > li.etraction-dmfit-ob:focus-within .etraction-dmfit-ob__drop {
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transform: translateY(0) !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob__item {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 2px !important;
+
+    padding: 10px 12px !important;
+
+    border-radius: 7px !important;
+
+    color: #191919 !important;
+
+    font-family: Montserrat, Arial, sans-serif !important;
+    text-align: left !important;
+    text-decoration: none !important;
+
+    transition: background-color .2s ease !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob__item:hover {
+    background: #fff0f6 !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob__item strong {
+    color: #191919 !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob__item span {
+    color: #eb0870 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   CELULAR (gaveta do menu)
+========================================================= */
+
+.etraction-dmfit-ob-m {
+    display: block !important;
+
+    border-bottom: 1px solid #f1e3ea !important;
+
+    background: #fff7fb !important;
+}
+
+
+.etraction-dmfit-ob-m__btn {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    width: 100% !important;
+    height: 48px !important;
+
+    margin: 0 !important;
+    padding: 0 12px 0 8px !important;
+
+    border: 0 !important;
+
+    background: transparent !important;
+
+    color: #eb0870 !important;
+
+    font-family: inherit !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    text-align: left !important;
+    text-transform: uppercase !important;
+
+    cursor: pointer !important;
+}
+
+
+.etraction-dmfit-ob-m__btn .etraction-dmfit-ob__txt {
+    flex: 1 1 auto !important;
+
+    color: #eb0870 !important;
+
+    letter-spacing: .04em !important;
+
+    animation: etractionDmfitObPisca 1.2s ease-in-out infinite !important;
+}
+
+
+/* a gaveta da loja pinta os svg de preto */
+.etraction-dmfit-ob-m__btn .etraction-dmfit-ob__seta path,
+#header-react-app .menu-mobile-box .etraction-dmfit-ob-m__btn svg.etraction-dmfit-ob__seta path {
+    fill: #eb0870 !important;
+}
+
+
+.etraction-dmfit-ob-m__btn[aria-expanded="true"] .etraction-dmfit-ob__seta {
+    transform: rotate(180deg) !important;
+}
+
+
+.etraction-dmfit-ob-m__lista {
+    display: flex !important;
+    flex-direction: column !important;
+
+    padding: 0 8px 8px !important;
+}
+
+
+.etraction-dmfit-ob-m__lista[hidden] {
+    display: none !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob-m .etraction-dmfit-ob__item {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 2px !important;
+
+    padding: 10px 12px !important;
+
+    border-radius: 7px !important;
+
+    background: #ffffff !important;
+
+    color: #191919 !important;
+
+    text-decoration: none !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob-m .etraction-dmfit-ob__item + .etraction-dmfit-ob__item {
+    margin-top: 6px !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob-m .etraction-dmfit-ob__item strong {
+    color: #191919 !important;
+
+    font-size: 13px !important;
+    font-weight: 800 !important;
+}
+
+
+#header-react-app .etraction-dmfit-ob-m .etraction-dmfit-ob__item span {
+    color: #eb0870 !important;
+
+    font-size: 11px !important;
+    font-weight: 700 !important;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .etraction-dmfit-ob__txt,
+    .etraction-dmfit-ob__ponto {
+        animation: none !important;
+    }
+
+}
+</style>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+
+    var CONFIG = {
+
+        ROTULO: "Ofertas Black",
+
+        // o próprio item também leva para a página principal da ação
+        LINK: "/esquenta-black",
+
+        SUBMENU: [
+            { NOME: "Esquenta Black", DETALHE: "Peças com até 50% OFF", LINK: "/esquenta-black" },
+            { NOME: "Macaquinhos por R$79", DETALHE: "Desconto direto no PIX", LINK: "/macaquinhotudo79" },
+            { NOME: "Conjuntos por R$89", DETALHE: "Desconto direto no PIX", LINK: "/conjuntotudo89" }
+        ]
+    };
+
+
+    var SETA =
+        '<svg class="etraction-dmfit-ob__seta" viewBox="0 0 256 256" aria-hidden="true">' +
+        '<path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>' +
+        '</svg>';
+
+
+    function itens() {
+
+        var html = "";
+
+
+        for (var i = 0; i < CONFIG.SUBMENU.length; i++) {
+
+            var s =
+                CONFIG.SUBMENU[i];
+
+            html +=
+                '<a class="etraction-dmfit-ob__item" href="' + s.LINK + '">' +
+                '<strong>' + s.NOME + '</strong>' +
+                '<span>' + s.DETALHE + '</span>' +
+                '</a>';
+        }
+
+
+        return html;
+    }
+
+
+    // menu do desktop
+    function criarDesktop() {
+
+        var nav =
+            document.querySelector("#nav-root");
+
+
+        if (!nav || nav.querySelector(":scope > .etraction-dmfit-ob")) {
+            return;
+        }
+
+
+        var li =
+            document.createElement("li");
+
+        li.className =
+            "etraction-dmfit-ob";
+
+        li.innerHTML =
+            '<a class="etraction-dmfit-ob__link" href="' + CONFIG.LINK + '" aria-haspopup="true">' +
+            '<i class="etraction-dmfit-ob__ponto" aria-hidden="true"></i>' +
+            '<span class="etraction-dmfit-ob__txt">' + CONFIG.ROTULO + '</span>' +
+            SETA +
+            '</a>' +
+            '<div class="etraction-dmfit-ob__drop">' + itens() + '</div>';
+
+
+        nav.insertBefore(li, nav.firstElementChild);
+    }
+
+
+    // gaveta do celular: lista principal (a que não está dentro de outro item)
+    function criarCelular() {
+
+        var gaveta =
+            document.querySelector(".menu-mobile-box");
+
+
+        if (!gaveta) {
+            return;
+        }
+
+
+        var listas =
+            gaveta.querySelectorAll("ul");
+
+        var lista = null;
+
+
+        for (var i = 0; i < listas.length; i++) {
+
+            if (!listas[i].closest("li") && listas[i].querySelector(':scope > li[class*="menu-list-"]')) {
+                lista = listas[i];
+                break;
+            }
+        }
+
+
+        if (!lista || lista.querySelector(":scope > .etraction-dmfit-ob-m")) {
+            return;
+        }
+
+
+        var li =
+            document.createElement("li");
+
+        li.className =
+            "etraction-dmfit-ob-m";
+
+        li.innerHTML =
+            '<button type="button" class="etraction-dmfit-ob-m__btn" aria-expanded="false" aria-controls="etraction-dmfit-ob-m-lista">' +
+            '<i class="etraction-dmfit-ob__ponto" aria-hidden="true"></i>' +
+            '<span class="etraction-dmfit-ob__txt">' + CONFIG.ROTULO + '</span>' +
+            SETA +
+            '</button>' +
+            '<div class="etraction-dmfit-ob-m__lista" id="etraction-dmfit-ob-m-lista" hidden>' + itens() + '</div>';
+
+
+        var botao =
+            li.querySelector("button");
+
+        var sub =
+            li.querySelector(".etraction-dmfit-ob-m__lista");
+
+
+        botao.addEventListener(
+            "click",
+            function () {
+
+                var abrir =
+                    botao.getAttribute("aria-expanded") !== "true";
+
+                botao.setAttribute("aria-expanded", String(abrir));
+
+                sub.hidden = !abrir;
+            }
+        );
+
+
+        lista.insertBefore(li, lista.firstElementChild);
+    }
+
+
+    function criar() {
+
+        criarDesktop();
+
+        criarCelular();
+    }
+
+
+    function iniciar() {
+
+        criar();
+
+
+        // o header é React e a gaveta do celular só monta quando abre: confere de novo
+        var agendado = false;
+
+
+        new MutationObserver(
+            function () {
+
+                if (agendado) {
+                    return;
+                }
+
+
+                agendado = true;
+
+                setTimeout(
+                    function () {
+                        agendado = false;
+                        criar();
+                    },
+                    80
+                );
+            }
+        ).observe(
+            document.body,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciar,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        iniciar();
+    }
+
+})();
+</script>

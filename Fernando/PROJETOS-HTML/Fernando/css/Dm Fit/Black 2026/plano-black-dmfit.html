@@ -1,0 +1,627 @@
+<title>Black DMFit 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: faixa de datas no topo; cada data abre seus mockups (desktop + 3 telas de celular) com pinos numerados que batem com a lista de ideias. Telas da loja usam cores fixas (--s-*), como prints. */
+:root{
+  --bg:#f6f4f5; --surface:#ffffff; --fg:#19161a; --muted:#6d6570; --line:#e4dde2;
+  --accent:#c9065b; --accent-fill:#eb0870; --on-accent:#ffffff;
+  --s-pink:#eb0870; --s-pink-lt:#ff5aa8; --s-wash:#fff0f6; --s-black:#0b0a0b; --s-ink:#141214; --s-white:#ffffff;
+  --s-grey:#ecebed; --s-photo:#efedee; --s-graphite:#1b191c; --s-muted:#77707a; --s-line:#ebe7ea; --s-shade:rgba(10,8,10,.55);
+  --f-display:"Archivo","Arial Narrow",Arial,system-ui,sans-serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#131013; --surface:#1c181c; --fg:#f3eef2; --muted:#a89fa9; --line:#332d33; --accent:#ff5aa3; color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#131013; --surface:#1c181c; --fg:#f3eef2; --muted:#a89fa9; --line:#332d33; --accent:#ff5aa3; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2{font-family:var(--f-display);margin:0;line-height:1;text-wrap:balance}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* ---------- Página ---------- */
+.top{padding-block:36px 20px;display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 24px}
+.top h1{font-size:clamp(40px,7vw,76px);font-weight:900;font-variation-settings:"wdth" 66;letter-spacing:-.02em}
+.top h1 em{font-style:normal;color:var(--accent-fill)}
+.top p{margin:0;color:var(--muted);max-width:52ch}
+.dates{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;padding-bottom:6px}
+.dt{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px 12px;text-align:left;cursor:pointer;display:grid;gap:2px;min-width:0}
+.dt b{font-family:var(--f-display);font-size:30px;font-weight:900;font-variation-settings:"wdth" 70;line-height:1}
+.dt b small{font-size:13px;font-weight:700;margin-left:3px;color:var(--muted);font-variation-settings:"wdth" 100}
+.dt span{font-size:12.5px;font-weight:700;line-height:1.25}
+.dt[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dt[aria-selected="true"] small{color:inherit;opacity:.7}
+.month-note{font-size:13px;color:var(--muted);margin:8px 0 0}
+.month-note b{color:var(--fg)}
+.offer{padding-block:30px 10px}
+.oh{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:8px 24px;margin-bottom:18px}
+.oh .ey{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.oh h2{font-size:clamp(30px,4.4vw,46px);font-weight:900;font-variation-settings:"wdth" 74;margin-top:4px}
+.oh p{margin:6px 0 0;font-size:16px}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.04em;padding:5px 10px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.tag.ok{border-color:var(--accent);color:var(--accent)}
+.cap{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.scale{position:relative;overflow:hidden;width:100%}
+.scale>.inner{position:absolute;left:0;top:0;transform-origin:0 0}
+.phones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:26px}
+.ideas{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px}
+.ideas li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start;font-size:15px;padding:12px 0;border-top:1px solid var(--line)}
+.ideas li i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--accent-fill);color:var(--on-accent);font-weight:800;font-size:13px;display:grid;place-items:center}
+.check{padding-block:40px 20px}
+.check h2{font-size:26px;font-weight:900;font-variation-settings:"wdth" 80;margin-bottom:12px}
+.check ul{margin:0;padding-left:20px;display:grid;gap:6px;max-width:80ch}
+.foot{padding-block:20px 44px;color:var(--muted);font-size:12.5px}
+@media (max-width:1000px){.dates{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:760px){
+  .phones{grid-template-columns:minmax(0,1fr);max-width:340px;margin-left:auto;margin-right:auto}
+  .ideas{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:420px){.dates{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- Loja: base ---------- */
+.s{font-family:var(--f-body);color:var(--fg2);background:var(--bg2);position:relative;overflow:hidden}
+.s *{box-sizing:border-box}
+.s img{display:block;max-width:none}
+.xb{font-family:var(--f-display);font-weight:900;line-height:.8;letter-spacing:-.02em;font-variation-settings:"wdth" 62}
+.kk{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.ct{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.06em;padding:14px 24px;border-radius:999px;white-space:nowrap;justify-self:start;align-self:flex-start}
+.ct svg{width:15px;height:15px}
+.pin{position:absolute;z-index:30;width:26px;height:26px;border-radius:50%;background:var(--s-pink);color:var(--s-white);font:800 13px/26px var(--f-body);text-align:center;box-shadow:0 0 0 3px var(--s-white),0 4px 12px rgba(0,0,0,.35)}
+.dk .pin{transform:scale(1.7)}
+.tmr{font-variant-numeric:tabular-nums}
+
+/* desktop */
+.dk{width:1280px;height:820px;border-radius:14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
+.chrome{height:40px;background:#e9e6e8;display:flex;align-items:center;gap:7px;padding:0 16px}
+.chrome i{width:12px;height:12px;border-radius:50%;background:#cfc9cd}
+.chrome span{margin-left:16px;background:var(--s-white);color:var(--s-muted);border-radius:8px;padding:5px 14px;font-size:13px;flex:1}
+.t-d{position:relative;height:44px;display:flex;align-items:center;justify-content:center;gap:20px;background:var(--tb);color:var(--tf);font-size:13.5px;font-weight:700}
+.t-d .bg{font:900 13px/1 var(--f-display);letter-spacing:.16em}
+.t-d .sep{width:1px;height:18px;background:currentColor;opacity:.35}
+.chipT{border:1px solid currentColor;border-radius:6px;padding:4px 8px;font-weight:800;font-size:13px;letter-spacing:.04em}
+.h-d{height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;border-bottom:1px solid var(--line2);background:var(--bg2)}
+.logo{font:900 26px/1 var(--f-display);font-variation-settings:"wdth" 115;letter-spacing:-.02em;position:relative}
+.logo span{color:var(--s-pink)}
+.nav{display:flex;gap:26px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;position:relative}
+.nav .hot{background:var(--s-pink);color:var(--s-white);padding:4px 10px;border-radius:5px}
+.ico{display:flex;gap:18px;align-items:center}
+.ico svg{width:22px;height:22px}
+.bag{position:relative}
+.bag i{position:absolute;right:-6px;top:-5px;width:16px;height:16px;border-radius:50%;background:var(--s-pink);color:var(--s-white);font:800 9.5px/16px var(--f-body);text-align:center;font-style:normal}
+.sec{display:flex;justify-content:space-between;align-items:baseline;padding:30px 40px 16px}
+.sec b{font:850 26px/1 var(--f-display);font-variation-settings:"wdth" 82}
+.sec span{font-size:13px;font-weight:700;text-decoration:underline}
+.g-d{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;padding:0 40px}
+
+/* celular */
+.pf{width:395px;height:832px;border-radius:54px;background:var(--s-black);padding:10px;box-shadow:0 24px 50px -24px rgba(0,0,0,.55)}
+.ps{width:375px;height:812px;border-radius:44px;overflow:hidden;position:relative}
+.isl{position:absolute;top:11px;left:50%;width:112px;height:32px;margin-left:-56px;border-radius:20px;background:#000;z-index:40}
+.hom{position:absolute;bottom:8px;left:50%;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:var(--fg2);opacity:.85;z-index:41}
+.sb{height:50px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 32px 7px;font-weight:800;font-size:14.5px;background:var(--tb);color:var(--tf)}
+.t-m{position:relative;height:32px;display:flex;align-items:center;overflow:hidden;background:var(--tb);color:var(--tf);font-size:11px;font-weight:800;letter-spacing:.07em}
+.trk{display:inline-flex;white-space:nowrap;animation:marq 20s linear infinite}
+.trk span{display:inline-flex;align-items:center;gap:14px;padding-right:14px}
+.trk span::after{content:"";width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.6}
+@keyframes marq{to{transform:translateX(-50%)}}
+.t-m .tm{position:absolute;right:0;top:0;bottom:0;display:flex;align-items:center;gap:6px;padding:0 10px 0 12px;background:var(--tb);box-shadow:-14px 0 12px var(--tb)}
+.t-m .tm .chipT{font-size:11.5px;padding:2px 6px}
+.h-m{position:relative;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line2);background:var(--bg2)}
+.h-m .logo{font-size:22px}
+.h-m svg{width:23px;height:23px}
+.sec-m{display:flex;justify-content:space-between;align-items:baseline;padding:20px 14px 12px}
+.sec-m b{font:850 20px/1 var(--f-display);font-variation-settings:"wdth" 82}
+.sec-m span{font-size:12px;font-weight:700;text-decoration:underline}
+.flt{position:relative;display:flex;gap:6px;padding:0 14px 12px}
+.flt span{border:1px solid var(--line2);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;white-space:nowrap}
+.flt span.on{background:var(--fg2);color:var(--bg2);border-color:var(--fg2)}
+.g-m{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;padding:0 14px}
+.stk{position:absolute;left:12px;right:12px;bottom:24px;z-index:20;background:var(--tb);color:var(--tf);border-radius:18px;padding:10px 10px 10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.stk small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;opacity:.85}
+.stk b{font:900 20px/1 var(--f-display);letter-spacing:.03em}
+.stk span{background:var(--tf);color:var(--tb);font-weight:800;font-size:12px;letter-spacing:.05em;padding:11px 16px;border-radius:999px}
+
+/* card */
+.cd{position:relative;display:grid;gap:6px;color:var(--fg2);align-content:start}
+.cd .im{position:relative;aspect-ratio:3/4;border-radius:10px;overflow:hidden;background:var(--s-photo)}
+.cd .im img{width:100%;height:100%;object-fit:cover}
+.bd{position:absolute;left:8px;top:8px;font:900 12px/1 var(--f-display);letter-spacing:.06em;padding:6px 8px;border-radius:5px;background:var(--s-pink);color:var(--s-white)}
+.bd.k{background:var(--s-black)}
+.bd2{position:absolute;left:8px;top:34px;font-size:10px;font-weight:800;padding:4px 7px;border-radius:5px;background:var(--s-white);color:var(--s-ink)}
+.hrt{position:absolute;right:8px;top:8px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--s-ink)}
+.hrt svg{width:15px;height:15px}
+.dots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:4px}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.6)}
+.dots i:first-child{background:var(--s-white);width:16px;border-radius:3px}
+.cd .nm{font-size:12.5px;font-weight:600;line-height:1.3;min-height:32px}
+.pr{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.old{font-size:11.5px;color:var(--mut2);text-decoration:line-through}
+.now{font:900 19px/1 var(--f-display);font-variation-settings:"wdth" 85;color:var(--acc2)}
+.eco{font-size:10.5px;font-weight:800;color:var(--acc2)}
+.tmw{font-size:10.5px;font-weight:700;color:var(--mut2)}
+.sw{display:flex;gap:5px}
+.sw i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}
+.sw i.on{box-shadow:0 0 0 2px var(--bg2),0 0 0 3.5px var(--fg2)}
+.g-d .cd .nm{font-size:14px}
+.g-d .now{font-size:24px}
+.g-d .bd{font-size:14px;padding:7px 10px}
+
+/* pdp */
+.pd-im{position:relative;height:460px;background:var(--s-photo)}
+.pd-im img{width:100%;height:100%;object-fit:cover}
+.pd-b{padding:14px 16px;display:grid;gap:9px}
+.pd-b .nm{font-size:16px;font-weight:700;line-height:1.3}
+.pd-b .now{font-size:30px}
+.offc{font:900 13px/1 var(--f-display);background:var(--s-pink);color:var(--s-white);padding:5px 7px;border-radius:5px}
+.parc{font-size:12px;color:var(--mut2)}
+.bx{position:relative;border:1.5px solid var(--acc2);border-radius:12px;padding:11px 13px;display:grid;gap:5px;font-size:13px}
+.bx-h{font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--acc2)}
+.bx b{color:var(--acc2)}
+.bx-t{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700}
+.bx-t .chipT{color:var(--acc2)}
+.swp{position:relative;display:flex;gap:7px}
+.swp div{width:52px;height:64px;border-radius:8px;overflow:hidden;background:var(--s-photo)}
+.swp div.on{box-shadow:0 0 0 2px var(--bg2),0 0 0 4px var(--fg2)}
+.swp img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.sz{display:flex;gap:6px}
+.sz span{border:1px solid var(--line2);border-radius:8px;width:44px;padding:8px 0;text-align:center;font-size:12.5px;font-weight:700}
+.sz span.on{background:var(--fg2);color:var(--bg2);border-color:var(--fg2)}
+.buy{position:absolute;left:0;right:0;bottom:0;padding:12px 16px 28px;background:var(--bg2);border-top:1px solid var(--line2);z-index:15}
+.buy div{background:var(--btn);color:var(--btnf);text-align:center;font-weight:800;font-size:14px;letter-spacing:.05em;padding:15px;border-radius:12px}
+.kit2{display:flex;align-items:center;gap:8px}
+.kit2 div{width:52px;height:52px;border-radius:8px;overflow:hidden;background:var(--s-photo)}
+.kit2 img{width:100%;height:100%;object-fit:cover}
+.kit2 span{font:900 18px/1 var(--f-display);color:var(--mut2)}
+.kit2 b{font:900 26px/1 var(--f-display)}
+.ben{margin:0;padding:0;list-style:none;display:grid;gap:5px;font-size:13px;font-weight:600}
+.ben li{display:flex;gap:8px;align-items:center}
+.ben li::before{content:"";width:16px;height:16px;flex:0 0 16px;border-radius:50%;background:var(--s-pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/100% no-repeat}
+.code{display:flex;align-items:center;justify-content:space-between;border:1.5px dashed var(--acc2);border-radius:9px;padding:7px 7px 7px 12px}
+.code b{font:900 20px/1 var(--f-display);letter-spacing:.08em}
+.code span{background:var(--acc2);color:var(--bg2);font-size:11px;font-weight:800;padding:7px 10px;border-radius:6px}
+.bar{height:8px;border-radius:99px;background:var(--line2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--s-pink)}
+.mini{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:10px;align-items:center;font-size:12.5px;font-weight:600}
+.mini .th{width:48px;height:60px;border-radius:7px;overflow:hidden;background:var(--s-photo)}
+.mini .th img{width:100%;height:100%;object-fit:cover}
+.mini .add{width:32px;height:32px;border-radius:50%;background:var(--fg2);color:var(--bg2);display:grid;place-items:center;font-weight:800;font-size:18px}
+
+/* carrinho */
+.ct-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line2);font:850 20px/1 var(--f-display);font-variation-settings:"wdth" 85}
+.ct-h span{font-family:var(--f-body);font-size:22px;font-weight:500}
+.it{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;padding:14px 16px;border-bottom:1px solid var(--line2)}
+.it .th{width:72px;height:96px;border-radius:9px;overflow:hidden;background:var(--s-photo)}
+.it .th img{width:100%;height:100%;object-fit:cover}
+.it .nm{font-size:13px;font-weight:600;line-height:1.3}
+.it .meta{font-size:11.5px;color:var(--mut2);margin-top:3px}
+.it .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.qty{display:flex;align-items:center;gap:12px;border:1px solid var(--line2);border-radius:8px;padding:4px 10px;font-weight:700;font-size:13px}
+.cbx{position:relative;margin:14px 16px;border-radius:14px;padding:14px;display:grid;gap:10px;font-size:13px;background:var(--panel)}
+.cbx .tt{font-weight:800;font-size:14px}
+.cbx .tt b{color:var(--acc2)}
+.sug{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.sug div{position:relative}
+.sug .th{aspect-ratio:3/4;border-radius:8px;overflow:hidden;background:var(--s-photo)}
+.sug img{width:100%;height:100%;object-fit:cover}
+.sug span{position:absolute;right:5px;bottom:5px;background:var(--s-white);color:var(--s-ink);font-size:10.5px;font-weight:800;padding:4px 6px;border-radius:6px}
+.tot{position:absolute;left:0;right:0;bottom:0;padding:14px 16px 28px;border-top:1px solid var(--line2);background:var(--bg2);display:grid;gap:10px}
+.tot .r{display:flex;justify-content:space-between;font-weight:700;font-size:14px}
+.tot .r.s{font-size:12.5px;font-weight:600;color:var(--mut2)}
+.tot .bt{background:var(--btn);color:var(--btnf);text-align:center;font-weight:800;font-size:14px;letter-spacing:.05em;padding:15px;border-radius:12px}
+
+/* pop-up (bottom sheet) */
+.ovl{position:absolute;inset:0;background:var(--s-shade);z-index:25}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:26;background:var(--s-white);color:var(--s-ink);border-radius:26px 26px 0 0;padding:12px 20px 34px;display:grid;gap:12px}
+.sheet.dkk{background:var(--s-black);color:var(--s-white)}
+.grab{width:42px;height:5px;border-radius:3px;background:#d7d2d5;justify-self:center}
+.sheet h5{margin:0;font:900 26px/1.02 var(--f-display);font-variation-settings:"wdth" 78}
+.sheet p{margin:0;font-size:13.5px;opacity:.75}
+.sheet .bt{background:var(--s-pink);color:var(--s-white);text-align:center;font-weight:800;font-size:14px;letter-spacing:.05em;padding:15px;border-radius:12px}
+.sheet .lk{text-align:center;font-size:12.5px;font-weight:700;text-decoration:underline;opacity:.7}
+.tb3{display:flex;gap:8px}
+.tb3 span{flex:1;display:grid;justify-items:center;gap:3px;background:var(--s-grey);color:var(--s-ink);border-radius:10px;padding:9px 0 7px}
+.tb3 b{font:900 30px/1 var(--f-display);font-variation-settings:"wdth" 80}
+.tb3 i{font-style:normal;font-size:9.5px;font-weight:800;letter-spacing:.1em;opacity:.65}
+.dkk .tb3 span{background:#262326;color:var(--s-white)}
+.choose{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.choose div{display:grid;gap:5px;font-size:12px;font-weight:700;text-align:center}
+.choose .th{aspect-ratio:3/4;border-radius:10px;overflow:hidden;background:var(--s-photo)}
+.choose img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.choose div.on .th{box-shadow:0 0 0 3px var(--s-pink)}
+.scr{position:relative;height:92px;border-radius:14px;overflow:hidden;background:var(--s-white);color:var(--s-ink);display:grid;place-items:center}
+.scr b{font:900 34px/1 var(--f-display);letter-spacing:.08em;color:var(--s-pink)}
+.scr svg{position:absolute;inset:0;width:100%;height:100%}
+.rl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;align-items:center}
+.rl .th{position:relative;height:140px;border-radius:12px;overflow:hidden;background:var(--s-photo)}
+.rl img{width:100%;height:100%;object-fit:cover}
+
+/* banners */
+.bn{position:relative;overflow:hidden}
+.bn.D{width:1280px;height:440px}
+.bn.M{width:375px;height:460px}
+.bn img{position:absolute;object-fit:cover}
+.pp{position:absolute;border-radius:16px;overflow:hidden;background:var(--s-photo)}
+.pp img{position:static;width:100%;height:100%;object-fit:cover}
+.pp em{position:absolute;left:8px;bottom:8px;font-style:normal;background:var(--s-white);color:var(--s-ink);font-size:11px;font-weight:800;padding:4px 8px;border-radius:999px}
+.pola{position:absolute;background:var(--s-white);padding:10px 10px 34px;box-shadow:0 20px 40px rgba(0,0,0,.45)}
+.pola div{width:100%;height:100%;overflow:hidden;background:var(--s-photo)}
+.pola img{position:static;width:100%;height:100%;object-fit:cover}
+.pola em{position:absolute;left:0;right:0;bottom:9px;text-align:center;font-style:normal;font-family:var(--f-display);font-weight:800;font-size:15px;color:var(--s-ink)}
+.stc{position:absolute;border-radius:50%;background:var(--s-white);color:var(--s-pink);display:grid;place-content:center;text-align:center;font:900 22px/.95 var(--f-display);font-variation-settings:"wdth" 75;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.callout{position:absolute;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:var(--s-ink)}
+.callout i{width:12px;height:12px;border-radius:50%;background:var(--s-pink);box-shadow:0 0 0 5px rgba(235,8,112,.25)}
+.callout span{background:var(--s-white);padding:7px 11px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.ln{position:absolute;height:2px;background:var(--s-pink)}
+.slot{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px;color:var(--s-white)}
+.slot .th{width:44px;height:56px;border-radius:7px;overflow:hidden}
+.slot img{position:static;width:100%;height:100%;object-fit:cover}
+.slot b{display:block;font:900 20px/1 var(--f-display)}
+.slot small{font-size:10.5px;font-weight:800;letter-spacing:.08em;opacity:.7}
+.slot.now{background:var(--s-pink);border-color:var(--s-pink)}
+.slot.now small{opacity:1}
+.slot.past{opacity:.45}
+.cdn{display:flex;gap:10px}
+.cdn span{display:grid;justify-items:center;gap:4px;background:var(--s-black);color:var(--s-white);border-radius:14px;padding:12px 0 9px}
+.cdn b{font:900 1em/1 var(--f-display);font-variation-settings:"wdth" 75;font-variant-numeric:tabular-nums}
+.cdn i{font-style:normal;font-size:11px;font-weight:800;letter-spacing:.12em;opacity:.7}
+@media (prefers-reduced-motion:reduce){.trk{animation:none}}
+</style>
+
+<header class="wrap top">
+  <div>
+    <h1>Black DMFit <em>2026</em></h1>
+  </div>
+  <p>8 ofertas de 28/10 a 30/11. Escolha uma data para ver o site como vai ficar. Os números nas telas batem com as ideias embaixo.</p>
+</header>
+
+<nav class="wrap">
+  <div class="dates" role="tablist" id="dates"></div>
+  <p class="month-note">Entre 01 e 30/11 o site fica no <b>Black Month: até 70% OFF</b>. As outras datas entram por cima dele.</p>
+</nav>
+
+<main class="wrap offer" id="offer" aria-live="polite"></main>
+
+<section class="wrap check">
+  <h2>Falta definir com o cliente</h2>
+  <ul>
+    <li>Metas de faturamento e investimento (estão em R$ 0,00 na planilha).</li>
+    <li>Nome e valor do Código Black (usei BLACKDM nos mockups) e se acumula com o preço Black.</li>
+    <li>Frete grátis do 11.11: vale para todo o Brasil? Tem valor mínimo?</li>
+    <li>Três macaquinhos já custam R$ 87,92 e R$ 88,00 no site. Por R$79 o desconto fica pequeno.</li>
+    <li>Dia do Baixa Pace, Dia do Canelado, relâmpagos da Black Friday e último dia são sugestões: aprovar oferta e valores.</li>
+  </ul>
+</section>
+<footer class="wrap foot">Fotos e preços "de" tirados de dmfit.com.br em 22/10/2026. Descontos em % são ilustrativos. Mockups, não páginas publicadas.</footer>
+
+<script>
+(function(){
+const $ = s=>document.querySelector(s);
+const esc = s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money = v=>'R$ '+v.toFixed(2).replace('.',',');
+const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12H19M13 6L19 12L13 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON = {
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20L16 16"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  bag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-1 13H6L5 8z"/><path d="M9 8a3 3 0 016 0"/></svg>',
+  menu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg>',
+  truck:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>'
+};
+const CODE = 'BLACKDM';
+
+/* ---------- Produtos (fotos e preços do site) ---------- */
+const P = {
+  bpPreto:{n:'Conjunto Fitness Baixa Pace Preto · Bermuda e Top', s:'Baixa Pace Preto', cor:'Preto', img:'img/bpPreto.png', alt:'img/bpPreto2.jpg', price:159.90, sw:'#1b1b1d'},
+  bpRosa:{n:'Conjunto Fitness Baixa Pace Rosa · Bermuda e Top', s:'Baixa Pace Rosa', cor:'Rosa', img:'img/bpRosa.jpg', alt:'img/bpRosa2.jpg', price:159.90, sw:'#e5198a'},
+  bpBranco:{n:'Conjunto Fitness Baixa Pace Branco · Bermuda e Top', s:'Baixa Pace Branco', cor:'Off-white', img:'img/bpBranco.jpg', price:159.90, sw:'#f1efea'},
+  canelado:{n:'Conjunto Fitness Calça e Top Canelado Preto com Bolsos Laterais', s:'Conjunto Canelado', cor:'Preto', img:'img/canelado.jpg', alt:'img/canelado2.jpg', price:169.90, sw:'#1b1b1d'},
+  mac1:{n:'Macaquinho Fitness Canelado com Bolsos Laterais Preto', s:'Macaquinho Canelado', cor:'Preto', img:'img/mac1.jpg', price:88.00, sw:'#1b1b1d'},
+  mac2:{n:'Macaquinho Fitness Poliamida Sem Costura Frontal Coral', s:'Macaquinho Coral', cor:'Coral', img:'img/mac2.jpg', price:109.90, sw:'#f26a55'},
+  mac3:{n:'Macaquinho Fitness Poliamida Sem Costura Frontal Azul Marinho', s:'Macaquinho Marinho', cor:'Marinho', img:'img/mac3.jpg', price:87.92, sw:'#22304f'},
+  mac4:{n:'Macaquinho Fitness Poliamida Sem Costura Frontal Marrom', s:'Macaquinho Marrom', cor:'Marrom', img:'img/mac4.jpg', price:87.92, sw:'#6b4a3a'}
+};
+const I = (id,k)=>P[id][k||'img']||P[id].img;
+const fixed = v=>id=>({old:P[id].price, now:v, off:'R$'+v});
+const pct = arr=>(id,i)=>{const p=arr[i%arr.length]; return {old:P[id].price, now:Math.round(P[id].price*(100-p))/100, off:'-'+p+'%'}};
+
+/* ---------- Temas da loja ---------- */
+const TH = {
+  light:{bg2:'#ffffff', fg2:'#141214', mut2:'#77707a', line2:'#ebe7ea', acc2:'#d1065f', panel:'#f6f3f5', btn:'#141214', btnf:'#ffffff'},
+  dark:{bg2:'#0b0a0b', fg2:'#ffffff', mut2:'#a49ca6', line2:'#2a262a', acc2:'#ff5aa8', panel:'#1a171a', btn:'#eb0870', btnf:'#ffffff'},
+  graphite:{bg2:'#1b191c', fg2:'#ffffff', mut2:'#aaa2ac', line2:'#343035', acc2:'#ff5aa8', panel:'#262326', btn:'#eb0870', btnf:'#ffffff'},
+  wash:{bg2:'#fff4f9', fg2:'#141214', mut2:'#7a6f76', line2:'#f1dde8', acc2:'#d1065f', panel:'#ffe6f1', btn:'#eb0870', btnf:'#ffffff'}
+};
+const TB = {pink:{tb:'#eb0870', tf:'#ffffff'}, black:{tb:'#0b0a0b', tf:'#ffffff'}, white:{tb:'#ffffff', tf:'#0b0a0b'}};
+const vars = o=>Object.entries(Object.assign({}, TH[o.th], TB[o.tb])).map(([k,v])=>`--${k}:${v}`).join(';');
+
+/* ---------- Helpers de render ---------- */
+let PINS = true, CUR = null;
+function pin(o,at,pos){
+  if(!PINS) return '';
+  return o.ideas.map((x,i)=>x.at===at?i+1:0).filter(Boolean).map((n,j)=>`<i class="pin" style="${pos};margin-left:${j*32}px">${n}</i>`).join('');
+}
+const T = (s)=>`<b class="tmr" data-t="${s}">${fmt(s)}</b>`;
+function fmt(s){s=Math.max(0,s); const p=n=>String(n).padStart(2,'0'); return `${p(Math.floor(s/3600))}:${p(Math.floor(s%3600/60))}:${p(s%60)}`}
+function parts(s){const p=n=>String(n).padStart(2,'0'); return [p(Math.floor(s/3600)),p(Math.floor(s%3600/60)),p(s%60)]}
+const TBX = (s,cls)=>`<div class="${cls||'tb3'}">${parts(s).map((v,j)=>`<span><b class="tmr" data-t="${s}" data-p="${j}">${v}</b><i>${['HORAS','MIN','SEG'][j]}</i></span>`).join('')}</div>`;
+const H6 = 5*3600+42*60+17;
+const logo = '<div class="logo">DM<span>FIT</span></div>';
+
+function tarjaM(o){
+  const items = o.tarja.items.concat(o.tarja.items, o.tarja.items, o.tarja.items);
+  const right = o.tarja.timer ? `<div class="tm"><span class="chipT tmr" data-t="${o.timer}">${fmt(o.timer)}</span></div>` : '';
+  return `<div class="t-m"><div class="trk">${items.map(x=>`<span>${x}</span>`).join('')}</div>${right}${pin(o,'tarja','left:6px;top:3px')}</div>`;
+}
+function tarjaD(o){
+  const t=o.tarja;
+  const mid = t.timer ? `<span>${t.timer}</span><span class="chipT tmr" data-t="${o.timer}">${fmt(o.timer)}</span>` : `<span class="chipT">CÓDIGO ${CODE}</span>`;
+  return `<div class="t-d"><span class="bg">${t.badge}</span><span class="sep"></span><span>${t.text}</span><span class="sep"></span>${mid}${pin(o,'tarja','left:24px;top:9px')}</div>`;
+}
+function headM(o,back){
+  return `<div class="h-m">${back?ICON.back:ICON.menu}${logo}<div class="ico">${ICON.search}<span class="bag">${ICON.bag}<i>2</i></span></div>${pin(o,'nav','left:150px;top:6px')}</div>`;
+}
+function headD(o){
+  const nav=[o.nav,'Lançamentos','Conjuntos','Macaquinhos','Leggings','Tops','Shorts'];
+  return `<div class="h-d">${logo}<nav class="nav">${nav.map((n,i)=>`<span class="${i?'':'hot'}">${n}</span>`).join('')}</nav><div class="ico">${ICON.search}${ICON.user}<span class="bag">${ICON.bag}<i>2</i></span></div>${pin(o,'nav','left:200px;top:24px')}</div>`;
+}
+function card(o,id,i){
+  const p=P[id], r=o.pr(id,i);
+  const bdg = o.badge ? o.badge(id,i,r) : `<span class="bd">${r.off}</span>`;
+  const extra = o.cardExtra ? o.cardExtra(id,i,r) : '';
+  return `<div class="cd"><div class="im"><img src="${I(id)}" alt="${esc(p.s)}">${bdg}<span class="hrt">${ICON.heart}</span>${o.cardDots?'<div class="dots"><i></i><i></i><i></i></div>':''}${i===0?pin(o,'card','left:10px;top:46px'):''}</div>
+  <div class="nm">${esc(p.n)}</div><div class="pr"><span class="old">${money(r.old)}</span><span class="now">${money(r.now)}</span></div>${extra||`<div class="eco">Economize ${money(r.old-r.now)}</div>`}</div>`;
+}
+function home(o){
+  return `${tarjaM(o)}${headM(o)}${o.ban(o,true)}
+  <div class="sec-m"><b>${o.grid}</b><span>Ver todos</span></div>
+  ${o.filters?`<div class="flt"><span class="on">Até 70%</span><span>50% OFF</span><span>30% OFF</span><span>Conjuntos</span>${pin(o,'filters','right:8px;top:-4px')}</div>`:''}
+  <div class="g-m">${o.prods.slice(0,2).map((id,i)=>card(o,id,i)).join('')}</div>
+  ${o.sticky?`<div class="stk"><div><small>${o.sticky}</small><b class="tmr" data-t="${o.timer}">${fmt(o.timer)}</b></div><span>VER OFERTA</span>${pin(o,'sticky','left:-8px;top:-12px')}</div>`:''}`;
+}
+function phone(o,inner){
+  return `<div class="pf"><div class="s ps" style="${vars(o)};background:var(--bg2)"><div class="isl"></div><div class="sb"><span>9:41</span><span>●●● 5G</span></div>${inner}<div class="hom"></div></div></div>`;
+}
+function pdp(o){
+  const id=o.pdpProd, p=P[id], r=o.pr(id,0);
+  return `${headM(o,true)}<div class="pd-im"><img src="${I(id, o.pdpImg)}" alt="${esc(p.s)}">${o.badge?o.badge(id,0,r):`<span class="bd">${r.off}</span>`}<span class="hrt">${ICON.heart}</span><div class="dots"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pd-b"><div class="nm">${esc(p.n)}</div>
+  <div class="pr"><span class="old">${money(r.old)}</span><span class="now">${money(r.now)}</span><span class="offc">${r.off}</span></div>
+  <div class="parc">ou 3x de ${money(r.now/3)} sem juros</div>
+  <div class="bx">${o.pdpBox(o,r)}${pin(o,'pdp','right:-8px;top:-12px')}</div>
+  ${o.swatch?`<div class="swp">${o.swatch.map((x,j)=>`<div class="${j?'':'on'}"><img src="${I(x)}" alt="${esc(P[x].cor)}"></div>`).join('')}${pin(o,'swatch','right:-4px;top:-10px')}</div>`:''}
+  <div class="sz"><span>PP</span><span>P</span><span class="on">M</span><span>G</span><span>GG</span></div></div>
+  <div class="buy"><div>ADICIONAR À SACOLA</div></div>`;
+}
+function cart(o){
+  const its=o.cart.items.map((id,i)=>({id,r:o.pr(id,o.prods.indexOf(id))}));
+  const sub=its.reduce((a,x)=>a+x.r.now,0);
+  return `<div class="ct-h">Sacola (${its.length})<span>×</span></div>
+  ${its.map(x=>`<div class="it"><div class="th"><img src="${I(x.id)}" alt=""></div><div><div class="nm">${esc(P[x.id].n)}</div><div class="meta">Tam. M · ${P[x.id].cor}</div><div class="row"><div class="qty"><span>−</span>1<span>+</span></div><div class="pr"><span class="old">${money(x.r.old)}</span><span class="now" style="font-size:17px">${money(x.r.now)}</span></div></div></div></div>`).join('')}
+  <div class="cbx">${o.cart.box(o,sub)}${pin(o,'cart','right:-8px;top:-12px')}</div>
+  <div class="tot"><div class="r s"><span>Frete</span><span>${o.cart.frete(sub)}</span></div><div class="r"><span>Total</span><span>${money(o.cart.total?o.cart.total(sub):sub)}</span></div><div class="bt">FINALIZAR COMPRA</div></div>`;
+}
+function popup(o){
+  PINS=false; const bg=home(o); PINS=true;
+  return `${bg}<div class="ovl"></div><div class="sheet ${o.pop.dark?'dkk':''}"><div class="grab"></div>${o.pop.html(o)}${pin(o,'popup','right:16px;top:-12px')}</div>`;
+}
+function desktop(o){
+  return `<div class="s dk" style="${vars(o)};background:var(--bg2)"><div class="chrome"><i></i><i></i><i></i><span>${o.url}</span></div>${tarjaD(o)}${headD(o)}${o.ban(o,false)}
+  <div class="sec"><b>${o.grid}</b><span>Ver todos</span></div><div class="g-d">${o.prods.slice(0,4).map((id,i)=>card(o,id,i)).join('')}</div></div>`;
+}
+const ct = (t,st)=>`<span class="ct" style="${st}">${t} ${arrow}</span>`;
+
+/* ---------- As 8 ofertas ---------- */
+const O = [
+{id:'esq79', d:'28', m:'out', wd:'quarta', name:'Esquenta Macaquinho', offer:'Todos os macaquinhos por R$79, só hoje.', ok:1, th:'light', tb:'pink', timer:H6,
+ url:'www.dmfit.com.br/esquenta-macaquinho', nav:'Esquenta', grid:'Todos por R$79', prods:['mac2','mac3','mac1','mac4'], pr:fixed(79),
+ tarja:{items:['ESQUENTA BLACK','TODOS OS MACAQUINHOS POR R$79','SÓ HOJE'], timer:'TERMINA EM', badge:'ESQUENTA BLACK', text:'Todos os macaquinhos por R$79 · só hoje'},
+ sticky:'R$79 TERMINA EM',
+ ban:(o,M)=>{const ids=['mac2','mac3','mac1','mac4'];
+  return M ? `<div class="bn M" style="background:var(--s-pink);color:var(--s-white)"><div style="position:absolute;left:22px;top:24px;display:grid;gap:8px"><span class="kk">Esquenta Black · só hoje</span><div class="xb" style="font-size:128px;color:var(--s-black)">R$79</div><div style="font:800 21px/1.1 var(--f-display)">todos os macaquinhos</div></div>${ids.map((id,i)=>`<div class="pp" style="left:${16+i*87}px;top:${206+(i%2?22:0)}px;width:80px;height:170px"><img src="${I(id)}" alt=""></div>`).join('')}<div style="position:absolute;left:22px;bottom:20px">${ct('VER MACAQUINHOS','background:var(--s-black);color:var(--s-white);padding:12px 20px')}</div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-pink);color:var(--s-white)"><div style="position:absolute;left:70px;top:62px;display:grid;gap:14px;width:470px"><span class="kk">Esquenta Black · só hoje</span><div class="xb" style="font-size:230px;color:var(--s-black)">R$79</div><div style="font:800 34px/1 var(--f-display)">todos os macaquinhos</div>${ct('VER MACAQUINHOS','background:var(--s-black);color:var(--s-white)')}</div>${ids.map((id,i)=>`<div class="pp" style="left:${560+i*172}px;top:${36+(i%2?44:0)}px;width:158px;height:320px"><img src="${I(id)}" alt=""><em>${P[id].cor}</em></div>`).join('')}${pin(o,'banner','right:20px;top:16px')}</div>`;},
+ badge:(id,i,r)=>`<span class="bd k">R$79</span>`,
+ pdpProd:'mac2', swatch:['mac2','mac3','mac1','mac4'],
+ pdpBox:(o,r)=>`<div class="bx-h">ESQUENTA BLACK · SÓ HOJE</div><div>Todos os macaquinhos por <b>R$79</b> até 23:59.</div><div class="bx-t">Termina em <span class="chipT tmr" data-t="${o.timer}">${fmt(o.timer)}</span></div>`,
+ third:'cart', thirdName:'Carrinho',
+ cart:{items:['mac2','mac3'], frete:s=>'R$ 19,90', box:(o,s)=>`<div class="tt">Leve mais 1 por <b>R$79</b> e o frete sai grátis</div><div class="bar"><i style="width:${Math.round(s/199*100)}%"></i></div><div class="sug">${['mac1','mac4','mac2'].map(id=>`<div><div class="th"><img src="${I(id)}" alt=""></div><span>+ R$79</span></div>`).join('')}</div>`, total:s=>s+19.9},
+ ideas:[
+  {at:'tarja', t:'Tarja com cronômetro de 24h e o preço R$79 sempre à vista.'},
+  {at:'banner', t:'Banner com as quatro cores lado a lado: a cliente vê as opções antes de clicar.'},
+  {at:'card', t:'Selo "R$79" no lugar da porcentagem. Preço único é mais fácil de entender.'},
+  {at:'swatch', t:'Na página do produto, as cores aparecem como fotos para trocar com um toque.'},
+  {at:'cart', t:'Carrinho sugere mais um macaquinho: com 3 peças o pedido passa de R$199 e o frete sai grátis.'},
+  {at:'sticky', t:'Barra flutuante no celular com o tempo que falta.'}
+ ]},
+
+{id:'esq89', d:'30', m:'out', wd:'sexta', name:'Esquenta Conjuntos', offer:'Conjunto fitness completo por R$89, só hoje.', ok:0, th:'light', tb:'pink', timer:H6,
+ url:'www.dmfit.com.br/esquenta-conjuntos', nav:'Esquenta', grid:'Conjuntos por R$89', prods:['bpRosa','bpPreto','bpBranco','canelado'], pr:fixed(89),
+ tarja:{items:['ESQUENTA BLACK','CONJUNTO COMPLETO POR R$89','TOP + BERMUDA','SÓ HOJE'], timer:'TERMINA EM', badge:'ESQUENTA BLACK', text:'Conjunto completo por R$89 · só hoje'},
+ ban:(o,M)=>{const ids=['bpRosa','bpPreto','bpBranco'];
+  return M ? `<div class="bn M" style="background:var(--s-photo);color:var(--s-ink)">${ids.map((id,i)=>`<div class="pp" style="left:${i*125}px;top:0;width:125px;height:250px;border-radius:0"><img src="${I(id)}" alt="" style="object-position:50% 30%"><em>${P[id].cor}</em></div>`).join('')}<div style="position:absolute;left:20px;right:20px;top:266px;display:grid;gap:6px"><span class="kk" style="color:var(--s-pink)">Esquenta Black · só hoje</span><div style="font:850 20px/1 var(--f-display)">Conjunto completo por</div><div style="display:flex;align-items:flex-end;justify-content:space-between"><div class="xb" style="font-size:104px;color:var(--s-pink)">R$89</div><div style="display:grid;gap:8px;justify-items:end"><span style="text-decoration:line-through;color:var(--s-muted);font-weight:700">R$ 159,90</span>${ct('VER','background:var(--s-black);color:var(--s-white);padding:11px 18px')}</div></div></div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-photo);color:var(--s-ink)"><div style="position:absolute;left:70px;top:50px;display:grid;gap:12px;width:480px"><span class="kk" style="color:var(--s-pink)">Esquenta Black · só hoje</span><div style="font:850 46px/1 var(--f-display);font-variation-settings:'wdth' 82">Conjunto completo</div><div class="xb" style="font-size:210px;color:var(--s-pink)">R$89</div><div style="font-weight:700;color:var(--s-muted)"><s>R$ 159,90</s> · top + bermuda</div>${ct('VER CONJUNTOS','background:var(--s-black);color:var(--s-white)')}</div>${ids.map((id,i)=>`<div class="pp" style="left:${590+i*230}px;top:0;width:230px;height:440px;border-radius:0"><img src="${I(id)}" alt="" style="object-position:50% 30%"><em>${P[id].cor}</em></div>`).join('')}${pin(o,'banner','right:20px;top:16px')}</div>`;},
+ badge:(id,i,r)=>`<span class="bd">R$89</span>`,
+ pdpProd:'bpRosa',
+ pdpBox:(o,r)=>`<div class="bx-h">ESQUENTA BLACK · CONJUNTO COMPLETO</div><div class="kit2"><div><img src="${I('bpRosa')}" alt="" style="object-position:50% 32%;transform:scale(1.8)"></div><span>+</span><div><img src="${I('bpRosa')}" alt="" style="object-position:50% 72%;transform:scale(1.8)"></div><span>=</span><b>R$89</b></div><div>Top + bermuda. Você economiza <b>${money(r.old-r.now)}</b>.</div>`,
+ third:'popup', thirdName:'Pop-up de saída',
+ pop:{html:o=>`<div style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center"><div class="pp" style="position:relative;width:96px;height:124px"><img src="${I('bpPreto')}" alt=""></div><div style="display:grid;gap:6px"><span class="kk" style="color:var(--s-pink)">Espera!</span><h5>O esquenta acaba às 23:59</h5><p>Conjunto completo por R$89.</p></div></div>${TBX(o.timer)}<div class="bt">VOLTAR PARA OS CONJUNTOS</div><div class="lk">Sair mesmo assim</div>`},
+ ideas:[
+  {at:'banner', t:'As três cores do Baixa Pace em colunas, com o preço único ao lado.'},
+  {at:'card', t:'Card mostra a economia em reais: R$ 70,90 a menos que o preço normal.'},
+  {at:'pdp', t:'Bloco "top + bermuda = R$89" deixa claro que o preço é do conjunto inteiro.'},
+  {at:'popup', t:'Pop-up de saída: quem tenta sair vê o cronômetro e o preço de novo.'},
+  {at:'tarja', t:'Mesma tarja do esquenta de quarta, para a cliente reconhecer o formato.'}
+ ]},
+
+{id:'month', d:'01', m:'nov', wd:'domingo', name:'Abertura Black Month', offer:'Peças com até 70% OFF de 01 a 30/11. O momento mais esperado do ano começou.', ok:1, th:'dark', tb:'pink',
+ url:'www.dmfit.com.br/black-friday', nav:'Black Friday', grid:'Mais vendidos da Black', prods:['bpPreto','bpRosa','bpBranco','canelado'], pr:pct([70,50,40,60]), filters:1,
+ tarja:{items:['BLACK DMFIT','ATÉ 70% OFF','CÓDIGO '+CODE+': DESCONTO EXTRA','PRÓXIMA DATA: 11.11'], badge:'BLACK DMFIT', text:'Até 70% OFF + desconto extra com o Código Black'},
+ ban:(o,M)=> M ? `<div class="bn M" style="background:var(--s-black);color:var(--s-white)"><img src="${I('bpPreto','alt')}" alt="" style="left:0;top:0;width:375px;height:230px;object-position:50% 22%"><div style="position:absolute;left:0;right:0;top:120px;height:112px;background:linear-gradient(transparent,var(--s-black))"></div><div style="position:absolute;left:22px;right:22px;top:212px;display:grid;gap:8px"><span class="kk" style="color:var(--s-pink-lt)">O momento mais esperado do ano</span><div class="xb" style="font-size:108px">BLACK</div><div class="xb" style="font-size:44px;color:var(--s-pink-lt);font-variation-settings:'wdth' 70">até 70% OFF</div>${ct('VER OFERTAS','background:var(--s-white);color:var(--s-black);padding:12px 20px;margin-top:6px')}</div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-black);color:var(--s-white)"><img src="${I('bpPreto','alt')}" alt="" style="right:0;top:0;width:640px;height:440px;object-position:50% 25%"><div style="position:absolute;right:340px;top:0;width:300px;height:440px;background:linear-gradient(90deg,var(--s-black),transparent)"></div><div style="position:absolute;left:70px;top:44px;display:grid;gap:14px;width:600px"><span class="kk" style="color:var(--s-pink-lt)">O momento mais esperado do ano começou</span><div class="xb" style="font-size:200px">BLACK</div><div class="xb" style="font-size:76px;color:var(--s-pink-lt);font-variation-settings:'wdth' 70">até 70% OFF</div><div style="display:flex;gap:14px;align-items:center;margin-top:6px">${ct('VER OFERTAS','background:var(--s-white);color:var(--s-black)')}<span style="border:1.5px dashed var(--s-pink-lt);border-radius:999px;padding:12px 18px;font-weight:800;font-size:13px;letter-spacing:.06em">CÓDIGO ${CODE} · DESCONTO EXTRA</span></div></div><div class="callout" style="right:120px;top:150px"><span>bolso para celular</span><i></i></div>${pin(o,'banner','right:20px;top:16px')}</div>`,
+ pdpProd:'bpPreto',
+ pdpBox:(o,r)=>`<div class="bx-h">CÓDIGO BLACK · DESCONTO EXTRA</div><div class="code"><b>${CODE}</b><span>COPIAR</span></div><div>Use no carrinho. Você já economiza <b>${money(r.old-r.now)}</b> nesta peça.</div>`,
+ third:'popup', thirdName:'Pop-up de entrada',
+ pop:{dark:1, html:o=>`<span class="kk" style="color:var(--s-pink-lt)">Presente de Black</span><h5>Raspe e descubra seu Código Black</h5><div class="scr"><b>${CODE}</b><svg viewBox="0 0 335 92" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="slv" x1="0" x2="1"><stop offset="0" stop-color="#9d969b"/><stop offset=".5" stop-color="#e6e1e4"/><stop offset="1" stop-color="#8f888d"/></linearGradient><mask id="scm"><rect width="335" height="92" fill="white"/><path d="M40 60 C 70 20, 100 80, 135 40 S 190 70, 215 35" stroke="black" stroke-width="30" fill="none" stroke-linecap="round"/></mask></defs><rect width="335" height="92" fill="url(#slv)" mask="url(#scm)"/></svg></div><p>Desconto extra no carrinho, válido até 30/11.</p><div class="bt">COPIAR CÓDIGO</div>`},
+ ideas:[
+  {at:'nav', t:'Site em modo Black: header, fundo e vitrines ficam pretos o mês inteiro.'},
+  {at:'banner', t:'Banner com a foto do bolso para celular, o detalhe que mais diferencia o Baixa Pace.'},
+  {at:'filters', t:'Filtros por faixa de desconto no topo da vitrine: até 70%, 50% e 30%.'},
+  {at:'card', t:'Cards mostram quanto a cliente economiza em reais.'},
+  {at:'pdp', t:'Código Black com botão de copiar na página do produto.'},
+  {at:'popup', t:'Raspadinha no primeiro acesso para revelar o Código Black.'},
+  {at:'tarja', t:'Tarja avisa a próxima data (11.11) para a cliente voltar.'}
+ ]},
+
+{id:'d1111', d:'11', m:'nov', wd:'quarta', name:'Black 11.11', offer:'Peças com até 70% OFF + frete grátis. Só hoje.', ok:1, th:'dark', tb:'pink', timer:H6,
+ url:'www.dmfit.com.br/1111', nav:'11.11', grid:'Seleção 11.11', prods:['bpRosa','bpBranco','bpPreto','canelado'], pr:pct([70,60,50,40]),
+ tarja:{items:['BLACK 11.11','ATÉ 70% OFF','FRETE GRÁTIS','SÓ HOJE'], timer:'TERMINA EM', badge:'BLACK 11.11', text:'Até 70% OFF + frete grátis · só hoje'},
+ sticky:'O 11.11 TERMINA EM',
+ ban:(o,M)=> M ? `<div class="bn M" style="background:var(--s-black);color:var(--s-white)"><div class="xb" style="position:absolute;left:20px;top:22px;font-size:146px;color:var(--s-pink)">11.11</div><div class="pola" style="left:34px;top:156px;width:140px;height:190px;transform:rotate(-6deg)"><div><img src="${I('bpRosa')}" alt=""></div><em>rosa</em></div><div class="pola" style="left:186px;top:150px;width:140px;height:190px;transform:rotate(5deg)"><div><img src="${I('bpBranco')}" alt=""></div><em>off-white</em></div><div class="stc" style="right:14px;top:128px;width:96px;height:96px;font-size:17px;transform:rotate(-12deg)">FRETE<br>GRÁTIS</div><div style="position:absolute;left:20px;right:20px;bottom:20px;display:flex;justify-content:space-between;align-items:center"><span style="font-weight:800;font-size:14px">até 70% OFF · só hoje</span>${ct('COMPRAR','background:var(--s-pink);color:var(--s-white);padding:11px 18px')}</div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-black);color:var(--s-white)"><div style="position:absolute;left:64px;top:40px;display:grid;gap:18px"><div class="xb" style="font-size:290px;color:var(--s-pink)">11.11</div><div style="font:800 32px/1.1 var(--f-display)">até 70% OFF + frete grátis · só hoje</div>${ct('COMPRAR AGORA','background:var(--s-pink);color:var(--s-white)')}</div><div class="pola" style="left:790px;top:46px;width:230px;height:320px;transform:rotate(-6deg)"><div><img src="${I('bpRosa')}" alt=""></div><em>rosa</em></div><div class="pola" style="left:990px;top:60px;width:230px;height:320px;transform:rotate(5deg)"><div><img src="${I('bpBranco')}" alt=""></div><em>off-white</em></div><div class="stc" style="left:740px;top:280px;width:140px;height:140px;transform:rotate(-12deg)">FRETE<br>GRÁTIS<br>HOJE</div>${pin(o,'banner','right:20px;top:16px')}</div>`,
+ badge:(id,i,r)=>`<span class="bd">${r.off}</span><span class="bd2">11.11</span>`,
+ pdpProd:'bpRosa',
+ pdpBox:(o,r)=>`<div style="display:flex;gap:10px;align-items:center;color:var(--acc2)">${ICON.truck}<div><div style="font-weight:800;font-size:14px">Frete grátis hoje</div><div style="font-size:12px;color:var(--mut2)">em pedidos do 11.11 até 23:59</div></div></div><div class="bx-t">Termina em <span class="chipT tmr" data-t="${o.timer}">${fmt(o.timer)}</span></div>`,
+ third:'cart', thirdName:'Carrinho',
+ cart:{items:['bpRosa','bpBranco'], frete:s=>'Grátis', box:(o,s)=>`<div style="display:flex;gap:12px;align-items:center">${ICON.truck}<div class="tt">Frete grátis liberado no <b>11.11</b></div></div><div class="bar"><i style="width:100%"></i></div><div style="font-size:12px;opacity:.75">Válido para pedidos até 23:59 de hoje.</div>`},
+ ideas:[
+  {at:'banner', t:'11.11 gigante: a data é a mensagem.'},
+  {at:'tarja', t:'Cronômetro até 23:59 na tarja.'},
+  {at:'card', t:'Selo com o desconto e a etiqueta 11.11 em todos os cards da seleção.'},
+  {at:'pdp', t:'Aviso de frete grátis com prazo logo abaixo do preço.'},
+  {at:'cart', t:'Carrinho comemora o frete grátis assim que o primeiro produto entra.'},
+  {at:'sticky', t:'Barra flutuante no celular com o tempo que falta.'}
+ ]},
+
+{id:'diaBP', d:'14', m:'nov', wd:'sábado', name:'Dia do Baixa Pace', offer:'Conjunto Baixa Pace em preço Black, só hoje. Sugestão nossa.', ok:0, th:'light', tb:'black', timer:H6,
+ url:'www.dmfit.com.br/black-friday?linha=baixa-pace', nav:'Black Friday', grid:'Escolha sua cor', prods:['bpPreto','bpRosa','bpBranco','canelado'], pr:pct([50,50,50,40]),
+ tarja:{items:['DIA DO BAIXA PACE','PREÇO BLACK SÓ HOJE','3 CORES'], timer:'SÓ HOJE', badge:'DIA DO BAIXA PACE', text:'Bermuda + top em preço Black'},
+ ban:(o,M)=> M ? `<div class="bn M" style="background:var(--s-photo);color:var(--s-ink)"><img src="${I('bpPreto','alt')}" alt="" style="left:0;top:0;width:375px;height:236px;object-position:50% 20%"><div class="callout" style="left:160px;top:96px"><i></i><span>bolso para celular</span></div><div style="position:absolute;left:20px;right:20px;top:252px;display:grid;gap:6px"><span class="kk" style="color:var(--s-pink)">Só hoje · preço Black</span><div class="xb" style="font-size:66px">BAIXA PACE</div><div style="font-size:13px;font-weight:700">6 bolsos funcionais na bermuda</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><div class="sw">${['bpPreto','bpRosa','bpBranco'].map((x,j)=>`<i class="${j?'':'on'}" style="background:${P[x].sw};width:22px;height:22px"></i>`).join('')}</div>${ct('ESCOLHER','background:var(--s-black);color:var(--s-white);padding:11px 18px')}</div></div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-photo);color:var(--s-ink)"><div style="position:absolute;left:70px;top:58px;display:grid;gap:12px;width:620px"><span class="kk" style="color:var(--s-pink)">Só hoje · preço Black</span><div style="font:850 30px/1 var(--f-display)">Dia do</div><div class="xb" style="font-size:132px">BAIXA PACE</div><div style="display:flex;gap:10px;align-items:center"><div class="sw">${['bpPreto','bpRosa','bpBranco'].map((x,j)=>`<i class="${j?'':'on'}" style="background:${P[x].sw};width:26px;height:26px"></i>`).join('')}</div><span style="font-weight:700">preto, rosa e off-white</span></div>${ct('ESCOLHER MINHA COR','background:var(--s-black);color:var(--s-white)')}</div><img src="${I('bpPreto','alt')}" alt="" style="left:720px;top:0;width:340px;height:440px;object-position:50% 25%"><img src="${I('bpPreto')}" alt="" style="left:1060px;top:0;width:220px;height:440px;object-position:50% 40%"><div class="callout" style="left:900px;top:96px"><span>bolso para celular nas costas</span></div><div class="callout" style="left:1080px;top:330px"><span>6 bolsos funcionais</span></div>${pin(o,'banner','right:20px;top:16px')}</div>`,
+ badge:(id,i,r)=>`<span class="bd k">SÓ HOJE</span>`,
+ cardExtra:(id,i,r)=>`<div class="sw">${['bpPreto','bpRosa','bpBranco'].map(x=>`<i class="${x===id?'on':''}" style="background:${P[x].sw}"></i>`).join('')}</div>`,
+ pdpProd:'bpPreto', pdpImg:'alt', swatch:['bpPreto','bpRosa','bpBranco'],
+ pdpBox:(o,r)=>`<ul class="ben"><li>Top com bolso para celular nas costas</li><li>Bermuda com 6 bolsos funcionais</li><li>Preço Black só hoje: economize ${money(r.old-r.now)}</li></ul>`,
+ third:'popup', thirdName:'Pop-up de entrada',
+ pop:{html:o=>`<span class="kk" style="color:var(--s-pink)">Dia do Baixa Pace</span><h5>Qual cor é a sua?</h5><div class="choose">${['bpPreto','bpRosa','bpBranco'].map((x,j)=>`<div class="${j===1?'on':''}"><div class="th"><img src="${I(x)}" alt=""></div>${P[x].cor}</div>`).join('')}</div><div class="bt">VER O ROSA EM PREÇO BLACK</div>`},
+ ideas:[
+  {at:'banner', t:'Banner mostra o produto de verdade: bolso para celular nas costas e 6 bolsos na bermuda.'},
+  {at:'card', t:'Bolinhas de cor nos cards para trocar a foto sem abrir o produto.'},
+  {at:'pdp', t:'Três benefícios curtos logo abaixo do preço.'},
+  {at:'swatch', t:'Cores como fotos na página do produto.'},
+  {at:'popup', t:'Pop-up "qual cor é a sua?" leva direto para a cor escolhida.'},
+  {at:'tarja', t:'Tarja preta "só hoje" com cronômetro, diferente do rosa do resto do mês.'}
+ ]},
+
+{id:'diaCan', d:'18', m:'nov', wd:'quarta', name:'Dia do Canelado', offer:'Conjunto calça + top canelado em preço Black, só hoje. Sugestão nossa.', ok:0, th:'graphite', tb:'pink', timer:H6,
+ url:'www.dmfit.com.br/black-friday?linha=canelado', nav:'Black Friday', grid:'Linha canelada', prods:['canelado','mac1','bpPreto','bpRosa'], pr:pct([50,40,40,40]), cardDots:1,
+ tarja:{items:['DIA DO CANELADO','CALÇA + TOP EM PREÇO BLACK','SÓ HOJE'], timer:'SÓ HOJE', badge:'DIA DO CANELADO', text:'Calça + top com bolsos laterais em preço Black'},
+ ban:(o,M)=> M ? `<div class="bn M" style="background:var(--s-graphite);color:var(--s-white)"><img src="${I('canelado')}" alt="" style="left:0;top:0;width:210px;height:250px;object-position:50% 20%"><img src="${I('canelado','alt')}" alt="" style="left:214px;top:0;width:161px;height:250px;object-position:50% 20%"><div style="position:absolute;left:20px;right:20px;top:266px;display:grid;gap:6px"><span class="kk" style="color:var(--s-pink-lt)">Só hoje</span><div class="xb" style="font-size:70px">CANELADO</div><div style="font-size:13px;opacity:.8">calça + top com bolsos laterais</div><div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><div><s style="opacity:.6;font-size:13px">R$ 169,90</s> <b style="font:900 26px/1 var(--f-display);color:var(--s-pink-lt)">R$ 84,95</b></div>${ct('VER','background:var(--s-pink);color:var(--s-white);padding:11px 18px')}</div></div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-graphite);color:var(--s-white)"><div style="position:absolute;left:70px;top:60px;display:grid;gap:12px;width:580px"><span class="kk" style="color:var(--s-pink-lt)">Só hoje · preço Black</span><div style="font:850 32px/1 var(--f-display)">Dia do</div><div class="xb" style="font-size:150px">CANELADO</div><div style="font-size:18px;opacity:.8">calça + top com bolsos laterais</div><div style="display:flex;gap:18px;align-items:center"><div><s style="opacity:.6">R$ 169,90</s> <b style="font:900 40px/1 var(--f-display);color:var(--s-pink-lt)">R$ 84,95</b></div>${ct('VER CONJUNTO','background:var(--s-pink);color:var(--s-white)')}</div></div><div class="pp" style="left:700px;top:60px;width:220px;height:320px"><img src="${I('canelado','alt')}" alt=""></div><img src="${I('canelado')}" alt="" style="left:940px;top:0;width:340px;height:440px;object-position:50% 20%">${pin(o,'banner','right:20px;top:16px')}</div>`,
+ badge:(id,i,r)=>`<span class="bd">${r.off}</span>`,
+ pdpProd:'canelado',
+ pdpBox:(o,r)=>`<div class="bx-h">LEVE JUNTO</div><div class="mini"><div class="th"><img src="${I('mac1')}" alt=""></div><div>Macaquinho Canelado Preto<div style="font-size:12px"><s style="opacity:.6">R$ 88,00</s> <b>R$ 52,80</b></div></div><span class="add">+</span></div>`,
+ third:'cart', thirdName:'Carrinho',
+ cart:{items:['canelado'], frete:s=>'R$ 19,90', box:(o,s)=>`<div class="tt">Complete o look com <b>40% OFF</b></div><div class="mini"><div class="th"><img src="${I('mac1')}" alt=""></div><div>Macaquinho Canelado Preto<div style="font-size:12px"><s style="opacity:.6">R$ 88,00</s> <b style="color:var(--acc2)">R$ 52,80</b></div></div><span class="add">+</span></div>`, total:s=>s+19.9},
+ ideas:[
+  {at:'nav', t:'Site em grafite só nesse dia, para parecer um evento à parte.'},
+  {at:'banner', t:'Duas fotos do conjunto para mostrar o tecido canelado e os bolsos laterais.'},
+  {at:'card', t:'Cards com mais de uma foto, para ver frente e costas sem abrir o produto.'},
+  {at:'pdp', t:'"Leve junto" sugere o macaquinho canelado com 40% OFF.'},
+  {at:'cart', t:'Carrinho repete a sugestão para quem ainda não levou.'},
+  {at:'tarja', t:'Tarja "só hoje" com cronômetro.'}
+ ]},
+
+{id:'bf', d:'27', m:'nov', wd:'sexta', name:'Black Friday', offer:'Até 70% OFF e uma oferta relâmpago a cada 6 horas. Relâmpagos são sugestão nossa.', ok:0, th:'dark', tb:'white', timer:3*3600+18*60+40,
+ url:'www.dmfit.com.br/black-friday', nav:'Black Friday', grid:'Relâmpago e Black', prods:['bpBranco','bpPreto','bpRosa','canelado'], pr:pct([70,50,50,40]),
+ tarja:{items:['BLACK FRIDAY','RELÂMPAGO DAS 12H: -70%','PRÓXIMO ÀS 18H'], timer:'RELÂMPAGO ACABA EM', badge:'BLACK FRIDAY', text:'Relâmpago das 12h: Baixa Pace Branco com 70% OFF'},
+ sticky:'RELÂMPAGO ACABA EM',
+ ban:(o,M)=>{const sl=[['00h','bpPreto','past'],['06h','bpRosa','past'],['12h','bpBranco','now'],['18h','canelado','next']];
+  return M ? `<div class="bn M" style="background:var(--s-black);color:var(--s-white)"><div class="xb" style="position:absolute;left:20px;top:22px;font-size:62px">BLACK FRIDAY</div><div class="pp" style="left:20px;top:86px;width:335px;height:220px"><img src="${I('bpBranco')}" alt="" style="object-position:50% 25%"></div><span class="bd" style="position:absolute;left:32px;top:98px;font-size:14px">RELÂMPAGO -70%</span><span class="chipT tmr" data-t="${o.timer}" style="position:absolute;right:32px;top:98px;background:var(--s-black);border-color:var(--s-black)">${fmt(o.timer)}</span><div style="position:absolute;left:20px;right:20px;top:318px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px">${sl.map(([h,id,st])=>`<div class="slot ${st}" style="grid-template-columns:1fr;text-align:center;padding:7px 4px"><b>${h}</b><small>${st==='now'?'AGORA':st==='past'?'FOI':'EM BREVE'}</small></div>`).join('')}</div><div style="position:absolute;left:20px;bottom:20px">${ct('VER RELÂMPAGO','background:var(--s-pink);color:var(--s-white);padding:11px 18px')}</div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-black);color:var(--s-white)"><div style="position:absolute;left:64px;top:46px;display:grid;gap:16px;width:720px"><div class="xb" style="font-size:132px">BLACK FRIDAY</div><div style="font:800 24px/1 var(--f-display)">uma oferta relâmpago a cada 6 horas</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">${sl.map(([h,id,st])=>`<div class="slot ${st}"><div class="th"><img src="${I(id)}" alt=""></div><div><b>${h}</b><small>${st==='now'?'AGORA':st==='past'?'ENCERRADO':'EM BREVE'}</small></div></div>`).join('')}</div>${ct('VER RELÂMPAGO','background:var(--s-pink);color:var(--s-white)')}</div><img src="${I('bpBranco')}" alt="" style="right:0;top:0;width:420px;height:440px;object-position:50% 25%"><span class="bd" style="position:absolute;left:auto;right:24px;top:64px;font-size:18px;padding:9px 12px">RELÂMPAGO -70%</span><span class="chipT tmr" data-t="${o.timer}" style="position:absolute;right:24px;bottom:24px;background:var(--s-black);color:var(--s-white);font-size:20px;padding:8px 12px">${fmt(o.timer)}</span>${pin(o,'banner','right:20px;top:16px')}</div>`;},
+ badge:(id,i,r)=> i===0 ? `<span class="bd">RELÂMPAGO ${r.off}</span>` : `<span class="bd k" style="background:var(--s-white);color:var(--s-ink)">BLACK ${r.off}</span>`,
+ pdpProd:'bpBranco',
+ pdpBox:(o,r)=>`<div class="bx-h">RELÂMPAGO DAS 12H</div><div class="bar"><i style="width:45%"></i></div><div class="bx-t">Acaba em <span class="chipT tmr" data-t="${o.timer}">${fmt(o.timer)}</span></div><div style="font-size:12px;opacity:.75">Próximo às 18h: Conjunto Canelado</div>`,
+ third:'popup', thirdName:'Pop-up de entrada',
+ pop:{dark:1, html:o=>`<span class="kk" style="color:var(--s-pink-lt)">Black Friday é hoje</span><div class="rl"><div class="th"><img src="${I('bpBranco')}" alt=""></div><div style="display:grid;gap:6px"><h5>Relâmpago das 12h</h5><p>Baixa Pace Branco</p><div><s style="opacity:.6">R$ 159,90</s> <b style="font:900 28px/1 var(--f-display);color:var(--s-pink-lt)">R$ 47,97</b></div></div></div>${TBX(o.timer)}<div class="bt">QUERO ANTES QUE ACABE</div>`},
+ ideas:[
+  {at:'banner', t:'Linha do tempo dos relâmpagos no banner: 00h, 06h, 12h e 18h.'},
+  {at:'card', t:'Selo "relâmpago" só no produto da vez; os outros ficam com o selo Black.'},
+  {at:'pdp', t:'Barra de tempo do relâmpago e o próximo da fila na página do produto.'},
+  {at:'popup', t:'Pop-up com o relâmpago atual a cada nova visita.'},
+  {at:'sticky', t:'Barra flutuante com o cronômetro do relâmpago.'},
+  {at:'tarja', t:'Tarja branca, diferente do resto do mês, avisa o relâmpago da vez.'}
+ ]},
+
+{id:'last', d:'30', m:'nov', wd:'segunda', name:'Último dia', offer:'A Black DMFit acaba hoje às 23:59. Sugestão nossa.', ok:0, th:'wash', tb:'black', timer:3*3600+18*60+40,
+ url:'www.dmfit.com.br/black-friday', nav:'Black Friday', grid:'Últimas horas', prods:['bpPreto','bpRosa','bpBranco','canelado'], pr:pct([70,50,40,60]),
+ tarja:{items:['ÚLTIMO DIA','A BLACK DMFIT ACABA HOJE','ATÉ 70% OFF ATÉ 23:59'], timer:'ACABA EM', badge:'ÚLTIMO DIA', text:'A Black DMFit acaba hoje às 23:59'},
+ sticky:'A BLACK ACABA EM',
+ ban:(o,M)=> M ? `<div class="bn M" style="background:var(--s-pink);color:var(--s-black)"><div style="position:absolute;left:20px;right:20px;top:22px;display:grid;gap:12px"><span class="kk" style="color:var(--s-white)">A Black DMFit acaba hoje</span><div class="xb" style="font-size:70px">ÚLTIMO DIA</div><div class="cdn" style="font-size:42px">${parts(o.timer).map((v,j)=>`<span style="flex:1"><b class="tmr" data-t="${o.timer}" data-p="${j}">${v}</b><i>${['HORAS','MIN','SEG'][j]}</i></span>`).join('')}</div></div><div class="pp" style="left:20px;top:250px;width:160px;height:150px"><img src="${I('bpRosa')}" alt="" style="object-position:50% 25%"></div><div class="pp" style="left:195px;top:250px;width:160px;height:150px"><img src="${I('bpPreto')}" alt="" style="object-position:50% 25%"></div><div style="position:absolute;left:20px;bottom:14px;right:20px;display:flex;justify-content:space-between;align-items:center"><b style="color:var(--s-white)">até 70% OFF</b>${ct('APROVEITAR','background:var(--s-black);color:var(--s-white);padding:10px 18px')}</div>${pin(o,'banner','right:14px;top:14px')}</div>`
+  : `<div class="bn D" style="background:var(--s-pink);color:var(--s-black)"><div style="position:absolute;left:64px;top:40px;display:grid;gap:18px;width:820px"><span class="kk" style="color:var(--s-white)">A Black DMFit acaba hoje às 23:59</span><div class="xb" style="font-size:168px">ÚLTIMO DIA</div><div style="display:flex;gap:22px;align-items:center"><div class="cdn" style="font-size:64px">${parts(o.timer).map((v,j)=>`<span style="width:120px"><b class="tmr" data-t="${o.timer}" data-p="${j}">${v}</b><i>${['HORAS','MIN','SEG'][j]}</i></span>`).join('')}</div>${ct('APROVEITAR','background:var(--s-black);color:var(--s-white)')}</div></div><div class="pp" style="left:930px;top:40px;width:150px;height:220px;transform:rotate(-4deg)"><img src="${I('bpRosa')}" alt=""></div><div class="pp" style="left:1090px;top:110px;width:150px;height:220px;transform:rotate(4deg)"><img src="${I('bpPreto')}" alt=""></div>${pin(o,'banner','right:20px;top:16px')}</div>`,
+ cardExtra:(id,i,r)=>`<div class="tmw">Amanhã: ${money(r.old)}</div>`,
+ pdpProd:'bpPreto',
+ pdpBox:(o,r)=>`<div class="bx-h">ÚLTIMO DIA DA BLACK</div><div>Preço Black até 23:59. Amanhã volta para <b>${money(r.old)}</b>.</div><div class="bx-t">Acaba em <span class="chipT tmr" data-t="${o.timer}">${fmt(o.timer)}</span></div>`,
+ third:'cart', thirdName:'Carrinho',
+ cart:{items:['bpPreto','bpRosa'], frete:s=>'Grátis', box:(o,s)=>`<div class="tt">Código <b>${CODE}</b> aplicado</div><div style="display:flex;justify-content:space-between;font-weight:700"><span>Desconto extra</span><span style="color:var(--acc2)">− ${money(s*.1)}</span></div><div class="bx-t" style="font-size:12.5px">Expira hoje às 23:59 · faltam <span class="chipT tmr" data-t="${o.timer}" style="color:var(--acc2)">${fmt(o.timer)}</span></div>`, total:s=>s*.9},
+ ideas:[
+  {at:'banner', t:'Cronômetro gigante no banner: o prazo é a mensagem.'},
+  {at:'tarja', t:'Tarja preta com o horário de fim.'},
+  {at:'card', t:'Cards mostram o preço de hoje e o de amanhã lado a lado.'},
+  {at:'pdp', t:'Preço Black com o aviso de quanto custa a partir de amanhã.'},
+  {at:'cart', t:'Carrinho avisa que o Código Black expira às 23:59.'},
+  {at:'sticky', t:'Barra flutuante "a Black acaba em" no celular.'}
+ ]}
+];
+
+/* ---------- Página ---------- */
+function renderDates(){
+  $('#dates').innerHTML = O.map(o=>`<button type="button" class="dt" role="tab" aria-selected="${o.id===CUR}" data-o="${o.id}"><b class="tmr-no">${o.d}<small>${o.m}</small></b><span>${o.name}</span></button>`).join('');
+}
+function renderOffer(){
+  const o=O.find(x=>x.id===CUR);
+  const third = o.third==='cart' ? cart(o) : popup(o);
+  $('#offer').innerHTML = `<div class="oh"><div><div class="ey">${o.d}/${o.m==='out'?'10':'11'} · ${o.wd}</div><h2>${o.name}</h2><p>${o.offer}</p></div><span class="tag ${o.ok?'ok':''}">${o.ok?'Oferta da planilha':'Sugestão Etraction'}</span></div>
+  <div class="cap">Desktop · home</div><div class="scale" data-w="1280"><div class="inner">${desktop(o)}</div></div>
+  <div class="phones">
+    <div><div class="cap">Celular · home</div><div class="scale" data-w="395"><div class="inner">${phone(o,home(o))}</div></div></div>
+    <div><div class="cap">Celular · produto</div><div class="scale" data-w="395"><div class="inner">${phone(o,pdp(o))}</div></div></div>
+    <div><div class="cap">Celular · ${o.thirdName.toLowerCase()}</div><div class="scale" data-w="395"><div class="inner">${phone(o,third)}</div></div></div>
+  </div>
+  <ol class="ideas">${o.ideas.map((x,i)=>`<li><i>${i+1}</i><span>${x.t}</span></li>`).join('')}</ol>`;
+  fit();
+}
+function pick(id){CUR=id; renderDates(); renderOffer(); try{history.replaceState(null,'','#'+id)}catch(_){}}
+function fit(){
+  document.querySelectorAll('.scale').forEach(b=>{
+    const inner=b.firstElementChild, w=+b.dataset.w, sc=Math.min(1,b.clientWidth/w);
+    inner.style.width=w+'px'; inner.style.transform=`scale(${sc})`; b.style.height=(inner.offsetHeight*sc)+'px';
+  });
+}
+$('#dates').addEventListener('click',e=>{const b=e.target.closest('[data-o]'); if(b) pick(b.dataset.o)});
+$('#dates').addEventListener('keydown',e=>{
+  if(!['ArrowRight','ArrowLeft'].includes(e.key)) return;
+  const i=O.findIndex(x=>x.id===CUR)+(e.key==='ArrowRight'?1:-1);
+  if(i>=0&&i<O.length){pick(O[i].id); document.querySelector(`[data-o="${O[i].id}"]`).focus();}
+});
+if('ResizeObserver' in window) new ResizeObserver(()=>fit()).observe(document.body);
+window.addEventListener('resize',fit);
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
+
+let tick=0;
+setInterval(()=>{
+  tick++;
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const left=Math.max(0,+el.dataset.t - tick);
+    el.textContent = el.dataset.p!==undefined ? parts(left)[+el.dataset.p] : fmt(left);
+  });
+},1000);
+
+const h=(location.hash||'').slice(1);
+pick(O.some(x=>x.id===h)?h:'esq79');
+})();
+</script>

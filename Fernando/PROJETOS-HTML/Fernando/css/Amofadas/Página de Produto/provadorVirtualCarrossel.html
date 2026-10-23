@@ -1,0 +1,6184 @@
+<style>
+  /* =========================================================
+   ETRACTION - PROVADOR VIRTUAL ALMOFADAS
+   VARIACAO: BLOCO NO CARROSSEL DA PDP
+   - mesmo provador (layout, copy, fluxo, API, NPS, Clarity)
+   - entrada pelo carrossel: bloco sem imagem, com icone e
+     "Veja como fica no seu sofa", na 2a posicao da galeria
+   - o botao da PDP fica desligado (MOUNT_PDP_BUTTON = false)
+   - SUBSTITUI o snippet original: nao instalar os dois juntos
+     (mesmos IDs e mesma GLOBAL_KEY)
+   ========================================================= */
+
+  .etp-root,
+  .etp-root *,
+  .etp-root *::before,
+  .etp-root *::after {
+    box-sizing: border-box;
+  }
+
+  /* =========================================================
+   BOTAO PDP
+   ========================================================= */
+
+  .etp-trigger-wrap {
+    display: none;
+    width: 100%;
+    margin: 14px 0;
+  }
+
+  .etp-trigger-wrap.etp-mounted {
+    display: block;
+  }
+
+  .etp-trigger {
+    width: 100%;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 11px 18px;
+    border: 1px solid #171717;
+    border-radius: 10px;
+    background: #171717;
+    color: #fff;
+    font: inherit;
+    line-height: 1.2;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color .2s ease,
+      border-color .2s ease,
+      transform .2s ease;
+  }
+
+  .etp-trigger:hover {
+    background: #000;
+    border-color: #000;
+  }
+
+  .etp-trigger:active {
+    transform: scale(.99);
+  }
+
+  .etp-trigger:focus-visible {
+    outline: 2px solid #171717;
+    outline-offset: 2px;
+  }
+
+  .etp-trigger>svg {
+    width: 23px;
+    height: 23px;
+    flex: 0 0 23px;
+  }
+
+  .etp-trigger-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .etp-trigger-title {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  .etp-trigger-sub {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+    opacity: .82;
+  }
+
+  /* =========================================================
+   OVERLAY
+   ========================================================= */
+
+  .etp-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(15, 15, 15, .66);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+  }
+
+  .etp-overlay.etp-open {
+    display: flex;
+  }
+
+  /* =========================================================
+   MODAL
+   ========================================================= */
+
+  .etp-modal {
+    position: relative;
+    width: 100%;
+    max-width: 620px;
+    max-height: calc(100vh - 48px);
+    max-height: calc(100dvh - 48px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, .28);
+    animation: etpIn .22s ease both;
+  }
+
+  @keyframes etpIn {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(.985);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* =========================================================
+   HEADER
+   ========================================================= */
+
+  .etp-head {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 18px 14px 26px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fff;
+  }
+
+  .etp-progress {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+  }
+
+  .etp-progress-item {
+    height: 4px;
+    flex: 1;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #ebebeb;
+  }
+
+  .etp-progress-item::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: #171717;
+    transition: width .25s ease;
+  }
+
+  .etp-progress-item.etp-on::after {
+    width: 100%;
+  }
+
+  .etp-close {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f3f3;
+    color: #222;
+    cursor: pointer;
+  }
+
+  .etp-close:hover {
+    background: #e6e6e6;
+  }
+
+  .etp-close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* =========================================================
+   CORPO
+   ========================================================= */
+
+  .etp-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 22px 26px 26px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* =========================================================
+   TELAS
+   ========================================================= */
+
+  .etp-screen {
+    display: none;
+  }
+
+  .etp-screen.etp-active {
+    display: block;
+  }
+
+  .etp-step {
+    margin: 0 0 7px;
+    color: #8a8a8a;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .etp-title {
+    max-width: 500px;
+    margin: 0 0 18px;
+    color: #191919;
+    font-size: 26px;
+    font-weight: 750;
+    line-height: 1.14;
+    letter-spacing: -.025em;
+  }
+
+  .etp-title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 3px;
+    vertical-align: -3px;
+    color: #191919;
+  }
+
+  .etp-title-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .etp-desc {
+    max-width: 520px;
+    margin: 0 0 22px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  /* =========================================================
+   INSTRUCOES
+   ========================================================= */
+
+  .etp-guide {
+    margin: 0 0 18px;
+    padding: 15px;
+    border: 1px solid #efefef;
+    border-radius: 12px;
+    background: #f8f8f8;
+  }
+
+  .etp-guide-title {
+    margin: 0 0 11px;
+    color: #333;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .etp-guide-list {
+    display: grid;
+    gap: 9px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .etp-guide-list li {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: start;
+    gap: 9px;
+    color: #5f5f5f;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .etp-guide-ico {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+  }
+
+  .etp-guide-ico svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  /* Acao obrigatoria, separada das dicas de enquadramento.
+
+     A caixa de instrucoes tinha seis itens de tres naturezas
+     diferentes sob um titulo so ("Para uma simulacao mais fiel"):
+     uma acao a tomar, tres dicas de como fotografar, uma cota de uso
+     e uma ressalva sobre IA -- todos com o mesmo peso visual. Quem
+     bate o olho nao sabe o que precisa fazer.
+
+     Agora sao tres blocos com funcoes distintas: o que fazer ANTES,
+     como fotografar, e o que saber. A paleta aqui e a mesma do
+     .etp-note (o aviso de erro na escolha da foto) para que
+     "atencao" tenha sempre a mesma cara nesta tela. */
+
+  .etp-highlight {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    gap: 11px;
+    margin: 0 0 11px;
+    padding: 13px 15px;
+    border: 1px solid #f0dcc0;
+    border-radius: 12px;
+    background: #fdf7ee;
+  }
+
+  .etp-highlight-ico {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a9741f;
+  }
+
+  .etp-highlight-ico svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  .etp-highlight-text {
+    color: #7a5622;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .etp-highlight-text strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #6b4a18;
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+
+  /* Letra miuda: o que o cliente precisa SABER, nao fazer.
+
+     Uma linha so, logo acima dos botoes. Cabe ali porque e curta:
+     nao empurra "Tirar foto" para baixo da dobra e ainda e lida
+     antes de a pessoa comecar -- que e quando saber do limite
+     diario serve para alguma coisa.
+
+     A ressalva sobre IA, que dividia este paragrafo, virou bloco
+     de destaque la em cima. */
+
+  .etp-fineprint {
+    margin: 0 0 13px;
+    color: #8a8a8a;
+    font-size: 11.5px;
+    line-height: 1.55;
+  }
+
+
+  /* =========================================================
+   FOTO
+   ========================================================= */
+
+  .etp-source.etp-hidden {
+    display: none;
+  }
+
+  .etp-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 11px;
+  }
+
+  .etp-option {
+    position: relative;
+    width: 100%;
+    min-height: 148px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 14px;
+    border: 1px solid #dadada;
+    border-radius: 13px;
+    background: #fff;
+    color: #222;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      border-color .2s ease,
+      background-color .2s ease,
+      box-shadow .2s ease;
+  }
+
+  .etp-option:hover {
+    border-color: #999;
+    background: #fafafa;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, .05);
+  }
+
+  .etp-option-camera {
+    border-color: #171717;
+    background: #171717;
+  }
+
+  .etp-option-camera:hover {
+    background: #000;
+  }
+
+  .etp-option-camera .etp-option-icon {
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+  }
+
+  .etp-option-camera .etp-option-text strong {
+    color: #fff;
+  }
+
+  .etp-option-camera .etp-option-text span {
+    color: rgba(255, 255, 255, .72);
+  }
+
+  .etp-option-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 46px;
+    border-radius: 50%;
+    background: #f4f4f4;
+  }
+
+  .etp-option-icon svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .etp-option-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .etp-option-text strong {
+    color: #222;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .etp-option-text span {
+    color: #818181;
+    font-size: 11px;
+  }
+
+  /* Escondido de verdade, e fora do caminho do toque.
+
+   Antes era `inset: 0; width/height: 100%; opacity: 0`, ou seja, uma
+   camada transparente cobrindo o bloco inteiro -- o toque caia no
+   input, nao no bloco. No iOS o seletor de arquivo nao abre nesse
+   arranjo. Agora quem recebe o toque e o proprio botao, e o input e so o
+   destino do input.click(). */
+
+  .etp-file {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .etp-note {
+    display: none;
+    margin: 12px 0 0;
+    padding: 11px 13px;
+    border: 1px solid #f0dcc0;
+    border-radius: 10px;
+    background: #fdf7ee;
+    color: #7a5622;
+    font-size: 12px;
+  }
+
+  .etp-note.etp-show {
+    display: block;
+  }
+
+  /* =========================================================
+   CAMERA
+   ========================================================= */
+
+  .etp-camera {
+    display: none;
+  }
+
+  .etp-camera.etp-active {
+    display: block;
+  }
+
+  .etp-camera-frame {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #111;
+  }
+
+  .etp-video {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: min(58dvh, 500px);
+    min-height: 320px;
+    object-fit: cover;
+    background: #111;
+  }
+
+  .etp-camera-guide {
+    position: absolute;
+    inset: 8%;
+    z-index: 2;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, .72);
+    border-radius: 16px;
+  }
+
+  .etp-camera-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    z-index: 3;
+    max-width: calc(100% - 26px);
+    padding: 8px 13px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .58);
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    transform: translateX(-50%);
+  }
+
+  .etp-camera-status {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    color: #fff;
+  }
+
+  .etp-camera-status.etp-show {
+    display: flex;
+  }
+
+  .etp-mini-loader {
+    width: 34px;
+    height: 34px;
+    margin: 0 auto 12px;
+    border: 3px solid rgba(255, 255, 255, .25);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: etpSpin .8s linear infinite;
+  }
+
+  .etp-camera-status-text {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .etp-camera-actions {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  .etp-camera-cancel,
+  .etp-camera-switch {
+    border: 0;
+    background: transparent;
+    color: #666;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .etp-camera-cancel {
+    justify-self: start;
+  }
+
+  .etp-camera-switch {
+    justify-self: end;
+  }
+
+  .etp-shutter {
+    width: 64px;
+    height: 64px;
+    padding: 0;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    background: #171717;
+    box-shadow: 0 0 0 2px #171717;
+    cursor: pointer;
+  }
+
+  .etp-shutter::after {
+    content: "";
+    width: 48px;
+    height: 48px;
+    display: block;
+    margin: auto;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .etp-shutter:disabled {
+    opacity: .4;
+  }
+
+  .etp-modal.etp-shooting .etp-step,
+  .etp-modal.etp-shooting .etp-title,
+  .etp-modal.etp-shooting .etp-desc,
+  .etp-modal.etp-shooting .etp-highlight,
+  .etp-modal.etp-shooting .etp-guide {
+    display: none;
+  }
+
+  /* =========================================================
+   PREVIEW
+   ========================================================= */
+
+  .etp-preview-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #eee;
+  }
+
+  .etp-preview {
+    display: block;
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+  }
+
+  .etp-badge {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .65);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  /* =========================================================
+   BOTOES
+   ========================================================= */
+
+  .etp-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .etp-btn {
+    min-height: 50px;
+    flex: 1;
+    padding: 12px 17px;
+    border-radius: 9px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .etp-btn-primary {
+    border: 1px solid #171717;
+    background: #171717;
+    color: #fff;
+  }
+
+  .etp-btn-secondary {
+    border: 1px solid #ddd;
+    background: #fff;
+    color: #333;
+  }
+
+  .etp-btn:disabled {
+    opacity: .45;
+    cursor: wait;
+  }
+
+  /* =========================================================
+   DOWNLOAD / SHARE
+   ========================================================= */
+
+  .etp-result-tools {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+    margin-top: 12px;
+  }
+
+  .etp-result-tools.etp-show {
+    display: grid;
+  }
+
+  .etp-tool-btn {
+    min-height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 9px;
+    background: #fff;
+    color: #242424;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      border-color .2s ease,
+      background-color .2s ease;
+  }
+
+  .etp-tool-btn:hover {
+    border-color: #999;
+    background: #fafafa;
+  }
+
+  .etp-tool-btn svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+  }
+
+  .etp-tool-btn:disabled {
+    opacity: .45;
+    cursor: wait;
+  }
+
+  .etp-share-status {
+    display: none;
+    margin: 9px 0 0;
+    color: #666;
+    font-size: 11.5px;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .etp-share-status.etp-show {
+    display: block;
+  }
+
+  /* =========================================================
+   RESULTADO
+   ========================================================= */
+
+  .etp-stage {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 14px;
+    background: #f2f2f2;
+  }
+
+  .etp-loading {
+    width: 100%;
+    padding: 55px 22px;
+    text-align: center;
+  }
+
+  .etp-loader {
+    position: relative;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 18px;
+  }
+
+  .etp-loader-ring {
+    position: absolute;
+    inset: 0;
+    border: 3px solid #dedede;
+    border-top-color: #171717;
+    border-radius: 50%;
+    animation: etpSpin .85s linear infinite;
+  }
+
+  .etp-loader-icon {
+    position: absolute;
+    inset: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .etp-loader-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  @keyframes etpSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .etp-loading-title {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .etp-loading-text {
+    margin: 0;
+    color: #777;
+    font-size: 12px;
+  }
+
+  .etp-loading-notes {
+    max-width: 340px;
+    margin: 20px auto 0;
+    padding-left: 18px;
+    color: #666;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .etp-loading-notes li + li {
+    margin-top: 6px;
+  }
+
+  .etp-result-img {
+    display: none;
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+  }
+
+  .etp-result-img.etp-show {
+    display: block;
+  }
+
+  /* Aviso que acompanha a imagem pronta.
+
+     Mesmo cartao dos avisos da Tela 1 (.etp-highlight), e nao um
+     paragrafo cinza centralizado como era: do lado de uma imagem
+     que acabou de aparecer, texto miudo nao e lido. Reaproveita
+     .etp-highlight-ico e .etp-highlight-text para que "atencao"
+     tenha uma cara so no provador inteiro.
+
+     Fica fora da .etp-stage de proposito: dentro dela ele
+     disputaria espaco com o loader e com a mensagem de erro,
+     que ocupam a mesma area. */
+  .etp-result-note {
+    display: none;
+    grid-template-columns: 22px 1fr;
+    gap: 11px;
+    margin: 12px 0 0;
+    padding: 13px 15px;
+    border: 1px solid #f0dcc0;
+    border-radius: 12px;
+    background: #fdf7ee;
+  }
+
+  .etp-result-note.etp-show {
+    display: grid;
+  }
+
+  .etp-error {
+    display: none;
+    padding: 35px 25px;
+    color: #8c2e2e;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .etp-error.etp-show {
+    display: block;
+  }
+
+  /* =========================================================
+   NPS
+   ========================================================= */
+
+  /* Botao que abre a avaliacao.
+
+   A avaliacao deixou de aparecer sozinha sobre a imagem. Este botao
+   fica no fluxo normal da tela, abaixo de Baixar/Compartilhar, e some
+   depois que o cliente avalia. */
+
+  .etp-rate-open {
+    display: none;
+    width: 100%;
+    min-height: 47px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 9px;
+    padding: 11px 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 9px;
+    background: #fff;
+    color: #242424;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      border-color .2s ease,
+      background-color .2s ease;
+  }
+
+  .etp-rate-open.etp-show {
+    display: flex;
+  }
+
+  .etp-rate-open:hover {
+    border-color: #999;
+    background: #fafafa;
+  }
+
+  .etp-rate-open svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+  }
+
+  /* Painel da avaliacao.
+
+   Era um overlay absoluto no rodape da imagem, com um degrade branco
+   por cima: cobria a parte de baixo do sofa, que e exatamente onde as
+   almofadas ficam. Agora e um bloco comum, abaixo do resultado. */
+
+  .etp-nps {
+    display: none;
+    margin-top: 12px;
+    padding: 15px 16px;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    background: #fafafa;
+    text-align: center;
+  }
+
+  .etp-nps.etp-show {
+    display: block;
+  }
+
+  .etp-nps-main.etp-hide {
+    display: none;
+  }
+
+  .etp-nps-q {
+    margin: 0 0 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+
+  .etp-stars {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .etp-star {
+    width: 36px;
+    height: 36px;
+    padding: 4px;
+    border: 0;
+    background: transparent;
+    color: #d5d5d5;
+    cursor: pointer;
+  }
+
+  .etp-star svg {
+    width: 27px;
+    height: 27px;
+    fill: currentColor;
+  }
+
+  .etp-star.etp-on {
+    color: #f5b301;
+  }
+
+  .etp-nps-low {
+    display: none;
+    margin-top: 14px;
+    padding: 15px 16px;
+    border: 1px solid #ededed;
+    border-radius: 12px;
+    background: #fafafa;
+  }
+
+  .etp-nps-low.etp-show {
+    display: block;
+  }
+
+  .etp-nps-low-title {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .etp-nps-low-desc {
+    margin: 0 0 11px;
+    color: #777;
+    font-size: 12px;
+  }
+
+  .etp-reasons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 11px;
+  }
+
+  .etp-reason {
+    padding: 8px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 999px;
+    background: #fff;
+    color: #444;
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .etp-reason.etp-on {
+    border-color: #171717;
+    background: #171717;
+    color: #fff;
+  }
+
+  .etp-nps-text {
+    width: 100%;
+    min-height: 62px;
+    margin-bottom: 11px;
+    padding: 10px 11px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 12.5px;
+    resize: vertical;
+  }
+
+  .etp-nps-send {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid #171717;
+    border-radius: 9px;
+    background: #171717;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+  }
+
+  .etp-nps-thanks {
+    display: none;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .etp-nps-thanks.etp-show {
+    display: block;
+  }
+
+  /* =========================================================
+   MOBILE
+   ========================================================= */
+
+  @media (max-width: 640px) {
+
+    .etp-overlay {
+      align-items: flex-end;
+      padding: 0;
+    }
+
+    .etp-modal {
+      max-width: none;
+      max-height: 92dvh;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .etp-head {
+      padding: 16px 14px 12px 18px;
+    }
+
+    .etp-body {
+      padding: 18px 17px calc(24px + env(safe-area-inset-bottom));
+    }
+
+    .etp-title {
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .etp-highlight {
+      padding: 12px 13px;
+    }
+
+    .etp-guide {
+      padding: 13px;
+    }
+
+    .etp-guide-list li {
+      font-size: 12px;
+    }
+
+    .etp-options {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .etp-option {
+      min-height: 84px;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: 13px;
+      padding: 14px 15px;
+      text-align: left;
+    }
+
+    .etp-option-icon {
+      width: 44px;
+      height: 44px;
+      flex-basis: 44px;
+    }
+
+    .etp-video {
+      height: 52dvh;
+      min-height: 290px;
+    }
+
+    .etp-actions {
+      flex-direction: column-reverse;
+    }
+
+    .etp-result-tools {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .etp-stage {
+      min-height: 280px;
+    }
+
+    .etp-preview {
+      max-height: 46vh;
+    }
+  }
+
+  /* Brilho decorativo: exclusivo do botao que abre o provador. */
+  #etp-trigger.etp-trigger {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  #etp-trigger.etp-trigger > svg,
+  #etp-trigger.etp-trigger > .etp-trigger-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  #etp-trigger.etp-trigger::before,
+  #etp-trigger.etp-trigger::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Faixa de luz com uma pausa longa entre as passagens. */
+  #etp-trigger.etp-trigger::before {
+    background: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, .05) 40%,
+      rgba(255, 255, 255, .24) 50%,
+      rgba(255, 255, 255, .05) 60%,
+      transparent 70%
+    );
+    transform: translateX(-120%);
+    animation: etpTriggerShine 6s ease-in-out 1s infinite;
+  }
+
+  /* Contorno interno: nao ocupa espaco nem altera o tamanho. */
+  #etp-trigger.etp-trigger::after {
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .32),
+                inset 0 0 16px rgba(255, 255, 255, .08);
+    opacity: .22;
+    animation: etpTriggerGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes etpTriggerShine {
+    0% { transform: translateX(-120%); }
+    26%, 100% { transform: translateX(120%); }
+  }
+
+  @keyframes etpTriggerGlow {
+    0%, 100% { opacity: .22; }
+    50% { opacity: .8; }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    #etp-trigger.etp-trigger:hover::after {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  #etp-trigger.etp-trigger:focus-visible::after {
+    animation: none;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #etp-trigger.etp-trigger::before {
+      animation: none;
+      opacity: 0;
+    }
+    #etp-trigger.etp-trigger::after {
+      animation: none;
+      opacity: .4;
+    }
+  }
+</style>
+
+<style>
+/* PROVADOR VIRTUAL — NOVO BOTÃO */
+#etp-trigger.etp-trigger {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  width: 100%;
+  min-height: 82px;
+  padding: 16px 48px 16px 16px;
+  overflow: hidden;
+  border: 1px solid #171717;
+  border-radius: 14px;
+  background: #171717;
+  color: #fff;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, .12);
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+#etp-trigger.etp-trigger > svg {
+  display: block;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  padding: 11px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  transition: transform .2s ease;
+}
+
+#etp-trigger .etp-trigger-text {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#etp-trigger .etp-trigger-title {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
+#etp-trigger .etp-trigger-sub {
+  color: rgba(255, 255, 255, .72);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 1;
+}
+
+#etp-trigger.etp-trigger::before {
+  content: none;
+  animation: none;
+}
+
+#etp-trigger.etp-trigger::after {
+  content: "";
+  position: absolute;
+  inset: auto 17px auto auto;
+  top: 50%;
+  width: 19px;
+  height: 19px;
+  border: 0;
+  border-radius: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14m-6-6 6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  box-shadow: none;
+  opacity: 1;
+  animation: none;
+  transform: translateY(-50%);
+  transition: transform .2s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  #etp-trigger.etp-trigger:hover {
+    border-color: #000;
+    background: #000;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .22);
+  }
+
+  #etp-trigger.etp-trigger:hover > svg {
+    transform: rotate(-5deg);
+  }
+
+  #etp-trigger.etp-trigger:hover::after {
+    transform: translate(3px, -50%);
+  }
+}
+
+#etp-trigger.etp-trigger:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  #etp-trigger.etp-trigger {
+    min-height: 76px;
+    gap: 11px;
+    padding: 13px 40px 13px 13px;
+  }
+
+  #etp-trigger.etp-trigger > svg {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+    padding: 10px;
+  }
+
+  #etp-trigger .etp-trigger-title { font-size: 14px; }
+  #etp-trigger .etp-trigger-sub { font-size: 11px; }
+  #etp-trigger.etp-trigger::after { right: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #etp-trigger.etp-trigger,
+  #etp-trigger.etp-trigger > svg,
+  #etp-trigger.etp-trigger::after {
+    transition: none;
+  }
+
+  #etp-trigger.etp-trigger:active { transform: none; }
+  #etp-trigger.etp-trigger:hover > svg { transform: none; }
+  #etp-trigger.etp-trigger:hover::after { transform: translateY(-50%); }
+}
+</style>
+
+
+
+
+<style>
+#etp-trigger-wrap .etp-trigger-hint {
+  display: block;
+  margin: 9px auto 0;
+  padding: 10px 0;
+  color: #7a6c60;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+</style>
+
+
+<style>
+  /* =========================================================
+   VARIACAO: BLOCO NO CARROSSEL
+
+   Dois slides sem imagem, um em cada Swiper da galeria (o
+   principal e o das miniaturas), na mesma posicao. Os dois
+   carrosseis sao ligados por indice: inserir so na miniatura
+   faria cada miniatura seguinte abrir a foto errada.
+
+   O slide principal reaproveita as classes do modal (.etp-step,
+   .etp-title, .etp-desc, .etp-btn) para a tipografia ser a mesma
+   do provador; so as cores mudam.
+
+   Paleta neutra, a mesma do modal: #171717 dos botoes, #f8f8f8
+   e #efefef da caixa "Como fotografar", #666 e #8a8a8a dos textos
+   de apoio. Quem toca no bloco ve a mesma cara ao abrir o
+   provador.
+   ========================================================= */
+
+  .etp-slide-thumb,
+  .etp-slide-main {
+    --etp-c-bg: #f8f8f8;
+    --etp-c-bg-deep: #efefef;
+    --etp-c-line: #e3e3e3;
+    --etp-c-ink: #171717;
+    --etp-c-ink-deep: #000;
+    --etp-c-muted: #666;
+    --etp-c-accent: #8a8a8a;
+    --etp-c-cream: #fff;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .etp-slide-thumb {
+    border-color: var(--etp-c-line) !important;
+  }
+
+  .etp-slide-thumb[data-etp-current] {
+    border-color: var(--etp-c-ink) !important;
+  }
+
+  /* Destaque da miniatura atual.
+
+     A loja marca a miniatura ativa pelo indice do React
+     (border-cor-base + foto a 100%). O React nao sabe do nosso
+     bloco, entao depois dele o destaque caia uma foto a frente.
+     Com o bloco montado, quem decide o destaque e o
+     data-etp-current, posto pelo JS no indice real do Swiper.
+     As cores sao lidas da propria loja no JS; as daqui sao so o
+     fallback. */
+
+  [data-etp-thumbs] .swiper-slide:not([data-etp-slide]) {
+    border-color: var(--etp-thumb-off, #e8eaed) !important;
+  }
+
+  [data-etp-thumbs] .swiper-slide:not([data-etp-slide]) img {
+    opacity: .5 !important;
+  }
+
+  [data-etp-thumbs] .swiper-slide[data-etp-current]:not([data-etp-slide]) {
+    border-color: var(--etp-thumb-on, #000) !important;
+  }
+
+  [data-etp-thumbs] .swiper-slide[data-etp-current]:not([data-etp-slide]) img {
+    opacity: 1 !important;
+  }
+
+  .etp-carousel-thumb {
+    width: 100%;
+    height: 100%;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 5px;
+    background: var(--etp-c-bg);
+    color: var(--etp-c-ink);
+    font-family: inherit;
+    text-align: center;
+    transition: background-color .2s ease;
+  }
+
+  .etp-slide-thumb:hover .etp-carousel-thumb {
+    background: var(--etp-c-bg-deep);
+  }
+
+  .etp-carousel-thumb:focus-visible {
+    outline: 2px solid var(--etp-c-ink);
+    outline-offset: -4px;
+  }
+
+  .etp-carousel-thumb-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 34px;
+    border-radius: 9px;
+    background: var(--etp-c-ink);
+    color: var(--etp-c-cream);
+  }
+
+  .etp-carousel-thumb-icon svg {
+    width: 21px;
+    height: 21px;
+    display: block;
+  }
+
+  .etp-carousel-thumb-text {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+  }
+
+  .etp-carousel-main {
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    max-height: 650px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 28px;
+    background: linear-gradient(160deg, var(--etp-c-cream) 0%, var(--etp-c-bg) 55%, var(--etp-c-bg-deep) 100%);
+    font-family: inherit;
+    text-align: center;
+  }
+
+  .etp-carousel-main-icon {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 20px;
+    border-radius: 18px;
+    background: var(--etp-c-ink);
+    color: var(--etp-c-cream);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .14);
+  }
+
+  .etp-carousel-main .etp-step {
+    color: var(--etp-c-accent);
+  }
+
+  .etp-carousel-main .etp-title {
+    color: var(--etp-c-ink);
+  }
+
+  .etp-carousel-main .etp-title-icon {
+    color: var(--etp-c-ink);
+  }
+
+  .etp-carousel-main .etp-desc {
+    color: var(--etp-c-muted);
+  }
+
+  .etp-carousel-main .etp-btn-primary {
+    border-color: var(--etp-c-ink);
+    background: var(--etp-c-ink);
+    color: var(--etp-c-cream);
+  }
+
+  .etp-carousel-main-icon svg {
+    width: 38px;
+    height: 38px;
+    display: block;
+  }
+
+  .etp-carousel-main .etp-title {
+    max-width: 360px;
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+
+  .etp-carousel-main .etp-desc {
+    max-width: 330px;
+  }
+
+  .etp-carousel-main .etp-btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 24px;
+    transition: background-color .2s ease;
+  }
+
+  .etp-carousel-main .etp-btn svg {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    transition: transform .2s ease;
+  }
+
+  @media (hover: hover) {
+    .etp-slide-main:hover .etp-btn-primary {
+      border-color: var(--etp-c-ink-deep);
+      background: var(--etp-c-ink-deep);
+    }
+
+    .etp-slide-main:hover .etp-btn svg {
+      transform: translateX(3px);
+    }
+  }
+
+  /* As setas da galeria ficam por cima das bordas do slide no
+     mobile: o padding lateral maior mantem o texto longe delas. */
+
+  @media (max-width: 640px) {
+
+    .etp-carousel-main {
+      padding: 22px 52px;
+    }
+
+    .etp-carousel-main-icon {
+      width: 58px;
+      height: 58px;
+      margin-bottom: 14px;
+      border-radius: 15px;
+    }
+
+    .etp-carousel-main-icon svg {
+      width: 31px;
+      height: 31px;
+    }
+
+    .etp-carousel-main .etp-title {
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .etp-carousel-main .etp-desc {
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .etp-carousel-thumb-icon {
+      width: 30px;
+      height: 30px;
+      flex-basis: 30px;
+    }
+
+    .etp-carousel-thumb-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .etp-carousel-thumb,
+    .etp-carousel-main .etp-btn,
+    .etp-carousel-main .etp-btn svg {
+      transition: none;
+    }
+  }
+</style>
+
+<div id="etp-trigger-wrap" class="etp-root etp-trigger-wrap">
+
+  <button id="etp-trigger" class="etp-trigger" type="button">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M14.5 4h-5L7.5 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.5L14.5 4Z" />
+      <circle cx="12" cy="13.5" r="4" />
+      <path d="M18 10h.01" />
+    </svg>
+
+    <span class="etp-trigger-text">
+      <span class="etp-trigger-title">Provador virtual</span>
+      <span class="etp-trigger-sub">Veja como fica no seu ambiente</span>
+    </span>
+
+  </button>
+
+  <p class="etp-trigger-hint">Tire uma foto do seu sofá e veja como o kit de almofadas fica nele.</p>
+
+</div>
+
+
+<div id="etp-overlay" class="etp-root etp-overlay" aria-hidden="true">
+
+  <div class="etp-modal" role="dialog" aria-modal="true">
+
+    <div class="etp-head">
+
+      <div class="etp-progress">
+        <div class="etp-progress-item etp-on" data-etp-progress="1"></div>
+        <div class="etp-progress-item" data-etp-progress="2"></div>
+        <div class="etp-progress-item" data-etp-progress="3"></div>
+      </div>
+
+      <button id="etp-close" class="etp-close" type="button">
+
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+
+      </button>
+
+    </div>
+
+
+    <div class="etp-body">
+
+      <!-- TELA 1 -->
+
+      <section id="etp-screen-1" class="etp-screen etp-active">
+
+        <div class="etp-step">
+          Passo 1 de 3
+        </div>
+
+        <h2 class="etp-title">
+
+          Veja como fica no seu sofá
+
+          <span class="etp-title-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <path
+                d="M12 3L13.25 7.35C13.57 8.46 14.44 9.33 15.55 9.65L20 11L15.55 12.35C14.44 12.67 13.57 13.54 13.25 14.65L12 19L10.75 14.65C10.43 13.54 9.56 12.67 8.45 12.35L4 11L8.45 9.65C9.56 9.33 10.43 8.46 10.75 7.35L12 3Z"
+                stroke="currentColor" stroke-width="1.6" />
+
+            </svg>
+
+          </span>
+
+        </h2>
+
+
+        <!-- A unica coisa que o cliente precisa FAZER antes de
+             fotografar, e a que mais estraga o resultado quando
+             ignorada. Era o primeiro item de uma lista de seis, com
+             o mesmo peso de "ate 10 simulacoes por dia". -->
+
+        <div class="etp-highlight">
+
+          <span class="etp-highlight-ico">
+
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 17.5V11a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v6.5" stroke="currentColor" stroke-width="1.7" />
+              <path d="M6 17.5h12M5 17.5V20M19 17.5V20" stroke="currentColor" stroke-width="1.7" />
+              <path d="M15.5 5.5l3 3M18.5 5.5l-3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+            </svg>
+
+          </span>
+
+          <div class="etp-highlight-text">
+
+            <strong>Retire as almofadas do sofá</strong>
+
+            Deixe ele limpo antes de fotografar.
+
+          </div>
+
+        </div>
+
+
+        <!-- Mesmo container do aviso acima, de proposito: as duas
+             coisas que o cliente precisa levar em conta antes de
+             gerar tem o mesmo peso.
+
+             O texto sobre IA estava na letra miuda, embaixo dos
+             botoes, em 11,5px cinza -- ou seja, na pratica ninguem
+             lia. E e justamente a expectativa que mais gera
+             frustracao depois: estampa diferente e almofada a mais.
+             Subiu para ca e SAIU de la; dizer duas vezes na mesma
+             tela seria voltar ao problema de excesso de texto. -->
+
+        <div class="etp-highlight">
+
+          <span class="etp-highlight-ico">
+
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="5" width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7" />
+              <path d="M4.5 16.5l3.5-3.5 2.5 2.5 2-2 3 3" stroke="currentColor" stroke-width="1.7" />
+              <path d="M19 3l.7 2.3 2.3.7-2.3.7L19 9l-.7-2.3L16 6l2.3-.7L19 3Z" stroke="currentColor"
+                stroke-width="1.4" />
+            </svg>
+
+          </span>
+
+          <div class="etp-highlight-text">
+
+            <strong>A imagem gerada é ilustrativa</strong>
+
+            Ela é criada por Inteligência Artificial e pode conter erros:
+            a estampa das almofadas pode sair um pouco diferente, e podem
+            aparecer mais almofadas do que as que vêm no kit.
+
+          </div>
+
+        </div>
+
+
+        <!-- So enquadramento. Tres itens curtos, todos da mesma
+             natureza e escritos na mesma forma, para serem lidos de
+             relance e nao palavra por palavra. -->
+
+        <div class="etp-guide">
+
+          <p class="etp-guide-title">
+            Como fotografar
+          </p>
+
+          <ul class="etp-guide-list">
+
+            <li>
+
+              <span class="etp-guide-ico">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="7" y="2.5" width="10" height="19" rx="2" stroke="currentColor" stroke-width="1.7" />
+                  <path d="M10 5H14M11 18.5H13" stroke="currentColor" stroke-width="1.7" />
+                </svg>
+
+              </span>
+
+              <span>
+                Celular na vertical
+              </span>
+
+            </li>
+
+
+            <li>
+
+              <span class="etp-guide-ico">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 11V9.5A2.5 2.5 0 0 1 7.5 7h9A2.5 2.5 0 0 1 19 9.5V11" stroke="currentColor"
+                    stroke-width="1.7" />
+                  <path d="M4 11.5A2 2 0 0 1 6 9.5V16h12V9.5a2 2 0 0 1 2 2V18H4v-6.5Z" stroke="currentColor"
+                    stroke-width="1.7" />
+                </svg>
+
+              </span>
+
+              <span>
+                De frente para o sofá
+              </span>
+
+            </li>
+
+
+            <li>
+
+              <span class="etp-guide-ico">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 8.5A2.5 2.5 0 0 1 6.5 6h2l1-2h5l1 2h2A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"
+                    stroke="currentColor" stroke-width="1.7" />
+                  <circle cx="12" cy="12.5" r="3.2" stroke="currentColor" stroke-width="1.7" />
+                </svg>
+
+              </span>
+
+              <span>
+                Sofá inteiro e centralizado
+              </span>
+
+            </li>
+
+          </ul>
+
+        </div>
+
+
+
+
+        <div id="etp-source" class="etp-source">
+
+          <p class="etp-fineprint">
+            Você pode fazer até 10 simulações por dia.
+          </p>
+
+
+          <div class="etp-options">
+
+            <button id="etp-camera-tile" class="etp-option etp-option-camera" type="button">
+
+              <span class="etp-option-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 8.5A2.5 2.5 0 0 1 6.5 6h2l1-2h5l1 2h2A2.5 2.5 0 0 1 20 8.5v8A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-8Z"
+                    stroke="currentColor" stroke-width="1.7" />
+                  <circle cx="12" cy="12.5" r="3.2" stroke="currentColor" stroke-width="1.7" />
+                </svg>
+
+              </span>
+
+              <span class="etp-option-text">
+                <strong>Tirar foto</strong>
+                <span>Abra a câmera do celular</span>
+              </span>
+
+            </button>
+
+
+            <button id="etp-gallery-tile" class="etp-option" type="button">
+
+              <span class="etp-option-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="4" width="16" height="16" rx="2.5" stroke="currentColor" stroke-width="1.7" />
+                  <circle cx="9" cy="9" r="1.5" stroke="currentColor" stroke-width="1.5" />
+                  <path d="M5.5 17l4-4 3 3 2-2 4 4" stroke="currentColor" stroke-width="1.7" />
+                </svg>
+
+              </span>
+
+              <span class="etp-option-text">
+                <strong>Escolher da galeria</strong>
+                <span>Use uma foto que você já possui</span>
+              </span>
+
+            </button>
+
+          </div>
+
+
+          <!-- Fora dos blocos, e escondidos de verdade.
+
+                         Antes cada input ficava DENTRO do seu label,
+                         esticado por cima do bloco inteiro com
+                         opacity:0. No iOS isso nao abre o seletor: o
+                         toque cai num elemento transparente e o
+                         WebKit ignora. Agora quem recebe o toque e o
+                         botao, e o JS chama input.click(). -->
+
+          <input id="etp-camera-input" class="etp-file" type="file" accept="image/*" capture="environment">
+
+          <input id="etp-gallery-input" class="etp-file" type="file" accept="image/*">
+
+          <p id="etp-note" class="etp-note"></p>
+
+        </div>
+
+
+        <div id="etp-camera" class="etp-camera">
+
+          <div class="etp-camera-frame">
+
+            <video id="etp-video" class="etp-video" autoplay muted playsinline></video>
+
+            <div id="etp-camera-status" class="etp-camera-status">
+              <div>
+                <div class="etp-mini-loader"></div>
+                <p class="etp-camera-status-text">
+                  Abrindo a câmera...
+                </p>
+              </div>
+            </div>
+
+            <div class="etp-camera-guide"></div>
+
+            <div class="etp-camera-hint">
+              De frente, centralize e enquadre o máximo do sofá
+            </div>
+
+          </div>
+
+
+          <div class="etp-camera-actions">
+
+            <button id="etp-camera-cancel" class="etp-camera-cancel" type="button">
+              Cancelar
+            </button>
+
+            <button id="etp-shutter" class="etp-shutter" type="button" disabled></button>
+
+            <button id="etp-camera-switch" class="etp-camera-switch" type="button">
+              Virar câmera
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- TELA 2 -->
+
+      <section id="etp-screen-2" class="etp-screen">
+
+        <div class="etp-step">
+          Passo 2 de 3
+        </div>
+
+        <h2 class="etp-title">
+          Confira sua foto
+        </h2>
+
+        <p class="etp-desc">
+          Se o sofá estiver bem enquadrado, continue para gerar sua composição.
+        </p>
+
+        <div class="etp-preview-wrap">
+
+          <img id="etp-preview" class="etp-preview" alt="Foto selecionada">
+
+          <span class="etp-badge">
+            Seu ambiente
+          </span>
+
+        </div>
+
+        <div class="etp-actions">
+
+          <button id="etp-change" class="etp-btn etp-btn-secondary" type="button">
+            Trocar foto
+          </button>
+
+          <button id="etp-generate" class="etp-btn etp-btn-primary" type="button">
+            Gerar simulação
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- TELA 3 -->
+
+      <section id="etp-screen-3" class="etp-screen">
+
+        <div class="etp-step">
+          Passo 3 de 3
+        </div>
+
+        <h2 class="etp-title">
+          Seu novo ambiente
+        </h2>
+
+        <p id="etp-result-desc" class="etp-desc">
+          Estamos posicionando as almofadas no seu sofá.
+        </p>
+
+
+        <div class="etp-stage">
+
+          <div id="etp-loading" class="etp-loading">
+
+            <div class="etp-loader">
+
+              <div class="etp-loader-ring"></div>
+
+              <div class="etp-loader-icon">
+
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 3L13.3 7.5C13.6 8.5 14.4 9.3 15.4 9.6L20 11L15.4 12.4C14.4 12.7 13.6 13.5 13.3 14.5L12 19L10.7 14.5C10.4 13.5 9.6 12.7 8.6 12.4L4 11L8.6 9.6C9.6 9.3 10.4 8.5 10.7 7.5L12 3Z"
+                    stroke="currentColor" stroke-width="1.7" />
+                </svg>
+
+              </div>
+
+            </div>
+
+            <p class="etp-loading-title">
+              Gerando sua imagem
+            </p>
+
+            <p id="etp-loading-text" class="etp-loading-text">
+              Preparando sua foto...
+            </p>
+
+            <ul class="etp-loading-notes">
+              <li>A imagem é gerada por Inteligência Artificial e pode conter erros.</li>
+              <li>Tamanhos, cores e estampas podem variar em relação ao produto.</li>
+              <li>Podem aparecer mais almofadas do que as que vêm no kit.</li>
+            </ul>
+
+          </div>
+
+
+          <img id="etp-result-img" class="etp-result-img" alt="Resultado do provador">
+
+          <div id="etp-error" class="etp-error"></div>
+
+        </div>
+
+
+        <div id="etp-result-note" class="etp-result-note">
+
+          <span class="etp-highlight-ico">
+
+            <svg viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="5" width="14" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7" />
+              <path d="M4.5 16.5l3.5-3.5 2.5 2.5 2-2 3 3" stroke="currentColor" stroke-width="1.7" />
+              <path d="M19 3l.7 2.3 2.3.7-2.3.7L19 9l-.7-2.3L16 6l2.3-.7L19 3Z" stroke="currentColor"
+                stroke-width="1.4" />
+            </svg>
+
+          </span>
+
+          <div class="etp-highlight-text">
+
+            <strong>A imagem é gerada por IA</strong>
+
+            Confira a estampa e os tamanhos na página do produto.
+
+          </div>
+
+        </div>
+
+
+        <!-- DOWNLOAD / COMPARTILHAMENTO -->
+
+        <div id="etp-result-tools" class="etp-result-tools">
+
+          <button id="etp-download" class="etp-tool-btn" type="button">
+
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3V15M7.5 10.5L12 15L16.5 10.5" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M5 19H19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+
+            Baixar imagem
+
+          </button>
+
+
+          <button id="etp-share" class="etp-tool-btn" type="button">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+              <circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="1.7" />
+
+              <circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="1.7" />
+
+              <circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="1.7" />
+
+              <path d="M8.2 10.8L15.8 6.2M8.2 13.2L15.8 17.8" stroke="currentColor" stroke-width="1.7"
+                stroke-linecap="round" />
+
+            </svg>
+
+            Compartilhar
+
+          </button>
+
+        </div>
+
+
+        <p id="etp-share-status" class="etp-share-status"></p>
+
+
+        <!-- AVALIACAO
+
+                     Fora do .etp-stage de proposito. Antes as estrelas
+                     ficavam sobrepostas a imagem gerada, com um
+                     degrade por cima: cobriam justamente a parte de
+                     baixo do sofa, que e onde as almofadas aparecem.
+                     Agora a avaliacao so aparece se o cliente pedir. -->
+
+        <button id="etp-rate-open" class="etp-rate-open" type="button">
+
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3.6l2.55 5.17 5.7.83-4.12 4.02.97 5.68L12 16.62l-5.1 2.68.97-5.68L3.75 9.6l5.7-.83L12 3.6Z"
+              stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          </svg>
+
+          Avalie nossa ferramenta
+
+        </button>
+
+
+        <div id="etp-nps" class="etp-nps">
+
+          <div id="etp-nps-main" class="etp-nps-main">
+
+            <p class="etp-nps-q">
+              Como foi sua experiência com o Provador Virtual?
+            </p>
+
+            <div id="etp-nps-stars" class="etp-stars">
+
+              <button class="etp-star" type="button" data-etp-star="1">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.8l2.72 5.51 6.08.88-4.4 4.29 1.04 6.06L12 16.68l-5.44 2.86 1.04-6.06-4.4-4.29 6.08-.88L12 2.8Z" />
+                </svg>
+              </button>
+
+              <button class="etp-star" type="button" data-etp-star="2">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.8l2.72 5.51 6.08.88-4.4 4.29 1.04 6.06L12 16.68l-5.44 2.86 1.04-6.06-4.4-4.29 6.08-.88L12 2.8Z" />
+                </svg>
+              </button>
+
+              <button class="etp-star" type="button" data-etp-star="3">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.8l2.72 5.51 6.08.88-4.4 4.29 1.04 6.06L12 16.68l-5.44 2.86 1.04-6.06-4.4-4.29 6.08-.88L12 2.8Z" />
+                </svg>
+              </button>
+
+              <button class="etp-star" type="button" data-etp-star="4">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.8l2.72 5.51 6.08.88-4.4 4.29 1.04 6.06L12 16.68l-5.44 2.86 1.04-6.06-4.4-4.29 6.08-.88L12 2.8Z" />
+                </svg>
+              </button>
+
+              <button class="etp-star" type="button" data-etp-star="5">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.8l2.72 5.51 6.08.88-4.4 4.29 1.04 6.06L12 16.68l-5.44 2.86 1.04-6.06-4.4-4.29 6.08-.88L12 2.8Z" />
+                </svg>
+              </button>
+
+            </div>
+
+          </div>
+
+          <p id="etp-nps-thanks" class="etp-nps-thanks">
+            Obrigado pelo seu feedback!
+          </p>
+
+        </div>
+
+
+        <div id="etp-nps-low" class="etp-nps-low">
+
+          <p class="etp-nps-low-title">
+            O que poderíamos melhorar?
+          </p>
+
+          <p class="etp-nps-low-desc">
+            Conte pra gente o que não saiu como você esperava.
+          </p>
+
+          <div id="etp-nps-reasons" class="etp-reasons">
+
+            <button class="etp-reason" type="button" data-etp-reason="As almofadas ficaram diferentes">
+              As almofadas ficaram diferentes
+            </button>
+
+            <button class="etp-reason" type="button" data-etp-reason="Tamanho/proporção não ficou bom">
+              Tamanho/proporção não ficou bom
+            </button>
+
+            <button class="etp-reason" type="button" data-etp-reason="Cores ou estampas mudaram">
+              Cores ou estampas mudaram
+            </button>
+
+            <button class="etp-reason" type="button" data-etp-reason="Resultado pouco realista">
+              Resultado pouco realista
+            </button>
+
+            <button class="etp-reason" type="button" data-etp-reason="Foi difícil tirar a foto">
+              Foi difícil tirar a foto
+            </button>
+
+          <button
+            class="etp-reason"
+            type="button"
+            data-etp-reason="Demorou demais para gerar a imagem"
+          >
+            Demorou demais para gerar a imagem
+          </button>
+
+          </div>
+
+          <textarea id="etp-nps-comment" class="etp-nps-text" rows="3"
+            placeholder="Quer detalhar? (opcional)"></textarea>
+
+          <button id="etp-nps-send" class="etp-nps-send" type="button">
+            Enviar avaliação
+          </button>
+
+        </div>
+
+
+        <div id="etp-result-actions" class="etp-actions" style="display:none">
+
+          <button id="etp-new-photo" class="etp-btn etp-btn-secondary" type="button">
+            Testar outra foto
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <canvas id="etp-canvas" style="display:none"></canvas>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+  (function () {
+    "use strict";
+
+    var GLOBAL_KEY = "__ETRACTION_PROVADOR_AMOFADAS__";
+
+    if (
+      window[GLOBAL_KEY] &&
+      typeof window[GLOBAL_KEY].destroy === "function"
+    ) {
+      try {
+        window[GLOBAL_KEY].destroy();
+      } catch (e) { }
+    }
+
+    /* =========================================================
+       DIAGNOSTICO TEMPORARIO -- REMOVER DEPOIS DO TESTE
+
+       So liga com ?etpdebug=1 na URL da PDP. Sem isso nada e
+       criado, nada e gravado e nada aparece: cliente nenhum ve
+       este bloco.
+
+       Existe para responder UMA pergunta. Quando o Android
+       "recarrega" ao clicar em Tirar foto, o que acontece de
+       fato? Sao tres casos diferentes, com correcoes diferentes,
+       e a olho nu eles se parecem.
+
+         L sobe e o cronometro zera
+             -> a pagina recarregou de verdade (navegacao)
+
+         L fica igual e I sobe
+             -> nao houve reload; a plataforma reinjetou o
+                conteudo adicional e o script rodou de novo
+
+         nada muda
+             -> nao houve remontagem nenhuma; o que se viu foi um
+                salto visual (body position fixed do lockScroll +
+                mudanca de altura do modal ao entrar em
+                etp-shooting)
+
+       L vem do sessionStorage, que sobrevive a um reload e morre
+       com a aba. I vem de window.__ETP_DIAG__, que sobrevive a
+       reinjecao do script e morre no reload. Cada um conta o que
+       o outro nao consegue contar -- e por isso os dois juntos
+       separam os tres casos.
+       ========================================================= */
+
+    var ETP_DIAG_ON = false;
+
+    try {
+
+      ETP_DIAG_ON =
+        /etpdebug/i.test(
+          String(window.location.search)
+        );
+
+    } catch (e) { }
+
+
+    if (ETP_DIAG_ON) {
+
+      (function () {
+
+        var estado = window.__ETP_DIAG__;
+
+        if (!estado) {
+
+          var loads = 0;
+
+          try {
+
+            loads = parseInt(
+              window.sessionStorage.getItem("etp-diag-loads") || "0",
+              10
+            ) || 0;
+
+          } catch (e) { }
+
+          loads = loads + 1;
+
+          try {
+
+            window.sessionStorage.setItem(
+              "etp-diag-loads",
+              String(loads)
+            );
+
+          } catch (e) { }
+
+          estado = {
+            loads: loads,
+            inits: 0,
+            t0: Date.now()
+          };
+
+          window.__ETP_DIAG__ = estado;
+        }
+
+
+        estado.inits = estado.inits + 1;
+
+
+        function pintar() {
+
+          /* O script pode rodar antes do body existir. Em vez de
+             esperar por DOMContentLoaded, que a plataforma ja
+             pode ter disparado, o proprio intervalo tenta de
+             novo meio segundo depois. */
+
+          if (!document.body) return;
+
+
+          var caixa = document.getElementById("etp-diag");
+
+          if (!caixa) {
+
+            caixa = document.createElement("div");
+
+            caixa.id = "etp-diag";
+
+            caixa.style.cssText = [
+              "position:fixed",
+              "top:0",
+              "left:0",
+              "z-index:2147483647",
+              "background:#000",
+              "color:#0f0",
+              "font:12px/1.4 monospace",
+              "padding:4px 8px",
+              "pointer-events:none",
+              "white-space:pre"
+            ].join(";");
+
+            document.body.appendChild(caixa);
+          }
+
+
+          caixa.textContent =
+            "L" + estado.loads +
+            "  I" + estado.inits +
+            "  " + Math.round((Date.now() - estado.t0) / 1000) + "s";
+        }
+
+
+        pintar();
+
+
+        /* Um timer por documento. Sem este clear, cada reinjecao
+           deixaria mais um intervalo rodando. */
+
+        if (window.__ETP_DIAG_TIMER__) {
+          clearInterval(window.__ETP_DIAG_TIMER__);
+        }
+
+        window.__ETP_DIAG_TIMER__ = setInterval(pintar, 500);
+
+      }());
+    }
+
+
+
+
+    /* =========================================================
+       CONFIG
+       ========================================================= */
+
+    var WORKER_URL =
+      "https://provador-almofadas.fernando-rodrigues.workers.dev";
+
+    var GOOGLE_FORM_URL =
+      "https://docs.google.com/forms/d/e/1FAIpQLSep3cks-sDs2FOYKE_0ZS0quhx2OrCsi0hg8Npj-mlWFndmIA/formResponse";
+
+    /* Um campo do formulario por pergunta.
+
+       Antes tudo ia num campo so, como um bloco de texto colado com
+       "\n\n". A planilha ficava com uma coluna gigante de texto, sem
+       como filtrar por nota nem agrupar por motivo. Agora cada
+       pergunta tem o seu entry, e a resposta ja chega tabulada. */
+
+    var GOOGLE_FORM_RATING_ENTRY =
+      "437045764";
+
+    var GOOGLE_FORM_REASON_ENTRY =
+      "1499378013";
+
+    var GOOGLE_FORM_COMMENT_ENTRY =
+      "328747933";
+
+
+    /* Os rotulos do formulario, sem acento, como estao la.
+
+       O Google Forms compara a resposta de escolha com o texto exato
+       da opcao: qualquer diferenca de acento faz a resposta ser
+       descartada em silencio. Duas das nossas opcoes na tela nao
+       batiam ("Tamanho/proporcao..." e "Foi dificil..."), entao a
+       traducao acontece aqui, na hora de enviar. A tela continua com
+       os textos acentuados, que sao os que o cliente le. */
+
+    var GOOGLE_FORM_REASON_LABELS = {
+      "As almofadas ficaram diferentes":
+        "As almofadas ficaram diferentes",
+
+      "Tamanho/proporção não ficou bom":
+        "Tamanho ou proporcao nao ficou bom",
+
+      "Cores ou estampas mudaram":
+        "Cores ou estampas mudaram",
+
+      "Resultado pouco realista":
+        "Resultado pouco realista",
+
+      "Foi difícil tirar a foto":
+        "Foi dificil tirar a foto",
+
+        "Demorou demais para gerar a imagem":
+            "Demorou demais para gerar a imagem"
+    };
+
+    var DOWNLOAD_PATH = "/download";
+
+    var BUY_SELECTOR = ".quantidade-comprar";
+
+    /* VARIACAO CARROSSEL
+
+       MOUNT_PDP_BUTTON: o botao "Provador virtual" acima do Comprar.
+       Desligado nesta variacao -- a entrada e o bloco do carrossel.
+       Ligar (true) mostra as duas entradas ao mesmo tempo.
+
+       CAROUSEL_POSITION: indice do bloco na galeria. 0 = primeiro,
+       1 = segundo. Nao usar 0 sem conferir: a primeira foto da
+       galeria e a vitrine do produto, e e ela que o cliente ve ao
+       abrir a pagina. */
+
+    var MOUNT_PDP_BUTTON = false;
+
+    var CAROUSEL_POSITION = 1;
+
+    var MAX_SOURCE_SIZE = 12 * 1024 * 1024;
+
+    var configuredDimension = Number((window.PROVADOR_CONFIG || {}).maxImageDimension);
+    var MAX_DIMENSION = Number.isInteger(configuredDimension) &&
+      configuredDimension >= 512 && configuredDimension <= 1600
+      ? configuredDimension : 768;
+
+    var JPEG_QUALITY = 0.84;
+
+    var FIRST_POLL_DELAY = 2000;
+    var POLL_BUDGET = 300000;
+
+    var MAX_POLL = 90;
+
+    var REQUEST_TIMEOUT = 90000;
+
+
+    /* =========================================================
+       ESTADO
+       ========================================================= */
+
+    var selectedImage = null;
+
+    var productTitle = "";
+
+    var productImage = "";
+
+    var resultUrl = "";
+
+    var cameraStream = null;
+
+    var facingMode = "environment";
+
+    var cameraStarting = false;
+
+    var cameraReady = false;
+
+    var cameraSession = 0;
+
+    var forceNative = false;
+
+    var pollController = null;
+
+    var pollGeneration = 0;
+
+    var observer = null;
+
+    var mountTimer = null;
+
+    var mounting = false;
+
+    var scrollLockY = 0;
+
+    var lastFocus = null;
+
+    var listeners = [];
+
+    var npsRating = 0;
+
+    var npsReasons = [];
+
+    var npsSent = false;
+
+    var shareStatusTimer = null;
+
+    var initTimers = [];
+
+
+    /* =========================================================
+       ELEMENTOS
+       ========================================================= */
+
+    function $(id) {
+      return document.getElementById(id);
+    }
+
+
+    var triggerWrap = $("etp-trigger-wrap");
+
+    var trigger = $("etp-trigger");
+
+    var overlay = $("etp-overlay");
+
+    var closeButton = $("etp-close");
+
+    var sourceView = $("etp-source");
+
+    var cameraTile = $("etp-camera-tile");
+
+    var galleryTile = $("etp-gallery-tile");
+
+    var cameraInput = $("etp-camera-input");
+
+    var galleryInput = $("etp-gallery-input");
+
+    var noteElement = $("etp-note");
+
+    var cameraView = $("etp-camera");
+
+    var video = $("etp-video");
+
+    var cameraStatus = $("etp-camera-status");
+
+    var canvas = $("etp-canvas");
+
+    var shutter = $("etp-shutter");
+
+    var cameraCancel = $("etp-camera-cancel");
+
+    var cameraSwitch = $("etp-camera-switch");
+
+    var preview = $("etp-preview");
+
+    var generateBtn = $("etp-generate");
+
+    var changeBtn = $("etp-change");
+
+    var newPhotoBtn = $("etp-new-photo");
+
+
+    var loading = $("etp-loading");
+
+    var loadingText = $("etp-loading-text");
+
+    var resultImage = $("etp-result-img");
+
+    var resultDesc = $("etp-result-desc");
+
+    var resultActions = $("etp-result-actions");
+
+    var errorElement = $("etp-error");
+
+    var npsWrap = $("etp-nps");
+
+    var rateOpenBtn = $("etp-rate-open");
+
+    var npsMain = $("etp-nps-main");
+
+    var npsStars = $("etp-nps-stars");
+
+    var npsLow = $("etp-nps-low");
+
+    var npsReasonsBox = $("etp-nps-reasons");
+
+    var npsComment = $("etp-nps-comment");
+
+    var npsSendBtn = $("etp-nps-send");
+
+    var npsThanks = $("etp-nps-thanks");
+
+    var resultTools = $("etp-result-tools");
+
+    var resultNote = $("etp-result-note");
+
+    var downloadBtn = $("etp-download");
+
+    var shareBtn = $("etp-share");
+
+    var shareStatus = $("etp-share-status");
+
+
+    if (!triggerWrap || !overlay) {
+      return;
+    }
+
+
+    var modal =
+      overlay.querySelector(".etp-modal");
+
+
+    if (overlay.parentNode !== document.body) {
+      document.body.appendChild(overlay);
+    }
+
+
+    function addEvent(el, type, handler, options) {
+
+      if (!el) {
+        return;
+      }
+
+      el.addEventListener(
+        type,
+        handler,
+        options
+      );
+
+      listeners.push({
+        el: el,
+        type: type,
+        handler: handler,
+        options: options
+      });
+    }
+
+
+    /* =========================================================
+       MENSAGEM DOWNLOAD / SHARE
+       ========================================================= */
+
+    function showShareStatus(message) {
+
+      clearTimeout(
+        shareStatusTimer
+      );
+
+
+      if (!message) {
+
+        shareStatus.textContent =
+          "";
+
+        shareStatus.classList.remove(
+          "etp-show"
+        );
+
+        return;
+      }
+
+
+      shareStatus.textContent =
+        message;
+
+
+      shareStatus.classList.add(
+        "etp-show"
+      );
+
+
+      shareStatusTimer =
+        setTimeout(
+          function () {
+
+            shareStatus.classList.remove(
+              "etp-show"
+            );
+
+          },
+          3500
+        );
+    }
+
+
+    /* =========================================================
+       PRODUTO
+       ========================================================= */
+
+    function normalizeText(value) {
+
+      return String(value || "")
+        .replace(/[ ]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+
+    function getProductTitle() {
+
+      var el =
+        document.querySelector(
+          ".product-name h1, h1.product-name, #product-name h1"
+        ) ||
+        document.querySelector("h1");
+
+
+      if (el) {
+
+        return normalizeText(
+          el.textContent
+        );
+      }
+
+
+      var meta =
+        document.querySelector(
+          'meta[property="og:title"]'
+        );
+
+
+      return meta
+        ? normalizeText(
+          meta.getAttribute("content")
+        )
+        : "";
+    }
+
+
+    function cleanImageUrl(value) {
+
+      if (!value) {
+        return "";
+      }
+
+
+      try {
+
+        var url =
+          new URL(
+            value,
+            window.location.href
+          );
+
+
+        url.searchParams.delete(
+          "ims"
+        );
+
+
+        return url.href;
+
+
+      } catch (e) {
+
+        return value;
+      }
+    }
+
+
+    function getProductImage() {
+
+      var og =
+        document.querySelector(
+          'meta[property="og:image"]'
+        );
+
+
+      if (
+        og &&
+        og.getAttribute("content")
+      ) {
+
+        return cleanImageUrl(
+          og.getAttribute("content")
+        );
+      }
+
+
+      var images =
+        document.querySelectorAll(
+          'img[src*="cdn.magazord.com.br/img/"][src*="/produto/"]'
+        );
+
+
+      if (images.length) {
+
+        return cleanImageUrl(
+          images[0].currentSrc ||
+          images[0].src
+        );
+      }
+
+
+      return "";
+    }
+
+
+    function refreshProductData() {
+
+      productTitle =
+        getProductTitle();
+
+
+      productImage =
+        getProductImage();
+    }
+
+
+    /* =========================================================
+       MONTAGEM
+       ========================================================= */
+
+    function mountTrigger() {
+
+      var buyArea =
+        document.querySelector(
+          BUY_SELECTOR
+        );
+
+
+      if (!buyArea) {
+
+        triggerWrap.classList.remove(
+          "etp-mounted"
+        );
+
+        return false;
+      }
+
+
+      if (
+        triggerWrap.nextElementSibling !== buyArea ||
+        !triggerWrap.parentNode
+      ) {
+
+        mounting = true;
+
+
+        buyArea.insertAdjacentElement(
+          "beforebegin",
+          triggerWrap
+        );
+
+
+        mounting = false;
+      }
+
+
+      triggerWrap.classList.add(
+        "etp-mounted"
+      );
+
+
+      return true;
+    }
+
+
+    /* =========================================================
+       CARROSSEL DA PDP (VARIACAO)
+
+       A galeria da Magazord sao dois Swipers renderizados por
+       React: o principal e o das miniaturas, ligados por indice
+       (tocar na miniatura N leva o principal ao slide N). Por isso
+       o bloco entra nos DOIS, na mesma posicao.
+
+       O Swiper da loja nao traz o modulo de manipulacao (nao ha
+       addSlide), entao o slide e inserido direto no wrapper e o
+       swiper.update() recalcula tamanhos, miniaturas e bolinhas.
+
+       Se o React re-renderizar a galeria, o observer da PDP chama
+       mountAll de novo e o bloco volta para o lugar. Quando ele ja
+       esta no lugar, nada e tocado -- e isso que impede o ciclo
+       observer -> insercao -> observer.
+       ========================================================= */
+
+    /* A mesma camera do botao "Provador virtual" da PDP. */
+
+    var CAMERA_ICON =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+      '<path d="M14.5 4h-5L7.5 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.5L14.5 4Z" />' +
+      '<circle cx="12" cy="13.5" r="4" />' +
+      '<path d="M18 10h.01" />' +
+      '</svg>';
+
+    var SPARKLE_ICON =
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">' +
+      '<path d="M12 3L13.25 7.35C13.57 8.46 14.44 9.33 15.55 9.65L20 11L15.55 12.35C14.44 12.67 13.57 13.54 13.25 14.65L12 19L10.75 14.65C10.43 13.54 9.56 12.67 8.45 12.35L4 11L8.45 9.65C9.56 9.33 10.43 8.46 10.75 7.35L12 3Z" stroke="currentColor" stroke-width="1.6" />' +
+      '</svg>';
+
+    var ARROW_ICON =
+      '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">' +
+      '<path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />' +
+      '</svg>';
+
+    var CAROUSEL_THUMB_HTML =
+      '<div class="etp-root etp-carousel-thumb" role="button" tabindex="0" aria-label="Provador virtual: veja como fica no seu sofá">' +
+      '<span class="etp-carousel-thumb-icon">' + CAMERA_ICON + '</span>' +
+      '<span class="etp-carousel-thumb-text">Veja como fica no seu sofá</span>' +
+      '</div>';
+
+    var CAROUSEL_MAIN_HTML =
+      '<div class="etp-root etp-carousel-main">' +
+      '<span class="etp-carousel-main-icon">' + CAMERA_ICON + '</span>' +
+      '<div class="etp-step">Provador virtual</div>' +
+      '<p class="etp-title">Veja como fica no seu sofá <span class="etp-title-icon">' + SPARKLE_ICON + '</span></p>' +
+      '<p class="etp-desc">Tire uma foto do seu sofá e veja como o kit de almofadas fica nele.</p>' +
+      '<button class="etp-btn etp-btn-primary" type="button">Experimentar no meu sofá' + ARROW_ICON + '</button>' +
+      '</div>';
+
+
+    function getGallerySwipers() {
+
+      var els =
+        document.querySelectorAll(
+          ".swiper, .swiper-container"
+        );
+
+
+      /* O principal e o unico que tem miniaturas vinculadas, no
+         desktop e no mobile. */
+
+      for (var i = 0; i < els.length; i++) {
+
+        var swiper = els[i].swiper;
+
+        if (
+          swiper &&
+          swiper.thumbs &&
+          swiper.thumbs.swiper
+        ) {
+
+          return {
+            main: swiper,
+            thumbs: swiper.thumbs.swiper
+          };
+        }
+      }
+
+
+      /* Produto com uma foto so: a loja pode nao criar miniaturas. */
+
+      for (var j = 0; j < els.length; j++) {
+
+        if (
+          els[j].swiper &&
+          els[j].closest(".gallery-main")
+        ) {
+
+          return {
+            main: els[j].swiper,
+            thumbs: null
+          };
+        }
+      }
+
+
+      return null;
+    }
+
+
+    function getPdpSlides(swiper) {
+
+      return Array.prototype.filter.call(
+        swiper.wrapperEl.children,
+        function (el) {
+
+          return (
+            el.classList.contains("swiper-slide") &&
+            !el.hasAttribute("data-etp-slide")
+          );
+        }
+      );
+    }
+
+
+    function onCarouselClick(event) {
+
+      /* stopPropagation: o slide principal da loja abre zoom ao
+         clicar. No nosso bloco o clique so abre o provador. */
+
+      event.preventDefault();
+
+      event.stopPropagation();
+
+      openFromEntry("carrossel");
+    }
+
+
+    function onCarouselKey(event) {
+
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
+
+        event.preventDefault();
+
+        openFromEntry("carrossel");
+      }
+    }
+
+
+    function buildCarouselSlide(reference, type) {
+
+      var slide =
+        document.createElement("div");
+
+
+      /* Mesmas classes de layout dos slides da loja, sem os estados
+         do Swiper (swiper-slide-active, -next, -visible...): quem
+         decide esses e o proprio Swiper no update(). */
+
+      slide.className =
+        reference.className
+          .split(/\s+/)
+          .filter(function (name) {
+            return name && !/^swiper-slide-/.test(name);
+          })
+          .join(" ");
+
+
+      slide.classList.add(
+        type === "thumb"
+          ? "etp-slide-thumb"
+          : "etp-slide-main"
+      );
+
+
+      slide.setAttribute(
+        "data-etp-slide",
+        type
+      );
+
+
+      slide.innerHTML =
+        type === "thumb"
+          ? CAROUSEL_THUMB_HTML
+          : CAROUSEL_MAIN_HTML;
+
+
+      /* Fora do addEvent de proposito: o destroy remove o slide
+         inteiro, e os listeners vao junto. */
+
+      slide.addEventListener("click", onCarouselClick);
+
+      slide.addEventListener("keydown", onCarouselKey);
+
+
+      return slide;
+    }
+
+
+    function placeCarouselSlide(swiper, type) {
+
+      var pdpSlides =
+        getPdpSlides(swiper);
+
+
+      if (!pdpSlides.length) {
+        return false;
+      }
+
+
+      var wrapper =
+        swiper.wrapperEl;
+
+
+      var before =
+        pdpSlides[
+          Math.min(CAROUSEL_POSITION, pdpSlides.length) - 1
+        ] || null;
+
+
+      var slide =
+        wrapper.querySelector(
+          ':scope > [data-etp-slide="' + type + '"]'
+        );
+
+
+      var inPlace =
+        slide &&
+        (
+          before
+            ? slide.previousElementSibling === before
+            : slide === wrapper.firstElementChild
+        );
+
+
+      if (inPlace) {
+        return false;
+      }
+
+
+      if (!slide) {
+
+        slide =
+          buildCarouselSlide(
+            pdpSlides[0],
+            type
+          );
+      }
+
+
+      wrapper.insertBefore(
+        slide,
+        before
+          ? before.nextSibling
+          : wrapper.firstChild
+      );
+
+
+      return true;
+    }
+
+
+    /* Destaque da miniatura atual (ver o CSS de [data-etp-thumbs]).
+
+       data-* e nao classe: o React reescreve o className inteiro dos
+       slides dele quando o destaque muda, e levaria uma classe nossa
+       junto. Atributo que ele nao renderizou, ele nao toca. */
+
+    var hookedMain = null;
+
+    var thumbColorsRead = false;
+
+
+    function markActiveThumb() {
+
+      if (
+        !hookedMain ||
+        hookedMain.destroyed ||
+        !hookedMain.thumbs ||
+        !hookedMain.thumbs.swiper
+      ) {
+        return;
+      }
+
+
+      var slides =
+        hookedMain.thumbs.swiper.slides;
+
+
+      for (var i = 0; i < slides.length; i++) {
+
+        slides[i].toggleAttribute(
+          "data-etp-current",
+          i === hookedMain.activeIndex
+        );
+      }
+    }
+
+
+    function hookActiveThumb(main) {
+
+      if (hookedMain === main) {
+        return;
+      }
+
+
+      if (
+        hookedMain &&
+        !hookedMain.destroyed
+      ) {
+        hookedMain.off("slideChange", markActiveThumb);
+      }
+
+
+      hookedMain = main;
+
+      hookedMain.on("slideChange", markActiveThumb);
+    }
+
+
+    /* As cores do destaque vem da propria loja: o slide que o React
+       marcou (border-cor-base) e um que nao marcou. Assim, se o tema
+       mudar, o destaque acompanha. */
+
+    function readThumbColors(thumbs) {
+
+      if (thumbColorsRead) {
+        return;
+      }
+
+
+      var on =
+        thumbs.el.querySelector(
+          ".swiper-slide.border-cor-base:not([data-etp-slide])"
+        );
+
+
+      var off =
+        thumbs.el.querySelector(
+          ".swiper-slide.border-secondary-100:not([data-etp-slide])"
+        );
+
+
+      if (!on || !off) {
+        return;
+      }
+
+
+      document.documentElement.style.setProperty(
+        "--etp-thumb-on",
+        getComputedStyle(on).borderTopColor
+      );
+
+
+      document.documentElement.style.setProperty(
+        "--etp-thumb-off",
+        getComputedStyle(off).borderTopColor
+      );
+
+
+      thumbColorsRead = true;
+    }
+
+
+    function mountCarousel() {
+
+      var gallery =
+        getGallerySwipers();
+
+
+      if (
+        !gallery ||
+        gallery.main.destroyed
+      ) {
+        return false;
+      }
+
+
+      if (gallery.thumbs) {
+
+        /* Antes de inserir: depois, o nosso slide tambem carrega as
+           classes copiadas da loja. */
+
+        readThumbColors(gallery.thumbs);
+      }
+
+
+      var activeIndex =
+        gallery.main.activeIndex;
+
+
+      var mainChanged =
+        placeCarouselSlide(
+          gallery.main,
+          "main"
+        );
+
+
+      var thumbsChanged =
+        gallery.thumbs
+          ? placeCarouselSlide(
+            gallery.thumbs,
+            "thumb"
+          )
+          : false;
+
+
+      if (thumbsChanged) {
+        gallery.thumbs.update();
+      }
+
+
+      if (mainChanged) {
+
+        gallery.main.update();
+
+
+        /* Se o cliente ja estava numa foto depois da posicao do
+           bloco, ela andou uma casa: volta para a mesma foto. */
+
+        if (
+          activeIndex > 0 &&
+          activeIndex >= CAROUSEL_POSITION
+        ) {
+
+          gallery.main.slideTo(
+            activeIndex + 1,
+            0
+          );
+        }
+      }
+
+
+      if (
+        gallery.thumbs &&
+        gallery.thumbs.el.querySelector("[data-etp-slide]")
+      ) {
+
+        gallery.thumbs.el.setAttribute(
+          "data-etp-thumbs",
+          ""
+        );
+
+
+        hookActiveThumb(gallery.main);
+
+        markActiveThumb();
+      }
+
+
+      return true;
+    }
+
+
+    function removeCarousel() {
+
+      var slides =
+        document.querySelectorAll(
+          "[data-etp-slide]"
+        );
+
+
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].remove();
+      }
+
+
+      var marked =
+        document.querySelectorAll(
+          "[data-etp-thumbs], [data-etp-current]"
+        );
+
+
+      for (var j = 0; j < marked.length; j++) {
+
+        marked[j].removeAttribute("data-etp-thumbs");
+
+        marked[j].removeAttribute("data-etp-current");
+      }
+
+
+      if (
+        hookedMain &&
+        !hookedMain.destroyed
+      ) {
+        hookedMain.off("slideChange", markActiveThumb);
+      }
+
+
+      hookedMain = null;
+
+
+      var gallery =
+        getGallerySwipers();
+
+
+      if (!gallery) {
+        return;
+      }
+
+
+      try {
+
+        gallery.main.update();
+
+
+        if (gallery.thumbs) {
+          gallery.thumbs.update();
+        }
+
+      } catch (e) { }
+    }
+
+
+    function mountAll() {
+
+      if (MOUNT_PDP_BUTTON) {
+        mountTrigger();
+      }
+
+
+      mountCarousel();
+    }
+
+
+    /* O observer so precisa rodar enquanto o cliente esta NA PDP.
+
+       Ele vigia o document.body inteiro (childList + subtree) e, a
+       cada mudanca, reposiciona o botao do provador no DOM da
+       Magazord com insertAdjacentElement -- ou seja, nos escrevemos
+       no DOM da plataforma em resposta a mudancas do DOM dela.
+
+       Com o modal aberto isso nao serve para nada (ninguem ve o botao
+       da PDP) e ainda alimenta um ciclo: abrir a camera muda bastante
+       o layout, a plataforma reage, nos movemos o botao, ela reage de
+       novo. Quando essa troca faz a Magazord reinjetar o conteudo
+       adicional, o script inteiro roda outra vez -- e e por isso que
+       existe o guarda GLOBAL_KEY/destroy no topo deste arquivo. Para
+       quem esta olhando, parece que a pagina recarregou.
+
+       Enquanto o modal estiver aberto, ficamos quietos. */
+
+    function startObserving() {
+
+      if (!observer) {
+        return;
+      }
+
+
+      try {
+
+        observer.observe(
+          document.body,
+          {
+            childList: true,
+            subtree: true
+          }
+        );
+
+      } catch (e) { }
+    }
+
+
+    function stopObserving() {
+
+      if (!observer) {
+        return;
+      }
+
+
+      clearTimeout(
+        mountTimer
+      );
+
+
+      try {
+        observer.disconnect();
+      } catch (e) { }
+    }
+
+
+    function scheduleMount() {
+
+      clearTimeout(
+        mountTimer
+      );
+
+
+      mountTimer =
+        setTimeout(
+          mountAll,
+          120
+        );
+    }
+
+
+    /* =========================================================
+       TELAS
+       ========================================================= */
+
+    function updateProgress(number) {
+
+      var items =
+        document.querySelectorAll(
+          "[data-etp-progress]"
+        );
+
+
+      for (
+        var i = 0;
+        i < items.length;
+        i++
+      ) {
+
+        items[i].classList.toggle(
+          "etp-on",
+          Number(
+            items[i].getAttribute(
+              "data-etp-progress"
+            )
+          ) <= number
+        );
+      }
+    }
+
+
+    function showScreen(number) {
+
+      var screens =
+        overlay.querySelectorAll(
+          ".etp-screen"
+        );
+
+
+      for (
+        var i = 0;
+        i < screens.length;
+        i++
+      ) {
+
+        screens[i].classList.remove(
+          "etp-active"
+        );
+      }
+
+
+      var target =
+        $("etp-screen-" + number);
+
+
+      if (target) {
+
+        target.classList.add(
+          "etp-active"
+        );
+      }
+
+
+      updateProgress(
+        number
+      );
+    }
+
+
+    /* =========================================================
+       SCROLL
+       ========================================================= */
+
+    function lockScroll() {
+
+      scrollLockY =
+        window.pageYOffset ||
+        0;
+
+
+      document.body.style.position =
+        "fixed";
+
+
+      document.body.style.top =
+        (-scrollLockY) + "px";
+
+
+      document.body.style.width =
+        "100%";
+    }
+
+
+    function unlockScroll() {
+
+      document.body.style.position =
+        "";
+
+      document.body.style.top =
+        "";
+
+      document.body.style.width =
+        "";
+
+
+      window.scrollTo(
+        0,
+        scrollLockY
+      );
+    }
+
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    function openModal() {
+
+      refreshProductData();
+
+
+      if (
+        !productTitle ||
+        !productImage
+      ) {
+        return;
+      }
+
+
+      lastFocus =
+        document.activeElement;
+
+
+      overlay.classList.add(
+        "etp-open"
+      );
+
+
+      overlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      lockScroll();
+
+
+      /* Nada de mexer no DOM da PDP enquanto o modal esta aberto. */
+
+      stopObserving();
+
+
+      if (!selectedImage) {
+
+        showScreen(1);
+
+        showSourceView();
+      }
+    }
+
+
+    function closeModal() {
+
+      stopCamera();
+
+      cancelPolling();
+
+
+      overlay.classList.remove(
+        "etp-open"
+      );
+
+
+      unlockScroll();
+
+
+      startObserving();
+    }
+
+
+    /* =========================================================
+       FOTO
+       ========================================================= */
+
+    function showNote(message) {
+
+      noteElement.textContent =
+        message || "";
+
+
+      noteElement.classList.toggle(
+        "etp-show",
+        !!message
+      );
+    }
+
+
+    function showSourceView() {
+
+      sourceView.classList.remove(
+        "etp-hidden"
+      );
+
+
+      cameraView.classList.remove(
+        "etp-active"
+      );
+
+
+      modal.classList.remove(
+        "etp-shooting"
+      );
+    }
+
+
+    function showCameraView() {
+
+      sourceView.classList.add(
+        "etp-hidden"
+      );
+
+
+      cameraView.classList.add(
+        "etp-active"
+      );
+
+
+      modal.classList.add(
+        "etp-shooting"
+      );
+    }
+
+
+    function isIOS() {
+
+      return (
+        /iPad|iPhone|iPod/i.test(
+          navigator.userAgent
+        )
+      );
+    }
+
+
+    /* Quem abre a camera: o aparelho (via <input type=file>) ou o
+       proprio provador (getUserMedia, a camera embutida no modal).
+
+       - Safari do iOS: aparelho. La o `capture` abre a camera direto.
+
+       - Chrome / Firefox / Edge do iOS: camera EMBUTIDA. Nesses
+         navegadores o caminho pelo <input> nao e confiavel: com
+         `capture` o seletor nao abria, e sem ele a opcao "Tirar Foto"
+         da folha do iOS tambem pode nao abrir. E quando falha, falha
+         em silencio -- nenhum evento chega ao site, entao nao ha nem
+         como avisar o cliente. O getUserMedia funciona neles desde o
+         iOS 14.3 e, quando da errado, devolve um erro que da para
+         tratar.
+
+       - Android e desktop: camera embutida, como ja era.
+
+       forceNative: se a camera embutida falhar uma vez, o proximo
+       toque vai pelo caminho do aparelho. */
+
+    function useNativeCamera() {
+
+      if (
+        forceNative ||
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+      ) {
+        return true;
+      }
+
+
+      return (
+        isIOS() &&
+        !isIOSNonSafari()
+      );
+    }
+
+
+    /* Chrome, Firefox e Edge no iOS.
+
+       Nenhum deles e "o proprio navegador": o iOS obriga todos a usar
+       o WebKit por baixo, e por isso o userAgent traz "iPhone" junto
+       de CriOS / FxiOS / EdgiOS. Sao esses sufixos que os distinguem
+       do Safari. */
+
+    function isIOSNonSafari() {
+
+      return (
+        isIOS() &&
+        /CriOS|FxiOS|EdgiOS|OPiOS|mercury/i.test(
+          navigator.userAgent
+        )
+      );
+    }
+
+
+    /* Nesses navegadores o <input> da camera virou plano B: so e
+       usado se a camera embutida falhar (forceNative) ou num iOS
+       antigo, anterior ao 14.3, sem getUserMedia.
+
+       Nesse plano B o `capture` faz o seletor nao abrir -- o toque em
+       "Tirar foto" nao produz nada. Sem o atributo, o iOS mostra a
+       folha padrao ("Tirar Foto" / "Fototeca"), que pelo menos deixa
+       o cliente escolher uma foto.
+
+       O Safari do iOS fica como esta: la o `capture` funciona e abre a
+       camera direto, sem o toque extra. */
+
+    function fixIOSCameraInput() {
+
+      if (
+        isIOSNonSafari() &&
+        cameraInput
+      ) {
+
+        cameraInput.removeAttribute(
+          "capture"
+        );
+      }
+    }
+
+
+    function getIOSBrowserName() {
+
+      var ua =
+        navigator.userAgent;
+
+
+      if (/CriOS/i.test(ua)) {
+        return "Chrome";
+      }
+
+      if (/FxiOS/i.test(ua)) {
+        return "Firefox";
+      }
+
+      if (/EdgiOS/i.test(ua)) {
+        return "Edge";
+      }
+
+      if (/OPiOS/i.test(ua)) {
+        return "Opera";
+      }
+
+
+      return "";
+    }
+
+
+    /* Mensagem para quando a camera embutida nao abre.
+
+       No Chrome do iOS a causa mais comum e permissao: ou o cliente
+       tocou em "Nao permitir" no aviso do site, ou o proprio app do
+       Chrome esta sem acesso a camera nos Ajustes do iPhone. No
+       segundo caso NENHUM caminho abre a camera -- nem o nosso, nem a
+       folha do iOS -- entao vale dizer onde se libera. A galeria
+       continua funcionando sem essa permissao. */
+
+    function getCameraErrorMessage(error) {
+
+      if (!isIOSNonSafari()) {
+
+        return "Não conseguimos abrir a câmera dentro do site. Toque novamente em Tirar foto.";
+      }
+
+
+      var name =
+        error && error.name;
+
+
+      var browser =
+        getIOSBrowserName();
+
+
+      var message =
+        "Não conseguimos abrir a câmera. Toque de novo em Tirar foto ou escolha uma foto da galeria.";
+
+
+      if (
+        browser &&
+        (
+          name === "NotAllowedError" ||
+          name === "SecurityError"
+        )
+      ) {
+
+        message +=
+          " Se a câmera não abrir, libere o acesso em Ajustes > " +
+          browser +
+          " > Câmera.";
+      }
+
+
+      return message;
+    }
+
+
+    async function openCamera() {
+
+      if (cameraStarting) {
+        return;
+      }
+
+
+      var session =
+        ++cameraSession;
+
+
+      /* Guarda QUAL abertura esta em andamento, e nao so "sim/nao":
+         se o cliente cancelar no meio, stopCamera libera o botao na
+         hora, e o finally de uma abertura antiga nao mexe no estado
+         de uma nova. */
+
+      cameraStarting =
+        session;
+
+
+      cameraStatus.classList.add(
+        "etp-show"
+      );
+
+
+      showCameraView();
+
+
+      try {
+
+        var stream =
+          await navigator.mediaDevices.getUserMedia({
+
+            audio: false,
+
+            video: {
+              facingMode: {
+                ideal: facingMode
+              }
+            }
+          });
+
+
+        /* O cliente cancelou ou fechou o modal enquanto a camera
+           abria (o aviso de permissao pode demorar). Sem esta
+           checagem a camera ligava depois, escondida, com o
+           indicador aceso no celular. */
+
+        if (session !== cameraSession) {
+
+          stream
+            .getTracks()
+            .forEach(
+              function (track) {
+                track.stop();
+              }
+            );
+
+
+          return;
+        }
+
+
+        cameraStream =
+          stream;
+
+
+        /* Seguro para o iOS: sem `playsinline` e `muted` o WebKit
+           nao toca o video da camera dentro da pagina. Os dois ja
+           estao no HTML, mas editores de conteudo as vezes limpam
+           atributos que nao reconhecem -- aqui eles voltam por JS. */
+
+        video.muted =
+          true;
+
+
+        video.setAttribute(
+          "muted",
+          ""
+        );
+
+
+        video.setAttribute(
+          "playsinline",
+          ""
+        );
+
+
+        video.setAttribute(
+          "webkit-playsinline",
+          ""
+        );
+
+
+        video.srcObject =
+          cameraStream;
+
+
+        await video.play();
+
+
+        if (session !== cameraSession) {
+          return;
+        }
+
+
+        showNote("");
+
+
+        cameraReady =
+          true;
+
+
+        shutter.disabled =
+          false;
+
+
+        cameraStatus.classList.remove(
+          "etp-show"
+        );
+
+
+      } catch (error) {
+
+        /* Erro de uma abertura ja cancelada: nada a fazer. */
+
+        if (session !== cameraSession) {
+          return;
+        }
+
+
+        forceNative =
+          true;
+
+
+        stopCamera();
+
+
+        showSourceView();
+
+
+        showNote(
+          getCameraErrorMessage(
+            error
+          )
+        );
+
+
+      } finally {
+
+        if (cameraStarting === session) {
+
+          cameraStarting =
+            false;
+        }
+      }
+    }
+
+
+    function stopCamera() {
+
+      cameraSession++;
+
+
+      cameraStarting =
+        false;
+
+
+      cameraReady =
+        false;
+
+
+      if (cameraStream) {
+
+        cameraStream
+          .getTracks()
+          .forEach(
+            function (track) {
+              track.stop();
+            }
+          );
+
+
+        cameraStream =
+          null;
+      }
+
+
+      if (video) {
+
+        video.srcObject =
+          null;
+      }
+
+
+      shutter.disabled =
+        true;
+
+
+      cameraStatus.classList.remove(
+        "etp-show"
+      );
+    }
+
+
+    async function switchCamera() {
+
+      facingMode =
+        facingMode === "environment"
+          ? "user"
+          : "environment";
+
+
+      stopCamera();
+
+
+      await wait(250);
+
+
+      openCamera();
+    }
+
+
+    function captureCameraPhoto() {
+
+      if (
+        !cameraReady ||
+        !video.videoWidth
+      ) {
+        return;
+      }
+
+
+      var ratio =
+        Math.min(
+          MAX_DIMENSION / video.videoWidth,
+          MAX_DIMENSION / video.videoHeight,
+          1
+        );
+
+
+      canvas.width =
+        Math.round(
+          video.videoWidth *
+          ratio
+        );
+
+
+      canvas.height =
+        Math.round(
+          video.videoHeight *
+          ratio
+        );
+
+
+      var ctx =
+        canvas.getContext(
+          "2d"
+        );
+
+
+      ctx.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+
+      selectedImage =
+        canvas.toDataURL(
+          "image/jpeg",
+          JPEG_QUALITY
+        );
+
+
+      preview.src =
+        selectedImage;
+
+
+      stopCamera();
+
+
+      showSourceView();
+
+
+      showScreen(2);
+    }
+
+
+    /* =========================================================
+       ARQUIVO
+       ========================================================= */
+
+    function resizeImage(file) {
+
+      return new Promise(
+        function (resolve, reject) {
+
+          var reader =
+            new FileReader();
+
+
+          reader.onload =
+            function (event) {
+
+              var image =
+                new Image();
+
+
+              image.onload =
+                function () {
+
+                  var ratio =
+                    Math.min(
+                      MAX_DIMENSION / image.naturalWidth,
+                      MAX_DIMENSION / image.naturalHeight,
+                      1
+                    );
+
+
+                  var c =
+                    document.createElement(
+                      "canvas"
+                    );
+
+
+                  c.width =
+                    Math.round(
+                      image.naturalWidth *
+                      ratio
+                    );
+
+
+                  c.height =
+                    Math.round(
+                      image.naturalHeight *
+                      ratio
+                    );
+
+
+                  c.getContext("2d")
+                    .drawImage(
+                      image,
+                      0,
+                      0,
+                      c.width,
+                      c.height
+                    );
+
+
+                  resolve(
+                    c.toDataURL(
+                      "image/jpeg",
+                      JPEG_QUALITY
+                    )
+                  );
+                };
+
+
+              image.onerror =
+                reject;
+
+
+              image.src =
+                event.target.result;
+            };
+
+
+          reader.onerror =
+            reject;
+
+
+          reader.readAsDataURL(
+            file
+          );
+        }
+      );
+    }
+
+
+    async function processSelectedFile(file) {
+
+      if (!file) {
+        return;
+      }
+
+
+      try {
+
+        if (
+          file.size >
+          MAX_SOURCE_SIZE
+        ) {
+
+          throw new Error(
+            "A imagem deve ter no máximo 12 MB."
+          );
+        }
+
+
+        selectedImage =
+          await resizeImage(
+            file
+          );
+
+
+        preview.src =
+          selectedImage;
+
+
+        showScreen(2);
+
+
+      } catch (error) {
+
+        showNote(
+          error.message ||
+          "Não foi possível processar esta foto."
+        );
+      }
+    }
+
+
+    /* =========================================================
+       DOWNLOAD
+       ========================================================= */
+
+    function getFileName() {
+
+      return (
+        "meu-ambiente-" +
+        Date.now() +
+        ".jpg"
+      );
+    }
+
+
+    function getDownloadProxyUrl() {
+
+      return (
+        WORKER_URL +
+        DOWNLOAD_PATH +
+        "?url=" +
+        encodeURIComponent(
+          resultUrl
+        )
+      );
+    }
+
+
+    async function getResultBlob() {
+
+      if (!resultUrl) {
+
+        throw new Error(
+          "Imagem indisponível."
+        );
+      }
+
+
+      /*
+       * Primeiro tenta o endpoint do Worker.
+       */
+      try {
+
+        var proxyResponse =
+          await fetch(
+            getDownloadProxyUrl(),
+            {
+              cache:
+                "no-store"
+            }
+          );
+
+
+        if (
+          proxyResponse.ok
+        ) {
+
+          var proxyBlob =
+            await proxyResponse.blob();
+
+
+          if (
+            proxyBlob &&
+            proxyBlob.size
+          ) {
+
+            return proxyBlob;
+          }
+        }
+
+      } catch (e) { }
+
+
+      /*
+       * Fallback direto.
+       */
+      var directResponse =
+        await fetch(
+          resultUrl,
+          {
+            mode:
+              "cors",
+
+            cache:
+              "no-store"
+          }
+        );
+
+
+      if (!directResponse.ok) {
+
+        throw new Error(
+          "Não foi possível acessar a imagem."
+        );
+      }
+
+
+      return await directResponse.blob();
+    }
+
+
+    async function downloadResultImage() {
+
+      if (!resultUrl) {
+        return;
+      }
+
+
+      downloadBtn.disabled =
+        true;
+
+
+      showShareStatus(
+        "Preparando imagem..."
+      );
+
+
+      try {
+
+        var blob =
+          await getResultBlob();
+
+
+        var blobUrl =
+          URL.createObjectURL(
+            blob
+          );
+
+
+        var link =
+          document.createElement(
+            "a"
+          );
+
+
+        link.href =
+          blobUrl;
+
+
+        link.download =
+          getFileName();
+
+
+        document.body.appendChild(
+          link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        setTimeout(
+          function () {
+
+            URL.revokeObjectURL(
+              blobUrl
+            );
+
+          },
+          1500
+        );
+
+
+        showShareStatus(
+          "Download iniciado."
+        );
+
+
+      } catch (error) {
+
+        /*
+         * Último fallback:
+         * abre a imagem original.
+         */
+        window.open(
+          resultUrl,
+          "_blank",
+          "noopener"
+        );
+
+
+        showShareStatus(
+          "A imagem foi aberta em uma nova aba. Você pode salvá-la pelo navegador."
+        );
+
+
+      } finally {
+
+        downloadBtn.disabled =
+          false;
+      }
+    }
+
+
+    /* =========================================================
+       COMPARTILHAR
+       ========================================================= */
+
+    async function copyResultLink() {
+
+      if (
+        navigator.clipboard &&
+        window.isSecureContext
+      ) {
+
+        await navigator.clipboard.writeText(
+          resultUrl
+        );
+
+
+        return true;
+      }
+
+
+      var input =
+        document.createElement(
+          "textarea"
+        );
+
+
+      input.value =
+        resultUrl;
+
+
+      input.style.position =
+        "fixed";
+
+
+      input.style.opacity =
+        "0";
+
+
+      document.body.appendChild(
+        input
+      );
+
+
+      input.select();
+
+
+      var success =
+        document.execCommand(
+          "copy"
+        );
+
+
+      input.remove();
+
+
+      return success;
+    }
+
+
+    async function shareResultImage() {
+
+      if (!resultUrl) {
+        return;
+      }
+
+
+      shareBtn.disabled =
+        true;
+
+
+      showShareStatus(
+        "Preparando compartilhamento..."
+      );
+
+
+      try {
+
+        /*
+         * Primeiro tenta compartilhar
+         * A IMAGEM como arquivo.
+         */
+        if (
+          navigator.share &&
+          typeof File !== "undefined"
+        ) {
+
+          try {
+
+            var blob =
+              await getResultBlob();
+
+
+            var file =
+              new File(
+                [blob],
+                getFileName(),
+                {
+                  type:
+                    blob.type ||
+                    "image/jpeg"
+                }
+              );
+
+
+            var shareData = {
+              title:
+                "Meu ambiente",
+
+              text:
+                "Veja como ficou esta composição no meu ambiente.",
+
+              files:
+                [file]
+            };
+
+
+            if (
+              !navigator.canShare ||
+              navigator.canShare({
+                files:
+                  [file]
+              })
+            ) {
+
+              await navigator.share(
+                shareData
+              );
+
+
+              showShareStatus("");
+
+
+              return;
+            }
+
+          } catch (fileError) {
+
+            if (
+              fileError &&
+              fileError.name ===
+              "AbortError"
+            ) {
+
+              showShareStatus("");
+
+              return;
+            }
+          }
+        }
+
+
+        /*
+         * Se não conseguir compartilhar
+         * arquivo, compartilha o LINK.
+         */
+        if (navigator.share) {
+
+          try {
+
+            await navigator.share({
+
+              title:
+                "Meu ambiente",
+
+              text:
+                "Veja como ficou esta composição no meu ambiente.",
+
+              url:
+                resultUrl
+            });
+
+
+            showShareStatus("");
+
+
+            return;
+
+
+          } catch (shareError) {
+
+            if (
+              shareError &&
+              shareError.name ===
+              "AbortError"
+            ) {
+
+              showShareStatus("");
+
+              return;
+            }
+          }
+        }
+
+
+        /*
+         * Desktop sem Web Share:
+         * copia link.
+         */
+        var copied =
+          await copyResultLink();
+
+
+        if (copied) {
+
+          showShareStatus(
+            "Link da imagem copiado."
+          );
+
+        } else {
+
+          throw new Error(
+            "COPY_FAILED"
+          );
+        }
+
+
+      } catch (error) {
+
+        showShareStatus(
+          "Não foi possível compartilhar automaticamente."
+        );
+
+
+      } finally {
+
+        shareBtn.disabled =
+          false;
+      }
+    }
+
+
+    /* =========================================================
+       NPS
+       ========================================================= */
+
+    function paintStars(value) {
+
+      var stars =
+        npsStars.querySelectorAll(
+          ".etp-star"
+        );
+
+
+      stars.forEach(
+        function (star) {
+
+          star.classList.toggle(
+            "etp-on",
+            Number(
+              star.getAttribute(
+                "data-etp-star"
+              )
+            ) <= value
+          );
+        }
+      );
+    }
+
+
+    function resetNps() {
+
+      npsRating =
+        0;
+
+
+      npsReasons =
+        [];
+
+
+      npsSent =
+        false;
+
+
+      npsWrap.classList.remove(
+        "etp-show"
+      );
+
+
+      rateOpenBtn.classList.remove(
+        "etp-show"
+      );
+
+
+      npsLow.classList.remove(
+        "etp-show"
+      );
+
+
+      npsThanks.classList.remove(
+        "etp-show"
+      );
+
+
+      npsMain.classList.remove(
+        "etp-hide"
+      );
+
+
+      paintStars(0);
+    }
+
+
+    function sendFeedback() {
+
+      /* O comentario do cliente vem primeiro, e o contexto tecnico
+         depois de uma linha em branco.
+
+         O formulario tem tres perguntas, e nenhuma delas e "de qual
+         produto veio". Esse contexto (produto, pagina, URL do
+         resultado, data) continua sendo o que permite reabrir um
+         caso ruim depois, entao vai junto do comentario -- mas
+         embaixo, para quem le a planilha ver primeiro o que o
+         cliente escreveu. */
+
+      var comentarioDoCliente =
+        npsComment.value.trim();
+
+
+      var contexto = [
+        "---",
+
+        "PRODUTO: " +
+        (
+          productTitle ||
+          "Não identificado"
+        ),
+
+        "IMAGEM DO PRODUTO: " +
+        (
+          productImage ||
+          "Não identificada"
+        ),
+
+        "PÁGINA: " +
+        location.href,
+
+        "RESULTADO GERADO: " +
+        (
+          resultUrl ||
+          "Não disponível"
+        ),
+
+        "DATA: " +
+        new Date().toLocaleString(
+          "pt-BR"
+        )
+      ].join("\n");
+
+
+      var comentarioCompleto =
+        (
+          comentarioDoCliente ||
+          "Sem comentário"
+        ) +
+        "\n\n" +
+        contexto;
+
+
+      var formData =
+        new URLSearchParams();
+
+
+      /* Nota (escala de 1 a 5). */
+
+      if (npsRating) {
+
+        formData.append(
+          "entry." +
+          GOOGLE_FORM_RATING_ENTRY,
+          String(npsRating)
+        );
+      }
+
+
+      /* Motivo. Escolha unica, com o rotulo exato do formulario.
+
+         Se o cliente nao marcar nada, nao enviamos o campo: e
+         melhor a coluna ficar vazia do que preenchida com um
+         "Nenhum" que nao existe entre as opcoes e seria descartado
+         de qualquer forma. */
+
+      if (npsReasons.length) {
+
+        /* Um entry.1499378013 por motivo marcado.
+
+           A pergunta virou CAIXAS DE SELECAO no formulario, e o
+           Google Forms le multipla escolha repetindo o mesmo entry --
+           nao e uma lista separada por virgula. Testado direto no
+           endpoint: dois valores no mesmo entry voltam HTTP 200.
+
+           O rotulo vai traduzido. O mesmo teste mostrou que enviar o
+           texto ACENTUADO da tela devolve HTTP 400: o Forms compara a
+           opcao caractere a caractere, e a resposta inteira e
+           recusada -- nota e comentario juntos. */
+
+        for (var i = 0; i < npsReasons.length; i++) {
+
+          var rotulo =
+            GOOGLE_FORM_REASON_LABELS[
+              npsReasons[i]
+            ];
+
+
+          if (rotulo) {
+
+            formData.append(
+              "entry." +
+              GOOGLE_FORM_REASON_ENTRY,
+              rotulo
+            );
+          }
+        }
+      }
+
+
+      /* Comentario (resposta longa). */
+
+      formData.append(
+        "entry." +
+        GOOGLE_FORM_COMMENT_ENTRY,
+        comentarioCompleto
+      );
+
+
+      try {
+
+        fetch(
+          GOOGLE_FORM_URL,
+          {
+            method:
+              "POST",
+
+            mode:
+              "no-cors",
+
+            headers: {
+              "Content-Type":
+                "application/x-www-form-urlencoded;charset=UTF-8"
+            },
+
+            body:
+              formData.toString(),
+
+            keepalive:
+              true
+          }
+        );
+
+      } catch (e) {
+
+        console.warn(
+          "Não foi possível enviar o feedback.",
+          e
+        );
+      }
+    }
+
+
+    function submitNps() {
+
+      if (
+        npsSent ||
+        !npsRating
+      ) {
+        return;
+      }
+
+
+      npsSent =
+        true;
+
+
+      sendFeedback();
+
+
+      npsLow.classList.remove(
+        "etp-show"
+      );
+
+
+      npsMain.classList.add(
+        "etp-hide"
+      );
+
+
+      npsThanks.classList.add(
+        "etp-show"
+      );
+
+
+      rateOpenBtn.classList.remove(
+        "etp-show"
+      );
+    }
+
+
+    function setRating(value) {
+
+      npsRating =
+        value;
+
+
+      paintStars(
+        value
+      );
+
+
+      if (value <= 3) {
+
+        npsLow.classList.add(
+          "etp-show"
+        );
+
+      } else {
+
+        submitNps();
+      }
+    }
+
+
+    /* =========================================================
+       RESULTADO
+       ========================================================= */
+
+    function resetResultState() {
+
+      resultUrl =
+        "";
+
+
+      loading.style.display =
+        "block";
+
+
+      resultImage.classList.remove(
+        "etp-show"
+      );
+
+
+      resultImage.removeAttribute(
+        "src"
+      );
+
+
+      resultTools.classList.remove(
+        "etp-show"
+      );
+
+
+      resultNote.classList.remove(
+        "etp-show"
+      );
+
+
+      resultActions.style.display =
+        "none";
+
+
+      errorElement.classList.remove(
+        "etp-show"
+      );
+
+
+      showShareStatus("");
+
+
+      resetNps();
+    }
+
+
+    // Evita duplicar o evento de erro na mesma tentativa.
+    var clarityImageErrorTracked = false;
+
+    function showError(message) {
+
+      if (!clarityImageErrorTracked) {
+        clarityImageErrorTracked = true;
+        trackClarityEvent("provador_erro_imagem");
+      }
+
+      loading.style.display =
+        "none";
+
+
+      errorElement.textContent =
+        message;
+
+
+      errorElement.classList.add(
+        "etp-show"
+      );
+
+
+      resultTools.classList.remove(
+        "etp-show"
+      );
+
+
+      resultNote.classList.remove(
+        "etp-show"
+      );
+
+
+      resultActions.style.display =
+        "flex";
+    }
+
+
+    function showResult(url) {
+
+      cancelPolling();
+
+
+      resultUrl =
+        url;
+
+
+      loading.style.display =
+        "none";
+
+
+      resultImage.onload =
+        function () {
+
+          resultImage.classList.add(
+            "etp-show"
+          );
+
+
+          /*
+           * Só exibe Download / Share
+           * quando a imagem está pronta.
+           */
+          resultTools.classList.add(
+            "etp-show"
+          );
+
+
+          resultNote.classList.add(
+            "etp-show"
+          );
+
+
+          resetNps();
+
+
+          /* So o CONVITE aparece junto da imagem. O painel de
+             estrelas fica fechado ate o cliente tocar no botao:
+             quem quer ver o resultado ve o resultado, e quem
+             quer avaliar tem onde clicar. */
+
+          rateOpenBtn.classList.add(
+            "etp-show"
+          );
+        };
+
+
+      resultImage.onerror =
+        function () {
+
+          showError(
+            "Não foi possível carregar a imagem gerada."
+          );
+        };
+
+
+      resultImage.src =
+        url;
+
+
+      resultDesc.textContent =
+        "Veja como este kit pode ficar no seu sofá.";
+
+
+      resultActions.style.display =
+        "flex";
+
+
+      generateBtn.disabled =
+        false;
+    }
+
+
+    /* =========================================================
+       API
+       ========================================================= */
+
+    async function parseResponse(response) {
+
+      var data =
+        await response.json();
+
+
+      if (
+        !response.ok ||
+        data.ok === false
+      ) {
+
+        throw new Error(
+          data.message ||
+          data.error ||
+          "Não foi possível concluir a operação."
+        );
+      }
+
+
+      return data;
+    }
+
+
+    function getOutputUrl(output) {
+
+      if (
+        typeof output === "string"
+      ) {
+
+        return output;
+      }
+
+
+      if (
+        Array.isArray(output) &&
+        output.length
+      ) {
+
+        return output[0];
+      }
+
+
+      return "";
+    }
+
+
+    async function generateSimulation() {
+
+      if (!selectedImage) {
+        return;
+      }
+
+      // Cada nova geração pode registrar seu próprio erro.
+      clarityImageErrorTracked = false;
+
+
+      generateBtn.disabled =
+        true;
+
+
+      resetResultState();
+
+
+      showScreen(3);
+
+
+      try {
+
+        var response =
+          await fetch(
+            WORKER_URL +
+            "/provador",
+            {
+              method:
+                "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+                  image:
+                    selectedImage,
+
+                  productImage:
+                    productImage,
+
+                  productTitle:
+                    productTitle
+                })
+            }
+          );
+
+
+        var data =
+          await parseResponse(
+            response
+          );
+
+
+        var immediate =
+          getOutputUrl(
+            data.output
+          );
+
+
+        if (
+          data.status === "success" &&
+          immediate
+        ) {
+
+          showResult(
+            immediate
+          );
+
+          return;
+        }
+
+
+        var job =
+          data.jobToken ||
+          data.id;
+
+
+        if (!job) {
+
+          throw new Error(
+            "Não foi possível iniciar a simulação."
+          );
+        }
+
+
+        startPolling(
+          job
+        );
+
+
+      } catch (error) {
+
+        generateBtn.disabled =
+          false;
+
+
+        showError(
+          error.message ||
+          "Não foi possível gerar a simulação."
+        );
+      }
+    }
+
+
+    /* =========================================================
+       POLLING
+       ========================================================= */
+
+    function cancelPolling() {
+
+      pollGeneration++;
+
+
+      if (pollController) {
+
+        try {
+          pollController.abort();
+        } catch (e) { }
+
+
+        pollController =
+          null;
+      }
+    }
+
+
+    async function startPolling(job) {
+
+      cancelPolling();
+
+
+      var generation =
+        pollGeneration;
+
+
+      var attempts =
+        0;
+
+      var pollingStartedAt = Date.now();
+
+
+      await wait(
+        FIRST_POLL_DELAY
+      );
+
+
+      while (
+        generation === pollGeneration &&
+        attempts < MAX_POLL
+      ) {
+
+        attempts++;
+
+
+        try {
+
+          pollController =
+            new AbortController();
+
+
+          var response =
+            await fetch(
+              WORKER_URL +
+              "/resultado/" +
+              encodeURIComponent(
+                String(job)
+              ),
+              {
+                signal:
+                  pollController.signal,
+
+                cache:
+                  "no-store"
+              }
+            );
+
+
+          var data =
+            await parseResponse(
+              response
+            );
+
+          if (generation !== pollGeneration) return;
+
+
+          var output =
+            getOutputUrl(
+              data.output
+            );
+
+
+          if (
+            data.status === "success" &&
+            output
+          ) {
+
+            showResult(
+              output
+            );
+
+            return;
+          }
+
+
+          if (
+            data.status === "error" ||
+            data.status === "failed"
+          ) {
+
+            throw new Error(
+              data.message ||
+              "A geração não pôde ser concluída."
+            );
+          }
+
+
+          if (
+            Date.now() - pollingStartedAt >= 20000
+          ) {
+
+            loadingText.textContent =
+              "Finalizando os detalhes...";
+          }
+
+
+        } catch (error) {
+
+          if (generation !== pollGeneration) return;
+
+          if (
+            error.name ===
+            "AbortError"
+          ) {
+            return;
+          }
+
+
+          showError(
+            error.message
+          );
+
+
+          return;
+        }
+
+
+        var elapsed = Date.now() - pollingStartedAt;
+        if (elapsed >= POLL_BUDGET) break;
+        await wait(Math.min(pollIntervalFor(elapsed), POLL_BUDGET - elapsed));
+      }
+
+
+      if (generation !== pollGeneration) return;
+      showError(
+        "A simulação está levando mais tempo que o esperado."
+      );
+    }
+
+
+    function wait(ms) {
+
+      return new Promise(
+        function (resolve) {
+
+          setTimeout(
+            resolve,
+            ms
+          );
+        }
+      );
+    }
+
+
+    /* =========================================================
+       RESET
+       ========================================================= */
+
+    function pollIntervalFor(elapsedMs) {
+      if (elapsedMs < 20000) return 2000;
+      if (elapsedMs < 60000) return 3000;
+      return 5000;
+    }
+
+    function resetToPhoto() {
+
+      cancelPolling();
+
+
+      stopCamera();
+
+
+      selectedImage =
+        null;
+
+
+      cameraInput.value =
+        "";
+
+
+      galleryInput.value =
+        "";
+
+
+      resetResultState();
+
+
+      showScreen(1);
+
+
+      showSourceView();
+    }
+
+
+    /* =========================================================
+       MICROSOFT CLARITY
+       - registra o clique no Provador Virtual
+       - cria tags para facilitar o filtro por uso e produto
+       ========================================================= */
+
+    function trackClarityEvent(eventName) {
+
+      try {
+
+        if (typeof window.clarity === "function") {
+
+          window.clarity(
+            "event",
+            eventName
+          );
+        }
+
+      } catch (e) { }
+    }
+
+
+    function setClarityTag(key, value) {
+
+      if (!value) {
+        return;
+      }
+
+
+      try {
+
+        if (typeof window.clarity === "function") {
+
+          window.clarity(
+            "set",
+            key,
+            String(value).slice(0, 255)
+          );
+        }
+
+      } catch (e) { }
+    }
+
+
+    /* =========================================================
+       EVENTOS
+       ========================================================= */
+
+    /* Uma porta de entrada so para o botao e para o carrossel.
+
+       O evento do Clarity continua o mesmo (provador_virtual_click),
+       para os numeros seguirem comparaveis com o botao. A tag
+       provador_origem diz de onde veio o clique: "botao" ou
+       "carrossel" -- e o que separa as duas variacoes no filtro. */
+
+    function openFromEntry(origin) {
+
+      /* Atualiza os dados para a tag levar o produto correto. */
+      refreshProductData();
+
+
+      /* Evento principal para Smart Events / Recordings. */
+      trackClarityEvent(
+        "provador_virtual_click"
+      );
+
+
+      /* Tags opcionais para filtros rápidos no Clarity. */
+      setClarityTag(
+        "provador_virtual",
+        "clicou"
+      );
+
+
+      setClarityTag(
+        "provador_origem",
+        origin
+      );
+
+
+      if (productTitle) {
+
+        setClarityTag(
+          "provador_produto",
+          productTitle
+        );
+      }
+
+
+      openModal();
+    }
+
+
+    addEvent(
+      trigger,
+      "click",
+      function () {
+
+        openFromEntry(
+          "botao"
+        );
+      }
+    );
+
+
+    addEvent(
+      closeButton,
+      "click",
+      closeModal
+    );
+
+
+    addEvent(
+      overlay,
+      "click",
+      function (event) {
+
+        if (
+          event.target ===
+          overlay
+        ) {
+
+          closeModal();
+        }
+      }
+    );
+
+
+    /* O seletor de arquivo e aberto por JS, no proprio gesto.
+
+       Antes o <input> ficava esticado por cima do bloco e o toque caia
+       nele. Isso funciona no desktop e no Android, mas no iOS o
+       seletor simplesmente nao abria -- nem no "Tirar foto" nem no
+       "Escolher da galeria", o que descartou o atributo `capture` como
+       causa: a galeria nao tem esse atributo e falhava igual.
+
+       input.click() chamado de forma sincrona dentro do handler
+       preserva o gesto do usuario, que e a unica coisa que o iOS
+       exige para abrir o seletor. */
+
+    function openFilePicker(input) {
+
+      if (!input) {
+        return;
+      }
+
+
+      /* Zera antes de abrir: sem isso, escolher a MESMA foto duas
+         vezes seguidas nao dispara "change" e a tela trava. */
+
+      input.value = "";
+
+
+      input.click();
+    }
+
+
+    addEvent(
+      cameraTile,
+      "click",
+      function () {
+
+        if (
+          useNativeCamera()
+        ) {
+
+          openFilePicker(
+            cameraInput
+          );
+
+
+          return;
+        }
+
+
+        openCamera();
+      }
+    );
+
+
+    addEvent(
+      galleryTile,
+      "click",
+      function () {
+
+        openFilePicker(
+          galleryInput
+        );
+      }
+    );
+
+
+    addEvent(
+      cameraInput,
+      "change",
+      function () {
+
+        processSelectedFile(
+          cameraInput.files &&
+          cameraInput.files[0]
+        );
+      }
+    );
+
+
+    addEvent(
+      galleryInput,
+      "change",
+      function () {
+
+        processSelectedFile(
+          galleryInput.files &&
+          galleryInput.files[0]
+        );
+      }
+    );
+
+
+    addEvent(
+      shutter,
+      "click",
+      captureCameraPhoto
+    );
+
+
+    addEvent(
+      cameraSwitch,
+      "click",
+      switchCamera
+    );
+
+
+    addEvent(
+      cameraCancel,
+      "click",
+      function () {
+
+        stopCamera();
+
+        showSourceView();
+      }
+    );
+
+
+    addEvent(
+      changeBtn,
+      "click",
+      resetToPhoto
+    );
+
+
+    addEvent(
+      newPhotoBtn,
+      "click",
+      resetToPhoto
+    );
+
+
+    addEvent(
+      generateBtn,
+      "click",
+      function () {
+
+        refreshProductData();
+
+        generateSimulation();
+      }
+    );
+
+
+    /*
+     * NOVOS EVENTOS
+     */
+
+    addEvent(
+      downloadBtn,
+      "click",
+      downloadResultImage
+    );
+
+
+    addEvent(
+      shareBtn,
+      "click",
+      shareResultImage
+    );
+
+
+    addEvent(
+      npsStars,
+      "click",
+      function (event) {
+
+        var button =
+          event.target.closest(
+            ".etp-star"
+          );
+
+
+        if (!button) {
+          return;
+        }
+
+
+        setRating(
+          Number(
+            button.getAttribute(
+              "data-etp-star"
+            )
+          )
+        );
+      }
+    );
+
+
+    addEvent(
+      npsReasonsBox,
+      "click",
+      function (event) {
+
+        var button =
+          event.target.closest(
+            ".etp-reason"
+          );
+
+
+        if (!button) {
+          return;
+        }
+
+
+        var reason =
+          button.getAttribute(
+            "data-etp-reason"
+          );
+
+
+        /* Selecao multipla: a pergunta no formulario virou
+             caixas de selecao, entao o cliente pode apontar mais de
+             um problema na mesma avaliacao. Clicar de novo desmarca. */
+
+          var posicao =
+            npsReasons.indexOf(
+              reason
+            );
+
+
+          if (posicao >= 0) {
+
+            npsReasons.splice(
+              posicao,
+              1
+            );
+
+
+            button.classList.remove(
+              "etp-on"
+            );
+
+
+          } else {
+
+            npsReasons.push(
+              reason
+            );
+
+
+            button.classList.add(
+              "etp-on"
+            );
+          }
+      }
+    );
+
+
+    addEvent(
+      rateOpenBtn,
+      "click",
+      function () {
+
+        /* O convite da lugar ao painel: os dois nunca ficam
+           visiveis ao mesmo tempo. */
+
+        rateOpenBtn.classList.remove(
+          "etp-show"
+        );
+
+
+        npsWrap.classList.add(
+          "etp-show"
+        );
+      }
+    );
+
+
+    addEvent(
+      npsSendBtn,
+      "click",
+      submitNps
+    );
+
+
+    /* =========================================================
+       MAGAZORD
+       ========================================================= */
+
+    observer =
+      new MutationObserver(
+        function () {
+
+          if (!mounting) {
+
+            scheduleMount();
+          }
+        }
+      );
+
+
+    startObserving();
+
+
+    /* =========================================================
+       INIT
+       ========================================================= */
+
+    fixIOSCameraInput();
+
+    refreshProductData();
+
+    mountAll();
+
+
+    /* O Swiper da galeria inicia depois do React hidratar a pagina,
+       e o init do Swiper so mexe em classes -- o observer (que olha
+       childList) pode nao ver. As tentativas extras cobrem isso;
+       quando o bloco ja esta no lugar, cada uma e um no-op. */
+
+    [500, 1500, 3000, 6000].forEach(
+      function (delay) {
+
+        initTimers.push(
+          setTimeout(
+            mountAll,
+            delay
+          )
+        );
+      }
+    );
+
+
+    /* =========================================================
+       CLEANUP
+       ========================================================= */
+
+    window[GLOBAL_KEY] = {
+
+      destroy:
+        function () {
+
+          cancelPolling();
+
+          stopCamera();
+
+          clearTimeout(
+            mountTimer
+          );
+
+          clearTimeout(
+            shareStatusTimer
+          );
+
+          initTimers.forEach(
+            clearTimeout
+          );
+
+          if (observer) {
+
+            observer.disconnect();
+          }
+
+
+          listeners.forEach(
+            function (item) {
+
+              try {
+
+                item.el.removeEventListener(
+                  item.type,
+                  item.handler,
+                  item.options
+                );
+
+              } catch (e) { }
+            }
+          );
+
+
+          /* Sem isto, uma reinjecao do script encontraria os slides
+             "no lugar" e nao os recriaria -- e eles ficariam com os
+             listeners da execucao anterior, ja destruida. */
+
+          removeCarousel();
+
+
+          unlockScroll();
+        }
+    };
+
+  })();
+</script>

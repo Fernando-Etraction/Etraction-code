@@ -1,0 +1,209 @@
+<style>
+  /* Somente celular: no desktop a barra fica como está. */
+  @media (max-width: 767px) {
+    .area-compra-float.czp-pronto {
+      align-items: center;
+    }
+
+    #czp-preco {
+      flex: 0 0 auto;
+      max-width: 0;
+      margin-right: 0;
+      overflow: hidden;
+      opacity: 0;
+      white-space: nowrap;
+      font-family: inherit;
+      line-height: 1.15;
+      text-align: left;
+      transition: max-width 0.3s ease, margin-right 0.3s ease, opacity 0.2s ease;
+    }
+
+    .area-compra-float.czp-visivel #czp-preco {
+      max-width: 140px;
+      margin-right: 10px;
+      opacity: 1;
+    }
+
+    .area-compra-float.czp-visivel .button-buy {
+      flex: 1 1 auto;
+      width: auto !important;
+      min-width: 0;
+    }
+
+    #czp-preco .czp-de {
+      display: block;
+      color: #808080;
+      font-size: 10px;
+      text-decoration: line-through;
+    }
+
+    #czp-preco .czp-por {
+      display: block;
+      color: #ed1c24;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    #czp-preco .czp-info {
+      display: block;
+      color: #555;
+      font-size: 10px;
+    }
+
+    #czp-preco [hidden] {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #czp-preco {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  var chave = "__correaBarraPreco";
+
+  if (window[chave]) {
+    window[chave].destruir();
+  }
+
+  var ativo = true;
+  var frame = null;
+  var observer;
+
+  function texto(el) {
+    return el ? el.textContent.replace(/\s+/g, " ").trim() : "";
+  }
+
+  /*
+   * Lê os preços que a página já mostra no bloco de valores:
+   * "de R$ 530,99", "R$ 446,11" no Pix e o "-8%".
+   * Sem Pix, usa o preço do cartão.
+   */
+  function lerPreco(area) {
+    var pix = area.querySelector(".price.pix .price-big");
+    var cartao = area.querySelector(".price.card .price-big");
+    var desconto = texto(area.querySelector(".price.pix .percentual-desconto"))
+      .replace("-", "");
+
+    var info = "";
+
+    if (pix) {
+      info = "no Pix" + (desconto ? " · " + desconto + " OFF" : "");
+    }
+
+    return {
+      de: texto(area.querySelector(".preco-de .line-through")),
+      por: texto(pix || cartao),
+      info: info
+    };
+  }
+
+  function montarPreco() {
+    var caixa = document.createElement("div");
+    caixa.id = "czp-preco";
+
+    caixa.innerHTML =
+      '<span class="czp-de"></span>' +
+      '<span class="czp-por"></span>' +
+      '<span class="czp-info"></span>';
+
+    return caixa;
+  }
+
+  function preencher(caixa, preco) {
+    var partes = {
+      ".czp-de": preco.de,
+      ".czp-por": preco.por,
+      ".czp-info": preco.info
+    };
+
+    Object.keys(partes).forEach(function (seletor) {
+      var el = caixa.querySelector(seletor);
+
+      if (el.textContent !== partes[seletor]) {
+        el.textContent = partes[seletor];
+      }
+
+      el.hidden = !partes[seletor];
+    });
+  }
+
+  function sincronizar() {
+    if (!ativo) return;
+
+    var barra = document.querySelector(".area-compra-float");
+    var area = document.querySelector(".values-area");
+
+    if (!barra || !area) return;
+
+    var caixa = document.getElementById("czp-preco");
+
+    if (!caixa) caixa = montarPreco();
+
+    /* O preço fica à esquerda do botão. */
+    if (caixa.parentElement !== barra || barra.firstElementChild !== caixa) {
+      barra.insertBefore(caixa, barra.firstChild);
+    }
+
+    barra.classList.add("czp-pronto");
+
+    var preco = lerPreco(area);
+
+    preencher(caixa, preco);
+
+    /* Preço fixo na barra (só some se a página não tiver preço). */
+    barra.classList.toggle("czp-visivel", !!preco.por);
+  }
+
+  function agendar() {
+    if (!ativo || frame !== null) return;
+
+    frame = requestAnimationFrame(function () {
+      frame = null;
+      sincronizar();
+    });
+  }
+
+  function iniciar() {
+    if (!ativo) return;
+
+    /*
+     * A barra e os preços são do React da página: acompanha
+     * quando eles são recriados ou o preço muda (ex.: troca de voltagem).
+     */
+    observer = new MutationObserver(agendar);
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true
+    });
+
+    sincronizar();
+  }
+
+  window[chave] = {
+    destruir: function () {
+      ativo = false;
+
+      document.removeEventListener("DOMContentLoaded", iniciar);
+
+      if (observer) observer.disconnect();
+
+      if (frame !== null) cancelAnimationFrame(frame);
+    }
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciar, { once: true });
+  } else {
+    iniciar();
+  }
+})();
+</script>

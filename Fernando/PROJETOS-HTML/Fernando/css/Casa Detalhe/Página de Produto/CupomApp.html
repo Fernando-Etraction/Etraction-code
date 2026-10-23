@@ -1,0 +1,83 @@
+<style>
+    #cd-cupom-app {
+        box-sizing: border-box !important;
+        width: 100% !important;
+        flex: 0 0 100% !important;
+
+        margin: 0 0 12px !important;
+        padding: 0 !important;
+
+        font-family: inherit !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 1.45 !important;
+        text-align: left !important;
+
+        color: #0f7a23 !important;
+    }
+
+    #cd-cupom-app strong {
+        color: #0f7a23 !important;
+        font-weight: 700 !important;
+    }
+
+    /* Fica escondido ate o JS colocar acima do botao de compra */
+    #cd-cupom-app[hidden] {
+        display: none !important;
+    }
+
+    @media (max-width: 370px) {
+        #cd-cupom-app {
+            font-size: 13px !important;
+        }
+    }
+</style>
+
+<p id="cd-cupom-app" hidden>
+    <strong>Compre pelo App</strong> e ganhe <strong>5% de desconto</strong> com o
+    cupom <strong>APP5</strong>, válido somente no app
+</p>
+
+<script>
+    (function () {
+        var cupom = document.getElementById('cd-cupom-app');
+        if (!cupom) return;
+
+        var frame = null;
+
+        function mover() {
+            // Botao principal da PDP, ignorando barras de compra flutuantes.
+            var botoes = document.querySelectorAll('.button-buy.button-full');
+            var botao = Array.prototype.find.call(botoes, function (el) {
+                return !el.closest('.area-compra-float, [class*="fixed"], [class*="float"]');
+            });
+            if (!botao) return;
+
+            // Se o botao divide a linha com outro elemento (ex.: quantidade), insere antes da linha.
+            var ancora = botao;
+            var pai = botao.parentElement;
+            if (pai && pai.children.length > 1) {
+                var css = getComputedStyle(pai);
+                if (css.display.indexOf('flex') !== -1 && css.flexDirection.indexOf('row') === 0) {
+                    ancora = pai;
+                }
+            }
+
+            if (ancora.previousElementSibling !== cupom) {
+                ancora.insertAdjacentElement('beforebegin', cupom);
+            }
+            cupom.hidden = false;
+        }
+
+        // A PDP e React: reposiciona se o botao for renderizado de novo.
+        new MutationObserver(function () {
+            if (frame !== null) return;
+            frame = requestAnimationFrame(function () {
+                frame = null;
+                mover();
+            });
+        }).observe(document.body, { childList: true, subtree: true });
+
+        mover();
+    })();
+</script>

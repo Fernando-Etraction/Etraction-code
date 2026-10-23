@@ -1,0 +1,504 @@
+<style>
+/* =========================================================
+   TARJA DE TOPO | ESQUENTA BLACK DMFIT
+   Modelo 02: headline + cronômetro, leva para /esquenta-black
+   Entra como primeira linha do header (acompanha o header fixo)
+========================================================= */
+
+.etraction-dmfit-tt {
+    position: relative !important;
+    z-index: 5 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 18px !important;
+
+    width: 100% !important;
+    min-height: 38px !important;
+
+    margin: 0 !important;
+    padding: 6px 16px !important;
+
+    border-bottom: 2px solid #eb0870 !important;
+
+    background: #0d0b0d !important;
+
+    color: #ffffff !important;
+
+    font-family: Montserrat, Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+
+    text-decoration: none !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.etraction-dmfit-tt *,
+.etraction-dmfit-tt *::before,
+.etraction-dmfit-tt *::after {
+    box-sizing: border-box !important;
+}
+
+
+.etraction-dmfit-tt:hover,
+.etraction-dmfit-tt:focus {
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+}
+
+
+.etraction-dmfit-tt:focus-visible {
+    outline: 2px solid #ff2589 !important;
+    outline-offset: -4px !important;
+}
+
+
+.etraction-dmfit-tt__head {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    color: #ffffff !important;
+
+    letter-spacing: .14em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-tt__head b {
+    color: #ffffff !important;
+
+    font-weight: 900 !important;
+}
+
+
+.etraction-dmfit-tt__off {
+    padding: 3px 8px !important;
+
+    border-radius: 4px !important;
+
+    background: linear-gradient(90deg, #eb0870 0%, #ff2589 100%) !important;
+
+    color: #ffffff !important;
+
+    font-weight: 900 !important;
+
+    letter-spacing: .08em !important;
+}
+
+
+.etraction-dmfit-tt__timer {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    color: #c9c1c7 !important;
+
+    font-size: 11px !important;
+
+    letter-spacing: .1em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-tt__timer b {
+    padding: 3px 7px !important;
+
+    border: 1px solid rgba(255, 37, 137, .5) !important;
+    border-radius: 4px !important;
+
+    background: #1d151a !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: .06em !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+
+.etraction-dmfit-tt__cta {
+    color: #ff2589 !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: .12em !important;
+
+    text-transform: uppercase !important;
+
+    white-space: nowrap !important;
+}
+
+
+.etraction-dmfit-tt:hover .etraction-dmfit-tt__cta {
+    text-decoration: underline !important;
+}
+
+
+/* o header da loja pinta os textos dele: reforça as cores da tarja */
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__cta,
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__cta span {
+    color: #ff2589 !important;
+}
+
+
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__head,
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__head b,
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__off,
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__timer b {
+    color: #ffffff !important;
+}
+
+
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__timer,
+#header-react-app .etraction-dmfit-tt .etraction-dmfit-tt__timer span {
+    color: #c9c1c7 !important;
+}
+
+
+@media (max-width: 767px) {
+
+    .etraction-dmfit-tt {
+        gap: 10px !important;
+
+        min-height: 34px !important;
+
+        padding: 5px 10px !important;
+
+        font-size: 10.5px !important;
+    }
+
+
+    .etraction-dmfit-tt__head {
+        gap: 6px !important;
+
+        letter-spacing: .08em !important;
+    }
+
+
+    .etraction-dmfit-tt__off {
+        padding: 3px 6px !important;
+    }
+
+
+    /* no celular fica só o relógio, sem o texto "termina hoje em" */
+    .etraction-dmfit-tt__timer span,
+    .etraction-dmfit-tt__cta-txt {
+        display: none !important;
+    }
+
+
+    .etraction-dmfit-tt__timer b {
+        font-size: 11px !important;
+    }
+
+}
+</style>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+
+    var CONFIG = {
+
+        LINK: "/esquenta-black",
+
+        HEADLINE: "Esquenta",
+
+        OFERTA: "até 50% OFF",
+
+        CTA: "Aproveitar",
+
+        // fim da oferta (horário de Brasília). null = zera todo dia à meia-noite
+        // ex. de data fixa: "2026-10-31T23:59:59-03:00"
+        FIM: null
+    };
+
+
+    var ID =
+        "etraction-dmfit-tt";
+
+
+    // meia-noite de hoje no horário de Brasília (UTC-3, sem horário de verão)
+    function fimDoDia() {
+
+        var DIA = 86400000;
+
+        var BRASILIA = -3 * 3600000;
+
+
+        return Math.floor((Date.now() + BRASILIA) / DIA) * DIA + DIA - BRASILIA;
+    }
+
+
+    var DIARIO =
+        !CONFIG.FIM;
+
+    var FIM =
+        DIARIO ? fimDoDia() : new Date(CONFIG.FIM).getTime();
+
+
+    function doisDigitos(n) {
+        return n < 10 ? "0" + n : String(n);
+    }
+
+
+    function atualizar() {
+
+        var tarja =
+            document.getElementById(ID);
+
+        if (!tarja) {
+            return;
+        }
+
+
+        var resta =
+            Math.floor((FIM - Date.now()) / 1000);
+
+
+        // modo diário: virou o dia, recomeça a contagem
+        if (resta <= 0 && DIARIO) {
+
+            FIM = fimDoDia();
+
+            resta = Math.min(86399, Math.floor((FIM - Date.now()) / 1000));
+        }
+
+
+        var relogio =
+            tarja.querySelector(".etraction-dmfit-tt__timer");
+
+
+        if (resta <= 0) {
+            relogio.hidden = true;
+            return;
+        }
+
+
+        var dias =
+            Math.floor(resta / 86400);
+
+        var texto =
+            (dias ? dias + "d " : "") +
+            doisDigitos(Math.floor(resta % 86400 / 3600)) + ":" +
+            doisDigitos(Math.floor(resta % 3600 / 60)) + ":" +
+            doisDigitos(resta % 60);
+
+
+        var numero =
+            relogio.querySelector("b");
+
+        if (numero.textContent !== texto) {
+            numero.textContent = texto;
+        }
+    }
+
+
+    function pegarHeader() {
+
+        return (
+            document.querySelector("#header-react-app") ||
+            document.querySelector("header")
+        );
+    }
+
+
+    // no desktop o header tem padding lateral/topo: a tarja "sai" dele para ir de ponta a ponta
+    function ajustarLargura() {
+
+        var header =
+            pegarHeader();
+
+        var tarja =
+            document.getElementById(ID);
+
+
+        if (!header || !tarja) {
+            return;
+        }
+
+
+        var estilo =
+            window.getComputedStyle(header);
+
+        var esquerda =
+            parseFloat(estilo.paddingLeft) || 0;
+
+        var direita =
+            parseFloat(estilo.paddingRight) || 0;
+
+        var topo =
+            parseFloat(estilo.paddingTop) || 0;
+
+
+        tarja.style.setProperty("width", "calc(100% + " + (esquerda + direita) + "px)", "important");
+
+        tarja.style.setProperty("margin", (-topo) + "px " + (-direita) + "px " + topo + "px " + (-esquerda) + "px", "important");
+    }
+
+
+    function criar() {
+
+        var header =
+            pegarHeader();
+
+
+        if (!header) {
+            return false;
+        }
+
+
+        var existente =
+            document.getElementById(ID);
+
+
+        // React pode recriar o header: garante que a tarja fique como primeira linha dele
+        if (existente) {
+
+            if (existente.parentNode !== header || header.firstElementChild !== existente) {
+                header.insertBefore(existente, header.firstElementChild);
+            }
+
+            ajustarLargura();
+
+            return true;
+        }
+
+
+        var tarja =
+            document.createElement("a");
+
+        tarja.id = ID;
+
+        tarja.className = ID;
+
+        tarja.href = CONFIG.LINK;
+
+
+        tarja.innerHTML = `
+            <span class="etraction-dmfit-tt__head">
+                <b>${CONFIG.HEADLINE}</b>
+                <span class="etraction-dmfit-tt__off">${CONFIG.OFERTA}</span>
+            </span>
+
+            <span class="etraction-dmfit-tt__timer" role="timer" aria-label="Tempo restante da oferta">
+                <span>Termina ${DIARIO ? "hoje " : ""}em</span>
+                <b>00:00:00</b>
+            </span>
+
+            <span class="etraction-dmfit-tt__cta">
+                <span class="etraction-dmfit-tt__cta-txt">${CONFIG.CTA}</span>
+                <span aria-hidden="true">→</span>
+            </span>
+        `;
+
+
+        header.insertBefore(tarja, header.firstElementChild);
+
+        ajustarLargura();
+
+        atualizar();
+
+
+        return true;
+    }
+
+
+    function iniciar() {
+
+        criar();
+
+        setInterval(atualizar, 1000);
+
+        // o padding do header muda entre celular/desktop e quando a página rola
+        window.addEventListener("resize", ajustarLargura);
+
+        window.addEventListener("scroll", ajustarLargura, { passive: true });
+
+
+        var agendado = false;
+
+
+        new MutationObserver(
+            function (mutacoes) {
+
+                for (var i = 0; i < mutacoes.length; i++) {
+
+                    var alvo =
+                        mutacoes[i].target;
+
+                    var el =
+                        alvo.nodeType === 1 ? alvo : alvo.parentElement;
+
+
+                    // ignora a própria tarja trocando os números
+                    if (el && el.closest && el.closest("#" + ID)) {
+                        continue;
+                    }
+
+
+                    if (!agendado) {
+
+                        agendado = true;
+
+                        setTimeout(
+                            function () {
+                                agendado = false;
+                                criar();
+                            },
+                            80
+                        );
+                    }
+
+                    return;
+                }
+
+            }
+        ).observe(
+            document.body,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciar,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        iniciar();
+    }
+
+})();
+</script>

@@ -1,0 +1,593 @@
+<style>
+  #correa-zordon-compra,
+  #correa-zordon-compra * {
+    box-sizing: border-box;
+  }
+
+  #correa-zordon-compra {
+    width: 100%;
+    min-width: 0;
+    margin: 12px 0 16px;
+    padding: 14px;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    background: #fff;
+    font-family: inherit;
+    text-align: left;
+    color: #303030;
+  }
+
+  #correa-zordon-compra .czc-topo {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+    margin-bottom: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  #correa-zordon-compra .czc-estrelas {
+    position: relative;
+    display: inline-block;
+    color: #ddd;
+    font: 16px/1 Arial, sans-serif;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  #correa-zordon-compra .czc-estrelas b {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--nota, 0%);
+    overflow: hidden;
+    color: #ab1012;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  /* Resumo limitado a duas linhas */
+  #correa-zordon-compra .czc-texto {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden !important;
+    max-height: 39px;
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 19.5px;
+    color: #555;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  #correa-zordon-compra .czc-resumo {
+    position: relative;
+  }
+
+  /* Botão "Saiba mais" */
+  #correa-zordon-compra .czc-mais {
+    display: inline-block;
+    margin: 2px 0 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 19.5px;
+    color: #ab1012;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #correa-zordon-compra .czc-mais span {
+    text-decoration: underline;
+  }
+
+  #correa-zordon-compra .czc-mais:focus-visible {
+    outline: 2px solid #ab1012;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Texto cortado: o botão entra logo após os 3 pontos */
+  #correa-zordon-compra .czc-resumo.czc-cortado .czc-mais {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding-left: 18px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 14px);
+  }
+
+  #correa-zordon-compra .czc-resumo.czc-cortado .czc-mais::before {
+    content: "… ";
+    display: inline-block;
+    white-space: pre;
+    color: #555;
+    font-weight: 400;
+  }
+
+  #correa-zordon-compra .czc-origem {
+    display: block;
+    margin-top: 7px;
+    color: #808080;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  #correa-zordon-compra [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  var chave = "__correaZordonCompra";
+  var CACHE = "czc_resumo_";
+  var CACHE_LOJA = "czc_loja";
+  var PAGINA_LOJA = "/avaliacoes-de-clientes";
+
+  if (window[chave]) {
+    window[chave].destruir();
+  }
+
+  var observer;
+  var redimensionar;
+  var timeout;
+  var ativo = true;
+  var dados = null;
+
+  /*
+   * Lê os dados do produto do script nativo "Zord.avaliacoes"
+   * (o mesmo objeto que a Magazord passa para o app de avaliações).
+   */
+  function lerDadosProduto() {
+    var scripts = document.scripts;
+
+    for (var i = 0; i < scripts.length; i++) {
+      var txt = scripts[i].textContent;
+
+      if (txt.indexOf("Zord.avaliacoes") === -1) continue;
+
+      var produto = txt.match(/\bproduto:\s*(\d+)/);
+      var tipo = txt.match(/\btipoProduto:\s*(\d+)/);
+      var nota = txt.match(/\bnota:\s*Number\(([\d.]+)\)/);
+      var total = txt.match(/\bprodutoAvaliacoes:\s*(\d+)/);
+
+      /* Pula scripts que só citam o nome (como este aqui). */
+      if (!produto || !tipo) continue;
+
+      return {
+        produto: Number(produto[1]),
+        tipoProduto: Number(tipo[1]),
+        nota: nota ? parseFloat(nota[1]) : NaN,
+        total: total ? Number(total[1]) : 0
+      };
+    }
+
+    return null;
+  }
+
+  function lerCache(id) {
+    try {
+      return sessionStorage.getItem(id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function salvarCache(id, texto) {
+    try {
+      sessionStorage.setItem(id, texto);
+    } catch (e) {}
+  }
+
+  function buscarJson(url) {
+    return fetch(url, { credentials: "same-origin" }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    });
+  }
+
+  /*
+   * Consulta direto a API que o app de avaliações usa.
+   * Pede só 1 item: o resumo do Zordon (tipo 4) vem sempre primeiro.
+   */
+  function buscarResumo(info) {
+    var q = btoa(JSON.stringify({
+      produto: info.produto,
+      tipoProduto: info.tipoProduto,
+      qtdAvaliacoes: 1,
+      type: "DEFAULT",
+      p: 1,
+      onlyMidia: false
+    }));
+
+    var url = location.pathname.replace(/\/{2,}/g, "/") +
+      "?operation=consultaAvaliacaoProduto&q=" +
+      encodeURIComponent(q);
+
+    return buscarJson(url).then(function (lista) {
+      var resumo = (lista || []).filter(function (item) {
+        return item && item.tipo === 4 && item.mensagem;
+      })[0];
+
+      return resumo
+        ? String(resumo.mensagem).replace(/\s+/g, " ").trim()
+        : "";
+    });
+  }
+
+  /* "PRISCILLA MIELKE DE SOUZA" -> "Priscilla S." */
+  function nomeCurto(nome) {
+    var partes = String(nome || "").trim().toLowerCase().split(/\s+/);
+
+    function maiuscula(p) {
+      return p.charAt(0).toUpperCase() + p.slice(1);
+    }
+
+    if (!partes[0]) return "";
+    if (partes.length === 1) return maiuscula(partes[0]);
+
+    return maiuscula(partes[0]) + " " +
+      partes[partes.length - 1].charAt(0).toUpperCase() + ".";
+  }
+
+  /*
+   * Avaliação geral da loja (mesma API da página /avaliacoes-de-clientes):
+   * a nota sai da contagem de estrelas e o depoimento é o mais recente
+   * de 5 estrelas com um comentário de verdade.
+   */
+  function buscarLoja() {
+    var base = PAGINA_LOJA + "?operation=";
+
+    var q = btoa(JSON.stringify({
+      pagina: 1,
+      quantidade: 20,
+      destaque: false
+    }));
+
+    return Promise.all([
+      buscarJson(base + "quantidadeEstrelaAvaliacaoLoja"),
+      buscarJson(base + "consultaAvaliacaoLoja&q=" + encodeURIComponent(q))
+    ]).then(function (respostas) {
+      var estrelas = (respostas[0] && respostas[0].data) || [];
+      var lista = (respostas[1] && respostas[1].data) || [];
+
+      var total = 0;
+      var soma = 0;
+
+      estrelas.forEach(function (e) {
+        total += Number(e.quantidade) || 0;
+        soma += (Number(e.estrela) || 0) * (Number(e.quantidade) || 0);
+      });
+
+      var comTexto = lista.filter(function (a) {
+        return a && a.mensagem && String(a.mensagem).trim();
+      });
+
+      var escolhida =
+        comTexto.filter(function (a) {
+          return a.nota === 5 && String(a.mensagem).trim().length >= 30;
+        })[0] || comTexto[0];
+
+      var origem = "";
+
+      if (escolhida) {
+        origem = [
+          nomeCurto(escolhida.cliente),
+          [escolhida.cidade, escolhida.estado].filter(Boolean).join(", "),
+          escolhida.data
+        ].filter(Boolean).join(" · ");
+      }
+
+      return {
+        nota: total ? Math.round((soma / total) * 100) / 100 : NaN,
+        total: total,
+        texto: escolhida
+          ? "“" + String(escolhida.mensagem).replace(/\s+/g, " ").trim() + "”"
+          : "",
+        origem: origem
+      };
+    });
+  }
+
+  /*
+   * Lê a nota e a quantidade exibidas na própria página
+   * (ex.: estrelas data-value="4.96" e o link "(84)").
+   * Se não encontrar, usa os valores do Zord.avaliacoes.
+   */
+  function lerNotaPagina() {
+    var origem =
+      document.querySelector(".avaliacoes.produto-top-rating-source") ||
+      document.querySelector(".avaliacoes");
+
+    var rating = origem && origem.querySelector(
+      ".average-rating[data-value]"
+    );
+
+    var nota = rating
+      ? parseFloat(rating.getAttribute("data-value").replace(",", "."))
+      : NaN;
+
+    var link = origem && origem.querySelector(
+      ".num-avaliacao .avaliacoes-link"
+    );
+
+    var match = link && link.textContent.match(/\(([\d.,\s]+)\)/);
+    var total = match ? Number(match[1].replace(/\D/g, "")) : NaN;
+
+    return {
+      nota: Number.isFinite(nota) ? nota : dados.nota,
+      total: Number.isFinite(total) ? total : dados.total
+    };
+  }
+
+  function pintarNota(bloco, nota, total, sufixo) {
+    var assinatura = nota + "|" + total;
+
+    if (bloco.dataset.nota === assinatura) return;
+    bloco.dataset.nota = assinatura;
+
+    var valido = Number.isFinite(nota) && nota > 0 && nota <= 5;
+    var estrelas = bloco.querySelector(".czc-estrelas");
+
+    estrelas.hidden = !valido;
+    estrelas.style.setProperty("--nota", valido ? (nota * 20) + "%" : "0%");
+
+    bloco.querySelector(".czc-nota").textContent = valido
+      ? nota.toLocaleString("pt-BR", { maximumFractionDigits: 2 }) + "/5" +
+        (
+          total
+            ? " · " + total.toLocaleString("pt-BR") +
+              (total === 1 ? " avaliação" : " avaliações") + sufixo
+            : ""
+        )
+      : "Resumo do Zordon";
+  }
+
+  /*
+   * conteudo: { modo, texto, origem, nota, total }
+   * modo "produto" = resumo do Zordon; modo "loja" = avaliação geral da loja.
+   */
+  function montarBloco(conteudo) {
+    var loja = conteudo.modo === "loja";
+    var bloco = document.createElement("section");
+
+    bloco.id = "correa-zordon-compra";
+    bloco.dataset.modo = conteudo.modo;
+
+    bloco.setAttribute(
+      "aria-label",
+      loja ? "Avaliação geral da loja" : "Resumo do Zordon sobre as avaliações"
+    );
+
+    bloco.innerHTML =
+      '<div class="czc-topo">' +
+        '<span class="czc-estrelas" aria-hidden="true" hidden>' +
+          '★★★★★<b>★★★★★</b>' +
+        '</span>' +
+        '<span class="czc-nota">Resumo do Zordon</span>' +
+      '</div>' +
+      '<div class="czc-resumo">' +
+        '<p class="czc-texto"></p>' +
+        '<a class="czc-mais"><span>Saiba mais</span></a>' +
+      '</div>' +
+      '<span class="czc-origem"></span>';
+
+    var paragrafo = bloco.querySelector(".czc-texto");
+    var mais = bloco.querySelector(".czc-mais");
+
+    paragrafo.textContent = conteudo.texto;
+    paragrafo.hidden = !conteudo.texto;
+
+    if (loja) {
+      /* Produto sem avaliações: leva para a página de avaliações da loja. */
+      mais.href = PAGINA_LOJA;
+      mais.target = "_blank";
+      mais.rel = "noopener";
+      mais.setAttribute("aria-label", "Ver todas as avaliações da loja");
+
+      bloco.querySelector(".czc-origem").textContent =
+        (conteudo.origem ? conteudo.origem + " · " : "") +
+        "Avaliação real de cliente da loja.";
+
+      pintarNota(bloco, conteudo.nota, conteudo.total, " da loja");
+    } else {
+      mais.href = "#avaliacoes";
+      mais.setAttribute("aria-label", "Ver todas as avaliações do produto");
+      mais.addEventListener("click", irParaAvaliacoes);
+
+      bloco.querySelector(".czc-origem").textContent =
+        "Resumo do Zordon · Gerado por IA a partir das avaliações dos clientes.";
+    }
+
+    function medir() {
+      medirCorte(bloco);
+    }
+
+    /* Mede de novo quando a largura muda (ex.: girar o celular). */
+    if (window.ResizeObserver) {
+      redimensionar = new ResizeObserver(medir);
+      redimensionar.observe(paragrafo);
+    } else {
+      window.addEventListener("resize", medir);
+    }
+
+    return bloco;
+  }
+
+  /* Marca se o texto passou das 2 linhas, para o botão ir após os 3 pontos. */
+  function medirCorte(bloco) {
+    var paragrafo = bloco.querySelector(".czc-texto");
+
+    bloco.querySelector(".czc-resumo").classList.toggle(
+      "czc-cortado",
+      !paragrafo.hidden &&
+        paragrafo.scrollHeight > paragrafo.clientHeight + 1
+    );
+  }
+
+  /*
+   * Leva até a seção de avaliações no fim da página.
+   * Usa o container #avaliacoes porque a posição dele não muda
+   * quando o app de avaliações termina de carregar.
+   */
+  function irParaAvaliacoes(event) {
+    if (event) event.preventDefault();
+
+    var alvo =
+      document.getElementById("avaliacoes") ||
+      document.getElementById("avaliacao-produto-react-app");
+
+    if (alvo) {
+      alvo.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  /* Posiciona logo após o botão de WhatsApp (espera ele aparecer). */
+  function posicionar(conteudo) {
+    if (!ativo || !conteudo) return;
+
+    var bloco =
+      document.getElementById("correa-zordon-compra") ||
+      montarBloco(conteudo);
+
+    function encaixar() {
+      if (!ativo) return;
+
+      /* No resumo do produto, acompanha a nota exibida na página. */
+      if (conteudo.modo === "produto") {
+        var info = lerNotaPagina();
+        pintarNota(bloco, info.nota, info.total, "");
+      }
+
+      var ancora = document.querySelector(".exibe-botao-whatsapp");
+
+      if (ancora && ancora.nextElementSibling !== bloco) {
+        ancora.insertAdjacentElement("afterend", bloco);
+        medirCorte(bloco);
+      }
+    }
+
+    encaixar();
+
+    /*
+     * Reencaixa se o React recriar a área de compra
+     * e acompanha mudanças na nota exibida na página.
+     */
+    observer = new MutationObserver(encaixar);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: ["data-value"]
+    });
+
+    /* Depois de 30 segundos a página já estabilizou. */
+    timeout = setTimeout(function () {
+      if (observer) observer.disconnect();
+    }, 30000);
+  }
+
+  function iniciarProduto() {
+    var chaveCache = CACHE + dados.produto;
+    var cache = lerCache(chaveCache);
+
+    function mostrar(texto) {
+      if (texto) posicionar({ modo: "produto", texto: texto });
+    }
+
+    if (cache !== null) {
+      mostrar(cache);
+      return;
+    }
+
+    buscarResumo(dados)
+      .then(function (texto) {
+        salvarCache(chaveCache, texto);
+        mostrar(texto);
+      })
+      .catch(function () {});
+  }
+
+  function iniciarLoja() {
+    var cache = lerCache(CACHE_LOJA);
+
+    function mostrar(loja) {
+      if (!loja || !loja.total) return;
+
+      posicionar({
+        modo: "loja",
+        texto: loja.texto,
+        origem: loja.origem,
+        nota: loja.nota,
+        total: loja.total
+      });
+    }
+
+    if (cache) {
+      try {
+        mostrar(JSON.parse(cache));
+        return;
+      } catch (e) {}
+    }
+
+    buscarLoja()
+      .then(function (loja) {
+        salvarCache(CACHE_LOJA, JSON.stringify(loja));
+        mostrar(loja);
+      })
+      .catch(function () {});
+  }
+
+  function iniciar() {
+    if (!ativo) return;
+
+    var antigo = document.getElementById("correa-zordon-compra");
+    if (antigo) antigo.remove();
+
+    dados = lerDadosProduto();
+
+    /* Fora da página de produto não faz nada. */
+    if (!dados) return;
+
+    /* Usa a quantidade exibida na página para decidir o modo. */
+    if (lerNotaPagina().total > 0) {
+      iniciarProduto();
+    } else {
+      iniciarLoja();
+    }
+  }
+
+  window[chave] = {
+    destruir: function () {
+      ativo = false;
+
+      document.removeEventListener("DOMContentLoaded", iniciar);
+
+      if (observer) observer.disconnect();
+      if (redimensionar) redimensionar.disconnect();
+
+      clearTimeout(timeout);
+    }
+  };
+
+  /* O script "Zord.avaliacoes" fica mais abaixo no HTML. */
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciar, { once: true });
+  } else {
+    iniciar();
+  }
+})();
+</script>

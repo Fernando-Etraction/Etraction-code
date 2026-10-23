@@ -1,0 +1,1092 @@
+<style>
+/* =========================================================
+   BANNER | ESQUENTA BLACK DMFIT (modelo 2)
+   Faixa rolando + "50%" gigante vazado + cronômetro + categorias em blocos
+   Página: /esquenta-black
+========================================================= */
+
+.etraction-dmfit-eb {
+    --eb-pink: #eb0870;
+    --eb-hot: #ff2589;
+    --eb-ink: #ffffff;
+    --eb-muted: #a99fa7;
+    --eb-line: #2c2229;
+    --eb-tile: #17121a;
+
+    position: relative !important;
+
+    width: calc(100vw - var(--etraction-eb-sb, 0px)) !important;
+
+    margin: 0 0 20px calc(50% - (100vw - var(--etraction-eb-sb, 0px)) / 2) !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    background:
+        radial-gradient(45% 80% at 85% 30%, rgba(235, 8, 112, .22) 0%, rgba(235, 8, 112, 0) 70%),
+        #0d0b0d !important;
+
+    color: var(--eb-ink) !important;
+
+    font-family: Montserrat, Arial, sans-serif !important;
+    text-align: left !important;
+
+    box-sizing: border-box !important;
+}
+
+
+.etraction-dmfit-eb *,
+.etraction-dmfit-eb *::before,
+.etraction-dmfit-eb *::after {
+    box-sizing: border-box !important;
+}
+
+
+.etraction-dmfit-eb [hidden] {
+    display: none !important;
+}
+
+
+/* =========================================================
+   FAIXA ROLANDO
+========================================================= */
+
+.etraction-dmfit-eb__faixa {
+    display: flex !important;
+
+    overflow: hidden !important;
+
+    background: var(--eb-pink) !important;
+
+    white-space: nowrap !important;
+}
+
+
+.etraction-dmfit-eb__faixa-trilho {
+    display: flex !important;
+    flex: 0 0 auto !important;
+
+    animation: etractionDmfitEbRola 28s linear infinite !important;
+}
+
+
+.etraction-dmfit-eb__faixa-trilho span {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 18px !important;
+
+    padding: 9px 18px 9px 0 !important;
+
+    color: #ffffff !important;
+
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+
+    letter-spacing: .18em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-eb__faixa-trilho span::after {
+    content: "✦" !important;
+
+    font-size: 10px !important;
+}
+
+
+@keyframes etractionDmfitEbRola {
+
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+
+}
+
+
+/* =========================================================
+   MIOLO: 50% + CRONÔMETRO
+========================================================= */
+
+.etraction-dmfit-eb__miolo {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: center !important;
+
+    gap: 32px !important;
+
+    width: calc(100% - 32px) !important;
+    max-width: 1140px !important;
+
+    margin: 0 auto !important;
+    padding: 28px 0 22px !important;
+}
+
+
+.etraction-dmfit-eb__kicker {
+    display: block !important;
+
+    margin: 0 0 6px !important;
+
+    color: var(--eb-hot) !important;
+
+    font-size: 11px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: .24em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-eb__oferta {
+    display: flex !important;
+    align-items: center !important;
+
+    gap: 14px !important;
+
+    margin: 0 !important;
+}
+
+
+/* "50%" vazado, com sombra rosa deslocada */
+.etraction-dmfit-eb__numero {
+    color: transparent !important;
+
+    font-size: 124px !important;
+    font-weight: 900 !important;
+    line-height: .82 !important;
+
+    letter-spacing: -.05em !important;
+
+    -webkit-text-stroke: 2px #ffffff !important;
+
+    text-shadow: 6px 6px 0 var(--eb-pink) !important;
+}
+
+
+.etraction-dmfit-eb__pilha {
+    display: flex !important;
+    flex-direction: column !important;
+
+    gap: 6px !important;
+}
+
+
+.etraction-dmfit-eb__pilha b {
+    color: #ffffff !important;
+
+    font-size: 26px !important;
+    font-weight: 900 !important;
+    line-height: .9 !important;
+
+    letter-spacing: .02em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-eb__pilha b + b {
+    color: var(--eb-hot) !important;
+
+    font-size: 40px !important;
+}
+
+
+.etraction-dmfit-eb__texto {
+    max-width: 460px !important;
+
+    margin: 16px 0 0 !important;
+
+    color: #d6cfd4 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.5 !important;
+}
+
+
+.etraction-dmfit-eb__texto strong {
+    color: #ffffff !important;
+
+    font-weight: 800 !important;
+}
+
+
+/* cronômetro */
+
+.etraction-dmfit-eb__relogio {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+
+    gap: 10px !important;
+
+    padding: 18px 22px !important;
+
+    border: 1px solid var(--eb-line) !important;
+    border-radius: 14px !important;
+
+    background: rgba(255, 255, 255, .03) !important;
+}
+
+
+.etraction-dmfit-eb__relogio-label {
+    color: var(--eb-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: .18em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-eb__digitos {
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 10px !important;
+}
+
+
+.etraction-dmfit-eb__digitos > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+
+.etraction-dmfit-eb__digitos strong {
+    color: #ffffff !important;
+
+    font-size: 46px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+
+    letter-spacing: -.02em !important;
+
+    font-variant-numeric: tabular-nums !important;
+}
+
+
+.etraction-dmfit-eb__digitos small {
+    margin-top: 4px !important;
+
+    color: var(--eb-muted) !important;
+
+    font-size: 9px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: .16em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-eb__digitos i {
+    color: var(--eb-pink) !important;
+
+    font-size: 36px !important;
+    font-style: normal !important;
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+}
+
+
+.etraction-dmfit-eb__cta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 8px !important;
+
+    width: 100% !important;
+    min-height: 44px !important;
+
+    margin: 4px 0 0 !important;
+    padding: 0 18px !important;
+
+    border: 0 !important;
+    border-radius: 8px !important;
+
+    background: var(--eb-pink) !important;
+
+    color: #ffffff !important;
+
+    font-family: inherit !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: .14em !important;
+
+    text-transform: uppercase !important;
+
+    cursor: pointer !important;
+
+    transition: background-color .2s ease !important;
+}
+
+
+.etraction-dmfit-eb__cta:hover {
+    background: var(--eb-hot) !important;
+}
+
+
+.etraction-dmfit-eb__cta:focus-visible,
+.etraction-dmfit-eb__bloco:focus-visible {
+    outline: 2px solid #ffffff !important;
+    outline-offset: 2px !important;
+}
+
+
+/* =========================================================
+   CATEGORIAS EM BLOCOS
+========================================================= */
+
+.etraction-dmfit-eb__cats {
+    width: calc(100% - 32px) !important;
+    max-width: 1140px !important;
+
+    margin: 0 auto !important;
+    padding: 0 0 24px !important;
+}
+
+
+.etraction-dmfit-eb__cats-label {
+    display: block !important;
+
+    margin: 0 0 10px !important;
+
+    color: var(--eb-muted) !important;
+
+    font-size: 10px !important;
+    font-weight: 800 !important;
+
+    letter-spacing: .2em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-eb__cats-lista {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+
+    gap: 8px !important;
+}
+
+
+.etraction-dmfit-eb__bloco {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 8px !important;
+
+    min-height: 54px !important;
+
+    padding: 10px 14px !important;
+
+    border: 1px solid var(--eb-line) !important;
+    border-radius: 10px !important;
+
+    background: var(--eb-tile) !important;
+
+    color: #ffffff !important;
+
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+
+    letter-spacing: .04em !important;
+
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+
+    transition: border-color .2s ease, transform .2s ease !important;
+}
+
+
+.etraction-dmfit-eb__bloco:hover {
+    border-color: var(--eb-hot) !important;
+
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+
+    transform: translateY(-2px) !important;
+}
+
+
+.etraction-dmfit-eb__bloco::after {
+    content: "→" !important;
+
+    flex: 0 0 auto !important;
+
+    color: var(--eb-hot) !important;
+
+    font-size: 14px !important;
+}
+
+
+.etraction-dmfit-eb__bloco.is-ativo {
+    border-color: transparent !important;
+
+    background: var(--eb-pink) !important;
+}
+
+
+.etraction-dmfit-eb__bloco.is-ativo::after {
+    content: "✓" !important;
+
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1024px) {
+
+    .etraction-dmfit-eb__numero {
+        font-size: 100px !important;
+    }
+
+
+    .etraction-dmfit-eb__digitos strong {
+        font-size: 38px !important;
+    }
+
+
+    .etraction-dmfit-eb__cats-lista {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .etraction-dmfit-eb {
+        margin-bottom: 14px !important;
+    }
+
+
+    .etraction-dmfit-eb__faixa-trilho span {
+        padding: 8px 14px 8px 0 !important;
+
+        font-size: 10px !important;
+    }
+
+
+    .etraction-dmfit-eb__miolo {
+        grid-template-columns: minmax(0, 1fr) !important;
+
+        gap: 16px !important;
+
+        width: calc(100% - 24px) !important;
+
+        padding: 20px 0 16px !important;
+    }
+
+
+    .etraction-dmfit-eb__kicker {
+        font-size: 9.5px !important;
+
+        text-align: center !important;
+    }
+
+
+    .etraction-dmfit-eb__oferta {
+        justify-content: center !important;
+    }
+
+
+    .etraction-dmfit-eb__numero {
+        font-size: 84px !important;
+
+        -webkit-text-stroke-width: 1.5px !important;
+
+        text-shadow: 4px 4px 0 var(--eb-pink) !important;
+    }
+
+
+    .etraction-dmfit-eb__pilha b {
+        font-size: 19px !important;
+    }
+
+
+    .etraction-dmfit-eb__pilha b + b {
+        font-size: 30px !important;
+    }
+
+
+    .etraction-dmfit-eb__texto {
+        margin: 12px auto 0 !important;
+
+        font-size: 12.5px !important;
+
+        text-align: center !important;
+    }
+
+
+    .etraction-dmfit-eb__relogio {
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        gap: 10px 12px !important;
+
+        padding: 12px 14px !important;
+    }
+
+
+    .etraction-dmfit-eb__relogio-label {
+        font-size: 9px !important;
+    }
+
+
+    .etraction-dmfit-eb__digitos {
+        gap: 6px !important;
+    }
+
+
+    .etraction-dmfit-eb__digitos strong {
+        font-size: 28px !important;
+    }
+
+
+    .etraction-dmfit-eb__digitos i {
+        font-size: 22px !important;
+    }
+
+
+    .etraction-dmfit-eb__cta {
+        min-height: 40px !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* blocos viram uma linha arrastável */
+    .etraction-dmfit-eb__cats {
+        width: 100% !important;
+
+        padding-bottom: 16px !important;
+    }
+
+
+    .etraction-dmfit-eb__cats-label {
+        padding: 0 12px !important;
+
+        font-size: 9px !important;
+    }
+
+
+    .etraction-dmfit-eb__cats-lista {
+        display: flex !important;
+
+        gap: 6px !important;
+
+        padding: 0 12px 2px !important;
+
+        overflow-x: auto !important;
+
+        scrollbar-width: none !important;
+
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+
+    .etraction-dmfit-eb__cats-lista::-webkit-scrollbar {
+        display: none !important;
+    }
+
+
+    .etraction-dmfit-eb__bloco {
+        flex: 0 0 auto !important;
+
+        min-height: 42px !important;
+
+        padding: 8px 12px !important;
+
+        font-size: 10.5px !important;
+
+        white-space: nowrap !important;
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .etraction-dmfit-eb__faixa-trilho {
+        animation: none !important;
+    }
+
+
+    .etraction-dmfit-eb__bloco,
+    .etraction-dmfit-eb__cta {
+        transition: none !important;
+    }
+
+}
+</style>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+
+    var CONFIG = {
+
+        // só roda nestas páginas
+        PAGINAS: [
+            "/esquenta-black"
+        ],
+
+        // fim da oferta (horário de Brasília). null = zera todo dia à meia-noite
+        // ex. de data fixa: "2026-10-31T23:59:59-03:00"
+        FIM: null,
+
+        PORCENTAGEM: 50,
+
+        KICKER: "DMFIT · Esquenta Black",
+
+        TEXTO: "O momento mais esperado do ano começou. <strong>Desconto já aplicado no preço, sem cupom.</strong>",
+
+        // frases da faixa que corre no topo
+        FAIXA: [
+            "Esquenta Black",
+            "Até 50% OFF",
+            "Sem cupom",
+            "O momento mais esperado do ano começou"
+        ],
+
+        CTA: "Ver todas as peças",
+
+        // banner antigo que este substitui
+        ESCONDER: [
+            ".conteudo-adicional-topo"
+        ],
+
+        // filtro por categoria (id da Magazord, ?categoria=ID)
+        CATEGORIAS: [
+            { ID: 19, NOME: "Calças e leggings" },
+            { ID: 20, NOME: "Tops" },
+            { ID: 21, NOME: "Shorts e bermudas" },
+            { ID: 23, NOME: "Macaquinhos" },
+            { ID: 22, NOME: "Blusas e regatas" }
+        ]
+    };
+
+
+    var caminho =
+        location.pathname
+            .replace(/\/+$/, "")
+            .toLowerCase();
+
+
+    if (
+        CONFIG.PAGINAS.indexOf(caminho) === -1
+    ) {
+        return;
+    }
+
+
+    // meia-noite de hoje no horário de Brasília (UTC-3, sem horário de verão)
+    function fimDoDia() {
+
+        var DIA = 86400000;
+
+        var BRASILIA = -3 * 3600000;
+
+
+        return Math.floor((Date.now() + BRASILIA) / DIA) * DIA + DIA - BRASILIA;
+    }
+
+
+    var DIARIO =
+        !CONFIG.FIM;
+
+    var FIM =
+        DIARIO ? fimDoDia() : new Date(CONFIG.FIM).getTime();
+
+    var banner = null;
+
+    var relogio = null;
+
+
+    function doisDigitos(n) {
+        return n < 10 ? "0" + n : String(n);
+    }
+
+
+    function montarFaixa() {
+
+        var frases =
+            CONFIG.FAIXA.map(function (f) { return "<span>" + f + "</span>"; }).join("");
+
+        // trilho repetido para a faixa correr sem buraco
+        var trilho =
+            '<div class="etraction-dmfit-eb__faixa-trilho">' + frases + frases + frases + '</div>';
+
+
+        return '<div class="etraction-dmfit-eb__faixa" aria-hidden="true">' + trilho + trilho + '</div>';
+    }
+
+
+    function montarCategorias() {
+
+        var atual =
+            new URL(location.href).searchParams.get("categoria") || "";
+
+
+        function link(id) {
+
+            var destino =
+                new URL(location.href);
+
+            destino.searchParams.delete("pagina");
+
+            if (id) {
+                destino.searchParams.set("categoria", id);
+            } else {
+                destino.searchParams.delete("categoria");
+            }
+
+            return destino.pathname + destino.search;
+        }
+
+
+        var lista =
+            [{ ID: "", NOME: "Todas as peças" }].concat(CONFIG.CATEGORIAS);
+
+        var blocos = "";
+
+
+        for (var i = 0; i < lista.length; i++) {
+
+            var ativo =
+                String(lista[i].ID) === atual;
+
+            blocos +=
+                '<a class="etraction-dmfit-eb__bloco' + (ativo ? " is-ativo" : "") + '"' +
+                ' href="' + link(lista[i].ID) + '"' +
+                (ativo ? ' aria-current="true"' : "") + '>' +
+                lista[i].NOME +
+                '</a>';
+        }
+
+
+        return `
+            <nav class="etraction-dmfit-eb__cats" aria-label="Filtrar por categoria">
+                <span class="etraction-dmfit-eb__cats-label">Escolha a categoria</span>
+                <div class="etraction-dmfit-eb__cats-lista">${blocos}</div>
+            </nav>
+        `;
+    }
+
+
+    function montar() {
+
+        var secao =
+            document.createElement("section");
+
+        secao.className =
+            "etraction-dmfit-eb";
+
+        secao.setAttribute("aria-label", "Esquenta Black DMFIT: até " + CONFIG.PORCENTAGEM + "% OFF");
+
+
+        secao.innerHTML = `
+            ${montarFaixa()}
+
+            <div class="etraction-dmfit-eb__miolo">
+
+                <div>
+
+                    <span class="etraction-dmfit-eb__kicker">${CONFIG.KICKER}</span>
+
+                    <h2 class="etraction-dmfit-eb__oferta">
+                        <span class="etraction-dmfit-eb__pilha"><b>Até</b><b>OFF</b></span>
+                        <span class="etraction-dmfit-eb__numero">${CONFIG.PORCENTAGEM}%</span>
+                    </h2>
+
+                    <p class="etraction-dmfit-eb__texto">${CONFIG.TEXTO}</p>
+
+                </div>
+
+                <div class="etraction-dmfit-eb__relogio" data-eb-timer role="timer" aria-label="Tempo restante da oferta">
+
+                    <span class="etraction-dmfit-eb__relogio-label">
+                        O esquenta ${DIARIO ? "de hoje " : ""}acaba em
+                    </span>
+
+                    <div class="etraction-dmfit-eb__digitos">
+                        <div data-u="d"><strong data-t="d">00</strong><small>dias</small></div>
+                        <i data-u="d" aria-hidden="true">:</i>
+                        <div><strong data-t="h">00</strong><small>horas</small></div>
+                        <i aria-hidden="true">:</i>
+                        <div><strong data-t="m">00</strong><small>min</small></div>
+                        <i aria-hidden="true">:</i>
+                        <div><strong data-t="s">00</strong><small>seg</small></div>
+                    </div>
+
+                    <button type="button" class="etraction-dmfit-eb__cta">
+                        ${CONFIG.CTA}
+                        <span aria-hidden="true">↓</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+            ${montarCategorias()}
+        `;
+
+
+        secao
+            .querySelector(".etraction-dmfit-eb__cta")
+            .addEventListener(
+                "click",
+                function () {
+
+                    var lista =
+                        document.querySelector(".container-list") ||
+                        document.querySelector(".ra-vitrine");
+
+                    if (lista) {
+                        lista.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+
+                }
+            );
+
+
+        return secao;
+    }
+
+
+    function atualizarTimer() {
+
+        if (!banner) {
+            return;
+        }
+
+
+        var resta =
+            Math.max(0, Math.floor((FIM - Date.now()) / 1000));
+
+
+        // modo diário: virou o dia, recomeça a contagem
+        if (resta <= 0 && DIARIO) {
+
+            FIM = fimDoDia();
+
+            resta = Math.min(86399, Math.floor((FIM - Date.now()) / 1000));
+        }
+
+
+        var i;
+
+
+        if (resta <= 0) {
+
+            clearInterval(relogio);
+
+            banner.querySelector("[data-eb-timer] .etraction-dmfit-eb__digitos").hidden = true;
+
+            return;
+        }
+
+
+        var valores = {
+            d: Math.floor(resta / 86400),
+            h: Math.floor(resta % 86400 / 3600),
+            m: Math.floor(resta % 3600 / 60),
+            s: resta % 60
+        };
+
+
+        var numeros =
+            banner.querySelectorAll("[data-t]");
+
+        for (i = 0; i < numeros.length; i++) {
+
+            var texto =
+                doisDigitos(valores[numeros[i].getAttribute("data-t")]);
+
+            if (numeros[i].textContent !== texto) {
+                numeros[i].textContent = texto;
+            }
+        }
+
+
+        var dias =
+            banner.querySelectorAll('[data-u="d"]');
+
+        for (i = 0; i < dias.length; i++) {
+            dias[i].hidden = valores.d === 0;
+        }
+    }
+
+
+    // seção de ponta a ponta sem rolagem lateral pela barra do Windows
+    function medirBarra() {
+
+        document.documentElement.style.setProperty(
+            "--etraction-eb-sb",
+            (window.innerWidth - document.documentElement.clientWidth) + "px"
+        );
+    }
+
+
+    function criar() {
+
+        if (banner) {
+            return true;
+        }
+
+
+        var depoisDe =
+            document.querySelector("#main-area > .descricao-pesquisa") ||
+            document.querySelector("#main-area > .area-breadcrumb");
+
+        var lista =
+            document.querySelector(".container-list");
+
+
+        if (!depoisDe && !lista) {
+            return false;
+        }
+
+
+        for (var i = 0; i < CONFIG.ESCONDER.length; i++) {
+
+            var nativos =
+                document.querySelectorAll(CONFIG.ESCONDER[i]);
+
+            // inline + important para ganhar do CSS da loja
+            for (var n = 0; n < nativos.length; n++) {
+                nativos[n].style.setProperty("display", "none", "important");
+            }
+        }
+
+
+        banner = montar();
+
+
+        if (depoisDe) {
+            depoisDe.insertAdjacentElement("afterend", banner);
+        } else {
+            lista.parentNode.insertBefore(banner, lista);
+        }
+
+
+        medirBarra();
+
+        window.addEventListener("resize", medirBarra);
+
+
+        atualizarTimer();
+
+        relogio =
+            setInterval(atualizarTimer, 1000);
+
+
+        // veio de um clique numa categoria: leva direto para os blocos
+        if (new URL(location.href).searchParams.get("categoria")) {
+
+            var cats =
+                banner.querySelector(".etraction-dmfit-eb__cats");
+
+            window.scrollTo(
+                0,
+                cats.getBoundingClientRect().top + window.pageYOffset - 110
+            );
+
+
+            // no celular os blocos rolam de lado: centraliza o ativo
+            var faixaCats =
+                cats.querySelector(".etraction-dmfit-eb__cats-lista");
+
+            var ativo =
+                cats.querySelector(".is-ativo");
+
+            if (ativo && faixaCats.scrollWidth > faixaCats.clientWidth) {
+
+                faixaCats.scrollLeft +=
+                    ativo.getBoundingClientRect().left -
+                    faixaCats.getBoundingClientRect().left -
+                    (faixaCats.clientWidth - ativo.offsetWidth) / 2;
+            }
+        }
+
+
+        return true;
+    }
+
+
+    function iniciar() {
+
+        if (criar()) {
+            return;
+        }
+
+
+        // a página monta aos poucos: tenta de novo por alguns segundos
+        var tentativas = 0;
+
+        var intervalo =
+            setInterval(
+                function () {
+
+                    tentativas++;
+
+                    if (criar() || tentativas >= 40) {
+                        clearInterval(intervalo);
+                    }
+
+                },
+                300
+            );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciar,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        iniciar();
+    }
+
+})();
+</script>

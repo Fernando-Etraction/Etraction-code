@@ -1,0 +1,276 @@
+<style>
+/* =========================================================
+   TAG DE ECONOMIA PDP | DMFIT
+   Modelo 01: quanto a cliente economiza, em reais
+   Entra logo abaixo dos preços (#content-price-product .values-area)
+========================================================= */
+
+.etraction-dmfit-economia-pdp {
+    display: inline-flex !important;
+    align-items: center !important;
+
+    gap: 8px !important;
+
+    margin: 12px 0 0 !important;
+    padding: 8px 12px !important;
+
+    border: 1px solid rgba(235, 8, 112, .22) !important;
+    border-radius: 8px !important;
+
+    background: #fff0f6 !important;
+
+    color: #191919 !important;
+
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+}
+
+
+.etraction-dmfit-economia-pdp svg {
+    flex: 0 0 auto !important;
+
+    width: 18px !important;
+    height: 18px !important;
+}
+
+
+.etraction-dmfit-economia-pdp svg path {
+    fill: #eb0870 !important;
+}
+
+
+.etraction-dmfit-economia-pdp strong {
+    color: #eb0870 !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+}
+
+
+@media (max-width: 600px) {
+
+    .etraction-dmfit-economia-pdp {
+        padding: 7px 10px !important;
+
+        font-size: 12px !important;
+    }
+
+
+    .etraction-dmfit-economia-pdp strong {
+        font-size: 14px !important;
+    }
+
+}
+</style>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+
+    var CONFIG = {
+
+        // só mostra quando a economia for de pelo menos (R$)
+        MINIMO: 1
+    };
+
+
+    var CLASSE =
+        "etraction-dmfit-economia-pdp";
+
+    var ICONE =
+        '<svg viewBox="0 0 256 256" aria-hidden="true"><path d="M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63ZM84,96A12,12,0,1,1,96,84,12,12,0,0,1,84,96Z"></path></svg>';
+
+
+    function lerPreco(texto) {
+
+        var achado =
+            String(texto || "").match(
+                /(\d{1,3}(?:\.\d{3})*,\d{2})/
+            );
+
+
+        if (!achado) {
+            return 0;
+        }
+
+
+        return parseFloat(
+            achado[1]
+                .replace(/\./g, "")
+                .replace(",", ".")
+        );
+    }
+
+
+    function moeda(valor) {
+
+        return valor.toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        );
+    }
+
+
+    function aplicar() {
+
+        var area =
+            document.querySelector("#content-price-product");
+
+        var precos =
+            area && area.querySelector(".values-area");
+
+
+        if (!precos) {
+            return;
+        }
+
+
+        var deEl =
+            area.querySelector(".preco-de .line-through");
+
+        var cartaoEl =
+            area.querySelector(".price.card .price-big");
+
+        var pixEl =
+            area.querySelector(".price.pix .price-big");
+
+
+        // "De" = preço riscado da loja ou, sem ele, o preço no cartão
+        var de =
+            Math.max(
+                deEl ? lerPreco(deEl.textContent) : 0,
+                cartaoEl ? lerPreco(cartaoEl.textContent) : 0
+            );
+
+        var por =
+            pixEl ? lerPreco(pixEl.textContent) : (cartaoEl ? lerPreco(cartaoEl.textContent) : 0);
+
+        var economia =
+            Math.round((de - por) * 100) / 100;
+
+
+        var tag =
+            area.querySelector("." + CLASSE);
+
+
+        if (!de || !por || economia < CONFIG.MINIMO) {
+
+            if (tag) {
+                tag.parentNode.removeChild(tag);
+            }
+
+            return;
+        }
+
+
+        var texto =
+            'Você economiza <strong>' + moeda(economia) + '</strong>' + (pixEl ? " no PIX" : "");
+
+
+        if (!tag) {
+
+            tag =
+                document.createElement("div");
+
+            tag.className =
+                CLASSE;
+        }
+
+
+        // só mexe no DOM quando o valor muda (troca de cor/tamanho atualiza o preço)
+        if (tag.getAttribute("data-valor") !== String(economia)) {
+
+            tag.setAttribute("data-valor", String(economia));
+
+            tag.innerHTML = ICONE + '<span>' + texto + '</span>';
+        }
+
+
+        if (tag.previousElementSibling !== precos) {
+            precos.insertAdjacentElement("afterend", tag);
+        }
+    }
+
+
+    function iniciar() {
+
+        aplicar();
+
+
+        var agendado = false;
+
+
+        new MutationObserver(
+            function (mutacoes) {
+
+                for (var i = 0; i < mutacoes.length; i++) {
+
+                    var alvo =
+                        mutacoes[i].target;
+
+                    var el =
+                        alvo.nodeType === 1 ? alvo : alvo.parentElement;
+
+
+                    // ignora a própria tag
+                    if (el && el.closest && el.closest("." + CLASSE)) {
+                        continue;
+                    }
+
+
+                    if (!agendado) {
+
+                        agendado = true;
+
+                        setTimeout(
+                            function () {
+                                agendado = false;
+                                aplicar();
+                            },
+                            80
+                        );
+                    }
+
+                    return;
+                }
+
+            }
+        ).observe(
+            document.body,
+            {
+                childList: true,
+                subtree: true,
+                characterData: true
+            }
+        );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciar,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        iniciar();
+    }
+
+})();
+</script>

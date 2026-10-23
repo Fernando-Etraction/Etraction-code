@@ -1,0 +1,103 @@
+(function () {
+
+    var html = `
+        <div class="aviso-frete">
+            <p class="aviso-frete-title">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M365.109,44.405c-42.169,0-81.27,17.539-109.109,48.529c-27.839-30.99-66.941-48.529-109.109-48.529C65.895,44.405,0,110.3,0,191.296c0,43.071,16.216,84.357,48.196,122.708c26.609,31.909,58.993,56.065,82.64,73.703l3.208,2.394c49.059,36.648,53.157,39.031,92.364,61.837c6.895,4.01,14.89,8.661,24.432,14.256c1.593,0.934,3.376,1.401,5.16,1.401s3.567-0.467,5.159-1.4c9.542-5.595,17.538-10.246,24.432-14.256c39.207-22.805,43.305-25.189,92.364-61.837l3.208-2.394c23.646-17.638,56.031-41.792,82.64-73.703C495.784,275.652,512,234.367,512,191.296C512,110.3,446.105,44.405,365.109,44.405z M368.968,371.356l-3.22,2.402c-48.12,35.945-52.122,38.273-90.412,60.546c-5.632,3.276-11.997,6.978-19.336,11.271c-7.339-4.293-13.705-7.995-19.336-11.271c-38.29-22.272-42.292-24.599-90.412-60.546l-3.22-2.402c-45.867-34.211-122.635-91.472-122.635-180.06c0-69.748,56.744-126.493,126.493-126.493c40.007,0,76.81,18.333,100.972,50.299c1.929,2.55,4.939,4.049,8.137,4.049s6.209-1.499,8.137-4.049c24.162-31.965,60.965-50.299,100.972-50.299c69.748,0,126.493,56.744,126.493,126.493C491.602,279.884,414.833,337.145,368.968,371.356z" fill="#ed1c67"/>
+                    <path d="M442.705,129.109c-3.539-4.382-9.962-5.066-14.343-1.526c-4.382,3.54-5.065,9.962-1.526,14.343c11.893,14.726,18.18,32.537,18.18,51.51c0,5.633,4.566,10.199,10.199,10.199c5.633,0,10.199-4.566,10.2-10.2C465.415,170.085,457.35,147.24,442.705,129.109z" fill="#ed1c67"/>
+                    <path d="M408.998,101.89c-4.188-2.109-8.557-3.944-12.989-5.452c-5.333-1.815-11.127,1.034-12.943,6.367c-1.815,5.332,1.035,11.126,6.367,12.943c3.544,1.207,7.038,2.674,10.389,4.361c1.472,0.741,3.036,1.092,4.579,1.092c3.731,0,7.325-2.054,9.117-5.615C416.053,110.556,414.03,104.424,408.998,101.89z" fill="#ed1c67"/>
+                </svg>
+                Feito com carinho para seu bebê!
+            </p>
+            <p class="aviso-frete-description">
+                Esse prazo já inclui o tempo de produção do seu pedido + o transporte até você.
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="21.61" cy="9.44" fill="#c3967b" r="5.44"/>
+                    <circle cx="42.39" cy="9.44" fill="#c3967b" r="5.44"/>
+                    <path d="m44.12 7.65c-.38-.39-1.01-.4-1.41 0l-1.28 1.25c.51.42.99.89 1.44 1.39l1.24-1.21c.39-.39.4-1.02.01-1.42z" fill="#a26a55"/>
+                    <path d="m21.29 7.64c-.39-.39-1.03-.38-1.41 0-.39.4-.38 1.03.01 1.42l1.24 1.21c.45-.5.93-.97 1.44-1.39l-1.28-1.25z" fill="#a26a55"/>
+                    <path d="m10.2 44.63 3.29 3.61 15.23-18.75-7.01-4.01s-19.51 10.43-11.51 19.15z" fill="#c3967b"/>
+                    <path d="m42.29 25.48-7.01 4.01 15.23 18.75 3.29-3.61c8-8.72-11.51-19.15-11.51-19.15z" fill="#c3967b"/>
+                    <path d="m32 23.19c-8.78 0-15.9 12.12-15.9 20.91s7.12 15.9 15.9 15.9 15.9-7.12 15.9-15.9-7.12-20.91-15.9-20.91z" fill="#a26a55"/>
+                    <circle cx="32" cy="19.99" fill="#c3967b" r="14.58"/>
+                    <g fill="#894c3d">
+                        <path d="m38 19.16c-.55 0-1-.45-1-1v-1.9c0-.55.45-1 1-1s1 .45 1 1v1.9c0 .55-.45 1-1 1z"/>
+                        <path d="m26 19.16c-.55 0-1-.45-1-1v-1.9c0-.55.45-1 1-1s1 .45 1 1v1.9c0 .55-.45 1-1 1z"/>
+                        <path d="m35.22 21.85c-.08-.55-.55-.96-1.1-.96h-4.24c-.58 0-1.06.45-1.11 1.03-.1 1.35.19 2.41.88 3.15.43.46.92.7 1.35.83v2.62c0 .55.45 1 1 1s1-.45 1-1v-2.66c.69-.22 1.15-.6 1.43-.93 1.01-1.21.81-2.89.79-3.08z"/>
+                    </g>
+                    <path d="m38.82 27.03c-2.83 0-5.44 1.67-6.82 4.36-1.39-2.7-3.99-4.36-6.82-4.36-4.32 0-7.83 4.38-7.83 9.11 0 9.96 10.31 17.39 13.64 19.53.62.4 1.42.4 2.04 0 3.32-2.14 13.64-9.57 13.64-19.53 0-4.73-3.51-9.11-7.83-9.11z" fill="#d85264"/>
+                    <ellipse cx="17" cy="51.11" fill="#c3967b" rx="7.52" ry="8.89"/>
+                    <ellipse cx="47" cy="51.11" fill="#c3967b" rx="7.52" ry="8.89"/>
+                    <path d="m21.39 37.75c-.55 0-1-.45-1-1 0-3.67 2.73-6.77 5.96-6.77.55 0 1 .45 1 1s-.45 1-1 1c-2.11 0-3.96 2.23-3.96 4.77 0 .55-.45 1-1 1z" fill="#eda1a9"/>
+                </svg>
+            </p>
+        </div>
+    `;
+
+    var css = `
+        .aviso-frete {
+            background-color: #F9EDF3;
+            border-radius: 3px;
+            padding: 10px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .aviso-frete-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .aviso-frete svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .aviso-frete-description {
+            font-size: 12px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    `;
+
+    function iniciar($) {
+        // Injeta o CSS uma única vez (sem criar variável global)
+        if (!document.getElementById('aviso-frete-style')) {
+            var tag = document.createElement('style');
+            tag.id = 'aviso-frete-style';
+            tag.innerHTML = css;
+            document.head.appendChild(tag);
+        }
+
+        function inserirAviso() {
+            if ($('.aviso-frete').length > 0) { return; } // Evita adicionar o aviso novamente se já existir
+
+            var $alvo = $('#formCalcularCep .form-inline').first();
+            if (!$alvo.length) { return; }
+
+            $(html).insertAfter($alvo);
+        }
+
+        // Delegado no document: continua funcionando mesmo se a plataforma recriar o formulário
+        $(document).on('click', '#formCalcularCep .btn', inserirAviso);
+        $(document).on('submit', '#formCalcularCep', inserirAviso);
+    }
+
+    // Aguarda o jQuery existir (caso o script seja carregado antes dele)
+    (function esperarJQuery(tentativas) {
+        if (window.jQuery) {
+            jQuery(function () { iniciar(jQuery); });
+        } else if (tentativas > 0) {
+            setTimeout(function () { esperarJQuery(tentativas - 1); }, 100);
+        }
+    })(100);
+
+})();

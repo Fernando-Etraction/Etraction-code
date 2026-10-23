@@ -1,0 +1,263 @@
+<style>
+/* =========================================================
+   FAIXA DE AVISO | ESQUENTA BLACK DMFIT
+   Modelo 02: informativo de desconto geral, logo acima da vitrine
+========================================================= */
+
+.etraction-dmfit-aviso {
+    position: relative !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+
+    gap: 6px 14px !important;
+
+    width: calc(100% - 16px) !important;
+    max-width: 1140px !important;
+
+    margin: 16px auto 4px !important;
+    padding: 12px 18px 12px 22px !important;
+
+    overflow: hidden !important;
+
+    border: 1px solid rgba(235, 8, 112, .18) !important;
+    border-radius: 10px !important;
+
+    background: linear-gradient(110deg, #ffffff 0%, #fff4f9 100%) !important;
+
+    color: #191919 !important;
+
+    font-family: Montserrat, Arial, sans-serif !important;
+    font-size: 13px !important;
+    line-height: 1.35 !important;
+
+    text-align: center !important;
+
+    box-sizing: border-box !important;
+}
+
+
+/* detalhe lateral, igual ao cupom da PDP */
+.etraction-dmfit-aviso::before {
+    content: "" !important;
+
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 4px !important;
+    height: 100% !important;
+
+    background: #eb0870 !important;
+}
+
+
+.etraction-dmfit-aviso__selo {
+    padding: 4px 9px !important;
+
+    border-radius: 4px !important;
+
+    background: #0d0b0d !important;
+
+    color: #ffffff !important;
+
+    font-size: 10px !important;
+    font-weight: 900 !important;
+
+    letter-spacing: .14em !important;
+
+    text-transform: uppercase !important;
+}
+
+
+.etraction-dmfit-aviso__oferta {
+    color: #191919 !important;
+
+    font-weight: 600 !important;
+}
+
+
+.etraction-dmfit-aviso__oferta strong {
+    color: #eb0870 !important;
+
+    font-weight: 900 !important;
+}
+
+
+.etraction-dmfit-aviso__frase {
+    color: #6f6670 !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+
+.etraction-dmfit-aviso__frase::before {
+    content: "·" !important;
+
+    margin-right: 14px !important;
+
+    color: #eb0870 !important;
+
+    font-weight: 900 !important;
+}
+
+
+@media (max-width: 767px) {
+
+    .etraction-dmfit-aviso {
+        gap: 5px 8px !important;
+
+        width: calc(100% - 20px) !important;
+
+        margin: 12px auto 4px !important;
+        padding: 10px 12px 10px 16px !important;
+
+        font-size: 12px !important;
+    }
+
+
+    .etraction-dmfit-aviso__frase {
+        flex-basis: 100% !important;
+
+        font-size: 11px !important;
+    }
+
+
+    .etraction-dmfit-aviso__frase::before {
+        content: none !important;
+    }
+
+}
+</style>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+
+    var CONFIG = {
+
+        // só roda nestas páginas
+        PAGINAS: [
+            "/esquenta-black"
+        ],
+
+        SELO: "Esquenta Black",
+
+        OFERTA: "Peças com <strong>até 50% OFF</strong>",
+
+        FRASE: "O momento mais esperado do ano começou"
+    };
+
+
+    var caminho =
+        location.pathname
+            .replace(/\/+$/, "")
+            .toLowerCase();
+
+
+    if (
+        CONFIG.PAGINAS.indexOf(caminho) === -1
+    ) {
+        return;
+    }
+
+
+    var ID =
+        "etraction-dmfit-aviso";
+
+
+    function criar() {
+
+        if (document.getElementById(ID)) {
+            return true;
+        }
+
+
+        // logo acima dos produtos (no desktop e no celular)
+        var vitrine =
+            document.querySelector(".container-list") ||
+            document.querySelector(".ra-vitrine");
+
+
+        if (!vitrine) {
+            return false;
+        }
+
+
+        var faixa =
+            document.createElement("div");
+
+        faixa.id = ID;
+
+        faixa.className = ID;
+
+        faixa.setAttribute("role", "note");
+
+
+        faixa.innerHTML = `
+            <span class="etraction-dmfit-aviso__selo">${CONFIG.SELO}</span>
+            <span class="etraction-dmfit-aviso__oferta">${CONFIG.OFERTA}</span>
+            <span class="etraction-dmfit-aviso__frase">${CONFIG.FRASE}</span>
+        `;
+
+
+        vitrine.parentNode.insertBefore(faixa, vitrine);
+
+
+        return true;
+    }
+
+
+    function iniciar() {
+
+        if (criar()) {
+            return;
+        }
+
+
+        // a vitrine é React e pode demorar a montar
+        var tentativas = 0;
+
+        var intervalo =
+            setInterval(
+                function () {
+
+                    tentativas++;
+
+                    if (criar() || tentativas >= 40) {
+                        clearInterval(intervalo);
+                    }
+
+                },
+                300
+            );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciar,
+            {
+                once: true
+            }
+        );
+
+    } else {
+
+        iniciar();
+    }
+
+})();
+</script>
