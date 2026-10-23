@@ -4,18 +4,34 @@
     if (!$ || !$('body').hasClass('pagina-inicial') || $('.abc-circulos').length) return;
 
     // imagens do gerenciador de arquivos (sem fundo); o "400x400" faz o CDN entregar a versão reduzida
-    var IMG = 'https://cdn.awsli.com.br/400x400/1357/1357875/arquivos/whatsapp-image-2026-10-15-at-';
+    // img: nome do arquivo sem o final "-jpg-editado.png"
+    var IMG = 'https://cdn.awsli.com.br/400x400/1357/1357875/arquivos/';
+    // "Campeões de Venda": busca na loja toda, ordenada por "Mais vendidos"
     var CATEGORIAS = [
-      { nome: 'Quartos Completos', url: '/quartos-completos', img: IMG + '15-24-58-4-jpg-editado.png' },
-      { nome: 'Puffs', url: '/pufes-20599788', img: IMG + '15-24-56-3-jpg-editado.png' },
-      { nome: 'Móbiles', url: '/mobiles', img: IMG + '15-24-56-4-jpg-editado.png' },
-      { nome: 'Enfeites de Parede', url: '/enfeites-de-parede', img: IMG + '15-24-56-2-jpg-editado.png' },
-      { nome: 'Decorações Temáticas', url: '/decoracoes-tematicas', img: IMG + '15-24-58-2-jpg-editado.png' },
-      { nome: 'Enxoval', url: '/enxoval', img: IMG + '15-24-59-jpg-editado.png' },
-      { nome: 'Almofadas Decorativas', url: '/almofadas-decorativas', img: IMG + '15-24-57-jpg-editado.png' },
-      { nome: 'Kits de Higiene', url: '/kits-de-higiene', img: IMG + '15-24-56-jpg-editado.png' },
-      { nome: 'Brinquedoteca', url: '/brinquedoteca-23469148', img: IMG + '15-25-00-1-jpg-editado.png' },
-      { nome: 'Ofertas da Semana', url: '/ofertas-da-semana', img: IMG + '15-24-57-3-jpg-editado.png' }
+      { nome: 'Brinquedoteca', url: '/brinquedoteca-23469148', img: 'brinquedoteca' },
+      { nome: 'Campeões de Venda', url: '/buscar?q=%20&sort=mais_vendidos', img: 'campe-os-de-venda' },
+      { nome: 'Abajur', url: '/abajur', img: 'abajur' },
+      { nome: 'Almofadas de Amamentação', url: '/almofadas-de-amamentacao', img: 'almofadas-de-amamenta-o' },
+      { nome: 'Berços Evolutivos', url: '/bercos-evolutivos-3-em-1-ou-4-em-1', img: 'ber-os-evolutivos' },
+      { nome: 'Enxovais', url: '/enxoval', img: 'enxovais' },
+      { nome: 'Loja Física', url: '/pagina/sobre-nos.html', img: 'loja-f-sica' },
+      { nome: 'Cama Kids', url: '/camas-mini-camas-e-beliches', img: 'cama-kids' },
+      { nome: 'Decoração', url: '/decoracao-e-acessorios', img: 'decora-o' },
+      { nome: 'Cômodas', url: '/comodas', img: 'c-modas' },
+      { nome: 'Jogos de Lençol', url: '/jogos-de-lencol', img: 'jogos-de-len-ol' },
+      { nome: 'Outlet', url: '/outlet-pecas-de-mostruario', img: 'outlet' },
+      { nome: 'Kit Higiene', url: '/kits-de-higiene', img: 'kit-higiene' },
+      { nome: 'Poltronas', url: '/poltronas-de-amamentacao', img: 'poltronas' },
+      { nome: 'Tapetes', url: '/tapetes', img: 'tapetes' },
+      { nome: 'Quadros', url: '/quadros', img: 'quadros' },
+      { nome: 'Ofertas da Semana', url: '/ofertas-da-semana', img: 'ofertas-da-semana' },
+      { nome: 'Móbiles', url: '/mobiles', img: 'm-biles' },
+      { nome: 'Papel de Parede', url: '/papel-de-parede', img: 'papel-de-parede' },
+      { nome: 'Ninhos', url: '/ninhos', img: 'ninho' },
+      { nome: 'Mesinhas Laterais', url: '/mesas-laterias-de-apoio', img: 'mesinhas-laterais' },
+      { nome: 'Trocadores', url: '/trocadores', img: 'trocadores' },
+      { nome: 'Quartos Completos', url: '/quartos-completos', img: 'quartos-completos' },
+      { nome: 'Roupeiros', url: '/roupeiros', img: 'roupeiros' }
     ];
     // cores dos círculos, em sequência (rosa, menta, amarelo)
     var CORES = ['#fbe4ec', '#dcf2ee', '#fdf1d2'];
@@ -74,7 +90,9 @@
         $('<a class="abc-circulos-item">').attr('href', c.url).append(
           // via atributo style: o jQuery do tema não aplica variáveis CSS com .css()
           $('<span class="abc-circulos-img">').attr('style', '--abc-cor:' + CORES[i % CORES.length])
-            .append($('<img loading="lazy">').attr({ src: c.img, alt: c.nome })),
+            .append($('<img loading="lazy">').attr({ src: IMG + c.img + '-jpg-editado.png', alt: c.nome })
+              // se a imagem não existir, fica só o círculo colorido com o nome
+              .on('error', function () { $(this).hide(); })),
           $('<span class="abc-circulos-nome">').text(c.nome)
         )
       ).appendTo($lista);

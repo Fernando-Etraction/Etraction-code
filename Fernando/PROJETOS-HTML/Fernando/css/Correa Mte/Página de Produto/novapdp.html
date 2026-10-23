@@ -1,6 +1,9 @@
 <style>
+
+  .variacao-area.variacao-tipo-select .variacao-lista.variacao-lista-dropdown{
+    width: 100% !important;
+}
   .product-description,
-  .product-sku,
   .container-info-preco-exclusivo,
   #content-price-product .price>img,
   #content-price-product .icon,
@@ -261,6 +264,18 @@
     font-family: inherit !important;
     line-height: 1 !important;
     color: #111111 !important;
+    cursor: pointer !important;
+    user-select: none !important;
+  }
+
+  .produto-top-rating-custom-content:focus-visible {
+    outline: 2px solid #ed1c24 !important;
+    outline-offset: 4px !important;
+    border-radius: 4px !important;
+  }
+
+  #avaliacao-produto-react-app {
+    scroll-margin-top: 100px !important;
   }
 
   .produto-top-stars-red {
@@ -1595,6 +1610,7 @@
     const TOP_TRUST_READY_CLASS = 'correa-top-trust-ready';
     const RATING_CUSTOM_CLASS = 'produto-top-rating-custom-content';
     const RATING_SOURCE_CLASS = 'produto-top-rating-source';
+    const RATING_TARGET_SELECTOR = '#avaliacao-produto-react-app';
 
     const CASHBACK_CLASS = 'correa-cashback-ready';
     const PRICE_READY_CLASS = 'preco-premium-ready';
@@ -1775,6 +1791,12 @@
         ${getSmallCheckIcon()}
         Envio imediato
       </span>
+      <span class="correa-top-trust-tag">
+        ${getSmallCheckIcon()}
+        Preço Exclusivo Site
+      </span>
+
+      
     `;
 
       title.insertAdjacentElement('beforebegin', trustTags);
@@ -1838,6 +1860,56 @@
       }
     }
 
+    function scrollToProductReviews(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      let attempts = 0;
+
+      function findAndScroll() {
+        const target = document.querySelector(RATING_TARGET_SELECTOR);
+
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+          return;
+        }
+
+        attempts++;
+
+        if (attempts < 10) {
+          setTimeout(findAndScroll, 100);
+        }
+      }
+
+      findAndScroll();
+    }
+
+    function makeRatingClickable(customContent) {
+      if (!customContent) return;
+      if (customContent.dataset.ratingScrollReady === 'true') return;
+
+      customContent.setAttribute('role', 'link');
+      customContent.setAttribute('tabindex', '0');
+      customContent.setAttribute('aria-label', 'Ir para as avaliações do produto');
+      customContent.setAttribute('aria-controls', 'avaliacao-produto-react-app');
+
+      customContent.addEventListener('click', scrollToProductReviews);
+
+      customContent.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          scrollToProductReviews(event);
+        }
+      });
+
+      customContent.dataset.ratingScrollReady = 'true';
+    }
+
     function applyRatingLayout() {
       const wrapper = findRatingWrapper();
 
@@ -1845,7 +1917,12 @@
 
       moveRatingAfterTitle(wrapper);
 
-      if (wrapper.querySelector('.' + RATING_CUSTOM_CLASS)) return;
+      const existingCustomContent = wrapper.querySelector('.' + RATING_CUSTOM_CLASS);
+
+      if (existingCustomContent) {
+        makeRatingClickable(existingCustomContent);
+        return;
+      }
 
       const rating = getRating(wrapper);
       const reviews = getReviewCount(wrapper);
@@ -1868,6 +1945,7 @@
       <span class="produto-top-sold">+${sold} vendidos</span>
     `;
 
+      makeRatingClickable(customContent);
       wrapper.appendChild(customContent);
     }
 
@@ -2094,7 +2172,7 @@
 
       whatsappButton.innerHTML = `
       ${getWhatsappIcon()}
-      <span class="compre-pelo-whatsapp">COMPRAR PELO WHATSAPP</span>
+      <span class="compre-pelo-whatsapp">Dúvida? Entre em contato</span>
     `;
 
       whatsappButton.classList.add(WHATSAPP_READY_CLASS);
@@ -2173,17 +2251,19 @@
 
       if (!shippingBox || !contentFrete || !resultBox) return;
 
-      if (resultBox.parentElement !== contentFrete) {
-        if (shippingTags && shippingTags.parentElement === contentFrete) {
-          contentFrete.insertBefore(resultBox, shippingTags);
-        } else {
-          contentFrete.appendChild(resultBox);
-        }
-
-        return;
-      }
-
-      if (shippingTags && shippingTags.previousElementSibling !== resultBox) {
+      /*
+       * IMPORTANTE:
+       * Não movemos mais o resultado nativo do frete entre elementos-pai.
+       * O fechamento da cotação depende da estrutura original da plataforma.
+       * Alterar o parentElement do .box-result fazia o botão de fechar atingir
+       * o container da PDP e ocultar toda a área de compra.
+       */
+      if (
+        resultBox.parentElement === contentFrete &&
+        shippingTags &&
+        shippingTags.parentElement === contentFrete &&
+        shippingTags.previousElementSibling !== resultBox
+      ) {
         contentFrete.insertBefore(resultBox, shippingTags);
       }
     }
@@ -2432,8 +2512,8 @@
           <div class="correa-image-info-icon" aria-hidden="true">🎟️</div>
 
           <div class="correa-image-info-content">
-            <span style="display:inline;">Use<strong> BEMVINDO</strong></span>
-            <span><strong>Ganhe</strong> 5% de desconto</span>
+            <span style="display:inline;"><strong> Ganhe</strong></span>
+            <span><strong>5% de desconto</strong> no crédito</span>
           </div>
         </div>
 
