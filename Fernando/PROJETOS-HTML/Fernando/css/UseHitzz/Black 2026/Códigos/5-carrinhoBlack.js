@@ -4,20 +4,21 @@
   /* =========================================================
      HITZZ - BLACK 2026
      CÓDIGO 5 - CARRINHO E MINICARRINHO
-     - Isla por R$1: a Isla aparece "reservada" com a barra até
-       R$999 e libera quando a sacola passa do valor.
-     - Ideia 5: quanto a cliente economiza nesta sacola e até
-       quando esse preço vale (números do próprio carrinho).
-     - Ideia 6: aviso no campo de cupom de que a Black não precisa
-       de cupom.
-     - Ideia 12: na Isla, pares da Black que fecham os R$999.
-     - Minicarrinho: uma linha com o prazo ou o quanto falta.
+     Bloco acima do CEP, com os números do próprio carrinho. Cada ação
+     tem o seu conceito, o mesmo dos outros códigos:
 
-     MODELOS (bloco do carrinho)
-     1  Bloco preto      selo, contador e a economia em destaque
-     2  Recibo           a conta aberta, linha a linha
-     3  Faixa fina       uma linha só, ocupa pouco espaço
-     4  Destaque verde   fundo branco e o valor no verde de preço da loja
+     Black Hitzz   "Sua caixa Black": quantos pares e quanto economiza (ideia 5)
+     Só no app     aviso do app: quanto a sacola sai mais barata no app
+     11.11         embarque: quantos Hitzz do 11.11 estão na sacola + relógio
+     Isla por R$1  preço riscado e o R$1 grande: quanto falta na sacola
+                   (ideia 12: os pares da Black que fecham os R$999)
+     Black Friday  "Seu fechamento": a economia em queda, desconto + Pix (ideia 5)
+
+     Também: aviso no campo de cupom de que a Black não precisa de
+     cupom (ideia 6) e uma linha no minicarrinho.
+
+     As classes deste código começam com "hzbfs-" para não trombar
+     com as dos outros códigos da Black, que rodam na mesma página.
   ========================================================= */
 
   if (window.__hzbfCartLoaded) {
@@ -25,8 +26,6 @@
   }
 
   window.__hzbfCartLoaded = true;
-
-  var MODELO = 1;
 
   var IDEIAS = {
     semCupom: true,
@@ -68,10 +67,10 @@
 
   var CONFIG = {
     descontoPix: 0.20,
+    limite1111: 124,
     minimoIsla: 999,
     precoIsla: 249.90,
     urlIsla: "/isla-chinelo-flat-feminino-marrom",
-    imgIsla: "https://adaptive-images.uooucdn.com.br/tr:w-120,h-174,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/35/9b/f5/67061bb74f2448dfb4a7085899.png",
 
     // Ideia 12: categoria Black do menor para o maior preço (até 3 páginas)
     urlPares: "/categorizacao/promo?sorting%5Bprice%5D=asc&page=",
@@ -79,14 +78,6 @@
 
     appIos: "https://apps.apple.com/br/app/use-hitzz/id6793275985",
     appAndroid: "https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR"
-  };
-
-  var TAGS = {
-    month: "Black Hitzz",
-    app: "Só no app",
-    "1111": "11.11",
-    isla: "Isla por R$1",
-    black: "Black Friday"
   };
 
   // Ideia 6: texto acima do campo de cupom em cada ação ("" desliga na ação)
@@ -116,7 +107,6 @@
      ?hzbf=month | app | 1111 | isla | black
      ?hzbf=black:ultimo   força o "último dia"
      ?hzbf=off            volta ao calendário
-     ?hzbfm=1 a 4         mostra outro modelo (?hzbfm=off volta ao MODELO daqui)
   ========================================================= */
 
   function brasilia(ano, mes, dia, hora) {
@@ -179,31 +169,6 @@
 
   var PREVIEW = lerPreview();
 
-  function lerModelo() {
-
-    var valor = null;
-
-    try {
-
-      var param = new URLSearchParams(window.location.search).get("hzbfm");
-
-      if (param === "off") {
-        window.sessionStorage.removeItem("hzbfm");
-      } else if (param) {
-        window.sessionStorage.setItem("hzbfm", param);
-      }
-
-      valor = window.sessionStorage.getItem("hzbfm");
-
-    } catch (erro) { }
-
-    var n = parseInt(valor, 10);
-
-    return n >= 1 && n <= 4 ? n : MODELO;
-  }
-
-  var M = lerModelo();
-
   function momentoDaAcao() {
 
     if (PREVIEW) {
@@ -264,6 +229,11 @@
     return "R$ " + valor.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
+  // Sem o "R$": "1.234,50"
+  function numeroBRL(valor) {
+    return formatBRL(valor).slice(3);
+  }
+
   function definirHTML(el, html) {
 
     if (el && el._hzbfHtml !== html) {
@@ -274,18 +244,24 @@
 
   var DIAS = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
 
-  function prazoTexto(fim, curto) {
+  function prazoTexto(fim) {
 
     var meiaNoite = new Date(fim - 3 * 3600000).getUTCHours() === 0;
     var d = new Date(fim - 3 * 3600000 - (meiaNoite ? 60000 : 0));
     var hora = meiaNoite ? "23h59" : d.getUTCHours() + "h";
-    var dia = DIAS[d.getUTCDay()];
 
-    return (curto ? dia.slice(0, 3) : dia) + ", " + doisDigitos(d.getUTCDate()) + "/" +
-      doisDigitos(d.getUTCMonth() + 1) + (curto ? ", " : ", às ") + hora;
+    return DIAS[d.getUTCDay()] + ", " + doisDigitos(d.getUTCDate()) + "/" +
+      doisDigitos(d.getUTCMonth() + 1) + ", às " + hora;
   }
 
-  function relogio(fim, formato) {
+  // "23h59" ou "8h", a partir do fim (exclusivo)
+  function horaDoFim(fim) {
+    var d = new Date(fim - 3 * 3600000);
+    return d.getUTCHours() === 0 && d.getUTCMinutes() === 0 ? "23h59" : d.getUTCHours() + "h";
+  }
+
+  // "2d 04:59:58" ou "04:59:58"; com "curto", "2d 04h59"
+  function relogio(fim, curto) {
 
     var restante = Math.max(0, Math.floor((fim - Date.now()) / 1000));
     var dias = Math.floor(restante / 86400);
@@ -293,21 +269,17 @@
     var min = Math.floor(restante % 3600 / 60);
     var s = restante % 60;
 
-    if (formato === "curto") {
-      return dias > 0
-        ? dias + "d " + doisDigitos(h) + "h" + doisDigitos(min)
-        : doisDigitos(h) + ":" + doisDigitos(min) + ":" + doisDigitos(s);
+    if (curto && dias > 0) {
+      return dias + "d " + doisDigitos(h) + "h" + doisDigitos(min);
     }
 
-    if (formato === "texto") {
-      return (dias > 0 ? dias + "d " : "") + doisDigitos(h) + ":" + doisDigitos(min) + ":" + doisDigitos(s);
-    }
+    return (dias > 0 ? dias + "d " : "") + doisDigitos(h) + ":" + doisDigitos(min) + ":" + doisDigitos(s);
+  }
 
-    function seg(valor, rotulo) {
-      return '<span class="hzbf-seg"><b>' + doisDigitos(valor) + '</b><i>' + rotulo + '</i></span>';
-    }
-
-    return (dias > 0 ? seg(dias, "d") : "") + seg(h, "h") + seg(min, "m") + seg(s, "s");
+  // 11.11: horas corridas, como num painel ("33:59")
+  function relogioPainel(fim) {
+    var restante = Math.max(0, Math.floor((fim - Date.now()) / 1000));
+    return doisDigitos(Math.min(99, Math.floor(restante / 3600))) + ":" + doisDigitos(Math.floor(restante % 3600 / 60));
   }
 
   function linkDoApp() {
@@ -326,7 +298,6 @@
     return String(href || "").indexOf(CONFIG.urlIsla) !== -1;
   }
 
-  var DOT = '<span class="hzbf-dot" aria-hidden="true"></span>';
   var SETA = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
 
 
@@ -348,6 +319,8 @@
     var cheio = 0;
     var valorIsla = 0;
     var temIsla = false;
+    var pares = 0;
+    var ate124 = 0;
     var caminhos = [];
 
     for (var i = 0; i < linhas.length; i++) {
@@ -373,6 +346,12 @@
         continue;
       }
 
+      pares += qtd;
+
+      if (por <= CONFIG.limite1111) {
+        ate124 += qtd;
+      }
+
       cheio += (de > por ? de : por) * qtd;
 
       if (de > por) {
@@ -394,6 +373,8 @@
       // A Isla não conta para chegar nos R$999
       valorParaIsla: subtotal - valorIsla,
       temIsla: temIsla,
+      pares: pares,
+      ate124: ate124,
       caminhos: caminhos,
       economiaDe: economiaDe,
       economiaPix: pix > 0 && pix < subtotal ? subtotal - pix : 0
@@ -456,6 +437,7 @@
       return "";
     }
 
+    // As URLs da Uoou têm vírgulas: o srcset é cortado pela largura ("265w,")
     var set = img.getAttribute("data-srcset") || img.getAttribute("srcset") || "";
     var primeira = set.split(/\s+\d+w,?\s*/)[0];
 
@@ -591,12 +573,12 @@
     var html = '';
 
     for (var i = 0; i < pares.length; i++) {
-      html += '<a class="hzbf-par" href="' + esc(pares[i].url) + '" data-hzbf-cta>' +
-        (pares[i].img ? '<img src="' + esc(pares[i].img) + '" alt="" loading="lazy">' : '<span class="hzbf-par__img"></span>') +
-        '<span class="hzbf-par__nome">' + esc(pares[i].nome) + '</span><b>' + formatBRL(pares[i].por) + '</b></a>';
+      html += '<a class="hzbfs-par" href="' + esc(pares[i].url) + '" data-hzbf-cta>' +
+        (pares[i].img ? '<img src="' + esc(pares[i].img) + '" alt="" loading="lazy">' : '<span class="hzbfs-par__img"></span>') +
+        '<span class="hzbfs-par__nome">' + esc(pares[i].nome) + '</span><b>' + formatBRL(pares[i].por) + '</b></a>';
     }
 
-    return '<div class="hzbf-pares"><p>Da Black, completam os R$999:</p><div class="hzbf-pares__g">' + html + '</div></div>';
+    return '<div class="hzbfs-pares"><p>Da Black, completam os R$999:</p><div class="hzbfs-pares__g">' + html + '</div></div>';
   }
 
 
@@ -604,181 +586,129 @@
      CSS
   ========================================================= */
 
+  var MONO = 'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace';
+
   var CSS = [
-    '.hzbf-cart{box-sizing:border-box;margin:0 0 16px;padding:16px;border-radius:12px;background:#000;color:#fff;font:inherit;font-size:13px;line-height:1.35;text-align:left;-webkit-font-smoothing:antialiased}',
+    // Fundo preto, como os outros blocos da Black
+    '.hzbf-cart{box-sizing:border-box;margin:0 0 16px;overflow:hidden;border:0;border-radius:10px;background:#000;color:#fff;font:inherit;font-size:13px;line-height:1.35;text-align:left;-webkit-font-smoothing:antialiased}',
     '.hzbf-cart *{box-sizing:border-box}',
-    '.hzbf-cart__top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin-bottom:10px}',
-    '.hzbf-cart__tag{display:inline-flex;align-items:center;gap:7px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.12);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}',
-    '.hzbf-cart--ultimo .hzbf-cart__tag{background:#e5262e;color:#fff}',
-    '.hzbf-cart--ultimo .hzbf-dot{background:#fff}',
-    '.hzbf-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#e5262e;flex-shrink:0}',
-    '.hzbf-cart__clock{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}',
-    '.hzbf-seg{display:inline-flex;align-items:baseline;gap:2px;padding:4px 5px;border-radius:5px;background:rgba(255,255,255,.12);line-height:1}',
-    '.hzbf-seg b{color:#fff;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}',
-    '.hzbf-seg i{color:rgba(255,255,255,.6);font-size:8.5px;font-style:normal;font-weight:700;text-transform:uppercase}',
+    '.hzbf-cart p{margin:0}',
+    '.hzbf-cart a{text-decoration:none !important}',
+    '.hzbfs-in{padding:12px 14px}',
+    '.hzbfs-btn{display:inline-flex;align-items:center;gap:6px;height:34px;margin-top:10px;padding:0 14px;border-radius:999px;background:#fff;color:#000 !important;font-size:12px;font-weight:700;white-space:nowrap}',
+    '.hzbfs-btn svg,.hzbfs-mini svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}',
 
-    '.hzbf-cart__big{margin:0;color:inherit;font-size:16px;line-height:1.3}',
-    '.hzbf-cart__big strong{font-size:22px;font-weight:800;white-space:nowrap}',
-    '.hzbf-cart__note{margin:5px 0 0;color:rgba(255,255,255,.7);font-size:12px}',
-    '.hzbf-cart__cta{display:inline-flex;align-items:center;gap:6px;height:34px;margin-top:12px;padding:0 14px;border-radius:999px;background:#fff;color:#000 !important;font-size:12px;font-weight:700;text-decoration:none !important;white-space:nowrap}',
-    '.hzbf-cart__cta svg,.hzbf-mini svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}',
+    /* Black Hitzz - sua caixa Black */
+    '.hzbfs-fita{display:block;height:7px;background:repeating-linear-gradient(-45deg,#fff 0 6px,#000 6px 12px)}',
+    '.hzbfs-caixa{display:flex;align-items:center;justify-content:space-between;gap:12px}',
+    '.hzbfs-caixa__titulo{display:block;font-size:14px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}',
+    '.hzbfs-caixa__txt{display:block;margin-top:2px;font-size:13px}',
+    '.hzbfs-caixa__txt b{font-weight:800}',
+    '.hzbfs-caixa__nota{display:block;margin-top:3px;color:rgba(255,255,255,.65);font-size:11.5px}',
+    '.hzbfs-lacre{flex:0 0 auto;padding:4px 7px;background:#fff;color:#000;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-4deg)}',
 
-    /* Isla reservada */
-    '.hzbf-isla{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;align-items:center}',
-    '.hzbf-isla__foto{position:relative;width:56px;height:72px;border-radius:8px;overflow:hidden;background:#efefef}',
-    '.hzbf-isla__foto img{display:block;width:100%;height:100%;object-fit:cover}',
-    '.hzbf-isla__foto span{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.45)}',
-    '.hzbf-isla__foto span svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}',
-    '.hzbf-isla.is-livre .hzbf-isla__foto span{display:none}',
-    '.hzbf-isla__nome{margin:0;font-size:14px;font-weight:700}',
-    '.hzbf-isla__txt{margin:2px 0 0;color:rgba(255,255,255,.78);font-size:12.5px}',
-    '.hzbf-isla__txt strong{color:inherit}',
-    '.hzbf-meter{height:6px;margin-top:9px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}',
-    '.hzbf-meter i{display:block;height:100%;border-radius:99px;background:#fff;transition:width .4s}',
-    '.hzbf-isla.is-livre .hzbf-meter i,.hzbf-meter.is-livre i{background:#6fc41a}',
+    /* Só no app - aviso do app */
+    '.hzbfs-aviso{display:flex;align-items:center;gap:10px;color:#fff !important}',
+    '.hzbfs-aviso__ic{display:flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:8px;background:#1c1c1e;box-shadow:inset 0 0 0 1px #3a3a3c;color:#fff;font-size:16px;font-weight:800}',
+    '.hzbfs-aviso__txt{flex:1;min-width:0;line-height:1.3}',
+    '.hzbfs-aviso__txt small{display:block;color:#9a9a9a;font-size:10.5px}',
+    '.hzbfs-aviso__txt b{font-weight:800}',
+    '.hzbfs-aviso__ir{flex:0 0 auto;padding:6px 12px;border-radius:999px;background:#fff;color:#000;font-size:11.5px;font-weight:700}',
+
+    /* 11.11 - embarque */
+    '.hzbfs-embarque{display:flex;align-items:center;justify-content:space-between;gap:12px}',
+    '.hzbfs-embarque small{display:block;color:#9a9a9a;' + MONO + ';font-size:9.5px;letter-spacing:.1em;text-transform:uppercase}',
+    '.hzbfs-embarque b{font-size:14px;font-weight:800}',
+    '.hzbfs-embarque [data-hzbf-txt] span{display:block;color:rgba(255,255,255,.7);font-size:12px}',
+    '.hzbfs-placas{display:inline-flex;align-items:center;gap:2px;flex:0 0 auto}',
+    '.hzbfs-placa{display:inline-flex;align-items:center;justify-content:center;width:16px;height:24px;border-radius:2px;background:linear-gradient(#262626 0 49%,#000 49% 53%,#1b1b1b 53%);box-shadow:inset 0 0 0 1px #333;color:#fff;' + MONO + ';font-size:14px;font-weight:700;line-height:1}',
+    '.hzbfs-sep{' + MONO + ';font-size:14px;font-weight:700}',
+
+    /* Isla - preço riscado e o R$1 grande */
+    '.hzbfs-isla{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center}',
+    '.hzbfs-isla__preco{line-height:1}',
+    '.hzbfs-isla__preco small{display:block;color:rgba(255,255,255,.7);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}',
+    '.hzbfs-isla__preco s{display:block;margin-top:3px;color:rgba(255,255,255,.55);font-size:13px;font-weight:700}',
+    '.hzbfs-isla__preco b{display:block;color:#ff4b52;font-size:40px;font-weight:900;letter-spacing:-.04em}',
+    '.hzbfs-isla__txt{font-size:13px;line-height:1.35}',
+    '.hzbfs-isla__txt b{font-weight:800;white-space:nowrap}',
+
+    /* Black Friday - seu fechamento */
+    '.hzbfs-fech{display:flex;align-items:baseline;justify-content:space-between;gap:10px}',
+    '.hzbfs-fech small{color:rgba(255,255,255,.6);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}',
+    '.hzbfs-fech b{color:#ff4b52;font-size:20px;font-weight:900;white-space:nowrap}',
+    '.hzbfs-fech__det{margin-top:5px !important;color:rgba(255,255,255,.7);font-size:12px}',
+    '.hzbfs-fech__fim{margin-top:6px !important;font-size:12px}',
+    '.hzbfs-fech__fim b{font-variant-numeric:tabular-nums}',
 
     /* Ideia 12: pares que fecham a conta */
-    '.hzbf-pares{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.18);flex-basis:100%}',
-    '.hzbf-pares p{margin:0 0 8px;font-size:12px;font-weight:700}',
-    '.hzbf-pares__g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}',
-    '.hzbf-par{display:grid;gap:4px;color:inherit !important;text-decoration:none !important;min-width:0}',
-    '.hzbf-par img,.hzbf-par__img{display:block;width:100%;aspect-ratio:3/4;border-radius:7px;object-fit:cover;background:#efefef}',
-    '.hzbf-par__nome{font-size:10.5px;line-height:1.25;height:26px;overflow:hidden;opacity:.85}',
-    '.hzbf-par b{font-size:12.5px;font-weight:800}',
-
-    /* Modelo 2 - Recibo */
-    '.hzbf-cart.hzbf-m2{background:#fff;color:#111;border:1.5px dashed #111;border-radius:10px}',
-    '.hzbf-m2 .hzbf-cart__tag,.hzbf-m4 .hzbf-cart__tag{background:#000;color:#fff}',
-    '.hzbf-m2 .hzbf-cart__clock,.hzbf-m4 .hzbf-cart__clock{color:#555}',
-    '.hzbf-m2 .hzbf-cart__clock span,.hzbf-m4 .hzbf-cart__clock span{color:#000;font-weight:800}',
-    '.hzbf-rec{margin:0;padding:0;display:grid;gap:6px}',
-    '.hzbf-rec div{display:flex;justify-content:space-between;gap:10px;font-size:13px}',
-    '.hzbf-rec dt{color:#555;font-weight:400}',
-    '.hzbf-rec dd{margin:0;font-variant-numeric:tabular-nums;white-space:nowrap}',
-    '.hzbf-rec .hzbf-rec__off dd{color:#c81e25}',
-    '.hzbf-rec .hzbf-rec__tot{margin-top:3px;padding-top:8px;border-top:1px solid #111;font-size:15px}',
-    '.hzbf-rec .hzbf-rec__tot dt{color:#111;font-weight:700}',
-    '.hzbf-rec .hzbf-rec__tot dd{font-size:19px;font-weight:800}',
-    '.hzbf-rec s{color:#888;margin-right:6px}',
-    '.hzbf-m2 .hzbf-cart__note,.hzbf-m4 .hzbf-cart__note{color:#555}',
-    '.hzbf-m2 .hzbf-cart__note strong,.hzbf-m4 .hzbf-cart__note strong{color:#111}',
-    '.hzbf-m2 .hzbf-cart__cta,.hzbf-m4 .hzbf-cart__cta{background:#000;color:#fff !important}',
-    '.hzbf-m2 .hzbf-meter,.hzbf-m4 .hzbf-meter{background:#e6e6e4}',
-    '.hzbf-m2 .hzbf-meter i{background:#000}',
-    '.hzbf-m2 .hzbf-pares,.hzbf-m4 .hzbf-pares{border-top-color:#e3e3e3}',
-
-    /* Modelo 3 - Faixa fina */
-    '.hzbf-cart.hzbf-m3{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:11px 14px;border-radius:10px;font-size:13px}',
-    '.hzbf-m3 .hzbf-cart__big{font-size:13px}',
-    '.hzbf-m3 .hzbf-cart__big strong{font-size:15px}',
-    '.hzbf-m3 .hzbf-cart__big a{color:#fff !important;font-weight:700;text-decoration:underline !important}',
-    '.hzbf-m3 .hzbf-meter{flex-basis:100%;margin-top:2px;height:4px}',
-
-    /* Modelo 4 - Destaque verde */
-    '.hzbf-cart.hzbf-m4{background:#fff;color:#111;box-shadow:inset 0 0 0 1px #dcdcd8}',
-    '.hzbf-verde{display:grid;gap:2px}',
-    '.hzbf-verde b{color:#4f9070;font-size:30px;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}',
-    '.hzbf-verde span{font-size:13px;color:#333}',
-    '.hzbf-m4 .hzbf-meter i{background:#4f9070}',
-    '.hzbf-m4 .hzbf-isla__txt{color:#555}',
+    '.hzbfs-pares{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.15)}',
+    '.hzbfs-pares p{margin:0 0 8px;font-size:12px;font-weight:700}',
+    '.hzbfs-pares__g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}',
+    '.hzbfs-par{display:grid;gap:4px;min-width:0;color:inherit !important}',
+    '.hzbfs-par img,.hzbfs-par__img{display:block;width:100%;aspect-ratio:3/4;border-radius:7px;object-fit:cover;background:#efefef}',
+    '.hzbfs-par__nome{height:26px;overflow:hidden;font-size:10.5px;line-height:1.25;opacity:.85}',
+    '.hzbfs-par b{font-size:12.5px;font-weight:800}',
 
     /* Ideia 6: aviso no campo de cupom */
-    '.hzbf-cupom{margin:4px 0 8px;padding:8px 10px;border-radius:6px;background:#f1f1ef;color:#111;font-size:12.5px;line-height:1.35}',
-    '.hzbf-cupom b{font-weight:700}',
+    '.hzbfs-semcupom{margin:4px 0 8px;padding:8px 10px;border-radius:6px;background:#f1f1ef;color:#111;font-size:12.5px;line-height:1.35}',
+    '.hzbfs-semcupom b{font-weight:700}',
 
     /* Minicarrinho */
-    '.hzbf-mini{box-sizing:border-box;margin:10px 16px 0;padding:10px 12px;border-radius:10px;background:#000;color:#fff;font-size:12.5px;line-height:1.3}',
-    '.hzbf-mini a{color:#fff !important;font-weight:700;text-decoration:underline !important;white-space:nowrap}',
-    '.hzbf-mini b{font-weight:800}',
-    '.hzbf-mini .hzbf-meter{margin-top:7px;height:5px}',
-    '.hzbf-mini .hzbf-dot{margin-right:6px;vertical-align:middle}',
+    '.hzbfs-mini{box-sizing:border-box;margin:10px 16px 0;padding:10px 12px;border-radius:10px;background:#000;color:#fff;font-size:12.5px;line-height:1.3}',
+    '.hzbfs-mini a{color:#fff !important;font-weight:700;text-decoration:underline !important;white-space:nowrap}',
+    '.hzbfs-mini b{font-weight:800}',
+    '.hzbfs-mini__trilha{height:5px;margin-top:7px;background:rgba(255,255,255,.18)}',
+    '.hzbfs-mini__trilha i{display:block;height:100%;background:#fff}'
 
-    '@media (prefers-reduced-motion:reduce){.hzbf-meter i{transition:none}}'
+
   ].join("");
 
 
   /* =========================================================
      HTML - CARRINHO
-     Cada modelo monta a estrutura uma vez; os números são
+     Cada conceito monta a estrutura uma vez; os números são
      atualizados a cada segundo em atualizarCarrinho().
   ========================================================= */
 
-  var CADEADO = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  var ESTRUTURA = {
 
-  function selo(m) {
-    return '<span class="hzbf-cart__tag">' + DOT + esc(m.ultimo ? (m.id === "1111" ? "Últimas horas" : "Último dia") : TAGS[m.id]) + '</span>';
-  }
+    month: function () {
+      return '<i class="hzbfs-fita" aria-hidden="true"></i>' +
+        '<div class="hzbfs-in hzbfs-caixa"><div>' +
+          '<span class="hzbfs-caixa__titulo">Sua caixa Black</span>' +
+          '<span class="hzbfs-caixa__txt" data-hzbf-txt></span>' +
+          '<span class="hzbfs-caixa__nota" data-hzbf-nota></span>' +
+        '</div><span class="hzbfs-lacre">Lacrada</span></div>';
+    },
 
-  function topo(m, comTimer) {
-    return '<div class="hzbf-cart__top">' + selo(m) +
-      (comTimer ? '<span class="hzbf-cart__clock">Termina em <span data-hzbf-timer></span></span>' : '') +
-    '</div>';
-  }
+    app: function () {
+      return '<a class="hzbfs-in hzbfs-aviso" href="' + esc(linkDoApp()) + '" target="_blank" rel="noopener" data-hzbf-cta>' +
+        '<span class="hzbfs-aviso__ic" aria-hidden="true">h</span>' +
+        '<span class="hzbfs-aviso__txt" data-hzbf-txt></span>' +
+        '<span class="hzbfs-aviso__ir">Abrir ›</span>' +
+      '</a>';
+    },
 
-  function temTimer(m) {
-    return m.id !== "month" || m.ultimo;
-  }
+    "1111": function () {
+      return '<div class="hzbfs-in hzbfs-embarque"><div data-hzbf-txt></div><span class="hzbfs-placas" data-hzbf-painel></span></div>';
+    },
 
-  function carrinhoHTML(m) {
+    isla: function () {
+      return '<div class="hzbfs-in"><div class="hzbfs-isla">' +
+        '<p class="hzbfs-isla__preco"><small>Isla Marrom</small><s>' + formatBRL(CONFIG.precoIsla) + '</s><b>R$1</b></p>' +
+        '<p class="hzbfs-isla__txt" data-hzbf-isla></p>' +
+      '</div><div data-hzbf-extra></div></div>';
+    },
 
-    if (M === 3) {
-      return selo(m) + '<p class="hzbf-cart__big" data-hzbf-big></p>' +
-        (m.id === "isla" ? '<div class="hzbf-meter" data-hzbf-meter aria-hidden="true"><i data-hzbf-isla-bar></i></div>' : '') +
-        '<div data-hzbf-extra style="flex-basis:100%"></div>';
+    black: function () {
+      return '<div class="hzbfs-in">' +
+        '<div class="hzbfs-fech"><small>Seu fechamento</small><b data-hzbf-total></b></div>' +
+        '<p class="hzbfs-fech__det" data-hzbf-det></p>' +
+        '<p class="hzbfs-fech__fim" data-hzbf-fim></p>' +
+      '</div>';
     }
-
-    if (m.id === "isla") {
-
-      var fotoIsla = '<a class="hzbf-isla__foto" href="' + esc(CONFIG.urlIsla) + '" aria-label="Ver a Isla Marrom"><img src="' + esc(CONFIG.imgIsla) + '" alt="" loading="lazy"><span>' + CADEADO + '</span></a>';
-
-      if (M === 2) {
-        return topo(m, true) + '<dl class="hzbf-rec" data-hzbf-rec></dl>' +
-          '<div class="hzbf-meter" data-hzbf-meter aria-hidden="true"><i data-hzbf-isla-bar></i></div>' +
-          '<div data-hzbf-extra></div>';
-      }
-
-      if (M === 4) {
-        return topo(m, true) +
-          '<div class="hzbf-isla" data-hzbf-isla>' + fotoIsla +
-            '<div class="hzbf-verde"><b data-hzbf-num></b><span data-hzbf-rot></span>' +
-            '<div class="hzbf-meter" aria-hidden="true"><i data-hzbf-isla-bar></i></div></div>' +
-          '</div><div data-hzbf-extra></div>';
-      }
-
-      return topo(m, true) +
-        '<div class="hzbf-isla" data-hzbf-isla>' + fotoIsla +
-          '<div><p class="hzbf-isla__nome">Isla Marrom por R$1</p>' +
-          '<p class="hzbf-isla__txt" data-hzbf-isla-txt></p>' +
-          '<div class="hzbf-meter" aria-hidden="true"><i data-hzbf-isla-bar></i></div></div>' +
-        '</div><div data-hzbf-extra></div>';
-    }
-
-    if (M === 2) {
-      return topo(m, temTimer(m)) + '<dl class="hzbf-rec" data-hzbf-rec></dl>' +
-        '<p class="hzbf-cart__note" data-hzbf-note></p><div data-hzbf-extra></div>';
-    }
-
-    if (M === 4) {
-      return topo(m, temTimer(m)) + '<div class="hzbf-verde"><b data-hzbf-num></b><span data-hzbf-rot></span></div>' +
-        '<p class="hzbf-cart__note" data-hzbf-note></p><div data-hzbf-extra></div>';
-    }
-
-    return topo(m, temTimer(m)) +
-      '<p class="hzbf-cart__big" data-hzbf-big></p>' +
-      '<p class="hzbf-cart__note" data-hzbf-note></p><div data-hzbf-extra></div>';
-  }
-
-  function linhaRecibo(rotulo, valor, classe) {
-    return '<div' + (classe ? ' class="' + classe + '"' : '') + '><dt>' + rotulo + '</dt><dd>' + valor + '</dd></div>';
-  }
-
-  function ctaApp() {
-    return '<a class="hzbf-cart__cta" href="' + esc(linkDoApp()) + '" target="_blank" rel="noopener" data-hzbf-cta>Baixar o app' + SETA + '</a>';
-  }
-
-  function ctaIsla() {
-    return '<a class="hzbf-cart__cta" href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número da Isla' + SETA + '</a>';
-  }
+  };
 
   function atualizarCarrinho(m, c) {
 
@@ -789,57 +719,12 @@
     }
 
     var q = function (sel) { return bloco.querySelector(sel); };
-    var prazo = prazoTexto(m.fimReal, M === 3);
-    var extra = "";
 
-    /* ---------- Isla ---------- */
+    /* ---------- Black Hitzz: sua caixa Black (ideia 5) ---------- */
 
-    if (m.id === "isla") {
-
-      var falta = CONFIG.minimoIsla - c.valorParaIsla;
-      var livre = falta <= 0;
-      var pct = Math.max(2, Math.min(100, c.valorParaIsla / CONFIG.minimoIsla * 100)).toFixed(1) + "%";
-
-      var caixa = q("[data-hzbf-isla]");
-      var medidor = q("[data-hzbf-meter]");
-      var barra = q("[data-hzbf-isla-bar]");
-
-      if (caixa) {
-        caixa.classList.toggle("is-livre", livre);
-      }
-
-      if (medidor) {
-        medidor.classList.toggle("is-livre", livre);
-      }
-
-      if (barra) {
-        barra.style.width = pct;
-      }
-
-      if (M === 3) {
-        definirHTML(q("[data-hzbf-big]"), livre
-          ? (c.temIsla ? '<strong>Isla Marrom por R$1</strong> garantida nesta sacola' : '<strong>Isla por R$1 liberada!</strong> <a href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número</a>')
-          : 'Faltam <strong>' + formatBRL(falta) + '</strong> para a Isla Marrom por R$1');
-      } else if (M === 2) {
-        definirHTML(q("[data-hzbf-rec]"),
-          linhaRecibo("Sua sacola", formatBRL(c.valorParaIsla)) +
-          linhaRecibo(livre ? "Mínimo de R$999" : "Falta para R$999", livre ? "atingido" : formatBRL(falta), livre ? "" : "hzbf-rec__off") +
-          linhaRecibo("Isla Marrom", '<s>' + formatBRL(CONFIG.precoIsla) + '</s>R$ 1,00', "hzbf-rec__tot"));
-      } else if (M === 4) {
-        definirHTML(q("[data-hzbf-num]"), livre ? "Liberada" : formatBRL(falta));
-        definirHTML(q("[data-hzbf-rot]"), livre
-          ? (c.temIsla ? "A Isla Marrom por R$1 está na sacola." : "A Isla Marrom por R$1 já pode entrar na sacola.")
-          : "faltam para a Isla Marrom por R$1 (sacola: " + formatBRL(c.valorParaIsla) + ")");
-      } else {
-        definirHTML(q("[data-hzbf-isla-txt]"), livre
-          ? (c.temIsla ? 'Garantida nesta sacola.' : 'Liberada! Sua sacola passou de R$999.')
-          : 'Faltam <strong>' + formatBRL(falta) + '</strong> para liberar. Sua sacola: ' + formatBRL(c.valorParaIsla) + ' de R$999.');
-      }
-
-      extra = livre ? (c.temIsla || M === 3 ? "" : ctaIsla()) : paresHTML(c);
-
-      definirHTML(q("[data-hzbf-extra]"), extra);
-
+    if (m.id === "month") {
+      definirHTML(q("[data-hzbf-txt]"), c.pares + (c.pares === 1 ? ' par' : ' pares') + ' · você economiza <b>' + formatBRL(c.economiaDe + c.economiaPix) + '</b>');
+      definirHTML(q("[data-hzbf-nota]"), m.ultimo ? "Último dia da Black Hitzz: termina hoje às 23h59." : "Preço garantido até 23h59 de hoje.");
       return;
     }
 
@@ -847,79 +732,77 @@
 
     if (m.id === "app") {
 
+      // Quanto sai mais barata no app, em cima do Pix que o site já mostra
       var noApp = c.subtotal * (1 - CONFIG.descontoPix);
+      var aMais = (c.pix > 0 ? c.pix : c.subtotal) - noApp;
 
-      if (M === 3) {
-        definirHTML(q("[data-hzbf-big]"), 'No app esta sacola sai <strong>' + formatBRL(noApp) + '</strong> no Pix · <a href="' + esc(linkDoApp()) + '" target="_blank" rel="noopener" data-hzbf-cta>baixar</a>');
-        return;
+      definirHTML(q("[data-hzbf-txt]"),
+        '<small>HITZZ · até ' + esc(prazoTexto(m.fimReal)) + '</small>' +
+        'Essa sacola sai <b>' + formatBRL(aMais) + ' mais barata</b> no app, com 20% OFF no Pix.');
+      return;
+    }
+
+    /* ---------- 11.11: embarque ---------- */
+
+    if (m.id === "1111") {
+
+      definirHTML(q("[data-hzbf-txt]"), c.ate124 > 0
+        ? '<small>Embarque 11.11</small><b>' + c.ate124 + ' Hitzz do 11.11 na sacola</b><span>O embarque encerra às ' + horaDoFim(m.fimReal) + '.</span>'
+        : '<small>Embarque 11.11</small><b>+ de 24 Hitzz por até R$124</b><span>O embarque encerra às ' + horaDoFim(m.fimReal) + '.</span>');
+
+      var painel = q("[data-hzbf-painel]");
+      var texto = relogioPainel(m.fim);
+
+      if (painel) {
+
+        var html = "";
+
+        for (var i = 0; i < texto.length; i++) {
+          html += texto.charAt(i) === ":" ? '<span class="hzbfs-sep">:</span>' : '<span class="hzbfs-placa">' + texto.charAt(i) + '</span>';
+        }
+
+        definirHTML(painel, html);
       }
-
-      if (M === 2) {
-        definirHTML(q("[data-hzbf-rec]"),
-          linhaRecibo("Sacola no site", formatBRL(c.subtotal)) +
-          linhaRecibo("20% no Pix, só no app", "−" + formatBRL(c.subtotal - noApp), "hzbf-rec__off") +
-          linhaRecibo("No app, no Pix", formatBRL(noApp), "hzbf-rec__tot"));
-      } else if (M === 4) {
-        definirHTML(q("[data-hzbf-num]"), formatBRL(noApp));
-        definirHTML(q("[data-hzbf-rot]"), "é quanto esta sacola sai no app, no Pix");
-      } else {
-        definirHTML(q("[data-hzbf-big]"), 'No app, esta sacola sai por <strong>' + formatBRL(noApp) + '</strong> no Pix');
-      }
-
-      definirHTML(q("[data-hzbf-note]"), esc("20% OFF no Pix só no app Hitzz, até " + prazo + "."));
-      definirHTML(q("[data-hzbf-extra]"), ctaApp());
 
       return;
     }
 
-    /* ---------- Ideia 5: Black Hitzz, 11.11 e Black Friday ---------- */
+    /* ---------- Isla: preço riscado e quanto falta ---------- */
+
+    if (m.id === "isla") {
+
+      var falta = CONFIG.minimoIsla - c.valorParaIsla;
+      var livre = falta <= 0;
+
+      definirHTML(q("[data-hzbf-isla]"), livre
+        ? 'Sua sacola passou de R$999: <b>' + (c.temIsla ? 'a Isla está garantida por R$1' : 'a Isla já sai por R$1') + '</b>.'
+        : 'Sua sacola: <b>' + formatBRL(c.valorParaIsla) + '</b>. Faltam <b>' + formatBRL(falta) + '</b> para a Isla sair por R$1.');
+
+      definirHTML(q("[data-hzbf-extra]"), livre
+        ? (c.temIsla ? "" : '<a class="hzbfs-btn" href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número da Isla' + SETA + '</a>')
+        : paresHTML(c));
+
+      return;
+    }
+
+    /* ---------- Black Friday: seu fechamento (ideia 5) ---------- */
 
     var economia = c.economiaDe + c.economiaPix;
-    var quando = m.ultimo && m.id !== "1111"
-      ? "Esse preço termina hoje às 23h59."
-      : "Esse preço vale até " + prazo + ".";
+    var det = [];
 
-    if (M === 3) {
-      definirHTML(q("[data-hzbf-big]"), economia >= 1
-        ? 'Você economiza <strong>' + formatBRL(economia) + '</strong> · até ' + esc(prazo)
-        : 'Preço de Black · até ' + esc(prazo));
-      return;
+    if (c.economiaDe >= 0.01) {
+      det.push("desconto ▼ " + numeroBRL(c.economiaDe));
     }
 
-    if (M === 2) {
-
-      // O valor vem do carrinho: vale o que a loja estiver dando no Pix
-      var rotuloPix = "Desconto no Pix";
-
-      definirHTML(q("[data-hzbf-rec]"),
-        linhaRecibo("Preço cheio", formatBRL(c.cheio)) +
-        (c.economiaDe >= 0.01 ? linhaRecibo(m.id === "1111" ? "Desconto 11.11" : "Desconto Black", "−" + formatBRL(c.economiaDe), "hzbf-rec__off") : "") +
-        (c.economiaPix >= 0.01 ? linhaRecibo(rotuloPix, "−" + formatBRL(c.economiaPix), "hzbf-rec__off") : "") +
-        linhaRecibo("Você paga no Pix", formatBRL(c.pix), "hzbf-rec__tot"));
-
-      definirHTML(q("[data-hzbf-note]"), (economia >= 1 ? 'Economia de <strong>' + formatBRL(economia) + '</strong>. ' : '') + esc(quando));
-
-      return;
+    if (c.economiaPix >= 0.01) {
+      det.push("pix ▼ " + numeroBRL(c.economiaPix));
     }
 
-    var partes = [];
+    det.push("sem cupom");
 
-    if (c.economiaDe >= 1 && c.economiaPix >= 1) {
-      partes.push(formatBRL(c.economiaDe) + " de desconto + " + formatBRL(c.economiaPix) + " no Pix.");
-    }
-
-    partes.push(quando);
-
-    if (M === 4) {
-      definirHTML(q("[data-hzbf-num]"), formatBRL(economia));
-      definirHTML(q("[data-hzbf-rot]"), "de economia nesta sacola");
-    } else {
-      definirHTML(q("[data-hzbf-big]"), economia >= 1
-        ? 'Você economiza <strong>' + formatBRL(economia) + '</strong> nesta sacola'
-        : 'Preço de Black nesta sacola');
-    }
-
-    definirHTML(q("[data-hzbf-note]"), esc(partes.join(" ")));
+    definirHTML(q("[data-hzbf-total]"), "▼ " + formatBRL(economia));
+    definirHTML(q("[data-hzbf-det]"), esc(det.join(" · ")));
+    definirHTML(q("[data-hzbf-fim]"), (m.ultimo ? 'Último dia · fecha em <b>' : 'Fecha em <b>') + relogio(m.fim) + '</b> · ' + esc(prazoTexto(m.fimReal)));
   }
 
 
@@ -934,32 +817,32 @@
       var falta = CONFIG.minimoIsla - c.valorParaIsla;
 
       if (falta <= 0) {
-        return DOT + (c.temIsla
+        return c.temIsla
           ? '<b>Isla Marrom por R$1</b> garantida na sacola'
-          : '<b>Isla por R$1 liberada!</b> <a href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número</a>');
+          : '<b>Isla por R$1 liberada!</b> <a href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número</a>';
       }
 
-      return DOT + 'Faltam <b>' + formatBRL(falta) + '</b> para a Isla Marrom por R$1' +
-        '<div class="hzbf-meter" aria-hidden="true"><i style="width:' +
+      return 'Faltam <b>' + formatBRL(falta) + '</b> para a Isla Marrom por R$1' +
+        '<div class="hzbfs-mini__trilha" aria-hidden="true"><i style="width:' +
         Math.max(2, Math.min(100, c.valorParaIsla / CONFIG.minimoIsla * 100)).toFixed(1) + '%"></i></div>';
     }
 
     if (m.id === "app") {
       return MOSTRAR_APP_NO_CARRINHO
-        ? DOT + 'No app: <b>+20% OFF no Pix</b> até ' + esc(prazoTexto(m.fimReal)) + '. <a href="' + esc(linkDoApp()) + '" target="_blank" rel="noopener" data-hzbf-cta>Baixar</a>'
+        ? 'No app: <b>+20% OFF no Pix</b> até ' + esc(prazoTexto(m.fimReal)) + '. <a href="' + esc(linkDoApp()) + '" target="_blank" rel="noopener" data-hzbf-cta>Abrir</a>'
         : '';
     }
 
     if (m.id === "1111") {
-      return DOT + '<b>11.11</b> termina em <b>' + relogio(m.fim, "curto") + '</b>';
+      return '✈ <b>11.11</b> encerra em <b>' + relogio(m.fim, true) + '</b>';
     }
 
     if (m.id === "black") {
-      return DOT + '<b>Black Friday</b> termina em <b>' + relogio(m.fim, "curto") + '</b> · 20% OFF no Pix';
+      return '▼ <b>Black Friday</b> fecha em <b>' + relogio(m.fim, true) + '</b> · 20% OFF no Pix';
     }
 
     if (m.id === "month" && m.ultimo) {
-      return DOT + '<b>Último dia</b> da Black Hitzz';
+      return '<b>Último dia</b> da Black Hitzz';
     }
 
     return '';
@@ -975,17 +858,12 @@
     var c = lerCarrinho();
     var bloco = document.getElementById(ID);
 
-    if (!c || (m.id === "app" && !MOSTRAR_APP_NO_CARRINHO)) {
+    // Black Hitzz só aparece quando há economia; o app, se o carrinho for o mesmo
+    var mostrar = c &&
+      !(m.id === "app" && !MOSTRAR_APP_NO_CARRINHO) &&
+      !(m.id === "month" && c.economiaDe < 1);
 
-      if (bloco) {
-        bloco.remove();
-      }
-
-      return;
-    }
-
-    // Black Hitzz (base do mês): só aparece quando há economia para mostrar
-    if (m.id === "month" && c.economiaDe < 1) {
+    if (!mostrar) {
 
       if (bloco) {
         bloco.remove();
@@ -1005,11 +883,11 @@
       bloco = document.createElement("div");
 
       bloco.id = ID;
-      bloco.className = "hzbf-cart hzbf-m" + M + " hzbf-cart--" + m.id + (m.ultimo ? " hzbf-cart--ultimo" : "");
+      bloco.className = "hzbf-cart hzbf-cart--" + m.id + (m.ultimo ? " hzbf-cart--ultimo" : "");
 
       bloco.setAttribute("aria-label", "Black Hitzz");
 
-      bloco.innerHTML = carrinhoHTML(m);
+      bloco.innerHTML = ESTRUTURA[m.id]();
     }
 
     if (bloco.nextElementSibling !== ancora) {
@@ -1017,12 +895,6 @@
     }
 
     atualizarCarrinho(m, c);
-
-    var timers = bloco.querySelectorAll("[data-hzbf-timer]");
-
-    for (var i = 0; i < timers.length; i++) {
-      definirHTML(timers[i], relogio(m.fim, M === 2 || M === 4 ? "texto" : "blocos"));
-    }
   }
 
   // Ideia 6: aviso logo acima do campo de cupom
@@ -1044,7 +916,7 @@
     if (!aviso) {
       aviso = document.createElement("p");
       aviso.id = ID_CUPOM;
-      aviso.className = "hzbf-cupom";
+      aviso.className = "hzbfs-semcupom";
     }
 
     if (ancora.nextElementSibling !== aviso) {
@@ -1057,14 +929,14 @@
   function montarMini(m) {
 
     var mini = document.querySelector(SELETORES.mini);
-    var linha = document.getElementById(ID_MINI);
+    var linhaMini = document.getElementById(ID_MINI);
 
     var html = mini ? miniHTML(m, lerMini()) : "";
 
     if (!html) {
 
-      if (linha) {
-        linha.remove();
+      if (linhaMini) {
+        linhaMini.remove();
       }
 
       return;
@@ -1076,17 +948,17 @@
       return;
     }
 
-    if (!linha) {
-      linha = document.createElement("div");
-      linha.id = ID_MINI;
-      linha.className = "hzbf-mini";
+    if (!linhaMini) {
+      linhaMini = document.createElement("div");
+      linhaMini.id = ID_MINI;
+      linhaMini.className = "hzbfs-mini";
     }
 
-    if (ancora.nextElementSibling !== linha) {
-      ancora.parentNode.insertBefore(linha, ancora.nextSibling);
+    if (ancora.nextElementSibling !== linhaMini) {
+      ancora.parentNode.insertBefore(linhaMini, ancora.nextSibling);
     }
 
-    definirHTML(linha, html);
+    definirHTML(linhaMini, html);
   }
 
   function adicionarEstilo() {
@@ -1156,10 +1028,9 @@
 
       (window.dataLayer = window.dataLayer || []).push({
         event: "hzbf_clique",
-        hzbf_local: link.closest("#" + ID_MINI) ? "minicarrinho" : (link.classList.contains("hzbf-par") ? "carrinho_pares" : "carrinho"),
+        hzbf_local: link.closest("#" + ID_MINI) ? "minicarrinho" : (link.classList.contains("hzbfs-par") ? "carrinho_pares" : "carrinho"),
         hzbf_acao: m ? m.id : "",
-        hzbf_modelo: M,
-        hzbf_texto: link.textContent.trim()
+        hzbf_texto: link.textContent.trim().slice(0, 60)
       });
 
     } catch (erro) { }

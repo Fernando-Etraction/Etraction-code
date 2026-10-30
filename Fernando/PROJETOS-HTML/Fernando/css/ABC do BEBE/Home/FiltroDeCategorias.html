@@ -7,13 +7,13 @@
     var IMG = 'https://cdn.awsli.com.br/600x600/1357/1357875/arquivos/';
     // imagens sem texto; o nome da categoria é escrito por cima pelo código
     var CATEGORIAS = [
-      { nome: 'Pronta Entrega', url: '/pronta-entrega', img: IMG + 'interior-restaurado-sem-textos-sobrepostos-1.png' },
-      { nome: 'Berços', url: '/bercos', img: IMG + 'interior-decorado-sem-texto-sobreposto-2.png' },
-      { nome: 'Berços Evolutivos', url: '/bercos-evolutivos-3-em-1-ou-4-em-1', img: IMG + 'interior-restaurado-sem-texto-3.png' },
-      { nome: 'Móveis', url: '/moveis', img: IMG + 'ambiente-sofisticado-sem-textos-sobrepostos-5.png' },
-      { nome: 'Poltronas de Amamentação', url: '/poltronas-de-amamentacao', img: IMG + 'parede-restaurada-sem-textos-7.png' },
-      { nome: 'Papel de Parede', url: '/papel-de-parede', img: IMG + 'ambiente-elegante-sem-texto-4.png' },
-      { nome: 'Decoração', url: '/decoracao-e-acessorios', img: IMG + 'fundo-restaurado-sem-textos-sobrepostos-6.png' }
+      { nome: 'Pronta Entrega', url: 'https://www.abcdebebe.com.br/pronta-entrega', img: IMG + 'interior-restaurado-sem-textos-sobrepostos-1.png' },
+      { nome: 'Berços', url: 'https://www.abcdebebe.com.br/bercos', img: IMG + 'interior-decorado-sem-texto-sobreposto-2.png' },
+      { nome: 'Berços Evolutivos', url: 'https://www.abcdebebe.com.br/bercos-evolutivos-3-em-1-ou-4-em-1', img: IMG + 'interior-restaurado-sem-texto-3.png' },
+      { nome: 'Móveis', url: 'https://www.abcdebebe.com.br/moveis', img: IMG + 'ambiente-sofisticado-sem-textos-sobrepostos-5.png' },
+      { nome: 'Poltronas de Amamentação', url: 'https://www.abcdebebe.com.br/poltronas-de-amamentacao', img: IMG + 'parede-restaurada-sem-textos-7.png' },
+      { nome: 'Papel de Parede', url: 'https://www.abcdebebe.com.br/papeis-de-parede', img: IMG + 'ambiente-elegante-sem-texto-4.png' },
+      { nome: 'Decoração', url: 'https://www.abcdebebe.com.br/decoracao-e-acessorios', img: IMG + 'fundo-restaurado-sem-textos-sobrepostos-6.png' }
     ];
     var LIMITE = 12;
     var cache = {};
@@ -198,7 +198,7 @@
       $titulo.text(cat.nome);
       $conteudo.addClass('carregando');
       if (cache[cat.url]) return mostrar(cat, cache[cat.url]);
-      $.get(cat.url).done(function (html) {
+      $.get(cat.url.replace(/^https?:\/\/[^\/]+/, '')).done(function (html) {
         var doc = new DOMParser().parseFromString(html, 'text/html');
         var itens = $(doc).find('#corpo .listagem .listagem-item').slice(0, LIMITE).map(function () {
           return this.outerHTML;

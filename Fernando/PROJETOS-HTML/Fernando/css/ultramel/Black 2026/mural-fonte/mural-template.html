@@ -1,0 +1,995 @@
+<title>Mural CRO Ultramel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap">
+<style>
+/* Layout: capa com as 4 ações → novembro no calendário → o que guiou as ideias → mural filtrável
+   (cada ideia = tela de hoje × proposta, no celular) → o que confirmar → base da pesquisa.
+   A página é neutra com mel; as telas simuladas usam a identidade real da loja (Montserrat, mel, verde). */
+:root{
+  --bg:#F3F2EF; --surface:#FFFFFF; --tint:#EAE7E1; --ink:#1B1611; --soft:#5A5146; --faint:#887E71; --hair:#DED9CF;
+  --honey:#F2C85D; --honey-ink:#7E5300; --honey-soft:#FBEFCB;
+  --bezel:#26201A;
+  --phone-shadow:0 1px 2px rgba(27,22,17,.08),0 16px 30px -20px rgba(27,22,17,.5);
+  --shadow:0 1px 2px rgba(27,22,17,.05),0 12px 30px -22px rgba(27,22,17,.4);
+  /* identidades das ações (fixas nos dois temas) */
+  --fri-bg:#16120E; --fri-fg:#F2C85D; --fri-sub:#E9E1D3; --fri-edge:transparent;
+  --lib-bg:#6A1F33; --lib-fg:#FFE4EB; --lib-sub:#F3C9D4;
+  --gift-bg:#F2C85D; --gift-fg:#2A1E0E; --gift-sub:#5A431C;
+  --week-bg:#FFFFFF; --week-fg:#16120E; --week-sub:#5A5146; --week-line:#16120E;
+  /* tela da loja: sempre clara, porque representa o site */
+  --s-bg:#FFFFFF; --s-ink:#454545; --s-dark:#222222; --s-brown:#413729; --s-honey:#F2C85D; --s-honey-deep:#E0A92A; --s-honey-soft:#FFF8E6; --s-honey-line:#F0DDB0;
+  --s-green:#457457; --s-green-ink:#2F7A4C; --s-red:#EB5E58; --s-line:#E6E6E6; --s-grey:#F2F2F2; --s-mute:#8C8C8C; --s-star:#F2B705;
+  --s-on:#FFFFFF; --s-orange:#E8923A; --s-app:#4A3B2A; --s-cup:#C9C9C9; --s-track:rgba(255,255,255,.2); --s-shade:rgba(0,0,0,.45);
+  --s-fri:#16120E; --s-vinho:#6A1F33; --s-vinho-soft:#FBEFF3; --s-vinho-line:#EBC6D1; --s-eco:#E3D6B8;
+  --f-display:"Archivo","Arial Narrow",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Instrument Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-site:"Montserrat",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13100C; --surface:#1C1813; --tint:#262019; --ink:#F2ECE2; --soft:#BEB3A4; --faint:#8F8475; --hair:#352C22;
+  --honey:#F2C85D; --honey-ink:#F2C85D; --honey-soft:#3A2F17;
+  --bezel:#000000;
+  --phone-shadow:0 1px 2px rgba(0,0,0,.5),0 16px 30px -18px rgba(0,0,0,.9);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -20px rgba(0,0,0,.8);
+  --week-bg:#F7F3EA; --fri-edge:#4A3D2C;
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#13100C; --surface:#1C1813; --tint:#262019; --ink:#F2ECE2; --soft:#BEB3A4; --faint:#8F8475; --hair:#352C22;
+  --honey:#F2C85D; --honey-ink:#F2C85D; --honey-soft:#3A2F17;
+  --bezel:#000000;
+  --phone-shadow:0 1px 2px rgba(0,0,0,.5),0 16px 30px -18px rgba(0,0,0,.9);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 30px -20px rgba(0,0,0,.8);
+  --week-bg:#F7F3EA; --fri-edge:#4A3D2C;
+  color-scheme:dark;}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1240px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--honey-ink)}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--honey-ink);outline-offset:2px}
+.eyebrow{font:700 11px/1.2 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+section{margin-top:64px}
+.sec-head{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;max-width:72ch}
+.sec-head h2{font:800 30px/1.05 var(--f-display);font-stretch:82%;letter-spacing:-.01em}
+.sec-head p{color:var(--soft)}
+
+/* capa */
+.cover{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px 48px;align-items:end}
+.cover h1{font:850 clamp(38px,6.2vw,74px)/.94 var(--f-display);font-stretch:72%;letter-spacing:-.015em;margin-top:12px;text-transform:uppercase}
+.cover h1 em{font-style:normal;color:var(--honey-ink)}
+.lede{color:var(--soft);font-size:16.5px;max-width:58ch}
+.lede b{color:var(--ink);font-weight:600}
+.acts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:34px}
+.act{border-radius:16px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:8px;text-decoration:none;min-width:0}
+.act .nm{font:850 27px/1 var(--f-display);font-stretch:70%;letter-spacing:.005em;text-transform:uppercase}
+.act .when{font:600 12.5px/1.35 var(--f-body)}
+.act .rl{font-size:13.5px;line-height:1.45}
+.act .go{margin-top:auto;padding-top:6px;font:700 12px var(--f-body);letter-spacing:.06em;text-transform:uppercase}
+.a-fri{background:var(--fri-bg);color:var(--fri-fg);box-shadow:inset 0 0 0 1px var(--fri-edge)} .a-fri .rl,.a-fri .when,.a-fri .meta span{color:var(--fri-sub)}
+.a-lib{background:var(--lib-bg);color:var(--lib-fg)} .a-lib .rl,.a-lib .when,.a-lib .meta span{color:var(--lib-sub)}
+.a-gift{background:var(--gift-bg);color:var(--gift-fg)} .a-gift .rl,.a-gift .when,.a-gift .meta span{color:var(--gift-sub)}
+.a-week{background:var(--week-bg);color:var(--week-fg);box-shadow:inset 0 0 0 2px var(--week-line)} .a-week .rl,.a-week .when,.a-week .meta span{color:var(--week-sub)}
+.act:hover .go{text-decoration:underline}
+
+/* calendário */
+.cal{background:var(--surface);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal-wd{font:700 11px var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 4px 4px}
+.day{min-height:78px;border-radius:10px;background:var(--tint);padding:7px 7px 6px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.day .n{font:700 13px var(--f-display);font-stretch:85%;font-variant-numeric:tabular-nums;color:var(--soft)}
+.day .n small{font:600 10px var(--f-body);color:var(--faint);margin-left:3px}
+.day.today{box-shadow:inset 0 0 0 2px var(--honey-ink)}
+.day.today .n{color:var(--ink)}
+.day.past{opacity:.55}
+.tag{border-radius:6px;padding:3px 6px;font:800 10.5px/1.15 var(--f-display);font-stretch:78%;letter-spacing:.02em;text-transform:uppercase;overflow-wrap:anywhere}
+.tag.soft{font:600 10.5px/1.2 var(--f-body);text-transform:none;letter-spacing:0;background:transparent;color:var(--soft);padding:0}
+.t-fri{background:var(--fri-bg);color:var(--fri-fg)}
+.t-lib{background:var(--lib-bg);color:var(--lib-fg)}
+.t-week{background:var(--week-bg);color:var(--week-fg);box-shadow:inset 0 0 0 1.5px var(--week-line)}
+.t-cont{opacity:.72}
+.cal-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:13px;color:var(--soft)}
+.cal-legend span{display:inline-flex;gap:7px;align-items:center}
+.cal-legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.cal-legend i.g{background:transparent;box-shadow:inset 0 0 0 1.5px var(--honey-ink);border-radius:4px;background-image:repeating-linear-gradient(45deg,transparent 0 3px,var(--honey) 3px 5px)}
+.agenda{display:none;list-style:none;margin:0;padding:0;gap:8px;flex-direction:column}
+.agenda li{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;align-items:start;padding-bottom:8px;border-bottom:1px solid var(--hair);font-size:14px}
+.agenda li b{font:700 13px var(--f-display);font-stretch:85%;font-variant-numeric:tabular-nums}
+.agenda .tag{display:inline-block;margin-bottom:3px}
+
+/* princípios */
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 28px}
+.rule{border-top:2px solid var(--ink);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.rule h3{font:800 19px/1.15 var(--f-display);font-stretch:85%}
+.rule p{font-size:14.5px;color:var(--soft)}
+
+/* filtros */
+.filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 0 12px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;border-bottom:1px solid var(--hair);margin-bottom:26px}
+.fg{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+.fg .lab{font:700 11px var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:2px}
+.chip{border:0;cursor:pointer;background:var(--surface);color:var(--soft);border-radius:999px;padding:6px 12px;font:600 13px var(--f-body);box-shadow:inset 0 0 0 1px var(--hair)}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);box-shadow:none}
+.empty{padding:28px;text-align:center;color:var(--soft);background:var(--surface);border-radius:16px}
+
+/* grupos e cards */
+.grp{margin-bottom:46px}
+.grp-head{border-radius:18px;padding:20px 22px;display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:6px 28px;align-items:end;margin-bottom:16px}
+.grp-head .nm{font:850 clamp(32px,4.6vw,52px)/.92 var(--f-display);font-stretch:68%;text-transform:uppercase;letter-spacing:.005em}
+.grp-head .meta{display:flex;flex-direction:column;gap:3px;font-size:14px;max-width:62ch}
+.grp-head .meta b{font-weight:700}
+.ideas{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,560px),1fr));gap:16px;align-items:start}
+.idea{background:var(--surface);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.idea-h{padding:18px 20px 14px;display:flex;flex-direction:column;gap:8px}
+.where{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pill{font:700 11px var(--f-body);letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:3px 8px;background:var(--tint);color:var(--soft)}
+.pill.p-fri{background:var(--fri-bg);color:var(--fri-fg)}
+.pill.p-lib{background:var(--lib-bg);color:var(--lib-fg)}
+.pill.p-gift{background:var(--gift-bg);color:var(--gift-fg)}
+.pill.p-week{background:var(--week-bg);color:var(--week-fg);box-shadow:inset 0 0 0 1.5px var(--week-line)}
+.pill.p-code{background:var(--honey-soft);color:var(--honey-ink);box-shadow:inset 0 0 0 1px var(--honey-ink);text-decoration:none}
+.codes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:14px}
+.code{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px;min-width:0;scroll-margin-top:90px}
+.code h3{font:800 20px/1.1 var(--f-display);font-stretch:86%}
+.code .file{font:600 12.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--faint);overflow-wrap:anywhere}
+.code p{font-size:14px;color:var(--soft)}
+.code ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:3px}
+.code .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:auto}
+.btn{border:0;cursor:pointer;border-radius:999px;padding:8px 14px;font:700 13px var(--f-body);background:var(--ink);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--hair)}
+.code pre{margin:0;max-height:320px;overflow:auto;background:var(--tint);border-radius:10px;padding:12px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre;color:var(--ink)}
+.preview{background:var(--surface);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px;display:grid;gap:8px;font-size:14px;color:var(--soft)}
+.preview b{color:var(--ink)}
+.preview code{font:600 13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--tint);color:var(--ink);border-radius:5px;padding:1px 6px;overflow-wrap:anywhere}
+.idea h3{font:800 22px/1.12 var(--f-display);font-stretch:86%;letter-spacing:-.005em}
+.stage{background:var(--tint);padding:16px 14px 18px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.seg{display:none;background:var(--surface);border-radius:999px;padding:3px;gap:2px}
+.seg button{border:0;cursor:pointer;background:transparent;color:var(--soft);border-radius:999px;padding:5px 14px;font:700 12.5px var(--f-body)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.ba{display:flex;gap:16px;justify-content:center;align-items:flex-start;max-width:100%}
+.ba figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0}
+.ba figcaption{font:800 12px var(--f-display);font-stretch:85%;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.ba .depois figcaption{color:var(--honey-ink)}
+.idea-b{padding:16px 20px 20px;display:flex;flex-direction:column;gap:12px}
+.why{font-size:14.5px;color:var(--soft)}
+.why b,.care b{color:var(--ink);font-weight:700}
+.how h4{font:700 11px var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.how ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.care{font-size:13.5px;background:var(--honey-soft);border-radius:10px;padding:9px 12px;color:var(--soft)}
+.refs{display:flex;flex-wrap:wrap;gap:6px}
+.refs a{font:600 12px var(--f-body);text-decoration:none;color:var(--soft);border-radius:999px;padding:3px 10px;box-shadow:inset 0 0 0 1px var(--hair)}
+.refs a:hover{color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+
+/* pendências e fontes */
+.todo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 28px;list-style:none;margin:0;padding:0}
+.todo li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;font-size:14.5px;padding:10px 0;border-bottom:1px solid var(--hair)}
+.todo li::before{content:"";width:14px;height:14px;border-radius:4px;box-shadow:inset 0 0 0 1.5px var(--soft);margin-top:4px}
+.todo b{font-weight:700}
+.src{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.src h3{font:800 17px/1.15 var(--f-display);font-stretch:85%;margin-bottom:10px}
+.src ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.src li{font-size:13.5px;color:var(--soft);line-height:1.45;scroll-margin-top:90px;border-radius:8px}
+.src li b{color:var(--ink);font-weight:600}
+.src li:target{background:var(--honey-soft);outline:6px solid var(--honey-soft)}
+.foot{margin-top:56px;font-size:13px;color:var(--faint)}
+
+@media (max-width:1000px){.acts{grid-template-columns:repeat(2,minmax(0,1fr))}.rules{grid-template-columns:repeat(2,minmax(0,1fr))}.src{grid-template-columns:repeat(2,minmax(0,1fr))}.cover{grid-template-columns:1fr}}
+@media (max-width:700px){
+  .cal-grid,.cal-wds{display:none}.agenda{display:flex}
+  .rules,.todo,.src{grid-template-columns:1fr}
+  .grp-head{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .seg{display:inline-flex}
+  .filters{position:static}
+  .ba figure{display:none}
+  .ba[data-v="antes"] .antes,.ba[data-v="depois"] .depois{display:flex}
+  .acts{grid-template-columns:1fr}
+  .idea-h,.idea-b{padding-left:16px;padding-right:16px}
+}
+@media (prefers-reduced-motion:no-preference){.idea{transition:box-shadow .2s ease}}
+
+/* ================= tela simulada da loja ================= */
+.ph{width:252px;max-width:100%;flex:none;background:var(--s-bg);color:var(--s-ink);font:500 10px/1.35 var(--f-site);border:6px solid var(--bezel);border-radius:28px;overflow:hidden;box-shadow:var(--phone-shadow);display:flex;flex-direction:column;min-height:486px;text-align:left}
+.ph *{box-sizing:border-box}
+.ph img{display:block;max-width:none}
+.ph svg{width:1em;height:1em;flex:none}
+.ph b,.ph strong{font-weight:700}
+.s-tick{background:var(--s-honey);color:var(--s-brown);font-weight:800;font-size:8.5px;letter-spacing:.02em;white-space:nowrap;overflow:hidden;padding:6px 0;flex:none}
+.s-tick span{display:inline-block;padding-left:100%;animation:tick 18s linear infinite}
+@keyframes tick{to{transform:translateX(-100%)}}
+.s-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:8px 11px;color:var(--s-dark);flex:none}
+.s-hl,.s-hr{display:flex;gap:9px;align-items:center;font-size:15px}
+.s-hr{justify-self:end;gap:3px;position:relative}
+.s-hr em{font:500 10px var(--f-site);font-style:normal}
+.s-burger{width:15px;height:11px;border-top:1.6px solid currentColor;border-bottom:1.6px solid currentColor;position:relative;display:block}
+.s-burger::after{content:"";position:absolute;left:0;right:0;top:3.2px;border-top:1.6px solid currentColor}
+.s-logo{color:var(--s-honey);font:600 22px/1 var(--f-site);letter-spacing:-.035em}
+.s-search{border:1.5px solid var(--s-dark);padding:6px 9px;display:flex;justify-content:space-between;align-items:center;color:var(--s-mute);font-size:9.5px;background:var(--s-grey);flex:none}
+.s-search svg{font-size:13px;color:var(--s-dark)}
+.s-heroapp{display:grid;grid-template-columns:1.1fr 1fr;height:112px;color:var(--s-on);flex:none}
+.s-heroapp .l{background:var(--s-orange);padding:10px 9px;display:flex;flex-direction:column;justify-content:center;gap:1px}
+.s-heroapp .l b{font:800 21px/1 var(--f-site);color:var(--s-brown)}
+.s-heroapp .l span{font:800 9.5px/1.15 var(--f-site)}
+.s-heroapp .l small{font:700 8px var(--f-site);margin-top:3px}
+.s-heroapp .r{background:var(--s-app);padding:10px 8px;display:flex;flex-direction:column;justify-content:center;gap:5px;font-size:7.5px;line-height:1.3}
+.s-heroapp .r i{font-style:italic}
+.s-heroapp .r em{font-style:normal;font-weight:800;color:var(--s-orange)}
+.s-heroapp .st{display:flex;gap:3px}
+.s-heroapp .st u{text-decoration:none;background:var(--s-on);color:var(--s-dark);border-radius:3px;padding:2px 3px;font-size:6.5px;font-weight:700}
+.s-benef{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px;padding:12px 10px;text-align:center;color:var(--s-brown);flex:none}
+.s-benef div{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:700;font-size:10px;line-height:1.3}
+.s-benef svg{font-size:22px}
+.s-benef .ar{font-size:20px;color:var(--s-mute);font-weight:400}
+.s-sect{text-align:center;padding:10px 10px 2px;color:var(--s-brown);flex:none}
+.s-sect b{display:block;font:700 12px var(--f-site);letter-spacing:.02em}
+.s-sect span{font-size:8.5px;color:var(--s-ink)}
+.s-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 9px 10px}
+.s-card{display:flex;flex-direction:column;gap:2px;text-align:center;min-width:0}
+.s-card .im{position:relative;height:100px;background:var(--s-grey);overflow:hidden;margin-bottom:4px}
+.s-card .im img{width:100%;height:100%;object-fit:cover}
+.s-off{position:absolute;left:0;bottom:7px;background:var(--s-red);color:var(--s-on);font-size:7.5px;font-weight:600;padding:2px 5px;border-radius:0 4px 4px 0}
+.s-ch{position:absolute;top:5px;right:5px;color:var(--s-dark);font-size:11px;display:flex}
+.s-card .nm{font-size:9.5px;line-height:1.25;color:var(--s-ink);min-height:2.5em}
+.s-card .de{font-size:7.5px;color:var(--s-mute);text-decoration:line-through}
+.s-card .pr{font:700 11.5px var(--f-site);color:var(--s-dark)}
+.s-card .px{font-size:7px;color:var(--s-ink)}
+.s-buy{margin-top:4px;background:var(--s-green);color:var(--s-on);font-weight:700;font-size:8.5px;padding:6px;border-radius:3px}
+.s-crumb{text-align:center;font-size:8.5px;color:var(--s-ink);padding:7px;flex:none}
+.s-crumb i{font-style:normal;color:var(--s-mute);margin:0 4px}
+.s-pimg{position:relative;overflow:hidden;background:var(--s-grey);flex:none}
+.s-pimg img{width:100%;height:100%;object-fit:cover}
+.s-pimg .nav{position:absolute;top:50%;transform:translateY(-50%);font-size:18px;color:var(--s-dark)}
+.s-pimg .nav.l{left:5px}.s-pimg .nav.r{right:5px}
+.s-pdp{padding:9px 11px 11px;display:flex;flex-direction:column;gap:6px}
+.s-ptitle{font:700 13px/1.25 var(--f-site);color:var(--s-dark)}
+.s-rate{display:flex;gap:5px;align-items:center;color:var(--s-star);font-size:9px;letter-spacing:1px}
+.s-rate span{color:var(--s-ink);letter-spacing:0;font-size:8.5px}
+.s-pills{display:flex;flex-wrap:wrap;gap:3px}
+.s-pills span{border:1px solid var(--s-green);color:var(--s-green);border-radius:99px;padding:1px 5px;font-size:6.5px;font-weight:700}
+.s-price{display:flex;flex-direction:column;gap:1px}
+.s-de{font-size:8.5px;color:var(--s-mute)}
+.s-por{font:700 19px/1.1 var(--f-site);color:var(--s-dark)}
+.s-offt{font-size:8.5px;color:var(--s-green-ink);font-weight:600}
+.s-parc{font-size:8.5px}
+.s-vp{font-size:8px;text-decoration:underline}
+.s-qtyrow{display:grid;grid-template-columns:auto 1fr;gap:6px}
+.s-qty{display:flex;border:1px solid var(--s-line);align-items:center}
+.s-qty i{font-style:normal;color:var(--s-honey-deep);font-weight:800;padding:0 6px;font-size:12px}
+.s-qty b{border:1px solid var(--s-dark);padding:5px 6px;font-weight:500}
+.s-btn{background:var(--s-green);color:var(--s-on);font-weight:700;font-size:8.5px;text-align:center;padding:8px 6px;border-radius:2px;display:flex;align-items:center;justify-content:center;gap:5px}
+.s-btn.o{background:transparent;color:var(--s-green);box-shadow:inset 0 0 0 1.3px var(--s-green)}
+.s-frete{display:grid;grid-template-columns:auto 1fr auto;gap:5px;align-items:center;font-size:8.5px;padding-top:6px;border-top:1px solid var(--s-line)}
+.s-frete small{display:block;font-size:7px;text-decoration:underline}
+.s-frete i{font-style:normal;border:1px solid var(--s-line);padding:5px;color:var(--s-mute)}
+.s-frete b{background:var(--s-honey);color:var(--s-on);padding:5px 8px;border-radius:3px}
+.s-sticky{margin-top:auto;background:var(--s-green);color:var(--s-on);text-align:center;font-weight:800;font-size:11px;padding:9px;letter-spacing:.04em;flex:none}
+.s-csp{border:1px solid var(--s-honey-line);border-radius:6px;padding:7px;display:grid;grid-template-columns:auto 28px 1fr;gap:7px;align-items:center;font-size:8px}
+.s-csp img{width:28px;height:34px;object-fit:cover;border-radius:3px}
+.s-csp .bx{width:11px;height:11px;border:1px solid var(--s-mute);border-radius:2px}
+.s-csp small{display:block;font-size:6.5px;color:var(--s-green-ink);font-weight:800;letter-spacing:.05em}
+.s-csp em{display:block;font-style:normal;color:var(--s-green-ink);font-weight:700}
+.s-lbl{font-size:9px;font-weight:700;color:var(--s-dark)}
+.s-kits{display:flex;flex-direction:column;gap:5px}
+.s-kit{border:1px solid var(--s-line);border-radius:7px;padding:7px;display:grid;grid-template-columns:auto 1fr auto;gap:3px 7px;align-items:center;font-size:7.5px}
+.s-kit.sel{border-color:var(--s-honey);background:var(--s-honey-soft);box-shadow:0 0 0 1px var(--s-honey)}
+.s-kit .rd{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--s-mute)}
+.s-kit.sel .rd{border-color:var(--s-brown);background:radial-gradient(circle,var(--s-brown) 0 38%,transparent 44%)}
+.s-kit b{font:800 9.5px var(--f-site);color:var(--s-dark)}
+.s-kit small{font-size:7px;color:var(--s-mute)}
+.s-kit span{display:block;color:var(--s-ink)}
+.s-kit em{display:block;font-style:normal;color:var(--s-green-ink);font-weight:700}
+.s-kit .v{text-align:right}
+.s-kit .v small{display:block;font-size:5.8px;letter-spacing:.05em}
+.s-kit .v b{font-size:10px}
+.s-kit .x{grid-column:1/-1}
+.s-dr{display:flex;flex-direction:column;flex:1}
+.s-dr-h{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-bottom:1px solid var(--s-line);font-size:15px;color:var(--s-dark);flex:none}
+.s-dr-h small{font-size:8px;color:var(--s-mute);margin-left:4px}
+.s-dr-h b{font-weight:400;font-size:16px}
+.s-dr-note{margin:9px 10px 6px;background:var(--s-grey);border-radius:6px;padding:8px 9px;font-size:9px;color:var(--s-ink)}
+.s-item{margin:0 10px 6px;border:1px solid var(--s-line);border-radius:4px;padding:6px;display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:7px;align-items:center;font-size:8.3px;color:var(--s-dark)}
+.s-item img{width:28px;height:38px;object-fit:cover}
+.s-item s{display:block;color:var(--s-mute);font-size:7.3px}
+.s-item b{font-weight:500}
+.s-item .q{display:flex;flex-direction:column;align-items:flex-end;gap:6px;color:var(--s-mute)}
+.s-item .q span{color:var(--s-dark);white-space:nowrap}
+.s-item .q u{text-decoration:none;border:1px solid var(--s-line);padding:1px 5px;margin:0 2px}
+.s-dr-fill{flex:1;min-height:10px}
+.s-dr-foot{border-top:1px solid var(--s-line);padding:8px 10px 10px;display:flex;flex-direction:column;gap:4px;flex:none}
+.s-cup{background:var(--s-cup);color:var(--s-dark);border-radius:6px;padding:7px 8px;display:flex;gap:7px;align-items:center;font-size:8.5px;margin-bottom:4px}
+.s-cup svg{font-size:16px}
+.s-sum{display:flex;justify-content:space-between;gap:8px;font-size:9px;color:var(--s-ink)}
+.s-sum b{color:var(--s-dark)}
+.s-sum.sm{font-size:7.5px}
+.s-fin{margin-top:5px;background:var(--s-honey);color:var(--s-on);text-align:center;font-weight:800;font-size:9.5px;padding:9px;border-radius:3px}
+.s-logobar{text-align:center;padding:9px 0 2px;flex:none}
+.s-cph{text-align:center;padding:4px 10px 8px;font:500 14px/1.15 var(--f-site);color:var(--s-dark);flex:none}
+.s-cph small{display:block;font-size:8px;margin-top:3px}
+.s-cpnote{margin:0 10px 8px;border:1px solid var(--s-line);padding:7px;font-size:8.5px;display:flex;gap:6px;align-items:flex-start}
+.s-cpnote svg{font-size:13px;color:var(--s-dark)}
+.s-row{margin:0 10px;border-top:1px solid var(--s-line);display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:7px;padding:7px 0;align-items:center;font-size:8.3px;color:var(--s-dark)}
+.s-row img{width:30px;height:40px;object-fit:cover}
+.s-row .q{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.s-row .q u{text-decoration:none;border:1px solid var(--s-line);padding:1px 5px}
+.s-row .q svg{font-size:12px;color:var(--s-mute)}
+.s-res{margin:6px 10px 10px;display:flex;flex-direction:column;gap:5px}
+.s-res .t{font-size:11px;color:var(--s-dark)}
+.s-res .bx{background:var(--s-grey);padding:6px 8px;font-size:9px}
+.s-res small{font-size:7.5px;color:var(--s-ink)}
+.s-fin.l{font-size:10px}
+.s-menu{display:flex;flex-direction:column;flex:1}
+.s-mhello{padding:11px 12px;background:var(--s-grey);font-size:9px}
+.s-mhello b{display:block;font-size:11px;color:var(--s-dark)}
+.s-mhello u{color:var(--s-dark)}
+.s-mi{display:flex;justify-content:space-between;padding:9px 12px;border-bottom:1px solid var(--s-line);font-size:10.5px;color:var(--s-dark)}
+.s-mi i{font-style:normal;color:var(--s-mute)}
+.s-h1{font:500 17px var(--f-site);color:var(--s-dark);padding:0 11px 8px}
+.s-filt{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 11px;border-top:1px solid var(--s-line)}
+.s-filt span{border:1px solid var(--s-line);padding:6px;font-size:9px;color:var(--s-ink)}
+.s-filt b{background:var(--s-honey);color:var(--s-on);text-align:center;padding:6px;border-radius:3px;font-size:9px}
+.s-desc{font-size:8px;color:var(--s-ink);line-height:1.45;display:flex;flex-direction:column;gap:4px}
+.s-desc b{color:var(--s-dark)}
+.s-benlist{border-top:1px solid var(--s-line);padding:9px 11px;display:flex;flex-direction:column;gap:5px;background:var(--s-honey-soft)}
+.s-benlist .t{font:800 9px var(--f-site);color:var(--s-brown);text-align:center;letter-spacing:.02em}
+.s-benlist ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:7.5px;color:var(--s-ink)}
+.s-benlist li{padding:3px 5px;background:var(--s-bg);border-radius:4px}
+.s-benlist li.last{box-shadow:inset 0 0 0 1.5px var(--s-vinho);color:var(--s-vinho);font-weight:700}
+.s-fade{opacity:.45}
+/* peças de campanha */
+.k-fri{background:var(--s-fri);color:var(--s-honey);padding:6px 10px 7px;display:flex;flex-direction:column;gap:4px;font-size:9px;font-weight:600;flex:none}
+.k-fri b{font-weight:900;letter-spacing:.05em}
+.k-fri .r2{display:flex;justify-content:space-between;align-items:center;gap:6px;color:var(--s-on);font-size:7.8px;font-weight:500}
+.k-code{display:inline-flex;gap:4px;align-items:center;border:1px dashed var(--s-honey);color:var(--s-honey);padding:2px 6px;border-radius:4px;font-weight:800;letter-spacing:.05em;font-size:8px}
+.k-code svg{font-size:9px}
+.k-code.dk{border-color:var(--s-brown);color:var(--s-brown)}
+.k-clk{display:flex;gap:4px}
+.k-clk span{background:var(--s-on);color:var(--s-fri);border-radius:4px;padding:3px 5px 2px;text-align:center;min-width:30px;display:flex;flex-direction:column}
+.k-clk b{font:800 12px/1.05 var(--f-site);font-variant-numeric:tabular-nums}
+.k-clk small{font-size:5.5px;font-weight:700;letter-spacing:.06em}
+.k-regua{margin:9px 10px 6px;border-radius:8px;background:var(--s-fri);color:var(--s-on);padding:9px 11px 8px}
+.k-regua .t{display:flex;flex-direction:column;gap:1px;font-size:9.5px}
+.k-regua .t b{font-weight:800;color:var(--s-honey)}
+.k-regua .t span{font-size:7px;opacity:.8;white-space:nowrap}
+.k-bar{position:relative;height:6px;border-radius:3px;background:var(--s-track);margin:8px 0 3px}
+.k-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--s-honey)}
+.k-bar u{position:absolute;top:-3px;width:2px;height:12px;background:var(--s-on);transform:translateX(-1px)}
+.k-scale{position:relative;height:18px;font-size:6.5px}
+.k-scale span{position:absolute;top:0;transform:translateX(-50%);text-align:center;line-height:1.2;white-space:nowrap}
+.k-scale span.end{transform:translateX(-100%);text-align:right}
+.k-scale b{display:block;font-size:7.5px}
+.k-sugg{display:flex;gap:6px;align-items:center;margin-top:5px;padding-top:6px;border-top:1px solid var(--s-track);font-size:7.5px}
+.k-gifts{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center}
+.k-g{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:7px;line-height:1.2;color:var(--s-ink)}
+.k-g .ic{width:36px;height:36px;border-radius:9px;background:var(--s-bg);box-shadow:inset 0 0 0 1.5px var(--s-line);display:grid;place-items:center;position:relative}
+.k-g.ok .ic{box-shadow:inset 0 0 0 1.5px var(--s-green)}
+.k-g .ok-b{position:absolute;right:-4px;top:-4px;width:13px;height:13px;border-radius:50%;background:var(--s-green);color:var(--s-on);display:grid;place-items:center;font-size:9px}
+.k-g b{font-size:8px;color:var(--s-dark)}
+.k-g.next span{color:var(--s-green-ink);font-weight:700}
+.k-seg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:6px}
+.k-seg i{height:5px;border-radius:3px;background:var(--s-line);overflow:hidden;display:block}
+.k-seg i b{display:block;height:100%;background:var(--s-honey-deep)}
+.k-lad{margin:9px 10px 6px;border-radius:9px;background:var(--s-honey-soft);box-shadow:inset 0 0 0 1px var(--s-honey-line);padding:9px 10px}
+.k-lad .h{font-size:7.5px;font-weight:800;letter-spacing:.07em;color:var(--s-brown);margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.k-lad .h svg{font-size:11px}
+.k-lad .msg{font-size:8.5px;margin-top:6px;color:var(--s-dark)}
+.k-lad .msg b{color:var(--s-green-ink)}
+.k-pp{display:flex;align-items:flex-end}
+.k-pp img{width:13px;height:24px;object-fit:cover;border-radius:2px}
+.k-pp img+img{width:8px;height:26px;margin-left:1px}
+.k-garrafa{width:14px!important;height:24px!important;fill:var(--s-dark)}
+.k-garrafa .b{fill:var(--s-honey)}
+.k-eco{width:22px!important;height:24px!important;fill:var(--s-eco);stroke:var(--s-brown)}
+.k-eco .b{fill:var(--s-honey);stroke:none}
+.k-tag{display:flex;gap:4px;align-items:center;justify-content:center;background:var(--s-honey-soft);color:var(--s-brown);box-shadow:inset 0 0 0 1px var(--s-honey-line);border-radius:4px;padding:3px 4px;font-size:7px;font-weight:700;margin-top:3px;line-height:1.2;text-align:left}
+.k-tag svg{font-size:10px}
+.k-tag small{display:block;font-weight:500;font-size:6.3px;color:var(--s-ink)}
+.k-gbox{border-radius:8px;background:var(--s-honey-soft);box-shadow:inset 0 0 0 1px var(--s-honey-line);padding:8px 9px;display:flex;flex-direction:column;gap:6px}
+.k-gbox .t{display:flex;gap:6px;align-items:center;font-size:8.5px;color:var(--s-dark)}
+.k-gbox .t svg{font-size:15px;color:var(--s-brown)}
+.k-gbox .t b{display:block}
+.k-gbox .mini{display:flex;justify-content:space-between;gap:4px;font-size:6.5px;color:var(--s-ink);border-top:1px solid var(--s-honey-line);padding-top:5px}
+.k-gbox .mini span{display:flex;gap:3px;align-items:center}
+.k-gbox .mini span b{color:var(--s-dark)}
+.k-pill{display:flex;gap:6px;align-items:center;background:var(--s-fri);color:var(--s-on);border-radius:6px;padding:6px 8px;font-size:8px;line-height:1.3}
+.k-pill b{color:var(--s-honey);font-weight:800}
+.k-xline{font-size:7.5px;font-weight:700;color:var(--s-brown);background:var(--s-honey);border-radius:4px;padding:3px 6px;display:flex;justify-content:space-between;gap:4px}
+.k-xline.m{background:transparent;box-shadow:inset 0 0 0 1px var(--s-honey-deep);font-weight:600}
+.k-shelf{margin:4px 10px 6px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--s-line);padding:8px}
+.k-shelf .h{display:flex;flex-direction:column;gap:1px;font-size:9px;color:var(--s-dark);margin-bottom:6px}
+.k-hero .k-code{align-self:flex-start}
+.k-cmp tfoot td{white-space:nowrap}
+.k-shelf .h b{font-weight:800}
+.k-shelf .h span{font-size:7.5px;color:var(--s-green-ink);font-weight:700}
+.k-shelf .row{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.k-mini{display:flex;flex-direction:column;gap:2px;font-size:6.8px;line-height:1.2;color:var(--s-ink)}
+.k-mini img{width:100%;height:46px;object-fit:cover;border-radius:4px}
+.k-mini b{font-size:8px;color:var(--s-dark)}
+.k-mini u{text-decoration:none;text-align:center;border:1px solid var(--s-green);color:var(--s-green);border-radius:3px;padding:2px 0;font-weight:700;font-size:7px;margin-top:2px}
+.k-hero{background:var(--s-fri);color:var(--s-on);padding:12px 12px 13px;display:flex;flex-direction:column;gap:7px;flex:none}
+.k-hero .ey{font-size:7.5px;font-weight:700;letter-spacing:.12em;color:var(--s-honey)}
+.k-hero .tt{font:900 19px/1 var(--f-site);letter-spacing:-.01em}
+.k-hero .tt em{font-style:normal;color:var(--s-honey)}
+.k-hero .sb{font-size:8.5px;opacity:.9}
+.k-hero .cta{align-self:flex-start;background:var(--s-honey);color:var(--s-fri);font-weight:800;font-size:8.5px;padding:6px 10px;border-radius:3px}
+.k-states{display:flex;gap:4px;font-size:6.5px;color:var(--s-mute);padding:6px 10px;border-bottom:1px solid var(--s-line);flex:none}
+.k-states span{flex:1;text-align:center;border-radius:4px;padding:3px 2px;box-shadow:inset 0 0 0 1px var(--s-line)}
+.k-states span.on{background:var(--s-fri);color:var(--s-honey);box-shadow:none;font-weight:700}
+.k-lib{background:var(--s-vinho);color:var(--s-on);padding:6px 10px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:8.5px;flex:none}
+.k-lib b{font-weight:900;letter-spacing:.04em}
+.k-lib .tm{font:800 10px var(--f-site);font-variant-numeric:tabular-nums;background:var(--s-on);color:var(--s-vinho);border-radius:3px;padding:1px 5px}
+.k-libhero{background:var(--s-vinho);color:var(--s-on);padding:12px;display:flex;flex-direction:column;gap:6px;flex:none}
+.k-libhero .ey{font-size:7.5px;font-weight:700;letter-spacing:.12em;color:var(--s-vinho-line)}
+.k-libhero .tt{font:900 18px/1 var(--f-site)}
+.k-libhero .sb{font-size:8.5px;opacity:.92}
+.k-libhero .cta{align-self:flex-start;background:var(--s-on);color:var(--s-vinho);font-weight:800;font-size:8.5px;padding:6px 10px;border-radius:3px}
+.k-chips{display:flex;gap:5px;padding:8px 10px 2px;flex:none}
+.k-chips span{border-radius:99px;padding:4px 9px;font-size:8px;font-weight:700;box-shadow:inset 0 0 0 1px var(--s-line);color:var(--s-dark)}
+.k-chips span.on{background:var(--s-vinho);color:var(--s-on);box-shadow:none}
+.k-for{font-size:6.8px;font-weight:700;color:var(--s-vinho);letter-spacing:.04em;text-transform:uppercase}
+.k-couple{border-radius:8px;background:var(--s-vinho-soft);box-shadow:inset 0 0 0 1px var(--s-vinho-line);padding:8px;display:flex;flex-direction:column;gap:6px}
+.k-couple .t{display:flex;gap:6px;align-items:center;font-size:9px;font-weight:800;color:var(--s-vinho)}
+.k-couple .t svg{font-size:13px}
+.k-quote{font-size:7.8px;line-height:1.35;color:var(--s-dark);background:var(--s-bg);border-radius:6px;padding:5px 7px}
+.k-quote small{display:block;color:var(--s-mute);font-size:6.5px;margin-top:2px}
+.k-libstrip{background:var(--s-vinho);color:var(--s-on);font-size:8px;font-weight:800;letter-spacing:.06em;padding:5px 10px;display:flex;justify-content:space-between;flex:none}
+.k-cmp{width:100%;border-collapse:collapse;font-size:7.3px;color:var(--s-ink)}
+.k-cmp th,.k-cmp td{padding:4px 3px;border-bottom:1px solid var(--s-line);text-align:center}
+.k-cmp th:first-child,.k-cmp td:first-child{text-align:left}
+.k-cmp thead th{font-weight:800;font-size:7.5px;color:var(--s-dark);vertical-align:bottom}
+.k-cmp thead th small{display:block;font-size:5.8px;color:var(--s-vinho);letter-spacing:.05em}
+.k-cmp .cur{background:var(--s-honey-soft)}
+.k-cmp .y{color:var(--s-green);font-weight:800}
+.k-cmp .n{color:var(--s-line)}
+.k-cmp tfoot td{font-weight:800;color:var(--s-dark);font-size:7.8px;border-bottom:0}
+.k-cmp tfoot u{display:block;text-decoration:none;font-weight:700;font-size:6.5px;color:var(--s-green);margin-top:2px}
+.k-trust{display:flex;flex-direction:column;gap:5px;border-radius:7px;background:var(--s-grey);padding:8px}
+.k-trust div{display:flex;gap:6px;align-items:center;font-size:8px;color:var(--s-dark)}
+.k-trust svg{font-size:13px;color:var(--s-green)}
+.k-trust b{display:block}
+.k-trust small{display:block;font-size:7px;color:var(--s-ink)}
+.k-warn{border-radius:7px;background:var(--s-honey-soft);box-shadow:inset 0 0 0 1px var(--s-honey-deep);padding:7px 8px;margin:0 10px 6px;display:flex;flex-direction:column;gap:6px;font-size:8.3px;color:var(--s-dark)}
+.k-warn .bt{display:flex;gap:6px}
+.k-warn .bt span{flex:1;text-align:center;padding:5px;border-radius:3px;font-weight:700;font-size:7.8px}
+.k-warn .bt .keep{background:var(--s-green);color:var(--s-on)}
+.k-warn .bt .rm{color:var(--s-ink);text-decoration:underline}
+.k-phases{background:var(--s-grey);padding:9px 10px;display:flex;flex-direction:column;gap:7px;flex:1}
+.k-phases .h{font-size:7.5px;font-weight:800;letter-spacing:.08em;color:var(--s-dark)}
+.k-ph{display:flex;flex-direction:column;gap:3px}
+.k-ph small{font-size:7px;color:var(--s-ink);font-weight:600}
+.k-wbar{padding:6px 9px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:8.3px;border-radius:4px}
+.k-wbar b{font-weight:900;letter-spacing:.03em}
+.k-wbar .tm{font:800 9px var(--f-site);font-variant-numeric:tabular-nums;border-radius:3px;padding:1px 4px}
+.w-week{background:var(--s-fri);color:var(--s-on)} .w-week b{color:var(--s-honey)}
+.w-fri{background:var(--s-honey);color:var(--s-fri)} .w-fri .tm{background:var(--s-fri);color:var(--s-honey)}
+.w-wknd{background:var(--s-fri);color:var(--s-honey)} .w-wknd span{color:var(--s-on)}
+.w-mon{background:var(--s-bg);color:var(--s-fri);box-shadow:inset 0 0 0 1.5px var(--s-fri)}
+.k-wbar.full{border-radius:0;flex:none}
+.k-days{display:grid;grid-template-columns:repeat(8,1fr);gap:2px}
+.k-days span{display:flex;flex-direction:column;align-items:center;padding:4px 0 3px;border-radius:4px;background:var(--s-track);font-size:6px;line-height:1.1}
+.k-days span b{font-size:9.5px;font-variant-numeric:tabular-nums}
+.k-days span.hoje{background:var(--s-honey);color:var(--s-fri)}
+.k-days span.f{box-shadow:inset 0 0 0 1px var(--s-honey);color:var(--s-honey)}
+.k-days span i{font-style:normal;font-size:5.4px;font-weight:800;letter-spacing:.03em;margin-top:1px}
+.k-mfirst{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--s-fri);color:var(--s-on);font-size:10.5px}
+.k-mfirst b{color:var(--s-honey);font-weight:900;letter-spacing:.03em}
+.k-mfirst small{display:block;font-size:7.5px;opacity:.85}
+.k-dot{width:8px;height:8px;border-radius:50%;background:var(--s-honey);display:inline-block;margin-right:6px;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+.k-save{border-radius:7px;background:var(--s-fri);color:var(--s-on);padding:8px 9px;display:flex;flex-direction:column;gap:5px}
+.k-save .ey{display:flex;justify-content:space-between;align-items:center;font-size:7.5px;font-weight:800;letter-spacing:.08em;color:var(--s-honey)}
+.k-save .tt{font-size:10px;font-weight:600}
+.k-save .tt b{color:var(--s-honey);font-weight:900}
+.k-save .k-clk span{min-width:26px}
+.k-save .k-clk b{font-size:10.5px}
+.k-save .ft{display:flex;justify-content:space-between;align-items:center;font-size:7.5px;opacity:.9}
+.k-cartnag{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:7px 10px;background:var(--s-honey-soft);box-shadow:inset 0 -1px 0 var(--s-honey-line);font-size:8.5px;color:var(--s-dark);flex:none}
+.k-cartnag u{font-weight:800;color:var(--s-green-ink)}
+.k-routine{display:grid;grid-template-columns:76px 1fr;gap:9px;padding:10px;align-items:center}
+.k-routine img{width:76px;height:96px;object-fit:cover;border-radius:6px}
+.k-routine .ey{font-size:7px;font-weight:800;letter-spacing:.1em;color:var(--s-green-ink)}
+.k-routine .tt{font:800 13px/1.1 var(--f-site);color:var(--s-dark)}
+.k-routine .sb{font-size:8px;color:var(--s-ink)}
+.k-routine .cta{display:inline-block;background:var(--s-green);color:var(--s-on);font-weight:800;font-size:8px;padding:6px 8px;border-radius:3px;margin-top:3px}
+.k-gainlist{display:flex;flex-direction:column;gap:3px;background:var(--s-grey);border-radius:6px;padding:7px 8px;margin-bottom:3px}
+.k-gainlist div{display:flex;justify-content:space-between;gap:6px;font-size:8.3px;color:var(--s-dark)}
+.k-gainlist div span{display:flex;gap:4px;align-items:center}
+.k-gainlist svg{font-size:10px;color:var(--s-green)}
+.k-gainlist .eco{color:var(--s-green-ink);font-weight:800}
+.k-giftrow{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:12px 10px 10px;text-align:center;flex:none;background:var(--s-honey-soft)}
+.k-giftrow .h{grid-column:1/-1;font:800 10.5px var(--f-site);color:var(--s-brown);letter-spacing:.02em}
+.k-giftrow .h small{display:block;font:500 7.5px var(--f-site);color:var(--s-ink);letter-spacing:0;margin-top:2px}
+.k-giftrow .c{display:flex;flex-direction:column;align-items:center;gap:3px;background:var(--s-bg);border-radius:8px;padding:8px 4px 7px;font-size:7.5px;line-height:1.25;color:var(--s-ink)}
+.k-giftrow .c b{font-size:9px;color:var(--s-dark)}
+.k-giftrow .c em{font-style:normal;font-weight:800;font-size:7px;color:var(--s-brown);background:var(--s-honey);border-radius:3px;padding:1px 4px;white-space:nowrap}
+.k-giftrow .c small{font-size:6.5px;color:var(--s-mute);margin-top:2px}
+.k-giftrow .big{height:42px;display:grid;place-items:center}
+.k-giftrow .big .k-pp img{width:18px;height:36px}
+.k-giftrow .big .k-pp img+img{width:10px;height:38px}
+.k-giftrow .big .k-garrafa{width:20px!important;height:36px!important}
+.k-giftrow .big .k-eco{width:32px!important;height:36px!important}
+@media (prefers-reduced-motion:reduce){.s-tick span{animation:none;padding-left:8px}.k-dot{animation:none}}
+</style>
+
+<div class="wrap">
+  <header class="cover">
+    <div>
+      <div class="eyebrow">eTRACTION · CRO · Ultramel · Black 2026</div>
+      <h1>Novembro na <em>Ultramel</em>, tela por tela</h1>
+    </div>
+    <p class="lede">Para cada uma das quatro ações do mês, as mudanças de layout que ajudam a cliente a <b>entender a oferta e fechar o pedido</b>. Cada ideia mostra a tela de hoje e a proposta no celular, onde a loja vende. Tudo é design no próprio site: nenhuma integração nova.</p>
+  </header>
+  <nav class="acts" id="acts" aria-label="As quatro ações"></nav>
+
+  <section id="calendario">
+    <div class="sec-head">
+      <div class="eyebrow">O mês no site</div>
+      <h2>Quando cada ação está no ar</h2>
+      <p>De hoje até a ULTRA MONDAY. O mesmo calendário vira a agenda que troca a tarja, os banners e os blocos da página do produto sozinhos, na hora certa.</p>
+    </div>
+    <div class="cal">
+      <div class="cal-grid cal-wds"><div class="cal-wd">seg</div><div class="cal-wd">ter</div><div class="cal-wd">qua</div><div class="cal-wd">qui</div><div class="cal-wd">sex</div><div class="cal-wd">sáb</div><div class="cal-wd">dom</div></div>
+      <div class="cal-grid" id="cal"></div>
+      <ul class="agenda" id="agenda"></ul>
+      <div class="cal-legend">
+        <span><i class="t-fri"></i>ULTRAFRIDAY, sexta a domingo</span>
+        <span><i class="t-lib"></i>ULTRALIBIDO</span>
+        <span><i class="t-week"></i>ULTRAWEEK e fases</span>
+        <span><i class="g"></i>Brindes por faixa: período a confirmar</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="guia">
+    <div class="sec-head">
+      <div class="eyebrow">Antes de desenhar</div>
+      <h2>O que guiou as ideias</h2>
+      <p>Seis leituras do site ao vivo, dos painéis da loja e das referências. Cada ideia do mural responde a pelo menos uma delas.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><h3>A oferta mora no produto e no carrinho</h3><p>Quem chega pelo anúncio cai direto na página do produto e quase não passa pela home. Banner de home sozinho não avisa essa cliente.</p></div>
+      <div class="rule"><h3>Uma mensagem por linha, parada</h3><p>No celular, texto que corre e carrossel que troca sozinho somem antes de serem lidos. Cada fase da campanha cabe numa linha fixa.</p></div>
+      <div class="rule"><h3>Mostrar quanto falta</h3><p>A cesta da Ultramel costuma ter mais de um item. Uma régua de valor transforma a faixa em meta, e os complementos baratos fecham a diferença.</p></div>
+      <div class="rule"><h3>Cupom à vista e com regra clara</h3><p>Cupom é linguagem conhecida dessa cliente. O código fica onde ela está, e a tela diz se acumula com outro.</p></div>
+      <div class="rule"><h3>Kit precisa dizer o que tem dentro</h3><p>Pote único vende com facilidade. Kit trava quando o conteúdo fica escondido no meio do texto.</p></div>
+      <div class="rule"><h3>Urgência só com prazo verdadeiro</h3><p>Cada fase tem hora de fim real, igual para todo mundo. O contador acaba junto com ela e nunca reinicia.</p></div>
+    </div>
+  </section>
+
+  <section id="mural">
+    <div class="sec-head">
+      <div class="eyebrow">Mural de ideias</div>
+      <h2>Ideias por ação, com antes e depois</h2>
+      <p>Filtre por ação ou pela parte do site. No celular, troque entre <b>Antes</b> e <b>Depois</b> em cada ideia. Os preços nas telas são os da loja em 26/10.</p>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div id="groups"></div>
+    <p class="empty" id="empty" hidden>Nenhuma ideia com esses filtros. Escolha outra ação ou outra parte do site.</p>
+  </section>
+
+  <section id="codigos">
+    <div class="sec-head">
+      <div class="eyebrow">Para subir no site</div>
+      <h2>Os 5 códigos das ideias escolhidas</h2>
+      <p>15 ideias viraram código, uma área do site por arquivo. Os cinco seguem a mesma agenda: ligam, trocam de fase e desligam sozinhos no horário de Brasília. Podem ser instalados já.</p>
+    </div>
+    <div class="preview">
+      <span><b>Para ver antes da data</b>, abra qualquer página da loja com o parâmetro na URL. Ele fica salvo durante a visita.</span>
+      <span><code>?umbf=fri</code> sexta e sábado · <code>?umbf=fri-dom</code> domingo · <code>?umbf=fri-aviso</code> quinta · <code>?umbf=lib</code> 11/11 · <code>?umbf=lib-aviso</code> 10/11</span>
+      <span><code>?umbf=week</code> · <code>?umbf=wfri</code> · <code>?umbf=wknd</code> · <code>?umbf=wmon</code> · <code>?umbf=gift</code> só os brindes · <code>?umbf=fri+gift</code> juntos · <code>?umbf=off</code> volta ao normal</span>
+      <span><b>Brindes:</b> o período fica vazio até a cliente confirmar. Preencher <code>BRINDES</code> nos cinco códigos.</span>
+    </div>
+    <div class="codes" id="codes"></div>
+  </section>
+
+  <section id="confirmar">
+    <div class="sec-head">
+      <div class="eyebrow">Antes de subir</div>
+      <h2>Para confirmar com a Ultramel</h2>
+      <p>Respostas que mudam texto, régua ou agenda. Sem elas, as telas acima usam a leitura mais provável.</p>
+    </div>
+    <ul class="todo" id="todo"></ul>
+  </section>
+
+  <section id="fontes">
+    <div class="sec-head">
+      <div class="eyebrow">Base</div>
+      <h2>De onde vieram as ideias</h2>
+      <p>Lojas visitadas no celular em 26/10/2026, livros e estudos. Cada ideia aponta para as suas fontes.</p>
+    </div>
+    <div class="src" id="src"></div>
+  </section>
+
+  <p class="foot">eTRACTION · mural montado em 26/10/2026 a partir do site ao vivo da Ultramel, dos painéis internos da loja e da pesquisa listada acima.</p>
+</div>
+
+<script>
+(function(){
+'use strict';
+/*__IMG__*/
+/*__CODES__*/
+
+/* ---------- utilitários ---------- */
+function brl(v){var n=Math.round(v*100)/100;var p=n.toFixed(2).split('.');return 'R$ '+p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.')+','+p[1];}
+function inst(v){return Math.floor(v/3*100)/100;}
+function pct(p){return p.de?Math.round((p.de-p.por)/p.de*100):0;}
+
+var I={
+  cart:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 4h2.4l2.3 10.6h11.2L20.8 7H6.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="17" cy="19" r="1.5" fill="currentColor"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+  heartF:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z" fill="currentColor"/></svg>',
+  search:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15 15l5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V5.5A1.5 1.5 0 0 1 6.5 4H15" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+  gift:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="6.8" width="18" height="3.6" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 6.8V20M12 6.8C10.6 3.6 7 3.3 7 5.5 7 6.8 12 6.8 12 6.8zm0 0c1.4-3.2 5-3.5 5-1.3 0 1.3-5 1.3-5 1.3z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+  check:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4L19 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+  box:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7.5L12 3.5l8.5 4v9L12 20.5l-8.5-4zM3.5 7.5L12 11.5l8.5-4M12 11.5v9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+  truck:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 6h11v9h-11zM13.5 9h4l3 3.2V15h-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="6.5" cy="17" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M0 9h3M0 12h2" stroke="currentColor" stroke-width="1.4"/></svg>',
+  ticket:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><rect x="7" y="9" width="10" height="6" rx="1" fill="none" style="stroke:var(--s-cup)" stroke-width="1.5"/></svg>',
+  trash:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.3-3 7.8-7 9.5-4-1.7-7-5.2-7-9.5V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 12l2.2 2.2 4.2-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  heartV:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z" fill="currentColor"/></svg>'
+};
+var G={
+  prop:function(){return '<span class="k-pp"><img src="'+IMG.propolis+'" alt=""><img src="'+IMG.pegador+'" alt=""></span>';},
+  garrafa:'<svg viewBox="0 0 24 40" class="k-garrafa" aria-hidden="true"><rect x="7" y="1.5" width="10" height="5" rx="1.5"/><path d="M5.5 8.5h13v26.5a3.5 3.5 0 0 1-3.5 3.5H9a3.5 3.5 0 0 1-3.5-3.5z"/><rect x="5.5" y="17" width="13" height="8" class="b"/></svg>',
+  eco:'<svg viewBox="0 0 32 36" class="k-eco" aria-hidden="true"><path d="M10.5 11V8a5.5 5.5 0 0 1 11 0v3" fill="none" stroke-width="2.2"/><path d="M4 11h24l-1.6 22.5H5.6z" stroke-width="1.4"/><circle cx="16" cy="22" r="3.4" class="b"/></svg>'
+};
+
+/* ---------- produtos (preços da loja em 26/10/2026) ---------- */
+var P={
+  geleia:{n:'Geleia Real Pura Liofilizada - 9.000mg',de:271.24,por:248.88,img:'geleia',av:348},
+  meld:{n:'Ultramel - Mel Cru Cremoso Dourado 1kg',de:151.12,por:138.88,img:'meldourado1kg',av:233},
+  melb:{n:'Ultramel - Mel Cru Cremoso Branco 1kg',de:151.12,por:138.88,img:'melbranco1kg'},
+  mel4:{n:'Kit com 4 Méis Especiais',de:419.46,por:383.88,img:'mel4kit'},
+  tcomp:{n:'Kit Testosterona Natural – Completo',de:541.32,por:478.88,img:'testocompleto'},
+  tess:{n:'Kit Testosterona Natural – Essencial',de:423.98,por:338.88,img:'testoessencial',av:2},
+  tbas:{n:'Kit Testosterona Natural – Basic',de:287.12,por:238.88,img:'testobasic'},
+  par:{n:'Kit Par Perfeito Energia',de:171.09,por:143.88,img:'parperfeito'},
+  prop:{n:'Própolis Verde 27% - 30ml',de:72.22,por:58.88,img:'propolis'},
+  tam:{n:'Tâmara Medjoul 220g',por:43.88,img:'tamara'},
+  bala:{n:'Bala de Gengibre com Própolis',por:12.88,img:'bala'},
+  vital:{n:'Kit Vitalidade',de:241.23,por:208.88,img:'vitalidade'}
+};
+
+/* ---------- peças da loja ---------- */
+function phone(inner){return '<div class="ph">'+inner+'</div>';}
+function tick(){return '<div class="s-tick" aria-hidden="true"><span>FRETE FIXO R$10,00 PARA SUL E SUDESTE EM COMPRAS ACIMA DE R$500. &nbsp; PARCELE EM ATÉ 3X SEM JUROS NO CARTÃO. &nbsp; DESCONTO NO PRIMEIRO PEDIDO! SITE: ULTRABEMVINDO = 5% OFF | APP: BEMVINDO = 10% OFF</span></div>';}
+function head(n){return '<div class="s-head"><span class="s-hl"><i class="s-burger"></i>'+I.heart+'</span><b class="s-logo">ultramel</b><span class="s-hr">'+I.cart+'<em>'+(n||0)+'</em></span></div>';}
+function search(){return '<div class="s-search"><span>Pesquise aqui seu produto</span>'+I.search+'</div>';}
+function topo(n,bar){return (bar||tick())+head(n)+search();}
+function heroApp(){return '<div class="s-heroapp"><div class="l"><b>10% OFF</b><span>NA PRIMEIRA COMPRA</span><small>Cupom: BEMVINDO</small></div><div class="r"><i>Seu primeiro pedido pelo APP Ultramel ainda mais especial.</i><em>BAIXE E APROVEITE!</em><span class="st"><u>Google Play</u><u>App Store</u></span></div></div>';}
+function benef(){return '<div class="s-benef"><span class="ar">‹</span><div>'+I.truck+'<span>Frete fixo de R$10 para sul e sudeste nas compras acima de R$500</span></div><span class="ar">›</span></div>';}
+function sect(t,s){return '<div class="s-sect"><b>'+t+'</b>'+(s?'<span>'+s+'</span>':'')+'</div>';}
+function vit(){return sect('OS MAIS VENDIDOS')+cards('geleia','meld');}
+function card(k,extra){var p=P[k],o=pct(p);return '<div class="s-card"><div class="im"><img src="'+IMG[p.img]+'" alt="">'+(o?'<span class="s-off">'+o+'% OFF</span>':'')+'<span class="s-ch">'+I.heartF+'</span></div><div class="nm">'+p.n+'</div>'+(p.de?'<div class="de">'+brl(p.de)+'</div>':'')+'<div class="pr">'+brl(p.por)+'</div><div class="px">3x de <b>'+brl(inst(p.por))+'</b> sem juros</div>'+(extra||'')+'<div class="s-buy">Comprar</div></div>';}
+function cards(a,b,ea,eb){return '<div class="s-cards">'+card(a,ea)+card(b,eb)+'</div>';}
+function crumb(c){return '<div class="s-crumb">Início <i>/</i> '+c+'</div>';}
+function pimg(k,h){return '<div class="s-pimg" style="height:'+h+'px"><img src="'+IMG[k]+'" alt=""><span class="nav l">‹</span><span class="nav r">›</span></div>';}
+function ptitle(k){var p=P[k];return '<div class="s-ptitle">'+p.n+'</div><div class="s-rate">★★★★★<span>'+(p.av||'')+' avaliações</span></div>';}
+function price(k){var p=P[k],o=pct(p);return '<div class="s-price">'+(p.de?'<div class="s-de">De: <s>'+brl(p.de)+'</s></div>':'')+'<div class="s-por">'+brl(p.por)+'</div>'+(o?'<div class="s-offt">('+o+'% de desconto)</div>':'')+'<div class="s-parc">3x de <b>'+brl(inst(p.por))+'</b> sem juros</div><div class="s-vp">ver parcelas</div></div>';}
+function buy(){return '<div class="s-qtyrow"><span class="s-qty"><i>−</i><b>1</b><i>+</i></span><span class="s-btn">ADICIONAR AO CARRINHO</span></div><div class="s-btn o">COMPRAR AGORA</div>';}
+function buySimple(){return '<div class="s-lbl">Quantidade</div><div class="s-qtyrow"><span class="s-qty"><i>−</i><b>1</b><i>+</i></span><span class="s-btn">COMPRAR</span></div>';}
+function frete(){return '<div class="s-frete"><span>Frete e prazo:<small>Não sei meu CEP</small></span><i>CEP</i><b>Calcular</b></div>';}
+function csp(){return '<div class="s-lbl">Complete seu pedido</div><div class="s-csp"><i class="bx"></i><img src="'+IMG.pegador+'" alt=""><div><small>COMBINE COM SEU MEL</small>Adicionar pegador de mel 17 cm<em>+ R$ 16,88</em></div></div>';}
+var KITS=[['1 MÊS','Para experimentar','1 pote · 30 cápsulas',248.88,'R$ 8,30 por dia',''],['3 MESES','','3 potes · 90 cápsulas',656.64,'R$ 7,30 por dia','Economia de R$ 90,00'],['6 MESES','Maior economia','6 potes · 180 cápsulas',1133.28,'R$ 6,30 por dia','Economia de R$ 360,00']];
+function kits(extra){extra=extra||[];return '<div class="s-kits">'+KITS.map(function(r,i){return '<div class="s-kit'+(i===1?' sel':'')+'"><i class="rd"></i><div><b>'+r[0]+'</b>'+(r[1]?' <small>'+r[1]+'</small>':'')+'<span>'+r[2]+'</span>'+(r[5]?'<em>'+r[5]+'</em>':'')+'</div><div class="v"><small>TOTAL DO KIT</small><b>'+brl(r[3])+'</b><span>'+r[4]+'</span></div>'+(extra[i]?'<div class="x">'+extra[i]+'</div>':'')+'</div>';}).join('')+'</div>';}
+function sum(keys){return keys.reduce(function(s,k){return s+P[k].por;},0);}
+function items(keys){return keys.map(function(k){var p=P[k];return '<div class="s-item"><img src="'+IMG[p.img]+'" alt=""><div>'+p.n+(p.de?'<s>'+brl(p.de)+'</s>':'')+'<b>'+brl(p.por)+'</b></div><div class="q"><i>×</i><span>− <u>1</u> +</span></div></div>';}).join('');}
+function drHead(keys){return '<div class="s-dr-h"><span>Carrinho<small>'+keys.length+' produto'+(keys.length>1?'s':'')+'</small></span><b>×</b></div>';}
+function freteNote(s){return s<500?'<div class="s-dr-note">Adicione mais <b>'+brl(500-s)+'</b> ao carrinho e pague apenas R$10,00 de frete para sul e sudeste.</div>':'';}
+function drFoot(s){return '<div class="s-dr-foot"><div class="s-cup">'+I.ticket+'<b>O cupom de desconto é aplicado na finalização da compra.</b></div><div class="s-sum"><span>Produtos</span><b>'+brl(s)+'</b></div><div class="s-sum sm"><span>Frete</span><span>Calcule na próxima etapa</span></div><div class="s-sum"><span>Subtotal</span><b>'+brl(s)+'</b></div><div class="s-fin">FINALIZAR COMPRA</div></div>';}
+function drawer(keys,o){o=o||{};var s=sum(keys);return '<div class="s-dr">'+drHead(keys)+(o.top!==undefined?o.top:freteNote(s))+items(keys)+(o.mid||'')+'<div class="s-dr-fill"></div>'+(o.foot!==undefined?o.foot:drFoot(s))+'</div>';}
+function cartPage(keys,o){o=o||{};var s=sum(keys);return '<div class="s-logobar"><b class="s-logo">ultramel</b></div><div class="s-cph">'+I.cart+' CARRINHO DE COMPRAS<small>‹ COMPRAR MAIS</small></div><div class="s-cpnote">'+I.truck+'<span>Oi cliente, Frete Fixo R$10,00 para Sul e Sudeste em compras acima de R$500.</span></div>'+keys.map(function(k,i){var p=P[k];return '<div class="s-row"><img src="'+IMG[p.img]+'" alt=""><div>'+p.n+'</div><div class="q"><u>− 1 +</u>'+I.trash+'</div></div>'+((o.after===i&&o.afterHtml)?o.afterHtml:'');}).join('')+(o.mid||'')+'<div class="s-res"><div class="t">RESUMO</div><div class="bx">Subtotal ('+keys.length+' ite'+(keys.length>1?'ns':'m')+'): '+brl(s)+'</div><div class="bx">Frete: Não calculado</div><small><b>Cupom de desconto será calculado na etapa seguinte</b><br>Os produtos poderão esgotar caso outro cliente compre antes que você.</small><div class="s-sum"><span>Total:</span><b>'+brl(s)+'</b></div><div class="s-fin l">Finalizar Compra →</div></div>';}
+function menu(first){return '<div class="s-menu"><div class="s-mhello"><b>Olá, visitante</b><span><u>Fazer login</u> ou <u>Cadastre-se</u></span></div>'+(first||'')+['Mel','Pólen','Geleia Real','Própolis','Kits','Vela','Diversos','Ultraflora','Nossa Curadoria','Oportunidades','Todos os produtos'].map(function(x){return '<div class="s-mi">'+x+'<i>›</i></div>';}).join('')+'</div>';}
+function clock(h,m,s){return '<div class="k-clk">'+[[h,'HORAS'],[m,'MIN'],[s,'SEG']].map(function(x){return '<span><b>'+x[0]+'</b><small>'+x[1]+'</small></span>';}).join('')+'</div>';}
+
+/* ---------- peças de campanha ---------- */
+function friBar(dom){return '<div class="k-fri"><div><b>ULTRAFRIDAY</b> · 10% OFF acima de R$ 400</div><div class="r2"><span class="k-code">ULTRAFRIDAY '+I.copy+'</span><span>'+(dom?'termina hoje, 23h59':'até domingo, 23h59')+'</span></div></div>';}
+function regua(s){var w=Math.min(100,s/500*100);return '<div class="k-regua"><div class="t"><b>Faltam '+brl(400-s)+' para 10% OFF</b><span>cupom ULTRAFRIDAY</span></div><div class="k-bar"><i style="width:'+w.toFixed(1)+'%"></i><u style="left:80%"></u></div><div class="k-scale"><span class="end" style="left:80%"><b>R$ 400</b>10% OFF</span><span class="end" style="left:100%"><b>R$ 500</b>frete R$10</span></div></div>';}
+function ladder(s){var seg=[[0,299],[299,499],[499,699]].map(function(r){var f=Math.max(0,Math.min(1,(s-r[0])/(r[1]-r[0])));return '<i><b style="width:'+(f*100).toFixed(0)+'%"></b></i>';}).join('');
+  var g=[[299,G.prop(),'Própolis + pegador'],[499,G.garrafa,'Garrafa térmica'],[699,G.eco,'Ecobag']];
+  var next=null;g.forEach(function(x){if(next===null&&s<x[0])next=x;});
+  return '<div class="k-lad"><div class="h">'+I.gift+'SEUS BRINDES</div><div class="k-gifts">'+g.map(function(x){var ok=s>=x[0],nx=(next===x);return '<div class="k-g'+(ok?' ok':'')+(nx?' next':'')+'"><span class="ic">'+x[1]+(ok?'<span class="ok-b">'+I.check+'</span>':'')+'</span><b>'+x[2]+'</b><span>'+(ok?'liberado':(nx?'faltam '+brl(x[0]-s):'acima de '+brl(x[0]).replace(',00','')))+'</span></div>';}).join('')+'</div><div class="k-seg">'+seg+'</div><div class="msg">Você já ganhou <b>própolis + pegador</b>. Faltam <b>'+brl(next[0]-s)+'</b> para a garrafa térmica.</div></div>';}
+
+/* ---------- ações ---------- */
+var ACOES={
+  fri:{nome:'ULTRAFRIDAY',cls:'fri',quando:'Toda sexta, 0h, até domingo, 23h59',regra:'10% OFF nas compras acima de R$ 400 com o cupom ULTRAFRIDAY.',papel:'O aquecimento semanal: ensina a cliente que sexta é dia de Ultramel antes da Black.'},
+  lib:{nome:'ULTRALIBIDO',cls:'lib',quando:'11/11, quarta, das 0h às 23h59',regra:'Dia temático de disposição e vida a dois. Oferta a confirmar.',papel:'Um dia só, com a Geleia Real e os kits de vitalidade na vitrine.'},
+  gift:{nome:'Brindes por faixa',cls:'gift',quando:'Período a confirmar',regra:'Acima de R$ 299: própolis + pegador. Acima de R$ 499: garrafa térmica. Acima de R$ 699: ecobag.',papel:'Puxa o item a mais no pedido: a régua mostra quanto falta para o próximo brinde.'},
+  week:{nome:'ULTRAWEEK',cls:'week',quando:'23 a 29/11 · ULTRA FRIDAY 27 · ULTRA WEEKEND 28 e 29 · ULTRA MONDAY 30',regra:'A semana da Black em quatro fases, cada uma com prazo próprio.',papel:'O pico do mês: o site muda de fase sozinho e diz até quando vale cada uma.'}
+};
+var ONDE={topo:'Topo do site',home:'Home',menu:'Menu',vitrine:'Vitrine e categoria',produto:'Página do produto',carrinho:'Carrinho'};
+
+/* ---------- ideias ---------- */
+var IDEIAS=[
+/* ULTRAFRIDAY */
+{a:'fri',onde:'topo',t:'Tarja do fim de semana com o cupom pronto para copiar',
+ por:'Hoje a tarja amarela corre com três mensagens e corta o texto no celular. Conteúdo que se move sozinho costuma passar sem ser lido (Nielsen Norman Group). Uma linha parada com código e prazo diz tudo de uma vez, e o código à mão evita que a cliente saia para procurar cupom em outro lugar (Baymard).',
+ como:['Sexta 0h a domingo 23h59, horário de Brasília: trocar o texto que corre por uma faixa preta fixa.','Tocar no código copia ULTRAFRIDAY e mostra “copiado”.','No domingo, a segunda linha vira “termina hoje, 23h59”.','Fora do período, a tarja de sempre volta sozinha.'],
+ cuidado:'Dizer na própria tarja se o cupom acumula com cupom de influenciador e com o BEMVINDO.',
+ refs:['nng','baymard','sallve'],
+ antes:function(){return phone(topo(0)+heroApp()+benef()+vit());},
+ depois:function(){return phone(topo(0,friBar(false))+heroApp()+benef()+vit());}},
+{a:'fri',onde:'carrinho',t:'Régua no carrinho lateral: quanto falta para os 10%',
+ por:'O carrinho lateral já fala do frete, mas como frase solta, e deixa um vazio no meio. Uma barra com a meta de R$ 400 transforma o cupom em objetivo: quanto mais perto, mais a pessoa se esforça para chegar (gradiente de meta, Kivetz, Urminsky e Zheng). A Beekeeper’s Naturals abre o carrinho com a barra no topo.',
+ como:['Ler o subtotal do carrinho lateral e calcular o que falta.','Uma barra só, com duas marcas: R$ 400 (10% OFF) e R$ 500 (frete fixo R$ 10 para Sul e Sudeste).','Passou de R$ 400: “Liberado! Use ULTRAFRIDAY no pagamento”, com botão de copiar.','Ocupar o espaço vazio entre os produtos e o resumo.'],
+ cuidado:'Confirmar se os R$ 400 contam antes ou depois de outros descontos, para a barra não prometer o que o checkout recusa.',
+ refs:['kivetz','beekeepers','rebuy'],
+ antes:function(){return phone(drawer(['meld','melb']));},
+ depois:function(){return phone(drawer(['meld','melb'],{top:regua(sum(['meld','melb']))}));}},
+{a:'fri',onde:'produto',t:'Na página do produto, o preço com o cupom',
+ por:'Quem vem do anúncio cai direto na página do produto. Se a oferta mora só na home, essa pessoa nunca fica sabendo. Nos kits que passam de R$ 400 sozinhos, mostrar o preço final com o cupom ancora a decisão no número que ela vai pagar (Enviesados, Rian Dutra).',
+ como:['Faixa preta curta acima do seletor de kits, só de sexta a domingo.','Nos kits de 3 e 6 meses da Geleia Real, uma linha extra: “com o cupom: R$ …”.','No kit de 1 mês, quanto falta no carrinho para liberar o cupom.'],
+ cuidado:'Escrever “com o cupom ULTRAFRIDAY no pagamento”, para ninguém achar que o preço da página já caiu.',
+ refs:['dutra','berger'],
+ antes:function(){return phone(topo(0)+'<div class="s-pdp">'+ptitle('geleia')+price('geleia')+kits()+'</div>'+'<div class="s-sticky">COMPRAR</div>');},
+ depois:function(){return phone(topo(0,friBar(false))+'<div class="s-pdp">'+ptitle('geleia')+price('geleia')+'<div class="k-pill">'+I.copy+'<span><b>ULTRAFRIDAY</b> · 10% OFF acima de R$ 400 com o cupom no pagamento</span></div>'+kits(['<div class="k-xline m"><span>+ '+brl(400-248.88)+' no carrinho libera o cupom</span></div>','<div class="k-xline"><span>com o cupom ULTRAFRIDAY</span><span>'+brl(656.64*.9)+'</span></div>','<div class="k-xline"><span>com o cupom ULTRAFRIDAY</span><span>'+brl(1133.28*.9)+'</span></div>'])+'</div>'+'<div class="s-sticky">COMPRAR</div>');}},
+{a:'fri',onde:'carrinho',t:'Prateleira “feche os R$ 400” com complementos de bolso',
+ por:'Quando falta pouco para a meta, a cliente precisa de um item pequeno e certo, sem voltar para a loja. Própolis, tâmara e bala de gengibre são os mais fáceis de somar a um pedido. A Baymard recomenda sugestões no carrinho quando são baratas e completam a compra, nunca alternativas ao que já está lá.',
+ como:['Lista fixa de complementos, definida com a cliente.','Ordenar pelo valor que mais se aproxima do que falta.','Botão “+ adicionar” que coloca no carrinho sem sair da página.','A prateleira some quando a meta é atingida.'],
+ cuidado:'No máximo três itens. Kit caro no carrinho distrai em vez de ajudar.',
+ refs:['baymard','puravida'],
+ antes:function(){return phone(cartPage(['meld','melb']));},
+ depois:function(){return phone(cartPage(['meld','melb'],{mid:'<div class="k-shelf"><div class="h"><b>Feche os R$ 400 do ULTRAFRIDAY</b><span>faltam '+brl(400-sum(['meld','melb']))+'</span></div><div class="row">'+['prop','tam','bala'].map(function(k){var p=P[k];return '<div class="k-mini"><img src="'+IMG[p.img]+'" alt=""><span>'+p.n+'</span><b>'+brl(p.por)+'</b><u>+ adicionar</u></div>';}).join('')+'</div></div>'}));}},
+{a:'fri',onde:'home',t:'Ritual da sexta: quinta avisa, domingo encerra',
+ por:'Uma oferta que volta toda semana vira hábito quando tem gatilho fixo (Hooked, Nir Eyal). Muitas clientes voltam para repor mel e geleia, então a sexta pode virar o dia de repor. No domingo, o prazo real faz o papel da urgência (escassez, Cialdini).',
+ como:['Quinta à tarde: banner “amanhã, 0h, começa o ULTRAFRIDAY”.','Sexta e sábado: banner da oferta com o cupom.','Domingo: contagem até 23h59 e a data da próxima sexta.','Os três estados no mesmo bloco, trocados pela data.'],
+ cuidado:'A contagem é a mesma para todos e termina às 23h59. Nada de cronômetro que reinicia.',
+ refs:['eyal','cialdini'],
+ antes:function(){return phone(topo(0)+heroApp()+benef()+vit());},
+ depois:function(){return phone(topo(0,friBar(true))+'<div class="k-states"><span>qui · aviso</span><span>sex e sáb · oferta</span><span class="on">dom · contagem</span></div><div class="k-hero"><div class="ey">DOMINGO, 08/11</div><div class="tt">ULTRAFRIDAY <em>termina hoje</em></div>'+clock('05','42','10')+'<div class="sb">10% OFF nas compras acima de R$ 400</div><span class="k-code">ULTRAFRIDAY '+I.copy+'</span><div class="sb">Toda sexta, 0h, tem de novo. Próxima: 13/11.</div></div>'+vit());}},
+
+/* ULTRALIBIDO */
+{a:'lib',onde:'vitrine',t:'Vitrine do 11.11 por objetivo: para ele, para ela, a dois',
+ por:'Hoje os kits aparecem numa lista única, e quem procura disposição a dois precisa abrir um por um. Lojas de bem-estar organizam por objetivo: a Beekeeper’s Naturals por necessidade, a Essential Nutrition e a Puravida por objetivo. Três atalhos resolvem a escolha antes de ler descrição.',
+ como:['Categoria da ação com Geleia Real, Kits Testosterona, Par Perfeito e Essência Vital.','Atalhos “Para ele”, “Para ela” e “A dois” que filtram a vitrine.','Topo vinho com a data e o prazo do dia.'],
+ cuidado:'Linguagem de bem-estar e rotina. São alimentos: nada de promessa de efeito.',
+ refs:['beekeepers','essential','puravida'],
+ antes:function(){return phone(topo(0)+crumb('Kits')+'<div class="s-h1">Kits</div><div class="s-filt"><span>Ordenação ▾</span><b>Filtrar</b></div>'+cards('tbas','par'));},
+ depois:function(){return phone(topo(0)+'<div class="k-libhero"><div class="ey">11.11 · SÓ HOJE, ATÉ 23H59</div><div class="tt">ULTRALIBIDO</div><div class="sb">Disposição para a rotina e para a vida a dois.</div></div><div class="k-chips"><span>Para ele</span><span>Para ela</span><span class="on">A dois</span></div>'+cards('geleia','par','<div class="k-for">a dois</div>','<div class="k-for">a dois</div>'));}},
+{a:'lib',onde:'produto',t:'Geleia Real: a vida a dois sobe para perto do preço',
+ por:'A página da Geleia Real já fala de libido, mas esse benefício é o último de uma lista longa, bem abaixo da compra. Quem clicou num anúncio sobre disposição a dois precisa ver isso na primeira tela (coerência entre anúncio e página, Oli Gardner). Depoimentos com nome, perto do botão, fazem a prova social trabalhar (Cialdini).',
+ como:['No 11/11, um bloco vinho entre o título e o preço.','Duas frases de depoimentos que a página já tem, com nome e “compra verificada”.','O resto da página fica como está.'],
+ cuidado:'Revisar com a cliente frases como “aumenta a testosterona”: em alimento, promessa de efeito é risco com a Anvisa.',
+ refs:['gardner','cialdini'],
+ antes:function(){return phone(topo(0)+pimg('geleia',112)+'<div class="s-pdp">'+ptitle('geleia')+'<div class="s-pills"><span>100% Natural</span><span>Sem Aditivos</span><span>Liofilizada</span><span>Mais Vendidos</span></div>'+price('geleia')+'</div><div class="s-benlist"><div class="t">SEU CORPO PODE ESTAR PEDINDO AJUDA</div><ol><li>Energia</li><li>Saúde intestinal</li><li>Imunidade</li><li>Ganho de massa magra</li><li>Emagrecimento</li><li>Sono</li><li>Cabelo, pele e unhas</li><li>Regulação hormonal</li><li class="last">Melhor vida do casal</li></ol></div>');},
+ depois:function(){return phone(topo(0,'<div class="k-lib"><b>11.11 ULTRALIBIDO</b><span>termina em <span class="tm">05:42:10</span></span></div>')+pimg('geleia',96)+'<div class="s-pdp">'+ptitle('geleia')+'<div class="k-couple"><div class="t">'+I.heartV+'Mais disposição para a vida a dois</div><div class="k-quote">“Minha energia e a libido melhoraram bastante.”<small>Marcos F. · compra verificada</small></div><div class="k-quote">“Com mais disposição, nossa intimidade voltou.”<small>Beatriz C. · compra verificada</small></div></div>'+price('geleia')+'</div>');}},
+{a:'lib',onde:'produto',t:'Kits Testosterona lado a lado',
+ por:'São três versões com nomes parecidos, e o que vem em cada uma fica escondido no meio do texto. Sem ver a diferença, a cliente adia. Com as três lado a lado, a opção do meio costuma ganhar (efeito do meio-termo, Itamar Simonson; The Choice Factory, Richard Shotton).',
+ como:['Tabela igual nas três páginas: itens de cada kit e preço.','A coluna da página atual fica destacada; as outras têm “ver este kit”.','Preços lidos do site, para não desatualizar.'],
+ cuidado:'Se o kit do meio não for o que mais vende, não escrever “mais escolhido”. “Equilíbrio” já basta.',
+ refs:['simonson','shotton','baymard'],
+ antes:function(){return phone(topo(0)+crumb('Kits')+pimg('testoessencial',96)+'<div class="s-pdp">'+ptitle('tess')+price('tess')+buySimple()+'<div class="s-desc"><span>Nutrição natural para quem busca mais vitalidade, energia, força e equilíbrio. O kit reúne ingredientes selecionados da natureza para acompanhar uma rotina focada em saúde hormonal…</span><span><b>O kit contém:</b> Geleia Real Pura Liofilizada: um alimento naturalmente rico em proteínas, aminoácidos, lipídios e vitaminas do complexo B…</span></div></div>');},
+ depois:function(){var Y='<span class="y">✓</span>',N='<span class="n">—</span>';return phone(topo(0)+crumb('Kits')+'<div class="s-pdp">'+ptitle('tess')+price('tess')+'<div class="s-lbl">Compare os 3 kits</div><table class="k-cmp"><thead><tr><th></th><th>Basic</th><th class="cur">Essencial<small>VOCÊ ESTÁ AQUI</small></th><th>Completo</th></tr></thead><tbody><tr><td>Geleia Real</td><td>'+N+'</td><td class="cur">'+Y+'</td><td>'+Y+'</td></tr><tr><td>Mel Cru Branco</td><td>400g</td><td class="cur">300g</td><td>'+N+'</td></tr><tr><td>Própolis</td><td>Verde</td><td class="cur">Vermelho</td><td>Vermelho</td></tr><tr><td>Pólen 130g</td><td>'+N+'</td><td class="cur">'+N+'</td><td>'+Y+'</td></tr><tr><td>Camu-Camu</td><td>'+Y+'</td><td class="cur">'+N+'</td><td>'+Y+'</td></tr><tr><td>Gengibre em pó</td><td>'+N+'</td><td class="cur">'+N+'</td><td>'+Y+'</td></tr></tbody><tfoot><tr><td></td><td>'+brl(238.88)+'<u>ver este kit</u></td><td class="cur">'+brl(338.88)+'</td><td>'+brl(478.88)+'<u>ver este kit</u></td></tr></tfoot></table>'+buySimple()+'</div>');}},
+{a:'lib',onde:'produto',t:'Embalagem discreta escrita na página',
+ por:'Em produtos de vida íntima, a vergonha de receber é uma objeção comum e silenciosa. A Hims escreve na página que o envio é feito em embalagem discreta. Uma linha curta perto do botão tira a dúvida sem chamar atenção.',
+ como:['Só nos produtos da ação: “caixa sem o nome do produto por fora”.','Junto com “pagamento seguro” e “prazo pelo CEP”, numa caixa com ícones.','A mesma linha no carrinho quando houver produto da ação.'],
+ cuidado:'Publicar só se a caixa já for neutra. Se não for, vale levar o assunto à cliente.',
+ refs:['hims'],
+ antes:function(){return phone(topo(0)+crumb('Kits')+pimg('testoessencial',120)+'<div class="s-pdp">'+ptitle('tess')+price('tess')+buySimple()+frete()+'</div>');},
+ depois:function(){return phone(topo(0)+crumb('Kits')+pimg('testoessencial',120)+'<div class="s-pdp">'+ptitle('tess')+price('tess')+buySimple()+'<div class="k-trust"><div>'+I.box+'<span><b>Embalagem discreta</b><small>Caixa sem o nome do produto por fora</small></span></div><div>'+I.lock+'<span><b>Pagamento seguro</b></span></div><div>'+I.truck+'<span><b>Prazo pelo CEP</b><small>Calcule abaixo</small></span></div></div>'+frete()+'</div>');}},
+{a:'lib',onde:'topo',t:'Um dia só, com hora para acabar',
+ por:'11.11 é uma data que o público já reconhece como dia de oferta, e um prazo de um dia é escassez de verdade (Cialdini). Na véspera, pedir para tocar no coração usa a lista de desejos que a loja já tem e deixa a compra pronta para o dia seguinte.',
+ como:['10/11: tarja “amanhã tem 11.11 ULTRALIBIDO, toque no ♥ para salvar”.','11/11: tarja vinho com contagem até 23h59 e banner da vitrine na home.','12/11, 0h: tudo volta ao normal sozinho.'],
+ cuidado:'Se a ação valer só no app ou só no site, dizer isso na própria tarja.',
+ refs:['cialdini'],
+ antes:function(){return phone(topo(0)+heroApp()+benef()+vit());},
+ depois:function(){return phone(topo(0,'<div class="k-lib"><b>11.11 ULTRALIBIDO</b><span>termina em <span class="tm">05:42:10</span></span></div>')+'<div class="k-libhero"><div class="ey">SÓ HOJE, 11/11</div><div class="tt">ULTRALIBIDO</div><div class="sb">Geleia Real e kits para a vida a dois.</div><span class="cta">VER A VITRINE</span></div>'+cards('geleia','par'));}},
+
+/* BRINDES */
+{a:'gift',onde:'carrinho',t:'Escada de brindes no carrinho lateral',
+ por:'Três faixas viram três degraus com a foto do brinde. Mostrar o primeiro degrau já conquistado dá sensação de progresso e aumenta a vontade de completar (progresso concedido, Nunes e Drèze, no estudo do cartão de lava-rápido). Guias de barra em degraus recomendam no máximo três metas, com o brinde à vista.',
+ como:['Os três brindes em foto: própolis + pegador, garrafa térmica e ecobag.','Degrau atingido ganha check; o próximo mostra quanto falta em reais.','Uma frase embaixo: “Você já ganhou… Faltam R$ … para…”.'],
+ cuidado:'Confirmar se as faixas contam com ou sem cupom e se o pedido acima de R$ 699 leva os três brindes ou só a ecobag.',
+ refs:['nunes','kivetz','rebuy'],
+ antes:function(){return phone(drawer(['geleia','meld']));},
+ depois:function(){return phone(drawer(['geleia','meld'],{top:ladder(sum(['geleia','meld']))}));}},
+{a:'gift',onde:'produto',t:'O próximo brinde aparece na página do produto',
+ por:'A palavra “grátis” pesa mais que um desconto do mesmo valor (preço zero, Shampanier, Mazar e Ariely). A Puravida põe o brinde e o valor mínimo direto no banner. Na página do produto, o cálculo “com este item, faltam R$ …” leva a meta para o momento da decisão.',
+ como:['Caixa mel abaixo do preço com o próximo brinde e quanto falta, somando o carrinho atual.','Miniatura dos três brindes em linha.','Se o produto sozinho já passa da faixa: “este já garante…”.'],
+ cuidado:'Um aviso por tela. Se a régua do ULTRAFRIDAY também estiver no ar, juntar as duas na mesma caixa.',
+ refs:['ariely','puravida'],
+ antes:function(){return phone(topo(0)+crumb('Mel')+'<div class="s-pdp">'+ptitle('meld')+price('meld')+csp()+buy()+'</div>');},
+ depois:function(){return phone(topo(0)+crumb('Mel')+'<div class="s-pdp">'+ptitle('meld')+price('meld')+'<div class="k-gbox"><div class="t">'+I.gift+'<span><b>Ganhe própolis + pegador</b>Com este mel, faltam '+brl(299-138.88)+'</span></div><div class="mini"><span><b>R$ 299</b> própolis + pegador</span><span><b>R$ 499</b> garrafa</span><span><b>R$ 699</b> ecobag</span></div></div>'+buy()+'</div>');}},
+{a:'gift',onde:'vitrine',t:'Etiqueta de brinde nos cards',
+ por:'A Essential Nutrition marca a campanha no próprio card. Aqui a etiqueta diz quais produtos já garantem brinde sozinhos, sem a cliente fazer conta (Não me faça pensar, Steve Krug).',
+ como:['O script lê o preço do card e escreve a etiqueta da faixa.','Acima de R$ 299: “ganha própolis + pegador”. Acima de R$ 499: “ganha garrafa térmica”.','Se faltar pouco para a próxima faixa, uma segunda linha pequena.'],
+ cuidado:'Etiqueta pequena e abaixo do preço, para não competir com o selo de % OFF.',
+ refs:['essential','krug'],
+ antes:function(){return phone(topo(0)+sect('OS MAIS VENDIDOS','Conheça nossos produtos e garanta inúmeros benefícios para sua saúde!')+cards('mel4','tcomp'));},
+ depois:function(){var t=function(sub){return '<div class="k-tag">'+I.gift+'<span>Ganha própolis + pegador'+(sub?'<small>'+sub+'</small>':'')+'</span></div>';};return phone(topo(0)+sect('OS MAIS VENDIDOS','Conheça nossos produtos e garanta inúmeros benefícios para sua saúde!')+cards('mel4','tcomp',t(''),t('faltam '+brl(499-478.88)+' p/ garrafa')));}},
+{a:'gift',onde:'home',t:'Os brindes em foto logo abaixo do banner',
+ por:'Brinde descrito em texto não desperta desejo; brinde em foto, sim. Dar algo cria vontade de retribuir (reciprocidade, Cialdini), e a Comvita monta a vitrine de fim de ano com os presentes à vista. Hoje a faixa de benefícios da home mostra uma mensagem por vez, com setas, e as outras ficam escondidas.',
+ como:['No lugar do carrossel de benefícios, três colunas fixas com foto e valor de cada brinde.','Uma linha: “o brinde entra no pedido automaticamente”.','Toque leva para os mais vendidos.'],
+ cuidado:'Pedir fotos reais da garrafa térmica e da ecobag. Ilustração genérica derruba o desejo.',
+ refs:['cialdini','comvita','nng'],
+ antes:function(){return phone(topo(0)+heroApp()+benef()+vit());},
+ depois:function(){return phone(topo(0)+heroApp()+'<div class="k-giftrow"><div class="h">BRINDES DE NOVEMBRO<small>Entram no pedido automaticamente</small></div><div class="c"><span class="big">'+G.prop()+'</span><b>Própolis + pegador</b><small>acima de</small><em>R$ 299</em></div><div class="c"><span class="big">'+G.garrafa+'</span><b>Garrafa térmica</b><small>acima de</small><em>R$ 499</em></div><div class="c"><span class="big">'+G.eco+'</span><b>Ecobag Ultramel</b><small>acima de</small><em>R$ 699</em></div></div>'+vit());}},
+{a:'gift',onde:'carrinho',t:'Aviso antes de perder o brinde',
+ por:'Perder o que já é seu dói mais do que deixar de ganhar (aversão à perda, Kahneman e Tversky; efeito dotação, Richard Thaler). Quando a cliente tira um item e cai de faixa, um aviso curto mostra o que ela perde.',
+ como:['Ao diminuir ou remover, calcular o novo subtotal.','Se cair de faixa: “Se remover, você perde a garrafa térmica”.','Dois botões: “manter no carrinho” e “remover mesmo assim”.'],
+ cuidado:'Uma vez por visita, sem travar a remoção.',
+ refs:['kahneman','thaler'],
+ antes:function(){return phone(cartPage(['geleia','meld','melb']));},
+ depois:function(){return phone(cartPage(['geleia','meld','melb'],{after:2,afterHtml:'<div class="k-warn"><span>Se remover este mel, o pedido fica em <b>'+brl(sum(['geleia','meld']))+'</b> e você perde a <b>garrafa térmica</b>.</span><div class="bt"><span class="keep">Manter no carrinho</span><span class="rm">Remover mesmo assim</span></div></div>'}));}},
+
+/* ULTRAWEEK */
+{a:'week',onde:'topo',t:'Uma tarja, quatro fases',
+ por:'A semana tem quatro momentos com prazos diferentes. Cada virada de fase é um marco, e marcos de tempo puxam decisões (efeito recomeço, Dai, Milkman e Riis). A tarja diz em que fase a loja está e até quando ela vale.',
+ como:['Agenda única no script, com as datas e os textos das quatro fases.','A mesma agenda controla tarja, banner da home e bloco da página do produto.','Cada texto cabe numa linha de celular.'],
+ cuidado:'Se a oferta de sexta for melhor que a de segunda a quinta, a cliente pode esperar. Vale garantir o preço da semana ou dizer o que muda em cada fase.',
+ refs:['dai','nng'],
+ antes:function(){return phone(topo(0)+heroApp()+benef()+vit());},
+ depois:function(){return phone(topo(0,'<div class="k-wbar full w-fri"><b>ULTRA FRIDAY É HOJE</b><span>termina em <span class="tm">05:42:10</span></span></div>')+'<div class="k-phases"><div class="h">A MESMA TARJA EM CADA FASE</div><div class="k-ph"><small>seg 23 a qui 26</small><div class="k-wbar w-week"><b>ULTRAWEEK</b><span>ofertas até domingo, 29/11</span></div></div><div class="k-ph"><small>sex 27</small><div class="k-wbar w-fri"><b>ULTRA FRIDAY É HOJE</b><span class="tm">05:42:10</span></div></div><div class="k-ph"><small>sáb 28 e dom 29</small><div class="k-wbar w-wknd"><b>ULTRA WEEKEND</b><span>últimos 2 dias</span></div></div><div class="k-ph"><small>seg 30</small><div class="k-wbar w-mon"><b>ULTRA MONDAY</b><span>última chance, até 23h59</span></div></div></div>');}},
+{a:'week',onde:'home',t:'Agenda da semana no topo da home',
+ por:'Mostrar o que vem a seguir responde a dúvida “compro hoje ou espero?” e dá motivo para voltar no dia certo (gatilho com data marcada, Hooked). O dia de hoje destacado faz a página parecer viva.',
+ como:['Banner em HTML, sem imagem, com os oito dias de 23 a 30/11.','O dia atual muda de cor sozinho.','Abaixo, a vitrine do dia.'],
+ cuidado:'Feito em HTML, o banner carrega mais rápido e não precisa ser refeito todo dia.',
+ refs:['eyal','dai'],
+ antes:function(){return phone(topo(0)+heroApp()+sect('OS MAIS VENDIDOS')+cards('geleia','mel4'));},
+ depois:function(){var d=[['seg','23',''],['ter','24',''],['qua','25','hoje'],['qui','26',''],['sex','27','f','FRIDAY'],['sáb','28','f','WKND'],['dom','29','f','WKND'],['seg','30','f','MON']];return phone(topo(0,'<div class="k-wbar full w-week"><b>ULTRAWEEK</b><span>ofertas até domingo, 29/11</span></div>')+'<div class="k-hero"><div class="ey">23 A 30 DE NOVEMBRO</div><div class="tt">ULTRA<em>WEEK</em></div><div class="k-days">'+d.map(function(x){return '<span class="'+x[2]+'">'+x[0]+'<b>'+x[1]+'</b>'+(x[3]?'<i>'+x[3]+'</i>':(x[2]==='hoje'?'<i>HOJE</i>':''))+'</span>';}).join('')+'</div></div>'+sect('OFERTAS DE HOJE')+cards('geleia','mel4'));}},
+{a:'week',onde:'menu',t:'A campanha como primeiro item do menu',
+ por:'Quem abre o menu durante a Black está procurando a promoção. A Essential Nutrition coloca a semana da campanha como primeiro atalho da navegação. Hoje “Oportunidades” fica no fim da lista.',
+ como:['Item preto no topo do menu: “ULTRA FRIDAY · ofertas de hoje”.','O texto acompanha a fase da semana.','Leva para a categoria da campanha.'],
+ cuidado:'Ponto pulsante discreto, parado para quem pede menos movimento no celular.',
+ refs:['essential'],
+ antes:function(){return phone(menu());},
+ depois:function(){return phone(menu('<div class="k-mfirst"><span><span class="k-dot"></span><b>ULTRA FRIDAY</b><small>ofertas de hoje, até 23h59</small></span><span>›</span></div>'));}},
+{a:'week',onde:'produto',t:'Economia em reais e prazo do dia na página do produto',
+ por:'Acima de R$ 100, um desconto em reais parece maior que a mesma porcentagem (Regra dos 100, Jonah Berger, Contagious). Junto do prazo da fase, a página diz quanto a cliente ganha e até quando.',
+ como:['Bloco preto acima do preço: “você economiza R$ … neste kit”.','Abaixo de R$ 100, mostrar a porcentagem.','Contagem até o fim da fase, igual para todos.'],
+ cuidado:'Só onde existir preço “De” verdadeiro.',
+ refs:['berger','cialdini'],
+ antes:function(){return phone(topo(0)+crumb('Kits')+pimg('testoessencial',130)+'<div class="s-pdp">'+ptitle('tess')+price('tess')+buySimple()+'</div>');},
+ depois:function(){return phone(topo(0,'<div class="k-wbar full w-fri"><b>ULTRA FRIDAY É HOJE</b><span>termina em <span class="tm">05:42:10</span></span></div>')+crumb('Kits')+pimg('testoessencial',96)+'<div class="s-pdp">'+ptitle('tess')+'<div class="k-save"><div class="ey"><span>ULTRA FRIDAY</span><span>preço válido até 23h59</span></div><div class="tt">Você economiza <b>'+brl(423.98-338.88)+'</b> neste kit</div>'+clock('05','42','10')+'</div>'+price('tess')+buySimple()+'</div>');}},
+{a:'week',onde:'home',t:'ULTRA MONDAY: segunda é dia de começar',
+ por:'Segunda-feira é o marco mais comum para começar um hábito (efeito recomeço, Dai, Milkman e Riis). Geleia real, mel e pólen são de uso diário, então a última chance pode ser vendida como “comece sua rotina hoje”.',
+ como:['Banner da segunda: rotina de 30 dias com a Geleia Real.','Se o carrinho tiver itens, uma faixa “seu carrinho ainda está aqui”.','Tarja: “última chance, até 23h59”.'],
+ cuidado:'“Última chance” só se for mesmo o último dia de preço.',
+ refs:['dai'],
+ antes:function(){return phone(topo(2)+heroApp()+benef()+vit());},
+ depois:function(){return phone(topo(2,'<div class="k-wbar full w-mon"><b>ULTRA MONDAY</b><span>última chance, até 23h59</span></div>')+'<div class="k-cartnag"><span>Seu carrinho tem 2 itens esperando</span><u>ver carrinho ›</u></div><div class="k-routine"><img src="'+IMG.geleia+'" alt=""><div><div class="ey">SEGUNDA É DIA DE COMEÇAR</div><div class="tt">Rotina de 30 dias com a Geleia Real</div><div class="sb">1 cápsula por dia, pela manhã.</div><span class="cta">COMEÇAR MINHA ROTINA</span></div></div>'+vit());}},
+{a:'week',onde:'carrinho',t:'Resumo do carrinho com o que a cliente ganhou',
+ por:'Ver o ganho somado reforça a decisão (contabilidade mental, Richard Thaler). A Beekeeper’s Naturals põe o total dentro do botão e a garantia logo abaixo. Hoje o resumo mostra “calcule na próxima etapa” e nada sobre economia ou brinde.',
+ como:['Linha verde: “você economiza R$ … nesta compra”, somando “De” menos “Por”.','Linhas de brinde e de frete fixo com check quando atingidos.','Valor total dentro do botão de finalizar.'],
+ cuidado:'Somar só os descontos que já estão no preço. O cupom entra no pagamento.',
+ refs:['thaler','beekeepers'],
+ antes:function(){return phone(drawer(['geleia','meld','melb']));},
+ depois:function(){var k=['geleia','meld','melb'],s=sum(k),e=k.reduce(function(a,x){return a+(P[x].de-P[x].por);},0);return phone(drawer(k,{top:'',foot:'<div class="s-dr-foot"><div class="k-gainlist"><div><span class="eco">Você economiza nesta compra</span><span class="eco">'+brl(e)+'</span></div><div><span>'+I.check+'Brinde: garrafa térmica</span><span>grátis</span></div><div><span>'+I.check+'Frete fixo Sul e Sudeste</span><span>R$ 10,00</span></div></div><div class="s-sum"><span>Subtotal</span><b>'+brl(s)+'</b></div><div class="s-fin">FINALIZAR COMPRA · '+brl(s)+'</div></div>'}));}}
+];
+
+/* ---------- ideias que viraram código (mesma ordem de IDEIAS; 0 = ainda não) ---------- */
+var COD=[1,5,3,5,2, 0,3,3,0,1, 5,3,4,2,5, 1,2,1,3,2,5];
+IDEIAS.forEach(function(x,i){x.cod=COD[i];});
+var ARQ=[
+ ['1-tarjaMenuBlack.js','Tarja do topo e menu','Todas as páginas. A faixa amarela que corre dá lugar a uma linha parada por fase; na ULTRAWEEK a campanha vira o primeiro item do menu.'],
+ ['2-homeBlack.js','Home','Abaixo do banner principal: ritual do ULTRAFRIDAY, vitrine do 11.11, agenda da ULTRAWEEK e rotina da ULTRA MONDAY. Nos brindes, a faixa de benefícios vira os três brindes em foto.'],
+ ['3-pdpBlack.js','Página do produto','Cupom e preço com cupom nos kits da Geleia Real, economia em reais na ULTRAWEEK, bloco vida a dois no 11/11, próximo brinde e tabela dos Kits Testosterona.'],
+ ['4-seloCardBrinde.js','Cards de produto','Vitrines, categorias e busca: etiqueta do brinde que o produto garante sozinho.'],
+ ['5-carrinhoBlack.js','Carrinho','Lateral e página /cart/: régua dos 10%, escada de brindes, aviso antes de perder o brinde, prateleira de complementos e resumo da ULTRAWEEK.']
+];
+
+/* ---------- referências ---------- */
+var REFS={
+  puravida:['br','Puravida','Esquenta Black com o brinde e o valor mínimo dentro do próprio banner.','https://www.puravida.com.br'],
+  sallve:['br','Sallve','O brinde e o valor mínimo escritos na tarja do topo, numa linha só.','https://www.sallve.com.br'],
+  essential:['br','Essential Nutrition','Selo da semana de campanha no card, a campanha como primeiro atalho da navegação e compra por objetivo.','https://www.essentialnutrition.com.br'],
+  beekeepers:['int','Beekeeper’s Naturals','Barra de progresso no topo do carrinho, total dentro do botão, garantia logo abaixo e coleções por necessidade.','https://www.beekeepersnaturals.com'],
+  comvita:['int','Comvita','Guia de presentes de fim de ano com kits e presentes em foto.','https://comvita.com/pages/holiday-gifting-guide'],
+  hims:['int','Hims','Envio em embalagem discreta, dito na página e na central de ajuda.','https://support.hims.com/hc/en-us/articles/360001394523-Is-your-packaging-discreet'],
+  rebuy:['int','Rebuy','Documentação da barra de recompensas em degraus no carrinho.','https://help.rebuyengine.com/en/articles/6120478-tiered-progress-bar-and-the-smart-cart'],
+  cialdini:['livro','Robert Cialdini, As armas da persuasão','Reciprocidade, escassez e prova social.',''],
+  eyal:['livro','Nir Eyal, Hooked','Gatilho fixo, recompensa e hábito.',''],
+  dutra:['livro','Rian Dutra, Enviesados','Ancoragem e enquadramento de preço aplicados ao design.',''],
+  krug:['livro','Steve Krug, Não me faça pensar','A tela responde antes de a pessoa precisar fazer conta.',''],
+  shotton:['livro','Richard Shotton, The Choice Factory','Efeito do meio-termo e outros vieses de escolha no varejo.',''],
+  berger:['livro','Jonah Berger, Contagious','Regra dos 100: reais acima de 100, porcentagem abaixo.','https://jonahberger.com/fuzzy-math-what-makes-something-seem-like-a-good-deal/'],
+  thaler:['livro','Richard Thaler, Misbehaving','Efeito dotação e contabilidade mental.',''],
+  kivetz:['est','Kivetz, Urminsky e Zheng (2006)','The Goal-Gradient Hypothesis Resurrected, Journal of Marketing Research.','https://business.columbia.edu/faculty/research/goal-gradient-hypothesis-resurrected-purchase-acceleration-illusionary-goal'],
+  nunes:['est','Nunes e Drèze (2006)','The Endowed Progress Effect, Journal of Consumer Research. O estudo do cartão de lava-rápido.',''],
+  ariely:['est','Shampanier, Mazar e Ariely (2007), PDF','Zero as a Special Price, Marketing Science.','https://people.duke.edu/~dandan/webfiles/PapersPI/Zero%20as%20a%20Special%20Price.pdf'],
+  dai:['est','Dai, Milkman e Riis (2014), PDF','The Fresh Start Effect, Management Science.','https://faculty.wharton.upenn.edu/wp-content/uploads/2014/06/Dai_Fresh_Start_2014_Mgmt_Sci.pdf'],
+  simonson:['est','Itamar Simonson (1989)','Choice Based on Reasons, Journal of Consumer Research: o efeito do meio-termo.',''],
+  kahneman:['est','Kahneman e Tversky (1979)','Prospect Theory: aversão à perda.',''],
+  nng:['est','Nielsen Norman Group','Conteúdo que avança sozinho incomoda e passa sem ser visto.','https://www.nngroup.com/articles/auto-forwarding/'],
+  baymard:['est','Baymard Institute','Pesquisa de carrinho e checkout: campo de cupom e sugestões no carrinho.','https://baymard.com/research/checkout-usability'],
+  gardner:['est','Oli Gardner, Unbounce','Coerência entre o anúncio e a página que ele abre.','']
+};
+var GRUPOS=[['br','Lojas no Brasil'],['int','Lojas e ferramentas lá fora'],['livro','Livros'],['est','Estudos, PDFs e pesquisa']];
+
+/* ---------- render ---------- */
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+$('acts').innerHTML=Object.keys(ACOES).map(function(k){var a=ACOES[k];return '<a class="act a-'+a.cls+'" href="#g-'+k+'"><span class="nm">'+a.nome+'</span><span class="when">'+a.quando+'</span><span class="rl">'+a.regra+'</span><span class="go">ver as ideias ↓</span></a>';}).join('');
+
+/* calendário: 26/10 (seg) a 30/11 (seg) */
+var EV={};
+function put(d,c,l,cont){(EV[d]=EV[d]||[]).push([c,l,cont]);}
+[['10-30','10-31','11-01'],['11-06','11-07','11-08'],['11-13','11-14','11-15'],['11-20','11-21','11-22']].forEach(function(r,i){r.forEach(function(d,j){put(d,'fri',j===0?(i===0?'ULTRAFRIDAY (início a confirmar)':'ULTRAFRIDAY'):'ULTRAFRIDAY',j>0);});});
+['10-29','11-05','11-12','11-19'].forEach(function(d){put(d,'soft','quinta avisa');});
+put('11-10','soft','véspera: avisa');
+put('11-11','lib','ULTRALIBIDO');
+['11-23','11-24','11-25','11-26'].forEach(function(d,j){put(d,'week','ULTRAWEEK',j>0);});
+put('11-27','fri','ULTRA FRIDAY');
+put('11-28','fri','ULTRA WEEKEND');put('11-29','fri','ULTRA WEEKEND',true);
+put('11-30','week','ULTRA MONDAY');
+var cal='',d0=new Date(2026,9,26);
+for(var i=0;i<42;i++){var d=new Date(d0.getTime()+i*864e5);if(d>new Date(2026,10,30))break;var key=String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');var ev=EV[key]||[];var lbl=d.getDate()+(d.getDate()===1||i===0?'<small>'+(d.getMonth()===9?'out':'nov')+'</small>':'');
+  cal+='<div class="day'+(i===0?' today':'')+'"><span class="n">'+lbl+(i===0?'<small>hoje</small>':'')+'</span>'+ev.map(function(e){return e[0]==='soft'?'<span class="tag soft">'+e[1]+'</span>':'<span class="tag t-'+e[0]+(e[2]?' t-cont':'')+'">'+e[1]+'</span>';}).join('')+'</div>';}
+$('cal').innerHTML=cal;
+$('agenda').innerHTML=[
+ ['30/10 a 01/11','fri','ULTRAFRIDAY','Primeiro fim de semana, se começar já nesta sexta. Quinta avisa.'],
+ ['06 a 08/11','fri','ULTRAFRIDAY','Sexta 0h a domingo 23h59.'],
+ ['11/11','lib','ULTRALIBIDO','Um dia só. Na véspera, a tarja avisa.'],
+ ['13 a 15/11','fri','ULTRAFRIDAY','Sexta 0h a domingo 23h59.'],
+ ['20 a 22/11','fri','ULTRAFRIDAY','Último aquecimento antes da semana.'],
+ ['23 a 26/11','week','ULTRAWEEK','Ofertas da semana, de segunda a quinta.'],
+ ['27/11','fri','ULTRA FRIDAY','É hoje: termina 23h59.'],
+ ['28 e 29/11','fri','ULTRA WEEKEND','Últimos dois dias da semana.'],
+ ['30/11','week','ULTRA MONDAY','Última chance, até 23h59.']
+].map(function(r){return '<li><b>'+r[0]+'</b><span><span class="tag t-'+r[1]+'">'+r[2]+'</span><br>'+r[3]+'</span></li>';}).join('');
+
+/* filtros */
+var state={a:'all',o:'all'};
+var fa=[['all','Todas as ações']].concat(Object.keys(ACOES).map(function(k){return [k,ACOES[k].nome];}));
+var fo=[['all','Tudo']].concat(Object.keys(ONDE).map(function(k){return [k,ONDE[k]];}));
+$('filters').innerHTML='<div class="fg" role="group" aria-label="Filtrar por ação"><span class="lab">Ação</span>'+fa.map(function(x){return '<button class="chip" data-f="a" data-v="'+x[0]+'" aria-pressed="'+(x[0]==='all')+'">'+x[1]+'</button>';}).join('')+'</div><div class="fg" role="group" aria-label="Filtrar por parte do site"><span class="lab">Onde</span>'+fo.map(function(x){return '<button class="chip" data-f="o" data-v="'+x[0]+'" aria-pressed="'+(x[0]==='all')+'">'+x[1]+'</button>';}).join('')+'</div>';
+
+/* grupos e cards */
+var refLink=function(r){var x=REFS[r];if(!x)return '';return '<a href="#ref-'+r+'">'+esc(x[1].split(',')[0].split(' (')[0])+'</a>';};
+$('groups').innerHTML=Object.keys(ACOES).map(function(k){var a=ACOES[k];var list=IDEIAS.filter(function(x){return x.a===k;});
+  return '<div class="grp" id="g-'+k+'" data-a="'+k+'"><div class="grp-head a-'+a.cls+'"><div class="nm">'+a.nome+'</div><div class="meta"><b>'+a.quando+'</b><span>'+a.regra+'</span><span>'+a.papel+'</span></div></div><div class="ideas">'+list.map(function(x,i){
+    return '<article class="idea" data-a="'+k+'" data-o="'+x.onde+'"><div class="idea-h"><div class="where"><span class="pill p-'+a.cls+'">'+a.nome+'</span><span class="pill">'+ONDE[x.onde]+'</span>'+(x.cod?'<a class="pill p-code" href="#cod-'+x.cod+'">Código '+x.cod+'</a>':'')+'</div><h3>'+x.t+'</h3></div>'+
+      '<div class="stage"><div class="seg" role="group" aria-label="Alternar tela"><button type="button" data-v="antes" aria-pressed="false">Antes</button><button type="button" data-v="depois" aria-pressed="true">Depois</button></div><div class="ba" data-v="depois"><figure class="antes"><figcaption>Antes</figcaption>'+x.antes()+'</figure><figure class="depois"><figcaption>Depois</figcaption>'+x.depois()+'</figure></div></div>'+
+      '<div class="idea-b"><p class="why"><b>Por que funciona.</b> '+x.por+'</p><div class="how"><h4>Como fazer</h4><ul>'+x.como.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul></div><p class="care"><b>Cuidado.</b> '+x.cuidado+'</p><div class="refs">'+x.refs.map(refLink).join('')+'</div></div></article>';
+  }).join('')+'</div></div>';}).join('');
+
+function apply(){var n=0;document.querySelectorAll('.idea').forEach(function(el){var ok=(state.a==='all'||el.dataset.a===state.a)&&(state.o==='all'||el.dataset.o===state.o);el.hidden=!ok;if(ok)n++;});
+  document.querySelectorAll('.grp').forEach(function(g){g.hidden=!g.querySelector('.idea:not([hidden])');});
+  $('empty').hidden=n>0;}
+$('filters').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;state[b.dataset.f]=b.dataset.v;
+  document.querySelectorAll('.chip[data-f="'+b.dataset.f+'"]').forEach(function(c){c.setAttribute('aria-pressed',String(c===b));});apply();});
+$('groups').addEventListener('click',function(e){var b=e.target.closest('.seg button');if(!b)return;var st=b.closest('.stage');st.querySelector('.ba').dataset.v=b.dataset.v;
+  st.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b));});});
+$('acts').addEventListener('click',function(e){var a=e.target.closest('.act');if(!a)return;var k=a.getAttribute('href').slice(3);state.a='all';state.o='all';
+  document.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed',String(c.dataset.v==='all'));});apply();});
+
+/* códigos */
+$('codes').innerHTML=ARQ.map(function(f,i){var n=i+1;var lista=IDEIAS.filter(function(x){return x.cod===n;});
+  return '<article class="code" id="cod-'+n+'"><div class="eyebrow">Código '+n+'</div><h3>'+f[1]+'</h3><span class="file">Black 2026/Códigos/'+f[0]+'</span><p>'+f[2]+'</p><ul>'+lista.map(function(x){return '<li>'+x.t+'</li>';}).join('')+'</ul><div class="row"><button type="button" class="btn" data-copy="'+n+'">Copiar código</button><button type="button" class="btn ghost" data-ver="'+n+'">Ver código</button></div><pre hidden id="pre-'+n+'"></pre></article>';}).join('');
+$('codes').addEventListener('click',function(e){var c=e.target.closest('[data-copy]'),v=e.target.closest('[data-ver]');
+  if(c){var t=CODES[ARQ[+c.dataset.copy-1][0]]||'';var done=function(){c.textContent='Copiado';setTimeout(function(){c.textContent='Copiar código';},1800);};
+    try{navigator.clipboard.writeText(t).then(done,function(){ver(+c.dataset.copy,true);});}catch(err){ver(+c.dataset.copy,true);}}
+  if(v){ver(+v.dataset.ver);}});
+function ver(n,sel){var p=$('pre-'+n);if(!p.textContent)p.textContent=CODES[ARQ[n-1][0]]||'';p.hidden=sel?false:!p.hidden;
+  var b=document.querySelector('[data-ver="'+n+'"]');if(b)b.textContent=p.hidden?'Ver código':'Esconder código';
+  if(sel&&!p.hidden){var r=document.createRange();r.selectNodeContents(p);var s=getSelection();s.removeAllRanges();s.addRange(r);}}
+
+/* pendências */
+$('todo').innerHTML=[
+ '<b>Início do ULTRAFRIDAY:</b> já nesta sexta, 30/10? E ele roda também de 27 a 29/11, junto com a ULTRAWEEK, ou sai de cena?',
+ '<b>Período dos brindes:</b> só no 11/11, na ULTRAWEEK ou em novembro inteiro?',
+ '<b>Os brindes acumulam?</b> Um pedido acima de R$ 699 leva os três ou só a ecobag?',
+ '<b>Base das faixas:</b> R$ 299, R$ 400, R$ 499 e R$ 699 contam antes ou depois de cupom e de desconto no Pix?',
+ '<b>Frete e garrafa quase no mesmo valor:</b> o frete fixo vale acima de R$ 500 e a garrafa acima de R$ 499. Igualar os dois na campanha deixa a régua mais simples.',
+ '<b>Oferta do 11/11:</b> é desconto, kit ou brinde? Quais produtos entram na vitrine ULTRALIBIDO?',
+ '<b>Fases da ULTRAWEEK:</b> o que muda de oferta na ULTRA FRIDAY, no WEEKEND e na MONDAY?',
+ '<b>Cupons juntos:</b> o ULTRAFRIDAY acumula com cupom de influenciador e com o BEMVINDO?',
+ '<b>Brinde no pedido:</b> entra sozinho ou precisa de cupom ou de escolha no checkout?',
+ '<b>Embalagem:</b> a caixa de envio já é neutra, sem o nome do produto por fora?',
+ '<b>Fotos:</b> própolis + pegador, garrafa térmica e ecobag, em fundo claro, para a home e para a régua.'
+].map(function(t){return '<li><span>'+t+'</span></li>';}).join('');
+
+/* fontes */
+$('src').innerHTML=GRUPOS.map(function(g){return '<div><h3>'+g[1]+'</h3><ul>'+Object.keys(REFS).filter(function(k){return REFS[k][0]===g[0];}).map(function(k){var r=REFS[k];return '<li id="ref-'+k+'"><b>'+(r[3]?'<a href="'+r[3]+'" target="_blank" rel="noopener">'+esc(r[1])+'</a>':esc(r[1]))+'</b><br>'+esc(r[2])+'</li>';}).join('')+'</ul></div>';}).join('');
+
+apply();
+})();
+</script>

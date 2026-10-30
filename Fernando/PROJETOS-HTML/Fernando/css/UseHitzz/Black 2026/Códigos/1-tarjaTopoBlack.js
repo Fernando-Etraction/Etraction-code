@@ -4,14 +4,14 @@
   /* =========================================================
      HITZZ - BLACK 2026
      CÓDIGO 1 - TARJA TOPO
-     Acima do header, em todas as páginas. Troca a mensagem
-     sozinha conforme a ação da Black que estiver no ar.
+     Acima do header, em todas as páginas. Cada ação da Black tem
+     o seu conceito, o mesmo nos 5 códigos:
 
-     MODELOS
-     1  Clássica   preta, selo + contador em blocos + botão
-     2  Letreiro   uma linha só, texto correndo e contador fixo
-     3  Branca     fundo branco, contador em texto e link sublinhado
-     4  Dividida   selo da ação num bloco vermelho à esquerda
+     Black Hitzz   a caixa Black: fita de lacre + "Dia 12/30"
+     Só no app     a notificação: um push do app Hitzz
+     11.11         o painel de embarque: letras que viram + relógio
+     Isla por R$1  preço riscado: "Isla R$ 249,90 R$1 acima de R$999"
+     Black Friday  o pregão: letreiro de cotações em queda
   ========================================================= */
 
   if (window.__hzbfTarjaLoaded) {
@@ -19,8 +19,6 @@
   }
 
   window.__hzbfTarjaLoaded = true;
-
-  var MODELO = 1;
 
   var ID = "hzbf-bar";
   var STYLE_ID = "hzbf-bar-style";
@@ -46,42 +44,10 @@
     urlIsla: "/isla-chinelo-flat-feminino-marrom",
 
     appIos: "https://apps.apple.com/br/app/use-hitzz/id6793275985",
-    appAndroid: "https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR"
-  };
+    appAndroid: "https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR",
 
-  // Textos de cada ação. Regra de copy (Ogilvy): número, preço e prazo,
-  // nada de "imperdível".
-  var TEXTOS = {
-    month: {
-      tag: "Black Hitzz",
-      msg: "<strong>Até 70% OFF</strong> na categoria Black",
-      cta: "Ver ofertas",
-      url: "urlBlack"
-    },
-    app: {
-      tag: "Só no app",
-      msg: "<strong>Até 70% OFF + 20% OFF no Pix</strong> no app Hitzz",
-      cta: "Baixar o app",
-      url: "app"
-    },
-    "1111": {
-      tag: "11.11",
-      msg: "<strong>+ de 24 Hitzz por até R$124</strong> por 24 horas",
-      cta: "Ver os 24",
-      url: "url1111"
-    },
-    isla: {
-      tag: "Isla por R$1",
-      msg: "Compras acima de <strong>R$999</strong> levam a <strong>Isla Marrom por R$1</strong>",
-      cta: "Ver ofertas",
-      url: "urlBlack"
-    },
-    black: {
-      tag: "Black Friday",
-      msg: "<strong>Até 70% OFF + 20% OFF no Pix</strong>",
-      cta: "Ver ofertas",
-      url: "urlBlack"
-    }
+    // Black Friday: as "cotações" do letreiro
+    cotacoes: ["Botas", "Flats", "Tamancos", "Saltos", "Sandálias"]
   };
 
   var estadoRenderizado = null;
@@ -106,7 +72,6 @@
      ?hzbf=black:ultimo   força o "último dia"
      ?hzbf=app:antes      força o aviso "começa hoje às 22h"
      ?hzbf=off            volta ao calendário
-     ?hzbfm=1 a 4         mostra outro modelo (?hzbfm=off volta ao MODELO daqui)
   ========================================================= */
 
   // Horário de Brasília (UTC-3), independente do relógio do visitante
@@ -172,31 +137,6 @@
 
   var PREVIEW = lerPreview();
 
-  function lerModelo() {
-
-    var valor = null;
-
-    try {
-
-      var param = new URLSearchParams(window.location.search).get("hzbfm");
-
-      if (param === "off") {
-        window.sessionStorage.removeItem("hzbfm");
-      } else if (param) {
-        window.sessionStorage.setItem("hzbfm", param);
-      }
-
-      valor = window.sessionStorage.getItem("hzbfm");
-
-    } catch (erro) { }
-
-    var n = parseInt(valor, 10);
-
-    return n >= 1 && n <= 4 ? n : MODELO;
-  }
-
-  var M = lerModelo();
-
   // Devolve { id, ultimo, antes, fim } ou null fora da Black
   function momentoDaAcao() {
 
@@ -242,181 +182,229 @@
       .replace(/"/g, "&quot;");
   }
 
-  function semTags(html) {
-    return String(html).replace(/<[^>]+>/g, "");
-  }
-
   function doisDigitos(n) {
     return n < 10 ? "0" + n : "" + n;
   }
 
   function linkDoApp() {
-
-    var ua = navigator.userAgent || "";
-
-    if (/iPhone|iPad|iPod/i.test(ua)) {
-      return CONFIG.appIos;
-    }
-
-    return CONFIG.appAndroid;
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent || "") ? CONFIG.appIos : CONFIG.appAndroid;
   }
 
-  function urlDoCta(chave) {
-    return chave === "app" ? linkDoApp() : CONFIG[chave];
+  // Dia de novembro no horário de Brasília (1 a 30), para o "Dia 12/30"
+  function diaDaBlack() {
+
+    var d = new Date(Date.now() - 3 * 3600000);
+
+    return d.getUTCMonth() === 10 ? d.getUTCDate() : 1;
   }
 
-  function textoDoSelo(m) {
+  // "2d 04:59:58" ou "04:59:58"
+  function tempoTexto(fim) {
 
-    if (m.ultimo) {
-      return m.id === "1111" ? "Últimas horas" : "Último dia";
-    }
+    var restante = Math.max(0, Math.floor((fim - Date.now()) / 1000));
+    var dias = Math.floor(restante / 86400);
 
-    return TEXTOS[m.id].tag;
+    return (dias > 0 ? dias + "d " : "") +
+      doisDigitos(Math.floor(restante % 86400 / 3600)) + ":" +
+      doisDigitos(Math.floor(restante % 3600 / 60)) + ":" +
+      doisDigitos(restante % 60);
   }
 
-  // Na base do mês o timer só aparece no último dia (30/11)
-  function temTimer(m) {
-    return m.antes || m.id !== "month" || m.ultimo;
+  // 11.11: horas corridas, como num painel ("33:59:59")
+  function tempoPainel(fim) {
+
+    var restante = Math.max(0, Math.floor((fim - Date.now()) / 1000));
+
+    return doisDigitos(Math.min(99, Math.floor(restante / 3600))) + ":" +
+      doisDigitos(Math.floor(restante % 3600 / 60)) + ":" +
+      doisDigitos(restante % 60);
   }
 
-  var DOT = '<span class="hzbf-dot" aria-hidden="true"></span>';
-  var SETA = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+  var TIMER = '<span class="hzbf-tempo" data-hzbf-timer></span>';
 
 
   /* =========================================================
      CSS
   ========================================================= */
 
+  var MONO = 'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace';
+
   var CSS = [
-    '.hzbf-bar{box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;width:100%;min-height:46px;margin:0;padding:8px 16px;background:#000;color:#fff;font:inherit;font-size:13px;font-weight:400;line-height:1.3;letter-spacing:.02em;text-transform:none;text-align:center;position:relative;z-index:2;-webkit-font-smoothing:antialiased}',
+    '.hzbf-bar{box-sizing:border-box;position:relative;z-index:2;width:100%;margin:0;padding:0;background:#000;color:#fff;box-shadow:inset 0 -1px 0 rgba(255,255,255,.22);font:inherit;font-size:13px;font-weight:400;line-height:1.3;letter-spacing:0;text-transform:none;text-align:center;-webkit-font-smoothing:antialiased}',
     '.hzbf-bar *{box-sizing:border-box}',
+    '.hzbf-bar a{color:inherit !important;text-decoration:none !important}',
+    '.hzbf-bar a:focus-visible{outline:2px solid #fff;outline-offset:-4px}',
+    '.hzbf-tempo{font-variant-numeric:tabular-nums;white-space:nowrap}',
+    '@keyframes hzbf-corre{to{transform:translateX(-50%)}}',
 
-    /* Selo da ação */
-    '.hzbf-bar__tag{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-size:10px;font-weight:700;line-height:1.2;letter-spacing:.16em;text-transform:uppercase;white-space:nowrap}',
-    '.hzbf-bar--ultimo .hzbf-bar__tag{background:#e5262e}',
-    '.hzbf-bar--ultimo .hzbf-dot{background:#fff}',
+    /* Black Hitzz - fita de lacre */
+    '.hzbf-fita{position:relative;display:flex;align-items:center;height:40px;overflow:hidden;background:#000}',
+    '.hzbf-fita::before,.hzbf-fita::after{content:"";position:absolute;left:0;right:0;z-index:2;height:4px;background:repeating-linear-gradient(-45deg,#fff 0 5px,#000 5px 10px)}',
+    '.hzbf-fita::before{top:0}',
+    '.hzbf-fita::after{bottom:0}',
+    '.hzbf-fita__janela{flex:1;min-width:0;overflow:hidden}',
+    '.hzbf-fita__trilho{display:inline-flex;white-space:nowrap;animation:hzbf-corre 34s linear infinite}',
+    '.hzbf-fita__item{display:inline-flex;align-items:center;gap:14px;padding-right:14px;font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}',
+    '.hzbf-fita__x{color:#e5262e;font-weight:900;letter-spacing:0}',
+    '.hzbf-fita__dia{position:relative;z-index:3;flex:0 0 auto;margin:0 8px 0 4px;padding:4px 7px;background:#fff;color:#000;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;box-shadow:-14px 0 10px #000}',
+    '.hzbf-bar--ultimo .hzbf-fita__dia{background:#e5262e;color:#fff}',
 
-    '.hzbf-bar__msg{color:rgba(255,255,255,.86)}',
-    '.hzbf-bar__msg strong{color:#fff;font-weight:800}',
+    /* Só no app - notificação */
+    '.hzbf-push{display:block;padding:6px 10px;background:#000}',
+    '.hzbf-push__card{display:flex;align-items:center;gap:10px;max-width:520px;margin:0 auto;padding:6px 8px 6px 7px;border-radius:13px;background:#1c1c1e;text-align:left}',
+    '.hzbf-push__ic{display:flex;align-items:center;justify-content:center;flex:0 0 26px;width:26px;height:26px;border-radius:7px;background:#000;box-shadow:inset 0 0 0 1px #3a3a3c;color:#fff;font-size:14px;font-weight:800;line-height:1}',
+    '.hzbf-push__txt{flex:1;min-width:0;line-height:1.2}',
+    '.hzbf-push__txt small{display:block;color:#8e8e93;font-size:10px;letter-spacing:.02em}',
+    '.hzbf-push__txt b{display:block;overflow:hidden;font-size:12.5px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}',
+    '.hzbf-push__abrir{flex:0 0 auto;padding:5px 11px;border-radius:999px;background:#3a3a3c;font-size:11.5px;font-weight:600}',
 
-    /* Timer */
-    '.hzbf-bar__timer{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.72);font-size:12px;white-space:nowrap}',
-    '.hzbf-bar__clock{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}',
-    '.hzbf-seg{display:inline-flex;align-items:baseline;gap:2px;padding:5px 6px;border-radius:6px;background:rgba(255,255,255,.12);line-height:1}',
-    '.hzbf-seg b{color:#fff;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}',
-    '.hzbf-seg i{color:rgba(255,255,255,.6);font-size:9px;font-style:normal;font-weight:700;text-transform:uppercase}',
+    /* 11.11 - painel de embarque */
+    '.hzbf-painel{display:flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:6px 12px;background:#000}',
+    '.hzbf-placas{display:inline-flex;align-items:center;gap:2px;perspective:200px}',
+    '.hzbf-placa{display:inline-flex;align-items:center;justify-content:center;width:14px;height:22px;border-radius:2px;background:linear-gradient(#262626 0 49%,#000 49% 53%,#1b1b1b 53%);color:#fff;' + MONO + ';font-size:13px;font-weight:700;line-height:1}',
+    '.hzbf-placa.hzbf-vira{animation:hzbf-vira .28s ease-out}',
+    '@keyframes hzbf-vira{from{transform:rotateX(85deg)}to{transform:none}}',
+    '.hzbf-sep{color:#fff;' + MONO + ';font-size:13px;font-weight:700;line-height:1}',
+    '.hzbf-painel__txt{font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}',
+    '.hzbf-bar--ultimo .hzbf-painel__txt{color:#ff5a5f}',
 
-    /* Botão */
-    '.hzbf-bar__cta{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 14px;border-radius:999px;background:#fff;color:#000 !important;font-size:12px;font-weight:700;line-height:1;text-decoration:none !important;white-space:nowrap;transition:background-color .15s}',
-    '.hzbf-bar__cta:hover{background:#ececec}',
-    '.hzbf-bar__cta:focus-visible{outline:2px solid #fff;outline-offset:3px}',
-    '.hzbf-bar__cta svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}',
+    /* Isla - preço riscado e o R$1 grande */
+    '.hzbf-isla{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:6px 12px;background:#000;font-size:11.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}',
+    '.hzbf-isla__de{color:#8a8a8a;font-weight:500;text-decoration:line-through}',
+    '.hzbf-isla__por{color:#ff4b52;font-size:17px;font-weight:900;letter-spacing:0}',
+    '.hzbf-isla__resto{color:#d6d6d6;font-weight:500;letter-spacing:.02em;text-transform:none}',
+    '.hzbf-bar--ultimo .hzbf-isla__nome{color:#ff4b52}',
 
-    '.hzbf-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#e5262e;flex-shrink:0}',
+    /* Black Friday - pregão */
+    '.hzbf-pregao{display:flex;align-items:stretch;height:40px;overflow:hidden;background:#000}',
+    '.hzbf-pregao__selo{display:flex;align-items:center;flex:0 0 auto;padding:0 12px;background:#e5262e;color:#fff;font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}',
+    '.hzbf-pregao__janela{display:flex;align-items:center;flex:1;min-width:0;overflow:hidden}',
+    '.hzbf-pregao__trilho{display:inline-flex;align-items:center;white-space:nowrap;animation:hzbf-corre 44s linear infinite;' + MONO + ';font-size:11px;letter-spacing:.03em;text-transform:uppercase}',
+    '.hzbf-cot{display:inline-flex;align-items:center;gap:6px;padding:0 14px}',
+    '.hzbf-cot span{color:#9a9a9a}',
+    '.hzbf-cot b{color:#ff4b52;font-weight:700}',
+    '.hzbf-cot--branco b{color:#fff}',
 
-    /* Modelo 2 - Letreiro */
-    '.hzbf-bar.hzbf-m2{display:block;min-height:0;height:38px;padding:0;overflow:hidden}',
-    '.hzbf-run{position:absolute;inset:0;display:flex;align-items:center;overflow:hidden;color:#fff !important;text-decoration:none !important}',
-    '.hzbf-run__track{display:inline-flex;white-space:nowrap;animation:hzbf-run 26s linear infinite}',
-    '.hzbf-run__item{display:inline-flex;align-items:center;gap:10px;padding-right:28px;font-size:12.5px;color:rgba(255,255,255,.88)}',
-    '.hzbf-run__item b{font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#fff}',
-    '.hzbf-run__item::after{content:"";width:5px;height:5px;border-radius:50%;background:#e5262e;margin-left:18px}',
-    '@keyframes hzbf-run{to{transform:translateX(-50%)}}',
-    '.hzbf-run__fix{position:absolute;right:0;top:0;bottom:0;display:flex;align-items:center;gap:6px;padding:0 14px 0 26px;background:linear-gradient(90deg,rgba(0,0,0,0),#000 22px);color:#fff;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}',
-    '.hzbf-bar--ultimo .hzbf-run__fix{color:#ff6b6f}',
-
-    /* Modelo 3 - Branca */
-    '.hzbf-bar.hzbf-m3{background:#fff;color:#111;border-bottom:1px solid #e6e6e6}',
-    '.hzbf-m3 .hzbf-bar__tag{background:#000;color:#fff}',
-    '.hzbf-m3 .hzbf-bar__msg{color:#333}',
-    '.hzbf-m3 .hzbf-bar__msg strong{color:#000}',
-    '.hzbf-m3 .hzbf-bar__timer{color:#555}',
-    '.hzbf-m3 .hzbf-bar__clock{color:#000;font-weight:800;font-size:13px}',
-    '.hzbf-m3 .hzbf-bar__cta{height:auto;padding:0;border-radius:0;background:none;color:#000 !important;text-decoration:underline !important;text-underline-offset:3px}',
-    '.hzbf-m3 .hzbf-bar__cta:hover{background:none}',
-
-    /* Modelo 4 - Dividida */
-    '.hzbf-bar.hzbf-m4{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0;padding:0;align-items:stretch}',
-    '.hzbf-bar__side{display:flex;align-items:center;justify-content:center;max-width:120px;padding:8px 16px;background:#e5262e;color:#fff;font-size:12px;font-weight:900;line-height:1.05;letter-spacing:.1em;text-transform:uppercase;text-align:center}',
-    '.hzbf-bar--ultimo .hzbf-bar__side{background:#fff;color:#e5262e}',
-    '.hzbf-bar__body{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;padding:8px 14px;min-width:0}',
-
-    /* Mobile: mensagem na primeira linha; selo, timer e botão na segunda */
+    /* Celular */
     '@media (max-width:600px){',
-    '.hzbf-bar{gap:7px 10px;padding:9px 12px;font-size:12px}',
-    '.hzbf-bar__msg{flex-basis:100%;order:1}',
-    '.hzbf-bar__tag,.hzbf-bar__timer,.hzbf-bar__cta{order:2}',
-    '.hzbf-bar__tag{padding:5px 9px;letter-spacing:.12em}',
-    '.hzbf-lg{display:none}',
-    /* Com timer: selo, timer e botão compactos para caber numa linha só */
-    '.hzbf-bar--timer{gap:7px 6px}',
-    '.hzbf-bar--timer .hzbf-bar__cta{height:28px;padding:0 9px;gap:4px;font-size:11.5px}',
-    '.hzbf-bar--timer .hzbf-bar__tag{padding:4px 7px;gap:5px;letter-spacing:.05em}',
-    '.hzbf-bar__clock{gap:3px}',
-    '.hzbf-seg{padding:4px 3px}',
-    '.hzbf-seg b{font-size:12px}',
-    '.hzbf-m3.hzbf-bar--timer .hzbf-bar__cta{height:auto;padding:0}',
-    '.hzbf-bar.hzbf-m4{padding:0}',
-    '.hzbf-bar__side{max-width:86px;padding:8px 10px;font-size:11px}',
-    '.hzbf-bar__body{gap:6px 10px;padding:8px 10px}',
-    '.hzbf-m4 .hzbf-bar__msg{flex-basis:100%}',
+    '.hzbf-painel{gap:6px;padding:6px 8px}',
+    '.hzbf-placa{width:13px;height:21px;font-size:12px}',
+    '.hzbf-painel__txt{font-size:9.5px;letter-spacing:.08em}',
+    '.hzbf-isla{gap:6px;font-size:10.5px}',
+    '.hzbf-isla__fim{display:none}',
+    '.hzbf-pregao__selo{padding:0 10px;font-size:10px}',
     '}',
 
-    '@media (prefers-reduced-motion:reduce){.hzbf-bar__cta{transition:none}.hzbf-run__track{animation:none}}'
+    '@media (prefers-reduced-motion:reduce){.hzbf-fita__trilho,.hzbf-pregao__trilho,.hzbf-placa.hzbf-vira{animation:none}}'
   ].join("");
 
 
   /* =========================================================
-     HTML
+     HTML - UM CONCEITO POR AÇÃO
   ========================================================= */
 
-  function timerHTML(m, rotulo) {
-    return '<span class="hzbf-bar__timer"><span class="hzbf-lg">' + rotulo + '</span><span class="hzbf-bar__clock" data-hzbf-timer></span></span>';
+  function link(classe, url, externo) {
+    return '<a class="' + classe + '" href="' + esc(url) + '" data-hzbf-cta' +
+      (externo ? ' target="_blank" rel="noopener"' : '') + '>';
   }
 
-  function ctaHTML(t) {
-    return '<a class="hzbf-bar__cta" href="' + esc(urlDoCta(t.url)) + '" data-hzbf-cta' +
-      (t.url === "app" ? ' target="_blank" rel="noopener"' : '') + '>' + esc(t.cta) + SETA + '</a>';
-  }
+  // Letreiro: o conteúdo vai duas vezes para a rolagem não ter emenda
+  function trilho(classe, item, vezes) {
 
-  function msgHTML(m, t) {
-    return '<span class="hzbf-bar__msg">' + (m.antes ? 'Começa hoje às 22h: ' : '') + t.msg + '</span>';
-  }
+    var metade = "";
 
-  // Modelo 2: uma linha correndo, contador fixo à direita
-  function letreiroHTML(m, t) {
-
-    var texto = (m.antes ? "Começa hoje às 22h: " : "") + semTags(t.msg);
-    var item = '<span class="hzbf-run__item"><b>' + esc(textoDoSelo(m)) + '</b>' + esc(texto) + '</span>';
-    var metade = item + item + item + item;
-
-    var fixo = temTimer(m)
-      ? '<span class="hzbf-run__fix">' + (m.antes ? 'Faltam ' : '') + '<span data-hzbf-timer></span></span>'
-      : '<span class="hzbf-run__fix">' + esc(t.cta) + ' →</span>';
-
-    return '<a class="hzbf-run" href="' + esc(urlDoCta(t.url)) + '" data-hzbf-cta' +
-      (t.url === "app" ? ' target="_blank" rel="noopener"' : '') + '>' +
-      '<span class="hzbf-run__track">' + metade + metade + '</span>' + fixo + '</a>';
-  }
-
-  function barHTML(m) {
-
-    var t = TEXTOS[m.id];
-
-    if (M === 2) {
-      return letreiroHTML(m, t);
+    for (var i = 0; i < vezes; i++) {
+      metade += item;
     }
 
-    var timer = temTimer(m) ? timerHTML(m, m.antes ? "Faltam" : (M === 3 ? "termina em" : "Termina em")) : '';
-    var cta = m.antes ? '' : ctaHTML(t);
-
-    if (M === 4) {
-      return '<span class="hzbf-bar__side">' + esc(textoDoSelo(m)) + '</span>' +
-        '<span class="hzbf-bar__body">' + msgHTML(m, t) + timer + cta + '</span>';
-    }
-
-    return '<span class="hzbf-bar__tag">' + DOT + esc(textoDoSelo(m)) + '</span>' + msgHTML(m, t) + timer + cta;
+    return '<span class="' + classe + '">' + metade + metade + '</span>';
   }
+
+  var CONCEITOS = {
+
+    // Black Hitzz: fita de lacre da caixa Black
+    month: function (m) {
+
+      var x = '<span class="hzbf-fita__x">✕</span>';
+      var item = '<span class="hzbf-fita__item">Black Hitzz' + x + 'Até 70% OFF na categoria Black' + x + '</span>';
+
+      return link("hzbf-fita", CONFIG.urlBlack) +
+        '<span class="hzbf-fita__janela">' + trilho("hzbf-fita__trilho", item, 3) + '</span>' +
+        '<span class="hzbf-fita__dia">' +
+          (m.ultimo ? 'Último dia · ' + TIMER : 'Dia ' + diaDaBlack() + '/30') +
+        '</span>' +
+      '</a>';
+    },
+
+    // Só no app: um push do app Hitzz
+    app: function (m) {
+
+      var linha = m.antes ? 'HITZZ · faltam ' + TIMER
+        : m.ultimo ? 'HITZZ · último dia · ' + TIMER
+        : 'HITZZ · termina em ' + TIMER;
+
+      var titulo = m.antes ? 'Só no app começa hoje às 22h' : 'Só no app: +20% OFF no Pix';
+
+      return link("hzbf-push", linkDoApp(), true) +
+        '<span class="hzbf-push__card">' +
+          '<span class="hzbf-push__ic" aria-hidden="true">h</span>' +
+          '<span class="hzbf-push__txt"><small>' + linha + '</small><b>' + esc(titulo) + '</b></span>' +
+          '<span class="hzbf-push__abrir">Abrir</span>' +
+        '</span>' +
+      '</a>';
+    },
+
+    // 11.11: painel de embarque com letras que viram
+    "1111": function (m) {
+
+      var texto = m.antes ? "Começa às 22h" : m.ultimo ? "Últimas horas" : "24 Hitzz até R$124";
+
+      return link("hzbf-painel", CONFIG.url1111) +
+        '<span class="hzbf-placas" aria-label="11.11">' +
+          '<span class="hzbf-placa">1</span><span class="hzbf-placa">1</span><span class="hzbf-sep">.</span>' +
+          '<span class="hzbf-placa">1</span><span class="hzbf-placa">1</span>' +
+        '</span>' +
+        '<span class="hzbf-painel__txt">' + esc(texto) + '</span>' +
+        '<span class="hzbf-placas" data-hzbf-painel></span>' +
+      '</a>';
+    },
+
+    // Isla: o preço cheio riscado e o R$1 grande
+    isla: function (m) {
+
+      return link("hzbf-isla", CONFIG.urlIsla) +
+        '<span class="hzbf-isla__nome">' + (m.antes ? 'Começa às 22h · Isla' : m.ultimo ? 'Último dia · Isla' : 'Isla') + '</span>' +
+        '<span class="hzbf-isla__de">R$ 249,90</span>' +
+        '<b class="hzbf-isla__por">R$1</b>' +
+        '<span class="hzbf-isla__resto">acima de R$999</span>' +
+        (m.antes ? '' : '<span class="hzbf-isla__resto hzbf-isla__fim">· até ' + TIMER + '</span>') +
+      '</a>';
+    },
+
+    // Black Friday: letreiro de cotações em queda
+    black: function (m) {
+
+      var item = "";
+
+      if (m.antes) {
+        item = '<span class="hzbf-cot hzbf-cot--branco"><span>Começa hoje às 22h · faltam</span><b>' + TIMER + '</b></span>' +
+          '<span class="hzbf-cot"><span>Até</span><b>▼70%</b><span>+ Pix</span><b>▼20%</b></span>';
+      } else {
+
+        for (var i = 0; i < CONFIG.cotacoes.length; i++) {
+          item += '<span class="hzbf-cot"><span>' + esc(CONFIG.cotacoes[i]) + '</span><b>▼70%</b></span>';
+        }
+
+        item += '<span class="hzbf-cot"><span>Pix</span><b>▼20%</b></span>' +
+          '<span class="hzbf-cot hzbf-cot--branco"><span>Fecha em</span><b>' + TIMER + '</b></span>';
+      }
+
+      return link("hzbf-pregao", CONFIG.urlBlack) +
+        '<span class="hzbf-pregao__selo">▼ ' + (m.ultimo ? 'Último dia' : 'Black Friday') + '</span>' +
+        '<span class="hzbf-pregao__janela">' + trilho("hzbf-pregao__trilho", item, 2) + '</span>' +
+      '</a>';
+    }
+  };
 
 
   /* =========================================================
@@ -438,14 +426,12 @@
       barra = document.createElement("div");
 
       barra.id = ID;
-      barra.className = "hzbf-bar hzbf-m" + M + " hzbf-bar--" + m.id +
-        (m.ultimo ? " hzbf-bar--ultimo" : "") +
-        (temTimer(m) ? " hzbf-bar--timer" : "");
+      barra.className = "hzbf-bar hzbf-bar--" + m.id + (m.ultimo ? " hzbf-bar--ultimo" : "") + (m.antes ? " hzbf-bar--antes" : "");
 
       barra.setAttribute("role", "region");
       barra.setAttribute("aria-label", "Black Hitzz");
 
-      barra.innerHTML = barHTML(m);
+      barra.innerHTML = CONCEITOS[m.id](m);
     }
 
     if (barra.nextElementSibling !== navbar) {
@@ -506,6 +492,34 @@
      TIMER
   ========================================================= */
 
+  // 11.11: uma placa por caractere; só a placa que mudou vira
+  function atualizarPainel(el, texto) {
+
+    if (el.children.length !== texto.length) {
+
+      var html = "";
+
+      for (var i = 0; i < texto.length; i++) {
+        html += texto.charAt(i) === ":" ? '<span class="hzbf-sep">:</span>' : '<span class="hzbf-placa"></span>';
+      }
+
+      el.innerHTML = html;
+    }
+
+    for (var j = 0; j < texto.length; j++) {
+
+      var placa = el.children[j];
+      var c = texto.charAt(j);
+
+      if (c !== ":" && placa.textContent !== c) {
+        placa.textContent = c;
+        placa.classList.remove("hzbf-vira");
+        void placa.offsetWidth;
+        placa.classList.add("hzbf-vira");
+      }
+    }
+  }
+
   function atualizarTimer(m) {
 
     var bloco = document.getElementById(ID);
@@ -514,30 +528,20 @@
       return;
     }
 
-    var restante = Math.max(0, Math.floor((m.fim - Date.now()) / 1000));
-
-    var dias = Math.floor(restante / 86400);
-    var h = Math.floor(restante % 86400 / 3600);
-    var min = Math.floor(restante % 3600 / 60);
-    var s = restante % 60;
-
-    function seg(valor, rotulo) {
-      return '<span class="hzbf-seg"><b>' + doisDigitos(valor) + '</b><i>' + rotulo + '</i></span>';
-    }
-
-    // Modelos 2 e 3 usam o contador em texto
-    var html = M === 2 || M === 3
-      ? (dias > 0 ? dias + "d " : "") + doisDigitos(h) + ":" + doisDigitos(min) + ":" + doisDigitos(s)
-      : (dias > 0 ? seg(dias, "d") : "") + seg(h, "h") + seg(min, "m") + seg(s, "s");
-
+    var texto = tempoTexto(m.fim);
     var timers = bloco.querySelectorAll("[data-hzbf-timer]");
 
     for (var i = 0; i < timers.length; i++) {
 
-      if (timers[i]._hzbfHtml !== html) {
-        timers[i]._hzbfHtml = html;
-        timers[i].innerHTML = html;
+      if (timers[i].textContent !== texto) {
+        timers[i].textContent = texto;
       }
+    }
+
+    var painel = bloco.querySelector("[data-hzbf-painel]");
+
+    if (painel) {
+      atualizarPainel(painel, tempoPainel(m.fim));
     }
   }
 
@@ -564,8 +568,7 @@
       (window.dataLayer = window.dataLayer || []).push({
         event: "hzbf_clique",
         hzbf_local: "tarja",
-        hzbf_acao: m ? m.id : "",
-        hzbf_modelo: M
+        hzbf_acao: m ? m.id : ""
       });
 
     } catch (erro) { }

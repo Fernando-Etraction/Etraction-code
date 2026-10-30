@@ -4,22 +4,23 @@
   /* =========================================================
      HITZZ - BLACK 2026
      CÓDIGO 3 - SELOS NOS CARDS
-     Em todas as listagens (categoria, busca, vitrines):
+     Em todas as listagens (categoria, busca, vitrines). Nos cards da
+     Black, cada ação tem o seu conceito, o mesmo dos outros códigos:
 
-     - Ideia 3: o selo "33% OFF" vira o desconto em reais
-       ("R$ 170 OFF") quando o par custa mais de R$100
-       (regra dos 100, Baymard). Vale no site todo durante a Black.
-     - Nos cards da Black: selo da ação na foto e, nas ações de
-       20% no Pix, o preço final do Pix embaixo do preço.
-     - Ideia 7: "Top 10 da Black" nos 10 primeiros da ordenação
-       "Mais vendidos" da própria loja.
-     - Ideia 8: "Termina hoje" nos cards no último dia da ação.
+     Black Hitzz   fita "BLACK HITZZ" atravessando o canto da foto
+     Só no app     bolinha vermelha de notificação + preço do app
+     11.11         etiqueta de embarque "Nº 07/24" nos pares de até R$124
+     Isla por R$1  "Leve a Isla R$ 249,90 R$1" embaixo do nome
+     Black Friday  cotação: "▼ 46%" na foto e a queda em reais
 
-     MODELOS (só nos cards da Black)
-     1  Fita            fita da ação no canto + selo da loja em reais
-     2  Etiqueta        etiqueta pendurada com a ação e o desconto
-     3  Faixa no topo   faixa preta de ponta a ponta no topo da foto
-     4  Selo redondo    círculo preto com o desconto em reais
+     IDEIAS (liga/desliga em IDEIAS)
+     3   o selo "33% OFF" da loja vira o desconto em reais ("R$ 170 OFF")
+         quando o par custa mais de R$100 (regra dos 100, Baymard)
+     7   "Top 10 da Black" nos 10 primeiros da ordenação "Mais vendidos"
+     8   "Termina hoje" nos cards no último dia da ação
+
+     As classes deste código começam com "hzbfk-" para não trombar
+     com as dos outros códigos da Black, que rodam na mesma página.
   ========================================================= */
 
   if (window.__hzbfCardLoaded) {
@@ -27,8 +28,6 @@
   }
 
   window.__hzbfCardLoaded = true;
-
-  var MODELO = 1;
 
   var IDEIAS = {
     descontoEmReais: true,
@@ -42,12 +41,10 @@
     card: ".product",
     foto: ".product-list-image-container",
     selo: ".discount",
-    info: ".product-list-info",
     preco: ".price",
     de: ".box-price-of .from-price",
     por: ".box-price-to > .to-price",
     pix: ".cash-payment-container .to-price",
-    pixBox: ".cash-payment-container",
     fitaEsquenta: ".hz-eb-tag"
   };
 
@@ -64,21 +61,14 @@
 
   var CONFIG = {
     descontoPix: 0.20,   // app (05 a 08/11) e Black Friday (27 a 29/11)
-    limite1111: 124,     // 11.11: pares por até R$124 ganham o selo
+    limite1111: 124,     // 11.11: pares por até R$124 ganham a etiqueta
     reaisAPartirDe: 100, // regra dos 100: acima disso, desconto em R$
+    urlIsla: "/isla-chinelo-flat-feminino-marrom",
 
     // Ideia 7: a ordenação "Mais vendidos" da categoria Black
     urlMaisVendidos: "/categorizacao/promo?sorting%5Bbestseller%5D=asc&page=1",
     topQuantos: 10,
     topValidadeMin: 30
-  };
-
-  var SELOS = {
-    month: "Black",
-    app: "+20% no app",
-    "1111": "11.11",
-    isla: "Black",
-    black: "Black Friday"
   };
 
   var estadoRenderizado = null;
@@ -102,7 +92,6 @@
      ?hzbf=month | app | 1111 | isla | black
      ?hzbf=black:ultimo   força o "último dia"
      ?hzbf=off            volta ao calendário
-     ?hzbfm=1 a 4         mostra outro modelo (?hzbfm=off volta ao MODELO daqui)
   ========================================================= */
 
   function brasilia(ano, mes, dia, hora) {
@@ -157,31 +146,6 @@
 
   var PREVIEW = lerPreview();
 
-  function lerModelo() {
-
-    var valor = null;
-
-    try {
-
-      var param = new URLSearchParams(window.location.search).get("hzbfm");
-
-      if (param === "off") {
-        window.sessionStorage.removeItem("hzbfm");
-      } else if (param) {
-        window.sessionStorage.setItem("hzbfm", param);
-      }
-
-      valor = window.sessionStorage.getItem("hzbfm");
-
-    } catch (erro) { }
-
-    var n = parseInt(valor, 10);
-
-    return n >= 1 && n <= 4 ? n : MODELO;
-  }
-
-  var M = lerModelo();
-
   // Devolve { id, ultimo, fim } ou null fora da Black
   function momentoDaAcao() {
 
@@ -226,6 +190,10 @@
     return "R$ " + valor.toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
+  function doisDigitos(n) {
+    return n < 10 ? "0" + n : "" + n;
+  }
+
   function caminho(url) {
     return url.replace(/[?#].*$/, "").replace(/\/+$/, "") || "/";
   }
@@ -258,10 +226,25 @@
     return naPaginaBlack || (TAG_BLACK && card.classList.contains(TAG_BLACK));
   }
 
+  function ehAIsla(card) {
+    var link = card.querySelector("a[href]");
+    return !!link && caminhoDoLink(link.getAttribute("href")) === caminho(CONFIG.urlIsla);
+  }
+
   // "às 23h59" ou "às 8h", a partir do fim (exclusivo) da ação
   function horaDoFim(fim) {
     var d = new Date(fim - 3 * 3600000);
     return d.getUTCHours() === 0 && d.getUTCMinutes() === 0 ? "23h59" : d.getUTCHours() + "h";
+  }
+
+  function criar(tag, classe, html) {
+
+    var el = document.createElement(tag);
+
+    el.className = classe;
+    el.innerHTML = html;
+
+    return el;
   }
 
   var CELULAR = '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4.5" y="1.5" width="7" height="13" rx="1.6"/><path d="M7 12.2h2"/></svg>';
@@ -271,45 +254,46 @@
      CSS
   ========================================================= */
 
+  var MONO = 'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace';
+
   var CSS = [
-    '.hzbf-tem-selo ' + SELETORES.foto + '{position:relative}',
-    '.hzbf-tem-selo ' + SELETORES.fitaEsquenta + '{display:none !important}',
+    '.hzbfk-tem-selo ' + SELETORES.foto + '{position:relative;overflow:hidden}',
+    '.hzbfk-tem-selo ' + SELETORES.fitaEsquenta + '{display:none !important}',
     // Mais forte que ".etraction-home-vitrine .promotion .discount" (outro código da loja)
-    '.product.hzbf-sem-selo-loja .promotion ' + SELETORES.selo + ',.product.hzbf-sem-selo-loja ' + SELETORES.selo + '{display:none !important}',
+    '.product.hzbfk-sem-selo-loja .promotion ' + SELETORES.selo + ',.product.hzbfk-sem-selo-loja ' + SELETORES.selo + '{display:none !important}',
 
-    /* Modelo 1 - Fita (também usada no modelo 4) */
-    '.hzbf-fita{position:absolute;left:8px;top:8px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:#000;color:#fff;font-size:10px;font-weight:700;line-height:1.1;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;pointer-events:none}',
-    '.hzbf-fita i{display:block;width:5px;height:5px;border-radius:50%;background:#e5262e}',
-    '.hzbf-fita--1111{background:#fff;color:#000;box-shadow:inset 0 0 0 1.5px #000}',
+    /* Black Hitzz - fita da caixa Black no canto da foto */
+    '.hzbfk-fita{position:absolute;left:-34px;top:16px;z-index:3;width:140px;padding:5px 0;background:#000;color:#fff;font-size:9px;font-weight:900;line-height:1;letter-spacing:.16em;text-align:center;text-transform:uppercase;transform:rotate(-45deg);border-top:1.5px dashed rgba(255,255,255,.7);border-bottom:1.5px dashed rgba(255,255,255,.7);pointer-events:none}',
 
-    /* Modelo 2 - Etiqueta */
-    '.hzbf-etq{position:absolute;right:8px;top:10px;z-index:3;display:grid;justify-items:center;gap:1px;min-width:62px;padding:12px 8px 7px;border-radius:5px;background:#fff;color:#000;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.18);transform:rotate(4deg);transform-origin:50% 0;pointer-events:none}',
-    '.hzbf-etq::before{content:"";position:absolute;top:4px;left:50%;width:6px;height:6px;margin-left:-3px;border-radius:50%;background:#efefef;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}',
-    '.hzbf-etq small{font-size:8.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;line-height:1.1}',
-    '.hzbf-etq b{font-size:14px;font-weight:900;line-height:1.05;white-space:nowrap}',
+    /* Só no app - notificação */
+    '.hzbfk-bolha{position:absolute;right:8px;top:8px;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid #fff;border-radius:50%;background:#e5262e;color:#fff;font-size:10px;font-weight:800;line-height:1.05;text-align:center;pointer-events:none}',
+    '.hzbfk-app{display:inline-flex;align-items:center;gap:5px;margin-top:5px;padding:4px 9px 4px 7px;border-radius:999px;background:#000;color:#fff;font-size:11px;line-height:1.2}',
+    '.hzbfk-app b{font-weight:800}',
+    '.hzbfk-app svg{width:12px;height:12px;flex:0 0 12px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}',
 
-    /* Modelo 3 - Faixa no topo */
-    '.hzbf-faixa{position:absolute;left:0;right:0;top:0;z-index:3;display:flex;align-items:center;justify-content:center;gap:7px;padding:6px 8px;background:#000;color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;pointer-events:none}',
-    '.hzbf-faixa i{display:block;width:5px;height:5px;border-radius:50%;background:#e5262e}',
-    '.hzbf-faixa--1111{background:#fff;color:#000;box-shadow:inset 0 -1.5px 0 #000}',
+    /* 11.11 - etiqueta de embarque */
+    '.hzbfk-embarque{position:absolute;left:8px;top:8px;z-index:3;display:flex;overflow:hidden;border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.18);' + MONO + ';font-size:10px;font-weight:700;line-height:1;pointer-events:none}',
+    '.hzbfk-embarque span{padding:5px 6px;background:#fff;color:#000}',
+    '.hzbfk-embarque span+span{background:#000;color:#fff;border-left:1.5px dashed #fff}',
 
-    /* Modelo 4 - Selo redondo */
-    '.hzbf-redondo{position:absolute;right:8px;top:8px;z-index:3;display:grid;place-content:center;width:58px;height:58px;border-radius:50%;background:#000;color:#fff;text-align:center;line-height:1;pointer-events:none}',
-    '.hzbf-redondo small{font-size:9px;font-weight:700;letter-spacing:.06em}',
-    '.hzbf-redondo b{font-size:17px;font-weight:900;letter-spacing:-.02em}',
+    /* Isla - preço riscado e o R$1 */
+    '.hzbfk-isla{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;margin:4px 0 6px;padding:5px 8px;background:#000;color:#fff;font-size:11px;font-weight:700;line-height:1.2}',
+    '.hzbfk-isla s{color:#9a9a9a;font-weight:500}',
+    '.hzbfk-isla b{color:#ff4b52;font-size:14px;font-weight:900}',
+    '.hzbfk-isla span{color:#ddd;font-weight:500}',
 
-    /* Preço final do Pix / app embaixo do preço */
-    '.hzbf-pix{display:flex;align-items:center;flex-wrap:wrap;gap:4px 6px;margin-top:5px;color:#000;font-size:12px;line-height:1.25;text-align:inherit}',
-    '.hzbf-pix b{font-size:13.5px;font-weight:800}',
-    '.hzbf-pix svg{width:13px;height:13px;flex:0 0 13px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}',
-    '.hzbf-chip{display:inline-block;padding:2px 5px;border-radius:4px;background:#000;color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.04em;line-height:1.2;vertical-align:middle}',
-    '.hzbf-pixbox-chip{margin-left:5px}',
+    /* Black Friday - cotação */
+    '.hzbfk-cotacao{position:absolute;left:8px;top:8px;z-index:3;display:inline-flex;align-items:center;gap:4px;padding:5px 9px;border-radius:999px;background:#000;color:#fff;' + MONO + ';font-size:11px;font-weight:700;line-height:1;pointer-events:none}',
+    '.hzbfk-cotacao b{color:#ff4b52}',
+    '.hzbfk-queda{display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px;margin-top:5px;color:#000;font-size:12px;line-height:1.25}',
+    '.hzbfk-queda b{font-size:13.5px;font-weight:800}',
+    '.hzbfk-queda em{color:#e5262e;' + MONO + ';font-size:11px;font-style:normal;font-weight:700}',
 
     /* Ideia 7 - Top 10 */
-    '.hzbf-top{display:inline-flex;align-items:center;gap:4px;margin:2px 0 4px;padding:3px 7px;border-radius:4px;background:#f1f1ef;color:#000;font-size:10.5px;font-weight:800;letter-spacing:.02em;line-height:1.2}',
+    '.hzbfk-top{display:inline-flex;align-items:center;gap:4px;margin:2px 0 4px;padding:3px 7px;border-radius:4px;background:#f1f1ef;color:#000;font-size:10.5px;font-weight:800;letter-spacing:.02em;line-height:1.2}',
 
     /* Ideia 8 - Termina hoje */
-    '.hzbf-hoje{margin-top:4px;color:#c81e25;font-size:11.5px;font-weight:800;line-height:1.25}'
+    '.hzbfk-hoje{margin-top:4px;color:#c81e25;font-size:11.5px;font-weight:800;line-height:1.25}'
   ].join("");
 
 
@@ -395,7 +379,7 @@
 
   function limparCard(card) {
 
-    var meus = card.querySelectorAll(".hzbf-fita, .hzbf-etq, .hzbf-faixa, .hzbf-redondo, .hzbf-pix, .hzbf-pixbox-chip, .hzbf-top, .hzbf-hoje");
+    var meus = card.querySelectorAll('[class^="hzbfk-"],[class*=" hzbfk-"]');
 
     for (var i = 0; i < meus.length; i++) {
       meus[i].remove();
@@ -409,7 +393,7 @@
       selo.removeAttribute("title");
     }
 
-    card.classList.remove("hzbf-tem-selo", "hzbf-sem-selo-loja");
+    card.classList.remove("hzbfk-tem-selo", "hzbfk-sem-selo-loja");
     card.removeAttribute("data-hzbf");
   }
 
@@ -434,50 +418,73 @@
     }
   }
 
-  // Selo da ação na foto, conforme o modelo
-  function seloDaFoto(foto, card, acao, economia) {
+  // Coloca o conceito da ação no card. "n" é a posição do card entre os do 11.11.
+  function conceito(card, m, p, n) {
 
-    var nome = SELOS[acao];
-    var el = document.createElement("span");
+    var foto = card.querySelector(SELETORES.foto);
+    var precoBox = card.querySelector(SELETORES.preco);
+    var final = Math.round(p.por * (1 - CONFIG.descontoPix) * 100) / 100;
 
-    if (M === 2) {
-
-      el.className = "hzbf-etq";
-      el.innerHTML = '<small>' + nome + '</small>' + (economia ? '<b>R$ ' + economia + ' OFF</b>' : '');
-
-      card.classList.add("hzbf-sem-selo-loja");
-
-    } else if (M === 3) {
-
-      el.className = "hzbf-faixa hzbf-faixa--" + acao;
-      el.innerHTML = '<i aria-hidden="true"></i>' + nome + (economia ? ' · R$ ' + economia + ' OFF' : '');
-
-      card.classList.add("hzbf-sem-selo-loja");
-
-    } else {
-
-      el.className = "hzbf-fita hzbf-fita--" + acao;
-      el.innerHTML = '<i aria-hidden="true"></i>' + nome;
-
-      if (M === 4 && economia) {
-
-        var redondo = document.createElement("span");
-
-        redondo.className = "hzbf-redondo";
-        redondo.innerHTML = '<small>R$</small><b>' + economia + '</b><small>OFF</small>';
-
-        foto.appendChild(redondo);
-
-        card.classList.add("hzbf-sem-selo-loja");
+    function naFoto(el) {
+      if (foto) {
+        foto.appendChild(el);
+        card.classList.add("hzbfk-tem-selo");
       }
     }
 
-    foto.appendChild(el);
+    if (m.id === "month") {
+      naFoto(criar("span", "hzbfk-fita", "Black Hitzz"));
+      return;
+    }
 
-    card.classList.add("hzbf-tem-selo");
+    if (m.id === "app") {
+      naFoto(criar("span", "hzbfk-bolha", "−20%<br>app"));
+      // Quanto ela economiza a mais no app, em cima do Pix que o site já mostra
+      var pixSite = lerPreco(card.querySelector(SELETORES.pix));
+      var aMais = (pixSite > 0 ? pixSite : p.por) - final;
+
+      if (aMais > 0) {
+        precoBox.appendChild(criar("div", "hzbfk-app", CELULAR + '<span>No app: <b>−' + formatBRL(aMais) + '</b> a mais</span>'));
+      }
+      return;
+    }
+
+    if (m.id === "1111") {
+
+      if (p.por <= CONFIG.limite1111 && n <= 24) {
+        naFoto(criar("span", "hzbfk-embarque", '<span>Nº ' + doisDigitos(n) + '/24</span><span>11.11</span>'));
+      }
+
+      return;
+    }
+
+    if (m.id === "isla") {
+
+      precoBox.parentNode.insertBefore(criar("div", "hzbfk-isla", ehAIsla(card)
+        ? '<s>R$ 249,90</s><b>R$1</b><span>acima de R$999</span>'
+        : '<span>Leve a Isla</span><s>R$ 249,90</s><b>R$1</b>'), precoBox);
+
+      return;
+    }
+
+    // Black Friday: a queda do preço cheio até o Pix com 20%
+    var de = p.de > p.por ? p.de : p.por;
+    var queda = Math.round((1 - final / de) * 100);
+
+    if (queda > 0) {
+      naFoto(criar("span", "hzbfk-cotacao", '<b>▼</b> ' + queda + '%'));
+      card.classList.add("hzbfk-sem-selo-loja");
+    }
+
+    // Se a loja já mostra o Pix com os 20%, não repete o preço: fica só a queda
+    var pixNativo = lerPreco(card.querySelector(SELETORES.pix));
+    var jaMostra = pixNativo > 0 && pixNativo <= final + 0.01;
+
+    precoBox.appendChild(criar("div", "hzbfk-queda",
+      (jaMostra ? '' : '<span><b>' + formatBRL(final) + '</b> no Pix</span>') + '<em>▼ ' + formatBRL(de - final) + ' hoje</em>'));
   }
 
-  function processarCard(card, m, chave, naPaginaBlack) {
+  function processarCard(card, m, chave, naPaginaBlack, n) {
 
     if (card.getAttribute("data-hzbf") === chave) {
       return;
@@ -487,94 +494,37 @@
 
     card.setAttribute("data-hzbf", chave);
 
-    var acao = m.id;
     var precoBox = card.querySelector(SELETORES.preco);
-    var de = lerPreco(card.querySelector(SELETORES.de));
-    var por = lerPreco(card.querySelector(SELETORES.por));
+    var p = {
+      de: lerPreco(card.querySelector(SELETORES.de)),
+      por: lerPreco(card.querySelector(SELETORES.por))
+    };
 
-    if (!precoBox || !(por > 0)) {
+    if (!precoBox || !(p.por > 0)) {
       return;
     }
 
-    var economia = IDEIAS.descontoEmReais && de > por && por >= CONFIG.reaisAPartirDe
-      ? Math.round(de - por)
+    var economia = IDEIAS.descontoEmReais && p.de > p.por && p.por >= CONFIG.reaisAPartirDe
+      ? Math.round(p.de - p.por)
       : 0;
 
-    if (economia < 1) {
-      economia = 0;
-    }
-
-    seloEmReais(card, economia);
+    seloEmReais(card, economia >= 1 ? economia : 0);
 
     // Ideia 7: vale em qualquer listagem, porque a lista é da categoria Black
     if (IDEIAS.top10 && ehTop(card)) {
-
-      var top = document.createElement("div");
-
-      top.className = "hzbf-top";
-      top.textContent = "★ Top 10 da Black";
-
-      precoBox.parentNode.insertBefore(top, precoBox);
+      precoBox.parentNode.insertBefore(criar("div", "hzbfk-top", "★ Top 10 da Black"), precoBox);
     }
 
     if (!cardDaBlack(card, naPaginaBlack)) {
       return;
     }
 
-    // Selo na foto. No 11.11 só nos pares por até R$124.
-    var foto = card.querySelector(SELETORES.foto);
+    conceito(card, m, p, n);
 
-    if (foto && (acao !== "1111" || por <= CONFIG.limite1111)) {
-      seloDaFoto(foto, card, acao, economia);
+    // Ideia 8: último dia da ação (no 11.11, só nos pares de até R$124)
+    if (IDEIAS.terminaHoje && m.ultimo && (m.id !== "1111" || p.por <= CONFIG.limite1111)) {
+      precoBox.appendChild(criar("div", "hzbfk-hoje", "Termina hoje às " + horaDoFim(m.fim)));
     }
-
-    // Ideia 8: último dia da ação
-    if (IDEIAS.terminaHoje && m.ultimo && (acao !== "1111" || por <= CONFIG.limite1111)) {
-
-      var hoje = document.createElement("div");
-
-      hoje.className = "hzbf-hoje";
-      hoje.textContent = "Termina hoje às " + horaDoFim(m.fim);
-
-      precoBox.appendChild(hoje);
-    }
-
-    if (acao !== "app" && acao !== "black") {
-      return;
-    }
-
-    var final = Math.round(por * (1 - CONFIG.descontoPix) * 100) / 100;
-
-    if (acao === "black") {
-
-      // Se a loja já mostra o Pix com 20%, só marca o selo; não repete o preço
-      var pixNativo = lerPreco(card.querySelector(SELETORES.pix));
-      var pixBox = card.querySelector(SELETORES.pixBox);
-
-      if (pixNativo > 0 && pixNativo <= final + 0.01 && pixBox) {
-
-        var chip = document.createElement("span");
-
-        chip.className = "hzbf-chip hzbf-pixbox-chip";
-        chip.textContent = "20% OFF";
-
-        pixBox.appendChild(chip);
-
-        return;
-      }
-    }
-
-    var linha = document.createElement("div");
-
-    linha.className = "hzbf-pix";
-
-    linha.innerHTML = acao === "app"
-      ? CELULAR + '<span>No app: <b>' + formatBRL(final) + '</b> no Pix</span>'
-      : '<span><b>' + formatBRL(final) + '</b> no Pix</span><span class="hzbf-chip">20% OFF</span>';
-
-    var hojeEl = precoBox.querySelector(".hzbf-hoje");
-
-    precoBox.insertBefore(linha, hojeEl);
   }
 
 
@@ -619,11 +569,19 @@
 
     carregarTop();
 
-    var chave = estado + "|m" + M + "|t" + topVersao;
+    var chave = estado + "|t" + topVersao;
     var naPaginaBlack = paginaBlack();
 
+    // 11.11: numera só os pares de até R$124, na ordem da página
+    var n = 0;
+
     for (var j = 0; j < cards.length; j++) {
-      processarCard(cards[j], m, chave, naPaginaBlack);
+
+      if (m.id === "1111" && lerPreco(cards[j].querySelector(SELETORES.por)) <= CONFIG.limite1111) {
+        n++;
+      }
+
+      processarCard(cards[j], m, chave + "|n" + n, naPaginaBlack, n);
     }
   }
 

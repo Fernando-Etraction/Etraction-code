@@ -4,18 +4,27 @@
   /* =========================================================
      HITZZ - BLACK 2026
      CÓDIGO 4 - PÁGINA DE PRODUTO
-     - Bloco logo abaixo do preço com a oferta do momento, já com
-       o valor final calculado (sem a cliente fazer conta).
-     - Ideia 4: no celular, prazo e preço final dentro do botão
-       fixo "Comprar agora".
-     - Ideia 9: produto esgotado em todos os números leva para a
-       mesma categoria dentro da Black.
+     Bloco logo abaixo do preço. Cada ação tem o seu conceito, o mesmo
+     dos outros códigos, sempre com o valor final já calculado:
 
-     MODELOS
-     1  Bloco preto     selo, contador, preço final e prazo
-     2  Contorno        o mesmo bloco em branco com borda preta
-     3  Faixa compacta  uma linha só: selo, preço final e contador
-     4  Recibo          a conta aberta: preço cheio, descontos e quanto paga
+     Black Hitzz   a caixa Black: fita de lacre, quanto ela economiza e o
+                   preço garantido até 23h59 (garantia de preço)
+     Só no app     "no site × no app": o preço do app em destaque
+     11.11         cartão de embarque com o preço e o relógio
+     Isla por R$1  preço riscado e o R$1 grande: quanto falta com este par
+     Black Friday  cotação do par em queda, "travada até 23h59"
+
+     A garantia (Black Hitzz e Black Friday) vai até 23h59 de hoje, ou
+     até o fim da ação se for antes: nunca passa de 24h e é igual para
+     todo mundo.
+
+     IDEIAS (liga/desliga em IDEIAS)
+     4   no celular, prazo e preço final dentro do botão fixo "Comprar agora"
+     9   produto esgotado em todos os números leva para a mesma categoria
+         dentro da Black
+
+     As classes deste código começam com "hzbfp-" para não trombar
+     com as dos outros códigos da Black, que rodam na mesma página.
   ========================================================= */
 
   if (window.__hzbfPdpLoaded) {
@@ -23,8 +32,6 @@
   }
 
   window.__hzbfPdpLoaded = true;
-
-  var MODELO = 1;
 
   var IDEIAS = {
     prazoNoBotao: true,
@@ -38,6 +45,7 @@
     preco: "#right-column .pdp-payment, #product-variant-form .pdp-payment, .pdp-payment",
     precoContainer: ".product-price-container",
     form: "#product-variant-form",
+    titulo: "h1.product-title",
     de: ".pdp-payment__from-value",
     precoCheio: ".pdp-payment__price--normal",
     precoPix: ".pdp-payment__price--cash-payment",
@@ -74,18 +82,9 @@
     urlBlack: "/categorizacao/promo?sorting%5Bdiscount%5D=desc",
     url1111: "/categorizacao/promo?sorting%5Bprice%5D=asc",
     urlIsla: "/isla-chinelo-flat-feminino-marrom",
-    imgIsla: "https://adaptive-images.uooucdn.com.br/tr:w-120,h-174,c-at_max,pr-true,q-80/a22613-ogxyuhoywt0/pv/35/9b/f5/67061bb74f2448dfb4a7085899.png",
 
     appIos: "https://apps.apple.com/br/app/use-hitzz/id6793275985",
     appAndroid: "https://play.google.com/store/apps/details?id=com.uoou.usehitzz&hl=pt_BR"
-  };
-
-  var TAGS = {
-    month: "Black Hitzz",
-    app: "Só no app",
-    "1111": "11.11",
-    isla: "Isla por R$1",
-    black: "Black Friday"
   };
 
   var estadoRenderizado = null;
@@ -106,7 +105,6 @@
      ?hzbf=month | app | 1111 | isla | black
      ?hzbf=black:ultimo   força o "último dia"
      ?hzbf=off            volta ao calendário
-     ?hzbfm=1 a 4         mostra outro modelo (?hzbfm=off volta ao MODELO daqui)
   ========================================================= */
 
   function brasilia(ano, mes, dia, hora) {
@@ -168,31 +166,6 @@
   }
 
   var PREVIEW = lerPreview();
-
-  function lerModelo() {
-
-    var valor = null;
-
-    try {
-
-      var param = new URLSearchParams(window.location.search).get("hzbfm");
-
-      if (param === "off") {
-        window.sessionStorage.removeItem("hzbfm");
-      } else if (param) {
-        window.sessionStorage.setItem("hzbfm", param);
-      }
-
-      valor = window.sessionStorage.getItem("hzbfm");
-
-    } catch (erro) { }
-
-    var n = parseInt(valor, 10);
-
-    return n >= 1 && n <= 4 ? n : MODELO;
-  }
-
-  var M = lerModelo();
 
   function momentoDaAcao() {
 
@@ -281,30 +254,52 @@
       doisDigitos(d.getUTCMonth() + 1) + ", às " + hora;
   }
 
-  // curto: "2d 04h59" (botão fixo); texto: "2d 04:59:58"; senão, blocos
-  function relogio(fim, formato) {
+  // "23h59" ou "8h", a partir do fim (exclusivo)
+  function horaDoFim(fim) {
+    var d = new Date(fim - 3 * 3600000);
+    return d.getUTCHours() === 0 && d.getUTCMinutes() === 0 ? "23h59" : d.getUTCHours() + "h";
+  }
+
+  // Dia de novembro (1 a 30), para o "Dia 12/30"
+  function diaDaBlack() {
+    var d = new Date(Date.now() - 3 * 3600000);
+    return d.getUTCMonth() === 10 ? d.getUTCDate() : 1;
+  }
+
+  // Garantia de preço: até 23h59 de hoje (Brasília) ou até o fim da ação
+  function fimDaGarantia(m) {
+
+    var hoje = new Date(Date.now() - 3 * 3600000);
+    var meiaNoite = Date.UTC(hoje.getUTCFullYear(), hoje.getUTCMonth(), hoje.getUTCDate() + 1, 3);
+
+    return Math.min(m.fim, meiaNoite);
+  }
+
+  function partesDoTempo(fim) {
 
     var restante = Math.max(0, Math.floor((fim - Date.now()) / 1000));
-    var dias = Math.floor(restante / 86400);
-    var h = Math.floor(restante % 86400 / 3600);
-    var min = Math.floor(restante % 3600 / 60);
-    var s = restante % 60;
 
-    if (formato === "curto") {
-      return dias > 0
-        ? dias + "d " + doisDigitos(h) + "h" + doisDigitos(min)
-        : doisDigitos(h) + ":" + doisDigitos(min) + ":" + doisDigitos(s);
+    return {
+      total: restante,
+      dias: Math.floor(restante / 86400),
+      h: Math.floor(restante % 86400 / 3600),
+      min: Math.floor(restante % 3600 / 60),
+      s: restante % 60
+    };
+  }
+
+  // "2d 04h59" no botão fixo; "2d 04:59:58" no texto
+  function relogio(fim, curto) {
+
+    var t = partesDoTempo(fim);
+
+    if (curto) {
+      return t.dias > 0
+        ? t.dias + "d " + doisDigitos(t.h) + "h" + doisDigitos(t.min)
+        : doisDigitos(t.h) + ":" + doisDigitos(t.min) + ":" + doisDigitos(t.s);
     }
 
-    if (formato === "texto") {
-      return (dias > 0 ? dias + "d " : "") + doisDigitos(h) + ":" + doisDigitos(min) + ":" + doisDigitos(s);
-    }
-
-    function seg(valor, rotulo) {
-      return '<span class="hzbf-seg"><b>' + doisDigitos(valor) + '</b><i>' + rotulo + '</i></span>';
-    }
-
-    return (dias > 0 ? seg(dias, "d") : "") + seg(h, "h") + seg(min, "m") + seg(s, "s");
+    return (t.dias > 0 ? t.dias + "d " : "") + doisDigitos(t.h) + ":" + doisDigitos(t.min) + ":" + doisDigitos(t.s);
   }
 
   // Valor da sacola em reais (a Uoou devolve em centavos)
@@ -336,6 +331,23 @@
 
   function ehAIsla() {
     return window.location.pathname.indexOf(CONFIG.urlIsla) === 0;
+  }
+
+  // "BOTA FEMININA ... - NARI" -> "NARI"
+  function nomeDoProduto() {
+
+    var h1 = document.querySelector(SELETORES.titulo);
+    var partes = String(h1 ? h1.textContent : "").split(" - ");
+    var curto = partes[0];
+
+    for (var i = 1; i < partes.length; i++) {
+
+      if (partes[i].length < curto.length) {
+        curto = partes[i];
+      }
+    }
+
+    return curto.trim() || "este par";
   }
 
   // Ideia 9: todos os números do produto estão indisponíveis
@@ -411,111 +423,104 @@
     };
   }
 
-  var DOT = '<span class="hzbf-dot" aria-hidden="true"></span>';
   var SETA = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+  var CADEADO = '<svg class="hzbfp-svg" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2"/></svg>';
 
 
   /* =========================================================
      CSS
   ========================================================= */
 
+  var MONO = 'font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace';
+
   var CSS = [
-    '.hzbf-pdp{box-sizing:border-box;width:100%;margin:12px 0 4px;padding:14px 16px;border-radius:12px;background:#000;color:#fff;font:inherit;font-size:13px;line-height:1.35;text-align:left;-webkit-font-smoothing:antialiased}',
+    '.hzbf-pdp{box-sizing:border-box;width:100%;margin:12px 0 4px;color:#111;font:inherit;font-size:13px;line-height:1.35;text-align:left;-webkit-font-smoothing:antialiased}',
     '.hzbf-pdp *{box-sizing:border-box}',
-    '.hzbf-pdp__top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin-bottom:8px}',
-    '.hzbf-pdp__tag{display:inline-flex;align-items:center;gap:7px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.12);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}',
-    '.hzbf-pdp--ultimo .hzbf-pdp__tag{background:#e5262e;color:#fff}',
-    '.hzbf-pdp--ultimo .hzbf-dot{background:#fff}',
-    '.hzbf-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:#e5262e;flex-shrink:0}',
-    '.hzbf-pdp__clock{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}',
-    '.hzbf-seg{display:inline-flex;align-items:baseline;gap:2px;padding:4px 5px;border-radius:5px;background:rgba(255,255,255,.12);line-height:1}',
-    '.hzbf-seg b{color:#fff;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}',
-    '.hzbf-seg i{color:rgba(255,255,255,.6);font-size:8.5px;font-style:normal;font-weight:700;text-transform:uppercase}',
+    '.hzbf-pdp p{margin:0}',
+    '.hzbf-pdp a{text-decoration:none !important}',
+    '.hzbfp-svg{width:14px;height:14px;flex:0 0 14px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}',
+    '.hzbfp-seg{display:inline-flex;align-items:baseline;gap:2px;padding:4px 5px;border-radius:5px;background:rgba(255,255,255,.14);color:#fff;font-size:12.5px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}',
+    '.hzbfp-seg i{font-size:8.5px;font-style:normal;opacity:.6}',
+    '.hzbfp-segs{display:inline-flex;gap:3px}',
+    '.hzbfp-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 15px;border-radius:999px;background:#000;color:#fff !important;font-size:12.5px;font-weight:700;white-space:nowrap}',
+    '.hzbfp-btn--linha{background:#fff;color:#000 !important;box-shadow:inset 0 0 0 1.5px #000}',
+    '.hzbfp-btn svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}',
 
-    '.hzbf-pdp__line{margin:0;color:inherit;font-size:15px;line-height:1.3}',
-    '.hzbf-pdp__line strong{font-size:22px;font-weight:800;letter-spacing:-.01em;white-space:nowrap}',
-    '.hzbf-pdp__note{margin:4px 0 0;color:rgba(255,255,255,.7);font-size:12px}',
+    /* Black Hitzz - a caixa Black: fita de lacre em cima */
+    '.hzbfp-cx{overflow:hidden;border-radius:12px;background:#000;color:#fff}',
+    '.hzbfp-cx__fita{display:block;height:6px;background:repeating-linear-gradient(-45deg,#fff 0 6px,#000 6px 12px)}',
+    '.hzbfp-cx__in{padding:11px 14px 12px}',
+    '.hzbfp-cx__topo{display:flex;justify-content:space-between;gap:8px;color:rgba(255,255,255,.7);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}',
+    '.hzbfp-cx__eco{margin-top:6px !important;font-size:14px}',
+    '.hzbfp-cx__eco b{color:#ff4b52;font-size:22px;font-weight:900;white-space:nowrap}',
+    '.hzbfp-cx__gar{display:flex;align-items:center;gap:6px;margin-top:9px !important;padding-top:9px;border-top:1px solid rgba(255,255,255,.12);font-size:12px}',
+    '.hzbfp-cx__gar b{font-variant-numeric:tabular-nums}',
 
-    '.hzbf-pdp__ctas{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}',
-    '.hzbf-pdp__cta{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 14px;border-radius:999px;background:#fff;color:#000 !important;font-size:12px;font-weight:700;text-decoration:none !important;white-space:nowrap}',
-    '.hzbf-pdp__cta--line{background:transparent;color:#fff !important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}',
-    '.hzbf-pdp__cta svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}',
+    /* Só no app - no site × no app */
+    '.hzbfp-push{display:flex;gap:10px;padding:11px 12px;border-radius:14px;background:#1c1c1e;color:#fff}',
+    '.hzbfp-push__ic{display:flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:8px;background:#000;box-shadow:inset 0 0 0 1px #3a3a3c;font-size:16px;font-weight:800}',
+    '.hzbfp-push__txt{min-width:0;line-height:1.3}',
+    '.hzbfp-push__txt small{display:block;color:#9a9a9a;font-size:10.5px}',
+    '.hzbfp-push__txt b{display:block;margin-top:2px;font-size:14px}',
+    '.hzbfp-push__txt em{color:#ff4b52;font-style:normal;white-space:nowrap}',
+    '.hzbfp-push__txt span{display:block;margin-top:2px;color:#cfcfcf;font-size:12px}',
+    '.hzbfp-push+.hzbfp-botoes{margin-top:10px}',
+    '.hzbfp-botoes{display:flex;flex-wrap:wrap;gap:8px}',
 
-    /* Isla: miniatura + barra */
-    '.hzbf-pdp__isla{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;align-items:center}',
-    '.hzbf-pdp__isla img{display:block;width:48px;height:62px;border-radius:8px;object-fit:cover;background:#efefef}',
-    '.hzbf-bar{position:relative;height:6px;margin-top:9px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}',
-    '.hzbf-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}',
-    '.hzbf-bar .hzbf-bar__com{background:rgba(255,255,255,.4)}',
-    '.hzbf-bar .hzbf-bar__sacola{background:#fff}',
+    /* 11.11 - cartão de embarque */
+    '.hzbfp-pass{display:grid;grid-template-columns:minmax(0,1fr) 104px;overflow:hidden;border:1.5px solid #000;border-radius:12px}',
+    '.hzbfp-pass__l{padding:10px 12px}',
+    '.hzbfp-pass__l small,.hzbfp-pass__r small{display:block;color:#777;' + MONO + ';font-size:9px;letter-spacing:.1em;text-transform:uppercase}',
+    '.hzbfp-pass__titulo{margin:3px 0 8px !important;font-size:16px;font-weight:800;line-height:1.2}',
+    '.hzbfp-pass__g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;' + MONO + ';font-size:11.5px;font-weight:700}',
+    '.hzbfp-pass__g small{font-weight:500}',
+    '.hzbfp-pass__r{position:relative;padding:10px 8px;border-left:2px dashed #fff;background:#000;color:#fff;text-align:center}',
+    '.hzbfp-pass__r small{color:#aaa}',
+    '.hzbfp-pass__r b{display:block;margin:4px 0 7px;' + MONO + ';font-size:14px;font-variant-numeric:tabular-nums}',
+    '.hzbfp-faixa{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:#000;color:#fff !important;font-size:12.5px}',
+    '.hzbfp-faixa b{' + MONO + '}',
 
-    /* Versão discreta (mês da Black e produtos fora da Black) */
-    '.hzbf-pdp--leve{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 14px}',
-    '.hzbf-pdp--leve .hzbf-pdp__top{margin:0}',
-    '.hzbf-pdp--leve .hzbf-pdp__line{font-size:13px}',
-    '.hzbf-pdp--leve .hzbf-pdp__line strong{font-size:13px}',
-    '.hzbf-pdp--leve a{color:inherit !important;text-decoration:underline !important}',
+    /* Isla - preço riscado e o R$1 grande */
+    '.hzbfp-isla{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center;padding:12px 14px;border-radius:12px;background:#000;color:#fff}',
+    '.hzbfp-isla__preco{line-height:1}',
+    '.hzbfp-isla__preco small{display:block;color:rgba(255,255,255,.7);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}',
+    '.hzbfp-isla__preco s{display:block;margin-top:4px;color:rgba(255,255,255,.55);font-size:13px;font-weight:700}',
+    '.hzbfp-isla__preco b{display:block;color:#ff4b52;font-size:44px;font-weight:900;letter-spacing:-.04em}',
+    '.hzbfp-isla__txt{color:rgba(255,255,255,.85);font-size:12.5px;line-height:1.35}',
+    '.hzbfp-isla__txt b{color:#fff;white-space:nowrap}',
 
-    /* Modelo 2 - Contorno */
-    '.hzbf-pdp.hzbf-m2{background:#fff;color:#111;box-shadow:inset 0 0 0 1.5px #111}',
-    '.hzbf-m2 .hzbf-pdp__tag{background:#000;color:#fff}',
-    '.hzbf-m2 .hzbf-pdp__clock{color:#555}',
-    '.hzbf-m2 .hzbf-seg{background:#f1f1ef}',
-    '.hzbf-m2 .hzbf-seg b{color:#000}',
-    '.hzbf-m2 .hzbf-seg i{color:#777}',
-    '.hzbf-m2 .hzbf-pdp__note{color:#555}',
-    '.hzbf-m2 .hzbf-pdp__cta{background:#000;color:#fff !important}',
-    '.hzbf-m2 .hzbf-pdp__cta--line{background:#fff;color:#000 !important;box-shadow:inset 0 0 0 1px #000}',
-    '.hzbf-m2 .hzbf-bar{background:#e6e6e4}',
-    '.hzbf-m2 .hzbf-bar .hzbf-bar__com{background:#bdbdbd}',
-    '.hzbf-m2 .hzbf-bar .hzbf-bar__sacola{background:#000}',
-
-    /* Modelo 3 - Faixa compacta */
-    '.hzbf-pdp.hzbf-m3{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 12px;border-radius:10px}',
-    '.hzbf-m3 .hzbf-pdp__line{font-size:13px}',
-    '.hzbf-m3 .hzbf-pdp__line strong{font-size:15px}',
-    '.hzbf-m3 .hzbf-pdp__line a{color:#fff !important;font-weight:700;text-decoration:underline !important}',
-    '.hzbf-m3 .hzbf-pdp__clock{margin-left:auto;color:#fff;font-weight:800}',
-    '.hzbf-m3 .hzbf-bar{flex-basis:100%;margin-top:2px;height:4px}',
-
-    /* Modelo 4 - Recibo */
-    '.hzbf-pdp.hzbf-m4{background:#fff;color:#111;border:1.5px dashed #111;border-radius:10px;padding:12px 14px}',
-    '.hzbf-m4 .hzbf-pdp__tag{background:#000;color:#fff}',
-    '.hzbf-m4 .hzbf-pdp__clock{color:#555}',
-    '.hzbf-m4 .hzbf-pdp__clock span{color:#000;font-weight:800}',
-    '.hzbf-rec{margin:4px 0 0;padding:0;display:grid;gap:5px}',
-    '.hzbf-rec div{display:flex;justify-content:space-between;gap:10px;margin:0;font-size:13px}',
-    '.hzbf-rec dt{color:#555;font-weight:400}',
-    '.hzbf-rec dd{margin:0;font-variant-numeric:tabular-nums;white-space:nowrap}',
-    '.hzbf-rec .hzbf-rec__off dd{color:#c81e25}',
-    '.hzbf-rec .hzbf-rec__tot{margin-top:3px;padding-top:7px;border-top:1px solid #111;font-size:15px}',
-    '.hzbf-rec .hzbf-rec__tot dt{color:#111;font-weight:700}',
-    '.hzbf-rec .hzbf-rec__tot dd{font-size:19px;font-weight:800}',
-    '.hzbf-rec s{color:#888;margin-right:6px}',
-    '.hzbf-m4 .hzbf-pdp__note{color:#555}',
-    '.hzbf-m4 .hzbf-pdp__cta{background:#000;color:#fff !important}',
-    '.hzbf-m4 .hzbf-pdp__cta--line{background:#fff;color:#000 !important;box-shadow:inset 0 0 0 1px #000}',
-    '.hzbf-m4 .hzbf-bar{background:#e6e6e4}',
-    '.hzbf-m4 .hzbf-bar .hzbf-bar__com{background:#bdbdbd}',
-    '.hzbf-m4 .hzbf-bar .hzbf-bar__sacola{background:#000}',
+    /* Black Friday - cotação */
+    '.hzbfp-cot{padding:12px 13px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:radial-gradient(110% 150% at 100% 0%,rgba(255,255,255,.14) 0%,rgba(255,255,255,0) 52%),linear-gradient(160deg,#1b1b1b 0%,#080808 58%,#000 100%);color:#fff}',
+    '.hzbfp-cot__topo{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.6);' + MONO + ';font-size:10px;letter-spacing:.12em;text-transform:uppercase}',
+    '.hzbfp-aovivo{display:inline-flex;align-items:center;gap:5px;color:#fff;font-family:inherit;font-weight:800}',
+    '.hzbfp-aovivo i{width:6px;height:6px;border-radius:50%;background:#e5262e;animation:hzbfp-pisca 1.4s infinite}',
+    '@keyframes hzbfp-pisca{50%{opacity:.25}}',
+    '.hzbfp-cot__meio{display:flex;align-items:center;gap:12px;padding:9px 0}',
+    '.hzbfp-cot__meio b{font-size:23px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}',
+    '.hzbfp-cot__meio small{display:block;color:rgba(255,255,255,.6);font-size:12px}',
+    '.hzbfp-cot__meio em{display:block;margin-top:3px;color:#ff4b52;' + MONO + ';font-size:11.5px;font-style:normal;font-weight:700}',
+    '.hzbfp-cot__meio svg{flex:1;min-width:60px;height:42px}',
+    '.hzbfp-cot__pe{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:9px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.82);font-size:12px}',
+    '.hzbfp-cot__pe span:first-child{display:inline-flex;align-items:center;gap:6px}',
 
     /* Ideia 9 - Esgotado */
-    '.hzbf-pdp.hzbf-esg{background:#f4f4f2;color:#111;box-shadow:inset 0 0 0 1px #e1e1de}',
-    '.hzbf-esg .hzbf-pdp__line{font-size:14px}',
-    '.hzbf-esg .hzbf-pdp__line strong{font-size:14px}',
-    '.hzbf-esg .hzbf-pdp__cta{background:#000;color:#fff !important}',
+    '.hzbfp-esg{padding:12px 14px;border-radius:12px;background:#f4f4f2;box-shadow:inset 0 0 0 1px #e1e1de}',
+    '.hzbfp-esg p{font-size:14px}',
+    '.hzbfp-esg .hzbfp-btn{margin-top:10px}',
 
     /* Ideia 4: prazo e preço dentro do botão fixo do celular */
-    SELETORES.botaoFixo + '.hzbf-com-sub{display:flex !important;flex-direction:column;align-items:center;justify-content:center;line-height:1.1 !important;min-height:52px;padding-top:7px !important;padding-bottom:7px !important}',
-    '.hzbf-sub{display:block;margin-top:3px;font-size:11px;font-weight:500;letter-spacing:.01em;text-transform:none;opacity:.92;font-variant-numeric:tabular-nums;white-space:nowrap}'
+    SELETORES.botaoFixo + '.hzbfp-com-sub{display:flex !important;flex-direction:column;align-items:center;justify-content:center;line-height:1.1 !important;min-height:52px;padding-top:7px !important;padding-bottom:7px !important}',
+    '.hzbfp-sub{display:block;margin-top:3px;font-size:11px;font-weight:500;letter-spacing:.01em;text-transform:none;opacity:.92;font-variant-numeric:tabular-nums;white-space:nowrap}',
+
+    '@media (prefers-reduced-motion:reduce){.hzbfp-aovivo i{animation:none}}'
   ].join("");
 
 
   /* =========================================================
-     HTML
+     HTML - UM CONCEITO POR AÇÃO
   ========================================================= */
 
-  function appCtas() {
+  function appBotoes() {
 
     var ua = navigator.userAgent || "";
     var ios = /iPhone|iPad|iPod/i.test(ua);
@@ -523,213 +528,137 @@
     var html = '';
 
     if (!android) {
-      html += '<a class="hzbf-pdp__cta" href="' + esc(CONFIG.appIos) + '" target="_blank" rel="noopener" data-hzbf-cta>Baixar na App Store' + SETA + '</a>';
+      html += '<a class="hzbfp-btn" href="' + esc(CONFIG.appIos) + '" target="_blank" rel="noopener" data-hzbf-cta>Abrir na App Store' + SETA + '</a>';
     }
 
     if (!ios) {
-      html += '<a class="hzbf-pdp__cta' + (android ? '' : ' hzbf-pdp__cta--line') + '" href="' + esc(CONFIG.appAndroid) + '" target="_blank" rel="noopener" data-hzbf-cta>Baixar no Google Play' + SETA + '</a>';
+      html += '<a class="hzbfp-btn' + (android ? '' : ' hzbfp-btn--linha') + '" href="' + esc(CONFIG.appAndroid) + '" target="_blank" rel="noopener" data-hzbf-cta>Abrir no Google Play' + SETA + '</a>';
     }
 
     return html;
   }
 
-  function linkDoApp() {
-    return /iPhone|iPad|iPod/i.test(navigator.userAgent || "") ? CONFIG.appIos : CONFIG.appAndroid;
-  }
-
-  function selo(m) {
-    return '<span class="hzbf-pdp__tag">' + DOT + esc(m.ultimo ? (m.id === "1111" ? "Últimas horas" : "Último dia") : TAGS[m.id]) + '</span>';
-  }
-
-  function relogioHTML() {
-    return '<span class="hzbf-pdp__clock">' + (M === 3 ? '' : 'Termina em ') + '<span data-hzbf-timer></span></span>';
-  }
-
-  function topo(m, comTimer) {
-    return '<div class="hzbf-pdp__top">' + selo(m) + (comTimer ? relogioHTML() : '') + '</div>';
-  }
-
-  var BARRA_ISLA = '<div class="hzbf-bar" aria-hidden="true"><i class="hzbf-bar__com" data-hzbf-isla-com></i><i class="hzbf-bar__sacola" data-hzbf-isla-sacola></i></div>';
-
   // Ideia 9
-  function esgotadoHTML(m) {
+  function esgotadoHTML() {
 
     var destino = destinoDoEsgotado();
     var nome = destino ? destino.nome : "pares";
     var url = destino ? destino.url + "?sorting%5Bdiscount%5D=desc" : CONFIG.urlBlack;
 
     return {
-      classe: "hzbf-esg",
-      html: topo(m, false) +
-        '<p class="hzbf-pdp__line">Este par esgotou nos números. <strong>Na Black tem ' + esc(nome) + ' com até 70% OFF.</strong></p>' +
-        '<div class="hzbf-pdp__ctas"><a class="hzbf-pdp__cta" href="' + esc(url) + '" data-hzbf-cta>Ver ' + esc(nome) + ' da Black' + SETA + '</a></div>'
+      classe: "hzbfp-esg",
+      html: '<p>Este par esgotou nos números. <strong>Na Black tem ' + esc(nome) + ' com até 70% OFF.</strong></p>' +
+        '<a class="hzbfp-btn" href="' + esc(url) + '" data-hzbf-cta>Ver ' + esc(nome) + ' da Black' + SETA + '</a>'
     };
   }
 
-  // Modelo 4: a conta em linhas
-  function linhaRecibo(rotulo, valor, classe) {
-    return '<div' + (classe ? ' class="' + classe + '"' : '') + '><dt>' + rotulo + '</dt><dd>' + valor + '</dd></div>';
-  }
+  var CONCEITOS = {
 
-  function recibo(p, rotuloDesconto, extra, total) {
+    // Black Hitzz: a caixa Black, com quanto ela economiza e o preço garantido até 23h59
+    month: function (m, p) {
 
-    var html = '';
+      if (!produtoDaBlack() || !(p.de > p.por)) {
+        return null;
+      }
 
-    if (p.de > p.por) {
-      html += linhaRecibo("Preço cheio", formatBRL(p.de));
-      html += linhaRecibo(rotuloDesconto, "−" + formatBRL(p.de - p.por), "hzbf-rec__off");
+      var pix = p.pixNativo > 0 ? p.pixNativo : p.por;
+
+      return {
+        html: '<div class="hzbfp-cx"><i class="hzbfp-cx__fita" aria-hidden="true"></i><div class="hzbfp-cx__in">' +
+          '<p class="hzbfp-cx__topo"><span>Black Hitzz</span><span>' + (m.ultimo ? 'Último dia' : 'Dia ' + doisDigitos(diaDaBlack()) + '/30') + '</span></p>' +
+          '<p class="hzbfp-cx__eco">Você economiza <b>' + formatBRL(p.de - pix) + '</b> neste par</p>' +
+          '<p class="hzbfp-cx__gar">' + CADEADO + 'Preço garantido até 23h59 · <b data-hzbf-garantia></b></p>' +
+        '</div></div>'
+      };
+    },
+
+    // Só no app: o preço do site riscado e o do app em destaque
+    app: function (m, p) {
+
+      if (!produtoDaBlack()) {
+        return null;
+      }
+
+      // Quanto ela economiza a mais no app, em cima do Pix que o site já mostra
+      var aMais = (p.pixNativo > 0 ? p.pixNativo : p.por) - p.pix20;
+
+      return {
+        html: '<div class="hzbfp-push"><span class="hzbfp-push__ic" aria-hidden="true">h</span><div class="hzbfp-push__txt">' +
+          '<small>HITZZ · só no app, até ' + esc(prazoTexto(m.fimReal)) + '</small>' +
+          '<b>No app você economiza mais <em>' + formatBRL(aMais) + '</em> neste par</b>' +
+          '<span>20% OFF no Pix, só no app Hitzz.</span>' +
+        '</div></div>' +
+        '<div class="hzbfp-botoes">' + appBotoes() + '</div>'
+      };
+    },
+
+    // 11.11: cartão de embarque
+    "1111": function (m, p) {
+
+      if (p.por > CONFIG.limite1111) {
+        return {
+          html: '<a class="hzbfp-faixa" href="' + esc(CONFIG.url1111) + '" data-hzbf-cta><span>✈ 11.11: + de 24 Hitzz por até R$124</span><b>Ver →</b></a>'
+        };
+      }
+
+      return {
+        html: '<div class="hzbfp-pass">' +
+          '<div class="hzbfp-pass__l"><small>Cartão de embarque · 11.11</small>' +
+            '<p class="hzbfp-pass__titulo">Este Hitzz embarca no 11.11</p>' +
+            '<div class="hzbfp-pass__g">' +
+              '<div><small>Economia</small>' + (p.de > p.por ? '−' + formatBRL(p.de - p.por) : '—') + '</div>' +
+              '<div><small>Embarque</small>até ' + horaDoFim(m.fimReal) + '</div>' +
+              '<div><small>Assento</small>seu nº</div>' +
+            '</div></div>' +
+          '<div class="hzbfp-pass__r"><small>' + (m.ultimo ? 'Últimas horas' : 'Encerra em') + '</small><b data-hzbf-timer></b></div>' +
+        '</div>'
+      };
+    },
+
+    // Isla: o preço cheio riscado, o R$1 grande e quanto falta
+    isla: function () {
+      return {
+        html: '<div class="hzbfp-isla">' +
+          '<p class="hzbfp-isla__preco"><small>Isla Marrom</small><s>' + formatBRL(CONFIG.precoIsla) + '</s><b>R$1</b></p>' +
+          '<p class="hzbfp-isla__txt" data-hzbf-falta></p>' +
+        '</div>'
+      };
+    },
+
+    // Black Friday: cotação do par em queda, travada até 23h59
+    black: function (m, p) {
+
+      if (!produtoDaBlack()) {
+        return {
+          html: '<a class="hzbfp-faixa" href="' + esc(CONFIG.urlBlack) + '" data-hzbf-cta><span>▼ Black Friday · fecha em <b data-hzbf-timer></b></span><b>Ver →</b></a>'
+        };
+      }
+
+      var de = p.de > p.por ? p.de : p.por;
+      var queda = de - p.pix20;
+
+      return {
+        html: '<div class="hzbfp-cot">' +
+          '<div class="hzbfp-cot__topo"><span>Cotação · ' + esc(nomeDoProduto()) + '</span><span class="hzbfp-aovivo"><i aria-hidden="true"></i>Ao vivo</span></div>' +
+          '<div class="hzbfp-cot__meio"><div><small>Você economiza</small><b>' + formatBRL(queda) + '</b>' +
+            '<em>▼ ' + Math.round(queda / de * 100) + '% no Pix</em></div>' +
+            '<svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><polyline points="0,4 18,8 32,7 46,18 60,16 74,28 88,30 100,36" fill="none" stroke="#e5262e" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>' +
+          '</div>' +
+          '<div class="hzbfp-cot__pe"><span>' + CADEADO +
+            (m.ultimo ? 'Último dia: travada até 23h59' : 'Cotação travada até 23h59') + '</span><span class="hzbfp-segs" data-hzbf-garantia-segs></span></div>' +
+        '</div>'
+      };
     }
-
-    if (extra) {
-      html += linhaRecibo(extra.rotulo, "−" + formatBRL(extra.valor), "hzbf-rec__off");
-    }
-
-    html += linhaRecibo(total.rotulo, formatBRL(total.valor), "hzbf-rec__tot");
-
-    return '<dl class="hzbf-rec">' + html + '</dl>';
-  }
+  };
 
   // Devolve { html, classe } ou null quando a ação não tem nada para este produto
   function conteudo(m, p) {
 
-    var daBlack = produtoDaBlack();
-    var prazo = prazoTexto(m.fimReal);
-
     if (IDEIAS.esgotadoParaBlack && esgotado()) {
-      return esgotadoHTML(m);
+      return esgotadoHTML();
     }
 
-    if (m.id === "month") {
-
-      // Ideia 3: economia em reais
-      if (!daBlack || !(p.de > p.por)) {
-        return null;
-      }
-
-      if (M === 4) {
-        return { html: topo(m, m.ultimo) + recibo(p, "Desconto Black", null, { rotulo: "Você paga", valor: p.por }) };
-      }
-
-      return {
-        classe: M === 3 ? "" : "hzbf-pdp--leve",
-        html: selo(m) + (m.ultimo && M !== 3 ? relogioHTML() : '') +
-          '<p class="hzbf-pdp__line">Você economiza <strong>R$ ' + Math.round(p.de - p.por) + '</strong> neste par</p>' +
-          (m.ultimo && M === 3 ? relogioHTML() : '')
-      };
-    }
-
-    if (m.id === "app") {
-
-      if (!daBlack) {
-        return null;
-      }
-
-      if (M === 3) {
-        return {
-          html: selo(m) + '<p class="hzbf-pdp__line">No app: <strong>' + formatBRL(p.pix20) + '</strong> no Pix · <a href="' + esc(linkDoApp()) + '" target="_blank" rel="noopener" data-hzbf-cta>baixar</a></p>' + relogioHTML()
-        };
-      }
-
-      if (M === 4) {
-        return {
-          html: topo(m, true) +
-            recibo(p, "Desconto Black", { rotulo: "20% no Pix, só no app", valor: p.por - p.pix20 }, { rotulo: "No app, no Pix", valor: p.pix20 }) +
-            '<div class="hzbf-pdp__ctas">' + appCtas() + '</div>'
-        };
-      }
-
-      return {
-        html: topo(m, true) +
-          '<p class="hzbf-pdp__line">No app, este par sai por <strong>' + formatBRL(p.pix20) + '</strong> no Pix</p>' +
-          '<p class="hzbf-pdp__note">20% OFF no Pix só no app Hitzz, até ' + esc(prazo) + '.</p>' +
-          '<div class="hzbf-pdp__ctas">' + appCtas() + '</div>'
-      };
-    }
-
-    if (m.id === "1111") {
-
-      if (p.por <= CONFIG.limite1111) {
-
-        if (M === 3) {
-          return { html: selo(m) + '<p class="hzbf-pdp__line">Este par: <strong>' + formatBRL(p.por) + '</strong></p>' + relogioHTML() };
-        }
-
-        if (M === 4) {
-          return { html: topo(m, true) + recibo(p, "Desconto 11.11", null, { rotulo: "Você paga", valor: p.por }) };
-        }
-
-        return {
-          html: topo(m, true) +
-            '<p class="hzbf-pdp__line">Este par está no 11.11: <strong>' + formatBRL(p.por) + '</strong></p>' +
-            '<p class="hzbf-pdp__note">+ de 24 Hitzz por até R$124, só até ' + esc(prazo) + '.</p>'
-        };
-      }
-
-      return {
-        classe: "hzbf-pdp--leve",
-        html: selo(m) + '<p class="hzbf-pdp__line">+ de 24 Hitzz por até R$124 · <a href="' + esc(CONFIG.url1111) + '" data-hzbf-cta>ver todos</a></p>'
-      };
-    }
-
-    if (m.id === "isla") {
-
-      if (ehAIsla()) {
-        return {
-          html: topo(m, M !== 3) +
-            '<p class="hzbf-pdp__line">Esta é a Isla do R$1</p>' +
-            '<p class="hzbf-pdp__note">Ela sai por R$1 em compras acima de R$999, até ' + esc(prazo) + '.</p>'
-        };
-      }
-
-      if (M === 3) {
-        return { html: selo(m) + '<p class="hzbf-pdp__line" data-hzbf-isla-txt></p>' + BARRA_ISLA };
-      }
-
-      if (M === 4) {
-        return {
-          html: topo(m, true) +
-            '<dl class="hzbf-rec">' +
-              linhaRecibo("Sua sacola agora", '<span data-hzbf-sacola></span>') +
-              linhaRecibo("Este par", formatBRL(p.por)) +
-              linhaRecibo("Com este par", '<span data-hzbf-total></span>', "hzbf-rec__tot") +
-              linhaRecibo("Isla Marrom", '<s>' + formatBRL(CONFIG.precoIsla) + '</s>R$ 1,00') +
-            '</dl>' +
-            '<p class="hzbf-pdp__note" data-hzbf-isla-txt></p>' + BARRA_ISLA
-        };
-      }
-
-      return {
-        html: topo(m, true) +
-          '<div class="hzbf-pdp__isla"><a href="' + esc(CONFIG.urlIsla) + '" aria-label="Ver a Isla Marrom"><img src="' + esc(CONFIG.imgIsla) + '" alt="" loading="lazy"></a>' +
-          '<div><p class="hzbf-pdp__line" data-hzbf-isla-txt></p>' + BARRA_ISLA + '</div></div>'
-      };
-    }
-
-    if (m.id === "black") {
-
-      if (!daBlack) {
-        return { classe: "hzbf-pdp--leve", html: topo(m, true) };
-      }
-
-      if (M === 3) {
-        return { html: selo(m) + '<p class="hzbf-pdp__line"><strong>' + formatBRL(p.pix20) + '</strong> no Pix</p>' + relogioHTML() };
-      }
-
-      if (M === 4) {
-        return {
-          html: topo(m, true) +
-            recibo(p, "Desconto Black", { rotulo: "20% no Pix", valor: p.por - p.pix20 }, { rotulo: "Você paga no Pix", valor: p.pix20 })
-        };
-      }
-
-      return {
-        html: topo(m, true) +
-          '<p class="hzbf-pdp__line"><strong>' + formatBRL(p.pix20) + '</strong> no Pix</p>' +
-          '<p class="hzbf-pdp__note">Até 70% OFF + 20% OFF no Pix, só até ' + esc(prazo) + '.</p>'
-      };
-    }
-
-    return null;
+    return CONCEITOS[m.id](m, p);
   }
 
 
@@ -772,8 +701,7 @@
       bloco = document.createElement("div");
 
       bloco.id = ID;
-      bloco.className = "hzbf-pdp hzbf-m" + M + " hzbf-pdp--" + m.id +
-        (m.ultimo ? " hzbf-pdp--ultimo" : "") + (c.classe ? " " + c.classe : "");
+      bloco.className = "hzbf-pdp hzbf-pdp--" + m.id + (m.ultimo ? " hzbf-pdp--ultimo" : "") + (c.classe ? " " + c.classe : "");
 
       bloco.setAttribute("aria-label", "Black Hitzz");
 
@@ -801,52 +729,25 @@
     ponto.pai.insertBefore(bloco, ponto.antes);
   }
 
-  function textoDaIsla(p, curto) {
+  // Isla: a sacola de verdade e quanto falta (com este par, fora da página da Isla)
+  function atualizarIsla(bloco, p) {
 
     var sacola = valorDaSacola();
-    var falta = CONFIG.minimoIsla - sacola;
+    var comEste = ehAIsla() ? sacola : sacola + p.por;
+    var falta = CONFIG.minimoIsla - comEste;
+    var texto;
 
-    if (falta <= 0) {
-      return curto ? 'Isla por R$1 <strong>liberada</strong> na sua sacola' : 'Sua sacola já liberou a <strong>Isla por R$1</strong>';
+    if (sacola >= CONFIG.minimoIsla) {
+      texto = 'Sua sacola já passou de R$999: <b>a Isla sai por R$1</b>.';
+    } else if (ehAIsla()) {
+      texto = 'Em compras acima de R$999. Sua sacola: <b>' + formatBRL(sacola) + '</b>, faltam <b>' + formatBRL(falta) + '</b>.';
+    } else if (falta > 0) {
+      texto = 'Em compras acima de R$999. Com este par, sua sacola fica em <b>' + formatBRL(comEste) + '</b>: faltam <b>' + formatBRL(falta) + '</b>.';
+    } else {
+      texto = 'Com este par, sua sacola passa de R$999: <b>a Isla sai por R$1</b>.';
     }
 
-    if (sacola + p.por >= CONFIG.minimoIsla) {
-      return curto ? 'Este par <strong>libera a Isla por R$1</strong>' : 'Com este par você libera a <strong>Isla Marrom por R$1</strong>';
-    }
-
-    return curto
-      ? 'Faltam <strong>' + formatBRL(falta) + '</strong> para a Isla por R$1'
-      : 'Faltam <strong>' + formatBRL(falta) + '</strong> para a Isla Marrom por R$1. Este par soma ' + formatBRL(p.por) + '.';
-  }
-
-  function atualizarIsla(p) {
-
-    var bloco = document.getElementById(ID);
-
-    if (!bloco) {
-      return;
-    }
-
-    var sacola = valorDaSacola();
-
-    definirHTML(bloco.querySelector("[data-hzbf-isla-txt]"), textoDaIsla(p, M === 3 || M === 4));
-    definirTexto(bloco.querySelector("[data-hzbf-sacola]"), formatBRL(sacola));
-    definirTexto(bloco.querySelector("[data-hzbf-total]"), formatBRL(sacola + p.por));
-
-    var pct = function (v) {
-      return Math.max(0, Math.min(100, v / CONFIG.minimoIsla * 100)).toFixed(1) + "%";
-    };
-
-    var barSacola = bloco.querySelector("[data-hzbf-isla-sacola]");
-    var barCom = bloco.querySelector("[data-hzbf-isla-com]");
-
-    if (barSacola) {
-      barSacola.style.width = pct(sacola);
-    }
-
-    if (barCom) {
-      barCom.style.width = pct(sacola + p.por);
-    }
+    definirHTML(bloco.querySelector("[data-hzbf-falta]"), texto);
   }
 
 
@@ -861,11 +762,12 @@
     }
 
     if (m.id === "black" && produtoDaBlack()) {
-      return formatBRL(p.pix20) + " no Pix · termina em " + relogio(m.fim, "curto");
+      var economia = (p.de > p.por ? p.de : p.por) - p.pix20;
+      return "Você economiza " + formatBRL(economia) + " · fecha em " + relogio(m.fim, true);
     }
 
     if (m.id === "1111" && p.por <= CONFIG.limite1111) {
-      return "11.11 termina em " + relogio(m.fim, "curto");
+      return "11.11 encerra em " + relogio(m.fim, true);
     }
 
     if (m.id === "isla" && !ehAIsla()) {
@@ -877,8 +779,8 @@
         : "Isla por R$1 liberada na sua sacola";
     }
 
-    if (m.id === "month" && m.ultimo && produtoDaBlack()) {
-      return "Último dia da Black Hitzz";
+    if (m.id === "month" && produtoDaBlack()) {
+      return m.ultimo ? "Último dia da Black Hitzz" : "Preço garantido até 23h59";
     }
 
     return "";
@@ -892,14 +794,14 @@
       return;
     }
 
-    var sub = botao.querySelector(".hzbf-sub");
+    var sub = botao.querySelector(".hzbfp-sub");
     var texto = m && p ? textoDoBotao(m, p) : "";
 
     if (!texto) {
 
       if (sub) {
         sub.remove();
-        botao.classList.remove("hzbf-com-sub");
+        botao.classList.remove("hzbfp-com-sub");
       }
 
       return;
@@ -907,9 +809,9 @@
 
     if (!sub) {
       sub = document.createElement("span");
-      sub.className = "hzbf-sub";
+      sub.className = "hzbfp-sub";
       botao.appendChild(sub);
-      botao.classList.add("hzbf-com-sub");
+      botao.classList.add("hzbfp-com-sub");
     }
 
     definirTexto(sub, texto);
@@ -964,11 +866,7 @@
 
     montarBloco(m, p);
 
-    atualizarTimer(m);
-
-    if (m.id === "isla") {
-      atualizarIsla(p);
-    }
+    atualizarTimer(m, p);
   }
 
 
@@ -976,7 +874,7 @@
      TIMER
   ========================================================= */
 
-  function atualizarTimer(m) {
+  function atualizarTimer(m, p) {
 
     var bloco = document.getElementById(ID);
 
@@ -984,11 +882,28 @@
       return;
     }
 
-    var html = relogio(m.fim, M === 3 || M === 4 ? "texto" : "blocos");
+    var texto = relogio(m.fim);
     var timers = bloco.querySelectorAll("[data-hzbf-timer]");
 
     for (var i = 0; i < timers.length; i++) {
-      definirHTML(timers[i], html);
+      definirTexto(timers[i], texto);
+    }
+
+    // Garantia: nunca passa de 24h, então são só horas, minutos e segundos
+    var g = partesDoTempo(fimDaGarantia(m));
+    var garantia = doisDigitos(g.dias * 24 + g.h) + ":" + doisDigitos(g.min) + ":" + doisDigitos(g.s);
+
+    definirTexto(bloco.querySelector("[data-hzbf-garantia]"), garantia);
+
+    function seg(valor, rotulo) {
+      return '<span class="hzbfp-seg">' + doisDigitos(valor) + '<i>' + rotulo + '</i></span>';
+    }
+
+    definirHTML(bloco.querySelector("[data-hzbf-garantia-segs]"),
+      seg(g.dias * 24 + g.h, "H") + seg(g.min, "M") + seg(g.s, "S"));
+
+    if (m.id === "isla") {
+      atualizarIsla(bloco, p);
     }
   }
 
@@ -1014,7 +929,6 @@
         event: "hzbf_clique",
         hzbf_local: esgotado() ? "pdp_esgotado" : "pdp",
         hzbf_acao: m ? m.id : "",
-        hzbf_modelo: M,
         hzbf_texto: link.textContent.trim()
       });
 
