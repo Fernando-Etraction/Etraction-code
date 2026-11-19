@@ -1,0 +1,457 @@
+<script>
+(function () {
+  'use strict';
+
+  var KEY = 'etractionCorrea1111Cupom';
+  var STYLE_ID = 'etraction-correa-1111-style';
+  var BLOCK_ID = 'etraction-correa-1111';
+  var CUPOM = 'CORREA11';
+
+  if (window[KEY] && typeof window[KEY].destroy === 'function') {
+    window[KEY].destroy();
+  }
+
+  var timerInterval = null;
+  var searchInterval = null;
+  var tentativas = 0;
+
+  function inserirCSS() {
+    if (document.getElementById(STYLE_ID)) return;
+
+    var style = document.createElement('style');
+    style.id = STYLE_ID;
+
+    style.textContent = `
+      #${BLOCK_ID},
+      #${BLOCK_ID} * {
+        box-sizing: border-box;
+      }
+
+      #${BLOCK_ID} {
+        width: 100%;
+        margin: 10px 0 14px;
+
+        display: grid;
+        grid-template-columns: 76px 1fr auto;
+        align-items: stretch;
+
+        overflow: hidden;
+
+        background: #0a0a0a;
+        border: 1px solid #292929;
+        border-radius: 8px;
+
+        font-family: Arial, Helvetica, sans-serif;
+        color: #fff;
+
+        box-shadow: 0 4px 14px rgba(0,0,0,.08);
+      }
+
+      /* 11.11 */
+
+      #${BLOCK_ID} .etraction-1111-side {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #000;
+        border-right: 1px solid #252525;
+
+        color: #ed1c24;
+        text-align: center;
+      }
+
+      #${BLOCK_ID} .etraction-1111-number {
+        font-size: 20px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: -1px;
+      }
+
+      /* CONTEÚDO */
+
+      #${BLOCK_ID} .etraction-1111-content {
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        padding: 10px 14px;
+      }
+
+      #${BLOCK_ID} .etraction-1111-kicker {
+        margin-bottom: 3px;
+
+        color: #ed1c24;
+
+        font-size: 10px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: .7px;
+        text-transform: uppercase;
+      }
+
+      #${BLOCK_ID} .etraction-1111-title {
+        color: #fff;
+
+        font-size: 13px;
+        line-height: 1.2;
+        font-weight: 800;
+      }
+
+      #${BLOCK_ID} .etraction-1111-meta {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        margin-top: 4px;
+
+        color: rgba(255,255,255,.55);
+
+        font-size: 10px;
+        line-height: 1;
+        font-weight: 600;
+      }
+
+      #${BLOCK_ID} .etraction-1111-time {
+        color: rgba(255,255,255,.85);
+
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* CUPOM */
+
+      #${BLOCK_ID} .etraction-1111-coupon-wrap {
+        display: flex;
+        align-items: center;
+
+        padding: 8px 9px 8px 0;
+      }
+
+      #${BLOCK_ID} .etraction-1111-coupon {
+        display: flex;
+        align-items: center;
+
+        height: 38px;
+
+        overflow: hidden;
+
+        background: #161616;
+        border: 1px dashed #555;
+        border-radius: 5px;
+      }
+
+      #${BLOCK_ID} .etraction-1111-code {
+        padding: 0 12px;
+
+        color: #fff;
+
+        font-size: 13px;
+        line-height: 1;
+        font-weight: 900;
+        letter-spacing: .8px;
+      }
+
+      #${BLOCK_ID} .etraction-1111-copy {
+        height: 100%;
+        padding: 0 12px;
+
+        border: 0;
+
+        background: #ed1c24;
+        color: #fff;
+
+        font-family: inherit;
+        font-size: 9px;
+        line-height: 1;
+        font-weight: 900;
+
+        cursor: pointer;
+
+        transition:
+          background .2s ease,
+          transform .15s ease;
+      }
+
+      #${BLOCK_ID} .etraction-1111-copy:hover {
+        background: #c9151c;
+      }
+
+      #${BLOCK_ID} .etraction-1111-copy:active {
+        transform: scale(.97);
+      }
+
+      @media (max-width: 640px) {
+        #${BLOCK_ID} {
+          grid-template-columns: 62px 1fr;
+        }
+
+        #${BLOCK_ID} .etraction-1111-side {
+          grid-row: 1 / 3;
+        }
+
+        #${BLOCK_ID} .etraction-1111-number {
+          font-size: 17px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-content {
+          padding: 9px 10px 5px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-kicker {
+          font-size: 9px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-title {
+          font-size: 12px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-meta {
+          font-size: 9px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-coupon-wrap {
+          grid-column: 2;
+
+          padding: 3px 10px 9px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-coupon {
+          width: 100%;
+          height: 34px;
+
+          justify-content: space-between;
+        }
+
+        #${BLOCK_ID} .etraction-1111-code {
+          font-size: 12px;
+        }
+
+        #${BLOCK_ID} .etraction-1111-copy {
+          padding: 0 11px;
+          font-size: 9px;
+        }
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
+  function atualizarTimer() {
+    var timer = document.querySelector(
+      '#' + BLOCK_ID + ' .etraction-1111-time'
+    );
+
+    if (!timer) return;
+
+    var agora = new Date();
+
+    var fim = new Date(
+      agora.getFullYear(),
+      agora.getMonth(),
+      agora.getDate(),
+      23,
+      59,
+      59,
+      999
+    );
+
+    var restante = Math.max(
+      0,
+      fim.getTime() - agora.getTime()
+    );
+
+    var horas = Math.floor(restante / 3600000);
+
+    var minutos = Math.floor(
+      (restante % 3600000) / 60000
+    );
+
+    var segundos = Math.floor(
+      (restante % 60000) / 1000
+    );
+
+    timer.textContent =
+      String(horas).padStart(2, '0') +
+      ':' +
+      String(minutos).padStart(2, '0') +
+      ':' +
+      String(segundos).padStart(2, '0');
+  }
+
+  function copiarCupom(botao) {
+    function sucesso() {
+      botao.textContent = 'COPIADO ✓';
+
+      setTimeout(function () {
+        if (document.body.contains(botao)) {
+          botao.textContent = 'COPIAR';
+        }
+      }, 1500);
+    }
+
+    function fallback() {
+      var textarea = document.createElement('textarea');
+
+      textarea.value = CUPOM;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+
+      document.body.appendChild(textarea);
+
+      textarea.select();
+
+      try {
+        document.execCommand('copy');
+        sucesso();
+      } catch (e) {}
+
+      textarea.remove();
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard
+        .writeText(CUPOM)
+        .then(sucesso)
+        .catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function criarBloco() {
+    var bloco = document.createElement('div');
+
+    bloco.id = BLOCK_ID;
+
+    bloco.innerHTML = `
+      <div class="etraction-1111-side">
+        <div class="etraction-1111-number">
+          11.11
+        </div>
+      </div>
+
+      <div class="etraction-1111-content">
+
+        <div class="etraction-1111-kicker">
+          oferta especial
+        </div>
+
+        <div class="etraction-1111-title">
+          Desconto extra no carrinho
+        </div>
+
+        <div class="etraction-1111-meta">
+          <span>Termina hoje</span>
+          <span>•</span>
+          <span class="etraction-1111-time">
+            00:00:00
+          </span>
+        </div>
+
+      </div>
+
+      <div class="etraction-1111-coupon-wrap">
+
+        <div class="etraction-1111-coupon">
+
+          <span class="etraction-1111-code">
+            ${CUPOM}
+          </span>
+
+          <button
+            type="button"
+            class="etraction-1111-copy"
+          >
+            COPIAR
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+    var botao = bloco.querySelector(
+      '.etraction-1111-copy'
+    );
+
+    botao.addEventListener('click', function () {
+      copiarCupom(botao);
+    });
+
+    return bloco;
+  }
+
+  function inserir() {
+    var buyArea = document.querySelector('.buy-area');
+
+    if (!buyArea) return false;
+
+    inserirCSS();
+
+    var antigo = document.getElementById(BLOCK_ID);
+
+    if (antigo) antigo.remove();
+
+    var bloco = criarBloco();
+
+    buyArea.insertAdjacentElement(
+      'afterend',
+      bloco
+    );
+
+    atualizarTimer();
+
+    if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+
+    timerInterval = setInterval(
+      atualizarTimer,
+      1000
+    );
+
+    return true;
+  }
+
+  function iniciar() {
+    if (inserir()) return;
+
+    searchInterval = setInterval(function () {
+      tentativas++;
+
+      if (inserir() || tentativas >= 30) {
+        clearInterval(searchInterval);
+        searchInterval = null;
+      }
+    }, 300);
+  }
+
+  window[KEY] = {
+    destroy: function () {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+
+      if (searchInterval) {
+        clearInterval(searchInterval);
+        searchInterval = null;
+      }
+
+      var bloco = document.getElementById(BLOCK_ID);
+      if (bloco) bloco.remove();
+
+      var style = document.getElementById(STYLE_ID);
+      if (style) style.remove();
+
+      delete window[KEY];
+    }
+  };
+
+  iniciar();
+
+})();
+</script>

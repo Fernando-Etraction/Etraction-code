@@ -1,0 +1,70 @@
+<script>
+  /* Produtos "Exclusivo": troca o botão de comprar por "Compre via WhatsApp" + aviso de exclusivo - ABC de Bebê (Loja Integrada) */
+  (function ($) {
+    if (!$ || window.abcOrcamento) return;
+    window.abcOrcamento = true;
+
+    var WHATS = '5547933862674';
+    var FILTRO = /\bexclusivo\b/i; // palavra no nome do produto
+    var TEXTO = 'Compre via WhatsApp';
+    var DETALHE = 'Produto exclusivo da loja física ou WhatsApp';
+    var MSG = 'Olá! Gostaria de comprar o produto: ';
+
+    var css =
+      '.abc-orcamento{display:flex!important;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;padding:12px 14px;border-radius:6px;background:#25d366;color:#fff!important;font-weight:700;font-size:15px;line-height:1.2;text-align:center;text-decoration:none!important;transition:background .2s}' +
+      '.abc-orcamento:hover{background:#1ebe5a}' +
+      '.abc-orcamento svg{width:18px;height:18px;flex:none;fill:currentColor}' +
+      '.abc-orcamento .abc-txt{display:flex;flex-direction:column;align-items:flex-start;text-align:left}' +
+      '.abc-orcamento small{display:block;margin-top:3px;font-size:11px;font-weight:400;opacity:.92;line-height:1.2}' +
+      '.listagem-item .abc-orcamento{margin-top:10px;padding:10px;font-size:14px}' +
+      '.listagem-item .abc-orcamento small{font-size:10px}' +
+      '.pagina-produto .abc-orcamento.grande{padding:16px;font-size:17px;margin:10px 0}' +
+      '.pagina-produto .abc-orcamento.grande small{font-size:13px}' +
+      '.abc-sem-compra{display:none!important}';
+    $('<style id="abc-orcamento-css">').text(css).appendTo('head');
+
+    var ICONE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>';
+
+    function botao(nome, url, grande) {
+      var link = 'https://api.whatsapp.com/send?phone=' + WHATS + '&text=' + encodeURIComponent(MSG + nome + ' - ' + url);
+      return $('<a class="abc-orcamento" target="_blank" rel="noopener">').toggleClass('grande', !!grande)
+        .attr('href', link).html(ICONE + '<span class="abc-txt">' + TEXTO + '<small>' + DETALHE + '</small></span>');
+    }
+
+    // cards de produto (vitrines, categorias, busca, carrosséis montados depois)
+    function cards() {
+      $('.listagem-item').not('.abc-orc-ok').each(function () {
+        var $i = $(this).addClass('abc-orc-ok');
+        var $n = $i.find('.nome-produto').first();
+        var nome = $.trim($n.text());
+        if (!FILTRO.test(nome)) return;
+        var url = $n.attr('href') || $i.find('a.produto-sobrepor').attr('href') || location.href;
+        $i.find('.acoes-produto, .tag-comprar').addClass('abc-sem-compra');
+        var $alvo = $i.find('.acoes-produto').first();
+        var $b = botao(nome, url);
+        $alvo.length ? $alvo.after($b) : $i.find('.info-produto').first().append($b);
+      });
+    }
+
+    // página do produto
+    function pdp() {
+      if (!$('body').hasClass('pagina-produto') || $('.abc-orcamento.grande').length) return;
+      var nome = $.trim($('h1.nome-produto').first().text());
+      if (!FILTRO.test(nome)) return;
+      var $c = $('.principal .acoes-produto .comprar');
+      if (!$c.length) return;
+      $c.addClass('abc-sem-compra');
+      $c.after(botao(nome, location.href.split('?')[0].split('#')[0], true));
+    }
+
+    function rodar() { pdp(); cards(); }
+    $(rodar);
+    $(window).on('load', rodar);
+    $.each([500, 1500, 3000, 6000], function (i, ms) { setTimeout(rodar, ms); });
+    if (window.MutationObserver) {
+      var espera;
+      new MutationObserver(function () { clearTimeout(espera); espera = setTimeout(cards, 120); })
+        .observe(document.body, { childList: true, subtree: true });
+    }
+  })(window.jQuery);
+</script>

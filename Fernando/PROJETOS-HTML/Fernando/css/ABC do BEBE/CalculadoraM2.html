@@ -1,0 +1,149 @@
+<script>
+  /* Calculadora de m² (Papel de Parede) e de quantidade (Painel de Parede) - ABC de Bebê (Loja Integrada) */
+  (function ($) {
+    if (!$ || !$('body').hasClass('pagina-produto') || $('.abc-m2').length) return;
+    var nome = $.trim($('h1.nome-produto').first().text());
+    var painel = /painel de parede/i.test(nome);
+    if (!painel && !/papel de parede/i.test(nome)) return;
+
+    // painel: vendido por unidade; a medida vem da descrição ("Medidas aproximadas: 1,50m x 1m", "Medidas: 1,80m x 0,75m"...)
+    var unid = 0, med = '';
+    if (painel) {
+      var m = ($('#descricao').text() || '').replace(/\s+/g, ' ')
+        .match(/medidas?(?: aproximadas)?\s*:\s*(\d+(?:[.,]\d+)?)\s*(cm|m)?\s*[x×]\s*(\d+(?:[.,]\d+)?)\s*(cm|m)?/i);
+      if (!m) return; // sem medida única na descrição: não mostra a calculadora
+      var cm = /cm/i.test((m[2] || '') + (m[4] || ''));
+      var w = parseFloat(m[1].replace(',', '.')) / (cm ? 100 : 1), h = parseFloat(m[3].replace(',', '.')) / (cm ? 100 : 1);
+      unid = w * h;
+      if (!(unid > 0)) return;
+      med = dec(w) + ' m × ' + dec(h) + ' m';
+    }
+    function dec(v) { return v.toFixed(2).replace('.', ','); }
+
+    var R = '.abc-m2';
+    var css =
+      R + '{margin:16px 0;border:1px solid #cfeee9;border-radius:16px;background:#fff;font-size:14px;color:#4a4a4a;overflow:hidden}' +
+      R + '-topo{display:flex;align-items:center;gap:12px;width:100%;padding:16px;border:0;background:#f1fbf9;text-align:left;cursor:pointer;font-family:inherit}' +
+      R + '-ico{flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid #cfeee9;color:#3bb3a3}' +
+      R + '-ico svg{width:20px;height:20px}' +
+      R + '-tt{flex:1;min-width:0}' +
+      R + '-eye{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#3bb3a3}' +
+      R + '-tit{display:block;font-size:16px;font-weight:700;color:#3a3a3a;line-height:1.3}' +
+      R + '-seta{flex:none;width:18px;height:18px;color:#3bb3a3;transition:transform .25s}' +
+      R + '.fechado ' + R + '-seta{transform:rotate(180deg)}' +
+      R + '.fechado ' + R + '-corpo{display:none}' +
+      R + '-corpo{padding:16px}' +
+      R + '-campos{display:flex;align-items:flex-end;gap:8px}' +
+      R + '-campo{flex:1;min-width:0}' +
+      R + '-campo span{display:block;margin-bottom:6px;font-size:13px;color:#555}' +
+      R + '-inp{position:relative}' +
+      R + '-inp input{display:block;width:100%;height:50px;box-sizing:border-box;margin:0;padding:0 34px 0 14px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:18px;color:#222;box-shadow:none;outline:0;transition:border-color .2s,box-shadow .2s}' +
+      R + '-inp input:focus{border-color:#3bb3a3;box-shadow:0 0 0 3px rgba(59,179,163,.15)}' +
+      R + '-inp i{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-size:13px;color:#999}' +
+      R + '-x{padding-bottom:16px;color:#999}' +
+      R + '-dica{margin:8px 0 0;font-size:12px;color:#888}' +
+      R + '-res{display:none;margin-top:16px}' +
+      R + '-destaque{padding:14px;border-radius:10px;background:#e54e88;color:#fff;text-align:center}' +
+      R + '-destaque small{display:block;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#fde3ee}' +
+      R + '-destaque b{display:block;margin:2px 0 4px;font-size:28px;line-height:1.1;color:#fff}' +
+      R + '-destaque span{font-size:15px;color:#fff}' +
+      R + '-destaque strong{color:#fff}' +
+      R + '-exp{text-align:center;margin:12px 2px 0;font-size:13px;line-height:1.45;color:#666}' +
+      R + '-usar{display:block;width:100%;margin-top:12px;padding:14px;border:1.5px solid #3bb3a3;border-radius:10px;background:#fff;color:#2a9d8f;font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;font-family:inherit;transition:background .2s}' +
+      R + '-usar:hover{background:#f1fbf9}' +
+      R + '-usar.feito{background:#3bb3a3;color:#fff}' +
+      R + '-aviso{display:none;margin:8px 0 0;padding:8px 10px;border-radius:8px;background:#fff1f1;color:#c0392b;font-size:13px;font-weight:600;text-align:center}' +
+      '.abc-m2-pisca{animation:abcM2Pisca .4s 3}@keyframes abcM2Pisca{50%{box-shadow:0 0 0 3px #e54e88;border-radius:8px}}' +
+      R + '-nota{margin:14px 0 0;font-size:12px;line-height:1.45;color:#888}' +
+      R + '-nota b{color:#e54e88}' +
+      '@media(max-width:400px){' + R + '-destaque b{font-size:24px}}';
+    $('<style id="abc-m2-css">').text(css).appendTo('head');
+
+    var ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="2"/><path d="M6 7v4M10 7v3M14 7v4M18 7v3"/></svg>';
+    var SETA = '<svg class="abc-m2-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>';
+    function campo(cls, rot, ph, un) {
+      return '<label class="abc-m2-campo"><span>' + rot + '</span><span class="abc-m2-inp"><input type="text" inputmode="decimal" class="' + cls + '" placeholder="' + ph + '"><i>' + un + '</i></span></label>';
+    }
+
+    var $box = $(
+      '<div class="abc-m2 fechado">' +
+      '<button type="button" class="abc-m2-topo" aria-expanded="false"><span class="abc-m2-ico">' + ICO + '</span><span class="abc-m2-tt">' +
+      '<span class="abc-m2-eye">Calculadora de ' + (painel ? 'painel' : 'papel') + ' de parede</span>' +
+      '<span class="abc-m2-tit">' + (painel ? 'Descubra quantos pain\u00e9is comprar' : 'Descubra quantos pap\u00e9is comprar') + '</span>' +
+      '</span>' + SETA + '</button>' +
+      '<div class="abc-m2-corpo">' +
+      '<div class="abc-m2-campos abc-m2-medidas">' + campo('abc-m2-l', 'Largura', 'Ex: 3,20', 'm') + '<span class="abc-m2-x">×</span>' + campo('abc-m2-a', 'Altura', 'Ex: 2,70', 'm') + '</div>' +
+      '<p class="abc-m2-dica">Vai forrar mais de uma parede? Some a largura de todas.</p>' +
+      '<div class="abc-m2-res">' +
+      '<div class="abc-m2-destaque"><small>Voc\u00ea precisa comprar</small><b class="abc-m2-v-qtd"></b><span class="abc-m2-c-total">Total: <strong class="abc-m2-v-total"></strong></span></div>' +
+      '<p class="abc-m2-exp"></p>' +
+      '<button type="button" class="abc-m2-usar"></button>' +
+      '<p class="abc-m2-aviso">Escolha uma op\u00e7\u00e3o acima (' + ($('.principal .atributos').text().indexOf('Cola') >= 0 ? 'Adesivo ou Cola' : 'a varia\u00e7\u00e3o') + ') para continuar.</p>' +
+      '</div>' +
+      '<p class="abc-m2-nota">' + (painel
+        ? 'Cada painel mede aprox. <b>' + med + '</b> (' + dec(unid) + ' m²).'
+        : 'Cada papel cobre <b>1 m\u00b2</b>. Compre todos juntos para garantir o mesmo lote de cor.') + '</p>' +
+      '</div></div>'
+    );
+
+    function num(v) { v = parseFloat(String(v).replace(',', '.')); return isFinite(v) && v > 0 ? v : 0; }
+    function brl(v) { return 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+    // preço da opção escolhida (cada opção tem seu bloco .acoes-produto; o visível é o atual)
+    function preco() {
+      var $todos = $('.principal .acoes-produto');
+      var $a = $todos.filter(':visible').first();
+      if (!$a.length) $a = $todos.not('.hide').first();
+      var v = num($a.find('[data-sell-price]').first().attr('data-sell-price'));
+      if (!v) v = num(($a.find('.preco-promocional,.preco-venda').first().text().match(/[\d.]+,\d{2}/) || [''])[0].replace(/\./g, ''));
+      return v;
+    }
+
+    var qtd = 0, un = '';
+    function calcular() {
+      var area = num($box.find('.abc-m2-l').val()) * num($box.find('.abc-m2-a').val());
+      area = Math.round(area * 100) / 100;
+      $box.find('.abc-m2-usar').removeClass('feito');
+      if (!area) { $box.find('.abc-m2-res').hide(); qtd = 0; return; }
+      qtd = painel ? Math.ceil(area / unid - 1e-9) : Math.ceil(area - 1e-9);
+      un = painel ? (qtd > 1 ? ' pain\u00e9is' : ' painel') : (qtd > 1 ? ' pap\u00e9is' : ' papel');
+      var p = preco();
+      $box.find('.abc-m2-v-qtd').text(qtd + un);
+      $box.find('.abc-m2-c-total').toggle(!!p);
+      if (p) $box.find('.abc-m2-v-total').text(brl(p * qtd));
+      $box.find('.abc-m2-exp').text('Sua parede tem ' + dec(area) + ' m\u00b2' + (painel ? '.' : ' e cada papel cobre 1 m\u00b2.'));
+      $box.find('.abc-m2-usar').text('Colocar ' + qtd + un + ' na compra');
+      $box.find('.abc-m2-res').show();
+    }
+
+    $box.on('click', '.abc-m2-topo', function () { $(this).attr('aria-expanded', !$box.toggleClass('fechado').hasClass('fechado')); });
+    $box.on('input', 'input', calcular);
+    // aplica a quantidade em todos os campos de quantidade (um por opção)
+    // produto com opções (Adesivo/Cola): só aplica depois que uma opção for escolhida
+    // (antes disso o bloco visível é o do produto "pai", sem campo de quantidade)
+    var $atr = $('.principal .atributos');
+    function escolhida() { return !$atr.length || $('.principal .acoes-produto:visible .qtde-carrinho').length > 0; }
+    var pendente = false;
+    function aplicar() {
+      $('.principal .qtde-carrinho').val(qtd).trigger('change');
+      $box.find('.abc-m2-aviso').hide();
+      $box.find('.abc-m2-usar').addClass('feito').text('\u2713 ' + qtd + un + ' na compra');
+      pendente = false;
+    }
+    $box.on('click', '.abc-m2-usar', function () {
+      if (!qtd) return;
+      if (escolhida()) return aplicar();
+      pendente = true;
+      $box.find('.abc-m2-aviso').show();
+      $atr.addClass('abc-m2-pisca');
+      setTimeout(function () { $atr.removeClass('abc-m2-pisca'); }, 1600);
+      $('html,body').animate({ scrollTop: $atr.offset().top - 120 }, 300);
+    });
+    // ao trocar a opção, o preço muda; se o cliente já tinha pedido a quantidade, aplica agora
+    $atr.on('click change', function () {
+      setTimeout(function () { calcular(); if (pendente && qtd && escolhida()) aplicar(); }, 300);
+    });
+
+    var $at = $('.principal .atributos').first();
+    if ($at.length) $at.after($box); else $('.principal .acoes-produto').first().before($box);
+  })(window.jQuery);
+</script>

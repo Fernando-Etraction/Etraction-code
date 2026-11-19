@@ -38,11 +38,9 @@
 
     var css =
       '.abc-circulos{margin:40px 0 20px}' +
-      // dentro do filtro: sem a margem lateral extra do segundo "conteiner"
-      '.abc-filtro .abc-circulos{margin:4px 0 30px}' +
-      '.abc-filtro .abc-circulos>.conteiner{padding-left:0;padding-right:0;width:auto;max-width:none}' +
-      '.abc-filtro .abc-circulos .row-fluid{margin:0}' +
       '.abc-circulos .titulo-categoria{text-align:center}' +
+      '.vitrine-mas-vendido .abc-circulos>.conteiner{padding-left:0;padding-right:0;width:auto;max-width:none}' +
+      '.vitrine-mas-vendido .abc-circulos .row-fluid{margin:0}' +
       '.abc-circulos-lista{display:block!important;padding:0 44px;position:relative}' +
       '.abc-circulos-item{display:block;padding:10px 8px 4px;text-align:center;text-decoration:none!important;outline:0}' +
       '.abc-circulos-img{display:block;position:relative;width:100%;max-width:170px;margin:0 auto;padding-top:min(100%,170px)}' +
@@ -98,30 +96,28 @@
       ).appendTo($lista);
     });
 
-    // Posição: logo abaixo da fileira de quadradinhos do filtro (dentro do bloco dele, antes dos produtos).
-    // Sem o filtro na página, fica logo acima de "Mais vendidos".
-    // O tema monta e reorganiza a home depois que este código roda, e a home é uma coluna flex com 'order'
-    // em cada bloco; por isso a posição é conferida de novo até o tema terminar.
+    // Posição: logo abaixo da vitrine "Mais vendidos" (o filtro de categorias fica acima dela).
+    // O tema reorganiza a home (coluna flex com 'order') depois que este código roda; por isso a posição é conferida de novo.
     function maisVendidos() {
       var $v = $('.listagem.vitrine-mas-vendido').first();
       return $v.length ? $v : $('.listagem.vitrine-produtos').not('.abc-filtro').first();
     }
     var movimentos = 0;
     function posicionar() {
-      // não reinsere o bloco se alguém o removeu, e para depois de 30 movimentos (nunca entra em loop)
       if (movimentos > 30 || !$.contains(document.documentElement, $secao[0])) return;
-      var $quadros = $('.abc-filtro .abc-filtro-abas').first();
-      if ($quadros.length) {
-        if ($secao.prev()[0] !== $quadros[0]) { movimentos++; $quadros.after($secao); }
+      var $v = maisVendidos();
+      if (!$v.length) return;
+      // o banner da vitrine (.banners-extras) fica dentro do bloco "Mais vendidos", depois dos produtos:
+      // as bolinhas entram logo antes dele
+      var $b = $v.find('.banners-extras').first();
+      if ($b.length) {
+        if ($secao.next()[0] !== $b[0]) { movimentos++; $b.before($secao); }
         if ($secao[0].style.order) $secao[0].style.order = '';
       } else {
-        var $v = maisVendidos();
-        if (!$v.length) return;
-        if ($secao.next()[0] !== $v[0]) { movimentos++; $v.before($secao); }
+        if ($secao.prev()[0] !== $v[0]) { movimentos++; $v.after($secao); }
         var ordem = $v.css('order');
         if ($secao[0].style.order !== ordem) $secao[0].style.order = ordem;
       }
-      // se o carrossel foi montado com a home ainda escondida pelo tema, fica com largura zero: recalcula
       $secao.find('.slick-initialized').each(function () { try { $(this).slick('setPosition'); } catch (e) { } });
     }
     function vigiar(fn) {

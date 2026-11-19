@@ -28,7 +28,7 @@
   window.__hzbfCartLoaded = true;
 
   var IDEIAS = {
-    semCupom: true,
+    semCupom: false, // aviso "Na Black não precisa de cupom" desligado
     paresQueFecham: true
   };
 
@@ -598,14 +598,15 @@
     '.hzbfs-btn{display:inline-flex;align-items:center;gap:6px;height:34px;margin-top:10px;padding:0 14px;border-radius:999px;background:#fff;color:#000 !important;font-size:12px;font-weight:700;white-space:nowrap}',
     '.hzbfs-btn svg,.hzbfs-mini svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}',
 
-    /* Black Hitzz - sua caixa Black */
-    '.hzbfs-fita{display:block;height:7px;background:repeating-linear-gradient(-45deg,#fff 0 6px,#000 6px 12px)}',
+    /* Black Hitzz - sua caixa Black (economia em vermelho, piscando) */
     '.hzbfs-caixa{display:flex;align-items:center;justify-content:space-between;gap:12px}',
     '.hzbfs-caixa__titulo{display:block;font-size:14px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}',
     '.hzbfs-caixa__txt{display:block;margin-top:2px;font-size:13px}',
-    '.hzbfs-caixa__txt b{font-weight:800}',
+    '.hzbfs-caixa__txt b{color:#ff4b52;font-weight:800;animation:hzbfs-pisca 1.2s ease-in-out infinite}',
     '.hzbfs-caixa__nota{display:block;margin-top:3px;color:rgba(255,255,255,.65);font-size:11.5px}',
-    '.hzbfs-lacre{flex:0 0 auto;padding:4px 7px;background:#fff;color:#000;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;transform:rotate(-4deg)}',
+    '.hzbfs-caixa__nota:empty{display:none}',
+    '@keyframes hzbfs-pisca{0%,100%{opacity:1}50%{opacity:.2}}',
+    '@media (prefers-reduced-motion:reduce){.hzbfs-caixa__txt b{animation:none}}',
 
     /* Só no app - aviso do app */
     '.hzbfs-aviso{display:flex;align-items:center;gap:10px;color:#fff !important}',
@@ -674,12 +675,11 @@
   var ESTRUTURA = {
 
     month: function () {
-      return '<i class="hzbfs-fita" aria-hidden="true"></i>' +
-        '<div class="hzbfs-in hzbfs-caixa"><div>' +
+      return '<div class="hzbfs-in hzbfs-caixa"><div>' +
           '<span class="hzbfs-caixa__titulo">Sua caixa Black</span>' +
           '<span class="hzbfs-caixa__txt" data-hzbf-txt></span>' +
           '<span class="hzbfs-caixa__nota" data-hzbf-nota></span>' +
-        '</div><span class="hzbfs-lacre">Lacrada</span></div>';
+        '</div></div>';
     },
 
     app: function () {
@@ -724,7 +724,7 @@
 
     if (m.id === "month") {
       definirHTML(q("[data-hzbf-txt]"), c.pares + (c.pares === 1 ? ' par' : ' pares') + ' · você economiza <b>' + formatBRL(c.economiaDe + c.economiaPix) + '</b>');
-      definirHTML(q("[data-hzbf-nota]"), m.ultimo ? "Último dia da Black Hitzz: termina hoje às 23h59." : "Preço garantido até 23h59 de hoje.");
+      definirHTML(q("[data-hzbf-nota]"), m.ultimo ? "Último dia da Black Hitzz: termina hoje às 23h59." : "");
       return;
     }
 
@@ -819,7 +819,7 @@
       if (falta <= 0) {
         return c.temIsla
           ? '<b>Isla Marrom por R$1</b> garantida na sacola'
-          : '<b>Isla por R$1 liberada!</b> <a href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número</a>';
+          : '<b>Isla por R$1 liberada!</b><a href="' + esc(CONFIG.urlIsla) + '" data-hzbf-cta>Escolher o número</a>';
       }
 
       return 'Faltam <b>' + formatBRL(falta) + '</b> para a Isla Marrom por R$1' +
@@ -858,10 +858,9 @@
     var c = lerCarrinho();
     var bloco = document.getElementById(ID);
 
-    // Black Hitzz só aparece quando há economia; o app, se o carrinho for o mesmo
+    // O aviso do app só aparece se o carrinho do site for o mesmo do app
     var mostrar = c &&
-      !(m.id === "app" && !MOSTRAR_APP_NO_CARRINHO) &&
-      !(m.id === "month" && c.economiaDe < 1);
+      !(m.id === "app" && !MOSTRAR_APP_NO_CARRINHO);
 
     if (!mostrar) {
 
